@@ -1547,9 +1547,65 @@ function tg(k){const i=S.sel.indexOf(k);if(i>=0)S.sel.splice(i,1);else S.sel.pus
 function sAll(subj,pub,ls,all){ls.forEach(l=>{const k=subj+'/'+pub+'/'+l+'과',i=S.sel.indexOf(k);if(all&&i>=0)S.sel.splice(i,1);if(!all&&i<0)S.sel.push(k);});R();}
 
 // ━━ SETTINGS ━━
-const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈'}];
+const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈'},{k:'본문암기',i:'📖',n:'본문 암기',d:'빈칸 채우기로 본문 완전 암기'}];
 
-function getAvail(){let av=0;if(S.tt){const b=QUESTION_BANK[S.tt]||{};S.sel.forEach(k=>{if(b[k])av+=b[k].length;});}return av;}
+// ━━ Passage Memorization Question Generator ━━
+function generatePassageQuestions(passage){
+  if(!passage||!passage.trim())return[];
+  // Clean passage: remove extra whitespace
+  const clean=passage.replace(/\n+/g,' ').replace(/\s+/g,' ').trim();
+  // Split into sentences
+  const sentences=clean.match(/[^.!?]+[.!?]+/g)||[clean];
+  const questions=[];
+  // Key word patterns: 4+ letter words, skip common words
+  const skip=new Set(['this','that','these','those','then','than','them','they','their','there','with','from','have','been','were','will','would','could','should','about','after','before','which','where','when','what','into','also','just','like','very','even','only','some','most','many','more','each','your','other','over','such','back','because','between','through','during','without','however','although']);
+  let id=1;
+  sentences.forEach(sent=>{
+    const trimmed=sent.trim();if(trimmed.length<20)return;
+    // Find blankable words (4+ chars, not in skip list)
+    const words=trimmed.split(/\s+/);
+    const candidates=[];
+    words.forEach((w,i)=>{
+      const cleaned=w.replace(/[^a-zA-Z]/g,'').toLowerCase();
+      if(cleaned.length>=4&&!skip.has(cleaned)){candidates.push({word:w,cleanWord:cleaned,idx:i});}
+    });
+    if(!candidates.length)return;
+    // Pick 1-2 words per sentence
+    shuffle(candidates);
+    const picks=candidates.slice(0,Math.min(2,candidates.length));
+    picks.forEach(pick=>{
+      // Build sentence with blank
+      const blanked=words.map((w,i)=>{
+        if(i===pick.idx){
+          const punc=w.replace(/[a-zA-Z''-]+/,'');
+          return '<b>__________</b>'+punc;
+        }
+        return w;
+      }).join(' ');
+      // Extract the actual answer (letters only + apostrophes)
+      const ansWord=pick.word.replace(/[^a-zA-Z'''-]/g,'');
+      questions.push({
+        id:id++,type:'본문 빈칸',diff:'보통',pts:3,fmt:'written',
+        passage:`<div style="line-height:2">${blanked}</div>`,
+        stem:'다음 본문의 빈칸에 들어갈 단어를 쓰시오.',
+        wa:ansWord,
+        accept:[ansWord,ansWord.toLowerCase(),ansWord.toUpperCase(),ansWord.charAt(0).toUpperCase()+ansWord.slice(1).toLowerCase()],
+        det:{
+          ref:'[원문] '+trimmed,
+          correct:'정답: '+ansWord,
+          tip:'본문을 반복해서 읽고 핵심 단어를 암기하세요.'
+        }
+      });
+    });
+  });
+  return questions;
+}
+
+function getAvail(){
+  if(!S.tt)return 0;
+  if(S.tt==='본문암기'){const b=QUESTION_BANK['본문암기']||{};let av=0;S.sel.forEach(k=>{if(b[k])av+=b[k].length;});return av;}
+  let av=0;const b=QUESTION_BANK[S.tt]||{};S.sel.forEach(k=>{if(b[k])av+=b[k].length;});return av;
+}
 
 function updateSetUI(){
   const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);S.qc=qc;
@@ -1573,8 +1629,37 @@ function setQC(n){S.qc=n;updateSetUI();}
 
 async function selectTestType(tt){
   S.tt=tt;updateSetUI();
-  await ensureQuestionsLoaded(tt,S.sel);
+  if(tt==='본문암기'){
+    // For passage memorization, fetch all selected lessons' passages and generate questions
+    await loadPassageQuestions();
+  }else{
+    await ensureQuestionsLoaded(tt,S.sel);
+  }
   updateSetUI();
+}
+
+async function loadPassageQuestions(){
+  if(!QUESTION_BANK['본문암기'])QUESTION_BANK['본문암기']={};
+  const promises=S.sel.map(async sel=>{
+    if(QUESTION_BANK['본문암기'][sel])return;
+    // Try to fetch passage from any test type HTML
+    const types=['단어테스트','워크북테스트','퀴즈테스트'];
+    let passage=null;
+    for(const t of types){
+      const path='교과서/'+sel+'/'+t+'.html';
+      try{
+        const resp=await fetch(path);
+        if(!resp.ok)continue;
+        const html=await resp.text();
+        const fpMatch=html.match(/const\s+FULL_PASSAGE\s*=\s*`([\s\S]*?)`;/);
+        if(fpMatch){passage=fpMatch[1];break;}
+      }catch(e){}
+    }
+    if(!passage)passage=FALLBACK_FULL_PASSAGE;
+    const qs=generatePassageQuestions(passage);
+    if(qs.length)QUESTION_BANK['본문암기'][sel]=qs;
+  });
+  await Promise.all(promises);
 }
 
 function toSet(){S.scr='settings';S.qc=20;S.tt=null;R();}
