@@ -1423,7 +1423,7 @@ function rExam(){
     <div id="exCard"></div>
     <div id="exNav" style="padding:0 20px 16px;display:flex;gap:8px"></div>
     <div style="height:100px"></div></div>`;
-  setBottom(`<button class="btn btn-red" onclick="doSub()">제출하기</button>`);
+  setBottom(null);
   renderExQ();
 }
 
@@ -1446,7 +1446,7 @@ function renderExQ(){
   if(cd)cd.innerHTML=`<div class="q-card"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div><div class="q-stem">${q.stem||''}</div>${q.passage?`<div class="q-passage">${q.passage}</div>`:''}${aH}</div>`;
   // Nav buttons
   const nv=$('exNav');
-  if(nv)nv.innerHTML=(idx>0?`<button class="btn btn-ghost btn-sm" style="flex:1" onclick="goQ(${idx-1})">이전</button>`:'')+(idx<tot-1?`<button class="btn btn-blue btn-sm" style="flex:1" onclick="goQ(${idx+1})">다음</button>`:'');
+  if(nv)nv.innerHTML=(idx>0?`<button class="btn btn-ghost btn-sm" style="flex:1" onclick="goQ(${idx-1})">이전</button>`:'')+(idx<tot-1?`<button class="btn btn-blue btn-sm" style="flex:1" onclick="goQ(${idx+1})">다음</button>`:`<button class="btn btn-red btn-sm" style="flex:1" onclick="doSub()">제출하기</button>`);
 }
 
 function selAns(idx,ci){
