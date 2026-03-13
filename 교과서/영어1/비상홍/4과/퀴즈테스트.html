@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온라인퀴즈 TEST - 비상(홍민표) 영어Ⅰ 4과</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<style>
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#d0ccc8;border-radius:3px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFFAF5,#F6F2EE 40%,#FFF3E8);position:relative;}
+.start-container{max-width:460px;width:100%;position:relative;z-index:1;}
+.brand-badge{background:linear-gradient(135deg,var(--o),var(--ol));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;letter-spacing:.8px;box-shadow:0 4px 14px rgba(232,119,46,.25);display:inline-block;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;font-weight:500;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.info-card-header{background:linear-gradient(135deg,var(--o),var(--ol));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f5f1ed;}.info-row:last-child{border:none;}.info-label{color:var(--tm);font-weight:500;}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid #ebe7e3;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #e8e4e0;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #e0dcd8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #ebe7e3;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item .hi-left .hi-name{font-weight:700;font-size:13px;}.history-item .hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.history-item .hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.history-item .hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+#examScreen{min-height:100vh;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:1px;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFFAF5,#FFF6EE);border-bottom:1px solid #f0ece8;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;box-shadow:0 3px 8px rgba(232,119,46,.25);}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-어법{background:var(--rl);color:var(--r);}.tag-어휘{background:var(--bl);color:var(--b);}.tag-대의{background:var(--gl);color:var(--g);}.tag-일치{background:var(--oxl);color:var(--od);}.tag-빈칸{background:var(--pl);color:var(--p);}.tag-함축{background:#FFF0F5;color:#D946A0;}.tag-순서{background:var(--skyl);color:var(--sky);}.tag-무관{background:#F0FDF4;color:#16A34A;}.tag-서술형{background:var(--gl);color:var(--g);}.tag-지칭{background:#FEF3C7;color:#D97706;}.tag-TF{background:#E0E7FF;color:#4338CA;}.tag-불일치{background:var(--oxl);color:var(--od);}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f5f1ed;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-passage .label{font-size:11px;font-weight:800;color:var(--o);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.q-passage u{text-decoration-color:var(--o);text-decoration-thickness:2px;text-underline-offset:3px;}
+.q-stem{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #ebe7e3;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;position:relative;overflow:hidden;}
+.choice-btn:hover{border-color:var(--o);transform:translateX(2px);}
+.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#f0ece8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;transition:var(--tr);}
+.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #e0dcd8;border-radius:var(--rs);font-size:15px;font-family:inherit;resize:none;min-height:56px;transition:var(--tr);}
+.written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.08);}
+.cond-box{background:linear-gradient(135deg,#F8F6F3,#F3F0EC);border:1.5px solid #e0dcd8;border-radius:var(--rs);padding:16px;margin-bottom:16px;}.cond-box .ct{font-weight:800;color:var(--od);margin-bottom:8px;font-size:13px;}.cond-box ul{margin-left:18px;margin-bottom:10px;}.cond-box li{margin-bottom:3px;font-size:13px;}
+.bogi-label{font-size:11px;color:var(--tl);font-weight:800;margin-bottom:4px;}.bogi-box{background:#fff;border:1.5px solid #d8d4d0;border-radius:var(--rxs);padding:12px;text-align:center;font-weight:700;font-size:14px;}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.nav-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:65%;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#ebe7e3;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:var(--tr);}
+.nav-dot.current{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 3px 10px rgba(232,119,46,.3);transform:scale(1.08);}
+.nav-dot.answered{background:var(--g);color:#fff;}
+.nav-btn{padding:9px 18px;background:#fff;border:2px solid #e0dcd8;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);}.nav-btn:hover{border-color:var(--o);color:var(--o);}
+#resultScreen{background:var(--bg);}
+.r-hero{padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}.r-hero.pass{background:linear-gradient(160deg,#E8F7F0,#D1FAE5,#E6F9F0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA,#FFF0F0);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;box-shadow:0 4px 14px rgba(26,153,96,.25);}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;letter-spacing:-2px;}.r-score sup{font-size:24px;color:var(--tl);font-weight:700;}
+.r-stats{display:flex;justify-content:center;gap:20px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.r-stats .stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}
+.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.level-range{font-size:13px;color:var(--tm);margin-top:4px;}.level-bar{margin-top:16px;height:8px;background:#f0ece8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);line-height:1.6;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-radius:var(--rs);border:1px solid #ebe7e3;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:linear-gradient(135deg,var(--oxl),#FFF6EE);border-color:rgba(232,119,46,.15);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:50px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#f0ece8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;align-items:flex-start;padding:16px;background:linear-gradient(135deg,var(--oxxl),#FFF6EE);border-radius:var(--rs);border:1px solid rgba(232,119,46,.1);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.rev-card{border:1.5px solid #ebe7e3;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr);}.rev-header:hover{background:#F8F5F0;}.rev-icon{font-size:18px;margin-left:auto;}
+.rev-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}.rev-body.open{padding:20px;max-height:3000px;}
+.your-ans{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rxs);margin-bottom:14px;font-size:13px;font-weight:700;}.your-ans.right{background:var(--gl);color:#0D7A45;border:1px solid rgba(26,153,96,.15);}.your-ans.wrong{background:var(--rl);color:var(--r);border:1px solid rgba(214,59,59,.15);}
+.expl-sec{margin-bottom:14px;}.expl-sec:last-child{margin-bottom:0;}.expl-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.ref{background:var(--bl);color:var(--b);}.expl-tag.tip{background:var(--oxl);color:var(--od);}.expl-tag.wrng{background:var(--rl);color:var(--r);}.expl-tag.key{background:#FFF3E8;color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);border-left:3px solid #e0dcd8;}.expl-box.ans-b{border-left-color:var(--g);}.expl-box.ref-b{border-left-color:var(--b);}.expl-box.tip-b{border-left-color:var(--o);}.expl-box.wrng-b{border-left-color:var(--r);}.expl-box.key-b{border-left-color:var(--ol);background:var(--oxxl);}.expl-box b{color:var(--od);}.hl{background:linear-gradient(transparent 60%,rgba(232,119,46,.15) 60%);font-weight:700;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #e0dcd8;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);background:var(--oxxl);}.act-btn.primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid,.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.nav-dots{max-width:55%;}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">🎯 내신핏</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">비상(홍민표) 영어Ⅰ · 4과 Intelligent Aquaculture</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">영어Ⅰ</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">비상(홍민표)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">4과 Intelligent Aquaculture</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row"><div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div><div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div></div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어Ⅰ · 비상(홍민표) · <span>4과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav"><button class="nav-btn" onclick="scrollToQ(S.cur-1)">←</button><div class="nav-dots" id="navDots"></div><button class="nav-btn" onclick="scrollToQ(S.cur+1)">→</button></div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+<script>
+const EI = {
+  subject: '영어Ⅰ',
+  pub: '비상(홍민표)',
+  lesson: '4과',
+  title: 'Intelligent Aquaculture',
+  total: 100,
+  time: 1200,
+  histKey: 'quizH_bisang_L4_20',
+  qCount: 20
+};
+
+const Q = [
+  {
+    id:1, type:'어법', diff:'보통', pts:5, fmt:'mc',
+    note:'PART1 전통어업→양식전환',
+    passage:`Traditionally, fishers went out to sea with fishing nets or long lines on boats to catch fish. They took advantage of their experience ⓐ <u>gained</u> through trial and error, through observation, and through knowledge ⓑ <u>passed</u> down from previous generations. With wild fish stocks gradually ⓒ <u>declining</u> due to overfishing and the changing climate, more fishers are turning to farming instead of ⓓ <u>cast</u> nets or lines. In fact, according to a UN report, about 49% of the fish ⓔ <u>consumed</u> worldwide in 2020 came from fish farms, not from the wild.`,
+    stem:'다음 글의 밑줄 친 ⓐ~ⓔ 중 어법상 어색한 것은?',
+    ch:['ⓐ gained','ⓑ passed','ⓒ declining','ⓓ cast','ⓔ consumed'],
+    ans:3,
+    det:{
+      ref:`[원문] instead of casting nets or lines [해석] 그물이나 줄을 던지는 대신. 전치사 instead of 뒤에는 동명사(v-ing)가 와야 합니다. cast(동사원형)는 전치사의 목적어 자리에 올 수 없으므로 casting으로 고쳐야 합니다. ⓐ gained: experience를 수식하는 과거분사(경험은 얻어지는 것 → 수동) ✅ ⓑ passed: knowledge를 수식하는 과거분사(지식은 전해지는 것 → 수동) ✅ ⓒ declining: with + O + v-ing(부대상황, 능동) ✅ ⓔ consumed: fish를 수식하는 과거분사(수동) ✅`,
+      correct:`① ⓐ gained — experience(경험)를 뒤에서 수식하는 과거분사. 경험은 '얻어지는' 것이므로 수동 의미의 과거분사 gained 적절 ✅\n② ⓑ passed — knowledge(지식)를 수식하는 과거분사. 지식은 '전해지는' 것이므로 수동 의미 passed 적절 ✅\n③ ⓒ declining — 'With + 목적어 + 분사' 구문. fish stocks가 능동적으로 '줄어드는' 주체이므로 현재분사 declining 적절 ✅\n④ ⓓ cast — 전치사 instead of 뒤에 동사원형 cast가 왔으므로 어법 오류 ❌ → casting(동명사)이 되어야 함\n⑤ ⓔ consumed — fish를 수식하는 과거분사. 물고기는 '소비되는' 것이므로 수동 의미 consumed 적절 ✅`,
+      wrongs:[],
+      tip:`🔑 전치사 + 동명사(v-ing): instead of / in spite of / by / without + v-ing. 전치사 뒤에는 명사 또는 동명사만 가능하며, 동사원형은 불가. cast의 과거형·과거분사도 cast(불규칙: cast-cast-cast)이므로 문맥 확인 필수.`
+    }
+  },
+  {
+    id:2, type:'어법', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART2 AI 시스템 기능',
+    passage:`A computer system with deep learning capabilities is able to track and record fish behavior better than humans can, especially when the system is trained with enough relevant data. It can distinguish and identify one fish from (A) <u>[another / the other]</u> and diagnose whether a small speck is dirt or sea lice, and this information is entered into the fish\`s health record. Farmers can then determine when they should take action, such as when to separate an abnormal group from the rest or spread out the fish population (B) <u>[reduce / to reduce]</u> density, without (C) <u>[resorting / resorted]</u> to harsh chemical treatments.`,
+    stem:'(A), (B), (C)에 들어갈 표현으로 가장 적절한 것은?',
+    ch:['another — reduce — resorting','another — to reduce — resorting','the other — reduce — resorted','the other — to reduce — resorting','another — to reduce — resorted'],
+    ans:1,
+    det:{
+      ref:`[원문] one fish from another / to reduce density / without resorting to [해석] 한 마리 물고기를 다른 한 마리와 구별 / 밀도를 줄이기 위해 / 거친 화학 처리에 의존하지 않고. (A) one ~ another: 불특정 다수 중 하나와 또 다른 하나 대비. (B) to reduce: 목적의 to부정사. (C) without + v-ing: 전치사 뒤 동명사.`,
+      correct:`① another — reduce — resorting: (B) reduce(동사원형)가 목적의 의미 불가 ❌\n② another — to reduce — resorting: (A) 불특정 다수 중 또 다른 하나 → another ✅ (B) 목적의 to부정사 → to reduce ✅ (C) 전치사 without 뒤 동명사 → resorting ✅ 정답!\n③ the other — reduce — resorted: (A) the other ❌ (C) resorted ❌\n④ the other — to reduce — resorting: (A) the other ❌\n⑤ another — to reduce — resorted: (C) without 뒤 과거분사 불가 ❌`,
+      wrongs:[],
+      tip:`🔑 one ~ another(셋 이상 중 하나~또 다른 하나) vs one ~ the other(둘 중 하나~나머지). 🔑 to부정사 부사적 용법(목적): ~하기 위해. 🔑 전치사(without, instead of, by) + 동명사(v-ing) 필수.`
+    }
+  },
+  {
+    id:3, type:'어법', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART3 먹이 공급 최적화',
+    passage:`The system can also tell farmers exactly when to feed the fish by ⓐ <u>identifying</u> patterns of behavior that an individual fish or the school exhibits when they are hungry. This is how farmers can accurately determine optimal feeding times and amounts. The right amount of food at the right time minimizes cost, ⓑ <u>reduces</u> waste and pollution, and maximizes fish growth rates. ⓒ <u>Given</u> the fact that feeding constitutes more than 50% of a fish farm\`s operational budget, this precise feeding approach will ultimately contribute to a more affordable supply of fish for consumers as well as efficient and ⓓ <u>sustaining</u> aquaculture operations in general.`,
+    stem:'다음 글의 밑줄 친 ⓐ~ⓓ 중 어법상 어색한 것은?',
+    ch:['ⓐ identifying','ⓑ reduces','ⓒ Given','ⓓ sustaining'],
+    ans:3,
+    det:{
+      ref:`[원문] efficient and sustainable aquaculture operations [해석] 효율적이고 지속 가능한 양식 운영. sustaining(현재분사)은 '~을 유지하는'이라는 능동 의미이고, sustainable(형용사)은 '지속 가능한'이라는 확립된 형용사입니다. efficient(형용사)와 병렬이므로 형용사 sustainable이 적절합니다.`,
+      correct:`① ⓐ identifying — 전치사 by + 동명사(v-ing). 수단의 의미 '패턴을 파악함으로써' ✅\n② ⓑ reduces — minimizes, reduces, maximizes 세 동사가 and로 병렬 연결 ✅\n③ ⓒ Given — 분사구문 '~을 고려하면(Considering)' ✅\n④ ⓓ sustaining — efficient(형용사)와 병렬이므로 형용사 sustainable이 필요 ❌ → sustaining은 현재분사로 의미가 다름`,
+      wrongs:[],
+      tip:`🔑 sustainable(지속 가능한, 형용사) vs sustaining(유지하는, 현재분사): 환경 맥락에서는 sustainable이 적합. 🔑 병렬 구조: A and B → 같은 품사 필요. 🔑 Given (that) ~ = Considering that ~ (고려하면).`
+    }
+  },
+  {
+    id:4, type:'어휘', diff:'보통', pts:5, fmt:'mc',
+    note:'PART1 AI 양식 도입',
+    passage:`An essential element in providing healthy fish to consumers is the fish farmers\` ability to detect and (A) <u>[prevent / promote]</u> sea lice, a significant threat to fish health and profitability. One of the most modern methods to do this is through the power of computer vision and precision sensors, allowing fish farmers to (B) <u>[identify / ignore]</u> and track diseases before they spread. An aquaculture system equipped with high-precision underwater tools has already been (C) <u>[developed / abandoned]</u> in Norway.`,
+    stem:'(A), (B), (C)에 들어갈 말로 가장 적절한 것은?',
+    ch:['prevent — identify — developed','prevent — ignore — developed','promote — identify — abandoned','promote — ignore — developed','prevent — identify — abandoned'],
+    ans:0,
+    det:{
+      ref:`[원문] detect and prevent sea lice / identify and track diseases / has already been developed in Norway [해석] 바다이를 탐지하고 예방하다 / 질병을 식별하고 추적 / 노르웨이에서 이미 개발됨. (A) sea lice는 위협이므로 prevent(예방). (B) 질병을 track하기 전에 identify(식별). (C) 첨단 시스템이 개발되었다는 긍정적 맥락.`,
+      correct:`① prevent — identify — developed: (A) 위협인 sea lice를 예방 ✅ (B) 질병을 식별하고 추적 ✅ (C) 시스템이 노르웨이에서 개발됨 ✅ 정답!\n② prevent — ignore — developed: (B) ignore(무시)는 질병 관리에 부적절 ❌\n③ promote — identify — abandoned: (A) 위협을 촉진은 논리 오류 ❌\n④ promote — ignore — developed: (A)(B) 모두 부적절 ❌\n⑤ prevent — identify — abandoned: (C) 첨단 시스템이 폐기는 문맥 반대 ❌`,
+      wrongs:[],
+      tip:`🔑 prevent(예방) ≈ stop, block ↔ promote(촉진). 🔑 identify(식별) ≈ recognize ↔ ignore(무시). 🔑 develop(개발) ≈ create ↔ abandon(포기, 폐기).`
+    }
+  },
+  {
+    id:5, type:'어휘', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART3 먹이 공급 효과',
+    passage:`The system can also tell farmers exactly when to feed the fish by identifying patterns of behavior that an individual fish or the school ① <u>exhibits</u> when they are hungry. This is how farmers can accurately determine ② <u>optimal</u> feeding times and amounts. The right amount of food at the right time minimizes cost, reduces waste and pollution, and ③ <u>maximizes</u> fish growth rates. Given the fact that feeding ④ <u>constitutes</u> more than 50% of a fish farm\`s operational budget, this precise feeding approach will ultimately ⑤ <u>hinder</u> a more affordable supply of fish for consumers.`,
+    stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
+    ch:['① exhibits','② optimal','③ maximizes','④ constitutes','⑤ hinder'],
+    ans:4,
+    det:{
+      ref:`[원문] will ultimately contribute to a more affordable supply [해석] 궁극적으로 더 저렴한 어류 공급에 기여할 것이다. 원문 contribute to(기여하다)가 ⑤ hinder(방해하다)로 바뀌어 문맥에 맞지 않습니다.`,
+      correct:`① exhibits — '(행동 패턴을) 보이다'. 물고기가 배고플 때 행동 패턴을 보인다는 맥락에 적절 ✅\n② optimal — '최적의'. 최적의 먹이 시간과 양을 결정한다는 맥락에 적절 ✅\n③ maximizes — '극대화하다'. 적절한 먹이가 물고기 성장률을 극대화 ✅\n④ constitutes — '구성하다, 차지하다'. 먹이가 운영 예산의 50% 이상 차지 ✅\n⑤ hinder — '방해하다'. 정밀 먹이 공급이 저렴한 어류 공급에 방해는 문맥상 반대 ❌ → contribute to(기여하다)가 원문`,
+      wrongs:[],
+      tip:`🔑 contribute to(기여) ≈ help, lead to ↔ hinder(방해) ≈ impede, obstruct. 🔑 constitute(차지) ≈ make up, account for. 🔑 exhibit(보이다) ≈ display, show. 🔑 optimal(최적의) ≈ best, ideal.`
+    }
+  },
+  {
+    id:6, type:'어휘', diff:'보통', pts:5, fmt:'mc',
+    note:'PART4 해조류·로봇',
+    passage:`AI continues to advance in aquaculture to extend beyond caged fish. In particular, smart fish farming technologies can be ① <u>applied</u> to seaweed farming. Seaweed is as ② <u>valuable</u> a source of food as fish. Using cameras and sensors, AUVs can do many of the ③ <u>analytical</u> and diagnostic tasks on seaweed farms. Swarm robots, or many small robots working together, can swim in and around seaweed farms to ④ <u>collect</u> data and then make decisions on how to deal with problems that arise. Single larger robots or even humans may be available to take care of the physical labor; however, swarm robots may be more ⑤ <u>inefficient</u> and cost-effective.`,
+    stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
+    ch:['① applied','② valuable','③ analytical','④ collect','⑤ inefficient'],
+    ans:4,
+    det:{
+      ref:`[원문] swarm robots may be more efficient and cost-effective [해석] 군집 로봇이 더 효율적이고 비용 효과적일 수 있다. 원문 efficient(효율적인)가 ⑤ inefficient(비효율적인)로 바뀌어 문맥 반대.`,
+      correct:`① applied — 스마트 기술이 해조류 양식에 '적용' ✅\n② valuable — 해조류가 물고기만큼 '가치 있는' 식량 자원 ✅\n③ analytical — AUV가 '분석적' 업무 수행 ✅\n④ collect — 데이터를 '수집' ✅\n⑤ inefficient — 군집 로봇의 장점 서술에서 '비효율적'은 문맥 반대 ❌ → efficient가 원문`,
+      wrongs:[],
+      tip:`🔑 efficient(효율적) ≈ effective ↔ inefficient(비효율적). 접두사 in-은 부정. 🔑 cost-effective(비용 효과적) ≈ economical. 🔑 as valuable a source as: 원급 비교(as + 형 + a/an + 명 + as).`
+    }
+  },
+  {
+    id:7, type:'대의', diff:'보통', pts:5, fmt:'mc',
+    note:'PART1 AI 양식 기술',
+    passage:`With the arrival of smart fish farming technology driven by artificial intelligence (AI), fish farmers are able to provide healthy, affordable seafood to families everywhere. An essential element in providing healthy fish to consumers is the fish farmers\` ability to detect and prevent sea lice, a significant threat to fish health and profitability. One of the most modern methods to do this is through the power of computer vision and precision sensors, allowing fish farmers to identify and track diseases before they spread.`,
+    stem:'다음 글의 주제로 가장 적절한 것은?',
+    ch:['the history of traditional fishing methods worldwide','the role of AI technology in modern fish farming','the economic challenges facing small-scale fishers','the environmental damage caused by overfishing','the nutritional benefits of seafood for families'],
+    ans:1,
+    det:{
+      ref:`[원문] smart fish farming technology driven by artificial intelligence (AI) [해석] 인공지능(AI)에 의해 구동되는 스마트 양식 기술. 글은 AI 기술이 현대 양식업에서 질병 탐지, 예방 등을 가능하게 하는 역할을 설명합니다.`,
+      correct:`① 전 세계 전통 어업 방법의 역사 — 도입부에서만 간략히 언급 ❌\n② 현대 양식업에서 AI 기술의 역할 — AI 기술이 질병 탐지·예방·해산물 공급에 기여하는 핵심 주제 ✅\n③ 소규모 어부들의 경제적 도전 — 언급 없음 ❌\n④ 남획으로 인한 환경 피해 — 배경 정보로만 간략 언급 ❌\n⑤ 가정에 대한 해산물 영양 이점 — 직접 다루지 않음 ❌`,
+      wrongs:[],
+      tip:`🔑 주제 파악: 반복 키워드(AI, smart technology, fish farming) + 전체 흐름(도입→AI 기술 설명→질병 탐지). 배경 정보와 핵심 주제 구별 필수.`
+    }
+  },
+  {
+    id:8, type:'대의', diff:'보통', pts:5, fmt:'mc',
+    note:'PART4 결론',
+    passage:`The potential of AI in aquaculture is vast, and it brings a more sustainable and technologically driven future for fish and seaweed farming. Families that gather together, eagerly anticipating a healthy seafood dinner, may not be aware of the carefully monitored fish and seaweed farms or the cutting-edge AI technology involved in getting food to their table. However, the process of doing so is evidence of the considerable amount of investment in sustainable, high-quality aquaculture with AI. With AI as an ally, the future of the oceans and the nourishment of humanity is just a little bit more secure.`,
+    stem:'다음 글의 제목으로 가장 적절한 것은?',
+    ch:['Why Wild Fish Will Disappear from Our Tables','AI: Shaping a Sustainable Future for Aquaculture','The Hidden Dangers of Modern Seafood Farming','How Families Can Choose Healthier Seafood Options','The Rising Cost of Technology in the Fishing Industry'],
+    ans:1,
+    det:{
+      ref:`[원문] AI in aquaculture is vast / sustainable and technologically driven future / AI as an ally [해석] 양식업에서 AI의 잠재력은 방대 / 지속 가능하고 기술 중심적인 미래 / AI를 동맹으로. AI가 양식업의 지속 가능한 미래를 만들어간다는 종합적 내용.`,
+      correct:`① 야생 물고기가 식탁에서 사라지는 이유 — 주제 아님 ❌\n② AI: 양식업의 지속 가능한 미래를 만들다 — AI + 양식업 + 지속 가능한 미래 핵심 키워드 모두 포함 ✅\n③ 현대 해산물 양식의 숨겨진 위험 — 위험이 아닌 가능성과 발전 ❌\n④ 가정이 더 건강한 해산물을 선택하는 방법 — 선택 방법은 논의 대상 아님 ❌\n⑤ 어업에서 기술의 상승하는 비용 — 효율성과 지속 가능성이 주제 ❌`,
+      wrongs:[],
+      tip:`🔑 제목 파악: 마지막 단락은 전체 요약·종합. 핵심 키워드(AI, aquaculture, sustainable) 포함 선지. 지나치게 부정적·범위 좁은 선지 배제.`
+    }
+  },
+  {
+    id:9, type:'대의', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART2 화학 처리 대안',
+    passage:`Farmers can then determine when they should take action, such as when to separate an abnormal group from the rest or spread out the fish population to reduce density, without resorting to harsh chemical treatments, which can harm the fish, the environment, and even the consumer. In addition, all this data from cameras and sensors can be utilized for various applications and purposes.`,
+    stem:'다음 글이 시사하는 바로 가장 적절한 것은?',
+    ch:['AI-driven aquaculture enables environmentally friendly management without reliance on chemicals.','Chemical treatments are the most reliable way to maintain fish health in farms.','Fish farmers should avoid using any technology to preserve traditional methods.','Data collection from fish farms poses serious privacy concerns for consumers.','Reducing fish population density always leads to lower profitability.'],
+    ans:0,
+    det:{
+      ref:`[원문] without resorting to harsh chemical treatments, which can harm the fish, the environment, and even the consumer [해석] 물고기, 환경, 소비자에게 해를 끼칠 수 있는 거친 화학 처리에 의존하지 않고. AI 기반 양식업이 화학 처리 없이 친환경적 관리 가능.`,
+      correct:`① AI 기반 양식업이 화학물질 의존 없이 친환경적 관리 가능 — without resorting to와 정확히 일치 ✅\n② 화학 처리가 가장 신뢰할 수 있는 방법 — 화학 처리는 해로울 수 있다고 명시 ❌\n③ 전통 방식 보존을 위해 기술 피해야 — 기술 활용을 긍정적으로 서술 ❌\n④ 데이터 수집이 프라이버시 우려 야기 — 언급 없음 ❌\n⑤ 밀도 줄이면 항상 수익성 저하 — 건강 관리의 일환이며 수익성 저하 연결 안 됨 ❌`,
+      wrongs:[],
+      tip:`🔑 시사점: 필자 강조 핵심(without resorting to harsh chemical treatments)에서 도출. 🔑 resort to(~에 의존) ≈ turn to, rely on. 🔑 without + v-ing 구문이 핵심 시사점 전달.`
+    }
+  },
+  {
+    id:10, type:'일치', diff:'쉬움', pts:3, fmt:'mc',
+    note:'PART1 노르웨이 양식 시스템',
+    passage:`An aquaculture system equipped with high-precision underwater tools has already been developed in Norway. It can hold up to 150,000 salmon in a sea cage, regularly inducing each fish into a tube where high-resolution cameras and sensors record everything about each individual salmon, including their overall shapes and dot patterns, their weight and growth rate, as well as any signs of sea lice, physical wounds, or abnormalities. Every detail is registered in the fish\`s health record, along with millions of images and figures.`,
+    stem:'다음 글의 내용과 일치하는 것은?',
+    ch:['The aquaculture system was first developed in Japan.','The sea cage can hold up to 150,000 salmon.','Only the weight of each fish is recorded by the system.','The system uses low-resolution cameras for cost savings.','Fish health records contain no visual data.'],
+    ans:1,
+    det:{
+      ref:`[원문] hold up to 150,000 salmon in a sea cage [해석] 해상 가두리에서 최대 15만 마리의 연어를 수용. 원문에 150,000 salmon이 명시되어 ②가 일치.`,
+      correct:`① 일본에서 개발 — 원문: Norway(노르웨이) ❌\n② 최대 15만 마리 연어 수용 — 원문: hold up to 150,000 salmon과 일치 ✅\n③ 무게만 기록 — 원문: shapes, dot patterns, weight, growth rate 등 다양한 항목 ❌\n④ 저해상도 카메라 — 원문: high-resolution cameras ❌\n⑤ 시각적 데이터 없음 — 원문: millions of images ❌`,
+      wrongs:[],
+      tip:`🔑 일치 문제: 수치(150,000), 장소(Norway), 형용사(high/low-resolution)를 원문과 정확히 대조. 🔑 up to(최대 ~까지) ≈ a maximum of.`
+    }
+  },
+  {
+    id:11, type:'불일치', diff:'보통', pts:5, fmt:'mc',
+    note:'PART4 해조류 활용',
+    passage:`AI continues to advance in aquaculture to extend beyond caged fish. In particular, smart fish farming technologies can be applied to seaweed farming. Seaweed is as valuable a source of food as fish. It\`s also a source of fuel and an important ingredient for cosmetics, fertilizers, and other medicinal and industrial products. As such, ongoing research is exploring various ways AI can help in the seaweed industry, including the use of autonomous underwater vehicles (AUVs) and swarm robotics.`,
+    stem:'다음 글의 내용과 일치하지 않는 것은?',
+    ch:['AI technology in aquaculture is expanding beyond caged fish.','Smart fish farming technologies can be applied to seaweed farming.','Seaweed serves only as a food source and has no industrial uses.','Research is exploring the use of AUVs in the seaweed industry.','Swarm robotics is being considered for seaweed farming.'],
+    ans:2,
+    det:{
+      ref:`[원문] a source of fuel and an important ingredient for cosmetics, fertilizers, and other medicinal and industrial products [해석] 연료의 원천이며, 화장품, 비료, 의약·산업 제품의 중요한 원료. ③은 only as a food source라고 했지만 다양한 용도가 있으므로 불일치.`,
+      correct:`① AI 기술이 가두리 양식 넘어 확대 — 원문: extend beyond caged fish 일치 ✅\n② 스마트 기술이 해조류 양식에 적용 — 원문 일치 ✅\n③ 해조류는 식품으로서만 사용, 산업적 용도 없음 — 원문: fuel, cosmetics, fertilizers 등 다양한 용도 → 불일치 ❌\n④ AUV 사용이 해조류 산업에서 탐색 — 원문 일치 ✅\n⑤ 군집 로봇이 해조류 양식에 고려 — 원문 일치 ✅`,
+      wrongs:[],
+      tip:`🔑 불일치 문제: only, never, always 등 극단적 한정어 주의! ③의 only가 핵심 오류. 🔑 ingredient(원료) ≈ component, material.`
+    }
+  },
+  {
+    id:12, type:'빈칸', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART3 실시간 모니터링',
+    passage:`One of the most noticeable and effective applications is real-time monitoring of fish behavior and other environmental changes, which serves multiple purposes, including diagnosing diseases in individual fish. By processing large sets of data, an AI system can detect and recognize unusual group behaviors of an entire school of fish, possibly caused by changes in water quality, temperature, or oxygen levels surrounding the cage. It can also ensure the quality of cage nets to prevent fish from escaping or predators from invading and protect the surrounding habitat. In short, AI-powered monitoring serves as __________________ for the entire aquaculture environment.`,
+    stem:'빈칸에 들어갈 말로 가장 적절한 것은?',
+    ch:['a replacement for all human workers','a comprehensive guardian','an obstacle to natural fish behavior','a temporary solution to pollution','a luxury available only to large corporations'],
+    ans:1,
+    det:{
+      ref:`[원문] serves multiple purposes / detect unusual behaviors / ensure cage net quality / protect habitat [해석] 다양한 목적에 기여 / 비정상 행동 탐지 / 그물 품질 보장 / 서식지 보호. 다방면의 종합적 보호 역할 → comprehensive guardian.`,
+      correct:`① 모든 인간 노동자의 대체물 — 모든 인력 대체 언급 없음 ❌\n② 종합적인 수호자 — 질병 진단 + 환경 감시 + 그물 관리 + 서식지 보호 모두 포괄 ✅\n③ 자연적 물고기 행동의 장애물 — 관찰·보호 역할이며 장애 아님 ❌\n④ 오염의 임시 해결책 — 포괄적 모니터링이 주제이며 temporary 부적절 ❌\n⑤ 대기업만의 사치품 — 접근성 제한 언급 없음 ❌`,
+      wrongs:[],
+      tip:`🔑 빈칸(구) 풀이: 앞뒤 핵심 키워드(multiple purposes, detect, ensure, protect) → 포괄하는 표현 선택. 🔑 comprehensive(종합적) ≈ all-inclusive, thorough. 🔑 guardian(수호자) ≈ protector.`
+    }
+  },
+  {
+    id:13, type:'빈칸', diff:'어려움', pts:6, fmt:'mc',
+    note:'PART2 AI 의사 비유',
+    passage:`A computer system with deep learning capabilities is able to track and record fish behavior better than humans can, especially when the system is trained with enough relevant data. It can distinguish and identify one fish from another and diagnose whether a small speck is dirt or sea lice, and this information is entered into the fish\`s health record. In a sense, ______________________________________.`,
+    stem:'빈칸에 들어갈 말로 가장 적절한 것은?',
+    ch:['fish farmers no longer need to visit their farms at all','the fish farm is monitored by an AI doctor on duty 24/7','deep learning has completely replaced veterinary science','sea lice are no longer a problem in modern aquaculture','human observation is more accurate than computer analysis'],
+    ans:1,
+    det:{
+      ref:`[원문] In a sense, the fish farm is monitored by an AI doctor on duty 24/7. [해석] 어떤 의미에서, 양식장은 24시간 근무하는 AI 의사에 의해 모니터링되고 있다. 앞 문맥의 추적·식별·진단 기능을 AI 의사로 비유.`,
+      correct:`① 양식업자가 농장 방문 불필요 — no longer ~ at all은 극단적 ❌\n② 24시간 근무 AI 의사가 모니터링 — AI의 지속적 감시·진단 기능의 비유 ✅\n③ 딥러닝이 수의학 완전 대체 — completely replaced는 과장 ❌\n④ 바다이가 더 이상 문제 안 됨 — 여전히 위협으로 언급 ❌\n⑤ 인간 관찰이 컴퓨터보다 정확 — better than humans can → 반대 내용 ❌`,
+      wrongs:[],
+      tip:`🔑 In a sense(어떤 의미에서): 앞 내용을 비유적으로 요약하는 신호. 🔑 on duty(근무 중) ≈ working. 24/7 = 하루 24시간, 주 7일. 🔑 극단적 표현(no longer ~ at all, completely replaced)은 보통 오답 신호.`
+    }
+  },
+  {
+    id:14, type:'함축', diff:'보통', pts:5, fmt:'mc',
+    note:'PART4 결론 함축',
+    passage:`Families that gather together, eagerly anticipating a healthy seafood dinner, may not be aware of the carefully monitored fish and seaweed farms or the cutting-edge AI technology involved in getting food to their table. However, <u>the process of doing so is evidence of the considerable amount of investment in sustainable, high-quality aquaculture with AI</u>. With AI as an ally, the future of the oceans and the nourishment of humanity is just a little bit more secure.`,
+    stem:'밑줄 친 부분이 의미하는 바로 가장 적절한 것은?',
+    ch:['Consumers should pay more for AI-farmed fish to support technology development.','The journey of seafood from AI-monitored farms to dinner tables reflects significant efforts toward sustainable aquaculture.','Families need to learn about aquaculture technology before eating seafood.','Investment in AI aquaculture has not yet produced any meaningful results.','The seafood industry relies entirely on consumer awareness for its survival.'],
+    ans:1,
+    det:{
+      ref:`[원문] the process of doing so is evidence of the considerable amount of investment [해석] 그렇게 하는 과정은 상당한 투자의 증거. doing so = getting food to their table. AI 양식장에서 식탁까지의 과정이 지속 가능한 양식업 노력을 반영.`,
+      correct:`① 소비자가 더 지불해야 — 비용 부담 주장 없음 ❌\n② 해산물의 여정이 지속 가능한 양식업 노력 반영 — 밑줄 친 부분의 정확한 풀이 ✅\n③ 가정이 기술 배워야 — may not be aware가 있지만 '배워야 한다'는 주장 없음 ❌\n④ 투자가 의미 있는 결과 못 냄 — 반대로 '증거'라고 긍정 서술 ❌\n⑤ 산업이 전적으로 소비자 인식에 의존 — entirely는 과장 ❌`,
+      wrongs:[],
+      tip:`🔑 함축 파악: 지시 대상(the process of doing so = getting food to table) 먼저 파악 → evidence of investment 핵심 메시지 추출. 🔑 considerable(상당한) ≈ significant, substantial. 🔑 do so = 앞 동사구 대신하는 대동사 구조.`
+    }
+  },
+  {
+    id:15, type:'순서', diff:'보통', pts:5, fmt:'mc',
+    note:'PART1 글 순서',
+    passage:`With wild fish stocks gradually declining due to overfishing and the changing climate, more fishers are turning to farming instead of casting nets or lines.<br><br>(A) With the arrival of smart fish farming technology driven by artificial intelligence (AI), fish farmers are able to provide healthy, affordable seafood to families everywhere.<br><br>(B) In fact, according to a UN report, about 49% of the fish consumed worldwide in 2020 came from fish farms, not from the wild. This figure is expected to continue to grow, increasing to 62% by 2030.<br><br>(C) An essential element in providing healthy fish to consumers is the fish farmers\` ability to detect and prevent sea lice, a significant threat to fish health and profitability.`,
+    stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
+    ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
+    ans:2,
+    det:{
+      ref:`[해석] 주어진 글: 야생 어류 감소 → 양식 전환. (B) In fact로 양식업 성장 통계(49%→62%) 제시. (A) With the arrival of로 AI 스마트 기술 도입. (C) An essential element로 구체적 기술(sea lice 탐지) 설명.`,
+      correct:`① (A)-(B)-(C): 주어진 글 → 바로 AI 기술은 급작스러움 ❌\n② (A)-(C)-(B): 통계(B)가 마지막이면 부자연스러움 ❌\n③ (B)-(A)-(C): 양식 전환 → In fact 통계 → AI 기술 도입 → 구체적 기술 ✅\n④ (B)-(C)-(A): (C) 뒤 (A)면 논리 역행 ❌\n⑤ (C)-(A)-(B): sea lice가 먼저면 맥락 없음 ❌`,
+      wrongs:[],
+      tip:`🔑 순서배열: ① 마지막 문장 핵심어(farming) ② 연결어 분석(In fact, With the arrival of, An essential element) ③ In fact는 앞 내용 뒷받침 → (B) 먼저 ④ 일반→구체 흐름 확인.`
+    }
+  },
+  {
+    id:16, type:'무관', diff:'쉬움', pts:3, fmt:'mc',
+    note:'PART4 로봇 기술',
+    passage:`① Using cameras and sensors, AUVs can do many of the analytical and diagnostic tasks on seaweed farms. ② Swarm robots, or many small robots working together, can swim in and around seaweed farms to collect data and then make decisions on how to deal with problems that arise. ③ The global demand for electric vehicles has significantly increased battery production worldwide. ④ Single larger robots or even humans may be available to take care of the physical labor from removing harmful weeds to harvesting. ⑤ However, swarm robots may be more efficient and cost-effective.`,
+    stem:'다음 글에서 전체 흐름과 관계 없는 문장은?',
+    ch:['①','②','③','④','⑤'],
+    ans:2,
+    det:{
+      ref:`[해석] 이 문단은 해조류 양식에서 AUV, 군집 로봇, 단일 로봇의 역할을 설명합니다. ③ 전기차 수요·배터리 생산은 해조류 양식과 전혀 무관.`,
+      correct:`① AUV가 해조류 양식장에서 분석·진단 업무 수행 — 주제 관련 ✅\n② 군집 로봇이 데이터 수집·문제 해결 — 주제 관련 ✅\n③ 전기차 수요 증가로 배터리 생산 증가 — 해조류 양식/로봇과 무관 ❌\n④ 단일 대형 로봇·인간이 물리적 노동 담당 — 주제 관련 ✅\n⑤ 군집 로봇이 더 효율적·비용 효과적 — ④와 대조, 주제 관련 ✅`,
+      wrongs:[],
+      tip:`🔑 무관문장: 핵심 주제어(seaweed farming, robots, AUV) 파악 → 무관 문장(electric vehicles, battery) 찾기. however(⑤)가 ④→⑤ 연결하므로 자연스러움.`
+    }
+  },
+  {
+    id:17, type:'TF', diff:'쉬움', pts:3, fmt:'mc',
+    note:'PART1 통계 수치',
+    passage:`In fact, according to a UN report, about 49% of the fish consumed worldwide in 2020 came from fish farms, not from the wild. This figure is expected to continue to grow, increasing to 62% by 2030.`,
+    stem:'다음 설명이 맞으면 T, 틀리면 F를 고르시오.<br><br>「According to a UN report, more than half of the fish consumed worldwide in 2020 came from fish farms.」',
+    ch:['T','F'],
+    ans:1,
+    det:{
+      ref:`[원문] about 49% of the fish consumed worldwide in 2020 [해석] 2020년 전 세계 소비 물고기의 약 49%. 설명문의 more than half(50% 이상)과 원문의 49%(50% 미만)이 다르므로 F.`,
+      correct:`T — 2020년 절반 이상이 양식장에서 → 49%는 절반 미만이므로 사실과 다름 ❌\nF — 49%는 50% 미만이므로 more than half은 틀림 ✅`,
+      wrongs:[],
+      tip:`🔑 TF 판단: 숫자·비율 정확 대조! 49% ≠ more than 50%. about이 있어도 49%는 50% 미만. 2030년 예상치 62%와 혼동 금지.`
+    }
+  },
+  {
+    id:18, type:'서술형', diff:'보통', pts:5, fmt:'written',
+    note:'PART3 어형 변환',
+    passage:`Given the fact that feeding constitutes more than 50% of a fish farm\`s operational budget, this precise feeding approach will ultimately contribute to a more affordable supply of fish for consumers as well as efficient and sustainable aquaculture operations in general.`,
+    stem:`다음 글을 읽고, 주어진 조건에 맞게 빈칸을 완성하시오.<br><br><div class="cond-box"><div class="ct">[조건]</div><ul><li>주어진 보기의 단어를 활용하여 한 단어로 쓸 것</li><li>필요 시 어형을 변환할 것</li></ul><div class="bogi-label">[보기]</div><div class="bogi-box">sustain</div></div>AI-driven aquaculture contributes to a more __________ supply of seafood by reducing waste and optimizing resources.`,
+    wa:'sustainable',
+    accept:['sustainable','Sustainable','SUSTAINABLE'],
+    det:{
+      ref:`[원문] efficient and sustainable aquaculture operations [해석] 효율적이고 지속 가능한 양식 운영. sustain(유지하다, 동사) → sustainable(지속 가능한, 형용사)로 변환. more + 형용사: 비교급 구조.`,
+      correct:`sustain(동사) → sustainable(형용사)로 어형 변환. 빈칸 앞 more, 뒤 supply(명사) → 형용사 필요. sustaining(현재분사)도 가능하나 '지속 가능한'은 sustainable이 정확.`,
+      wrongs:[],
+      tip:`🔑 어형 변환: sustain(v.) → sustainable(adj.) → sustainability(n.) → sustainably(adv.). sustainable은 aquaculture, development, energy와 자주 결합.`
+    }
+  },
+  {
+    id:19, type:'서술형', diff:'어려움', pts:7, fmt:'written',
+    note:'PART3 영작',
+    passage:`One of the most noticeable and effective applications is real-time monitoring of fish behavior and other environmental changes, which serves multiple purposes, including diagnosing diseases in individual fish.`,
+    stem:`다음 조건에 맞게 주어진 단어를 모두 활용하여 영작하시오.<br><br><div class="cond-box"><div class="ct">[조건]</div><ul><li>주어진 단어를 모두 사용하되, 필요 시 어형을 변환할 것</li><li>추가 단어를 사용할 수 있음</li><li>한 문장으로 작성할 것</li></ul><div class="bogi-label">[보기]</div><div class="bogi-box">enable / farmer / monitor / fish / real time</div></div>[뜻] AI 기술은 양식업자들이 물고기를 실시간으로 모니터링할 수 있게 해준다.`,
+    wa:'AI technology enables farmers to monitor fish in real time.',
+    accept:[
+      'AI technology enables farmers to monitor fish in real time.',
+      'AI technology enables farmers to monitor fish in real time',
+      'ai technology enables farmers to monitor fish in real time.',
+      'ai technology enables farmers to monitor fish in real time',
+      'AI technology enables the farmers to monitor fish in real time.',
+      'AI technology enables farmers to monitor the fish in real time.',
+      'AI technology enables the farmers to monitor the fish in real time.'
+    ],
+    det:{
+      ref:`[원문] real-time monitoring of fish behavior [해석] 물고기 행동의 실시간 모니터링. enable + O + to-v 구문 사용. AI technology(주어) + enables(동사) + farmers(목적어) + to monitor(to부정사) + fish + in real time(부사구).`,
+      correct:`enable + 목적어 + to부정사. AI technology(3인칭 단수) → enables. farmers(목적어) + to monitor(to부정사) + fish + in real time(부사구). real time은 부사로 in real time, 형용사로 real-time(하이픈).`,
+      wrongs:[],
+      tip:`🔑 enable + O + to-v: ~가 …하도록 가능하게 하다. 유사: allow/permit + O + to-v. 🔑 in real time(부사구) vs real-time(형용사). 🔑 3인칭 단수 → enables(-s).`
+    }
+  },
+  {
+    id:20, type:'서술형', diff:'쉬움', pts:3, fmt:'written',
+    note:'PART2 대동사',
+    passage:`A computer system with deep learning capabilities is able to track and record fish behavior better than humans can, especially when the system is trained with enough relevant data.`,
+    stem:`다음 문장의 밑줄 친 부분을 어법에 맞게 고쳐 쓰시오.<br><br>A computer system with deep learning capabilities is able to track and record fish behavior better than humans <u>do</u>.`,
+    wa:'can',
+    accept:['can','Can','CAN'],
+    det:{
+      ref:`[원문] better than humans can [해석] 인간이 할 수 있는 것보다 더 잘. is able to(능력)를 받아 비교 대상에서도 능력의 조동사 can 필요. do(단순 대동사)가 아닌 can(능력)이 적절.`,
+      correct:`do → can. 앞 문장의 is able to(능력)를 받으므로 비교 대상에서도 능력의 조동사 can 필요. better than humans can [track and record]에서 동사구 생략.`,
+      wrongs:[],
+      tip:`🔑 대동사/대조동사: 반복 회피 위해 앞 동사(구) 대신. is able to = can → 비교절에서 can으로 받음. 🔑 better than humans can [track and record] — 동사구 생략.`
+    }
+  }
+];
+
+const QCOUNT=Q.length;
+let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,pct:Math.round(r.correct/QCOUNT*100)});try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 기록이 없습니다.</p>';else p.innerHTML=h.slice(-5).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'Challenger',icon:'👑',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'Diamond',icon:'💎',range:'90~94',msg:'최상위! 틀린 문항만 점검하세요.'};if(s>=80)return{name:'Gold',icon:'🏆',range:'80~89',msg:'통과! 약한 유형을 집중 복습하면 최상위.'};if(s>=60)return{name:'Silver',icon:'🥈',range:'60~79',msg:'조금만 더! 오답 해설을 꼼꼼히.'};if(s>=40)return{name:'Bronze',icon:'🥉',range:'40~59',msg:'기본기를 다지면 크게 향상됩니다.'};return{name:'Iron',icon:'⚔️',range:'0~39',msg:'지문 해석부터 완벽히 익히세요.'};}
+function fmtTime(s){return`${Math.floor(s/60)}분 ${s%60}초`;}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(QCOUNT).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc='tag-'+q.type;h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body"><div class="q-passage"><span class="label">📖 ${q.note}</span>${q.passage}</div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${q.ch.length===2?(ci===0?'T':'F'):'①②③④⑤'[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:QCOUNT},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('current',i===S.cur);d.classList.toggle('answered',S.ans[i]!==null&&i!==S.cur);});}
+function scrollToQ(i){if(i<0||i>=QCOUNT)return;S.cur=i;document.getElementById(`qc-${i}`).scrollIntoView({behavior:'smooth',block:'center'});upDots();}
+function sel(qi,ci){document.querySelectorAll(`.choice-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));document.querySelector(`.choice-btn[data-q="${qi}"][data-c="${ci}"]`).classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById(`w-${qi}`).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase().replace(/[!.]/g,'');if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase().replace(/[!.]/g,''));if(!ok&&q.wa)ok=u===q.wa.toLowerCase().replace(/[!.]/g,'');}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok,pts:ok?q.pts:0});});return{score,correct,wrong,unanswered,details};}
+function generateFeedback(r){const pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t);const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t);let fb=[];weakTypes.forEach(([type,data])=>{const p=Math.round(data.o/data.t*100);fb.push(`⚠️ [${type}] 정답률 ${p}% — 이 유형을 집중 복습하세요.`);});r.details.forEach(d=>{if(!d.ok)fb.push(`📌 ${d.q.id}번(${d.q.type}) 오답 — ${d.q.det.tip||'해설을 확인하세요.'}`)});if(pct>=95)fb.unshift('🏆 거의 완벽! 심화 문제로 도전하세요.');else if(pct>=80)fb.unshift('✅ 통과! 틀린 유형만 집중 복습하면 최상위.');else if(pct>=60)fb.unshift('💪 조금 더! 오답 해설을 꼼꼼히 읽고 반복.');else fb.unshift('📖 기본기부터! 지문 정독 → 문법·어휘 정리.');if(perfectTypes.length)fb.push(`🌟 만점 유형: ${perfectTypes.map(([k])=>k).join(', ')}`);return fb;}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,pts:0,mx:0};typeMap[t].t++;typeMap[t].mx+=d.q.pts;if(d.ok){typeMap[t].o++;typeMap[t].pts+=d.q.pts;}});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);const fb=generateFeedback(r);
+let h=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/100</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong>/${QCOUNT}</span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교/학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간/통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽에 가까운 실력!</h4><p>심화 문제로 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>${weakTypes.join(', ')} 유형을 집중 복습하면 최상위.</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기를 다지는 시간!</h4><p>지문 정독 → 핵심 문법·어휘 정리.</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">💬 보완 피드백</div>`;fb.forEach(f=>{const isW=f.startsWith('⚠️'),isP=f.startsWith('📌'),isS=f.startsWith('🌟');const bg=isW?'var(--rl)':isP?'var(--oxl)':isS?'var(--gl)':'#F8F7F5';const bd=isW?'var(--r)':isP?'var(--o)':isS?'var(--g)':'#e0dcd8';h+=`<div style="padding:10px 14px;background:${bg};border-left:3px solid ${bd};border-radius:0 var(--rs) var(--rs) 0;margin-bottom:8px;font-size:13px;line-height:1.7">${f}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn" onclick="shareResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);font-weight:500;margin-left:8px">클릭하여 펼치기</span></div>`;
+r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const tc='tag-'+d.q.type;h+=`<div class="rev-card"><div class="rev-header" onclick="document.getElementById('rv-${i}').classList.toggle('open')"><div class="q-num" style="width:30px;height:30px;font-size:13px">${d.q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 9px">${d.q.type}</span><span style="font-size:12px;color:var(--tl)">${d.q.diff}·${d.q.pts}점</span><span class="rev-icon">${icon}</span></div><div class="rev-body" id="rv-${i}">`;
+if(d.q.fmt==='mc'){if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else if(d.ans!==null)h+=`<div class="your-ans wrong">❌ 내 답: ${d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]} ${d.q.ch[d.ans]}</div>`;else h+=`<div class="your-ans wrong">⬜ 미응답</div>`;}else{if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else h+=`<div class="your-ans wrong">${d.ans?'❌ 내 답: '+d.ans:'⬜ 미응답'}</div>`;}
+h+=`<div class="expl-sec"><div class="expl-tag ans">✅ 정답</div><div class="expl-box ans-b">${d.q.fmt==='mc'?`<b>${d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]} ${d.q.ch[d.q.ans]}</b>`:`<b>${d.q.wa}</b>`}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag ref">📖 근거</div><div class="expl-box ref-b">${d.q.det.ref}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag tip">💡 풀이</div><div class="expl-box tip-b">${d.q.det.correct}</div></div>`;
+if(d.q.det.wrongs&&d.q.det.wrongs.length&&d.q.det.wrongs[0]!=='')h+=`<div class="expl-sec"><div class="expl-tag wrng">❌ 오답</div><div class="expl-box wrng-b">${d.q.det.wrongs.map(w=>`<div style="margin-bottom:4px">${w}</div>`).join('')}</div></div>`;
+if(d.q.det.tip)h+=`<div class="expl-sec"><div class="expl-tag key">🔑 핵심</div><div class="expl-box key-b">${d.q.det.tip}</div></div>`;
+h+=`</div></div>`;});h+=`</div></div>`;
+document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex(d=>!d.ok);if(fw>=0)setTimeout(()=>{const el=document.getElementById(`rv-${fw}`);if(el)el.classList.add('open');},500);window._lastResult=r;window._lastElapsed=elapsed;}
+function shareResult(){const r=window._lastResult;const elapsed=window._lastElapsed;if(!r)return;const nm=document.getElementById('inpName').value.trim();const sc=document.getElementById('inpSchool').value.trim();const gr=document.getElementById('inpGrade').value;const lv=getLevel(r.score);const pass=r.score>=80;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});let txt=`━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 온라인퀴즈 TEST 결과\n`;txt+=`━━━━━━━━━━━━━━━━━━━━\n\n`;txt+=`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n`;txt+=`📖 ${EI.title}\n\n`;txt+=`┌─────────────────────┐\n`;txt+=`│  📋 기본 정보\n`;txt+=`│  👤 이름: ${nm}\n`;if(sc)txt+=`│  🏫 학교: ${sc} · ${gr}\n`;else txt+=`│  🎓 학년: ${gr}\n`;txt+=`│  📅 응시일: ${new Date().toLocaleDateString('ko-KR')}\n`;txt+=`│  ⏱️ 소요시간: ${fmtTime(elapsed)}\n`;txt+=`└─────────────────────┘\n\n`;txt+=`🏆 ── 성적 결과 ──────────\n\n`;txt+=`   ${lv.icon} ${lv.name} (${lv.range}점)\n`;txt+=`   📊 ${r.score}점 / 100점  ${pass?'✅ 통과':'❌ 미통과'}\n\n`;txt+=`   ✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n\n`;txt+=`📊 ── 유형별 분석 ────────\n\n`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const bar='█'.repeat(Math.round(p/10))+'░'.repeat(10-Math.round(p/10));const icon=p===100?'🌟':p>=80?'✅':p>=50?'⚠️':'❌';txt+=`   ${icon} ${type}\t${bar} ${p}% (${d.o}/${d.t})\n`;});txt+=`\n`;const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);if(perfectTypes.length)txt+=`   🌟 만점 유형: ${perfectTypes.join(', ')}\n`;if(weakTypes.length)txt+=`   📌 보완 필요: ${weakTypes.join(', ')}\n`;txt+=`\n💬 ── 상세 피드백 ────────\n\n`;r.details.forEach(d=>{if(!d.ok){const icon=d.ans===null?'⬜':'❌';const ansInfo=d.q.fmt==='mc'?(d.ans!==null?'①②③④⑤'[d.ans]:'미응답'):(d.ans||'미응답');const correctAns=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;txt+=`   ${icon} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점\n`;txt+=`      내 답: ${ansInfo} → 정답: ${correctAns}\n`;const tipClean=(d.q.det.tip||'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').substring(0,80);if(tipClean)txt+=`      💡 ${tipClean}...\n`;txt+=`\n`;}});if(r.wrong===0&&r.unanswered===0)txt+=`   🎉 전 문항 정답! 완벽합니다!\n\n`;txt+=`📝 ── 학습 조언 ──────────\n\n`;if(r.score>=95)txt+=`   🏅 거의 완벽! 심화 문제에 도전하세요.\n`;else if(r.score>=80)txt+=`   📈 통과! ${weakTypes.join(', ')} 유형만 보강하면 최상위.\n`;else if(r.score>=60)txt+=`   💪 조금만 더! 오답 해설을 꼼꼼히 확인하세요.\n`;else txt+=`   📖 기본기부터! 지문 정독 → 문법·어휘 정리.\n`;txt+=`\n━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 내신핏 온라인퀴즈 TEST\n`;txt+=`━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>{toast('📋 결과가 클립보드에 복사되었습니다!');}).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 결과가 클립보드에 복사되었습니다!');});}
+function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+</script>
+</body>
+</html>
