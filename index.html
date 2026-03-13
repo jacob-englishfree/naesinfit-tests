@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -64,6 +64,47 @@
   /* Motion */
   --ease: cubic-bezier(.22,1,.36,1);
   --dur: .3s;
+
+  /* Nav / overlay backgrounds */
+  --nav-bg: rgba(255,255,255,.72);
+  --bottom-bg: rgba(255,255,255,.85);
+}
+
+/* ━━ Dark Mode ━━ */
+[data-theme="dark"] {
+  --blue-l: #1A2F4D;
+  --blue-xl: #141E30;
+  --red-l: #3D1A1E;
+  --green-l: #0F2E1F;
+  --yellow-l: #2E2510;
+  --purple-l: #1E1535;
+
+  --g900: #ECECEC;
+  --g800: #D1D1D1;
+  --g700: #B0B0B0;
+  --g600: #8E8E8E;
+  --g500: #6E6E6E;
+  --g400: #555555;
+  --g300: #3A3A3A;
+  --g200: #2C2C2C;
+  --g100: #222222;
+  --g50:  #1C1C1C;
+  --white: #171717;
+
+  --bg: #111111;
+  --card: #1A1A1A;
+  --text: #ECECEC;
+  --sub: #8E8E8E;
+  --hint: #555555;
+  --border: #2C2C2C;
+  --divider: #222222;
+
+  --sh-sm: 0 1px 2px rgba(0,0,0,.2);
+  --sh-md: 0 2px 8px rgba(0,0,0,.3);
+  --sh-lg: 0 8px 24px rgba(0,0,0,.4);
+
+  --nav-bg: rgba(17,17,17,.85);
+  --bottom-bg: rgba(17,17,17,.85);
 }
 
 /* ━━ Reset ━━ */
@@ -78,10 +119,20 @@ input,select{font-family:inherit}
 
 /* ━━ Page Transitions ━━ */
 .page{animation:pageEnter var(--dur) var(--ease)}
+.page.slide-left{animation:slideLeft var(--dur) var(--ease)}
+.page.slide-right{animation:slideRight var(--dur) var(--ease)}
 @keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+
+/* ━━ Skeleton Loading ━━ */
+.skeleton{background:var(--g100);border-radius:var(--r-md);position:relative;overflow:hidden}
+.skeleton::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 1.5s infinite}
+[data-theme="dark"] .skeleton::after{background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent)}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
 
 /* ━━ Navigation Bar ━━ */
-.nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
+.nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
 .nav-back{width:32px;height:32px;border:none;background:none;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text);margin-left:-6px;border-radius:var(--r-sm);transition:background .15s}
 .nav-back:active{background:var(--g100)}
 .nav-title{flex:1;text-align:center;font-size:16px;font-weight:700;margin-right:26px}
@@ -115,7 +166,7 @@ input,select{font-family:inherit}
 .btn-sm{height:44px;font-size:14px;border-radius:var(--r-sm)}
 
 /* ━━ Fixed Bottom ━━ */
-.bottom-fix{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:200}
+.bottom-fix{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:var(--bottom-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:200}
 .bottom-spacer{height:90px}
 
 /* ━━ Input ━━ */
@@ -165,7 +216,7 @@ input,select{font-family:inherit}
 .slider-num{font-size:36px;font-weight:900;color:var(--blue);min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
 
 /* ━━ Exam ━━ */
-.exam-bar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);padding:14px 20px}
+.exam-bar{position:sticky;top:0;z-index:100;background:var(--bottom-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);padding:14px 20px}
 .progress-line{height:3px;background:var(--g200);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:var(--blue);border-radius:2px;transition:width .4s var(--ease)}
 .timer-display{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;transition:color .3s}
@@ -298,7 +349,7 @@ input,select{font-family:inherit}
 .sheet-bar{width:36px;height:4px;background:var(--g300);border-radius:2px;margin:8px auto 24px}
 
 /* Responsive */
-@media(max-width:380px){.act-grid{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr}.score-num{font-size:56px}}
+@media(max-width:380px){.act-grid{flex-wrap:wrap}.info-grid{grid-template-columns:1fr}.score-num{font-size:56px}}
 </style>
 </head>
 <body>
@@ -997,7 +1048,57 @@ let MANIFEST = {"교과서":{"영어1":{"비상홍":{lessons:[1,2,3,4],dn:"비�
   } catch(e) {}
 })();
 
-let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,ti:null,tl:1200,tlf:1200,res:null,acc:{},rv:{}};
+let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,ti:null,tl:1200,tlf:1200,res:null,acc:{},rv:{},dir:'fwd'};
+
+// ━━ Dark Mode ━━
+function initTheme(){const t=localStorage.getItem('nf_theme')||'light';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#111111':'#FFFFFF';}
+function toggleTheme(){const cur=document.documentElement.getAttribute('data-theme');const next=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('nf_theme',next);document.querySelector('meta[name="theme-color"]').content=next==='dark'?'#111111':'#FFFFFF';}
+initTheme();
+
+// ━━ Haptic Feedback ━━
+function haptic(type){if(!navigator.vibrate)return;if(type==='ok')navigator.vibrate(30);else if(type==='no')navigator.vibrate([30,50,30]);else if(type==='submit')navigator.vibrate(80);else if(type==='tap')navigator.vibrate(10);}
+
+// ━━ Wrong Answer Storage ━━
+function getWrong(){try{return JSON.parse(localStorage.getItem('nf_wrong'))||[];}catch(e){return[];}}
+function saveWrong(list){try{localStorage.setItem('nf_wrong',JSON.stringify(list.slice(-200)));}catch(e){}}
+function addWrongs(det){const w=getWrong();det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=JSON.stringify({stem:(d.q.stem||'').slice(0,60),ans:d.q.ans});if(!w.some(x=>JSON.stringify({stem:(x.q.stem||'').slice(0,60),ans:x.q.ans})===key)){w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR')});}}});saveWrong(w);}
+function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filter(x=>{const key=(x.q.stem||'').slice(0,60);return!solvedQuestions.some(s=>(s.q.stem||'').slice(0,60)===key&&s.ok);});saveWrong(remaining);}
+
+// ━━ Learning Streak ━━
+function getStreak(){try{return JSON.parse(localStorage.getItem('nf_streak'))||{count:0,lastDate:null};}catch(e){return{count:0,lastDate:null};}}
+function updateStreak(){
+  const s=getStreak();const today=new Date().toISOString().slice(0,10);
+  if(s.lastDate===today)return s;
+  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(s.lastDate===yesterday){s.count++;s.lastDate=today;}
+  else if(s.lastDate&&s.lastDate!==today){s.count=1;s.lastDate=today;}
+  else{s.count=1;s.lastDate=today;}
+  try{localStorage.setItem('nf_streak',JSON.stringify(s));}catch(e){}
+  return s;
+}
+function checkStreak(){
+  const s=getStreak();if(!s.lastDate)return s;
+  const today=new Date().toISOString().slice(0,10);
+  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(s.lastDate!==today&&s.lastDate!==yesterday){s.count=0;try{localStorage.setItem('nf_streak',JSON.stringify(s));}catch(e){}}
+  return s;
+}
+
+// ━━ Daily Quiz ━━
+function getDailyState(){try{return JSON.parse(localStorage.getItem('nf_daily'))||{date:null,completed:false,score:null};}catch(e){return{date:null,completed:false,score:null};}}
+function saveDailyState(s){try{localStorage.setItem('nf_daily',JSON.stringify(s));}catch(e){}}
+function dailySeed(){const d=new Date().toISOString().slice(0,10);let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h|=0;}return Math.abs(h);}
+function getDailyQuestions(){
+  // Gather all available questions from fallback bank
+  const allQ=[];
+  Object.values(FALLBACK_QUESTION_BANK).forEach(types=>{Object.values(types).forEach(qs=>{qs.forEach(q=>allQ.push({...q}));});});
+  if(!allQ.length)return[];
+  // Deterministic shuffle based on daily seed
+  const seed=dailySeed();
+  const seeded=[...allQ].sort((a,b)=>{const ha=((seed*31+a.id*17)%1000);const hb=((seed*31+b.id*17)%1000);return ha-hb;});
+  return seeded.slice(0,5);
+}
+
 const P=()=>{try{return JSON.parse(localStorage.getItem('nf_p'))||{name:'',school:'',grade:''};}catch(e){return{name:'',school:'',grade:''};}};
 let profile=P();
 if(!profile.name.trim())S.scr='login';
@@ -1046,7 +1147,9 @@ function animateScore(target){
 }
 
 function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
-function R(){({login:rLogin,home:rHome,select:rSel,settings:rSet,exam:rExam,result:rResult}[S.scr]||rLogin)();}
+function R(){({login:rLogin,home:rHome,select:rSel,settings:rSet,exam:rExam,result:rResult}[S.scr]||rLogin)();
+  // Apply page transition direction
+  const pg=app.querySelector('.page');if(pg&&S.dir&&S.dir!=='none'){pg.classList.remove('slide-left','slide-right');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');}S.dir='fwd';}
 
 // ━━ LOGIN ━━
 function rLogin(){setBottom(null);
@@ -1208,9 +1311,21 @@ function rHome(){setBottom(null);
           <div class="t-heading" style="margin-top:2px">${esc(profile.name)}님</div>
           <div class="t-caption c-sub" style="margin-top:2px">${esc(profile.school)} · ${esc(profile.grade)}</div>
         </div>
-        <button onclick="openP()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">⚙️</button>
+        <div style="display:flex;gap:8px">
+          <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
+          <button onclick="openP()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">⚙️</button>
+        </div>
       </div>
     </div>
+
+    ${(()=>{const sk=checkStreak();return sk.count>0?`
+    <!-- Streak -->
+    <div style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
+      <span style="font-size:20px">${sk.count>=7?'🔥':'🔥'}</span>
+      <span style="font-size:14px;font-weight:700;color:var(--text)">${sk.count}일 연속 학습 중</span>
+      ${sk.count>=7?'<span style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto">대단해요!</span>':sk.count>=3?'<span style="font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:8px;margin-left:auto">좋아요!</span>':''}
+    </div>
+    `:'';})()}
 
     <!-- Hero Banner -->
     <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:28px 24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
@@ -1222,6 +1337,34 @@ function rHome(){setBottom(null);
         <div style="font-size:13px;opacity:.75;margin-top:8px">교과서 · 모의고사 범위를 선택하고<br>맞춤 시험을 시작해보세요</div>
       </div>
     </div>
+
+    ${(()=>{const ds=getDailyState();const today=new Date().toISOString().slice(0,10);const done=ds.date===today&&ds.completed;
+      return `
+    <!-- Daily Quiz -->
+    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
+      <button onclick="startDailyQuiz()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:${done?'var(--green-l)':'var(--blue-l)'};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${done?'✅':'⚡'}</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">${done?'오늘의 퀴즈 완료':'오늘의 5문제'}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">${done?ds.score+'점 달성!':'매일 5문제로 실력 유지'}</div>
+        </div>
+        ${done?'':'<span style="color:var(--blue);font-size:13px;font-weight:700">도전 →</span>'}
+      </button>
+    </div>`;})()}
+
+    ${getWrong().length?`
+    <!-- Wrong Answer Review -->
+    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
+      <button onclick="startWrongReview()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--red-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🔄</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">틀린 문제 ${getWrong().length}개 복습하기</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">오답을 다시 풀어 완벽하게 마스터</div>
+        </div>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
+      </button>
+    </div>
+    `:''}
 
     ${totalTests?`
     <!-- My Stats -->
@@ -1315,7 +1458,36 @@ function openP(){const p=profile;const d=document.createElement('div');d.classNa
 function doLogout(){const s=$('ps');if(s)s.remove();sP({name:'',school:'',grade:''});S.scr='login';R();toast('로그아웃했어요');}
 function viewHistory(idx){const h=gH();const r=h[idx];if(!r||!r.det)return;S.res={score:r.score,ok:r.ok,no:r.no,sk:r.sk||0,tP:r.tP||100,eP:r.eP||0,lv:LV(r.score),det:r.det,tM:r.tM||{}};S.tt=r.type||'테스트';S.te=0;S.fromHist=true;S.scr='result';R();}
 function goMode(m){S.mode=m;S.scr='select';S.sel=[];S.acc={};R();}
-function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});R();}
+function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S.tl=1200;S.dir='back';R();}
+
+// ━━ Wrong Answer Review ━━
+function startWrongReview(){
+  const wrongs=getWrong();
+  if(!wrongs.length){toast('틀린 문제가 없어요!');return;}
+  S._isReview=true;
+  shuffle(wrongs);
+  const total=Math.min(wrongs.length,20);
+  S.qs=wrongs.slice(0,total).map(w=>({...w.q}));
+  S.ans={};S.ci=0;S.scr='exam';S.tt='오답 복습';
+  S.ts=Date.now();S.te=0;S.tlf=S.tl;
+  if(S.ti)clearInterval(S.ti);
+  S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);
+  R();
+}
+
+// ━━ Daily Quiz ━━
+function startDailyQuiz(){
+  const ds=getDailyState();const today=new Date().toISOString().slice(0,10);
+  if(ds.date===today&&ds.completed){toast('오늘의 퀴즈는 이미 완료했어요!');return;}
+  const qs=getDailyQuestions();
+  if(!qs.length){toast('퀴즈 문항이 없어요');return;}
+  S._isDaily=true;
+  S.qs=qs;S.ans={};S.ci=0;S.scr='exam';S.tt='오늘의 퀴즈';
+  S.ts=Date.now();S.te=0;S.tlf=600;S.tl=600;
+  if(S.ti)clearInterval(S.ti);
+  S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,600-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);
+  R();
+}
 
 // ━━ SELECT ━━
 function rSel(){
@@ -1414,7 +1586,7 @@ function selSummaryHTML(){
 
 function rSet(){
   const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);
-  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';R()">←</button><div class="nav-title">시험 설정</div></div>
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';S.dir='back';R()">←</button><div class="nav-title">시험 설정</div></div>
     <div class="sec-label">선택 범위</div><div class="card" style="background:var(--g50);border:none;padding:14px 16px">${selSummaryHTML()}</div>
     <div class="sec-label">테스트 유형</div><div class="section">${SET_TYPES.map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
     <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" id="setSlider" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value;updateSetUI()"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" id="setChips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:''}</div><div class="t-tiny c-sub" id="setInfo" style="margin-top:14px;${S.tt?'':'display:none'}">${S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':''}</div></div>
@@ -1424,7 +1596,11 @@ function rSet(){
 
 // ━━ EXAM ━━
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-async function startE(){toast('문항을 불러오는 중...');await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};
+async function startE(){
+  // Show skeleton loading
+  app.innerHTML=`<div class="page"><div style="padding:20px"><div class="skeleton" style="height:52px;margin-bottom:16px"></div><div class="skeleton" style="height:36px;width:60%;margin-bottom:24px"></div><div class="skeleton" style="height:200px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:160px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:44px;width:40%;margin-bottom:12px"></div></div></div>`;
+  setBottom(null);
+  await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};
   // Build per-selection pools
   const groups=[];S.sel.forEach(k=>{if(b[k]&&b[k].length)groups.push(b[k].map(q=>({...q})));});
   if(!groups.length){toast('선택한 범위에 문항이 없어요');return;}
@@ -1474,6 +1650,7 @@ function selAns(idx,ci){
   document.querySelectorAll('[id^="cb_'+idx+'_"]').forEach(b=>b.classList.remove('on'));
   const s=$('cb_'+idx+'_'+ci);if(s)s.classList.add('on');
   S.ans[idx]=ci;
+  haptic('tap');
   updateExDot();
 }
 
@@ -1499,6 +1676,11 @@ function doSub(auto){
   const score=tP>0?Math.round(eP/tP*100):0;
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
   sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM});
+  if(S._isReview){removeWrongs(det);S._isReview=false;}
+  else if(S._isDaily){saveDailyState({date:new Date().toISOString().slice(0,10),completed:true,score});S._isDaily=false;addWrongs(det);}
+  else{addWrongs(det);}
+  updateStreak();
+  haptic('submit');
   R();
   // Animations
   setTimeout(()=>animateScore(score),100);
