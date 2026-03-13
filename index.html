@@ -61,9 +61,13 @@
   --sh-md: 0 2px 8px rgba(0,0,0,.06);
   --sh-lg: 0 8px 24px rgba(0,0,0,.08);
 
-  /* Motion */
+  /* Motion — Toss-tuned */
   --ease: cubic-bezier(.22,1,.36,1);
-  --dur: .3s;
+  --ease-snap: cubic-bezier(.2,.9,.3,1);       /* snappy for taps */
+  --ease-spring: cubic-bezier(.34,1.56,.64,1);  /* overshoot bounce */
+  --ease-out: cubic-bezier(.16,1,.3,1);          /* smooth decel */
+  --dur: .2s;
+  --dur-slow: .35s;
 
   /* Nav / overlay backgrounds */
   --nav-bg: rgba(255,255,255,.72);
@@ -118,12 +122,12 @@ input,select{font-family:inherit}
 .app{max-width:480px;margin:0 auto;min-height:100dvh;background:var(--bg);position:relative}
 
 /* ━━ Page Transitions ━━ */
-.page{animation:pageEnter var(--dur) var(--ease)}
-.page.slide-left{animation:slideLeft var(--dur) var(--ease)}
-.page.slide-right{animation:slideRight var(--dur) var(--ease)}
-@keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideLeft{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
-@keyframes slideRight{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+.page{animation:pageEnter .2s var(--ease-out)}
+.page.slide-left{animation:slideLeft .25s var(--ease-snap)}
+.page.slide-right{animation:slideRight .25s var(--ease-snap)}
+@keyframes pageEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
 
 /* ━━ Skeleton Loading ━━ */
 .skeleton{background:var(--g100);border-radius:var(--r-md);position:relative;overflow:hidden}
@@ -151,12 +155,12 @@ input,select{font-family:inherit}
 .sec-label{font-size:13px;font-weight:600;color:var(--sub);padding:24px 20px 8px}
 
 /* ━━ Card ━━ */
-.card{background:var(--card);border-radius:var(--r-lg);margin:0 20px 10px;padding:20px;box-shadow:var(--sh-sm)}
+.card{background:var(--card);border-radius:var(--r-lg);margin:0 20px 10px;padding:20px;box-shadow:var(--sh-sm);will-change:transform,opacity;transform:translateZ(0)}
 .card-flush{margin:0;border-radius:0;box-shadow:none;border-bottom:1px solid var(--divider)}
 
 /* ━━ Toss Button ━━ */
-.btn{width:100%;height:54px;border:none;border-radius:var(--r-md);font-size:16px;font-weight:700;transition:all .15s;position:relative;overflow:hidden}
-.btn:active{transform:scale(.985)}
+.btn{width:100%;height:54px;border:none;border-radius:var(--r-md);font-size:16px;font-weight:700;transition:transform .1s var(--ease-snap),background .1s;position:relative;overflow:hidden;will-change:transform}
+.btn:active{transform:scale(.97)}
 .btn::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .15s}
 .btn:active::after{background:rgba(0,0,0,.06)}
 .btn-blue{background:var(--blue);color:white}
@@ -177,14 +181,14 @@ input,select{font-family:inherit}
 
 /* ━━ Chip ━━ */
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{height:44px;padding:0 18px;border-radius:22px;font-size:14px;font-weight:500;border:1.5px solid var(--border);background:var(--white);display:inline-flex;align-items:center;transition:all .15s;user-select:none;color:var(--text)}
-.chip:active{transform:scale(.94)}
+.chip{height:44px;padding:0 18px;border-radius:22px;font-size:14px;font-weight:500;border:1.5px solid var(--border);background:var(--white);display:inline-flex;align-items:center;transition:all .12s var(--ease-snap);user-select:none;color:var(--text);will-change:transform}
+.chip:active{transform:scale(.92)}
 .chip.on{border-color:var(--blue);background:var(--blue-l);color:var(--blue);font-weight:600}
 .chip-sm{height:40px;padding:0 14px;font-size:13px;border-radius:20px}
 
 /* ━━ Option Card (Radio style) ━━ */
-.opt{padding:18px;border:1.5px solid var(--border);border-radius:var(--r-lg);display:flex;align-items:center;gap:14px;margin-bottom:8px;transition:all .15s;background:var(--white)}
-.opt:active{transform:scale(.985)}
+.opt{padding:18px;border:1.5px solid var(--border);border-radius:var(--r-lg);display:flex;align-items:center;gap:14px;margin-bottom:8px;transition:all .12s var(--ease-snap);background:var(--white);will-change:transform}
+.opt:active{transform:scale(.97)}
 .opt.on{border-color:var(--blue);background:var(--blue-xl)}
 .opt-icon{font-size:26px;flex-shrink:0}
 .opt-body{flex:1}.opt-body h4{font-size:15px;font-weight:600}.opt-body p{font-size:12px;color:var(--sub);margin-top:2px}
@@ -198,11 +202,11 @@ input,select{font-family:inherit}
 .acc-trigger:active{background:var(--g50)}
 .acc-trigger .lf{display:flex;align-items:center;gap:8px}
 .badge{background:var(--blue);color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px}
-.arrow{font-size:11px;color:var(--hint);transition:transform .25s var(--ease)}.arrow.open{transform:rotate(180deg)}
+.arrow{font-size:11px;color:var(--hint);transition:transform .2s var(--ease-snap)}.arrow.open{transform:rotate(180deg)}
 .acc-content{padding:0 20px 16px}
 
 /* Smooth accordion slide — grid technique (no max-height hack) */
-.acc-slide{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease);overflow:hidden}
+.acc-slide{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease-snap);overflow:hidden}
 .acc-slide.open{grid-template-rows:1fr}
 .acc-slide>div{overflow:hidden}
 .sub-section{padding:14px 0;border-top:1px solid var(--divider)}
@@ -243,8 +247,8 @@ input,select{font-family:inherit}
 
 /* Choice buttons with ripple */
 .choices{display:flex;flex-direction:column;gap:8px}
-.c-btn{width:100%;text-align:left;padding:14px 16px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--white);font-size:14px;line-height:1.65;cursor:pointer;transition:all .15s;color:var(--text);display:flex;align-items:baseline;gap:10px;position:relative;overflow:hidden}
-.c-btn:active{transform:scale(.985)}
+.c-btn{width:100%;text-align:left;padding:14px 16px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--white);font-size:14px;line-height:1.65;cursor:pointer;transition:all .1s var(--ease-snap);color:var(--text);display:flex;align-items:baseline;gap:10px;position:relative;overflow:hidden;will-change:transform}
+.c-btn:active{transform:scale(.97)}
 .c-btn .c-n{font-weight:700;color:var(--hint);flex-shrink:0;min-width:16px;transition:color .15s}
 .c-btn.on{border-color:var(--blue);background:var(--blue-l)}
 .c-btn.on .c-n{color:var(--blue)}
@@ -255,8 +259,8 @@ input,select{font-family:inherit}
 
 /* ━━ Result ━━ */
 /* Staggered fade-in animation */
-@keyframes rFadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.r-anim{opacity:0;animation:rFadeUp .5s var(--ease) forwards}
+@keyframes rFadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.r-anim{opacity:0;animation:rFadeUp .35s var(--ease-out) forwards}
 
 .result-top{text-align:center;padding:56px 20px 40px;position:relative;overflow:hidden;background:var(--white)}
 
@@ -333,39 +337,39 @@ input,select{font-family:inherit}
 #confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999}
 
 /* Toast — Toss style */
-#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g900);color:white;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:all .35s var(--ease);z-index:1000;pointer-events:none;box-shadow:var(--sh-lg);white-space:nowrap}
+#toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--g900);color:white;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;opacity:0;transition:all .2s var(--ease-spring);z-index:1000;pointer-events:none;box-shadow:var(--sh-lg);white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s}
 @keyframes fadeIn{from{opacity:0}}
-.modal-box{background:var(--white);border-radius:var(--r-xl);padding:32px 24px 24px;max-width:320px;width:100%;text-align:center;box-shadow:var(--sh-lg);animation:modalPop .3s var(--ease)}
-@keyframes modalPop{from{transform:scale(.92);opacity:0}}
+.modal-box{background:var(--white);border-radius:var(--r-xl);padding:32px 24px 24px;max-width:320px;width:100%;text-align:center;box-shadow:var(--sh-lg);animation:modalPop .25s var(--ease-spring)}
+@keyframes modalPop{from{transform:scale(.88);opacity:0}}
 
 /* Bottom Sheet */
 .sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:var(--white);border-radius:var(--r-xl) var(--r-xl) 0 0;width:100%;max-width:480px;padding:8px 20px calc(24px + env(safe-area-inset-bottom));animation:sheetUp .35s var(--ease)}
+.sheet{background:var(--white);border-radius:var(--r-xl) var(--r-xl) 0 0;width:100%;max-width:480px;padding:8px 20px calc(24px + env(safe-area-inset-bottom));animation:sheetUp .3s var(--ease-snap)}
 @keyframes sheetUp{from{transform:translateY(100%)}}
 .sheet-bar{width:36px;height:4px;background:var(--g300);border-radius:2px;margin:8px auto 24px}
 
 /* ━━ Tab Bar ━━ */
 .tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--divider)}
-.tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border:none;background:none;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
-.tab-item:active{transform:scale(.9)}
-.tab-icon{font-size:22px;line-height:1;transition:transform .2s var(--ease)}
-.tab-label{font-size:10px;font-weight:600;color:var(--hint);transition:color .15s}
+.tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border:none;background:none;cursor:pointer;transition:transform .1s var(--ease-snap);-webkit-tap-highlight-color:transparent}
+.tab-item:active{transform:scale(.88)}
+.tab-icon{font-size:22px;line-height:1;transition:transform .15s var(--ease-spring)}
+.tab-label{font-size:10px;font-weight:600;color:var(--hint);transition:color .1s}
 .tab-item.active .tab-icon{transform:scale(1.1)}
 .tab-item.active .tab-label{color:var(--blue);font-weight:700}
 .tab-spacer{height:calc(72px + env(safe-area-inset-bottom))}
 
 /* ━━ Toss Micro Animations ━━ */
 /* Staggered card reveal */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .3s var(--ease-out),transform .3s var(--ease-out)}
 .reveal.show{opacity:1;transform:translateY(0)}
 
 /* Tab icon bounce */
-@keyframes tabBounce{0%{transform:scale(1)}30%{transform:scale(1.25) translateY(-3px)}60%{transform:scale(.95)}100%{transform:scale(1.1)}}
-.tab-bounce .tab-icon{animation:tabBounce .4s var(--ease)}
+@keyframes tabBounce{0%{transform:scale(1)}25%{transform:scale(1.3) translateY(-2px)}55%{transform:scale(.93)}100%{transform:scale(1.1)}}
+.tab-bounce .tab-icon{animation:tabBounce .3s var(--ease-spring)}
 
 /* Number count-up — handled in JS */
 
@@ -1329,13 +1333,13 @@ function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select
   const tb=$('tabBar');
   if(tabScreens.includes(S.scr)){tb.style.display='';document.querySelectorAll('.tab-item').forEach(t=>{t.classList.toggle('active',t.id==='tab_'+S.scr);});
     // Staggered reveal + count-up for tab pages
-    requestAnimationFrame(()=>{const cards=app.querySelectorAll('.card,.sec-label');cards.forEach((c,i)=>{c.classList.add('reveal');setTimeout(()=>c.classList.add('show'),50*i);});setTimeout(applyCountUps,200);});
+    requestAnimationFrame(()=>{const cards=app.querySelectorAll('.card,.sec-label');cards.forEach((c,i)=>{c.classList.add('reveal');setTimeout(()=>c.classList.add('show'),40*i);});setTimeout(applyCountUps,150);});
   }else{tb.style.display='none';}}
 function switchTab(tab){if(S.scr===tab)return;haptic('tap');S.scr=tab;S.dir='none';R();
   // Tab bounce animation
   const ti=$('tab_'+tab);if(ti){ti.classList.remove('tab-bounce');void ti.offsetWidth;ti.classList.add('tab-bounce');ti.addEventListener('animationend',()=>ti.classList.remove('tab-bounce'),{once:true});}
   // Staggered reveal for cards
-  requestAnimationFrame(()=>{const cards=app.querySelectorAll('.card,.sec-label');cards.forEach((c,i)=>{c.classList.add('reveal');setTimeout(()=>c.classList.add('show'),60*i);});});
+  requestAnimationFrame(()=>{const cards=app.querySelectorAll('.card,.sec-label');cards.forEach((c,i)=>{c.classList.add('reveal');setTimeout(()=>c.classList.add('show'),40*i);});setTimeout(applyCountUps,150);});
 }
 
 // ━━ Count-up Animation ━━
