@@ -1389,22 +1389,56 @@ function rSet(){
 // ━━ EXAM ━━
 async function startE(){toast('문항을 불러오는 중...');await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};let pool=[];S.sel.forEach(k=>{if(b[k])b[k].forEach(q=>pool.push({...q}));});if(!pool.length){toast('선택한 범위에 문항이 없어요');return;}for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}S.qs=pool.slice(0,S.qc);S.ans={};S.ci=0;S.scr='exam';S.ts=Date.now();S.te=0;S.tlf=S.tl;if(S.ti)clearInterval(S.ti);S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);R();}
 
+// Build exam shell once — inner content updated via DOM manipulation
 function rExam(){
-  const q=S.qs[S.ci],tot=S.qs.length,idx=S.ci,pct=((idx+1)/tot*100).toFixed(1);
-  const dc=q.diff==='쉬움'?'e':q.diff==='보통'?'m':'h';
-  const ac=Object.keys(S.ans).length;
-  let aH='';
-  if(q.fmt==='mc'){aH=`<div class="choices">${(q.ch||[]).map((c,ci)=>{const on=S.ans[idx]===ci,n=ci<NM.length?NM[ci]:(ci+1)+'.';return`<button class="c-btn ${on?'on':''}" onclick="S.ans[${idx}]=${ci};R()"><span class="c-n">${n}</span><span>${c}</span></button>`;}).join('')}</div>`;}
-  else{aH=`<input type="text" class="w-input" placeholder="답안을 입력해주세요" value="${esc(S.ans[idx]||'')}" oninput="S.ans[${idx}]=this.value" onfocus="setTimeout(()=>this.scrollIntoView({behavior:'smooth',block:'center'}),300)" autocomplete="off" spellcheck="false">`;}
-  const dots=S.qs.map((_,di)=>`<button class="qd ${di===idx?'cur':S.ans[di]!==undefined?'done':''}" onclick="S.ci=${di};R();scrollTo(0,0)">${di+1}</button>`).join('');
-
+  const tot=S.qs.length;
   app.innerHTML=`<div class="page">
-    <div class="exam-bar"><div class="progress-line"><div class="progress-fill" style="width:${pct}%"></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px"><div id="tmr" class="timer-display${S.tlf<=60?' danger':S.tlf<=300?' warn':''}">${ft(S.tlf)}</div><div class="t-caption c-sub" style="font-weight:600">${ac}/${tot} 응답</div></div></div>
-    <div class="q-dots">${dots}</div>
-    <div class="q-card"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div><div class="q-stem">${q.stem||''}</div>${q.passage?`<div class="q-passage">${q.passage}</div>`:''}${aH}</div>
-    <div style="padding:0 20px 16px;display:flex;gap:8px">${idx>0?'<button class="btn btn-ghost btn-sm" style="flex:1" onclick="S.ci--;R();scrollTo(0,0)">이전</button>':''}${idx<tot-1?'<button class="btn btn-blue btn-sm" style="flex:1" onclick="S.ci++;R();scrollTo(0,0)">다음</button>':''}</div>
+    <div class="exam-bar"><div class="progress-line"><div class="progress-fill" id="exProg" style="width:0%"></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px"><div id="tmr" class="timer-display">${ft(S.tlf)}</div><div class="t-caption c-sub" style="font-weight:600" id="exAc">0/${tot} 응답</div></div></div>
+    <div class="q-dots" id="exDots"></div>
+    <div id="exCard"></div>
+    <div id="exNav" style="padding:0 20px 16px;display:flex;gap:8px"></div>
     <div style="height:100px"></div><div class="bottom-fix"><button class="btn btn-red" onclick="doSub()">제출하기</button></div></div>`;
+  renderExQ();
 }
+
+function renderExQ(){
+  const q=S.qs[S.ci],tot=S.qs.length,idx=S.ci;
+  const pct=((idx+1)/tot*100).toFixed(1);
+  const dc=q.diff==='쉬움'?'e':q.diff==='보통'?'m':'h';
+  // Progress bar
+  const pg=$('exProg');if(pg)pg.style.width=pct+'%';
+  // Response counter
+  updateExAc();
+  // Dots
+  const dEl=$('exDots');
+  if(dEl)dEl.innerHTML=S.qs.map((_,di)=>`<button class="qd ${di===idx?'cur':S.ans[di]!==undefined?'done':''}" onclick="goQ(${di})">${di+1}</button>`).join('');
+  // Question card
+  let aH='';
+  if(q.fmt==='mc'){aH=`<div class="choices">${(q.ch||[]).map((c,ci)=>{const on=S.ans[idx]===ci,n=ci<NM.length?NM[ci]:(ci+1)+'.';return`<button class="c-btn ${on?'on':''}" id="cb_${idx}_${ci}" onclick="selAns(${idx},${ci})"><span class="c-n">${n}</span><span>${c}</span></button>`;}).join('')}</div>`;}
+  else{aH=`<input type="text" class="w-input" placeholder="답안을 입력해주세요" value="${esc(S.ans[idx]||'')}" oninput="S.ans[${idx}]=this.value;updateExDot()" onfocus="setTimeout(()=>this.scrollIntoView({behavior:'smooth',block:'center'}),300)" autocomplete="off" spellcheck="false">`;}
+  const cd=$('exCard');
+  if(cd)cd.innerHTML=`<div class="q-card"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div><div class="q-stem">${q.stem||''}</div>${q.passage?`<div class="q-passage">${q.passage}</div>`:''}${aH}</div>`;
+  // Nav buttons
+  const nv=$('exNav');
+  if(nv)nv.innerHTML=(idx>0?`<button class="btn btn-ghost btn-sm" style="flex:1" onclick="goQ(${idx-1})">이전</button>`:'')+(idx<tot-1?`<button class="btn btn-blue btn-sm" style="flex:1" onclick="goQ(${idx+1})">다음</button>`:'');
+}
+
+function selAns(idx,ci){
+  document.querySelectorAll('[id^="cb_'+idx+'_"]').forEach(b=>b.classList.remove('on'));
+  const s=$('cb_'+idx+'_'+ci);if(s)s.classList.add('on');
+  S.ans[idx]=ci;
+  updateExDot();
+}
+
+function updateExDot(){
+  const dEl=$('exDots');
+  if(dEl)dEl.querySelectorAll('.qd').forEach((b,di)=>{b.className='qd'+(di===S.ci?' cur':S.ans[di]!==undefined?' done':'');});
+  updateExAc();
+}
+
+function updateExAc(){const ac=Object.keys(S.ans).length,tot=S.qs.length;const el=$('exAc');if(el)el.textContent=ac+'/'+tot+' 응답';}
+
+function goQ(di){if(di<0||di>=S.qs.length)return;S.ci=di;renderExQ();scrollTo(0,0);}
 
 // ━━ SUBMIT ━━
 function doSub(auto){
