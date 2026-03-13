@@ -1347,16 +1347,43 @@ function tg(k){const i=S.sel.indexOf(k);if(i>=0)S.sel.splice(i,1);else S.sel.pus
 function sAll(subj,pub,ls,all){ls.forEach(l=>{const k=subj+'/'+pub+'/'+l+'과',i=S.sel.indexOf(k);if(all&&i>=0)S.sel.splice(i,1);if(!all&&i<0)S.sel.push(k);});R();}
 
 // ━━ SETTINGS ━━
-async function selectTestType(tt){S.tt=tt;R();await ensureQuestionsLoaded(tt,S.sel);R();}
+const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈'}];
+
+function getAvail(){let av=0;if(S.tt){const b=QUESTION_BANK[S.tt]||{};S.sel.forEach(k=>{if(b[k])av+=b[k].length;});}return av;}
+
+function updateSetUI(){
+  const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);S.qc=qc;
+  // Update type options
+  SET_TYPES.forEach(t=>{const el=$('stt_'+t.k);if(el){el.classList.toggle('on',S.tt===t.k);}});
+  // Update slider
+  const sl=$('setSlider'),sv=$('qV');
+  if(sl){sl.max=mx;sl.value=qc;}if(sv)sv.textContent=qc;
+  // Update chips
+  const cc=$('setChips');
+  if(cc){cc.innerHTML=[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')+(mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:'');}
+  // Update info text
+  const si=$('setInfo');
+  if(si){si.textContent=S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':'';si.style.display=S.tt?'':'none';}
+  // Update start button
+  const sb=$('setStart');
+  if(sb)sb.disabled=!S.tt;
+}
+
+function setQC(n){S.qc=n;updateSetUI();}
+
+async function selectTestType(tt){
+  S.tt=tt;updateSetUI();
+  await ensureQuestionsLoaded(tt,S.sel);
+  updateSetUI();
+}
+
 function toSet(){S.scr='settings';S.qc=20;S.tt=null;R();}
 function rSet(){
-  const types=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈'}];
-  let av=0;if(S.tt){const b=QUESTION_BANK[S.tt]||{};S.sel.forEach(k=>{if(b[k])av+=b[k].length;});}
-  const mx=av||40,qc=Math.min(S.qc,mx);
+  const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';R()">←</button><div class="nav-title">시험 설정</div></div>
-    <div class="sec-label">테스트 유형</div><div class="section">${types.map(t=>`<div class="opt ${S.tt===t.k?'on':''}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
-    <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="S.qc=${n};R()">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="S.qc=${mx};R()">전체 ${mx}</div>`:''}</div>${S.tt?`<div class="t-tiny c-sub" style="margin-top:14px">${av}문항 중 랜덤 ${Math.min(S.qc,av)}문항 출제</div>`:''}</div>
-    <div class="bottom-spacer"></div><div class="bottom-fix"><button class="btn btn-blue" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button></div></div>`;
+    <div class="sec-label">테스트 유형</div><div class="section">${SET_TYPES.map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
+    <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" id="setSlider" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value;updateSetUI()"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" id="setChips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:''}</div><div class="t-tiny c-sub" id="setInfo" style="margin-top:14px;${S.tt?'':'display:none'}">${S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':''}</div></div>
+    <div class="bottom-spacer"></div><div class="bottom-fix"><button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button></div></div>`;
 }
 
 // ━━ EXAM ━━
