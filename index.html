@@ -1436,8 +1436,8 @@ function rLogin(){setBottom(null);
         <!-- Challenge Banner -->
         <div style="background:linear-gradient(135deg,#3182F6,#1B64DA);border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:white;text-align:center">
           <div style="font-size:14px;opacity:.8;font-weight:600">${esc(S._challenge.name)}님이 초대했어요!</div>
-          <div style="font-size:24px;font-weight:900;margin-top:4px">같이 풀어볼래요?</div>
-          <div style="font-size:13px;opacity:.7;margin-top:4px">${S._challenge.tt} · ${S._challenge.score}점 달성</div>
+          <div style="font-size:24px;font-weight:900;margin-top:4px">${S._challenge.mode==='sq'?'스피드퀴즈 대결!':'같이 풀어볼래요?'}</div>
+          <div style="font-size:13px;opacity:.7;margin-top:4px">${S._challenge.mode==='sq'?'30초에 '+S._challenge.score+'개 맞춤':(S._challenge.tt+' · '+S._challenge.score+'점 달성')}</div>
         </div>`:''}
 
         <div style="background:var(--white);border-radius:var(--r-xl);padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
@@ -1550,7 +1550,10 @@ function doChallengeLogin(){
   if(!s){toast('학교를 입력해주세요');return;}
   if(!g){toast('학년을 선택해주세요');return;}
   sP({name:n,school:s,grade:g});
-  if(S._challenge){const ch=S._challenge;S._challenge=null;startChallengeTest(ch);return;}
+  if(S._challenge){const ch=S._challenge;S._challenge=null;
+    if(ch.mode==='sq'){sqRivalName=ch.name;sqRivalScore=ch.score;S._sqChallenge=ch;startSpeedQuiz();}
+    else{startChallengeTest(ch);}
+    return;}
   S.scr='home';R();
 }
 
@@ -2460,7 +2463,9 @@ function svImg(){
 }
 
 // ━━ Challenge System ━━
-function getChallenge(){try{const u=new URLSearchParams(location.search);if(!u.has('sel'))return null;return{sel:u.get('sel'),tt:u.get('tt')||'단어테스트',qc:parseInt(u.get('qc'))||20,name:u.get('name')||'',score:parseInt(u.get('score'))||0};}catch(e){return null;}}
+function getChallenge(){try{const u=new URLSearchParams(location.search);
+  if(u.get('mode')==='sq')return{mode:'sq',name:u.get('name')||'',score:parseInt(u.get('score'))||0};
+  if(!u.has('sel'))return null;return{sel:u.get('sel'),tt:u.get('tt')||'단어테스트',qc:parseInt(u.get('qc'))||20,name:u.get('name')||'',score:parseInt(u.get('score'))||0};}catch(e){return null;}}
 
 function isAcademyUser(){return!!localStorage.getItem('nf_academy');}
 function getFreeCount(){return parseInt(localStorage.getItem('nf_freecount'))||0;}
@@ -2556,9 +2561,20 @@ function startChallengeTest(ch){
 
 // ━━ SPEED QUIZ ━━
 let sqTimer=null,sqTime=30,sqWords=[],sqIdx=0,sqCorrect=0,sqTotal=0;
+let sqRivalName=null,sqRivalScore=null;
 
+function sqRank(n){if(n>=20)return{icon:'🚀',name:'외계인'};if(n>=15)return{icon:'⚡',name:'번개'};if(n>=10)return{icon:'🦅',name:'매'};if(n>=6)return{icon:'🐇',name:'토끼'};return{icon:'🐢',name:'거북이'};}
+function sqDrip(myN,rivalN){
+  const gap=myN-rivalN;
+  if(gap>=10)return'차원이 다르네요 🫠';if(gap>=5)return'상대를 먼지로 만들었어요 💨';
+  if(gap>=3)return'압도적 승리! 🔥';if(gap>=1)return'아슬아슬한 승리! 😤';
+  if(gap===0)return'운명의 라이벌?! 👀';
+  if(gap>=-2)return'거의 이길 뻔했는데... 😅';if(gap>=-4)return'분하다... 다시 하자! 😤';
+  return'완전 박살났어요 💀';
+}
 function startSpeedQuiz(){
   haptic('tap');sqTime=30;sqCorrect=0;sqTotal=0;sqIdx=0;
+  if(!S._sqChallenge){sqRivalName=null;sqRivalScore=null;}
   sqWords=[...DAILY_WORDS];shuffle(sqWords);
   S.scr='speedquiz';S.dir='fwd';R();
 }
@@ -2615,28 +2631,115 @@ function sqAnswer(btn,picked,correct){
 function showSQResult(){
   const pct=sqTotal?Math.round(sqCorrect/sqTotal*100):0;
   addXP(sqCorrect*3);
-  app.innerHTML=`<div class="page slide-left">
-    <div style="padding:60px 20px 20px;text-align:center">
-      <div style="font-size:48px;margin-bottom:8px">${sqCorrect>=15?'🏆':sqCorrect>=10?'🔥':sqCorrect>=5?'👍':'💪'}</div>
+  const myR=sqRank(sqCorrect);
+  const hasRival=sqRivalScore!=null;
+  const rivalR=hasRival?sqRank(sqRivalScore):null;
+  const win=hasRival?sqCorrect>sqRivalScore:false;
+  const draw=hasRival?sqCorrect===sqRivalScore:false;
+  const drip=hasRival?sqDrip(sqCorrect,sqRivalScore):'';
+  const gapMax=hasRival?Math.max(sqCorrect,sqRivalScore,1):1;
+  const myPctBar=hasRival?Math.round(sqCorrect/gapMax*100):100;
+  const rivalPctBar=hasRival?Math.round(sqRivalScore/gapMax*100):0;
+
+  let h=`<div class="page slide-left">
+    <div style="padding:50px 20px 20px;text-align:center">
+      <div style="font-size:48px;margin-bottom:4px">${myR.icon}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px">${myR.name}</div>
       <div class="t-heading" style="font-size:28px">${sqCorrect}개 맞춤!</div>
-      <div style="font-size:15px;color:var(--sub);margin-top:8px">30초 동안 ${sqTotal}문제 중 ${sqCorrect}개 정답 (${pct}%)</div>
-    </div>
-    <div class="card" style="margin-top:20px;display:flex;justify-content:space-around;text-align:center">
+      <div style="font-size:14px;color:var(--sub);margin-top:6px">30초 · ${sqTotal}문제 중 ${sqCorrect}개 정답 (${pct}%)</div>
+    </div>`;
+
+  // VS 비교 카드
+  if(hasRival){
+    const winColor=win?'var(--green)':draw?'var(--yellow)':'var(--red)';
+    const winBg=win?'var(--green-l)':draw?'var(--yellow-l)':'var(--red-l)';
+    h+=`<div class="card" style="margin-top:16px;padding:20px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="text-align:center;flex:1">
+          <div style="font-size:32px">${myR.icon}</div>
+          <div style="font-size:11px;font-weight:600;color:var(--sub);margin-top:4px">나</div>
+          <div style="font-size:13px;font-weight:700;color:var(--sub)">${myR.name}</div>
+          <div style="font-size:32px;font-weight:900;color:${win||draw?'var(--blue)':'var(--g400)'}">${sqCorrect}</div>
+        </div>
+        <div style="font-size:18px;font-weight:900;color:var(--g300);padding:0 8px">VS</div>
+        <div style="text-align:center;flex:1">
+          <div style="font-size:32px">${rivalR.icon}</div>
+          <div style="font-size:11px;font-weight:600;color:var(--sub);margin-top:4px">${esc(sqRivalName||'상대')}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--sub)">${rivalR.name}</div>
+          <div style="font-size:32px;font-weight:900;color:${!win&&!draw?'var(--blue)':'var(--g400)'}">${sqRivalScore}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;height:10px;border-radius:5px;overflow:hidden;background:var(--g100)">
+        <div style="width:${myPctBar}%;background:var(--blue);border-radius:5px;transition:width .6s var(--ease-out)"></div>
+        <div style="width:${rivalPctBar}%;background:var(--g300);border-radius:5px;transition:width .6s var(--ease-out)"></div>
+      </div>
+      <div style="text-align:center;margin-top:14px">
+        <div style="display:inline-block;padding:8px 20px;border-radius:var(--r-lg);background:${winBg}">
+          <span style="font-size:15px;font-weight:800;color:${winColor}">${win?'승리!':draw?'무승부!':'패배...'}</span>
+        </div>
+        <div style="font-size:14px;color:var(--sub);margin-top:8px;font-weight:600">${drip}</div>
+      </div>
+    </div>`;
+  }
+
+  // 스탯 카드
+  h+=`<div class="card" style="margin-top:12px;display:flex;justify-content:space-around;text-align:center">
       <div><div style="font-size:24px;font-weight:800;color:var(--green)" data-count="${sqCorrect}">0</div><div style="font-size:12px;color:var(--sub);margin-top:4px">정답</div></div>
       <div><div style="font-size:24px;font-weight:800;color:var(--red)" data-count="${sqTotal-sqCorrect}">0</div><div style="font-size:12px;color:var(--sub);margin-top:4px">오답</div></div>
       <div><div style="font-size:24px;font-weight:800;color:var(--blue)" data-count="${pct}">0</div><div style="font-size:12px;color:var(--sub);margin-top:4px">정답률%</div></div>
     </div>
     <div style="font-size:13px;color:var(--sub);text-align:center;margin-top:12px">+${sqCorrect*3} XP 획득!</div>
     <div style="display:flex;gap:10px;padding:20px">
-      <button onclick="startSpeedQuiz()" style="flex:1;padding:16px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:15px;font-weight:700;cursor:pointer">다시 도전</button>
-      <button onclick="S.scr='learn';S.dir='back';R()" style="flex:1;padding:16px;border:none;border-radius:var(--r-lg);background:var(--g100);color:var(--text);font-size:15px;font-weight:700;cursor:pointer">돌아가기</button>
+      <button onclick="shareSQ()" style="flex:1;padding:16px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:15px;font-weight:700;cursor:pointer">🤝 자랑하기</button>
+      <button onclick="startSpeedQuiz()" style="flex:1;padding:16px;border:none;border-radius:var(--r-lg);background:var(--g100);color:var(--text);font-size:15px;font-weight:700;cursor:pointer">다시 도전</button>
+    </div>
+    <div style="text-align:center;padding-bottom:20px">
+      <button onclick="sqRivalName=null;sqRivalScore=null;S._sqChallenge=null;S.scr='learn';S.dir='back';R()" style="border:none;background:none;color:var(--sub);font-size:14px;cursor:pointer;padding:8px">돌아가기</button>
     </div>
   </div>`;
+  app.innerHTML=h;
   setTimeout(applyCountUps,200);
+  // Nudge if no rival
+  if(!hasRival){
+    setTimeout(()=>{
+      const d=document.createElement('div');d.className='modal-overlay';d.id='sqNudge';
+      d.onclick=e=>{if(e.target===d)d.remove();};
+      const msg=sqCorrect>=15?`${sqCorrect}개! 이거 이길 수 있는 사람 있어? 😏`:sqCorrect>=10?`${sqCorrect}개 맞춤! 넌 몇 개? ㅋㅋ`:`같이 해보면 재밌을걸?`;
+      d.innerHTML=`<div class="modal-box" style="padding:28px 24px 20px">
+        <div style="font-size:40px;margin-bottom:8px">${myR.icon}</div>
+        <div style="font-size:17px;font-weight:800;color:var(--text)">${msg}</div>
+        <div style="font-size:13px;color:var(--sub);margin-top:6px;margin-bottom:20px">친구에게 도전해보세요</div>
+        <button onclick="document.getElementById('sqNudge').remove();shareSQ()" style="width:100%;padding:14px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px">자랑하기</button>
+        <button onclick="document.getElementById('sqNudge').remove()" style="width:100%;padding:12px;border:none;background:none;color:var(--sub);font-size:14px;cursor:pointer">다음에 할게요</button>
+      </div>`;
+      document.body.appendChild(d);
+    },1200);
+  }
 }
 function endSpeedQuiz(){
   if(sqTimer){clearInterval(sqTimer);sqTimer=null;}
+  sqRivalName=null;sqRivalScore=null;S._sqChallenge=null;
   S.scr='learn';S.dir='back';R();
+}
+function sqChallengeURL(){
+  const base=location.origin+location.pathname;
+  const p=new URLSearchParams();
+  p.set('mode','sq');p.set('name',profile.name);p.set('score',String(sqCorrect));
+  return base+'?'+p.toString();
+}
+function shareSQ(){
+  const url=sqChallengeURL();
+  const n=profile.name;const s=sqCorrect;
+  const text=s>=15?`${n}이(가) 스피드퀴즈 30초에 ${s}개 맞춤 ㅋㅋ 이길 수 있어? 😏`
+    :s>=10?`스피드퀴즈 ${s}개! 넌 몇 개 맞출 수 있어? ㅋㅋ`
+    :`스피드퀴즈 ${s}개... 같이 해볼래? 😂`;
+  if(navigator.share){
+    navigator.share({title:'내신핏 스피드퀴즈 도전',text,url}).catch(()=>{});
+  }else{
+    navigator.clipboard.writeText(text+'\n'+url).then(()=>toast('링크를 복사했어요!')).catch(()=>{
+      const a=document.createElement('textarea');a.value=text+'\n'+url;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('링크를 복사했어요!');
+    });
+  }
 }
 
 // ━━ FLASHCARD ━━
@@ -2762,12 +2865,21 @@ R();
 // Check for challenge params after initial render
 const _ch=getChallenge();
 if(_ch){
-  S._challenge=_ch;
-  if(profile.name.trim()){
-    // Already logged in, start challenge
-    setTimeout(()=>startChallengeTest(_ch),300);
+  if(_ch.mode==='sq'){
+    // Speed quiz challenge
+    sqRivalName=_ch.name;sqRivalScore=_ch.score;S._sqChallenge=_ch;
+    history.replaceState(null,'',location.pathname);
+    if(profile.name.trim()){
+      setTimeout(()=>startSpeedQuiz(),300);
+    }else{
+      S._challenge=_ch;
+    }
+  }else{
+    S._challenge=_ch;
+    if(profile.name.trim()){
+      setTimeout(()=>startChallengeTest(_ch),300);
+    }
   }
-  // If not logged in, login screen will show, handled below
 }
 </script>
 </body>
