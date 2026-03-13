@@ -292,6 +292,7 @@ input,select{font-family:inherit}
 </head>
 <body>
 <div class="app" id="app"></div>
+<div class="bottom-fix" id="bottomBar" style="display:none"></div>
 <div id="toast"></div>
 <canvas id="confetti"></canvas>
 <script>
@@ -1023,10 +1024,11 @@ function animateScore(target){
   requestAnimationFrame(step);
 }
 
+function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
 function R(){({login:rLogin,home:rHome,select:rSel,settings:rSet,exam:rExam,result:rResult}[S.scr]||rLogin)();}
 
 // ━━ LOGIN ━━
-function rLogin(){
+function rLogin(){setBottom(null);
   const p=profile;
   app.innerHTML=`<div id="onboard" style="min-height:100dvh;background:var(--white);position:relative;overflow:hidden">
 
@@ -1169,7 +1171,7 @@ function doLogin(){
 }
 
 // ━━ HOME ━━
-function rHome(){
+function rHome(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
   const hist=gH().slice(-5).reverse();
   const totalTests=hist.length;
@@ -1297,7 +1299,8 @@ function rSel(){
     for(const[pub,info]of Object.entries(pubs)){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
       inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">과 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div><div class="chips" id="chips_${subj}_${pub}">${info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" id="ch_${k.replace(/\//g,'_')}" onclick="tgSmooth(this,'${k}','${subj}','${pub}')">${l}과</div>`;}).join('')}</div></div></div></div></div>`;}
     h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">${subj} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
-  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div><div class="bottom-fix"><button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 다음':'범위를 선택해주세요'}</button></div></div>`;
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 다음':'범위를 선택해주세요'}</button>`);
 }
 
 // Smooth accordion toggle — class-based grid animation
@@ -1383,7 +1386,8 @@ function rSet(){
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';R()">←</button><div class="nav-title">시험 설정</div></div>
     <div class="sec-label">테스트 유형</div><div class="section">${SET_TYPES.map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
     <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" id="setSlider" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value;updateSetUI()"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" id="setChips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:''}</div><div class="t-tiny c-sub" id="setInfo" style="margin-top:14px;${S.tt?'':'display:none'}">${S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':''}</div></div>
-    <div class="bottom-spacer"></div><div class="bottom-fix"><button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button></div></div>`;
+    <div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button>`);
 }
 
 // ━━ EXAM ━━
@@ -1397,7 +1401,8 @@ function rExam(){
     <div class="q-dots" id="exDots"></div>
     <div id="exCard"></div>
     <div id="exNav" style="padding:0 20px 16px;display:flex;gap:8px"></div>
-    <div style="height:100px"></div><div class="bottom-fix"><button class="btn btn-red" onclick="doSub()">제출하기</button></div></div>`;
+    <div style="height:100px"></div></div>`;
+  setBottom(`<button class="btn btn-red" onclick="doSub()">제출하기</button>`);
   renderExQ();
 }
 
@@ -1457,7 +1462,7 @@ function doSub(auto){
 }
 
 // ━━ RESULT ━━
-function rResult(){
+function rResult(){setBottom(null);
   const r=S.res,l=r.lv,p=profile,pass=r.score>=80;
   const pT=Object.entries(r.tM).filter(([,v])=>v.ok===v.total).map(([k])=>k);
   const wT=Object.entries(r.tM).filter(([,v])=>v.ok<v.total).map(([k])=>k);
