@@ -1084,19 +1084,154 @@ function checkStreak(){
   return s;
 }
 
-// ━━ Daily Quiz ━━
+// ━━ Daily Vocab Quiz ━━
 function getDailyState(){try{return JSON.parse(localStorage.getItem('nf_daily'))||{date:null,completed:false,score:null};}catch(e){return{date:null,completed:false,score:null};}}
 function saveDailyState(s){try{localStorage.setItem('nf_daily',JSON.stringify(s));}catch(e){}}
 function dailySeed(){const d=new Date().toISOString().slice(0,10);let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h|=0;}return Math.abs(h);}
-function getDailyQuestions(){
-  // Gather all available questions from fallback bank
-  const allQ=[];
-  Object.values(FALLBACK_QUESTION_BANK).forEach(types=>{Object.values(types).forEach(qs=>{qs.forEach(q=>allQ.push({...q}));});});
-  if(!allQ.length)return[];
-  // Deterministic shuffle based on daily seed
-  const seed=dailySeed();
-  const seeded=[...allQ].sort((a,b)=>{const ha=((seed*31+a.id*17)%1000);const hb=((seed*31+b.id*17)%1000);return ha-hb;});
-  return seeded.slice(0,5);
+// Daily vocab word bank — core words from textbook passages
+const DAILY_WORDS=[
+  {en:'impression',ko:'인상'},{ en:'perception',ko:'인식'},{ en:'assumption',ko:'추정, 가정'},
+  {en:'underestimate',ko:'과소평가하다'},{ en:'potential',ko:'잠재력'},{ en:'confident',ko:'확신하는'},
+  {en:'permanent',ko:'영구적인'},{ en:'absolute',ko:'절대적인'},{ en:'predictable',ko:'예측 가능한'},
+  {en:'consistent',ko:'일관된'},{ en:'categorization',ko:'분류'},{ en:'mismatch',ko:'불일치'},
+  {en:'optimistic',ko:'낙관적인'},{ en:'pessimistic',ko:'비관적인'},{ en:'estimation',ko:'평가, 추정'},
+  {en:'experiment',ko:'실험'},{ en:'participant',ko:'참가자'},{ en:'personality',ko:'성격'},
+  {en:'fraction',ko:'일부, 소량'},{ en:'recognize',ko:'인정하다, 알아보다'},
+  {en:'capable',ko:'능력 있는'},{ en:'compete',ko:'경쟁하다'},{ en:'disappointment',ko:'실망'},
+  {en:'opportunity',ko:'기회'},{ en:'persistence',ko:'끈기, 인내'},
+  {en:'contract',ko:'계약'},{ en:'enthusiasm',ko:'열정'},{ en:'dedicated',ko:'헌신적인'},
+  {en:'guidance',ko:'지도, 안내'},{ en:'counselor',ko:'상담가'},
+  {en:'inspire',ko:'영감을 주다'},{ en:'prevent',ko:'막다, 방지하다'},
+  {en:'attitude',ko:'태도'},{ en:'behavior',ko:'행동'},{ en:'weakness',ko:'약점'},
+  {en:'failure',ko:'실패'},{ en:'overcome',ko:'극복하다'},{ en:'achieve',ko:'달성하다'},
+  {en:'contribute',ko:'기여하다'},{ en:'maintain',ko:'유지하다'},
+  {en:'challenge',ko:'도전'},{ en:'struggle',ko:'고군분투'},{ en:'reluctant',ko:'꺼리는'},
+  {en:'enthusiastic',ko:'열정적인'},{ en:'doubtful',ko:'의심스러운'},
+  {en:'flexible',ko:'유연한'},{ en:'significant',ko:'중요한, 의미 있는'},
+  {en:'determine',ko:'결정하다'},{ en:'perspective',ko:'관점'},{ en:'essential',ko:'필수적인'},
+  {en:'remarkable',ko:'주목할 만한'}
+];
+function getDailyVocabQuestions(){
+  const seed=dailySeed();const words=[...DAILY_WORDS].sort((a,b)=>((seed*31+DAILY_WORDS.indexOf(a)*17)%1000)-((seed*31+DAILY_WORDS.indexOf(b)*17)%1000));
+  const picked=words.slice(0,10);const qs=[];
+  picked.forEach((w,i)=>{
+    const isEnToKo=((seed+i)%2===0);
+    // Generate 4 wrong choices
+    const others=DAILY_WORDS.filter(x=>x.en!==w.en);shuffle(others);
+    if(isEnToKo){
+      const ch=[w.ko,...others.slice(0,3).map(x=>x.ko)];shuffle(ch);
+      qs.push({id:i+1,type:'영→한',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.en}</div>위 영단어의 뜻으로 알맞은 것은?`,ch,ans:ch.indexOf(w.ko),det:{correct:'정답: '+w.ko,tip:w.en+' = '+w.ko}});
+    }else{
+      const ch=[w.en,...others.slice(0,3).map(x=>x.en)];shuffle(ch);
+      qs.push({id:i+1,type:'한→영',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.ko}</div>위 뜻에 해당하는 영단어는?`,ch,ans:ch.indexOf(w.en),det:{correct:'정답: '+w.en,tip:w.en+' = '+w.ko}});
+    }
+  });
+  return qs;
+}
+
+// ━━ XP & Level System ━━
+function getXP(){try{return JSON.parse(localStorage.getItem('nf_xp'))||{xp:0,lv:1};}catch(e){return{xp:0,lv:1};}}
+function saveXP(d){try{localStorage.setItem('nf_xp',JSON.stringify(d));}catch(e){}}
+function xpForLevel(lv){return lv*100;}
+function addXP(amount){
+  const d=getXP();d.xp+=amount;
+  while(d.xp>=xpForLevel(d.lv)){d.xp-=xpForLevel(d.lv);d.lv++;}
+  saveXP(d);return d;
+}
+function xpFromScore(score,qCount){return Math.round(score/100*qCount*5);}
+const LV_NAMES=['','신입생','초보','학습자','도전자','노력가','실력자','우등생','모범생','장학생','수석','전교1등','영어왕','내신핏마스터'];
+function lvName(lv){return LV_NAMES[Math.min(lv,LV_NAMES.length-1)]||'Lv.'+lv;}
+
+// ━━ Achievement Badges ━━
+const BADGE_DEFS=[
+  {id:'first_test',name:'첫 발걸음',desc:'첫 시험 완료',icon:'🎯',check:h=>h.length>=1},
+  {id:'five_tests',name:'다섯 번째',desc:'시험 5회 완료',icon:'✋',check:h=>h.length>=5},
+  {id:'ten_tests',name:'열 번째',desc:'시험 10회 완료',icon:'🔟',check:h=>h.length>=10},
+  {id:'perfect',name:'만점왕',desc:'100점 달성',icon:'💯',check:h=>h.some(r=>r.score===100)},
+  {id:'pass_first',name:'첫 통과',desc:'80점 이상 달성',icon:'🎉',check:h=>h.some(r=>r.score>=80)},
+  {id:'streak3',name:'3일 연속',desc:'3일 연속 학습',icon:'🔥',check:()=>checkStreak().count>=3},
+  {id:'streak7',name:'일주일 연속',desc:'7일 연속 학습',icon:'🔥',check:()=>checkStreak().count>=7},
+  {id:'daily_done',name:'오늘의 도전',desc:'오늘의 단어퀴즈 완료',icon:'⚡',check:()=>{const d=getDailyState();return d.date===new Date().toISOString().slice(0,10)&&d.completed;}},
+  {id:'review_clear',name:'오답 정복',desc:'오답 문제 모두 해결',icon:'✅',check:()=>getWrong().length===0&&gH().length>0},
+  {id:'lv5',name:'레벨 5',desc:'레벨 5 달성',icon:'⭐',check:()=>getXP().lv>=5},
+  {id:'lv10',name:'레벨 10',desc:'레벨 10 달성',icon:'🌟',check:()=>getXP().lv>=10},
+];
+function getEarnedBadges(){try{return JSON.parse(localStorage.getItem('nf_badges'))||[];}catch(e){return[];}}
+function checkBadges(){
+  const earned=getEarnedBadges();const hist=gH();const newBadges=[];
+  BADGE_DEFS.forEach(b=>{if(!earned.includes(b.id)&&b.check(hist)){earned.push(b.id);newBadges.push(b);}});
+  if(newBadges.length)try{localStorage.setItem('nf_badges',JSON.stringify(earned));}catch(e){}
+  return newBadges;
+}
+
+// ━━ Cumulative Type Analysis ━━
+function getCumType(){try{return JSON.parse(localStorage.getItem('nf_cumtype'))||{};}catch(e){return{};}}
+function saveCumType(d){try{localStorage.setItem('nf_cumtype',JSON.stringify(d));}catch(e){}}
+function addCumType(tM){const c=getCumType();Object.entries(tM).forEach(([t,v])=>{if(!c[t])c[t]={total:0,ok:0};c[t].total+=v.total;c[t].ok+=v.ok;});saveCumType(c);}
+
+// ━━ Weekly Report ━━
+function getWeeklyReport(){
+  const hist=gH();const now=new Date();const weekAgo=new Date(now-7*86400000);
+  const thisWeek=hist.filter(r=>{const d=new Date(r.date);return d>=weekAgo;});
+  if(!thisWeek.length)return null;
+  const count=thisWeek.length;
+  const avgScore=Math.round(thisWeek.reduce((a,r)=>a+r.score,0)/count);
+  const bestScore=Math.max(...thisWeek.map(r=>r.score));
+  // Find most improved type
+  const tM={};thisWeek.forEach(r=>{if(r.tM)Object.entries(r.tM).forEach(([t,v])=>{if(!tM[t])tM[t]={total:0,ok:0};tM[t].total+=v.total;tM[t].ok+=v.ok;});});
+  let bestType=null,bestPct=0;
+  Object.entries(tM).forEach(([t,v])=>{const p=Math.round(v.ok/v.total*100);if(p>bestPct){bestPct=p;bestType=t;}});
+  return{count,avgScore,bestScore,bestType,bestPct};
+}
+
+// ━━ D-day ━━
+function getDdays(){try{return JSON.parse(localStorage.getItem('nf_dday'))||{};}catch(e){return{};}}
+function saveDdays(d){try{localStorage.setItem('nf_dday',JSON.stringify(d));}catch(e){}}
+function getSuneungDate(){
+  // 수능: 매년 11월 셋째 주 목요일 (근사 계산)
+  const y=new Date().getFullYear();
+  const nov1=new Date(y,10,1);const dow=nov1.getDay();
+  // 첫 번째 목요일
+  let firstThu=1+(4-dow+7)%7;
+  let thirdThu=firstThu+14;
+  let suneung=new Date(y,10,thirdThu);
+  // 이미 지났으면 내년
+  if(suneung<new Date()){
+    const ny=y+1;const nov1n=new Date(ny,10,1);const down=nov1n.getDay();
+    let ft=1+(4-down+7)%7;suneung=new Date(ny,10,ft+14);
+  }
+  return suneung;
+}
+function ddayStr(targetDate){
+  const diff=Math.ceil((targetDate-new Date())/(86400000));
+  if(diff===0)return 'D-DAY';
+  if(diff>0)return 'D-'+diff;
+  return 'D+'+Math.abs(diff);
+}
+function ddayHTML(){
+  const ddays=getDdays();const suneung=getSuneungDate();
+  let h=`<div style="display:flex;align-items:center;gap:10px;padding:4px 0">
+    <span style="font-size:13px;font-weight:600;color:var(--text);min-width:60px">수능</span>
+    <span style="font-size:13px;color:var(--sub)">${suneung.getFullYear()}.${suneung.getMonth()+1}.${suneung.getDate()}</span>
+    <span style="font-size:13px;font-weight:800;color:var(--red);margin-left:auto">${ddayStr(suneung)}</span>
+  </div>`;
+  if(ddays.mid){
+    const md=new Date(ddays.mid);
+    h+=`<div style="display:flex;align-items:center;gap:10px;padding:4px 0">
+      <span style="font-size:13px;font-weight:600;color:var(--text);min-width:60px">중간고사</span>
+      <span style="font-size:13px;color:var(--sub)">${md.getFullYear()}.${md.getMonth()+1}.${md.getDate()}</span>
+      <span style="font-size:13px;font-weight:800;color:var(--blue);margin-left:auto">${ddayStr(md)}</span>
+    </div>`;
+  }
+  if(ddays.fin){
+    const fd=new Date(ddays.fin);
+    h+=`<div style="display:flex;align-items:center;gap:10px;padding:4px 0">
+      <span style="font-size:13px;font-weight:600;color:var(--text);min-width:60px">기말고사</span>
+      <span style="font-size:13px;color:var(--sub)">${fd.getFullYear()}.${fd.getMonth()+1}.${fd.getDate()}</span>
+      <span style="font-size:13px;font-weight:800;color:var(--blue);margin-left:auto">${ddayStr(fd)}</span>
+    </div>`;
+  }
+  return h;
 }
 
 const P=()=>{try{return JSON.parse(localStorage.getItem('nf_p'))||{name:'',school:'',grade:''};}catch(e){return{name:'',school:'',grade:''};}};
@@ -1327,16 +1462,46 @@ function rHome(){setBottom(null);
     </div>
     `:'';})()}
 
-    <!-- Hero Banner -->
-    <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:28px 24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
+    ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
+    <!-- XP / Level Hero -->
+    <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
       <div style="position:absolute;bottom:-30px;right:40px;width:80px;height:80px;background:rgba(255,255,255,.05);border-radius:50%"></div>
       <div style="position:relative">
-        <div style="font-size:11px;font-weight:700;opacity:.6;letter-spacing:2px">NAESINFIT</div>
-        <div style="font-size:22px;font-weight:800;margin-top:8px;line-height:1.4">나만의 1:1 맞춤<br>내신 테스트</div>
-        <div style="font-size:13px;opacity:.75;margin-top:8px">교과서 · 모의고사 범위를 선택하고<br>맞춤 시험을 시작해보세요</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:11px;font-weight:700;opacity:.6;letter-spacing:2px">Lv.${xd.lv} ${lvName(xd.lv)}</div>
+            <div style="font-size:22px;font-weight:800;margin-top:6px;line-height:1.3">나만의 1:1 맞춤<br>내신 테스트</div>
+          </div>
+          <div style="text-align:center;min-width:56px">
+            <div style="font-size:28px;font-weight:900">${xd.lv}</div>
+            <div style="font-size:10px;opacity:.7;font-weight:600">LEVEL</div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.7;margin-bottom:4px"><span>EXP ${xd.xp}/${xpForLevel(xd.lv)}</span><span>${pct}%</span></div>
+          <div style="height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:rgba(255,255,255,.85);border-radius:3px;transition:width .5s var(--ease)"></div></div>
+        </div>
       </div>
-    </div>
+    </div>`;})()}
+
+    ${(()=>{const suneung=getSuneungDate();const ddays=getDdays();const hasDday=ddays.mid||ddays.fin;return `
+    <!-- D-day -->
+    <div class="card" style="padding:16px 20px;margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasDday?'8px':'0'}">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">📅</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text)">수능</span>
+          <span style="font-size:12px;color:var(--sub)">${suneung.getFullYear()}.${suneung.getMonth()+1}.${suneung.getDate()}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:15px;font-weight:800;color:var(--red)">${ddayStr(suneung)}</span>
+          <button onclick="openDdaySheet()" style="border:none;background:none;font-size:14px;color:var(--hint);cursor:pointer;padding:2px">⚙️</button>
+        </div>
+      </div>
+      ${ddays.mid?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">중간고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.mid).getMonth()+1}.${new Date(ddays.mid).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.mid))}</span></div>`:''}
+      ${ddays.fin?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">기말고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.fin).getMonth()+1}.${new Date(ddays.fin).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.fin))}</span></div>`:''}
+    </div>`;})()}
 
     ${(()=>{const ds=getDailyState();const today=new Date().toISOString().slice(0,10);const done=ds.date===today&&ds.completed;
       return `
@@ -1345,8 +1510,8 @@ function rHome(){setBottom(null);
       <button onclick="startDailyQuiz()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:44px;height:44px;background:${done?'var(--green-l)':'var(--blue-l)'};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${done?'✅':'⚡'}</div>
         <div style="flex:1">
-          <div style="font-size:15px;font-weight:700;color:var(--text)">${done?'오늘의 퀴즈 완료':'오늘의 5문제'}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px">${done?ds.score+'점 달성!':'매일 5문제로 실력 유지'}</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text)">${done?'오늘의 단어퀴즈 완료':'오늘의 단어퀴즈'}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">${done?ds.score+'점 달성!':'매일 10문제 영단어 퀴즈'}</div>
         </div>
         ${done?'':'<span style="color:var(--blue);font-size:13px;font-weight:700">도전 →</span>'}
       </button>
@@ -1386,6 +1551,50 @@ function rHome(){setBottom(null);
       </div>
     </div>
     `:''}
+
+    ${(()=>{const wr=getWeeklyReport();if(!wr)return '';return `
+    <!-- Weekly Report -->
+    <div class="sec-label">이번 주 학습</div>
+    <div class="card" style="padding:20px">
+      <div style="display:flex;gap:12px;text-align:center">
+        <div style="flex:1;padding:12px 0;background:var(--blue-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--blue)">${wr.count}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">응시</div>
+        </div>
+        <div style="flex:1;padding:12px 0;background:var(--green-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--green)">${wr.avgScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">평균</div>
+        </div>
+        <div style="flex:1;padding:12px 0;background:var(--purple-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--purple)">${wr.bestScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">최고</div>
+        </div>
+      </div>
+      ${wr.bestType?`<div style="margin-top:12px;padding:10px 14px;background:var(--g50);border-radius:var(--r-sm);display:flex;align-items:center;gap:8px"><span style="font-size:14px">💪</span><span style="font-size:13px;color:var(--text)"><b>${wr.bestType}</b> 유형 정답률 <b style="color:var(--green)">${wr.bestPct}%</b></span></div>`:''}
+    </div>`;})()}
+
+    ${(()=>{const ct=getCumType();const entries=Object.entries(ct);if(!entries.length)return '';
+      entries.sort((a,b)=>(a[1].ok/a[1].total)-(b[1].ok/b[1].total));
+      return `
+    <!-- 취약유형 분석 -->
+    <div class="sec-label">유형별 정답률</div>
+    <div class="card" style="padding:16px 20px">
+      ${entries.map(([t,v])=>{const pct=Math.round(v.ok/v.total*100);const c=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';return `
+      <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
+        <span style="font-size:13px;font-weight:600;color:var(--text);min-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.slice(0,8)}</span>
+        <div style="flex:1;height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${c};border-radius:4px;transition:width .5s var(--ease)"></div></div>
+        <span style="font-size:12px;font-weight:700;color:${c};min-width:32px;text-align:right">${pct}%</span>
+      </div>`;}).join('')}
+    </div>`;})()}
+
+    ${(()=>{const earned=getEarnedBadges();if(!earned.length)return '';
+      const badges=BADGE_DEFS.filter(b=>earned.includes(b.id));
+      return `
+    <!-- 뱃지 -->
+    <div class="sec-label" style="display:flex;align-items:center;justify-content:space-between"><span>획득 뱃지</span><button onclick="openBadgeSheet()" style="border:none;background:none;font-size:12px;color:var(--blue);font-weight:600;cursor:pointer;padding:0">전체보기</button></div>
+    <div style="padding:0 20px;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+      ${badges.slice(0,5).map(b=>`<div style="min-width:72px;text-align:center;padding:14px 8px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh-sm)"><div style="font-size:28px;margin-bottom:4px">${b.icon}</div><div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap">${b.name}</div></div>`).join('')}
+    </div>`;})()}
 
     <!-- Test Start -->
     <div class="sec-label">시험 보기</div>
@@ -1460,6 +1669,59 @@ function viewHistory(idx){const h=gH();const r=h[idx];if(!r||!r.det)return;S.res
 function goMode(m){S.mode=m;S.scr='select';S.sel=[];S.acc={};R();}
 function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S.tl=1200;S.dir='back';R();}
 
+// ━━ D-day Settings Sheet ━━
+function openDdaySheet(){
+  const dd=getDdays();
+  const d=document.createElement('div');d.className='sheet-overlay';d.id='dds';
+  d.innerHTML=`<div class="sheet"><div class="sheet-bar"></div>
+    <div class="t-title" style="margin-bottom:16px">시험 일정 설정</div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:6px">중간고사</label>
+      <input type="date" id="ddMid" class="input" value="${dd.mid||''}" style="color-scheme:auto">
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:6px">기말고사</label>
+      <input type="date" id="ddFin" class="input" value="${dd.fin||''}" style="color-scheme:auto">
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('dds').remove()">취소</button>
+      <button class="btn btn-blue btn-sm" style="flex:1" onclick="saveDdays({mid:$('ddMid').value||null,fin:$('ddFin').value||null});$('dds').remove();toast('저장했어요');R()">저장</button>
+    </div>
+  </div>`;
+  document.body.appendChild(d);
+}
+
+// ━━ Badge Collection Sheet ━━
+function openBadgeSheet(){
+  const earned=getEarnedBadges();
+  const d=document.createElement('div');d.className='sheet-overlay';d.id='bds';
+  d.innerHTML=`<div class="sheet" style="max-height:80vh;overflow-y:auto"><div class="sheet-bar"></div>
+    <div class="t-title" style="margin-bottom:16px">뱃지 컬렉션 <span style="font-size:13px;color:var(--sub);font-weight:400">${earned.length}/${BADGE_DEFS.length}</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      ${BADGE_DEFS.map(b=>{const has=earned.includes(b.id);return `
+        <div style="text-align:center;padding:16px 8px;background:${has?'var(--card)':'var(--g50)'};border-radius:var(--r-lg);border:1px solid ${has?'var(--border)':'var(--g100)'};opacity:${has?1:.4}">
+          <div style="font-size:32px;margin-bottom:6px">${b.icon}</div>
+          <div style="font-size:12px;font-weight:700;color:var(--text)">${b.name}</div>
+          <div style="font-size:10px;color:var(--sub);margin-top:2px">${b.desc}</div>
+        </div>`;}).join('')}
+    </div>
+    <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:16px" onclick="$('bds').remove()">닫기</button>
+  </div>`;
+  document.body.appendChild(d);
+}
+
+// ━━ Badge Toast ━━
+function showBadgeToast(badge){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.8);background:var(--card);border-radius:var(--r-xl);padding:32px 40px;text-align:center;z-index:9999;box-shadow:var(--sh-lg);opacity:0;transition:all .4s var(--ease)';
+  d.innerHTML=`<div style="font-size:56px;margin-bottom:12px">${badge.icon}</div><div style="font-size:18px;font-weight:800;color:var(--text)">뱃지 획득!</div><div style="font-size:15px;font-weight:600;color:var(--blue);margin-top:4px">${badge.name}</div><div style="font-size:12px;color:var(--sub);margin-top:4px">${badge.desc}</div>`;
+  const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9998;opacity:0;transition:opacity .3s';
+  document.body.appendChild(overlay);document.body.appendChild(d);
+  requestAnimationFrame(()=>{d.style.opacity='1';d.style.transform='translate(-50%,-50%) scale(1)';overlay.style.opacity='1';});
+  setTimeout(()=>{d.style.opacity='0';d.style.transform='translate(-50%,-50%) scale(.8)';overlay.style.opacity='0';setTimeout(()=>{d.remove();overlay.remove();},400);},2000);
+  haptic('ok');
+}
+
 // ━━ Wrong Answer Review ━━
 function startWrongReview(){
   const wrongs=getWrong();
@@ -1479,10 +1741,10 @@ function startWrongReview(){
 function startDailyQuiz(){
   const ds=getDailyState();const today=new Date().toISOString().slice(0,10);
   if(ds.date===today&&ds.completed){toast('오늘의 퀴즈는 이미 완료했어요!');return;}
-  const qs=getDailyQuestions();
+  const qs=getDailyVocabQuestions();
   if(!qs.length){toast('퀴즈 문항이 없어요');return;}
   S._isDaily=true;
-  S.qs=qs;S.ans={};S.ci=0;S.scr='exam';S.tt='오늘의 퀴즈';
+  S.qs=qs;S.ans={};S.ci=0;S.scr='exam';S.tt='오늘의 단어퀴즈';
   S.ts=Date.now();S.te=0;S.tlf=600;S.tl=600;
   if(S.ti)clearInterval(S.ti);
   S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,600-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);
@@ -1765,11 +2027,19 @@ function doSub(auto){
   else if(S._isDaily){saveDailyState({date:new Date().toISOString().slice(0,10),completed:true,score});S._isDaily=false;addWrongs(det);}
   else{addWrongs(det);}
   updateStreak();
+  // XP, Type Analysis, Badges
+  const xpGain=xpFromScore(score,S.qs.length);
+  const xpResult=addXP(xpGain);
+  addCumType(tM);
+  const newBadges=checkBadges();
+  S.res.xpGain=xpGain;S.res.xpResult=xpResult;
   haptic('submit');
   R();
   // Animations
   setTimeout(()=>animateScore(score),100);
   if(score>=80)setTimeout(confetti,400);
+  // Badge toasts
+  if(newBadges.length){let delay=score>=80?1200:800;newBadges.forEach((b,i)=>{setTimeout(()=>showBadgeToast(b),delay+i*2500);});}
 }
 
 // ━━ RESULT ━━
@@ -1788,8 +2058,10 @@ function rResult(){setBottom(null);
   // 시험 정보
   h+=`<div class="r-sec r-anim" style="${d(100)}"><div class="r-sec-h">시험 정보</div><div class="info-grid"><div class="info-cell"><div class="ik">이름</div><div class="iv">${esc(p.name)}</div></div><div class="info-cell"><div class="ik">학교 / 학년</div><div class="iv">${esc(p.school||'-')} · ${esc(p.grade)}</div></div><div class="info-cell"><div class="ik">테스트</div><div class="iv">${S.tt}</div></div><div class="info-cell"><div class="ik">응시일</div><div class="iv">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell hl"><div class="ik">점수</div><div class="iv">${r.score}점 (${r.eP}/${r.tP})</div></div><div class="info-cell hl"><div class="ik">통과</div><div class="iv">${pass?'통과':'미통과'}</div></div></div></div>`;
 
-  // 레벨
-  h+=`<div class="r-sec r-anim" style="${d(200)}"><div class="r-sec-h">레벨</div><div class="lv-card"><div class="lv-emoji">${l.i}</div><div class="lv-name">${l.n}</div><div class="lv-range">${l.r}점 구간</div><div class="lv-bar"><div class="lv-fill" id="lvBar"></div></div><div class="lv-msg">${l.m}</div></div></div>`;
+  // 레벨 + XP
+  const xpG=r.xpGain||0;const xpR=r.xpResult||getXP();const xpPct=Math.min(100,Math.round(xpR.xp/xpForLevel(xpR.lv)*100));
+  h+=`<div class="r-sec r-anim" style="${d(200)}"><div class="r-sec-h">레벨</div><div class="lv-card"><div class="lv-emoji">${l.i}</div><div class="lv-name">${l.n}</div><div class="lv-range">${l.r}점 구간</div><div class="lv-bar"><div class="lv-fill" id="lvBar"></div></div><div class="lv-msg">${l.m}</div></div>
+  ${xpG?`<div style="margin-top:12px;padding:14px 16px;background:var(--blue-l);border-radius:var(--r-md);display:flex;align-items:center;justify-content:space-between"><div><span style="font-size:13px;font-weight:700;color:var(--blue)">+${xpG} XP 획득!</span><span style="font-size:12px;color:var(--sub);margin-left:8px">Lv.${xpR.lv} ${lvName(xpR.lv)}</span></div><div style="font-size:11px;color:var(--sub)">${xpR.xp}/${xpForLevel(xpR.lv)}</div></div>`:''}</div>`;
 
   // 유형별 분석
   h+=`<div class="r-sec r-anim" style="${d(300)}"><div class="r-sec-h">유형별 분석</div>`;
