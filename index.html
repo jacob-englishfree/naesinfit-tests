@@ -416,6 +416,9 @@ input,select{font-family:inherit}
 @keyframes sqPop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
 .sq-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
 .sq-btn{padding:18px 12px;border-radius:var(--r-lg);border:1.5px solid var(--border);background:var(--card);font-size:15px;font-weight:600;text-align:center;cursor:pointer;transition:all .1s var(--ease-snap);will-change:transform;color:var(--text)}
+
+/* ━━ Runner Game ━━ */
+.game-canvas{width:100%;height:200px;border-radius:var(--r-lg);background:var(--white);display:block;touch-action:none}
 .sq-btn:active{transform:scale(.95)}
 .sq-btn.correct{border-color:var(--green);background:var(--green-l);color:var(--green)}
 .sq-btn.wrong{border-color:var(--red);background:var(--red-l);color:var(--red)}
@@ -1360,7 +1363,7 @@ function animateScore(target){
 }
 
 function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
-function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard}[S.scr]||rLogin)();
+function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard,runnergame:rRunnerGame}[S.scr]||rLogin)();
   // Apply page transition direction
   const pg=app.querySelector('.page');if(pg&&S.dir){pg.classList.remove('slide-left','slide-right','tab-swap');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');else if(S.dir==='tab')pg.classList.add('tab-swap');}S.dir='fwd';
   // Tab bar visibility
@@ -1554,6 +1557,7 @@ function doChallengeLogin(){
   sP({name:n,school:s,grade:g});
   if(S._challenge){const ch=S._challenge;S._challenge=null;
     if(ch.mode==='sq'){sqRivalName=ch.name;sqRivalScore=ch.score;S._sqChallenge=ch;startSpeedQuiz();}
+    else if(ch.mode==='run'){startRunnerGame();}
     else{startChallengeTest(ch);}
     return;}
   S.scr='home';R();
@@ -1720,6 +1724,22 @@ function rLearn(){setBottom(null);
           <div style="font-size:12px;color:var(--sub);margin-top:2px">스와이프로 단어 빠르게 암기</div>
         </div>
         <span style="color:var(--yellow);font-size:13px;font-weight:700">시작 →</span>
+      </button>
+    </div>
+
+    <!-- Mini Game -->
+    <div class="sec-label">쉬는 시간</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="startRunnerGame()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--green-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏃</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">내신핏 런</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">점프하며 코인 모으기 · 최고기록 도전!</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:var(--sub)">남은 횟수</div>
+          <div style="font-size:14px;font-weight:800;color:var(--green)">${getGamePlays()}회</div>
+        </div>
       </button>
     </div>
 
@@ -2467,6 +2487,7 @@ function svImg(){
 // ━━ Challenge System ━━
 function getChallenge(){try{const u=new URLSearchParams(location.search);
   if(u.get('mode')==='sq')return{mode:'sq',name:u.get('name')||'',score:parseInt(u.get('score'))||0};
+  if(u.get('mode')==='run')return{mode:'run',name:u.get('name')||'',score:parseInt(u.get('score'))||0};
   if(!u.has('sel'))return null;return{sel:u.get('sel'),tt:u.get('tt')||'단어테스트',qc:parseInt(u.get('qc'))||20,name:u.get('name')||'',score:parseInt(u.get('score'))||0};}catch(e){return null;}}
 
 function isAcademyUser(){return!!localStorage.getItem('nf_academy');}
@@ -2862,25 +2883,242 @@ function fcRetryWrong(){
 }
 function endFlashcard(){S.scr='learn';S.dir='back';R();}
 
+// ━━ RUNNER GAME ━━
+const GAME_DAILY_KEY='nf_game_';
+function getGameData(){const k=GAME_DAILY_KEY+new Date().toISOString().slice(0,10);try{return JSON.parse(localStorage.getItem(k))||{plays:0,shared:false};}catch(e){return{plays:0,shared:false};}}
+function saveGameData(d){const k=GAME_DAILY_KEY+new Date().toISOString().slice(0,10);try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}}
+function getGamePlays(){const d=getGameData();const max=3+(d.shared?2:0)+(d.bonus?1:0);return Math.max(0,max-d.plays);}
+function getGameBest(){return parseInt(localStorage.getItem('nf_game_best'))||0;}
+function setGameBest(s){if(s>getGameBest())localStorage.setItem('nf_game_best',String(s));}
+
+let gAF=null,gRunning=false;
+
+function startRunnerGame(){
+  const left=getGamePlays();
+  if(left<=0){toast('오늘 횟수를 다 썼어요! 공유하면 +2회');return;}
+  haptic('tap');S.scr='runnergame';S.dir='fwd';R();
+}
+
+function rRunnerGame(){
+  setBottom(null);$('tabBar').style.display='none';
+  const best=getGameBest();const left=getGamePlays();
+  app.innerHTML=`<div class="page slide-left">
+    <div style="padding:20px 20px 0;display:flex;align-items:center;justify-content:space-between">
+      <button onclick="exitGame()" style="border:none;background:none;font-size:22px;color:var(--sub);cursor:pointer;padding:4px">✕</button>
+      <div style="font-size:15px;font-weight:700;color:var(--text)">내신핏 런</div>
+      <div style="font-size:13px;color:var(--sub)">남은 <span style="font-weight:800;color:var(--green)">${left}회</span></div>
+    </div>
+    <div style="text-align:center;padding:12px 20px 8px">
+      <span style="font-size:12px;color:var(--hint)">최고기록 </span>
+      <span style="font-size:14px;font-weight:800;color:var(--blue)">${best}점</span>
+    </div>
+    <div style="padding:0 20px">
+      <canvas id="gameCanvas" class="game-canvas" style="box-shadow:var(--sh-md)"></canvas>
+    </div>
+    <div id="gameMsg" style="text-align:center;padding:16px 20px">
+      <div style="font-size:14px;color:var(--sub)">화면을 터치하면 점프!</div>
+    </div>
+    <div id="gameActions" style="display:none;padding:0 20px"></div>
+  </div>`;
+  initGame();
+}
+
+function initGame(){
+  const cv=$('gameCanvas');const ctx=cv.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const w=cv.clientWidth,h=cv.clientHeight;
+  cv.width=w*dpr;cv.height=h*dpr;ctx.scale(dpr,dpr);
+
+  const ground=h-30;
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const colors={bg:isDark?'#1A1A1A':'#FFFFFF',ground:isDark?'#333':'#F2F4F6',groundLine:isDark?'#555':'#D1D6DB',
+    player:isDark?'#6CB4F6':'#3182F6',coin:'#F59E0B',obstacle:isDark?'#F04452':'#F04452',text:isDark?'#EEE':'#191F28',sub:isDark?'#888':'#8B95A1'};
+
+  let py=ground-24,vy=0,jumping=false,score=0,speed=4,dist=0,alive=true,started=false,coins=[],obs=[];
+  const pw=20,ph=24,gravity=0.6,jumpForce=-11;
+
+  function spawnObs(){obs.push({x:w+20,w:16+Math.random()*12,h:20+Math.random()*16});}
+  function spawnCoin(){coins.push({x:w+20,y:ground-50-Math.random()*40});}
+
+  function jump(){if(!alive)return;if(!started){started=true;const gd=getGameData();gd.plays++;saveGameData(gd);}if(py>=ground-ph){vy=jumpForce;jumping=true;haptic('tap');}}
+
+  cv.addEventListener('click',()=>{if(!alive&&started){return;}jump();});
+  cv.addEventListener('touchstart',e=>{e.preventDefault();if(!alive&&started){return;}jump();},{passive:false});
+
+  function update(){
+    if(!started||!alive)return;
+    vy+=gravity;py+=vy;
+    if(py>=ground-ph){py=ground-ph;vy=0;jumping=false;}
+    dist++;speed=4+Math.floor(dist/300)*0.5;
+    if(dist%90===0)spawnObs();
+    if(dist%70===0)spawnCoin();
+
+    obs.forEach(o=>o.x-=speed);
+    coins.forEach(c=>c.x-=speed);
+    obs=obs.filter(o=>o.x>-30);
+    coins=coins.filter(c=>c.x>-30);
+
+    // Collision — obstacles
+    obs.forEach(o=>{
+      if(10+pw>o.x&&10<o.x+o.w&&py+ph>ground-o.h){
+        alive=false;haptic('no');
+      }
+    });
+    // Collect coins
+    coins=coins.filter(c=>{
+      if(Math.abs(10+pw/2-(c.x+6))<18&&Math.abs(py+ph/2-c.y)<18){
+        score+=10;haptic('ok');return false;
+      }return true;
+    });
+    score+=Math.floor(speed/4);
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    // Ground
+    ctx.fillStyle=colors.ground;ctx.fillRect(0,ground,w,h-ground);
+    ctx.strokeStyle=colors.groundLine;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,ground);ctx.lineTo(w,ground);ctx.stroke();
+    // Ground details
+    for(let i=0;i<w;i+=30){const ox=(i-dist*speed%30+30)%w;
+      ctx.fillStyle=colors.groundLine;ctx.fillRect(ox,ground+8,8,2);}
+
+    // Player (simple character)
+    ctx.fillStyle=colors.player;
+    const bodyX=10,bodyY=py;
+    // Body
+    ctx.beginPath();ctx.roundRect(bodyX,bodyY+8,pw,ph-8,4);ctx.fill();
+    // Head
+    ctx.beginPath();ctx.arc(bodyX+pw/2,bodyY+6,8,0,Math.PI*2);ctx.fill();
+    // Eye
+    ctx.fillStyle=colors.bg;ctx.beginPath();ctx.arc(bodyX+pw/2+3,bodyY+5,2,0,Math.PI*2);ctx.fill();
+    // Legs (animated)
+    ctx.fillStyle=colors.player;
+    if(jumping){
+      ctx.fillRect(bodyX+3,bodyY+ph,4,6);ctx.fillRect(bodyX+pw-7,bodyY+ph-4,4,6);
+    }else{
+      const legPhase=Math.sin(dist*0.3)*4;
+      ctx.fillRect(bodyX+3,bodyY+ph,4,6+legPhase);ctx.fillRect(bodyX+pw-7,bodyY+ph,4,6-legPhase);
+    }
+
+    // Obstacles
+    ctx.fillStyle=colors.obstacle;
+    obs.forEach(o=>{ctx.beginPath();ctx.roundRect(o.x,ground-o.h,o.w,o.h,3);ctx.fill();});
+
+    // Coins
+    coins.forEach(c=>{
+      ctx.fillStyle=colors.coin;ctx.beginPath();ctx.arc(c.x+6,c.y,6,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle=colors.bg;ctx.beginPath();ctx.arc(c.x+6,c.y,3,0,Math.PI*2);ctx.fill();
+    });
+
+    // Score
+    ctx.fillStyle=colors.text;ctx.font='bold 16px "Noto Sans KR",sans-serif';ctx.textAlign='right';
+    ctx.fillText(score+'점',w-12,24);
+
+    if(!started){
+      ctx.fillStyle=colors.sub;ctx.font='600 14px "Noto Sans KR",sans-serif';ctx.textAlign='center';
+      ctx.fillText('터치하여 시작',w/2,h/2);
+    }
+
+    if(!alive){
+      ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#FFF';ctx.font='bold 20px "Noto Sans KR",sans-serif';ctx.textAlign='center';
+      ctx.fillText('GAME OVER',w/2,h/2-10);
+      ctx.font='600 14px "Noto Sans KR",sans-serif';
+      ctx.fillText(score+'점',w/2,h/2+16);
+    }
+  }
+
+  function loop(){
+    if(!alive&&started){
+      draw();endGameRound(score);return;
+    }
+    update();draw();gAF=requestAnimationFrame(loop);
+  }
+  gRunning=true;loop();
+}
+
+function endGameRound(score){
+  gRunning=false;
+  setGameBest(score);const best=getGameBest();const isNew=score>=best;
+  addXP(Math.floor(score/10));
+  const xpGain=Math.floor(score/10);
+  const gd=getGameData();const left=getGamePlays();
+
+  const msg=$('gameMsg');const act=$('gameActions');
+  if(msg)msg.innerHTML=`
+    <div style="font-size:${isNew?'16px':'14px'};font-weight:800;color:${isNew?'var(--blue)':'var(--text)'};margin-bottom:4px">${isNew?'🎉 새 최고기록!':'GAME OVER'}</div>
+    <div style="font-size:24px;font-weight:900;color:var(--text)">${score}점</div>
+    <div style="font-size:12px;color:var(--sub);margin-top:4px">최고기록 ${best}점 · +${xpGain} XP</div>
+    ${left>0?`<div style="font-size:12px;color:var(--green);margin-top:4px;font-weight:600">남은 횟수: ${left}회</div>`
+    :`<div style="font-size:12px;color:var(--red);margin-top:4px;font-weight:600">오늘 횟수 소진! 공유하면 +2회</div>`}`;
+
+  if(act){act.style.display='';
+    act.innerHTML=`
+    <div style="display:flex;gap:10px;margin-bottom:8px">
+      <button onclick="shareGame(${score})" style="flex:1;padding:14px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:14px;font-weight:700;cursor:pointer">🤝 자랑하기 ${!gd.shared?'(+2회)':''}</button>
+      ${left>0?`<button onclick="retryGame()" style="flex:1;padding:14px;border:none;border-radius:var(--r-lg);background:var(--g100);color:var(--text);font-size:14px;font-weight:700;cursor:pointer">다시 하기</button>`
+      :`<button onclick="exitGame()" style="flex:1;padding:14px;border:none;border-radius:var(--r-lg);background:var(--g100);color:var(--text);font-size:14px;font-weight:700;cursor:pointer">돌아가기</button>`}
+    </div>
+    <button onclick="exitGame()" style="width:100%;padding:10px;border:none;background:none;color:var(--sub);font-size:13px;cursor:pointer">학습 탭으로</button>`;}
+}
+
+function retryGame(){
+  const left=getGamePlays();
+  if(left<=0){toast('오늘 횟수를 다 썼어요! 공유하면 +2회');return;}
+  if(gAF){cancelAnimationFrame(gAF);gAF=null;}
+  rRunnerGame();
+}
+
+function shareGame(score){
+  const gd=getGameData();
+  if(!gd.shared){gd.shared=true;saveGameData(gd);toast('+2회 추가!');}
+  const best=getGameBest();
+  const text=score>=200?`내신핏 런에서 ${score}점! 이 기록 깰 수 있어? 😏`
+    :score>=100?`내신핏 런 ${score}점! 넌 몇 점? ㅋㅋ`
+    :`내신핏 런 ${score}점... 같이 해볼래? 😂`;
+  const url=location.origin+location.pathname+'?mode=run&name='+encodeURIComponent(profile.name)+'&score='+score;
+  if(navigator.share){
+    navigator.share({title:'내신핏 런 도전',text,url}).catch(()=>{});
+  }else{
+    navigator.clipboard.writeText(text+'\n'+url).then(()=>toast('링크를 복사했어요!')).catch(()=>{
+      const a=document.createElement('textarea');a.value=text+'\n'+url;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('링크를 복사했어요!');
+    });
+  }
+  // Refresh UI to show updated play count
+  const act=$('gameActions');if(act){
+    const left=getGamePlays();
+    const msg=$('gameMsg');
+    if(msg){const spans=msg.querySelectorAll('div');
+      const lastDiv=spans[spans.length-1];
+      if(lastDiv&&left>0){lastDiv.style.color='var(--green)';lastDiv.textContent='남은 횟수: '+left+'회';}
+    }
+  }
+}
+
+function exitGame(){
+  if(gAF){cancelAnimationFrame(gAF);gAF=null;}
+  gRunning=false;S.scr='learn';S.dir='back';R();
+}
+
 R();
 
 // Check for challenge params after initial render
 const _ch=getChallenge();
 if(_ch){
   if(_ch.mode==='sq'){
-    // Speed quiz challenge
     sqRivalName=_ch.name;sqRivalScore=_ch.score;S._sqChallenge=_ch;
     history.replaceState(null,'',location.pathname);
-    if(profile.name.trim()){
-      setTimeout(()=>startSpeedQuiz(),300);
-    }else{
-      S._challenge=_ch;
-    }
+    if(profile.name.trim()){setTimeout(()=>startSpeedQuiz(),300);}
+    else{S._challenge=_ch;}
+  }else if(_ch.mode==='run'){
+    history.replaceState(null,'',location.pathname);
+    // Give +1 bonus play for entering via challenge link
+    const gd=getGameData();if(!gd.bonus){gd.bonus=true;saveGameData(gd);}
+    if(profile.name.trim()){setTimeout(()=>startRunnerGame(),300);}
+    else{S._challenge=_ch;}
   }else{
     S._challenge=_ch;
-    if(profile.name.trim()){
-      setTimeout(()=>startChallengeTest(_ch),300);
-    }
+    if(profile.name.trim()){setTimeout(()=>startChallengeTest(_ch),300);}
   }
 }
 </script>
