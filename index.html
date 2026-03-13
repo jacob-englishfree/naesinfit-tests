@@ -1375,8 +1375,8 @@ function rExam(){
     <div class="exam-bar"><div class="progress-line"><div class="progress-fill" style="width:${pct}%"></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px"><div id="tmr" class="timer-display${S.tlf<=60?' danger':S.tlf<=300?' warn':''}">${ft(S.tlf)}</div><div class="t-caption c-sub" style="font-weight:600">${ac}/${tot} 응답</div></div></div>
     <div class="q-dots">${dots}</div>
     <div class="q-card"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div><div class="q-stem">${q.stem||''}</div>${q.passage?`<div class="q-passage">${q.passage}</div>`:''}${aH}</div>
-    <div style="padding:0 20px 8px;display:flex;gap:8px">${idx>0?'<button class="btn btn-ghost btn-sm" style="flex:1" onclick="S.ci--;R();scrollTo(0,0)">이전</button>':''}${idx<tot-1?'<button class="btn btn-blue btn-sm" style="flex:1" onclick="S.ci++;R();scrollTo(0,0)">다음</button>':''}</div>
-    <div class="bottom-spacer"></div><div class="bottom-fix"><button class="btn btn-red" onclick="doSub()">제출하기</button></div></div>`;
+    <div style="padding:0 20px 16px;display:flex;gap:8px">${idx>0?'<button class="btn btn-ghost btn-sm" style="flex:1" onclick="S.ci--;R();scrollTo(0,0)">이전</button>':''}${idx<tot-1?'<button class="btn btn-blue btn-sm" style="flex:1" onclick="S.ci++;R();scrollTo(0,0)">다음</button>':''}</div>
+    <div style="height:100px"></div><div class="bottom-fix"><button class="btn btn-red" onclick="doSub()">제출하기</button></div></div>`;
 }
 
 // ━━ SUBMIT ━━
