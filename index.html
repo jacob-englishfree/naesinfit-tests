@@ -2162,7 +2162,7 @@ function rSet(){
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 async function startE(){
   // Free test limit check
-  if(!isAcademyUser()&&!S._isDaily&&!S._isReview&&!S._challengeName){if(!checkTestLimit())return;addFreeCount();}
+  if(!isAcademyUser()&&!S._isDaily&&!S._isReview&&S._challengeName==null){if(!checkTestLimit())return;addFreeCount();}
   // Show skeleton loading
   app.innerHTML=`<div class="page"><div style="padding:20px"><div class="skeleton" style="height:52px;margin-bottom:16px"></div><div class="skeleton" style="height:36px;width:60%;margin-bottom:24px"></div><div class="skeleton" style="height:200px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:160px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:44px;width:40%;margin-bottom:12px"></div></div></div>`;
   setBottom(null);
@@ -2299,7 +2299,7 @@ function rResult(){setBottom(null);
 
   // 액션
   // Challenge comparison
-  if(S._challengeScore){
+  if(S._challengeScore!=null){
     const cs=S._challengeScore,cn=S._challengeName||'상대';const myS=r.score;const win=myS>cs,draw=myS===cs;
     h+=`<div class="r-sec r-anim" style="${d(450)}"><div class="r-sec-h">같이 풀기 결과</div>
       <div style="display:flex;align-items:center;gap:12px;padding:16px;background:${win?'var(--blue-l)':draw?'var(--yellow-l)':'var(--red-l)'};border-radius:var(--r-lg)">
@@ -2327,7 +2327,7 @@ function rResult(){setBottom(null);
   h+=`</div><div style="padding:20px"><button class="btn btn-blue" onclick="goHome()" style="width:100%">홈으로 돌아가기</button></div><div style="height:20px"></div></div>`;
   app.innerHTML=h;scrollTo(0,0);
   // Nudge popup — 결과 직후 "같이 풀기" 넛지 (기록 열람 시 미표시)
-  if(!fromH&&!S._nudgeShown){S._nudgeShown=true;
+  if(!fromH&&!S._nudgeShown&&S._challengeScore==null){S._nudgeShown=true;
     setTimeout(()=>{
       const msg=r.score>=80?`${r.score}점! 친구도 이길 수 있을까요?`:`같이 풀면 더 재밌어요!`;
       const d=document.createElement('div');d.className='modal-overlay';d.id='nudgeModal';
