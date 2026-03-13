@@ -2329,7 +2329,8 @@ function rResult(){setBottom(null);
   // Nudge popup — 결과 직후 "같이 풀기" 넛지 (기록 열람 시 미표시)
   if(!fromH&&!S._nudgeShown&&S._challengeScore==null){S._nudgeShown=true;
     setTimeout(()=>{
-      const msg=r.score>=80?`${r.score}점! 친구도 이길 수 있을까요?`:`같이 풀면 더 재밌어요!`;
+      const label=challengeLabel();
+      const msg=r.score>=90?`${label} ${r.score}점! 이길 수 있는 친구 있어? 😏`:r.score>=70?`${label} ${r.score}점! 넌 몇 점일까? ㅋㅋ`:`${label} 같이 풀면 더 재밌어!`;
       const d=document.createElement('div');d.className='modal-overlay';d.id='nudgeModal';
       d.onclick=e=>{if(e.target===d)d.remove();};
       d.innerHTML=`<div class="modal-box" style="padding:28px 24px 20px">
@@ -2507,9 +2508,24 @@ function generateChallengeURL(){
   return base+'?'+p.toString();
 }
 
+function challengeLabel(){
+  if(!S.sel||!S.sel.length)return S.tt||'시험';
+  // "공통영어1/동아(이병민)/3과" → "동아(이병민) 3과"
+  const parts=S.sel[0].split('/');
+  if(parts.length>=3)return parts[1]+' '+parts[2];
+  if(parts.length===2)return parts[1];
+  return parts[0];
+}
+function challengeText(){
+  const sc=S.res.score,name=profile.name,label=challengeLabel(),tt=S.tt||'';
+  const exam=label+' '+tt;
+  if(sc>=90)return `${name}이(가) ${exam}에서 ${sc}점 받았는데, 이길 수 있어? 😏`;
+  if(sc>=70)return `${exam} ${sc}점! 넌 몇 점 나올까? ㅋㅋ`;
+  return `${exam} ${sc}점 ㅋㅋ 같이 풀어볼래?`;
+}
 function shareChallenge(){
   const url=generateChallengeURL();
-  const text=`${profile.name}님이 ${S.tt}에서 ${S.res.score}점 받았어요! 같이 풀어볼래? 📚`;
+  const text=challengeText();
   if(navigator.share){
     navigator.share({title:'내신핏 — 같이 풀기',text,url}).catch(()=>{});
   }else{
