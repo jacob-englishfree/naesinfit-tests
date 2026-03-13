@@ -1268,14 +1268,17 @@ function rHome(){setBottom(null);
     ${hist.length?`
     <!-- Recent History -->
     <div class="sec-label">최근 시험 기록</div>
-    ${hist.map(r=>`<div class="card" style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center">
+    ${hist.map((r,i)=>`<div class="card" style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:${r.det?'pointer':'default'}" ${r.det?`onclick="viewHistory(${hist.length-1-i})"`:''}>
       <div>
-        <div style="font-size:14px;font-weight:600">${r.type||'테스트'}</div>
+        <div style="font-size:14px;font-weight:600">${r.type||'테스트'}${r.det?'':'<span style="font-size:11px;color:var(--hint);margin-left:6px">상세 없음</span>'}</div>
         <div style="font-size:12px;color:var(--sub);margin-top:3px">${r.date} · ${r.time}</div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:24px;font-weight:800;color:${r.score>=80?'var(--green)':'var(--red)'};font-variant-numeric:tabular-nums">${r.score}<span style="font-size:12px;color:var(--sub);font-weight:600">점</span></div>
-        <div style="font-size:11px;color:var(--sub)">${r.level||''}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="text-align:right">
+          <div style="font-size:24px;font-weight:800;color:${r.score>=80?'var(--green)':'var(--red)'};font-variant-numeric:tabular-nums">${r.score}<span style="font-size:12px;color:var(--sub);font-weight:600">점</span></div>
+          <div style="font-size:11px;color:var(--sub)">${r.level||''}</div>
+        </div>
+        ${r.det?'<span style="color:var(--hint);font-size:16px">›</span>':''}
       </div>
     </div>`).join('')}
     `:''}
@@ -1289,6 +1292,7 @@ function openP(){const p=profile;const d=document.createElement('div');d.classNa
   d.innerHTML=`<div class="sheet"><div class="sheet-bar"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px"><div class="t-title">학생 정보 수정</div><button onclick="doLogout()" style="font-size:12px;color:var(--red);font-weight:600;border:none;background:none;cursor:pointer;padding:4px 8px">로그아웃</button></div><input id="pN" class="input" placeholder="이름" value="${esc(p.name)}" style="margin-bottom:10px"><input id="pS" class="input" placeholder="학교" value="${esc(p.school||'')}" style="margin-bottom:10px"><select id="pG" class="input select" style="margin-bottom:16px"><option value="">학년</option><option value="중3" ${p.grade==='중3'?'selected':''}>중3</option><option value="고1" ${p.grade==='고1'?'selected':''}>고1</option><option value="고2" ${p.grade==='고2'?'selected':''}>고2</option><option value="고3" ${p.grade==='고3'?'selected':''}>고3</option></select><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('ps').remove()">취소</button><button class="btn btn-blue btn-sm" style="flex:1" onclick="sP({name:$('pN').value.trim(),school:$('pS').value.trim(),grade:$('pG').value});$('ps').remove();toast('저장했어요');R()">저장</button></div></div>`;
   document.body.appendChild(d);}
 function doLogout(){const s=$('ps');if(s)s.remove();sP({name:'',school:'',grade:''});S.scr='login';R();toast('로그아웃했어요');}
+function viewHistory(idx){const h=gH();const r=h[idx];if(!r||!r.det)return;S.res={score:r.score,ok:r.ok,no:r.no,sk:r.sk||0,tP:r.tP||100,eP:r.eP||0,lv:LV(r.score),det:r.det,tM:r.tM||{}};S.tt=r.type||'테스트';S.te=0;S.scr='result';R();}
 function goMode(m){S.mode=m;S.scr='select';S.sel=[];S.acc={};R();}
 function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});R();}
 
@@ -1456,7 +1460,7 @@ function doSub(auto){
   const det=S.qs.map((q,i)=>{tP+=q.pts||0;const a=S.ans[i];let c=false;if(a===undefined||a==='')sk++;else if(q.fmt==='mc')c=a===q.ans;else{const u=String(a).trim().replace(/\s+/g,' ').toLowerCase();if(q.accept)c=q.accept.some(x=>x.trim().replace(/\s+/g,' ').toLowerCase()===u);if(!c&&q.wa)c=u===q.wa.trim().replace(/\s+/g,' ').toLowerCase();}if(c){ok++;eP+=(q.pts||0);}else if(a!==undefined&&a!=='')no++;const t=q.type||'기타';if(!tM[t])tM[t]={total:0,ok:0};tM[t].total++;if(c)tM[t].ok++;return{q,ua:a,ok:c};});
   const score=tP>0?Math.round(eP/tP*100):0;
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
-  sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n});
+  sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM});
   R();
   // Animations
   setTimeout(()=>animateScore(score),100);
