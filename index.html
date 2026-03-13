@@ -1402,7 +1402,17 @@ function rSet(){
 }
 
 // ━━ EXAM ━━
-async function startE(){toast('문항을 불러오는 중...');await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};let pool=[];S.sel.forEach(k=>{if(b[k])b[k].forEach(q=>pool.push({...q}));});if(!pool.length){toast('선택한 범위에 문항이 없어요');return;}for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}S.qs=pool.slice(0,S.qc);S.ans={};S.ci=0;S.scr='exam';S.ts=Date.now();S.te=0;S.tlf=S.tl;if(S.ti)clearInterval(S.ti);S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);R();}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+async function startE(){toast('문항을 불러오는 중...');await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};
+  // Build per-selection pools
+  const groups=[];S.sel.forEach(k=>{if(b[k]&&b[k].length)groups.push(b[k].map(q=>({...q})));});
+  if(!groups.length){toast('선택한 범위에 문항이 없어요');return;}
+  // Even distribution: base per group + remainder distributed round-robin
+  const n=groups.length,total=S.qc;const base=Math.floor(total/n);let rem=total%n;
+  let pool=[];groups.forEach(g=>{shuffle(g);const take=Math.min(g.length,base+(rem>0?1:0));if(rem>0)rem--;pool.push(...g.slice(0,take));});
+  // If some groups had fewer than quota, fill from remaining
+  if(pool.length<total){const used=new Set(pool.map(q=>q.id+'_'+(q.stem||'').slice(0,20)));let extras=[];groups.forEach(g=>g.forEach(q=>{if(!used.has(q.id+'_'+(q.stem||'').slice(0,20)))extras.push(q);}));shuffle(extras);pool.push(...extras.slice(0,total-pool.length));}
+  shuffle(pool);S.qs=pool.slice(0,total);S.ans={};S.ci=0;S.scr='exam';S.ts=Date.now();S.te=0;S.tlf=S.tl;if(S.ti)clearInterval(S.ti);S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);R();}
 
 // Build exam shell once — inner content updated via DOM manipulation
 function rExam(){
