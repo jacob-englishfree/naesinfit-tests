@@ -348,6 +348,16 @@ input,select{font-family:inherit}
 @keyframes sheetUp{from{transform:translateY(100%)}}
 .sheet-bar{width:36px;height:4px;background:var(--g300);border-radius:2px;margin:8px auto 24px}
 
+/* ━━ Tab Bar ━━ */
+.tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--divider)}
+.tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border:none;background:none;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tab-item:active{transform:scale(.9)}
+.tab-icon{font-size:22px;line-height:1;transition:transform .2s var(--ease)}
+.tab-label{font-size:10px;font-weight:600;color:var(--hint);transition:color .15s}
+.tab-item.active .tab-icon{transform:scale(1.1)}
+.tab-item.active .tab-label{color:var(--blue);font-weight:700}
+.tab-spacer{height:calc(72px + env(safe-area-inset-bottom))}
+
 /* Responsive */
 @media(max-width:380px){.act-grid{flex-wrap:wrap}.info-grid{grid-template-columns:1fr}.score-num{font-size:56px}}
 </style>
@@ -355,6 +365,12 @@ input,select{font-family:inherit}
 <body>
 <div class="app" id="app"></div>
 <div class="bottom-fix" id="bottomBar" style="display:none"></div>
+<div class="tab-bar" id="tabBar" style="display:none">
+  <button class="tab-item active" onclick="switchTab('home')" id="tab_home"><span class="tab-icon">🏠</span><span class="tab-label">홈</span></button>
+  <button class="tab-item" onclick="switchTab('learn')" id="tab_learn"><span class="tab-icon">⚡</span><span class="tab-label">학습</span></button>
+  <button class="tab-item" onclick="switchTab('record')" id="tab_record"><span class="tab-icon">📊</span><span class="tab-label">기록</span></button>
+  <button class="tab-item" onclick="switchTab('my')" id="tab_my"><span class="tab-icon">👤</span><span class="tab-label">마이</span></button>
+</div>
 <div id="toast"></div>
 <canvas id="confetti"></canvas>
 <script>
@@ -1282,9 +1298,14 @@ function animateScore(target){
 }
 
 function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
-function R(){({login:rLogin,home:rHome,select:rSel,settings:rSet,exam:rExam,result:rResult}[S.scr]||rLogin)();
+function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult}[S.scr]||rLogin)();
   // Apply page transition direction
-  const pg=app.querySelector('.page');if(pg&&S.dir&&S.dir!=='none'){pg.classList.remove('slide-left','slide-right');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');}S.dir='fwd';}
+  const pg=app.querySelector('.page');if(pg&&S.dir&&S.dir!=='none'){pg.classList.remove('slide-left','slide-right');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');}S.dir='fwd';
+  // Tab bar visibility
+  const tabScreens=['home','learn','record','my'];
+  const tb=$('tabBar');
+  if(tabScreens.includes(S.scr)){tb.style.display='';document.querySelectorAll('.tab-item').forEach(t=>{t.classList.toggle('active',t.id==='tab_'+S.scr);});}else{tb.style.display='none';}}
+function switchTab(tab){if(S.scr===tab)return;haptic('tap');S.scr=tab;S.dir='none';R();}
 
 // ━━ LOGIN ━━
 function rLogin(){setBottom(null);
@@ -1429,13 +1450,9 @@ function doLogin(){
   sP({name:n,school:s,grade:g});S.scr='home';R();
 }
 
-// ━━ HOME ━━
+// ━━ HOME (핵심 액션만) ━━
 function rHome(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
-  const hist=gH().slice(-5).reverse();
-  const totalTests=hist.length;
-  const avgScore=totalTests?Math.round(hist.reduce((a,r)=>a+r.score,0)/totalTests):0;
-  const bestScore=totalTests?Math.max(...hist.map(r=>r.score)):0;
 
   app.innerHTML=`<div class="page">
     <!-- Greeting Header -->
@@ -1444,29 +1461,35 @@ function rHome(){setBottom(null);
         <div>
           <div style="font-size:14px;color:var(--sub);font-weight:500">안녕하세요 👋</div>
           <div class="t-heading" style="margin-top:2px">${esc(profile.name)}님</div>
-          <div class="t-caption c-sub" style="margin-top:2px">${esc(profile.school)} · ${esc(profile.grade)}</div>
         </div>
-        <div style="display:flex;gap:8px">
-          <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
-          <button onclick="openP()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">⚙️</button>
-        </div>
+        <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
       </div>
     </div>
 
     ${(()=>{const sk=checkStreak();return sk.count>0?`
-    <!-- Streak -->
     <div style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
-      <span style="font-size:20px">${sk.count>=7?'🔥':'🔥'}</span>
+      <span style="font-size:20px">🔥</span>
       <span style="font-size:14px;font-weight:700;color:var(--text)">${sk.count}일 연속 학습 중</span>
       ${sk.count>=7?'<span style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto">대단해요!</span>':sk.count>=3?'<span style="font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:8px;margin-left:auto">좋아요!</span>':''}
-    </div>
-    `:'';})()}
+    </div>`:'';})()}
+
+    ${(()=>{const suneung=getSuneungDate();const ddays=getDdays();const hasDday=ddays.mid||ddays.fin;return `
+    <div class="card" style="padding:16px 20px;margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasDday?'8px':'0'}">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">📅</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text)">수능</span>
+          <span style="font-size:12px;color:var(--sub)">${suneung.getFullYear()}.${suneung.getMonth()+1}.${suneung.getDate()}</span>
+        </div>
+        <span style="font-size:15px;font-weight:800;color:var(--red)">${ddayStr(suneung)}</span>
+      </div>
+      ${ddays.mid?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">중간고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.mid).getMonth()+1}.${new Date(ddays.mid).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.mid))}</span></div>`:''}
+      ${ddays.fin?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">기말고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.fin).getMonth()+1}.${new Date(ddays.fin).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.fin))}</span></div>`:''}
+    </div>`;})()}
 
     ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
-    <!-- XP / Level Hero -->
-    <div class="card" style="margin-top:16px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
+    <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
-      <div style="position:absolute;bottom:-30px;right:40px;width:80px;height:80px;background:rgba(255,255,255,.05);border-radius:50%"></div>
       <div style="position:relative">
         <div style="display:flex;align-items:center;justify-content:space-between">
           <div>
@@ -1483,117 +1506,6 @@ function rHome(){setBottom(null);
           <div style="height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:rgba(255,255,255,.85);border-radius:3px;transition:width .5s var(--ease)"></div></div>
         </div>
       </div>
-    </div>`;})()}
-
-    ${(()=>{const suneung=getSuneungDate();const ddays=getDdays();const hasDday=ddays.mid||ddays.fin;return `
-    <!-- D-day -->
-    <div class="card" style="padding:16px 20px;margin-top:12px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasDday?'8px':'0'}">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:16px">📅</span>
-          <span style="font-size:14px;font-weight:700;color:var(--text)">수능</span>
-          <span style="font-size:12px;color:var(--sub)">${suneung.getFullYear()}.${suneung.getMonth()+1}.${suneung.getDate()}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:15px;font-weight:800;color:var(--red)">${ddayStr(suneung)}</span>
-          <button onclick="openDdaySheet()" style="border:none;background:none;font-size:14px;color:var(--hint);cursor:pointer;padding:2px">⚙️</button>
-        </div>
-      </div>
-      ${ddays.mid?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">중간고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.mid).getMonth()+1}.${new Date(ddays.mid).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.mid))}</span></div>`:''}
-      ${ddays.fin?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">기말고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.fin).getMonth()+1}.${new Date(ddays.fin).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.fin))}</span></div>`:''}
-    </div>`;})()}
-
-    ${(()=>{const ds=getDailyState();const today=new Date().toISOString().slice(0,10);const done=ds.date===today&&ds.completed;
-      return `
-    <!-- Daily Quiz -->
-    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
-      <button onclick="startDailyQuiz()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
-        <div style="width:44px;height:44px;background:${done?'var(--green-l)':'var(--blue-l)'};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${done?'✅':'⚡'}</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:700;color:var(--text)">${done?'오늘의 단어퀴즈 완료':'오늘의 단어퀴즈'}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px">${done?ds.score+'점 달성!':'매일 10문제 영단어 퀴즈'}</div>
-        </div>
-        ${done?'':'<span style="color:var(--blue);font-size:13px;font-weight:700">도전 →</span>'}
-      </button>
-    </div>`;})()}
-
-    ${getWrong().length?`
-    <!-- Wrong Answer Review -->
-    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
-      <button onclick="startWrongReview()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
-        <div style="width:44px;height:44px;background:var(--red-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🔄</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:700;color:var(--text)">틀린 문제 ${getWrong().length}개 복습하기</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px">오답을 다시 풀어 완벽하게 마스터</div>
-        </div>
-        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
-      </button>
-    </div>
-    `:''}
-
-    ${totalTests?`
-    <!-- My Stats -->
-    <div class="sec-label">나의 학습 현황</div>
-    <div class="card" style="padding:0">
-      <div style="display:flex;text-align:center;padding:20px 0">
-        <div style="flex:1;border-right:1px solid var(--divider)">
-          <div style="font-size:24px;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums">${totalTests}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">응시 횟수</div>
-        </div>
-        <div style="flex:1;border-right:1px solid var(--divider)">
-          <div style="font-size:24px;font-weight:800;color:${avgScore>=80?'var(--green)':'var(--g800)'};font-variant-numeric:tabular-nums">${avgScore}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">평균 점수</div>
-        </div>
-        <div style="flex:1">
-          <div style="font-size:24px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums">${bestScore}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">최고 점수</div>
-        </div>
-      </div>
-    </div>
-    `:''}
-
-    ${(()=>{const wr=getWeeklyReport();if(!wr)return '';return `
-    <!-- Weekly Report -->
-    <div class="sec-label">이번 주 학습</div>
-    <div class="card" style="padding:20px">
-      <div style="display:flex;gap:12px;text-align:center">
-        <div style="flex:1;padding:12px 0;background:var(--blue-l);border-radius:var(--r-md)">
-          <div style="font-size:22px;font-weight:800;color:var(--blue)">${wr.count}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">응시</div>
-        </div>
-        <div style="flex:1;padding:12px 0;background:var(--green-l);border-radius:var(--r-md)">
-          <div style="font-size:22px;font-weight:800;color:var(--green)">${wr.avgScore}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">평균</div>
-        </div>
-        <div style="flex:1;padding:12px 0;background:var(--purple-l);border-radius:var(--r-md)">
-          <div style="font-size:22px;font-weight:800;color:var(--purple)">${wr.bestScore}</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">최고</div>
-        </div>
-      </div>
-      ${wr.bestType?`<div style="margin-top:12px;padding:10px 14px;background:var(--g50);border-radius:var(--r-sm);display:flex;align-items:center;gap:8px"><span style="font-size:14px">💪</span><span style="font-size:13px;color:var(--text)"><b>${wr.bestType}</b> 유형 정답률 <b style="color:var(--green)">${wr.bestPct}%</b></span></div>`:''}
-    </div>`;})()}
-
-    ${(()=>{const ct=getCumType();const entries=Object.entries(ct);if(!entries.length)return '';
-      entries.sort((a,b)=>(a[1].ok/a[1].total)-(b[1].ok/b[1].total));
-      return `
-    <!-- 취약유형 분석 -->
-    <div class="sec-label">유형별 정답률</div>
-    <div class="card" style="padding:16px 20px">
-      ${entries.map(([t,v])=>{const pct=Math.round(v.ok/v.total*100);const c=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';return `
-      <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
-        <span style="font-size:13px;font-weight:600;color:var(--text);min-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.slice(0,8)}</span>
-        <div style="flex:1;height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${c};border-radius:4px;transition:width .5s var(--ease)"></div></div>
-        <span style="font-size:12px;font-weight:700;color:${c};min-width:32px;text-align:right">${pct}%</span>
-      </div>`;}).join('')}
-    </div>`;})()}
-
-    ${(()=>{const earned=getEarnedBadges();if(!earned.length)return '';
-      const badges=BADGE_DEFS.filter(b=>earned.includes(b.id));
-      return `
-    <!-- 뱃지 -->
-    <div class="sec-label" style="display:flex;align-items:center;justify-content:space-between"><span>획득 뱃지</span><button onclick="openBadgeSheet()" style="border:none;background:none;font-size:12px;color:var(--blue);font-weight:600;cursor:pointer;padding:0">전체보기</button></div>
-    <div style="padding:0 20px;display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none">
-      ${badges.slice(0,5).map(b=>`<div style="min-width:72px;text-align:center;padding:14px 8px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--sh-sm)"><div style="font-size:28px;margin-bottom:4px">${b.icon}</div><div style="font-size:11px;font-weight:700;color:var(--text);white-space:nowrap">${b.name}</div></div>`).join('')}
     </div>`;})()}
 
     <!-- Test Start -->
@@ -1618,7 +1530,6 @@ function rHome(){setBottom(null);
       </button>
     </div>
 
-    <!-- Available Tests -->
     <div class="sec-label">제공 테스트 유형</div>
     <div style="padding:0 20px;display:flex;gap:8px">
       <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
@@ -1638,27 +1549,229 @@ function rHome(){setBottom(null);
       </div>
     </div>
 
-    ${hist.length?`
-    <!-- Recent History -->
-    <div class="sec-label">최근 시험 기록</div>
-    ${hist.map((r,i)=>`<div class="card" style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:${r.det?'pointer':'default'}" ${r.det?`onclick="viewHistory(${hist.length-1-i})"`:''}>
+    <div style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
+    <div class="tab-spacer"></div>
+  </div>`;
+}
+
+// ━━ LEARN (학습 탭) ━━
+function rLearn(){setBottom(null);
+  if(!profile.name.trim()){S.scr='login';R();return;}
+  const ds=getDailyState();const today=new Date().toISOString().slice(0,10);const done=ds.date===today&&ds.completed;
+  const wrongCount=getWrong().length;
+
+  app.innerHTML=`<div class="page">
+    <div style="padding:24px 20px 0">
+      <div class="t-heading">학습</div>
+      <div class="t-caption c-sub" style="margin-top:2px">매일 꾸준히 실력을 키워요</div>
+    </div>
+
+    <!-- Daily Vocab Quiz -->
+    <div class="sec-label">오늘의 학습</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="startDailyQuiz()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:${done?'var(--green-l)':'var(--blue-l)'};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${done?'✅':'⚡'}</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">${done?'오늘의 단어퀴즈 완료':'오늘의 단어퀴즈'}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">${done?ds.score+'점 달성!':'매일 10문제 영단어 퀴즈'}</div>
+        </div>
+        ${done?'':'<span style="color:var(--blue);font-size:13px;font-weight:700">도전 →</span>'}
+      </button>
+    </div>
+
+    ${wrongCount?`
+    <!-- Wrong Answer Review -->
+    <div class="card" style="padding:0;overflow:hidden;margin-top:2px">
+      <button onclick="startWrongReview()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--red-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🔄</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">틀린 문제 ${wrongCount}개 복습</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">오답을 다시 풀어 완벽하게 마스터</div>
+        </div>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
+      </button>
+    </div>`:''}
+
+    <!-- Coming Soon -->
+    <div class="sec-label">더 많은 학습</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:14px;opacity:.5">
+        <div style="width:44px;height:44px;background:var(--purple-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">⚡</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">스피드 퀴즈</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">30초 안에 단어 최대한 많이 맞추기</div>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:var(--hint);background:var(--g100);padding:4px 10px;border-radius:10px">준비중</span>
+      </div>
+      <div style="height:1px;background:var(--divider);margin:0 20px"></div>
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:14px;opacity:.5">
+        <div style="width:44px;height:44px;background:var(--yellow-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🃏</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">플래시카드</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">스와이프로 단어 빠르게 암기</div>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:var(--hint);background:var(--g100);padding:4px 10px;border-radius:10px">준비중</span>
+      </div>
+    </div>
+
+    <div class="tab-spacer"></div>
+  </div>`;
+}
+
+// ━━ RECORD (기록 탭) ━━
+function rRecord(){setBottom(null);
+  if(!profile.name.trim()){S.scr='login';R();return;}
+  const hist=gH();const allHist=hist.slice().reverse();
+  const totalTests=hist.length;
+  const avgScore=totalTests?Math.round(hist.reduce((a,r)=>a+r.score,0)/totalTests):0;
+  const bestScore=totalTests?Math.max(...hist.map(r=>r.score)):0;
+
+  app.innerHTML=`<div class="page">
+    <div style="padding:24px 20px 0">
+      <div class="t-heading">기록</div>
+      <div class="t-caption c-sub" style="margin-top:2px">나의 성장을 확인해요</div>
+    </div>
+
+    ${totalTests?`
+    <!-- Stats Summary -->
+    <div class="card" style="padding:0;margin-top:16px">
+      <div style="display:flex;text-align:center;padding:20px 0">
+        <div style="flex:1;border-right:1px solid var(--divider)">
+          <div style="font-size:24px;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums">${totalTests}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">총 응시</div>
+        </div>
+        <div style="flex:1;border-right:1px solid var(--divider)">
+          <div style="font-size:24px;font-weight:800;color:${avgScore>=80?'var(--green)':'var(--g800)'};font-variant-numeric:tabular-nums">${avgScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">평균</div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:24px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums">${bestScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">최고</div>
+        </div>
+      </div>
+    </div>`:''}
+
+    ${(()=>{const wr=getWeeklyReport();if(!wr)return '';return `
+    <div class="sec-label">이번 주 학습</div>
+    <div class="card" style="padding:20px">
+      <div style="display:flex;gap:12px;text-align:center">
+        <div style="flex:1;padding:12px 0;background:var(--blue-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--blue)">${wr.count}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">응시</div>
+        </div>
+        <div style="flex:1;padding:12px 0;background:var(--green-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--green)">${wr.avgScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">평균</div>
+        </div>
+        <div style="flex:1;padding:12px 0;background:var(--purple-l);border-radius:var(--r-md)">
+          <div style="font-size:22px;font-weight:800;color:var(--purple)">${wr.bestScore}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px;font-weight:500">최고</div>
+        </div>
+      </div>
+      ${wr.bestType?`<div style="margin-top:12px;padding:10px 14px;background:var(--g50);border-radius:var(--r-sm);display:flex;align-items:center;gap:8px"><span style="font-size:14px">💪</span><span style="font-size:13px;color:var(--text)"><b>${wr.bestType}</b> 유형 정답률 <b style="color:var(--green)">${wr.bestPct}%</b></span></div>`:''}
+    </div>`;})()}
+
+    ${(()=>{const ct=getCumType();const entries=Object.entries(ct);if(!entries.length)return '';
+      entries.sort((a,b)=>(a[1].ok/a[1].total)-(b[1].ok/b[1].total));
+      return `
+    <div class="sec-label">유형별 정답률</div>
+    <div class="card" style="padding:16px 20px">
+      ${entries.map(([t,v])=>{const pct=Math.round(v.ok/v.total*100);const c=pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)';return `
+      <div style="display:flex;align-items:center;gap:10px;padding:6px 0">
+        <span style="font-size:13px;font-weight:600;color:var(--text);min-width:64px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.slice(0,8)}</span>
+        <div style="flex:1;height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${c};border-radius:4px;transition:width .5s var(--ease)"></div></div>
+        <span style="font-size:12px;font-weight:700;color:${c};min-width:32px;text-align:right">${pct}%</span>
+      </div>`;}).join('')}
+    </div>`;})()}
+
+    ${allHist.length?`
+    <div class="sec-label">시험 기록</div>
+    ${allHist.map((r,i)=>`<div class="card" style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:${r.det?'pointer':'default'}" ${r.det?`onclick="viewHistory(${allHist.length-1-i})"`:''}>
       <div>
-        <div style="font-size:14px;font-weight:600">${r.type||'테스트'}${r.det?'':'<span style="font-size:11px;color:var(--hint);margin-left:6px">상세 없음</span>'}</div>
+        <div style="font-size:14px;font-weight:600">${r.type||'테스트'}</div>
         <div style="font-size:12px;color:var(--sub);margin-top:3px">${r.date} · ${r.time}</div>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="text-align:right">
           <div style="font-size:24px;font-weight:800;color:${r.score>=80?'var(--green)':'var(--red)'};font-variant-numeric:tabular-nums">${r.score}<span style="font-size:12px;color:var(--sub);font-weight:600">점</span></div>
-          <div style="font-size:11px;color:var(--sub)">${r.level||''}</div>
         </div>
         ${r.det?'<span style="color:var(--hint);font-size:16px">›</span>':''}
       </div>
-    </div>`).join('')}
-    `:''}
+    </div>`).join('')}`:'<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:12px">📊</div><div style="font-size:15px;font-weight:600;color:var(--text)">아직 기록이 없어요</div><div style="font-size:13px;color:var(--sub);margin-top:4px">시험을 보면 여기에 기록돼요</div></div>'}
 
-    <div style="text-align:center;padding:24px 20px 40px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
+    <div class="tab-spacer"></div>
   </div>`;
+}
 
+// ━━ MY (마이 탭) ━━
+function rMy(){setBottom(null);
+  if(!profile.name.trim()){S.scr='login';R();return;}
+  const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));
+  const earned=getEarnedBadges();
+  const badges=BADGE_DEFS.filter(b=>earned.includes(b.id));
+
+  app.innerHTML=`<div class="page">
+    <div style="padding:24px 20px 0">
+      <div class="t-heading">마이</div>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="card" style="margin-top:16px;padding:0;overflow:hidden">
+      <button onclick="openP()" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--blue),var(--blue-d));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:800">${esc(profile.name).charAt(0)}</div>
+        <div style="flex:1">
+          <div class="t-title">${esc(profile.name)}</div>
+          <div class="t-caption c-sub" style="margin-top:2px">${esc(profile.school)} · ${esc(profile.grade)}</div>
+        </div>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
+      </button>
+    </div>
+
+    <!-- XP / Level -->
+    <div class="sec-label">레벨</div>
+    <div class="card" style="padding:20px">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
+        <div style="width:48px;height:48px;background:var(--blue-l);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--blue)">${xd.lv}</div>
+        <div style="flex:1">
+          <div style="font-size:16px;font-weight:800;color:var(--text)">Lv.${xd.lv} ${lvName(xd.lv)}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">다음 레벨까지 ${xpForLevel(xd.lv)-xd.xp} XP</div>
+        </div>
+      </div>
+      <div style="height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:4px;transition:width .5s var(--ease)"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--sub)"><span>${xd.xp} XP</span><span>${xpForLevel(xd.lv)} XP</span></div>
+    </div>
+
+    <!-- Badges -->
+    <div class="sec-label" style="display:flex;align-items:center;justify-content:space-between"><span>뱃지 컬렉션</span><span style="font-size:12px;color:var(--hint);font-weight:500">${earned.length}/${BADGE_DEFS.length}</span></div>
+    <div class="card" style="padding:16px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        ${BADGE_DEFS.map(b=>{const has=earned.includes(b.id);return `
+          <div style="text-align:center;padding:12px 4px;border-radius:var(--r-md);${has?'':'opacity:.3'}">
+            <div style="font-size:28px;margin-bottom:4px">${b.icon}</div>
+            <div style="font-size:10px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${b.name}</div>
+          </div>`;}).join('')}
+      </div>
+    </div>
+
+    <!-- Settings List -->
+    <div class="sec-label">설정</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="openDdaySheet()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <span style="font-size:18px">📅</span>
+        <span style="flex:1;font-size:14px;font-weight:600;color:var(--text)">시험 일정 설정</span>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
+      </button>
+      <div style="height:1px;background:var(--divider);margin:0 20px"></div>
+      <button onclick="toggleTheme();R()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <span style="font-size:18px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</span>
+        <span style="flex:1;font-size:14px;font-weight:600;color:var(--text)">${localStorage.getItem('nf_theme')==='dark'?'라이트 모드':'다크 모드'}</span>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
+      </button>
+    </div>
+
+    <div style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
+    <div class="tab-spacer"></div>
+  </div>`;
 }
 
 function openP(){const p=profile;const d=document.createElement('div');d.className='sheet-overlay';d.id='ps';
