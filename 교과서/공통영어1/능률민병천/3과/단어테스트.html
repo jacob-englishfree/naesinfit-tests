@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 능률(민병천) 3과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">NE능률(민병천) 3과 · Timing Is Everything · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">능률(민병천)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">3과 Timing Is Everything</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · NE능률(민병천) · <span>3과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1","pub":"능률(민병천)","lesson":"3과","title":"Timing Is Everything","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_nle_3"};
+
+const Q=[
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`(A) rushes – (B) absorb – (C) supply`,`(A) retreats – (B) absorb – (C) supply`,`(A) rushes – (B) release – (C) supply`,`(A) rushes – (B) absorb – (C) deprive`,`(A) retreats – (B) release – (C) deprive`],passage:`When you eat, blood (A)[<b>rushes / retreats</b>] to the digestive system to help break down the food and (B)[<b>absorb / release</b>] its nutrients. But when you start to exercise, blood moves from the digestive system to your muscles. This happens in order to (C)[<b>supply / deprive</b>] your muscles with the oxygen and nutrients they require.`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`음식을 먹으면, 혈액이 소화 시스템으로 <b>급히 흘러가서</b> 음식을 분해하고 영양소를 <b>흡수</b>하는 것을 돕습니다. 하지만 운동을 시작하면, 혈액이 소화 시스템에서 근육으로 이동합니다. 이것은 근육에 산소와 영양소를 <b>공급</b>하기 위해서 일어납니다.`,analysis:`✅ ① rushes(급히 흘러가다) – absorb(흡수하다) – supply(공급하다): 문맥상 모두 적절
+❌ ② retreats(후퇴하다)는 혈액이 소화기관으로 향하는 맥락에 부적절
+❌ ③ release(방출하다)는 영양소를 흡수하는 맥락에 부적절
+❌ ④ deprive(빼앗다)는 근육에 공급하는 맥락에 부적절
+❌ ⑤ 세 단어 모두 반의어로 부적절`,tip:`rush to: ~로 급히 가다 / absorb: 흡수하다 / supply A with B: A에게 B를 공급하다`}},
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`(A) needs – (B) provides – (C) built up`,`(A) avoids – (B) provides – (C) broken down`,`(A) needs – (B) provides – (C) broken down`,`(A) needs – (B) withholds – (C) broken down`,`(A) avoids – (B) withholds – (C) built up`],passage:`This is because the body (A)[<b>needs / avoids</b>] energy to exercise. The fuel that (B)[<b>provides / withholds</b>] this energy is glycogen. Carbohydrates in the food we eat are (C)[<b>broken down / built up</b>] into a kind of sugar called glucose.`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`이것은 몸이 운동하기 위해 에너지를 <b>필요로 하기</b> 때문입니다. 이 에너지를 <b>제공하는</b> 연료가 글리코겐입니다. 우리가 먹는 음식 속의 탄수화물은 포도당이라는 당으로 <b>분해됩니다</b>.`,analysis:`❌ ① built up(축적되다)은 분해 맥락에 부적절
+❌ ② avoids(피하다)는 에너지 필요 맥락에 부적절
+✅ ③ needs(필요로 하다) – provides(제공하다) – broken down(분해되다): 모두 적절
+❌ ④ withholds(보류하다)는 에너지 제공 맥락에 부적절
+❌ ⑤ 세 단어 모두 반의어로 부적절`,tip:`break down: 분해하다 / provide: 제공하다 / withhold: 보류하다, 주지 않다`}},
+{id:3,type:`(A)(B)(C) 조합형`,diff:`어려움`,pts:6,fmt:"mc",ans:4,ch:[`(A) lack – (B) serious – (C) gentle`,`(A) possess – (B) serious – (C) intense`,`(A) lack – (B) minor – (C) intense`,`(A) possess – (B) minor – (C) gentle`,`(A) lack – (B) serious – (C) intense`],passage:`If you exercise on an empty stomach, you will most likely (A)[<b>lack / possess</b>] energy and feel unusually tired. There can also be more (B)[<b>serious / minor</b>] outcomes. Some people end up suffering from nausea and headaches, and others even faint. This is because (C)[<b>intense / gentle</b>] exercise uses up all the glycogen in your muscles.`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`빈속에 운동하면, 에너지가 <b>부족</b>하고 유난히 피곤함을 느낄 것입니다. 더 <b>심각한</b> 결과도 있을 수 있습니다. 메스꺼움과 두통에 시달리거나 기절하는 사람도 있습니다. 이는 <b>격렬한</b> 운동이 근육의 글리코겐을 모두 소진하기 때문입니다.`,analysis:`❌ ① gentle(가벼운)은 글리코겐을 모두 소진하는 맥락에 부적절
+❌ ② possess(가지다)는 빈속 에너지 부족 맥락에 부적절
+❌ ③ minor(사소한)는 메스꺼움·기절 등 심각한 결과 맥락에 부적절
+❌ ④ 세 단어 모두 반의어로 부적절
+✅ ⑤ lack(부족하다) – serious(심각한) – intense(격렬한): 모두 적절`,tip:`lack: 부족하다 / serious: 심각한 / intense: 격렬한, 강렬한 / outcome: 결과`}},
+{id:4,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`① problem`,`② late`,`③ cause`,`④ digestive`,`⑤ moves`],passage:`Well, the ①<u>problem</u> is that you exercised too ②<u>late</u> after eating. This can ③<u>cause</u> various stomach issues. When you eat, blood rushes to the ④<u>digestive</u> system to help break down the food and absorb its nutrients. But when you start to exercise, blood ⑤<u>moves</u> from the digestive system to your muscles.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`문제는 당신이 식사 후 <b>너무 일찍(soon)</b> 운동했다는 것입니다. 이것은 다양한 위장 문제를 일으킬 수 있습니다. 음식을 먹으면 혈액이 소화 시스템으로 급히 흘러가 음식을 분해하고 영양소를 흡수합니다. 하지만 운동을 시작하면 혈액이 소화 시스템에서 근육으로 이동합니다.`,analysis:`✅ ① problem(문제): 원문 그대로, 적절
+❌ ② late(늦게): 원문은 soon(곧, 일찍)이며, late는 반의어로 부적절 → 정답
+✅ ③ cause(야기하다): 원문 그대로, 적절
+✅ ④ digestive(소화의): 원문 그대로, 적절
+✅ ⑤ moves(이동하다): 원문 그대로, 적절`,tip:`too soon after eating: 식사 후 너무 빨리 / too late: 너무 늦게 — 반의 관계`}},
+{id:5,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`① outcomes`,`② suffering`,`③ nausea`,`④ recover`,`⑤ uses up`],passage:`There can also be more serious ①<u>outcomes</u>. Some people end up ②<u>suffering</u> from ③<u>nausea</u> and headaches, and others even ④<u>recover</u>. This is because intense exercise ⑤<u>uses up</u> all the glycogen in your muscles.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`더 심각한 <b>결과</b>도 있을 수 있습니다. 일부 사람들은 <b>메스꺼움</b>과 두통에 <b>시달리고</b>, 심지어 <b>기절(faint)</b>하기도 합니다. 이는 격렬한 운동이 근육의 글리코겐을 모두 <b>소진</b>하기 때문입니다.`,analysis:`✅ ① outcomes(결과): 원문 그대로, 적절
+✅ ② suffering(시달리다): 원문 그대로, 적절
+✅ ③ nausea(메스꺼움): 원문 그대로, 적절
+❌ ④ recover(회복하다): 원문은 faint(기절하다)이며, recover는 반의어로 부적절 → 정답
+✅ ⑤ uses up(다 써버리다): 원문 그대로, 적절`,tip:`faint: 기절하다, 의식을 잃다 / recover: 회복하다 — 반의 관계`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`① recommend`,`② containing`,`③ depletes`,`④ weigh`,`⑤ consume`],passage:`For this reason, doctors ①<u>recommend</u> that people eat food ②<u>containing</u> carbohydrates within thirty minutes after working out. This ③<u>depletes</u> the muscle glycogen you have lost. Basically, you need between one and one and a half grams of carbohydrates for every kilogram you ④<u>weigh</u>. You should try to ⑤<u>consume</u> between 60 and 90 grams of carbohydrates after you exercise.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`이런 이유로, 의사들은 운동 후 30분 이내에 탄수화물이 <b>포함된</b> 음식을 먹을 것을 <b>권장</b>합니다. 이것은 잃어버린 근육 글리코겐을 <b>대체합니다(replaces)</b>. 기본적으로 체중 1kg당 1~1.5g의 탄수화물이 필요합니다. 운동 후 60~90g의 탄수화물을 <b>섭취</b>해야 합니다.`,analysis:`✅ ① recommend(권장하다): 원문 그대로, 적절
+✅ ② containing(포함하는): 원문 그대로, 적절
+❌ ③ depletes(고갈시키다): 원문은 replaces(대체하다)이며, depletes는 반의어로 부적절 → 정답
+✅ ④ weigh(무게가 나가다): 원문 그대로, 적절
+✅ ⑤ consume(섭취하다): 원문 그대로, 적절`,tip:`replace: 대체하다, 보충하다 / deplete: 고갈시키다, 소진하다 — 반의 관계`}},
+{id:7,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`require`,`reject`,`remove`,`reduce`],passage:`This happens in order to supply your muscles with the oxygen and nutrients they __________. As a result, the digestion process is paused until the blood returns. So, whether you're lifting weights or going for a jog, you shouldn't do it with a stomach full of food.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`이것은 근육에 산소와 영양소를 공급하기 위해 일어납니다. 그 결과, 혈액이 돌아올 때까지 소화 과정이 멈춥니다. 따라서 역기를 들든 조깅을 하든, 배가 가득 찬 상태에서 해서는 안 됩니다.`,analysis:`✅ ① require(필요로 하다): 근육이 산소와 영양소를 '필요로 하다'는 문맥에 적절
+❌ ② reject(거부하다): 영양소를 거부한다는 의미로 부적절
+❌ ③ remove(제거하다): 영양소를 제거한다는 의미로 부적절
+❌ ④ reduce(줄이다): 영양소를 줄인다는 의미로 부적절`,tip:`require: 필요로 하다, 요구하다 / supply A with B: A에게 B를 공급하다`}},
+{id:8,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`comfort`,`benefit`,`challenge`,`pleasure`],passage:`This is why exercising on a completely empty stomach—such as when you first wake up in the morning—can be such a __________. Your blood sugar levels are low, and you don't have enough glycogen stored in your body. If you exercise on an empty stomach, you will most likely lack energy and feel unusually tired.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`이것이 완전히 빈속에 운동하는 것이—예를 들어 아침에 처음 일어났을 때—그토록 <b>힘든 일</b>이 될 수 있는 이유입니다. 혈당 수치가 낮고 체내에 충분한 글리코겐이 저장되어 있지 않습니다. 빈속에 운동하면 에너지가 부족하고 유난히 피곤할 것입니다.`,analysis:`❌ ① comfort(편안함): 에너지 부족 상황에서 편안함은 부적절
+❌ ② benefit(이점): 빈속 운동의 부정적 맥락에 부적절
+✅ ③ challenge(힘든 일, 도전): 혈당과 글리코겐 부족으로 힘든 상황 맥락에 적절
+❌ ④ pleasure(즐거움): 에너지 부족 상황에서 즐거움은 부적절`,tip:`challenge: 도전, 힘든 일 / such a challenge: 그토록 힘든 일`}},
+{id:9,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`symptoms`,`factors`,`muscles`,`nutrients`],passage:`The best time to eat before you exercise varies from one to three hours. Basically, it depends on several __________ such as the type and amount of food as well as body size, age, and gender. The type of exercise also matters.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`운동 전에 먹기 가장 좋은 시간은 1시간에서 3시간까지 다양합니다. 기본적으로 이것은 음식의 종류와 양, 체격, 나이, 성별 같은 여러 <b>요인</b>에 달려 있습니다. 운동의 종류도 중요합니다.`,analysis:`❌ ① symptoms(증상): 음식 종류·나이·성별 등을 나열하는 맥락에 부적절
+✅ ② factors(요인): 여러 조건(음식 종류, 양, 체격, 나이, 성별)을 포괄하는 의미로 적절
+❌ ③ muscles(근육): 나열된 항목들과 무관
+❌ ④ nutrients(영양소): 나열된 항목들과 의미가 맞지 않음`,tip:`factor: 요인, 요소 / depend on: ~에 달려 있다 / vary: 다양하다`}},
+{id:10,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`similar`,`specific`,`simple`,`diverse`],passage:`Well, the problem is that you exercised too soon after eating. This can cause <u>various</u> stomach issues. When you eat, blood rushes to the digestive system to help break down the food and absorb its nutrients.`,stem:`다음 글의 밑줄 친 <u>various</u>와(과) 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`문제는 당신이 식사 후 너무 빨리 운동했다는 것입니다. 이것은 <b>다양한</b> 위장 문제를 일으킬 수 있습니다. 음식을 먹으면 혈액이 소화 시스템으로 급히 흘러가 음식을 분해하고 영양소를 흡수합니다.`,analysis:`❌ ① similar(비슷한): various(다양한)와 의미 다름
+❌ ② specific(구체적인): various와 오히려 반대 의미
+❌ ③ simple(단순한): various와 의미 다름
+✅ ④ diverse(다양한): various와 가장 가까운 의미`,tip:`various = diverse = a variety of: 다양한, 여러 가지의`}},
+{id:11,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`helpful`,`damaging`,`pleasant`,`useful`],passage:`No, it doesn't. That can also be <u>harmful</u> and unpleasant. This is because the body needs energy to exercise. The fuel that provides this energy is glycogen.`,stem:`다음 글의 밑줄 친 <u>harmful</u>과(와) 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`아닙니다. 그것도 <b>해로울</b> 수 있고 불쾌할 수 있습니다. 이는 몸이 운동하기 위해 에너지를 필요로 하기 때문입니다. 이 에너지를 제공하는 연료가 글리코겐입니다.`,analysis:`❌ ① helpful(도움이 되는): harmful의 반의어
+✅ ② damaging(해로운): harmful과 가장 가까운 의미
+❌ ③ pleasant(쾌적한): harmful과 의미 다름
+❌ ④ useful(유용한): harmful과 의미 다름`,tip:`harmful = damaging = detrimental: 해로운, 유해한`}},
+{id:12,type:`동의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`relaxed`,`intense`,`formal`,`difficult`],passage:`For extremely active exercise like cycling, I suggest that you wait between one and a half and three hours after eating a moderate-sized meal. But for something more <u>casual</u>, such as golfing, waiting for one hour after a meal should be enough. Clearly, you can wait less after eating a snack.`,stem:`다음 글의 밑줄 친 <u>casual</u>과(와) 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`자전거 타기와 같은 매우 활발한 운동의 경우, 적당한 크기의 식사 후 1시간 반에서 3시간을 기다릴 것을 제안합니다. 하지만 골프와 같은 더 <b>가벼운</b> 것의 경우, 식사 후 1시간을 기다리면 충분합니다. 분명히, 간식 후에는 더 적게 기다려도 됩니다.`,analysis:`✅ ① relaxed(느긋한, 가벼운): casual과 가장 가까운 의미 — 격렬하지 않은 운동 맥락
+❌ ② intense(격렬한): casual의 반의어
+❌ ③ formal(격식 있는): casual의 반의어 (의복·상황 맥락)
+❌ ④ difficult(어려운): casual과 의미 다름`,tip:`casual: 가벼운, 격식 없는 / relaxed: 편안한, 느긋한 — 운동 강도가 낮은 맥락`}},
+{id:13,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`stopped`,`halted`,`continued`,`suspended`],passage:`But when you start to exercise, blood moves from the digestive system to your muscles. As a result, the digestion process is <u>paused</u> until the blood returns. So, whether you're lifting weights or going for a jog, you shouldn't do it with a stomach full of food.`,stem:`다음 글의 밑줄 친 <u>paused</u>와(과) 의미가 가장 <b>먼</b> 것은?`,det:{korean:`하지만 운동을 시작하면 혈액이 소화 시스템에서 근육으로 이동합니다. 그 결과, 혈액이 돌아올 때까지 소화 과정이 <b>멈춥니다</b>. 따라서 역기를 들든 조깅을 하든, 배가 가득 찬 상태에서 해서는 안 됩니다.`,analysis:`✅ ① stopped(멈춘): paused와 유사 의미
+✅ ② halted(중단된): paused와 유사 의미
+❌ ③ continued(계속된): paused의 반의어 → 의미가 가장 먼 정답
+✅ ④ suspended(중지된): paused와 유사 의미`,tip:`paused = stopped = halted = suspended: 멈추다, 중단하다 ↔ continued: 계속하다`}},
+{id:14,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`uncomfortable`,`disagreeable`,`annoying`,`enjoyable`],passage:`So, does that mean I should exercise on an empty stomach? No, it doesn't. That can also be harmful and <u>unpleasant</u>. This is because the body needs energy to exercise.`,stem:`다음 글의 밑줄 친 <u>unpleasant</u>와(과) 의미가 가장 <b>먼</b> 것은?`,det:{korean:`그러면 빈속에 운동해야 한다는 뜻인가요? 아닙니다. 그것도 해롭고 <b>불쾌</b>할 수 있습니다. 이는 몸이 운동하기 위해 에너지를 필요로 하기 때문입니다.`,analysis:`✅ ① uncomfortable(불편한): unpleasant와 유사 의미
+✅ ② disagreeable(불쾌한): unpleasant와 유사 의미
+✅ ③ annoying(짜증나는): unpleasant와 유사 의미
+❌ ④ enjoyable(즐거운): unpleasant의 반의어 → 의미가 가장 먼 정답`,tip:`unpleasant ≈ uncomfortable ≈ disagreeable ≈ annoying ↔ enjoyable: 즐거운`}},
+{id:15,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`① It doesn't matter how long it takes.`,`② The book covers the matter in great detail.`,`③ What matters most is your effort.`,`④ Your opinion really matters to us.`,`⑤ Size and age matter when deciding.`],passage:`[본문] The best time to eat before you exercise varies from one to three hours. Basically, it depends on several factors such as the type and amount of food as well as body size, age, and gender. <u>The type of exercise also <b>matters</b>.</u>`,stem:`다음 글의 밑줄 친 <b>matters</b>와 쓰임이 같은 것을 ①~⑤에서 고르면, 나머지 넷과 <b>다른</b> 의미로 쓰인 것은?`,det:{korean:`운동 전에 먹기 가장 좋은 시간은 1시간에서 3시간까지 다양합니다. 기본적으로 음식의 종류와 양, 체격, 나이, 성별 같은 여러 요인에 달려 있습니다. 운동의 종류도 <b>중요합니다</b>.`,analysis:`본문의 matters = 동사 '중요하다'
+✅ ① matter(동사): 중요하다 — 본문과 같은 의미
+❌ ② matter(명사): 사안, 문제 — 나머지 넷과 다른 의미 → 정답
+✅ ③ matters(동사): 중요하다 — 본문과 같은 의미
+✅ ④ matters(동사): 중요하다 — 본문과 같은 의미
+✅ ⑤ matter(동사): 중요하다 — 본문과 같은 의미`,tip:`matter(동사): 중요하다 / matter(명사): 사안, 문제, 물질 — 다의어 구별 필수`}},
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`glucose`,`glycogen`,`fuel`,`carbohydrate`],passage:`<i>a substance such as coal, gas, or oil that is burned to produce heat or power</i><br><br>[참고 원문] This is because the body needs energy to exercise. The __________ that provides this energy is glycogen. Carbohydrates in the food we eat are broken down into a kind of sugar called glucose.`,stem:`다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`이는 몸이 운동하기 위해 에너지를 필요로 하기 때문입니다. 이 에너지를 제공하는 <b>연료</b>가 글리코겐입니다. 우리가 먹는 음식 속의 탄수화물은 포도당이라는 당으로 분해됩니다.`,analysis:`❌ ① glucose(포도당): 당의 한 종류이지, 열/에너지를 만들기 위해 태우는 물질의 정의와 직접 맞지 않음
+❌ ② glycogen(글리코겐): 저장 에너지 형태이지, 영영 정의와 직접 맞지 않음
+✅ ③ fuel(연료): '열이나 에너지를 생산하기 위해 태우는 물질'이라는 영영 정의에 정확히 부합
+❌ ④ carbohydrate(탄수화물): 영양소 분류이지, 영영 정의와 직접 맞지 않음`,tip:`fuel: 연료 — 에너지를 생산하기 위해 사용되는 물질. 본문에서는 글리코겐을 에너지 연료에 비유`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`stored`,accept:[`stored`],passage:`Carbohydrates in the food we eat are broken down into a kind of sugar called glucose. When this glucose is (store) __________ in parts of the body, such as the muscles and the liver, it is called glycogen. This is why exercising on a completely empty stomach can be such a challenge.`,stem:`다음 글의 괄호 안의 단어를 문맥에 맞게 변형하여 빈칸을 완성하시오.`,det:{korean:`우리가 먹는 음식 속의 탄수화물은 포도당이라는 당으로 분해됩니다. 이 포도당이 근육이나 간과 같은 신체 부위에 <b>저장되면</b> 글리코겐이라고 불립니다. 이것이 완전히 빈속에 운동하는 것이 그토록 힘든 일이 될 수 있는 이유입니다.`,analysis:`glucose is (store) → stored: 'is + 과거분사' 수동태 구문. 포도당이 '저장되는' 것이므로 수동태가 적절.
+✅ stored: is stored (수동태) — 주어 glucose가 저장'되는' 대상`,tip:`be동사 + 과거분사(p.p.) = 수동태 / store → stored: 저장하다 → 저장된`}},
+{id:18,type:`어형 변환 (서술형)`,diff:`어려움`,pts:6,fmt:"written",wa:`unusually`,accept:[`unusually`],passage:`Your blood sugar levels are low, and you don't have enough glycogen stored in your body. If you exercise on an empty stomach, you will most likely lack energy and feel (unusual) __________ tired. There can also be more serious outcomes.`,stem:`다음 글의 괄호 안의 단어를 문맥에 맞게 변형하여 빈칸을 완성하시오.`,det:{korean:`혈당 수치가 낮고, 체내에 충분한 글리코겐이 저장되어 있지 않습니다. 빈속에 운동하면, 에너지가 부족하고 <b>유난히</b> 피곤함을 느낄 것입니다. 더 심각한 결과도 있을 수 있습니다.`,analysis:`feel (unusual) → unusually tired: 형용사 tired를 수식하려면 부사가 필요.
+✅ unusually: 형용사 unusual → 부사 unusually — 형용사(tired)를 수식하는 부사 역할`,tip:`형용사를 수식할 때는 부사를 사용: unusual(형용사) → unusually(부사) + tired(형용사)`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`excitement`,`discomfort`,`satisfaction`,`confidence`],passage:`Well, as I said before, exercising right after you eat will cause feelings of __________. But, if you wait too long to exercise after eating, you'll suffer from a lack of energy. The best time to eat before you exercise varies from one to three hours.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`제가 전에 말씀드렸듯이, 식사 직후에 운동하면 <b>불편감</b>을 느끼게 됩니다. 하지만 식사 후 너무 오래 기다리면 에너지 부족에 시달리게 됩니다. 운동 전에 먹기 가장 좋은 시간은 1시간에서 3시간까지 다양합니다.`,analysis:`❌ ① excitement(흥분): 식사 직후 운동의 부정적 맥락에 부적절
+✅ ② discomfort(불편감): 식사 직후 운동이 일으키는 부정적 느낌으로 문맥에 적절
+❌ ③ satisfaction(만족감): 부정적 맥락에 부적절
+❌ ④ confidence(자신감): 부정적 맥락에 부적절`,tip:`discomfort: 불편(감) — dis(부정) + comfort(편안함) / feelings of discomfort: 불편한 느낌`}},
+{id:20,type:`빈칸 문맥 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`large`,`small`,`regular`,`moderate`],passage:`For extremely active exercise like cycling, I suggest that you wait between one and a half and three hours after eating a __________-sized meal. But for something more casual, such as golfing, waiting for one hour after a meal should be enough. Clearly, you can wait less after eating a snack.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`자전거 타기와 같은 매우 활발한 운동의 경우, <b>적당한</b> 크기의 식사 후 1시간 반에서 3시간을 기다릴 것을 제안합니다. 하지만 골프와 같은 더 가벼운 것의 경우, 식사 후 1시간이면 충분합니다. 분명히, 간식 후에는 더 적게 기다려도 됩니다.`,analysis:`❌ ① large(큰): 원문에서 '적당한 크기'의 식사를 언급하므로 부적절
+❌ ② small(작은): 맥락상 간식(snack)과 구별되는 식사이므로 부적절
+❌ ③ regular(보통의): 의미는 유사하나 원문 표현과 다름
+✅ ④ moderate(적당한): 원문 moderate-sized meal과 정확히 일치`,tip:`moderate: 적당한, 알맞은 / moderate-sized: 적당한 크기의 — 극단적이지 않은 중간 정도`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type.replace(/\(.+?\)/g,'').trim().slice(0,6)}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
+let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n\n━━ 📊 문항별 결과 ━━\n`;
+r.details.forEach(d=>{const mark=d.ok?'✅':'❌';const mk=d.q.ch&&d.q.ch.length===5?mk5:mk4;const ans=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const cor=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;txt+=`${mark} ${d.q.id}번 [${d.q.type.slice(0,6)}] ${d.q.pts}점 — 내답:${ans} 정답:${cor}\n`;});
+txt+=`\n━━ 📈 유형별 분석 ━━\n`;Object.entries(typeMap).forEach(([t,v])=>{const p=Math.round(v.o/v.t*100);const ic=p===100?'🟢':(p>0?'🟡':'🔴');txt+=`${ic} ${t.slice(0,6)}: ${v.o}/${v.t} (${p}%)`;if(v.w.length)txt+=` ← 틀린:${v.w.join(',')}번`;txt+=`\n`;});
+txt+=`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n#온라인단어TEST #영어내신`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 상세 결과가 복사되었습니다!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('📋 복사되었습니다!');}catch(e){toast('복사 실패');}document.body.removeChild(ta);});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+</script>
+</body>
+</html>

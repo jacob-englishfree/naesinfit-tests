@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온라인퀴즈 TEST — 영어Ⅰ 능률(오선영) 3과</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css" rel="stylesheet">
+<style>
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#d0ccc8;border-radius:3px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFFAF5,#F6F2EE 40%,#FFF3E8);position:relative;}
+.start-container{max-width:460px;width:100%;position:relative;z-index:1;}
+.brand-badge{background:linear-gradient(135deg,var(--o),var(--ol));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;letter-spacing:.8px;box-shadow:0 4px 14px rgba(232,119,46,.25);display:inline-block;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;font-weight:500;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.info-card-header{background:linear-gradient(135deg,var(--o),var(--ol));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f5f1ed;}.info-row:last-child{border:none;}.info-label{color:var(--tm);font-weight:500;}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid #ebe7e3;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #e8e4e0;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #e0dcd8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #ebe7e3;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item .hi-left .hi-name{font-weight:700;font-size:13px;}.history-item .hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.history-item .hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.history-item .hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+#examScreen{min-height:100vh;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:1px;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFFAF5,#FFF6EE);border-bottom:1px solid #f0ece8;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;box-shadow:0 3px 8px rgba(232,119,46,.25);}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-어법{background:var(--rl);color:var(--r);}.tag-어휘{background:var(--bl);color:var(--b);}.tag-대의{background:var(--gl);color:var(--g);}.tag-일치{background:var(--oxl);color:var(--od);}.tag-빈칸{background:var(--pl);color:var(--p);}.tag-함축{background:#FFF0F5;color:#D946A0;}.tag-순서{background:var(--skyl);color:var(--sky);}.tag-무관{background:#F0FDF4;color:#16A34A;}.tag-서술형{background:var(--gl);color:var(--g);}.tag-지칭{background:#FEF3C7;color:#D97706;}.tag-TF{background:#E0E7FF;color:#4338CA;}.tag-불일치{background:var(--oxl);color:var(--od);}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f5f1ed;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-passage .label{font-size:11px;font-weight:800;color:var(--o);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.q-passage u{text-decoration-color:var(--o);text-decoration-thickness:2px;text-underline-offset:3px;}
+.q-stem{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #ebe7e3;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;position:relative;overflow:hidden;}
+.choice-btn:hover{border-color:var(--o);transform:translateX(2px);}
+.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#f0ece8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;transition:var(--tr);}
+.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #e0dcd8;border-radius:var(--rs);font-size:15px;font-family:inherit;resize:none;min-height:56px;transition:var(--tr);}
+.written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.08);}
+.cond-box{background:linear-gradient(135deg,#F8F6F3,#F3F0EC);border:1.5px solid #e0dcd8;border-radius:var(--rs);padding:16px;margin-bottom:16px;}.cond-box .ct{font-weight:800;color:var(--od);margin-bottom:8px;font-size:13px;}.cond-box ul{margin-left:18px;margin-bottom:10px;}.cond-box li{margin-bottom:3px;font-size:13px;}
+.bogi-label{font-size:11px;color:var(--tl);font-weight:800;margin-bottom:4px;}.bogi-box{background:#fff;border:1.5px solid #d8d4d0;border-radius:var(--rxs);padding:12px;text-align:center;font-weight:700;font-size:14px;}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.nav-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:65%;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#ebe7e3;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:var(--tr);}
+.nav-dot.current{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 3px 10px rgba(232,119,46,.3);transform:scale(1.08);}
+.nav-dot.answered{background:var(--g);color:#fff;}
+.nav-btn{padding:9px 18px;background:#fff;border:2px solid #e0dcd8;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);}.nav-btn:hover{border-color:var(--o);color:var(--o);}
+#resultScreen{background:var(--bg);}
+.r-hero{padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}.r-hero.pass{background:linear-gradient(160deg,#E8F7F0,#D1FAE5,#E6F9F0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA,#FFF0F0);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;box-shadow:0 4px 14px rgba(26,153,96,.25);}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;letter-spacing:-2px;}.r-score sup{font-size:24px;color:var(--tl);font-weight:700;}
+.r-stats{display:flex;justify-content:center;gap:20px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.r-stats .stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}
+.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.level-range{font-size:13px;color:var(--tm);margin-top:4px;}.level-bar{margin-top:16px;height:8px;background:#f0ece8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);line-height:1.6;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-radius:var(--rs);border:1px solid #ebe7e3;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:linear-gradient(135deg,var(--oxl),#FFF6EE);border-color:rgba(232,119,46,.15);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:50px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#f0ece8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;align-items:flex-start;padding:16px;background:linear-gradient(135deg,var(--oxxl),#FFF6EE);border-radius:var(--rs);border:1px solid rgba(232,119,46,.1);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.rev-card{border:1.5px solid #ebe7e3;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr);}.rev-header:hover{background:#F8F5F0;}.rev-icon{font-size:18px;margin-left:auto;}
+.rev-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}.rev-body.open{padding:20px;max-height:3000px;}
+.your-ans{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rxs);margin-bottom:14px;font-size:13px;font-weight:700;}.your-ans.right{background:var(--gl);color:#0D7A45;border:1px solid rgba(26,153,96,.15);}.your-ans.wrong{background:var(--rl);color:var(--r);border:1px solid rgba(214,59,59,.15);}
+.expl-sec{margin-bottom:14px;}.expl-sec:last-child{margin-bottom:0;}.expl-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.ref{background:var(--bl);color:var(--b);}.expl-tag.tip{background:var(--oxl);color:var(--od);}.expl-tag.wrng{background:var(--rl);color:var(--r);}.expl-tag.key{background:#FFF3E8;color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);border-left:3px solid #e0dcd8;}.expl-box.ans-b{border-left-color:var(--g);}.expl-box.ref-b{border-left-color:var(--b);}.expl-box.tip-b{border-left-color:var(--o);}.expl-box.wrng-b{border-left-color:var(--r);}.expl-box.key-b{border-left-color:var(--ol);background:var(--oxxl);}.expl-box b{color:var(--od);}.hl{background:linear-gradient(transparent 60%,rgba(232,119,46,.15) 60%);font-weight:700;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #e0dcd8;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);background:var(--oxxl);}.act-btn.primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid,.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.nav-dots{max-width:55%;}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">🎯 내신핏</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">능률(오선영) 3과 · Under a Shared Roof</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">영어Ⅰ</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">능률(오선영)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">3과 Under a Shared Roof</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row"><div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div><div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div></div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어Ⅰ · 능률(오선영) · <span>3과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav"><button class="nav-btn" onclick="scrollToQ(S.cur-1)">←</button><div class="nav-dots" id="navDots"></div><button class="nav-btn" onclick="scrollToQ(S.cur+1)">→</button></div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+<script>
+const EI={"subject":"영어1","pub":"능률(오선영)","lesson":"3과","title":"Under a Shared Roof","total":100,"time":1200,"histKey":"quizH_neungyul_oh_3_20","qCount":20};
+
+const Q=[
+// ── Q1: 어법 ⓐ~ⓔ ──
+{id:1,type:'어법',diff:'보통',pts:5,fmt:'mc',
+note:'세대 간 공동 생활 소개',
+passage:`Humanitas is a yellow brick house <u>ⓐlocated</u> in the city of Deventer, the Netherlands. It is a care center that <u>ⓑhouses</u> more than 160 elderly residents who require assistance. Along with its supportive environment, Humanitas offers something unusual: young neighbors. This unique "intergenerational living" project began in 2012, after budget cuts <u>ⓒreduced</u> the amount of money care homes in the Netherlands received. This funding reduction led to the loss of many essential elderly care programs, <u>ⓓincluded</u> social, educational, and counseling services. Humanitas needed to seek an affordable solution <u>ⓔto fill</u> the gap left by the removal of these services.`,
+stem:'위 글의 밑줄 친 ⓐ~ⓔ 중, 어법상 어색한 것은?',
+ch:['ⓐ','ⓑ','ⓒ','ⓓ','ⓔ'],
+ans:3,
+det:{
+ref:`[원문] ... including social, educational, and counseling services. [해석] 사회적, 교육적, 그리고 상담 서비스를 <b>포함하여</b> 많은 필수적인 노인 돌봄 프로그램이 사라졌다. 여기서 including은 앞 문장의 many essential elderly care programs의 구체적 예시를 나열하는 <b>전치사(~을 포함하여)</b>로 쓰였다. included(과거분사/동사)는 문맥상 부적절하며, including(전치사)으로 고쳐야 한다.`,
+correct:`ⓐ located: 과거분사가 명사 house를 뒤에서 수식(= which is located). 수동의 의미이므로 적절 ✅ | ⓑ houses: 관계대명사 that절의 동사. 선행사 a care center(3인칭 단수)에 수 일치하여 houses 적절 ✅ | ⓒ reduced: 접속사 after가 이끄는 부사절의 동사. 주어 budget cuts(복수)에 대한 과거형 동사로 적절 ✅ | ⓓ included ❌ → <b>including</b>: 앞 문장의 명사(programs)에 대한 구체적 예시를 나열하는 전치사 including이 와야 함. included는 동사/과거분사로서 이 위치에 올 수 없음 ❌ | ⓔ to fill: to부정사의 부사적 용법(목적). '그 공백을 메우기 위해' → 적절 ✅`,
+wrongs:[],
+tip:`🔑 including vs included: including은 전치사로 '~을 포함하여'의 의미로 예시를 나열. included는 동사(과거형) 또는 과거분사. 문장 중간에 예시 나열 시 including 사용. 비교: including A, B, and C (전치사) / A is included in B (수동태)`
+}},
+
+// ── Q2: 어법 A/B/C ──
+{id:2,type:'어법',diff:'어려움',pts:6,fmt:'mc',
+note:'Jacob의 생활',
+passage:`As a live-in student, I\u2019m required to spend at least 30 hours per month with my elderly neighbors in exchange for free (A)<u>[accommodations / accommodating]</u>. Sometimes I teach them things, such as (B)<u>[how to use / how using]</u> social media, and other times I just hang out with them. With so much experience (C)<u>[gathered / gathering]</u> over a lifetime, they possess knowledge that I have yet to acquire.`,
+stem:'위 글의 괄호 (A), (B), (C) 안에서 어법에 맞는 표현으로 가장 적절한 것은?',
+ch:['accommodations — how to use — gathered','accommodations — how using — gathering','accommodating — how to use — gathering','accommodating — how using — gathered','accommodations — how to use — gathering'],
+ans:0,
+det:{
+ref:`[원문] (A) in exchange for free accommodations (B) such as how to use social media (C) With so much experience gathered over a lifetime [해석] (A) 무료 숙소를 대가로 / (B) 소셜 미디어 사용법과 같은 것들을 / (C) 평생에 걸쳐 축적된 아주 많은 경험을 가지고 있으므로. (A) 전치사 for 뒤에 명사 accommodations가 와야 하므로 accommodating(동명사/형용사)은 부적절. (B) 의문사+to부정사 구문으로 명사 역할. how using은 비문법적. (C) experience와 gather는 수동 관계(경험이 축적되는 것)이므로 과거분사 gathered가 적절.`,
+correct:`① accommodations — how to use — gathered ✅: 모든 선택이 어법에 맞음 | ② accommodations — how using — gathering ❌: (B) how using 비문법적, (C) gathering은 능동 의미로 부적절 | ③ accommodating — how to use — gathering ❌: (A) accommodating은 명사가 아닌 형용사/동명사, (C) gathering 부적절 | ④ accommodating — how using — gathered ❌: (A), (B) 모두 부적절 | ⑤ accommodations — how to use — gathering ❌: (C) gathering은 수동 관계에 부적절`,
+wrongs:[],
+tip:`🔑 의문사+to부정사: how to use / what to do / where to go (명사 역할). how+v-ing 형태는 영어에서 쓰이지 않음에 주의. 🔑 With+명사+분사: 수동이면 p.p., 능동이면 v-ing. experience gathered (경험이 축적된 → 수동) vs people gathering (사람들이 모이는 → 능동)`
+}},
+
+// ── Q3: 어법 ⓐ~ⓓ ──
+{id:3,type:'어법',diff:'어려움',pts:6,fmt:'mc',
+note:'Helena의 이야기',
+passage:`I have been living at Humanitas for the past 15 years, so I remember when we were first <u>ⓐinformed</u> that we would have young people as neighbors. But that quickly changed once they moved in. The students here are energetic, friendly, and caring. They make us <u>ⓑto laugh</u> and create a joyful mood. Humanitas was already a decent place <u>ⓒto live</u> before the students arrived, but it has become a lot more fun since they <u>ⓓmoved</u> in.`,
+stem:'위 글의 밑줄 친 ⓐ~ⓓ 중, 어법상 어색한 것은?',
+ch:['ⓐ','ⓑ','ⓒ','ⓓ'],
+ans:1,
+det:{
+ref:`[원문] They make us laugh and create a joyful mood. [해석] 그들은 우리를 웃게 만들고 즐거운 분위기를 만든다. 사역동사 make는 목적격보어로 <b>동사원형</b>을 취한다. 따라서 to laugh(to부정사)는 어법에 맞지 않으며 laugh(동사원형)로 고쳐야 한다.`,
+correct:`ⓐ informed: 수동태(were informed). 주어 we가 inform의 대상이므로 수동태 적절 ✅ | ⓑ to laugh ❌ → <b>laugh</b>: 사역동사 make + 목적어(us) + 동사원형. to laugh(to부정사)는 사역동사 make의 목적격보어로 올 수 없음 ❌ | ⓒ to live: 형용사적 용법의 to부정사. a place to live(살 장소) → 적절 ✅ | ⓓ moved: 접속사 since가 이끄는 부사절의 과거 동사. '그들이 이사 온 이후로' → 적절 ✅`,
+wrongs:[],
+tip:`🔑 사역동사 make + O + 동사원형: make us laugh (○) / to laugh (✕) / laughing (✕). 비교: let + O + 원형, have + O + 원형/p.p. 수동태 전환: be made <b>to</b>-v (수동태에서는 to부정사!) 예: We were made <b>to laugh</b> by them.`
+}},
+
+// ── Q4: 어휘 A/B/C ──
+{id:4,type:'어휘',diff:'보통',pts:5,fmt:'mc',
+note:'Humanitas 배경',
+passage:`This unique "intergenerational living" project began in 2012, after budget cuts (A)<u>[reduced / increased]</u> the amount of money care homes received. This funding reduction led to the (B)<u>[loss / gain]</u> of many essential elderly care programs. Humanitas needed to seek an (C)<u>[affordable / expensive]</u> solution to fill the gap left by the removal of these services.`,
+stem:'위 글의 괄호 (A), (B), (C) 안에서 문맥에 맞는 낱말로 가장 적절한 것은?',
+ch:['reduced — loss — affordable','reduced — gain — affordable','increased — loss — expensive','increased — gain — affordable','reduced — loss — expensive'],
+ans:0,
+det:{
+ref:`[원문] after budget cuts reduced the amount of money ... This funding reduction led to the loss of ... needed to seek an affordable solution [해석] 예산 삭감이 요양원이 받는 자금을 (A)줄인 후에, 이 자금 감소는 많은 필수적인 노인 돌봄 프로그램의 (B)손실로 이어졌다. Humanitas는 이 서비스 제거로 남겨진 공백을 메우기 위해 (C)저렴한 해결책을 찾아야 했다.`,
+correct:`① reduced — loss — affordable ✅: 예산 삭감 → 자금 감소(reduced) → 프로그램 손실(loss) → 저렴한 해결책(affordable) 필요라는 논리적 흐름이 완벽 | ② reduced — gain — affordable ❌: gain(획득)은 프로그램이 사라진 맥락과 모순 | ③ increased — loss — expensive ❌: increased는 budget cuts와 모순, expensive는 예산 부족 상황과 모순 | ④ increased — gain — affordable ❌: increased, gain 모두 맥락과 반대 | ⑤ reduced — loss — expensive ❌: expensive는 예산 부족 상황에서 비논리적`,
+wrongs:[],
+tip:`🔑 reduce(줄이다) ↔ increase(늘리다) | loss(손실) ↔ gain(이득) | affordable(저렴한) ↔ expensive(비싼). 문맥 단서: budget cuts → 예산이 줄어든 상황 → reduced, loss, affordable 모두 '감소/부족' 방향의 어휘`
+}},
+
+// ── Q5: 어휘 부적절 ──
+{id:5,type:'어휘',diff:'어려움',pts:6,fmt:'mc',
+note:'Jacob의 변화',
+passage:`Every time I come home, I tell my neighbors about my day. When I have a problem, they always have useful advice to \u2460<u>share</u>. With so much experience gathered over a lifetime, they possess knowledge that I have yet to \u2461<u>acquire</u>. They also teach me lots of little but important things, often without \u2462<u>realizing</u> it. For example, I\u2019ve learned the value of having a casual chat over a cup of coffee from them. It\u2019s a really great way to take a break from \u2463<u>rushing</u> around all the time. I used to feel sorry for the elderly because I focused only on the things they can\u2019t do. When I look at them now, however, I see all the things they can \u2464<u>overlook</u>.`,
+stem:'위 글의 밑줄 친 낱말 중, 문맥상 부적절한 것은?',
+ch:['①','②','③','④','⑤'],
+ans:4,
+det:{
+ref:`[원문] I see all the things they can do. [해석] 나는 이제 그들이 할 수 있는 모든 것들을 본다. 원문에서는 'can do(할 수 있다)'인데, ⑤ overlook(간과하다)으로 바뀌어 있어 문맥과 반대. 앞 문장에서 '할 수 없는 것에만 집중했다'고 했고, however로 역접한 뒤 '할 수 있는 것을 본다'가 되어야 자연스럽다.`,
+correct:`① share ✅: '나눌 유용한 조언'이라는 원문과 일치. share advice(조언을 나누다) 적절 | ② acquire ✅: '아직 얻지 못한 지식'이라는 원문과 일치. acquire knowledge(지식을 습득하다) 적절 | ③ realizing ✅: '깨닫지 못한 채'라는 원문과 일치. without realizing it(그것을 인식하지 못한 채) 적절 | ④ rushing ✅: '항상 바쁘게 돌아다니는 것에서 벗어나'라는 원문과 일치. rushing around(돌아다니다) 적절 | ⑤ overlook ❌ → <b>do</b>: 원문은 'things they can do(할 수 있는 것들)'. overlook(간과하다)은 문맥과 정반대 ❌`,
+wrongs:[],
+tip:`🔑 overlook(간과하다, 못 보고 넘어가다) ↔ do(하다). 문맥 단서: '예전에는 못하는 것에만 집중 → however(역접) → 이제는 할 수 있는 것을 봄'. 역접 접속부사 however 전후 의미 반전에 주목!`
+}},
+
+// ── Q6: 어휘 부적절 ──
+{id:6,type:'어휘',diff:'보통',pts:5,fmt:'mc',
+note:'Helena의 감정',
+passage:`I sometimes hear loud music from my young next-door neighbor\u2019s apartment, but that is \u2460<u>okay</u>. It\u2019s a small matter \u2461<u>compared</u> to what they\u2019ve brought to our lives. I\u2019m \u2462<u>grateful</u> every day that they have become part of our community. She later told me that I was a great \u2463<u>burden</u> during that difficult time, which made me feel very good. It always feels nice to be \u2464<u>reminded</u> that I\u2019m still capable of doing things for others.`,
+stem:'위 글의 밑줄 친 낱말 중, 문맥상 부적절한 것은?',
+ch:['①','②','③','④','⑤'],
+ans:3,
+det:{
+ref:`[원문] She later told me that I was a great comfort during that difficult time, which made me feel very good. [해석] 그녀는 나중에 내가 그 힘든 시간 동안 큰 <b>위안(comfort)</b>이었다고 말했는데, 그것이 나를 매우 기분 좋게 만들었다. ④ burden(짐, 부담)은 원문의 comfort(위안)와 반대 의미. '큰 부담'이었다면 '기분 좋게' 느낄 수 없으므로 문맥에 부적절.`,
+correct:`① okay ✅: 시끄러운 음악이 들리지만 '괜찮다'고 함 → 원문 일치 | ② compared ✅: '그들이 가져다 준 것에 비하면 작은 문제' → compared to(~와 비교하여) 적절 | ③ grateful ✅: '감사하다'는 원문 그대로 | ④ burden ❌ → <b>comfort</b>: 원문은 comfort(위안). burden(짐)은 뒤의 'made me feel very good'과 모순 ❌ | ⑤ reminded ✅: '~을 상기시켜 주다' → 원문 일치`,
+wrongs:[],
+tip:`🔑 comfort(위안, 편안함) ↔ burden(짐, 부담). 문맥 단서: 'which made me feel very good'(기분이 매우 좋았다) → 앞 내용이 긍정적이어야 함 → comfort가 적절. ≈ consolation(위로), solace(위안) ↔ burden(부담), hardship(고난)`
+}},
+
+// ── Q7: 주제 ──
+{id:7,type:'대의',diff:'보통',pts:5,fmt:'mc',
+note:'Humanitas 소개',
+passage:`Humanitas is a care center that houses more than 160 elderly residents. At Humanitas, elderly residents share their living space with university students. This unique "intergenerational living" project began in 2012, after budget cuts reduced the amount of money care homes received. Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents. Many students were struggling to afford the area\u2019s high rents, so the proposal was a true win-win situation.`,
+stem:'위 글의 주제로 가장 적절한 것은?',
+ch:['세대 간 교류를 통한 상호 혜택의 공동 생활','노인 요양 시설의 재정 위기와 정부 지원 확대','대학생들의 주거 문제 해결을 위한 정책 제안','네덜란드 복지 시스템의 역사와 발전 과정','노인 돌봄 프로그램의 종류와 효과 비교'],
+ans:0,
+det:{
+ref:`[원문] At Humanitas, elderly residents share their living space with university students. ... the proposal was a true win-win situation. [해석] Humanitas에서 노인 거주자들은 대학생들과 생활 공간을 공유한다. 이 제안은 진정한 윈윈 상황이었다. 글 전체가 노인과 대학생이 함께 사는 '세대 간 공동 생활(intergenerational living)' 프로젝트를 소개하며, 양쪽 모두에게 이로운 상황(win-win)임을 강조하고 있다.`,
+correct:`① 세대 간 교류를 통한 상호 혜택의 공동 생활 ✅: 글의 핵심 — intergenerational living + win-win situation | ② 노인 요양 시설의 재정 위기와 정부 지원 확대 ❌: 예산 삭감은 배경일 뿐, 정부 지원 확대는 언급 없음 | ③ 대학생들의 주거 문제 해결을 위한 정책 제안 ❌: 학생 주거 문제는 부분적 내용이며 글의 주제가 아님 | ④ 네덜란드 복지 시스템의 역사와 발전 과정 ❌: 네덜란드 복지 전체가 아닌 Humanitas 한 곳의 사례 | ⑤ 노인 돌봄 프로그램의 종류와 효과 비교 ❌: 프로그램 비교는 글에 없음`,
+wrongs:[],
+tip:`🔑 주제 파악 전략: 반복 키워드에 주목 → intergenerational, share, win-win, together. 배경 정보(예산 삭감)와 핵심 주제(세대 공존)를 구분할 것. 주제문 위치: 도입부의 마지막 문장 'a true win-win situation'이 핵심 메시지`
+}},
+
+// ── Q8: 제목 ──
+{id:8,type:'대의',diff:'보통',pts:5,fmt:'mc',
+note:'Jacob의 소감',
+passage:`Obviously, Humanitas provides me with much more than a free place to stay. I\u2019ve made deep, meaningful friendships that I\u2019ll never forget here. I intend to stay at Humanitas for at least one more year. Living here has changed my life in ways I never thought possible, and I\u2019m really grateful for this transformative experience. I have learned so much from my neighbors already, but I\u2019m sure there is still a lot more that they can teach me.`,
+stem:'위 글의 제목으로 가장 적절한 것은?',
+ch:['More Than a Free Place to Stay: Lessons from Living Together','The Hidden Costs of Free Housing for Students','Why Elderly People Prefer Living Alone','How to Save Money on Rent: A Student Guide','The Decline of Care Homes in the Netherlands'],
+ans:0,
+det:{
+ref:`[원문] Humanitas provides me with much more than a free place to stay. I\u2019ve made deep, meaningful friendships ... Living here has changed my life ... [해석] Humanitas는 단순히 무료 숙소 이상의 것을 제공한다. 깊고 의미 있는 우정을 쌓았고, 여기서의 생활이 삶을 변화시켰다. 글의 중심 메시지: 무료 숙소를 넘어선 세대 간 교류의 가치와 삶의 변화`,
+correct:`① More Than a Free Place to Stay: Lessons from Living Together ✅: 글의 핵심을 정확히 반영. 무료 숙소 이상의 가치 + 함께 사는 교훈 | ② The Hidden Costs of Free Housing ❌: '숨겨진 비용'이라는 부정적 뉘앙스는 글과 불일치 | ③ Why Elderly People Prefer Living Alone ❌: 노인들이 혼자 살기를 선호한다는 내용 없음 (오히려 반대) | ④ How to Save Money on Rent ❌: 임대료 절약법이 아닌 세대 간 교류가 핵심 | ⑤ The Decline of Care Homes ❌: 요양원 쇠퇴는 글의 배경이지 주제가 아님`,
+wrongs:[],
+tip:`🔑 제목 선택 전략: 글 전체를 포괄하는 제목을 선택. 핵심 표현 'more than a free place to stay'가 그대로 제목에 반영된 ①이 가장 적절. 부분적 내용(돈, 혼자 살기)을 다룬 선택지는 오답`
+}},
+
+// ── Q9: 시사점 ──
+{id:9,type:'대의',diff:'어려움',pts:6,fmt:'mc',
+note:'글의 시사점',
+passage:`Humanitas is a great example of how people of different ages can help each other and share their lives with one another. The older residents gain a more youthful perspective on life, while the younger residents receive valuable life lessons. More and more care homes around Europe are now trying intergenerational living, bringing the young and old together in harmony.`,
+stem:'위 글이 시사하는 바로 가장 적절한 것은?',
+ch:['세대 간 교류는 모든 세대에게 긍정적 영향을 줄 수 있다.','노인 복지 예산을 늘리는 것이 가장 시급한 과제이다.','대학생은 노인에게 배울 것이 거의 없다.','세대 갈등은 함께 살아도 해결할 수 없는 문제이다.','유럽의 요양원은 점차 폐쇄되고 있다.'],
+ans:0,
+det:{
+ref:`[원문] people of different ages can help each other ... The older residents gain a more youthful perspective, while the younger residents receive valuable life lessons. [해석] 다른 세대의 사람들이 서로 도울 수 있다. 노인은 젊은 시각을, 젊은이는 소중한 인생 교훈을 얻는다. 글 전체의 시사점: 세대 간 공존이 <b>양쪽 모두</b>에게 긍정적 영향을 미친다.`,
+correct:`① 세대 간 교류는 모든 세대에게 긍정적 영향을 줄 수 있다 ✅: older → youthful perspective, younger → valuable life lessons → 모두에게 이로움 | ② 노인 복지 예산을 늘리는 것이 가장 시급 ❌: 예산 문제는 배경이며, 시사점은 세대 교류의 가치 | ③ 대학생은 노인에게 배울 것이 거의 없다 ❌: 글과 정반대 (valuable life lessons 언급) | ④ 세대 갈등은 해결할 수 없다 ❌: 글은 조화(harmony)를 강조 | ⑤ 유럽의 요양원은 폐쇄되고 있다 ❌: 오히려 intergenerational living을 도입하며 확산 중`,
+wrongs:[],
+tip:`🔑 시사점(implication) 문제 풀이 전략: 글의 결론부에서 필자의 메시지 파악. 마지막 문단의 help each other, harmony, gain, receive 등 양방향 이익을 나타내는 표현에 주목. ≈ mutual benefit(상호 이익), reciprocal(상호적인)`
+}},
+
+// ── Q10: 일치 ──
+{id:10,type:'일치',diff:'쉬움',pts:3,fmt:'mc',
+note:'Humanitas 기본 정보',
+passage:`Humanitas is a yellow brick house located in the city of Deventer, the Netherlands. It is a care center that houses more than 160 elderly residents who require assistance. This unique "intergenerational living" project began in 2012, after budget cuts reduced the amount of money care homes in the Netherlands received. Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents.`,
+stem:'Humanitas에 관한 위 글의 내용과 <b>일치하는</b> 것은?',
+ch:['네덜란드 Deventer에 위치한 노란 벽돌 건물이다.','100명 미만의 노인 거주자가 살고 있다.','세대 간 공동 생활 프로젝트는 2020년에 시작되었다.','학생들은 저렴한 임대료를 내고 거주한다.','시장이 학생 수용을 결정하였다.'],
+ans:0,
+det:{
+ref:`[원문] Humanitas is a yellow brick house located in the city of Deventer, the Netherlands. [해석] Humanitas는 네덜란드 Deventer 시에 위치한 노란 벽돌 건물이다. 이 내용이 ① 선지와 정확히 일치한다.`,
+correct:`① 네덜란드 Deventer에 위치한 노란 벽돌 건물이다 ✅: yellow brick house, Deventer, the Netherlands → 원문 일치 | ② 100명 미만의 노인 거주자 ❌: 원문은 'more than 160'(160명 이상) | ③ 2020년에 시작 ❌: 원문은 '2012년(began in 2012)' | ④ 저렴한 임대료를 냄 ❌: 원문은 'free accommodations(무료 숙소)' | ⑤ 시장이 결정 ❌: 원문은 'the director(원장)가 결정'`,
+wrongs:[],
+tip:`🔑 일치/불일치 문제 전략: 숫자(160 vs 100), 연도(2012 vs 2020), 인물(director vs mayor), 조건(free vs cheap)처럼 세부 정보를 정확히 대조. 원문의 핵심 수치·인물·조건을 미리 표시해 두면 빠르게 풀 수 있음`
+}},
+
+// ── Q11: 불일치 ──
+{id:11,type:'불일치',diff:'보통',pts:5,fmt:'mc',
+note:'Jacob에 관한 정보',
+passage:`My name is Jacob Jansen, and I\u2019ve been living at Humanitas for over two years. As a live-in student, I\u2019m required to spend at least 30 hours per month with my elderly neighbors in exchange for free accommodations. In reality, however, we spend a lot more time together than that. I used to feel sorry for the elderly because I focused only on the things they can\u2019t do. When I look at them now, however, I see all the things they can do. I intend to stay at Humanitas for at least one more year.`,
+stem:'Jacob Jansen에 관한 위 글의 내용과 <b>일치하지 않는</b> 것은?',
+ch:['Humanitas에서 2년 넘게 거주하고 있다.','한 달에 최소 30시간을 노인과 보내야 한다.','실제로는 의무 시간보다 더 많은 시간을 함께 보낸다.','예전부터 노인들이 할 수 있는 일에 주목했다.','적어도 1년 더 Humanitas에 머물 계획이다.'],
+ans:3,
+det:{
+ref:`[원문] I used to feel sorry for the elderly because I focused only on the things they can\u2019t do. [해석] 나는 예전에 그들이 할 수 <b>없는</b> 것에만 집중했기 때문에 노인들에게 안쓰러움을 느꼈다. ④는 '예전부터 할 수 있는 일에 주목'이라고 했으므로 원문(할 수 없는 일에 집중)과 <b>불일치</b>.`,
+correct:`① 2년 넘게 거주 ✅ 일치: 'over two years' | ② 한 달에 최소 30시간 ✅ 일치: 'at least 30 hours per month' | ③ 의무 시간보다 더 많이 ✅ 일치: 'a lot more time together than that' | ④ 예전부터 할 수 있는 일에 주목 ❌ 불일치: 원문은 'can\u2019t do(할 수 없는 일)'에 집중했다고 함. 지금(now)은 can do에 주목하지만, '예전부터'는 아님 | ⑤ 1년 더 머물 계획 ✅ 일치: 'at least one more year'`,
+wrongs:[],
+tip:`🔑 불일치 문제: can\u2019t do ↔ can do 반대 표현에 주의. 시간 표현 'used to(예전에 ~했다)' vs 'now(지금)'의 시제 전환도 핵심 단서. used to + 동사원형 = 과거의 습관/상태 (현재는 다름)`
+}},
+
+// ── Q12: 빈칸(구) ──
+{id:12,type:'빈칸',diff:'어려움',pts:6,fmt:'mc',
+note:'Jacob의 감사',
+passage:`I used to feel sorry for the elderly because I focused only on the things they can\u2019t do. When I look at them now, however, I see all the things they can do. Obviously, Humanitas provides me with much more than a free place to stay. I\u2019ve made deep, meaningful friendships that I\u2019ll never forget here. Living here has changed my life in ways I never thought possible, and I\u2019m really grateful for this ______________ experience.`,
+stem:'위 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+ch:['transformative','temporary','disappointing','exhausting','monotonous'],
+ans:0,
+det:{
+ref:`[원문] and I\u2019m really grateful for this transformative experience. [해석] 그리고 나는 이 <b>변화를 가져다주는(transformative)</b> 경험에 정말 감사하다. Jacob은 노인에 대한 시각이 바뀌고, 깊은 우정을 쌓는 등 삶이 크게 변화했다고 서술하고 있으므로 transformative(변혁적인)가 가장 적절.`,
+correct:`① transformative ✅: '삶을 바꾸는, 변혁적인' → 삶이 변했다(changed my life)는 맥락과 일치 | ② temporary ❌: '일시적인' → 삶을 바꾼 경험을 '일시적'이라 하기엔 부적절 | ③ disappointing ❌: '실망스러운' → grateful(감사한)과 모순 | ④ exhausting ❌: '지치는' → 긍정적 맥락과 불일치 | ⑤ monotonous ❌: '단조로운' → meaningful friendships와 모순`,
+wrongs:[],
+tip:`🔑 transformative(변혁적인) ≈ life-changing, revolutionary. 빈칸 단서: 'changed my life' + 'grateful' → 긍정적 변화를 나타내는 형용사 필요. transform(변형하다) → transformative(변혁적인, 변화를 가져오는)`
+}},
+
+// ── Q13: 빈칸(문장) ──
+{id:13,type:'빈칸',diff:'어려움',pts:6,fmt:'mc',
+note:'Helena의 보람',
+passage:`She later told me that I was a great comfort during that difficult time, which made me feel very good. It always feels nice to be reminded that ____________________________. I am nearly 100 years old, and I have bad knees. I understand that my knees aren\u2019t going to get any better. There is nothing much the doctors can do about the pain. But having young, vibrant people around helps me forget about the pain and enjoy my life!`,
+stem:'위 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+ch:["I\u2019m still capable of doing things for others","my health is gradually improving each day","the students are too busy to help me","I should focus on my own needs first","age is just a number without any meaning"],
+ans:0,
+det:{
+ref:`[원문] It always feels nice to be reminded that I\u2019m still capable of doing things for others. [해석] 내가 여전히 다른 사람들을 위해 무언가를 할 수 있다는 것을 상기받는 것은 항상 기분이 좋다. Helena(93세)는 젊은 이웃을 위로해 준 경험에서 보람을 느끼며, 자신이 여전히 타인에게 도움이 될 수 있다는 사실에 기뻐하고 있다.`,
+correct:`① I\u2019m still capable of doing things for others ✅: 앞 문맥(위로해 줌 → 기분 좋음)과 뒤 문맥(나이 들었지만 삶을 즐김)을 연결하는 핵심 문장 | ② my health is gradually improving ❌: 뒤에서 'bad knees', 'not going to get better'라고 하므로 모순 | ③ the students are too busy to help me ❌: 학생들이 바빠서 도와주지 않는다는 내용 없음 | ④ I should focus on my own needs first ❌: 글의 주제(타인을 위해 할 수 있는 것)와 반대 | ⑤ age is just a number ❌: 나이는 숫자일 뿐이라는 내용은 글의 맥락과 무관`,
+wrongs:[],
+tip:`🔑 빈칸(문장) 풀이: 앞뒤 문맥을 모두 확인. 앞: comfort(위로) → feel very good(기분 좋음) / 뒤: bad knees but enjoy life. 연결 논리: '타인을 도울 수 있다는 사실' → 기분 좋음 + 고통 속에서도 삶을 즐김. capable of + v-ing: ~할 수 있는`
+}},
+
+// ── Q14: 함축 ──
+{id:14,type:'함축',diff:'보통',pts:5,fmt:'mc',
+note:'여유의 가치',
+passage:`For example, I\u2019ve learned the value of having a casual chat over a cup of coffee from them. <u><b>It\u2019s a really great way to take a break from rushing around all the time.</b></u> I used to feel sorry for the elderly because I focused only on the things they can\u2019t do. When I look at them now, however, I see all the things they can do.`,
+stem:'밑줄 친 문장이 의미하는 바로 가장 적절한 것은?',
+ch:['바쁜 일상에서 잠시 쉬며 여유를 찾는 것의 가치','커피를 자주 마시는 것이 건강에 해롭다는 경고','노인들과 대화하는 것이 시간 낭비라는 인식','항상 빠르게 움직여야 성공할 수 있다는 교훈','카페에서 공부하는 것이 집중에 도움이 된다는 조언'],
+ans:0,
+det:{
+ref:`[원문] It\u2019s a really great way to take a break from rushing around all the time. [해석] 그것(커피 한 잔을 마시며 편한 대화를 하는 것)은 항상 바쁘게 돌아다니는 것에서 벗어나 쉬는 정말 좋은 방법이다. Jacob이 노인들에게서 배운 것: 바쁜 일상에서 잠시 멈추고 소소한 대화를 나누며 여유를 갖는 것의 가치.`,
+correct:`① 바쁜 일상에서 잠시 쉬며 여유를 찾는 것의 가치 ✅: take a break from rushing = 바쁨에서 벗어나 쉬기 | ② 커피가 건강에 해롭다는 경고 ❌: 건강에 대한 언급 없음 | ③ 대화가 시간 낭비라는 인식 ❌: 오히려 'great way(좋은 방법)'이라고 긍정적 평가 | ④ 빠르게 움직여야 성공 ❌: 오히려 rushing에서 벗어나라는 메시지 | ⑤ 카페에서 공부하는 것 ❌: 공부가 아닌 casual chat(가벼운 대화)에 대한 내용`,
+wrongs:[],
+tip:`🔑 함축 의미 파악: 밑줄 문장의 핵심어 분석 → take a break(쉬다) + rushing around(바쁘게 돌아다니다). 앞 문장(casual chat over coffee)이 구체적 예시, 밑줄 문장이 그 가치를 설명. casual ≈ informal, relaxed ↔ formal, rushed`
+}},
+
+// ── Q15: 순서 ──
+{id:15,type:'순서',diff:'보통',pts:5,fmt:'mc',
+note:'글의 순서',
+passage:`<b>주어진 글:</b> Humanitas needed to seek an affordable solution to fill the gap left by the removal of these services.<br><br><b>(A)</b> Many students were struggling to afford the area\u2019s high rents, so the proposal was a true win-win situation.<br><b>(B)</b> Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents.<br><b>(C)</b> Now, let\u2019s hear more about this intriguing place from two of the residents.`,
+stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
+ch:['(A) → (B) → (C)','(A) → (C) → (B)','(B) → (A) → (C)','(B) → (C) → (A)','(C) → (B) → (A)'],
+ans:2,
+det:{
+ref:`[해석] 주어진 글: Humanitas는 서비스 제거로 남겨진 공백을 메울 저렴한 해결책을 찾아야 했다. → (B) 건물에 빈 방이 많았으므로, 원장은 학생에게 무료 숙소를 제공하기로 했다. → (A) 많은 학생들이 비싼 임대료를 감당하기 어려워했으므로, 이 제안은 윈윈이었다. → (C) 이제 두 거주자에게서 이 흥미로운 장소에 대해 더 들어보자.`,
+correct:`③ (B) → (A) → (C) ✅: (B)는 주어진 글의 'affordable solution'에 대한 구체적 설명(빈 방 → 학생에게 제공). (A)는 (B)의 'offer ... free accommodations'를 받아 'the proposal was a win-win'으로 평가. (C)는 전환(Now)으로 다음 내용(거주자 이야기)을 예고 → 마지막 위치. | ① (A)→(B)→(C) ❌: (A)의 the proposal이 (B)를 선행해야 성립 | ④ (B)→(C)→(A) ❌: (C)의 Now가 글의 마무리 전환이므로 마지막이어야 함`,
+wrongs:[],
+tip:`🔑 순서배열 전략: 지시어·연결어 추적. the proposal(그 제안) → 앞에 제안 내용이 있어야 함 → (B)가 먼저. Now(이제) → 화제 전환 → 마지막 위치. Since(~이므로) → 이유-결과 관계 파악`
+}},
+
+// ── Q16: 무관문장 ──
+{id:16,type:'무관',diff:'쉬움',pts:3,fmt:'mc',
+note:'학생들의 긍정적 영향',
+passage:`The students here are energetic, friendly, and caring. ① They make us laugh and create a joyful mood. ② Humanitas was already a decent place to live before the students arrived, but it has become a lot more fun since they moved in. ③ The price of real estate in Deventer has risen sharply over the past decade. ④ Recently, the students held a pajama party and invited us to join them. ⑤ They taught us how to play some new games, and we all had a great time.`,
+stem:'위 글에서 전체 흐름과 <b>관계없는</b> 문장은?',
+ch:['①','②','③','④','⑤'],
+ans:2,
+det:{
+ref:`[해석] ③ Deventer의 부동산 가격이 지난 10년간 급등했다. 이 문장은 학생들이 가져온 즐거움과 활력에 대한 글 흐름과 무관한 '부동산 가격' 이야기를 하고 있어 전체 흐름에서 벗어난다.`,
+correct:`① 우리를 웃게 만들고 즐거운 분위기를 만든다 ✅ 관련: 학생들의 긍정적 영향 | ② 학생들이 오기 전에도 괜찮았지만 더 재미있어졌다 ✅ 관련: 학생 입주 전후 비교 | ③ Deventer의 부동산 가격이 급등했다 ❌ 무관: 부동산 가격은 학생들과 노인의 교류 내용과 무관 | ④ 학생들이 파자마 파티를 열고 초대했다 ✅ 관련: 학생들과의 구체적 활동 사례 | ⑤ 새 게임을 가르쳐 주고 즐거운 시간을 보냈다 ✅ 관련: ④의 파자마 파티 내용 이어짐`,
+wrongs:[],
+tip:`🔑 무관문장 판별: 글의 중심 소재(학생들과의 즐거운 교류)에서 벗어나는 문장 찾기. ③은 '부동산 가격'이라는 전혀 다른 소재를 다루므로 무관. 나머지는 모두 '학생들이 가져온 긍정적 변화'라는 주제와 연결됨`
+}},
+
+// ── Q17: TF ──
+{id:17,type:'TF',diff:'쉬움',pts:3,fmt:'mc',
+note:'Helena의 회상',
+passage:`My name is Helena Smit, and I am 93 years old. I have been living at Humanitas for the past 15 years, so I remember when we were first informed that we would have young people as neighbors. Believe me, not everyone was happy about it! But that quickly changed once they moved in.`,
+stem:`위 글의 내용을 바탕으로, 아래 진술이 맞으면 T, 틀리면 F를 고르시오.<br><br><b>진술: Helena Smit는 학생들이 처음 왔을 때 모든 거주자가 기뻐했다고 말했다.</b>`,
+ch:['T','F'],
+ans:1,
+det:{
+ref:`[원문] Believe me, not everyone was happy about it! [해석] 날 믿어요, <b>모든 사람이 기뻐한 것은 아니었어요!</b> 진술은 '모든 거주자가 기뻐했다'고 했으나, 원문은 'not everyone was happy(모두가 기쁜 것은 아니었다)'이므로 F.`,
+correct:`T ❌: 원문은 'not everyone was happy'(부분 부정)로, 모든 사람이 기뻐한 것이 아님을 명시 | F ✅: 'not everyone'(모두가 ~한 것은 아니다)은 부분 부정. 일부는 기뻐하지 않았음 → 진술(모두 기뻐했다)은 거짓`,
+wrongs:[],
+tip:`🔑 부분 부정: not everyone = 모두가 ~한 것은 아니다 (일부는 아님). 전체 부정: no one = 아무도 ~하지 않다. not + all/every/both/always → 부분 부정에 주의!`
+}},
+
+// ── Q18: 서술형 요약 ──
+{id:18,type:'서술형',diff:'보통',pts:5,fmt:'written',
+note:'핵심 단어 찾기',
+passage:`Humanitas is a great example of how people of different ages can help each other and share their lives with one another. More and more care homes around Europe are now trying intergenerational living, bringing the young and old together in harmony.`,
+stem:`위 글을 읽고, 아래 요약문의 빈칸에 들어갈 <b>한 단어</b>를 본문에서 찾아 쓰시오.<br><br><b>[조건]</b> 본문에 나온 단어를 그대로 쓸 것<br><b>[요약문]</b> The Humanitas project is a great example of ______________ living, where the young and old share their lives together.`,
+wa:'intergenerational',
+accept:['intergenerational','Intergenerational','INTERGENERATIONAL'],
+det:{
+ref:`[원문] More and more care homes around Europe are now trying intergenerational living. [해석] 유럽의 점점 더 많은 요양원들이 <b>세대 간(intergenerational)</b> 공동 생활을 시도하고 있다. 요약문의 '젊은이와 노인이 함께 생활을 공유'하는 것은 intergenerational living의 핵심.`,
+correct:`정답: intergenerational ✅ — 본문의 핵심 키워드. 'inter-(~사이의)' + 'generational(세대의)' = 세대 간의. 본문에서 intergenerational living이라는 표현이 두 번 등장하며 글의 중심 개념.`,
+wrongs:[],
+tip:`🔑 intergenerational = inter(사이) + generation(세대) + al(형용사). ≈ cross-generational, multigenerational. 접두사 inter-: international(국제적), interact(상호작용하다), interpersonal(대인 간의)`
+}},
+
+// ── Q19: 서술형 영작 ──
+{id:19,type:'서술형',diff:'어려움',pts:7,fmt:'written',
+note:'영작',
+passage:`Living here has changed my life in ways I never thought possible, and I\u2019m really grateful for this transformative experience.`,
+stem:`다음 <조건>에 맞게 주어진 단어를 활용하여 문장을 완성하시오.<br><br><b>[조건]</b> 1) 주어진 단어를 모두 사용하되 필요시 어형 변환 가능 2) 총 9단어로 작성<br><b>[보기]</b> change / way / never / think / possible<br><br>Living here has _________________________________.`,
+wa:'changed my life in ways I never thought possible',
+accept:['changed my life in ways I never thought possible','Changed my life in ways I never thought possible','changed my life in ways i never thought possible'],
+det:{
+ref:`[원문] Living here has changed my life in ways I never thought possible. [해석] 여기서 사는 것은 내가 결코 가능하다고 생각하지 못했던 방식으로 내 삶을 바꿔 놓았다. change → changed (현재완료), way → ways (복수형), think → thought (과거형) 어형 변환 필요.`,
+correct:`모범답안: changed my life in ways I never thought possible ✅ — change → changed: 현재완료(has changed)의 과거분사 / way → ways: 복수형 '방식들' / never: 부정 부사 / think → thought: 과거형 (관계부사절 내) / possible: 형용사 보어(thought possible = 가능하다고 생각하다)`,
+wrongs:[],
+tip:`🔑 관계부사 생략: ways (in which/that) I never thought possible. in ways = '~한 방식으로'. thought possible에서 possible은 목적격 보어. I never thought (it was) possible에서 축약된 구조.`
+}},
+
+// ── Q20: 서술형 어형 ──
+{id:20,type:'서술형',diff:'쉬움',pts:3,fmt:'written',
+note:'어형 변환',
+passage:`I am nearly 100 years old, and I have bad knees. I understand that my knees aren\u2019t going to get any better. There is nothing much the doctors can do about the pain. But having young, vibrant people around helps me forget about the pain and enjoy my life!`,
+stem:`다음 괄호 안의 단어를 <b>어법에 맞게</b> 고쳐 쓰시오.<br><br>Having young, vibrant people around helps me (forget) about the pain and (enjoy) my life!`,
+wa:'forget, enjoy',
+accept:['forget, enjoy','forget / enjoy','forget and enjoy','forget enjoy','forget,enjoy','forget , enjoy'],
+det:{
+ref:`[원문] helps me forget about the pain and enjoy my life! [해석] 젊고 활기찬 사람들이 주변에 있는 것은 내가 고통을 잊고 삶을 즐기도록 도와준다! help + 목적어 + 동사원형: help me forget / help me enjoy. 괄호 안의 forget과 enjoy는 이미 동사원형이므로 <b>그대로 쓰면 정답</b>.`,
+correct:`정답: forget, enjoy ✅ (동사원형 유지) — help + O + 동사원형/to부정사: help는 목적격보어로 원형부정사 또는 to부정사를 모두 허용. 원문에서는 동사원형(forget, enjoy)을 사용. and로 병렬 연결된 forget과 enjoy 모두 동사원형 유지.`,
+wrongs:[],
+tip:`🔑 help + O + 원형부정사/to부정사: help me forget (○) = help me to forget (○). 단, 시험에서는 원문 그대로의 형태를 쓰는 것이 안전. 병렬 구조: forget ... and enjoy → 둘 다 같은 형태(원형)여야 함`
+}}
+];
+
+// ── ENGINE ──
+const QCOUNT=Q.length;
+let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,pct:Math.round(r.correct/QCOUNT*100)});try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 기록이 없습니다.</p>';else p.innerHTML=h.slice(-5).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'Challenger',icon:'👑',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'Diamond',icon:'💎',range:'90~94',msg:'최상위! 틀린 문항만 점검하세요.'};if(s>=80)return{name:'Gold',icon:'🏆',range:'80~89',msg:'통과! 약한 유형을 집중 복습하면 최상위.'};if(s>=60)return{name:'Silver',icon:'🥈',range:'60~79',msg:'조금만 더! 오답 해설을 꼼꼼히.'};if(s>=40)return{name:'Bronze',icon:'🥉',range:'40~59',msg:'기본기를 다지면 크게 향상됩니다.'};return{name:'Iron',icon:'⚔️',range:'0~39',msg:'지문 해석부터 완벽히 익히세요.'};}
+function fmtTime(s){return`${Math.floor(s/60)}분 ${s%60}초`;}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(QCOUNT).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc='tag-'+q.type;h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body"><div class="q-passage"><span class="label">📖 ${q.note}</span>${q.passage}</div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${q.ch.length===2?(ci===0?'T':'F'):'①②③④⑤'[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:QCOUNT},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('current',i===S.cur);d.classList.toggle('answered',S.ans[i]!==null&&i!==S.cur);});}
+function scrollToQ(i){if(i<0||i>=QCOUNT)return;S.cur=i;document.getElementById(`qc-${i}`).scrollIntoView({behavior:'smooth',block:'center'});upDots();}
+function sel(qi,ci){document.querySelectorAll(`.choice-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));document.querySelector(`.choice-btn[data-q="${qi}"][data-c="${ci}"]`).classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById(`w-${qi}`).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase().replace(/[!.]/g,'');if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase().replace(/[!.]/g,''));if(!ok&&q.wa)ok=u===q.wa.toLowerCase().replace(/[!.]/g,'');}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok,pts:ok?q.pts:0});});return{score,correct,wrong,unanswered,details};}
+function generateFeedback(r){const pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t);const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t);let fb=[];weakTypes.forEach(([type,data])=>{const p=Math.round(data.o/data.t*100);fb.push(`⚠️ [${type}] 정답률 ${p}% — 이 유형을 집중 복습하세요.`);});r.details.forEach(d=>{if(!d.ok)fb.push(`📌 ${d.q.id}번(${d.q.type}) 오답 — ${d.q.det.tip||'해설을 확인하세요.'}`)});if(pct>=95)fb.unshift('🏆 거의 완벽! 심화 문제로 도전하세요.');else if(pct>=80)fb.unshift('✅ 통과! 틀린 유형만 집중 복습하면 최상위.');else if(pct>=60)fb.unshift('💪 조금 더! 오답 해설을 꼼꼼히 읽고 반복.');else fb.unshift('📖 기본기부터! 지문 정독 → 문법·어휘 정리.');if(perfectTypes.length)fb.push(`🌟 만점 유형: ${perfectTypes.map(([k])=>k).join(', ')}`);return fb;}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,pts:0,mx:0};typeMap[t].t++;typeMap[t].mx+=d.q.pts;if(d.ok){typeMap[t].o++;typeMap[t].pts+=d.q.pts;}});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);const fb=generateFeedback(r);
+let h=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/100</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong>/${QCOUNT}</span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교/학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간/통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽에 가까운 실력!</h4><p>심화 문제로 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>${weakTypes.join(', ')} 유형을 집중 복습하면 최상위.</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기를 다지는 시간!</h4><p>지문 정독 → 핵심 문법·어휘 정리.</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">💬 보완 피드백</div>`;fb.forEach(f=>{const isW=f.startsWith('⚠️'),isP=f.startsWith('📌'),isS=f.startsWith('🌟');const bg=isW?'var(--rl)':isP?'var(--oxl)':isS?'var(--gl)':'#F8F7F5';const bd=isW?'var(--r)':isP?'var(--o)':isS?'var(--g)':'#e0dcd8';h+=`<div style="padding:10px 14px;background:${bg};border-left:3px solid ${bd};border-radius:0 var(--rs) var(--rs) 0;margin-bottom:8px;font-size:13px;line-height:1.7">${f}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn" onclick="shareResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);font-weight:500;margin-left:8px">클릭하여 펼치기</span></div>`;
+r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const tc='tag-'+d.q.type;h+=`<div class="rev-card"><div class="rev-header" onclick="document.getElementById('rv-${i}').classList.toggle('open')"><div class="q-num" style="width:30px;height:30px;font-size:13px">${d.q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 9px">${d.q.type}</span><span style="font-size:12px;color:var(--tl)">${d.q.diff}·${d.q.pts}점</span><span class="rev-icon">${icon}</span></div><div class="rev-body" id="rv-${i}">`;
+if(d.q.fmt==='mc'){if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else if(d.ans!==null)h+=`<div class="your-ans wrong">❌ 내 답: ${d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]} ${d.q.ch[d.ans]}</div>`;else h+=`<div class="your-ans wrong">⬜ 미응답</div>`;}else{if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else h+=`<div class="your-ans wrong">${d.ans?'❌ 내 답: '+d.ans:'⬜ 미응답'}</div>`;}
+h+=`<div class="expl-sec"><div class="expl-tag ans">✅ 정답</div><div class="expl-box ans-b">${d.q.fmt==='mc'?`<b>${d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]} ${d.q.ch[d.q.ans]}</b>`:`<b>${d.q.wa}</b>`}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag ref">📖 근거</div><div class="expl-box ref-b">${d.q.det.ref}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag tip">💡 풀이</div><div class="expl-box tip-b">${d.q.det.correct}</div></div>`;
+if(d.q.det.wrongs&&d.q.det.wrongs.length&&d.q.det.wrongs[0]!=='')h+=`<div class="expl-sec"><div class="expl-tag wrng">❌ 오답</div><div class="expl-box wrng-b">${d.q.det.wrongs.map(w=>`<div style="margin-bottom:4px">${w}</div>`).join('')}</div></div>`;
+if(d.q.det.tip)h+=`<div class="expl-sec"><div class="expl-tag key">🔑 핵심</div><div class="expl-box key-b">${d.q.det.tip}</div></div>`;
+h+=`</div></div>`;});h+=`</div></div>`;
+document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex(d=>!d.ok);if(fw>=0)setTimeout(()=>{const el=document.getElementById(`rv-${fw}`);if(el)el.classList.add('open');},500);window._lastResult=r;window._lastElapsed=elapsed;}
+function shareResult(){const r=window._lastResult;const elapsed=window._lastElapsed;if(!r)return;const nm=document.getElementById('inpName').value.trim();const sc=document.getElementById('inpSchool').value.trim();const gr=document.getElementById('inpGrade').value;const lv=getLevel(r.score);const pass=r.score>=80;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});let txt=`━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 온라인퀴즈 TEST 결과\n`;txt+=`━━━━━━━━━━━━━━━━━━━━\n\n`;txt+=`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n`;txt+=`📖 ${EI.title}\n\n`;txt+=`┌─────────────────────┐\n`;txt+=`│  📋 기본 정보\n`;txt+=`│  👤 이름: ${nm}\n`;if(sc)txt+=`│  🏫 학교: ${sc} · ${gr}\n`;else txt+=`│  🎓 학년: ${gr}\n`;txt+=`│  📅 응시일: ${new Date().toLocaleDateString('ko-KR')}\n`;txt+=`│  ⏱️ 소요시간: ${fmtTime(elapsed)}\n`;txt+=`└─────────────────────┘\n\n`;txt+=`🏆 ── 성적 결과 ──────────\n\n`;txt+=`   ${lv.icon} ${lv.name} (${lv.range}점)\n`;txt+=`   📊 ${r.score}점 / 100점  ${pass?'✅ 통과':'❌ 미통과'}\n\n`;txt+=`   ✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n\n`;txt+=`📊 ── 유형별 분석 ────────\n\n`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const bar='█'.repeat(Math.round(p/10))+'░'.repeat(10-Math.round(p/10));const icon=p===100?'🌟':p>=80?'✅':p>=50?'⚠️':'❌';txt+=`   ${icon} ${type}\t${bar} ${p}% (${d.o}/${d.t})\n`;});txt+=`\n`;const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);if(perfectTypes.length)txt+=`   🌟 만점 유형: ${perfectTypes.join(', ')}\n`;if(weakTypes.length)txt+=`   📌 보완 필요: ${weakTypes.join(', ')}\n`;txt+=`\n💬 ── 상세 피드백 ────────\n\n`;r.details.forEach(d=>{if(!d.ok){const icon=d.ans===null?'⬜':'❌';const ansInfo=d.q.fmt==='mc'?(d.ans!==null?'①②③④⑤'[d.ans]:'미응답'):(d.ans||'미응답');const correctAns=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;txt+=`   ${icon} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점\n`;txt+=`      내 답: ${ansInfo} → 정답: ${correctAns}\n`;const tipClean=(d.q.det.tip||'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').substring(0,80);if(tipClean)txt+=`      💡 ${tipClean}...\n`;txt+=`\n`;}});if(r.wrong===0&&r.unanswered===0)txt+=`   🎉 전 문항 정답! 완벽합니다!\n\n`;txt+=`📝 ── 학습 조언 ──────────\n\n`;if(r.score>=95)txt+=`   🏅 거의 완벽! 심화 문제에 도전하세요.\n`;else if(r.score>=80)txt+=`   📈 통과! ${weakTypes.join(', ')} 유형만 보강하면 최상위.\n`;else if(r.score>=60)txt+=`   💪 조금만 더! 오답 해설을 꼼꼼히 확인하세요.\n`;else txt+=`   📖 기본기부터! 지문 정독 → 문법·어휘 정리.\n`;txt+=`\n━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 내신핏 온라인퀴즈 TEST\n`;txt+=`━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>{toast('📋 결과가 클립보드에 복사되었습니다!');}).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 결과가 클립보드에 복사되었습니다!');});}
+function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+</script>
+</body>
+</html>

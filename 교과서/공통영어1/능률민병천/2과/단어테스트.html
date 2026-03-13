@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 능률(민병천) 3과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">NE능률(민병천) 2과 · Start a Crowdfunding Campaign · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">능률(민병천)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">2과 Start a Crowdfunding Campaign</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · NE능률(민병천) · <span>2과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1","pub":"능률(민병천)","lesson":"2과","title":"Start a Crowdfunding Campaign","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_nle_2"};
+
+const Q=[
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`(A) empty – (B) warehouse – (C) immediately`,`(A) crowded – (B) greenhouse – (C) immediately`,`(A) empty – (B) greenhouse – (C) immediately`,`(A) crowded – (B) warehouse – (C) reluctantly`,`(A) empty – (B) greenhouse – (C) reluctantly`],passage:`That evening, I sat by the window and stared out at the (A)[<b>empty / crowded</b>] field behind their house. Suddenly, I got an idea. The field would be the perfect place for a larger (B)[<b>greenhouse / warehouse</b>]. Then they could grow more strawberries! I (C)[<b>immediately / reluctantly</b>] started searching for a way, and I found the perfect solution.`,stem:`다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것은?`,det:{korean:`그날 저녁, 나는 창가에 앉아 집 뒤의 <b>텅 빈</b> 들판을 바라보았다. 갑자기 아이디어가 떠올랐다. 그 들판은 더 큰 <b>온실</b>을 짓기에 완벽한 장소가 될 것이었다. 그러면 더 많은 딸기를 재배할 수 있다! 나는 <b>즉시</b> 방법을 찾기 시작했고, 완벽한 해결책을 찾았다.`,analysis:`✅ ③ (A) empty(텅 빈) – (B) greenhouse(온실) – (C) immediately(즉시): 빈 들판에 온실을 짓겠다는 아이디어를 즉시 실행에 옮긴 맥락과 일치
+❌ ① warehouse(창고)는 딸기 재배와 무관
+❌ ② crowded(붐비는)는 빈 들판 묘사와 반대
+❌ ④ 모두 반대 의미
+❌ ⑤ reluctantly(마지못해)는 적극적 태도와 반대`,tip:`empty ↔ crowded, greenhouse(온실) ≠ warehouse(창고), immediately ↔ reluctantly 대립 쌍을 기억하세요.`}},
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:4,ch:[`(A) raising – (B) disadvantageous – (C) successful`,`(A) lowering – (B) advantageous – (C) successful`,`(A) raising – (B) advantageous – (C) unsuccessful`,`(A) lowering – (B) disadvantageous – (C) unsuccessful`,`(A) raising – (B) advantageous – (C) successful`],passage:`Crowdfunding is a way of (A)[<b>raising / lowering</b>] money for a product, company, or charity. These days, people can use crowdfunding websites to collect money. Crowdfunding is especially (B)[<b>advantageous / disadvantageous</b>] for individuals or small companies that can't attract big investors. If the campaign is (C)[<b>successful / unsuccessful</b>], the investors receive direct rewards for their contribution.`,stem:`다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것은?`,det:{korean:`크라우드펀딩은 제품, 회사, 또는 자선 단체를 위해 돈을 <b>모으는</b> 방법이다. 요즘 사람들은 크라우드펀딩 웹사이트를 이용하여 돈을 모을 수 있다. 크라우드펀딩은 큰 투자자를 유치할 수 없는 개인이나 소규모 회사에 특히 <b>유리하다</b>. 캠페인이 <b>성공적</b>이면, 투자자들은 기여에 대한 직접적인 보상을 받는다.`,analysis:`✅ ⑤ (A) raising(모으는) – (B) advantageous(유리한) – (C) successful(성공적인): 크라우드펀딩의 긍정적 맥락과 일치
+❌ ① disadvantageous는 '유리한'의 반대
+❌ ② lowering(낮추는)은 돈을 모으는 맥락과 반대
+❌ ③ unsuccessful이면 보상을 받을 수 없음
+❌ ④ 모두 반대 의미`,tip:`raise money(돈을 모으다) ↔ lower money, advantageous(유리한) ↔ disadvantageous(불리한) 쌍을 익히세요.`}},
+{id:3,type:`(A)(B)(C) 조합형`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`(A) concealing – (B) clearly – (C) express`,`(A) promoting – (B) clearly – (C) express`,`(A) promoting – (B) vaguely – (C) express`,`(A) promoting – (B) clearly – (C) suppress`,`(A) concealing – (B) vaguely – (C) suppress`],passage:`For a successful crowdfunding campaign, (A)[<b>promoting / concealing</b>] it is necessary. You should consider making a video. This allows investors to get to know you and learn about your product. In the video, describe your situation (B)[<b>clearly / vaguely</b>] and show your product. You also need to (C)[<b>express / suppress</b>] how important the product is to you.`,stem:`다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것은?`,det:{korean:`성공적인 크라우드펀딩 캠페인을 위해서는 그것을 <b>홍보하는</b> 것이 필요하다. 영상을 만드는 것을 고려해야 한다. 이를 통해 투자자들이 당신을 알고 제품에 대해 배울 수 있다. 영상에서 자신의 상황을 <b>명확하게</b> 설명하고 제품을 보여주어라. 또한 제품이 당신에게 얼마나 중요한지 <b>표현</b>해야 한다.`,analysis:`✅ ② (A) promoting(홍보하는) – (B) clearly(명확하게) – (C) express(표현하다): 캠페인 홍보를 위한 명확한 소통 맥락과 일치
+❌ ① concealing(숨기는)은 홍보와 반대
+❌ ③ vaguely(모호하게)는 명확한 설명과 반대
+❌ ④ suppress(억누르다)는 표현하다의 반대
+❌ ⑤ 모두 반대 의미`,tip:`promote(홍보하다) ↔ conceal(숨기다), clearly ↔ vaguely, express(표현하다) ↔ suppress(억누르다)를 기억하세요.`}},
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`indifferent`,`build`,`grow`,`reward`,`sending`],passage:`My grandparents were ①<u>indifferent</u> when I told them my idea. With the help of investors, we could ②<u>build</u> a large greenhouse and ③<u>grow</u> a lot more strawberries. Moreover, we could ④<u>reward</u> the investors for their help by ⑤<u>sending</u> them jars of organic jam!`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`조부모님은 내 아이디어를 들었을 때 <b>무관심했다</b>(→thrilled, 매우 기뻐했다). 투자자들의 도움으로 우리는 큰 온실을 <b>짓고</b> 훨씬 더 많은 딸기를 <b>재배</b>할 수 있었다. 게다가 유기농 잼을 <b>보내</b> 투자자들에게 <b>보답</b>할 수도 있었다!`,analysis:`❌ ① indifferent(무관심한) → 원문은 thrilled(매우 기뻐하는). 아이디어를 듣고 기뻐하는 맥락이므로 부적절
+✅ ② build(짓다): 온실을 짓는 맥락에 적절
+✅ ③ grow(재배하다): 딸기를 재배하는 맥락에 적절
+✅ ④ reward(보답하다): 투자자에게 보답하는 맥락에 적절
+✅ ⑤ sending(보내는): 잼을 보내는 맥락에 적절`,tip:`thrilled(매우 기뻐하는) ↔ indifferent(무관심한)는 감정 표현의 대표적 반의어 쌍입니다.`}},
+{id:5,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`excited`,`launch`,`accepted`,`rapidly`,`supporting`],passage:`I was really ①<u>excited</u> when I filled out the form to ②<u>launch</u> the campaign. In less than a week, our application was ③<u>accepted</u> and funding began! Funding for our campaign started ④<u>rapidly</u>. When the first investor committed to ⑤<u>supporting</u> us, I almost jumped for joy. Now, after six weeks, we have raised almost $2,500.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`나는 캠페인을 <b>시작하기</b> 위해 양식을 작성할 때 정말 <b>신이 났다</b>. 일주일도 안 되어 우리의 신청이 <b>승인되었고</b> 자금 조달이 시작되었다! 우리 캠페인의 자금 조달은 <b>빠르게</b>(→slowly, 느리게) 시작되었다. 첫 번째 투자자가 우리를 <b>지지하겠다고</b> 약속했을 때, 나는 기뻐서 거의 뛸 뻔했다.`,analysis:`✅ ① excited(신이 난): 캠페인 시작에 대한 흥분을 표현, 적절
+✅ ② launch(시작하다): 캠페인을 시작하는 맥락에 적절
+✅ ③ accepted(승인된): 신청이 승인되는 맥락에 적절
+❌ ④ rapidly(빠르게) → 원문은 slowly(느리게). '천천히 시작되었다'가 올바른 맥락
+✅ ⑤ supporting(지지하는): 투자자가 지지하는 맥락에 적절`,tip:`slowly(느리게) ↔ rapidly(빠르게)는 속도를 나타내는 대표적 반의어입니다.`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`어려움`,pts:6,fmt:"mc",ans:4,ch:[`eager`,`achieve`,`highlighted`,`included`,`artificial`],passage:`After our application was accepted, I was ①<u>eager</u> to make a good first impression with our investors. To ②<u>achieve</u> this, I made a video about my grandparents and their jam. In the video, I ③<u>highlighted</u> how the strawberries were grown without using chemicals. I also ④<u>included</u> clips of my grandparents. In the clips, they were making the jam with ⑤<u>artificial</u> ingredients.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`신청이 승인된 후, 나는 투자자들에게 좋은 첫인상을 주고 <b>싶었다</b>. 이를 <b>달성하기</b> 위해 조부모님과 잼에 대한 영상을 만들었다. 영상에서 딸기가 화학물질 없이 재배되는 방법을 <b>강조했다</b>. 또한 조부모님의 영상 클립도 <b>포함했다</b>. 그 클립에서 그들은 <b>인공적인</b>(→all-natural, 완전 천연) 재료로 잼을 만들고 있었다.`,analysis:`✅ ① eager(열망하는): 좋은 인상을 주고 싶어하는 맥락에 적절
+✅ ② achieve(달성하다): 목표를 달성하려는 맥락에 적절
+✅ ③ highlighted(강조했다): 화학물질 미사용을 강조하는 맥락에 적절
+✅ ④ included(포함했다): 클립을 포함시킨 맥락에 적절
+❌ ⑤ artificial(인공적인) → 원문은 all-natural(완전 천연). 유기농 잼의 자연 재료 맥락과 반대`,tip:`all-natural(완전 천연의) ↔ artificial(인공적인)은 식품/재료 관련 필수 반의어입니다.`}},
+{id:7,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`distribute`,`waste`,`collect`,`borrow`],passage:`Crowdfunding is a way of raising money for a product, company, or charity. These days, people can use crowdfunding websites to __________ money. Crowdfunding is especially advantageous for individuals or small companies that can't attract big investors.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`크라우드펀딩은 제품, 회사, 또는 자선 단체를 위해 돈을 모으는 방법이다. 요즘 사람들은 크라우드펀딩 웹사이트를 이용해 돈을 <b>모을</b> 수 있다. 크라우드펀딩은 큰 투자자를 유치할 수 없는 개인이나 소규모 회사에 특히 유리하다.`,analysis:`❌ ① distribute(분배하다): 돈을 모으는 맥락과 반대
+❌ ② waste(낭비하다): 크라우드펀딩의 목적과 반대
+✅ ③ collect(모으다): 웹사이트를 통해 돈을 '모으는' 맥락에 적절
+❌ ④ borrow(빌리다): 크라우드펀딩은 빌리는 것이 아닌 모으는 것`,tip:`collect money(돈을 모으다)는 crowdfunding의 핵심 표현입니다. raise money와 유의어 관계입니다.`}},
+{id:8,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`former`,`potential`,`generous`,`reluctant`],passage:`Before beginning your campaign, be sure to plan all the production details. How many products will you make? How long will it take to make the product? This planning is important because your __________ investors will want to see a clear schedule.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`캠페인을 시작하기 전에 모든 생산 세부사항을 계획하세요. 얼마나 많은 제품을 만들 것인가? 제품을 만드는 데 얼마나 걸리는가? 이 계획은 <b>잠재적인</b> 투자자들이 명확한 일정을 보고 싶어 하기 때문에 중요하다.`,analysis:`❌ ① former(이전의): 이전 투자자가 아닌 앞으로의 투자자 맥락
+✅ ② potential(잠재적인): 아직 확정되지 않은 '잠재적' 투자자들이 일정을 보고 싶어 하는 맥락에 적절
+❌ ③ generous(관대한): 투자자의 성격이 아닌 상태를 설명하는 맥락
+❌ ④ reluctant(꺼리는): 투자하려는 의지와 반대`,tip:`potential(잠재적인)은 '가능성이 있는'이라는 뜻으로 potential investors(잠재적 투자자)는 자주 쓰이는 표현입니다.`}},
+{id:9,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`fulfill`,`abandon`,`postpone`,`reduce`],passage:`Once your plan is complete, remember to set your funding goal. It should be enough to complete the project and __________ the rewards for the investors. Consider all the necessary costs before deciding on the amount.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`계획이 완성되면 자금 조달 목표를 설정하는 것을 기억하세요. 프로젝트를 완료하고 투자자들에 대한 보상을 <b>이행</b>하기에 충분해야 합니다. 금액을 결정하기 전에 모든 필요한 비용을 고려하세요.`,analysis:`✅ ① fulfill(이행하다): 투자자에 대한 보상을 '이행하다'는 맥락에 완벽히 적절
+❌ ② abandon(포기하다): 보상을 포기하는 것은 맥락과 반대
+❌ ③ postpone(연기하다): 보상을 연기하는 것은 부정적 맥락
+❌ ④ reduce(줄이다): 보상을 줄이는 것은 투자자 신뢰와 반대`,tip:`fulfill은 '(약속·의무를) 이행하다'는 의미로 fulfill the rewards, fulfill a promise 등의 표현을 기억하세요.`}},
+{id:10,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`reject`,`avoid`,`ignore`,`draw`],passage:`These days, people can use crowdfunding websites to collect money. Crowdfunding is especially advantageous for individuals or small companies that can't <u>attract</u> big investors. If the campaign is successful, the investors receive direct rewards for their contribution.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`요즘 사람들은 크라우드펀딩 웹사이트를 이용해 돈을 모을 수 있다. 크라우드펀딩은 큰 투자자를 <b>유치할</b> 수 없는 개인이나 소규모 회사에 특히 유리하다. 캠페인이 성공적이면, 투자자들은 기여에 대한 직접적인 보상을 받는다.`,analysis:`❌ ① reject(거부하다): attract의 반의어
+❌ ② avoid(피하다): attract와 반대 의미
+❌ ③ ignore(무시하다): attract와 무관
+✅ ④ draw(끌어들이다): attract(유치하다, 끌다)와 가장 유사한 의미`,tip:`attract = draw = pull in (끌어들이다). attract attention(주의를 끌다), attract investors(투자자를 유치하다)를 기억하세요.`}},
+{id:11,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`circulate`,`disappear`,`decline`,`fade`],passage:`After some editing, I posted the video on many social media sites. It didn't take long for word of our campaign to <u>spread</u>. Funding for our campaign started slowly.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`편집을 마친 후 여러 소셜 미디어 사이트에 영상을 올렸다. 우리 캠페인에 대한 소문이 <b>퍼지는</b> 데 오래 걸리지 않았다. 우리 캠페인의 자금 조달은 느리게 시작되었다.`,analysis:`✅ ① circulate(퍼지다, 유포되다): spread(퍼지다)와 가장 유사한 의미
+❌ ② disappear(사라지다): spread의 반대
+❌ ③ decline(감소하다): spread와 반대 방향
+❌ ④ fade(흐려지다): spread와 반대 의미`,tip:`spread = circulate = go around (퍼지다). 소문이나 정보가 퍼지는 맥락에서 자주 사용됩니다.`}},
+{id:12,type:`동의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`refused`,`hesitated`,`pledged`,`pretended`],passage:`Funding for our campaign started slowly. When the first investor <u>committed</u> to supporting us, I almost jumped for joy. Now, after six weeks, we have raised almost $2,500.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것은?`,det:{korean:`우리 캠페인의 자금 조달은 느리게 시작되었다. 첫 번째 투자자가 우리를 지지하겠다고 <b>약속했을</b> 때, 나는 기뻐서 거의 뛸 뻔했다. 이제 6주가 지나 거의 2,500달러를 모았다.`,analysis:`❌ ① refused(거절하다): committed의 반의어
+❌ ② hesitated(망설이다): 확약과 반대되는 태도
+✅ ③ pledged(서약하다, 약속하다): committed(헌신하다, 약속하다)와 가장 유사
+❌ ④ pretended(~인 척하다): 진심 어린 약속과 반대`,tip:`commit to ~ing = pledge to ~(~하겠다고 약속/헌신하다). 전치사 to 뒤에 동명사가 온다는 점에 주의하세요.`}},
+{id:13,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`tasty`,`appetizing`,`flavorful`,`disgusting`],passage:`My grandparents sell their <u>delicious</u> organic jam at the local market every weekend. I went to help them last weekend. However, they had already sold all of their jam!`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>먼</b> 것은?`,det:{korean:`조부모님은 매주 주말 지역 시장에서 <b>맛있는</b> 유기농 잼을 판매한다. 나는 지난 주말 그들을 도우러 갔다. 하지만 그들은 이미 잼을 모두 팔아버렸다!`,analysis:`✅ ① tasty(맛있는): delicious의 유의어
+✅ ② appetizing(식욕을 돋우는): delicious와 유사
+✅ ③ flavorful(풍미 있는): delicious와 유사
+❌ ④ disgusting(역겨운): delicious(맛있는)의 반의어로 의미가 가장 멀다`,tip:`delicious = tasty = appetizing = flavorful (맛있는) ↔ disgusting(역겨운). 음식 맛 관련 동의어·반의어를 정리하세요.`}},
+{id:14,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`straight`,`indirect`,`immediate`,`clear`],passage:`Crowdfunding is a way of raising money for a product, company, or charity. These days, people can use crowdfunding websites to collect money. If the campaign is successful, the investors receive <u>direct</u> rewards for their contribution.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>먼</b> 것은?`,det:{korean:`크라우드펀딩은 제품, 회사, 또는 자선 단체를 위해 돈을 모으는 방법이다. 요즘 사람들은 크라우드펀딩 웹사이트를 이용해 돈을 모을 수 있다. 캠페인이 성공적이면, 투자자들은 기여에 대한 <b>직접적인</b> 보상을 받는다.`,analysis:`✅ ① straight(직접적인, 곧바른): direct와 유사
+❌ ② indirect(간접적인): direct(직접적인)의 정반대 의미로 가장 멀다
+✅ ③ immediate(즉각적인): direct와 유사한 뉘앙스
+✅ ④ clear(명확한): direct와 유사한 뉘앙스`,tip:`direct(직접적인) ↔ indirect(간접적인). 접두사 in-이 붙으면 반대 의미가 됩니다: direct/indirect, complete/incomplete.`}},
+{id:15,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`We decided to set our funding goal at $5,000.`,`She set the table for dinner before the guests arrived.`,`The committee set the rules for the competition last week.`,`The government set new standards for food safety this year.`,`They set the deadline for the project submission on Friday.`],passage:`① We decided to <u>set</u> our funding goal at $5,000.<br>② She <u>set</u> the table for dinner before the guests arrived.<br>③ The committee <u>set</u> the rules for the competition last week.<br>④ The government <u>set</u> new standards for food safety this year.<br>⑤ They <u>set</u> the deadline for the project submission on Friday.`,stem:`다음 밑줄 친 <u>set</u>이 나머지 넷과 <b>다른 의미</b>로 쓰인 것은?<br><br>[본문 참고] We decided to <b>set</b> our funding goal at $5,000 to cover all the costs.`,det:{korean:`① 우리는 자금 조달 목표를 5,000달러로 <b>설정했다</b>.<br>② 그녀는 손님이 오기 전에 저녁 식탁을 <b>차렸다</b>.<br>③ 위원회는 지난주 대회 규칙을 <b>정했다</b>.<br>④ 정부는 올해 식품 안전 새 기준을 <b>설정했다</b>.<br>⑤ 그들은 프로젝트 제출 마감일을 금요일로 <b>정했다</b>.`,analysis:`✅ ①③④⑤ set = 설정하다, 정하다 (establish/determine)
+❌ ② set the table = 식탁을 차리다 (prepare/arrange) → 나머지와 다른 의미
+
+본문에서 set은 '목표를 설정하다'의 의미로 ①③④⑤와 같은 뜻입니다.`,tip:`set은 대표적 다의어입니다. set a goal/rule/standard(설정하다), set the table(식탁을 차리다), sunset(해가 지다) 등 다양한 의미를 구분하세요.`}},
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`promotion`,`calculation`,`contribution`,`application`],passage:`<i>a gift or payment to a common fund or collection</i><br><br>[본문 참고] If the campaign is successful, the investors receive direct rewards for their __________.`,stem:`다음 영영풀이에 해당하는 단어를 고르시오.`,det:{korean:`<b>공동 기금이나 모금에 대한 기부금 또는 지불금</b><br>캠페인이 성공적이면, 투자자들은 그들의 <b>기여</b>에 대한 직접적인 보상을 받는다.`,analysis:`❌ ① promotion(홍보, 촉진): 기부금의 뜻이 아님
+❌ ② calculation(계산): 기금 관련 의미 아님
+✅ ③ contribution(기여, 기부금): '공동 기금에 대한 지불금'이라는 영영풀이와 정확히 일치
+❌ ④ application(신청, 지원): 기부금의 뜻이 아님`,tip:`contribution은 '기여, 기부금'이라는 뜻입니다. contribute(동사) → contribution(명사). make a contribution(기여하다)도 중요한 표현입니다.`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`approximately`,accept:[`approximately`],passage:`After doing some calculations, we decided on an 8-by-12-foot greenhouse. We thought it would cost (approximate) __________ $4,000. Once it was built, we could fill it with strawberry plants and expect a harvest within about four months.`,stem:`주어진 단어를 문맥에 맞게 변형하여 빈칸에 쓰시오.`,det:{korean:`몇 가지 계산을 한 후, 우리는 8×12피트 온실로 결정했다. 비용이 <b>대략</b> 4,000달러 정도 들 것이라고 생각했다. 완성되면 딸기 식물로 채우고 약 4개월 내에 수확을 기대할 수 있었다.`,analysis:`approximate(형용사: 대략적인) → <b>approximately</b>(부사: 대략)
+빈칸 뒤에 $4,000이라는 수치가 오므로 부사 형태가 필요합니다.
+형용사 → 부사 변환: -ly를 붙입니다.`,tip:`approximate(형) → approximately(부). 수치 앞에서 '대략, 약'의 의미로 부사 approximately를 사용합니다.`}},
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`editing`,accept:[`editing`],passage:`After some __________ (edit), I posted the video on many social media sites. It didn't take long for word of our campaign to spread. Funding for our campaign started slowly.`,stem:`주어진 단어를 문맥에 맞게 변형하여 빈칸에 쓰시오.`,det:{korean:`약간의 <b>편집</b> 후에 여러 소셜 미디어 사이트에 영상을 올렸다. 우리 캠페인에 대한 소문이 퍼지는 데 오래 걸리지 않았다. 우리 캠페인의 자금 조달은 느리게 시작되었다.`,analysis:`edit(동사: 편집하다) → <b>editing</b>(명사/동명사: 편집)
+some 뒤에 명사가 와야 하므로 동명사(명사형) editing이 적절합니다.`,tip:`edit(동사) → editing(동명사/명사). some + 명사 구조에서 동명사가 명사 역할을 합니다.`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`profits`,`details`,`failures`,`complaints`],passage:`Before beginning your campaign, be sure to plan all the production __________. How many products will you make? How long will it take to make the product? This planning is important because your potential investors will want to see a clear schedule.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`캠페인을 시작하기 전에 모든 생산 <b>세부사항</b>을 계획하세요. 얼마나 많은 제품을 만들 것인가? 제품을 만드는 데 얼마나 걸리는가? 이 계획은 잠재적 투자자들이 명확한 일정을 보고 싶어 하기 때문에 중요하다.`,analysis:`❌ ① profits(이윤): 생산 계획 단계에서 이윤은 맥락에 맞지 않음
+✅ ② details(세부사항): 생산 '세부사항'을 계획한다는 맥락에 완벽히 적절
+❌ ③ failures(실패): 생산 실패를 계획한다는 것은 부적절
+❌ ④ complaints(불만): 생산 불만을 계획한다는 것은 부적절`,tip:`production details(생산 세부사항)는 제품 제작 과정의 구체적인 사항을 의미합니다. detail은 '세부사항'이라는 뜻의 필수 어휘입니다.`}},
+{id:20,type:`빈칸 문맥 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`prevent`,`delay`,`ignore`,`track`],passage:`For a successful crowdfunding campaign, promoting it is necessary. During a campaign, it is important to send investors updates every week. Through the update, the investors will be able to __________ the progress of the campaign.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`성공적인 크라우드펀딩 캠페인을 위해서는 홍보가 필요하다. 캠페인 기간 동안 매주 투자자들에게 업데이트를 보내는 것이 중요하다. 업데이트를 통해 투자자들은 캠페인의 진행 상황을 <b>추적</b>할 수 있을 것이다.`,analysis:`❌ ① prevent(막다): 진행 상황을 막는다는 것은 부적절
+❌ ② delay(지연시키다): 진행 상황을 지연시키는 것은 맥락과 반대
+❌ ③ ignore(무시하다): 업데이트의 목적과 반대
+✅ ④ track(추적하다): 업데이트를 통해 캠페인 진행 상황을 '추적'하는 맥락에 적절`,tip:`track the progress(진행 상황을 추적하다)는 프로젝트 관리에서 자주 쓰이는 표현입니다. track = follow = monitor (추적하다).`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type.replace(/\(.+?\)/g,'').trim().slice(0,6)}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
+let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n\n━━ 📊 문항별 결과 ━━\n`;
+r.details.forEach(d=>{const mark=d.ok?'✅':'❌';const mk=d.q.ch&&d.q.ch.length===5?mk5:mk4;const ans=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const cor=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;txt+=`${mark} ${d.q.id}번 [${d.q.type.slice(0,6)}] ${d.q.pts}점 — 내답:${ans} 정답:${cor}\n`;});
+txt+=`\n━━ 📈 유형별 분석 ━━\n`;Object.entries(typeMap).forEach(([t,v])=>{const p=Math.round(v.o/v.t*100);const ic=p===100?'🟢':(p>0?'🟡':'🔴');txt+=`${ic} ${t.slice(0,6)}: ${v.o}/${v.t} (${p}%)`;if(v.w.length)txt+=` ← 틀린:${v.w.join(',')}번`;txt+=`\n`;});
+txt+=`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n#온라인단어TEST #영어내신`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 상세 결과가 복사되었습니다!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('📋 복사되었습니다!');}catch(e){toast('복사 실패');}document.body.removeChild(ta);});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+</script>
+</body>
+</html>

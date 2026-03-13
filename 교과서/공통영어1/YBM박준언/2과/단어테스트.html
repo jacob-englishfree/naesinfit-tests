@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 YBM(박준언) 2과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">YBM(박준언) 2과 · The Mind of an Octopus · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">YBM(박준언)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">2과 The Mind of an Octopus</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · YBM(박준언) · <span>2과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1","pub":"YBM(박준언)","lesson":"2과","title":"The Mind of an Octopus","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_ybm_2"};
+
+const Q=[
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`(A) boneless — (B) change — (C) taste`,`(A) bony — (B) change — (C) taste`,`(A) boneless — (B) maintain — (C) taste`,`(A) bony — (B) maintain — (C) ignore`,`(A) boneless — (B) change — (C) ignore`],passage:`Here is an animal with poison like a snake, a hard and pointed mouth like a bird, and ink like a pen. It can weigh as much as an adult human and stretch as long as a car. Yet it can put its (A)[<b>boneless / bony</b>] body through a hole the size of an orange. It can (B)[<b>change / maintain</b>] color and shape, and it can (C)[<b>taste / ignore</b>] with its skin. This animal is called an octopus.`,stem:`다음 글의 밑줄 친 (A), (B), (C)에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`여기 뱀처럼 독을 가지고, 새처럼 단단하고 뾰족한 입을 가지며, 펜처럼 잉크를 가진 동물이 있다. 그것은 성인 인간만큼 무겁고 자동차만큼 길게 늘어날 수 있다. 그러나 그것은 <b>뼈가 없는</b> 몸을 오렌지 크기의 구멍으로 통과시킬 수 있다. 그것은 색과 모양을 <b>바꿀</b> 수 있고, 피부로 <b>맛볼</b> 수 있다.`,analysis:`✅ ① boneless(뼈가 없는) / change(바꾸다) / taste(맛보다) — 본문 원문 그대로
+❌ ② bony(뼈가 있는)는 본문과 반대
+❌ ③ maintain(유지하다)은 문맥과 반대
+❌ ④ bony, maintain, ignore 모두 반대
+❌ ⑤ ignore(무시하다)는 문맥과 반대`,tip:`boneless(뼈가 없는) ↔ bony(뼈가 있는), change(바꾸다) ↔ maintain(유지하다), taste(맛보다) ↔ ignore(무시하다)`}},
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`(A) instantly — (B) assist — (C) utilize`,`(A) gradually — (B) rival — (C) discard`,`(A) instantly — (B) rival — (C) utilize`,`(A) gradually — (B) assist — (C) utilize`,`(A) instantly — (B) rival — (C) discard`],passage:`An octopus can change its color, pattern, and texture, and the changes are carried out almost (A)[<b>instantly / gradually</b>]. In terms of speed and the diversity of change, no other animal can (B)[<b>rival / assist</b>] octopuses. Even chameleons can (C)[<b>utilize / discard</b>] only a handful of fixed patterns.`,stem:`다음 글의 밑줄 친 (A), (B), (C)에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`문어는 색, 무늬, 질감을 바꿀 수 있으며, 이 변화는 거의 <b>즉시</b> 이루어진다. 변화의 속도와 다양성 면에서 어떤 동물도 문어에 <b>필적할</b> 수 없다. 카멜레온조차도 소수의 고정된 패턴만 <b>활용할</b> 수 있을 뿐이다.`,analysis:`✅ ③ instantly(즉시) / rival(필적하다) / utilize(활용하다) — 본문 원문 그대로
+❌ ① assist(돕다)는 '필적하다'가 아닌 의미
+❌ ② gradually(점차적으로)는 instantly와 반대
+❌ ④ gradually, assist 모두 부적절
+❌ ⑤ discard(버리다)는 utilize와 반대`,tip:`instantly(즉시) ↔ gradually(점차적으로), rival(필적하다) ↔ assist(돕다), utilize(활용하다) ↔ discard(버리다)`}},
+{id:3,type:`(A)(B)(C) 조합형`,diff:`어려움`,pts:6,fmt:"mc",ans:4,ch:[`(A) avoids — (B) sufficient — (C) acquire`,`(A) encounters — (B) insufficient — (C) acquire`,`(A) encounters — (B) sufficient — (C) abandon`,`(A) avoids — (B) insufficient — (C) abandon`,`(A) encounters — (B) sufficient — (C) acquire`],passage:`When an octopus (A)[<b>encounters / avoids</b>] its hunter or prey, it must decide very quickly which color, pattern, and texture to choose. Such a decision implies that it has gained (B)[<b>sufficient / insufficient</b>] knowledge of the surrounding animals and applies it to survive. To (C)[<b>acquire / abandon</b>] knowledge and apply it for a particular purpose is a sure sign of intelligence.`,stem:`다음 글의 밑줄 친 (A), (B), (C)에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`문어가 사냥꾼이나 먹이를 <b>마주치면</b>, 어떤 색, 무늬, 질감을 선택할지 매우 빠르게 결정해야 한다. 그런 결정은 주변 동물에 대한 <b>충분한</b> 지식을 얻어 생존에 적용한다는 것을 의미한다. 지식을 <b>습득</b>하여 특정 목적에 적용하는 것은 지능의 확실한 표시이다.`,analysis:`✅ ⑤ encounters(마주치다) / sufficient(충분한) / acquire(습득하다) — 본문 원문 그대로
+❌ ① avoids(피하다)는 encounters와 반대
+❌ ② insufficient(불충분한)는 sufficient와 반대
+❌ ③ abandon(버리다)은 acquire와 반대
+❌ ④ 세 단어 모두 반대`,tip:`encounters(마주치다) ↔ avoids(피하다), sufficient(충분한) ↔ insufficient(불충분한), acquire(습득하다) ↔ abandon(버리다)`}},
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`The octopus looks so ①<u>alien</u> to the people of the West that it has caused ②<u>dislike</u> or even horror in them. The dislike or horror helped create the ③<u>image</u> of an octopus as an ④<u>ordinary</u> creature living in the deep sea. For example, the Kraken, a sea monster in old Icelandic tales, looks just like an ⑤<u>enormous</u> octopus.`,stem:`다음 글의 밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`문어는 서양 사람들에게 너무 <b>낯설어</b> 보여서 그들에게 <b>반감</b>이나 심지어 공포를 불러일으켰다. 이 반감이나 공포가 문어를 심해에 사는 <b>사악한(→ordinary는 '평범한'으로 부적절)</b> 생물이라는 <b>이미지</b>를 만드는 데 기여했다. 예를 들어, 오래된 아이슬란드 이야기에 나오는 바다 괴물 크라켄은 <b>거대한</b> 문어처럼 보인다.`,analysis:`✅ ① alien(낯선) — 적절
+✅ ② dislike(반감) — 적절
+✅ ③ image(이미지) — 적절
+❌ ④ ordinary(평범한) — 원문은 evil(사악한). 공포·반감의 맥락에서 '평범한'은 부적절
+✅ ⑤ enormous(거대한) — 적절`,tip:`원문: evil(사악한) → ordinary(평범한)로 바뀌어 문맥이 어긋남. 공포를 유발하는 이미지는 '사악한' 생물이어야 자연스럽다.`}},
+{id:5,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`In the lab, octopuses use tools to get food ①<u>rewards</u>. In the wild, they use stones to create walls to ②<u>reveal</u> the entrances to their homes. They use not only stones but anything they can find to ③<u>protect</u> themselves. The most ④<u>impressive</u> example of octopuses using tools came in 2009 in ⑤<u>Indonesia</u>.`,stem:`다음 글의 밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`실험실에서 문어는 먹이 <b>보상</b>을 얻기 위해 도구를 사용한다. 야생에서 그들은 집 입구를 <b>보호하기(→reveal은 '드러내다'로 부적절)</b> 위해 돌로 벽을 만든다. 그들은 돌뿐만 아니라 자신을 <b>보호</b>하기 위해 찾을 수 있는 무엇이든 사용한다. 문어의 도구 사용에 대한 가장 <b>인상적인</b> 사례는 2009년 <b>인도네시아</b>에서 나왔다.`,analysis:`✅ ① rewards(보상) — 적절
+❌ ② reveal(드러내다) — 원문은 protect(보호하다). 입구를 '드러내다'는 문맥과 반대
+✅ ③ protect(보호하다) — 적절
+✅ ④ impressive(인상적인) — 적절
+✅ ⑤ Indonesia(인도네시아) — 적절`,tip:`원문: protect(보호하다) → reveal(드러내다)로 바뀌어 문맥이 어긋남. 집 입구에 벽을 만드는 목적은 '보호'이다.`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`어려움`,pts:6,fmt:"mc",ans:4,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`They cleaned the shells with ①<u>bursts</u> of water, carried them to a new location, and piled them as a ②<u>shelter</u>. Traveling with the shells under their bodies forced them to walk ③<u>slowly</u> along the sea floor. This made the octopuses more ④<u>exposed</u> to predators. But it seems that they were ⑤<u>reluctant</u> to take that risk for greater future protection.`,stem:`다음 글의 밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`그들은 물을 <b>분사</b>하여 껍데기를 씻고, 새로운 장소로 운반하여 <b>은신처</b>로 쌓았다. 껍데기를 몸 아래에 두고 이동하는 것은 그들이 해저를 <b>천천히</b> 걷게 만들었다. 이것은 문어가 포식자에게 더 많이 <b>노출</b>되게 만들었다. 하지만 그들은 더 큰 미래의 보호를 위해 그 위험을 <b>기꺼이 감수하려(→reluctant은 '꺼리는'으로 부적절)</b> 한 것 같았다.`,analysis:`✅ ① bursts(분사) — 적절
+✅ ② shelter(은신처) — 적절
+✅ ③ slowly(천천히) — 적절
+✅ ④ exposed(노출된) — 적절
+❌ ⑤ reluctant(꺼리는) — 원문은 willing(기꺼이 ~하는). 위험을 감수한다는 맥락에서 '꺼리는'은 부적절`,tip:`원문: willing(기꺼이 ~하는) → reluctant(꺼리는)로 바뀌어 문맥이 어긋남. 미래 보호를 위해 위험을 '감수한다'는 맥락.`}},
+{id:7,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`expose`,`identify`,`camouflage`,`separate`],passage:`One of the most interesting ones is intelligence. Octopuses are smart. The best evidence is their ability to __________ themselves. An octopus can change its color, pattern, and texture, and the changes are carried out almost instantly.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`가장 흥미로운 유사점 중 하나는 지능이다. 문어는 영리하다. 가장 좋은 증거는 스스로를 <b>위장하는</b> 능력이다. 문어는 색, 무늬, 질감을 바꿀 수 있으며, 이 변화는 거의 즉시 이루어진다.`,analysis:`✅ ③ camouflage(위장하다) — 본문 원문 그대로
+❌ ① expose(노출하다) — 위장의 반대
+❌ ② identify(식별하다) — 문맥 부적합
+❌ ④ separate(분리하다) — 문맥 부적합`,tip:`camouflage: 주변 환경에 맞게 색과 모양을 바꿔 숨기는 것. 문어의 대표적 능력이다.`}},
+{id:8,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`shelter`,`weapon`,`decoration`,`barrier`],passage:`The most impressive example of octopuses using tools came in 2009 in Indonesia. A few octopuses were found to collect coconut shells. They cleaned the shells with bursts of water, carried them to a new location, and piled them as a __________.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`문어의 도구 사용에 대한 가장 인상적인 사례는 2009년 인도네시아에서 나왔다. 몇몇 문어가 코코넛 껍데기를 수집하는 것이 발견되었다. 그들은 물을 분사하여 껍데기를 씻고, 새로운 장소로 운반하여 <b>은신처</b>로 쌓았다.`,analysis:`✅ ① shelter(은신처) — 본문 원문 그대로
+❌ ② weapon(무기) — 문맥 부적합
+❌ ③ decoration(장식) — 문맥 부적합
+❌ ④ barrier(장벽) — 유사하지만 본문은 shelter`,tip:`shelter: 비바람이나 위험을 피하기 위한 피난처·은신처. 코코넛 껍데기를 쌓아 보호막으로 사용한 것.`}},
+{id:9,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`primitive`,`basic`,`simple`,`advanced`],passage:`The scientists found that animals have emotions and can have consciousness like humans. For example, African grey parrots have shown evidence of consciousness that is almost as __________ as that of humans. Even octopuses have the brain structures needed for subjective experiences.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`과학자들은 동물이 감정을 가지고 있으며 인간처럼 의식을 가질 수 있다는 것을 발견했다. 예를 들어, 아프리카 회색 앵무새는 인간의 것과 거의 같은 수준으로 <b>발달된</b> 의식의 증거를 보여주었다. 문어조차도 주관적 경험에 필요한 뇌 구조를 가지고 있다.`,analysis:`✅ ④ advanced(발달된) — 본문 원문 그대로
+❌ ① primitive(원시적인) — 문맥과 반대
+❌ ② basic(기초적인) — '인간만큼'이라는 맥락과 불일치
+❌ ③ simple(단순한) — 문맥과 반대`,tip:`advanced: '진보된, 발달된'. 앵무새의 의식이 인간의 것과 거의 같다는 맥락에서 '발달된'이 적절하다.`}},
+{id:10,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`curiosity`,`terror`,`admiration`,`sympathy`],passage:`The octopus looks so alien to the people of the West that it has caused dislike or even <u>horror</u> in them. The dislike or horror helped create the image of an octopus as an evil creature living in the deep sea. For example, the Kraken, a sea monster in old Icelandic tales, looks just like an enormous octopus.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것을 고르시오.`,det:{korean:`문어는 서양 사람들에게 너무 낯설어 보여서 그들에게 반감이나 심지어 <b>공포</b>를 불러일으켰다. 이 반감이나 공포가 문어를 심해에 사는 사악한 생물이라는 이미지를 만드는 데 기여했다.`,analysis:`✅ ② terror(공포) — horror와 동의어
+❌ ① curiosity(호기심) — 의미 다름
+❌ ③ admiration(감탄) — 의미 다름
+❌ ④ sympathy(동정) — 의미 다름`,tip:`horror = terror = 공포, 두려움. dislike(반감)과 함께 쓰여 부정적 감정을 강조한다.`}},
+{id:11,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`vulnerable`,`hidden`,`immune`,`resistant`],passage:`Traveling with the shells under their bodies forced them to walk slowly along the sea floor. This made the octopuses more <u>exposed</u> to predators. But it seems that they were willing to take that risk for greater future protection.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것을 고르시오.`,det:{korean:`껍데기를 몸 아래에 두고 이동하는 것은 그들이 해저를 천천히 걷게 만들었다. 이것은 문어가 포식자에게 더 많이 <b>노출된(= vulnerable, 취약한)</b> 상태로 만들었다. 하지만 그들은 더 큰 미래의 보호를 위해 그 위험을 기꺼이 감수하려 한 것 같았다.`,analysis:`✅ ① vulnerable(취약한) — exposed와 의미 유사
+❌ ② hidden(숨겨진) — exposed의 반의어
+❌ ③ immune(면역의) — 의미 다름
+❌ ④ resistant(저항하는) — 의미 다름`,tip:`exposed(노출된) ≈ vulnerable(취약한). 포식자에게 노출되어 위험해진다는 맥락.`}},
+{id:12,type:`동의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`denied`,`ignored`,`recognized`,`questioned`],passage:`Few scientists today deny that octopuses are intelligent animals. Perhaps it is time that we stopped thinking of them as alien creatures and <u>acknowledged</u> them as intelligent animals like us. There is still so much we do not know about the octopus.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>가까운</b> 것을 고르시오.`,det:{korean:`오늘날 문어가 지능적인 동물이라는 것을 부정하는 과학자는 거의 없다. 아마도 이제 우리가 그들을 외계 생물로 생각하는 것을 멈추고 우리처럼 지능적인 동물로 <b>인정할(= recognized)</b> 때가 된 것 같다.`,analysis:`✅ ③ recognized(인정하다) — acknowledged와 동의어
+❌ ① denied(부정하다) — acknowledged의 반의어
+❌ ② ignored(무시하다) — 의미 반대
+❌ ④ questioned(의문을 제기하다) — 의미 다름`,tip:`acknowledged(인정하다) = recognized(인정하다). deny(부정하다)의 반의어이기도 하다.`}},
+{id:13,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`inquisitive`,`interested`,`eager`,`indifferent`],passage:`Octopuses' use of tools can be found in their love of toys and puzzles, too. They are <u>curious</u> about new objects, and do not like getting bored. That is why aquariums try to come up with ideas to keep their octopuses busy.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>먼</b> 것을 고르시오.`,det:{korean:`문어의 도구 사용은 장난감과 퍼즐에 대한 사랑에서도 발견할 수 있다. 그들은 새로운 물체에 대해 <b>호기심이 많고(↔ indifferent, 무관심한)</b>, 지루해지는 것을 좋아하지 않는다. 그래서 수족관은 문어를 바쁘게 만들 아이디어를 찾으려 한다.`,analysis:`✅ ④ indifferent(무관심한) — curious의 반의어
+❌ ① inquisitive(탐구적인) — curious의 유의어
+❌ ② interested(관심 있는) — curious의 유의어
+❌ ③ eager(열심인) — curious의 유의어`,tip:`curious(호기심 많은) ↔ indifferent(무관심한). inquisitive, interested, eager는 모두 유사 의미.`}},
+{id:14,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`restricted`,`extensive`,`narrow`,`insufficient`],passage:`Our knowledge about the octopus is still very <u>limited</u>. Thanks to the efforts of scientists, however, it is expanding year by year. One of the most impressive new findings about the octopus is that it seems to have feelings.`,stem:`다음 밑줄 친 단어와 의미가 가장 <b>먼</b> 것을 고르시오.`,det:{korean:`문어에 대한 우리의 지식은 아직 매우 <b>제한적이다(↔ extensive, 광범위한)</b>. 하지만 과학자들의 노력 덕분에 해마다 확장되고 있다. 문어에 대한 가장 인상적인 새로운 발견 중 하나는 문어가 감정을 가진 것 같다는 것이다.`,analysis:`✅ ② extensive(광범위한) — limited의 반의어
+❌ ① restricted(제한된) — limited의 유의어
+❌ ③ narrow(좁은) — limited의 유의어
+❌ ④ insufficient(불충분한) — limited의 유의어`,tip:`limited(제한적인) ↔ extensive(광범위한). restricted, narrow, insufficient는 모두 '제한적'과 유사한 의미.`}},
+{id:15,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`① There is a stop sign at the corner of the street.<br>② Dark clouds in the sky are a sign of an approaching storm.<br>③ She noticed the first signs of spring in the blooming flowers.<br>④ Please sign your name at the bottom of the document.<br>⑤ He made a sign for them to be quiet.`,stem:`다음 글에서 밑줄 친 <b>sign</b>과 같은 의미로 쓰인 것을 고르시오.<br><br>[본문 참고] <i>To acquire knowledge and apply it for a particular purpose is a sure <b>sign</b> of intelligence.</i>`,det:{korean:`[본문] 지식을 습득하여 특정 목적에 적용하는 것은 지능의 확실한 <b>표시/징후</b>이다.<br>① 거리 모퉁이에 정지 표지판이 있다. (표지판)<br>② 하늘의 먹구름은 다가오는 폭풍의 징후이다. (징후) ✔<br>③ 그녀는 피는 꽃에서 봄의 첫 징후를 알아챘다. (징후) ✔<br>④ 서류 하단에 이름을 서명해 주세요. (서명하다) ✘<br>⑤ 그는 그들에게 조용히 하라는 신호를 보냈다. (신호)`,analysis:`본문의 sign = '징후, 표시' (indication)
+'나머지 넷과 다른 의미'를 찾는 문제이므로:
+① 표지판 — 표시물 (명사, 유사)
+② 징후 — 표시 (명사, 유사)
+③ 징후 — 표시 (명사, 유사)
+❌ ④ 서명하다 — 동사로 쓰임, 나머지 넷과 다름
+⑤ 신호 — 표시 (명사, 유사)`,tip:`sign의 다양한 의미: 표지판, 징후/표시, 서명하다(동사), 신호. ④만 동사로 쓰여 나머지 넷(명사: 표시/징후)과 다르다.`}},
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`detection`,`protection`,`prediction`,`destruction`],passage:`<i>"the act of discovering or identifying the presence or existence of something"</i><br><br>[본문 참고] The main purpose of these changes is to avoid detection by their hunters or their prey. When an octopus encounters its hunter or prey, it must decide very quickly which color, pattern, and texture to choose.`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것을 고르시오.`,det:{korean:`영영풀이: "무언가의 존재를 발견하거나 식별하는 행위"<br>본문: 이러한 변화의 주된 목적은 사냥꾼이나 먹이에 의한 <b>탐지</b>를 피하는 것이다.`,analysis:`✅ ① detection(탐지) — 영영풀이와 정확히 일치
+❌ ② protection(보호) — 의미 다름
+❌ ③ prediction(예측) — 의미 다름
+❌ ④ destruction(파괴) — 의미 다름`,tip:`detection(탐지, 발견): detect(탐지하다) + -tion. 문어가 위장하는 주된 목적이 '탐지를 피하는 것'이다.`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`similarities`,accept:[`similarities`],passage:`During the past few decades, however, scientists have begun to find more and more (similar) __________ between octopuses and humans. One of the most interesting ones is intelligence. Octopuses are smart.`,stem:`다음 괄호 안의 단어를 문맥에 맞게 변형하여 빈칸에 쓰시오.`,det:{korean:`그러나 지난 수십 년간 과학자들은 문어와 인간 사이의 점점 더 많은 <b>유사점(similarities)</b>을 발견하기 시작했다. 가장 흥미로운 것 중 하나는 지능이다.`,analysis:`similar(형용사) → similarities(명사, 복수)
+'more and more + 복수 명사' 구조이므로 복수형 similarities가 정답`,tip:`similar(유사한, 형) → similarity(유사점, 명) → similarities(복수). 'more and more'는 셀 수 있는 명사 앞에서 복수형을 요구한다.`}},
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`actively`,accept:[`actively`],passage:`Since the Cambridge Declaration, research on animal consciousness has been (active) __________ carried out. Scientists are still working to find out exactly how animal consciousness works. Not all animals are conscious, but those with complex nervous systems are more likely to be.`,stem:`다음 괄호 안의 단어를 문맥에 맞게 변형하여 빈칸에 쓰시오.`,det:{korean:`케임브리지 선언 이후, 동물 의식에 대한 연구가 <b>활발하게(actively)</b> 수행되었다. 과학자들은 여전히 동물의 의식이 정확히 어떻게 작동하는지 알아내기 위해 노력하고 있다.`,analysis:`active(형용사) → actively(부사)
+'has been actively carried out'에서 과거분사 'carried out'을 수식하는 부사가 필요`,tip:`active(활발한, 형) → actively(활발하게, 부). 동사(carried out)를 수식하려면 부사 형태가 필요하다.`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`shrinking`,`disappearing`,`expanding`,`remaining`],passage:`Our knowledge about the octopus is still very limited. Thanks to the efforts of scientists, however, it is __________ year by year. One of the most impressive new findings about the octopus is that it seems to have feelings.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`문어에 대한 우리의 지식은 아직 매우 제한적이다. 하지만 과학자들의 노력 덕분에 해마다 <b>확장되고</b> 있다. 문어에 대한 가장 인상적인 새로운 발견 중 하나는 문어가 감정을 가진 것 같다는 것이다.`,analysis:`✅ ③ expanding(확장되는) — 본문 원문 그대로
+❌ ① shrinking(줄어드는) — 문맥과 반대
+❌ ② disappearing(사라지는) — 문맥과 반대
+❌ ④ remaining(남아있는) — however의 역접 흐름과 불일치`,tip:`expanding: 'limited(제한적인)'이지만 'however(그러나)' 뒤에 반전이 와야 하므로, '확장되고 있다'가 자연스럽다.`}},
+{id:20,type:`빈칸 문맥 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`deny`,`assume`,`reject`,`doubt`],passage:`Scientists are still working to find out exactly how animal consciousness works. Not all animals are conscious, but those with complex nervous systems are more likely to be. All things considered, it would be a wise and safe choice to __________ that animals have feelings and to treat them with respect and kindness.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.`,det:{korean:`과학자들은 여전히 동물 의식이 정확히 어떻게 작동하는지 알아내기 위해 노력하고 있다. 모든 동물이 의식적인 것은 아니지만, 복잡한 신경계를 가진 동물은 의식이 있을 가능성이 더 높다. 모든 것을 고려할 때, 동물이 감정을 가지고 있다고 <b>가정하고</b> 그들을 존중과 친절로 대하는 것이 현명하고 안전한 선택일 것이다.`,analysis:`✅ ② assume(가정하다) — 본문 원문 그대로
+❌ ① deny(부정하다) — 문맥과 반대
+❌ ③ reject(거부하다) — 문맥과 반대
+❌ ④ doubt(의심하다) — 'wise and safe choice'와 불일치`,tip:`assume: '가정하다, 추정하다'. 확실하지 않지만 안전을 위해 '감정이 있다고 가정하자'는 맥락.`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type.replace(/\(.+?\)/g,'').trim().slice(0,6)}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
+let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n\n━━ 📊 문항별 결과 ━━\n`;
+r.details.forEach(d=>{const mark=d.ok?'✅':'❌';const mk=d.q.ch&&d.q.ch.length===5?mk5:mk4;const ans=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const cor=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;txt+=`${mark} ${d.q.id}번 [${d.q.type.slice(0,6)}] ${d.q.pts}점 — 내답:${ans} 정답:${cor}\n`;});
+txt+=`\n━━ 📈 유형별 분석 ━━\n`;Object.entries(typeMap).forEach(([t,v])=>{const p=Math.round(v.o/v.t*100);const ic=p===100?'🟢':(p>0?'🟡':'🔴');txt+=`${ic} ${t.slice(0,6)}: ${v.o}/${v.t} (${p}%)`;if(v.w.length)txt+=` ← 틀린:${v.w.join(',')}번`;txt+=`\n`;});
+txt+=`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n#온라인단어TEST #영어내신`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 상세 결과가 복사되었습니다!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('📋 복사되었습니다!');}catch(e){toast('복사 실패');}document.body.removeChild(ta);});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+</script>
+</body>
+</html>

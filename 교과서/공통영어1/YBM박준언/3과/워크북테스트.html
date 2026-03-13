@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공통영어1 YBM(박준언) 3과 온라인워크북TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#C4B5FD;border-radius:3px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FAF5FF,#F5F3FF 40%,#F3F0FF);position:relative;}
+.start-container{max-width:460px;width:100%;position:relative;z-index:1;}
+.brand-badge{background:linear-gradient(135deg,var(--o),var(--ol));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;letter-spacing:.8px;box-shadow:0 4px 14px rgba(124,58,237,.25);display:inline-block;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;font-weight:500;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.info-card-header{background:linear-gradient(135deg,var(--o),var(--ol));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #F3F0FF;}.info-row:last-child{border:none;}.info-label{color:var(--tm);font-weight:500;}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid #E9E5F5;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #DDD6FE;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(124,58,237,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 6px 20px rgba(124,58,237,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #DDD6FE;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #E9E5F5;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item .hi-left .hi-name{font-weight:700;font-size:13px;}.history-item .hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.history-item .hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.history-item .hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+#examScreen{min-height:100vh;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:1px;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFFAF5,#FFF6EE);border-bottom:1px solid #EDE9FE;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;box-shadow:0 3px 8px rgba(124,58,237,.25);}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-어법{background:var(--rl);color:var(--r);}.tag-어휘{background:var(--bl);color:var(--b);}.tag-대의{background:var(--gl);color:var(--g);}.tag-일치{background:var(--oxl);color:var(--od);}.tag-빈칸{background:var(--pl);color:var(--p);}.tag-함축{background:#FFF0F5;color:#D946A0;}.tag-순서{background:var(--skyl);color:var(--sky);}.tag-무관{background:#F0FDF4;color:#16A34A;}.tag-서술형{background:var(--gl);color:var(--g);}.tag-지칭{background:#FEF3C7;color:#D97706;}.tag-TF{background:#E0E7FF;color:#4338CA;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#F3F0FF;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-passage .label{font-size:11px;font-weight:800;color:var(--o);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.q-passage u{text-decoration-color:var(--o);text-decoration-thickness:2px;text-underline-offset:3px;}
+.q-stem{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #E9E5F5;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;position:relative;overflow:hidden;}
+.choice-btn:hover{border-color:var(--o);transform:translateX(2px);}
+.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(124,58,237,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#EDE9FE;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;transition:var(--tr);}
+.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #DDD6FE;border-radius:var(--rs);font-size:15px;font-family:inherit;resize:none;min-height:56px;transition:var(--tr);}
+.written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(124,58,237,.08);}
+.cond-box{background:linear-gradient(135deg,#F8F6F3,#F3F0EC);border:1.5px solid #DDD6FE;border-radius:var(--rs);padding:16px;margin-bottom:16px;}.cond-box .ct{font-weight:800;color:var(--od);margin-bottom:8px;font-size:13px;}.cond-box ul{margin-left:18px;margin-bottom:10px;}.cond-box li{margin-bottom:3px;font-size:13px;}
+.bogi-label{font-size:11px;color:var(--tl);font-weight:800;margin-bottom:4px;}.bogi-box{background:#fff;border:1.5px solid #C4B5FD;border-radius:var(--rxs);padding:12px;text-align:center;font-weight:700;font-size:14px;}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.nav-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:65%;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#E9E5F5;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:var(--tr);}
+.nav-dot.current{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 3px 10px rgba(124,58,237,.3);transform:scale(1.08);}
+.nav-dot.answered{background:var(--g);color:#fff;}
+.nav-btn{padding:9px 18px;background:#fff;border:2px solid #DDD6FE;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);}.nav-btn:hover{border-color:var(--o);color:var(--o);}
+#resultScreen{background:var(--bg);}
+.r-hero{padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}.r-hero.pass{background:linear-gradient(160deg,#E8F7F0,#D1FAE5,#E6F9F0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA,#FFF0F0);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;box-shadow:0 4px 14px rgba(26,153,96,.25);}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;letter-spacing:-2px;}.r-score sup{font-size:24px;color:var(--tl);font-weight:700;}
+.r-stats{display:flex;justify-content:center;gap:20px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.r-stats .stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}
+.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.level-range{font-size:13px;color:var(--tm);margin-top:4px;}.level-bar{margin-top:16px;height:8px;background:#EDE9FE;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);line-height:1.6;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-radius:var(--rs);border:1px solid #E9E5F5;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:linear-gradient(135deg,var(--oxl),#FFF6EE);border-color:rgba(124,58,237,.15);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:50px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#EDE9FE;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;align-items:flex-start;padding:16px;background:linear-gradient(135deg,var(--oxxl),#FFF6EE);border-radius:var(--rs);border:1px solid rgba(124,58,237,.1);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.rev-card{border:1.5px solid #E9E5F5;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr);}.rev-header:hover{background:#F3F0FF;}.rev-icon{font-size:18px;margin-left:auto;}
+.rev-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}.rev-body.open{padding:20px;max-height:3000px;}
+.your-ans{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rxs);margin-bottom:14px;font-size:13px;font-weight:700;}.your-ans.right{background:var(--gl);color:#0D7A45;border:1px solid rgba(26,153,96,.15);}.your-ans.wrong{background:var(--rl);color:var(--r);border:1px solid rgba(214,59,59,.15);}
+.expl-sec{margin-bottom:14px;}.expl-sec:last-child{margin-bottom:0;}.expl-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.ref{background:var(--bl);color:var(--b);}.expl-tag.tip{background:var(--oxl);color:var(--od);}.expl-tag.wrng{background:var(--rl);color:var(--r);}.expl-tag.key{background:#FFF3E8;color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);border-left:3px solid #DDD6FE;}.expl-box.ans-b{border-left-color:var(--g);}.expl-box.ref-b{border-left-color:var(--b);}.expl-box.tip-b{border-left-color:var(--o);}.expl-box.wrng-b{border-left-color:var(--r);}.expl-box.key-b{border-left-color:var(--ol);background:var(--oxxl);}.expl-box b{color:var(--od);}.hl{background:linear-gradient(transparent 60%,rgba(124,58,237,.15) 60%);font-weight:700;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #DDD6FE;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);background:var(--oxxl);}.act-btn.primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid,.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.nav-dots{max-width:55%;}}
+.tag-어법{background:#FEF2F2;color:#DC2626;}.tag-어휘{background:#EEF2FF;color:#4F46E5;}.tag-오류찾기{background:#FEF2F2;color:#B91C1C;}.tag-연결사{background:#F3F0FF;color:#7C3AED;}.tag-서술형{background:#ECFDF5;color:#059669;}.tag-한영{background:#ECFEFF;color:#0891B2;background:#ECFEFF;}.tag-한→영{background:#ECFEFF;color:#0891B2;}.tag-지칭추론{background:#FFFBEB;color:#B45309;}.tag-어순배열{background:#F3F0FF;color:#6D28D9;}.tag-의미파악{background:#FDF2F8;color:#BE185D;}.tag-T\/F{background:#F0F9FF;color:#0369A1;}.tag-주제{background:#F5F3FF;color:#374151;}.hl{background:linear-gradient(transparent 60%,rgba(124,58,237,.15) 60%);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📚 내신핏</div>
+  <h1 class="start-title">온라인 워크북 <span>TEST</span></h1>
+  <p class="start-subtitle">YBM(박준언) 3과 · English or Englishes?</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">YBM(박준언)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">3과 English or Englishes?</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 30문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row"><div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div><div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div></div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · YBM(박준언) · <span>3과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav"><button class="nav-btn" onclick="scrollToQ(S.cur-1)">←</button><div class="nav-dots" id="navDots"></div><button class="nav-btn" onclick="scrollToQ(S.cur+1)">→</button></div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+
+<script>
+const EI={"subject":"공통영어1","pub":"YBM(박준언)","lesson":"3과","title":"English or Englishes?","total":100,"time":1200,"histKey":"quizH_EoE3","qCount":30};
+
+const FULL_PASSAGE=`How would you react if you saw an English sign reading "Robot Ahead" on the road while driving in South Africa? You would probably look around the front of your car for a robot that looks like a human. You would be confused momentarily, but laugh when you learned that the term "robot" also means "traffic light" in South Africa. For visitors from other countries, the unique usage of this word might cause confusion and misunderstanding, but it also highlights the diversity of World Englishes, the different varieties of the English language used around the world.
+
+English has become a widely used "lingua franca" due to its extensive usage and adoption in many countries, allowing individuals who speak different native languages to communicate and understand each other. About 1.75 billion people around the world use English as a useful means of communication, due to the high demand of English in critical fields such as science, technology, business, and entertainment. Moreover, in the digital era, people are exposed to a vast amount of online information and resources in English on a daily basis. These factors have consistently contributed to the widespread use and global influence of the English language.
+
+As English ability grows in different nations, various English varieties have emerged worldwide, including Singaporean English, Korean English, Indian English, and others. Previously, British English and American English were considered the standard models. However, it is important to note that American English was initially seen as a regional variation rather than a standard form. As a result, we now refer to the different varieties of English as "Englishes," not simply "English."
+
+When a language is adopted in a specific region or community, it is natural for it to undergo changes or modifications as the local people utilize the language to more accurately reflect their daily realities and cultural contexts. Linguistic change takes place across various aspects of language, including grammar, pronunciation, vocabulary, and everyday expressions. The change is particularly noticeable in vocabulary. English vocabulary has been modified and new expressions have been created within the different varieties of English.
+
+In Indian English, the term "prepone" was coined to mean "to reschedule" as the opposite of "postpone." For instance, if a meeting scheduled for Thursday is moved to Wednesday, it is considered "preponed." Hong Kong English speakers shout "add oil" to show encouragement or support, a direct translation from a Chinese expression, which originally meant to inject more gasoline into an engine. In the Philippines, there are many houses with "dirty kitchens," which are not actually "dirty" kitchens. Instead, they refer to kitchens outside the home, where most of the cooking takes place to avoid trapping heat and smell inside the house in a hot climate. This evolution allows language to better match up with the everyday experiences and cultural contexts of the communities that utilize it.
+
+As these English expressions are widely used locally and gain exposure in other countries, they contribute to the expansion and diversification of the English vocabulary. Moreover, English dictionaries have incorporated words borrowed from foreign languages. Some of the most popular English words borrowed from foreign languages include established terms such as tsunami, emoji, and origami in Japanese. Hygge in Danish and kiosk in Turkish have also gained worldwide currency among English speakers.
+
+Recently, as the Korean wave has spread globally, words related to Korean culture such as kimchi, hanbok, kimbab, and hallyu have been added to English dictionaries. More and more Korean words including oppa, noona, mukbang, daebak, and so forth are being added to English dictionaries, resulting in a richer English vocabulary. As words and expressions related to Korean culture are included in English dictionaries, English vocabulary is becoming more diversified and the understanding of Korean culture around the world is deepened, accordingly.
+
+Using English expressions that incorporate the cultures of different countries, we are creating opportunities to broaden our understanding of and respect for other cultures. In this respect, English speakers around the world need to be open to other English speakers. Embracing the diversity of English, we can build a more inclusive community of English speakers where everyone's voice is heard without prejudice or stereotypes. English does not solely belong to native speakers, but instead it is a language for anyone who uses it.
+
+In 1828, an American lawyer and author Noah Webster published "An American Dictionary of the English Language" with a goal of providing America with its own version of the English language. Most dictionaries in Webster's day dictated how English words should be used rather than documenting the way people actually used English in daily life. In his dictionary, Webster broke this convention and sought to describe the way Americans spoke. When he included informal words in his dictionary, critics accused him of polluting the English language. However, Webster argued that these words captured American variations of English, distinguishing American English from British English. With the rise of English as the world's lingua franca, there has been a movement to register English variations all over the world, for example, with the creation of the Oxford Handbook of World Englishes. Now, it is essential for English dictionaries to recognize and document words and phrases that reflect the identities and experiences of the multicultural populations who use English.`;
+
+const Q=[
+{id:1,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장01',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">How would you <u>① react</u> / <u>② reacting</u> if you saw an English sign reading "Robot Ahead" on the road while driving in South Africa?</div>',
+ch:['① react','② reacting'],ans:0,
+det:{ref:'[원문] How would you react if you saw an English sign reading "Robot Ahead"...\n[해석] 남아프리카에서 운전 중 "Robot Ahead"라는 영어 표지판을 보면 어떻게 반응하겠는가? [문장 01 참고]',
+correct:'정답: ① react. 조동사 would 뒤에는 동사원형이 와야 한다. "would you react"가 올바른 형태.',
+wrongs:['① react ✅ — 조동사 would + 동사원형 올바름','② reacting ❌ — 조동사 뒤 -ing 불가'],
+tip:'💡 핵심 규칙: 조동사(will, would, can, could, may, might, shall, should, must) + 동사원형\n• He would go. / She can swim.\n\n⚠️ 함정: 조동사 뒤에 to부정사나 -ing를 넣는 오류 주의'}},
+
+{id:2,type:'어휘',diff:'보통',pts:3,fmt:'mc',note:'문장03',
+passage:``,
+stem:'다음 문장의 빈칸에 알맞은 어휘를 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #4F46E5;">You would be confused __________, but laugh when you learned that the term "robot" also means "traffic light" in South Africa.</div>',
+ch:['① momentarily','② permanently','③ simultaneously','④ deliberately','⑤ consistently'],ans:0,
+det:{ref:'[원문] You would be confused momentarily, but laugh when you learned...\n[해석] 잠시 혼란스러울 수 있지만, "robot"이 남아프리카에서 "신호등"을 의미한다는 것을 알면 웃을 것이다. [문장 03 참고]',
+correct:'정답: ① momentarily (잠시, 일시적으로). but laugh로 전환되므로 혼란이 일시적임을 나타냄.',
+wrongs:['① momentarily ✅ — 잠깐, 순간적으로','② permanently ❌ — 영구적으로, 문맥 반대','③ simultaneously ❌ — 동시에, 문맥 부적합','④ deliberately ❌ — 고의로, 의도적으로','⑤ consistently ❌ — 일관되게, 꾸준히'],
+tip:'💡 부사 어휘 정리\n• momentarily = for a moment (잠시)\n• temporarily = for a limited time (일시적으로)\n\n⚠️ momentarily vs permanently 대조 빈출'}},
+
+{id:3,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장04',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">...the different varieties of the English language <u>① used</u> / <u>② using</u> around the world.</div>',
+ch:['① used','② using'],ans:0,
+det:{ref:'[원문] ...the different varieties of the English language used around the world.\n[해석] 세계 곳곳에서 사용되는 영어의 다양한 변종들 [문장 04 참고]',
+correct:'정답: ① used. the English language와 use는 수동 관계("사용되는")이므로 과거분사 used.',
+wrongs:['① used ✅ — 과거분사(수동), language가 사용\"되는\" 것','② using ❌ — 현재분사(능동), language가 스스로 사용하는 것은 부적절'],
+tip:'💡 분사 선택: 명사와의 관계\n• 능동(~하는) → V-ing\n• 수동(~되는) → V-ed/p.p.\n\n⚠️ language used(사용되는 언어) vs people using(사용하는 사람들)'}},
+
+{id:4,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장05',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">English has become a <u>① widely</u> / <u>② wide</u> used "lingua franca" due to its extensive usage and adoption in many countries, <u>③ allowing</u> / <u>④ allowed</u> individuals who speak different native languages to communicate.</div>',
+ch:['① widely — ③ allowing','① widely — ④ allowed','② wide — ③ allowing','② wide — ④ allowed'],ans:0,
+det:{ref:'[원문] English has become a widely used "lingua franca"... allowing individuals who speak different native languages to communicate.\n[해석] 영어는 여러 나라에서의 광범위한 사용과 채택으로 인해 널리 사용되는 "링구아 프랑카"가 되었으며, 서로 다른 모국어를 사용하는 개인들이 소통할 수 있게 해준다. [문장 05 참고]',
+correct:'정답: ① widely — ③ allowing. widely는 과거분사 used를 수식하는 부사. allowing은 분사구문(결과)으로 주절 전체를 부연 설명.',
+wrongs:['① widely — ③ allowing ✅ — 부사+분사구문(결과)','① widely — ④ allowed ❌ — 주어(English)가 allow하는 능동 관계','② wide — ③ allowing ❌ — used(형용사/분사) 수식에는 부사 필요','② wide — ④ allowed ❌ — 두 선지 모두 오류'],
+tip:'💡 부사 vs 형용사\n• 부사: 동사/형용사/분사 수식 → widely used\n• 형용사: 명사 수식 → wide road\n\n⚠️ 분사구문(결과): ~하면서, ~해서 → V-ing'}},
+
+{id:5,type:'연결사',diff:'어려움',pts:4,fmt:'written',note:'문장07',
+passage:`( ___ ), in the digital era, people are exposed to a vast amount of online information and resources in English on a daily basis.`,
+stem:'위 문장의 빈칸에 알맞은 연결사를 쓰시오. (1단어, 영문 8자, M으로 시작)',
+wa:"Moreover",accept:["Moreover","moreover","MOREOVER"],
+det:{ref:'[원문] Moreover, in the digital era, people are exposed to a vast amount of online information...\n[해석] 더욱이, 디지털 시대에 사람들은 매일 방대한 양의 영어 온라인 정보와 자원에 노출된다. [문장 07 참고]',
+correct:'정답: Moreover. 앞 문장(영어가 의사소통 수단)에 추가 정보(디지털 시대 영어 노출)를 더하는 \"첨가\" 연결사.',
+wrongs:[],
+tip:'💡 첨가 연결사: Moreover, Furthermore, In addition, Besides\n• Moreover = \"게다가, 더욱이\"\n\n⚠️ However(역접)와 혼동 주의'}},
+
+{id:6,type:'지칭추론',diff:'보통',pts:3,fmt:'mc',note:'문장08',
+passage:`<u>These factors</u> have consistently contributed to the widespread use and global influence of the English language.`,
+stem:'위 문장에서 밑줄 친 <b>These factors</b>가 가리키는 것으로 가장 적절한 것은?',
+ch:['① 영어의 다양한 변종들의 출현','② 과학, 기술, 사업 등 주요 분야에서의 높은 영어 수요와 디지털 시대의 영어 정보 노출','③ 영국 영어와 미국 영어의 표준 모델 지위','④ 외국어에서 차용된 영어 단어들의 증가','⑤ 세계 각국의 고유한 영어 표현들의 생성'],ans:1,
+det:{ref:'[원문] These factors have consistently contributed to the widespread use and global influence of the English language.\n[해석] 이러한 요인들이 영어의 광범위한 사용과 전 세계적 영향력에 꾸준히 기여해왔다. [문장 08 참고]',
+correct:'정답: ② 앞 문장들(05~07)에서 언급된 요인: 주요 분야에서의 높은 영어 수요(문장06) + 디지털 시대의 영어 정보 노출(문장07).',
+wrongs:['① ❌ — 변종 출현은 문장09 이후 내용','② ✅ — 문장06~07의 요인들을 종합','③ ❌ — 표준 모델은 문장10 내용','④ ❌ — 외국어 차용은 문장24 이후 내용','⑤ ❌ — 고유 표현 생성은 문장16 이후 내용'],
+tip:'💡 지칭추론 전략\n• These/Those + 명사 → 바로 앞 문장(들)에서 근거 찾기\n• factors = 복수 → 여러 요인 언급 확인\n\n⚠️ 지문 후반부 내용과 혼동 주의'}},
+
+{id:7,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장09',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">As English ability grows in different nations, various English varieties <u>① have emerged</u> / <u>② has emerged</u> worldwide.</div>',
+ch:['① have emerged','② has emerged'],ans:0,
+det:{ref:'[원문] ...various English varieties have emerged worldwide...\n[해석] 다양한 영어 변종이 전 세계적으로 출현했다. [문장 09 참고]',
+correct:'정답: ① have emerged. 주어가 various English varieties(복수)이므로 복수 동사 have.',
+wrongs:['① have emerged ✅ — 복수 주어 varieties에 맞는 복수 동사','② has emerged ❌ — has는 단수 주어용'],
+tip:'💡 수일치 핵심\n• 복수 주어 → have/are/were\n• 단수 주어 → has/is/was\n\n⚠️ various + 복수명사 → 복수 동사'}},
+
+{id:8,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장10',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">Previously, British English and American English were <u>① considered</u> / <u>② considering</u> the standard models.</div>',
+ch:['① considered','② considering'],ans:0,
+det:{ref:'[원문] Previously, British English and American English were considered the standard models.\n[해석] 이전에 영국 영어와 미국 영어가 표준 모델로 여겨졌다. [문장 10 참고]',
+correct:'정답: ① considered. 수동태 "were considered"(여겨졌다). 주어가 consider의 대상이므로 수동.',
+wrongs:['① considered ✅ — were considered(수동태) 올바름','② considering ❌ — were considering은 진행형이며 목적어 필요, 문맥 부적합'],
+tip:'💡 수동태: be + p.p.\n• consider A (as) B → A is considered (as) B\n• \"~로 여겨지다\" = be considered\n\n⚠️ considering은 전치사(~을 고려하면)로도 쓰임'}},
+
+{id:9,type:'연결사',diff:'어려움',pts:4,fmt:'written',note:'문장11',
+passage:`( ___ ), it is important to note that American English was initially seen as a regional variation rather than a standard form.`,
+stem:'위 문장의 빈칸에 알맞은 연결사를 쓰시오. (1단어, 영문 7자, H로 시작)',
+wa:"However",accept:["However","however","HOWEVER"],
+det:{ref:'[원문] However, it is important to note that American English was initially seen as a regional variation rather than a standard form.\n[해석] 그러나, 미국 영어는 처음에 표준형이 아닌 지역적 변종으로 여겨졌다는 점에 주목해야 한다. [문장 11 참고]',
+correct:'정답: However. 앞 문장(영미 영어가 표준 모델)에 대한 반전(미국 영어는 원래 지역 변종)을 나타내는 \"역접\" 연결사.',
+wrongs:[],
+tip:'💡 역접 연결사: However, Nevertheless, Nonetheless, On the other hand\n• However = \"그러나, 하지만\"\n\n⚠️ Moreover(첨가)와 구분! 문맥의 전환 여부 확인'}},
+
+{id:10,type:'서술형',diff:'어려움',pts:4,fmt:'written',note:'문장12',
+passage:`As a result, we now refer to the different varieties of English as "( ___ )," not simply "English."`,
+stem:'위 문장의 빈칸에 들어갈 말을 본문에서 찾아 쓰시오. (1단어, 영문 9자, E로 시작)',
+wa:"Englishes",accept:["Englishes","englishes","ENGLISHES"],
+det:{ref:'[원문] As a result, we now refer to the different varieties of English as "Englishes," not simply "English."\n[해석] 그 결과, 우리는 이제 다양한 영어 변종을 단순히 \"영어\"가 아닌 \"영어들(Englishes)\"이라고 부른다. [문장 12 참고]',
+correct:'정답: Englishes. English의 복수형으로, 세계 각지의 다양한 영어 변종을 총칭하는 용어.',
+wrongs:[],
+tip:'💡 World Englishes\n• English(단수) → 하나의 표준 영어\n• Englishes(복수) → 다양한 영어 변종들\n\n⚠️ 대문자 E 주의, 고유명사적 용법'}},
+
+{id:11,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장13',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">When a language is <u>① adopted</u> / <u>② adopting</u> in a specific region or community, it is natural for it to undergo changes or modifications.</div>',
+ch:['① adopted','② adopting'],ans:0,
+det:{ref:'[원문] When a language is adopted in a specific region or community...\n[해석] 한 언어가 특정 지역이나 공동체에서 채택되면... [문장 13 참고]',
+correct:'정답: ① adopted. 수동태 "is adopted"(채택되다). 언어가 채택\"되는\" 것이므로 수동.',
+wrongs:['① adopted ✅ — is adopted(수동태), 언어가 채택되는 것','② adopting ❌ — is adopting(진행형), 언어가 스스로 채택하는 것은 부자연스러움'],
+tip:'💡 수동태 판별\n• 주어가 행위의 대상 → 수동태(be + p.p.)\n• a language is adopted (언어가 채택되다)\n\n⚠️ adopt(채택하다) vs adapt(적응하다) 구분'}},
+
+{id:12,type:'어형변형',diff:'어려움',pts:4,fmt:'written',note:'문장13',
+passage:`...the local people utilize the language to more ( ___ ) reflect their daily realities and cultural contexts.`,
+stem:'위 문장의 빈칸에 주어진 단어를 알맞은 형태로 바꾸어 쓰시오. [accurate] (1단어, 영문 10자, a로 시작)',
+wa:"accurately",accept:["accurately","Accurately","ACCURATELY"],
+det:{ref:'[원문] ...to more accurately reflect their daily realities and cultural contexts.\n[해석] 자신들의 일상적 현실과 문화적 맥락을 더 정확하게 반영하기 위해 [문장 13 참고]',
+correct:'정답: accurately. 동사 reflect를 수식하므로 형용사 accurate를 부사 accurately로 변형.',
+wrongs:[],
+tip:'💡 어형 변환: 형용사 → 부사\n• accurate → accurately (정확하게)\n• 동사 수식 → 부사 필요\n\n⚠️ more accurately: 비교급 부사 (more + 다음절 부사)'}},
+
+{id:13,type:'어휘',diff:'보통',pts:3,fmt:'mc',note:'문장15',
+passage:``,
+stem:'다음 문장의 빈칸에 알맞은 어휘를 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #4F46E5;">The change is particularly __________ in vocabulary.</div>',
+ch:['① noticeable','② negligible','③ negotiable','④ nominal','⑤ notable'],ans:0,
+det:{ref:'[원문] The change is particularly noticeable in vocabulary.\n[해석] 그 변화는 특히 어휘에서 두드러진다. [문장 15 참고]',
+correct:'정답: ① noticeable (눈에 띄는, 두드러진). 어휘 분야에서 변화가 가장 잘 나타남을 강조.',
+wrongs:['① noticeable ✅ — 눈에 띄는, 뚜렷한','② negligible ❌ — 무시할 수 있는(반대 의미)','③ negotiable ❌ — 협상 가능한(문맥 무관)','④ nominal ❌ — 명목상의(문맥 무관)','⑤ notable ❌ — 주목할 만한(유사하나 원문은 noticeable)'],
+tip:'💡 noticeable vs notable\n• noticeable: 쉽게 눈에 띄는 (변화가 두드러진)\n• notable: 주목할 만한, 중요한 (인물이 저명한)\n\n⚠️ negligible(무시 가능한)과 반의 관계'}},
+
+{id:14,type:'어휘',diff:'보통',pts:3,fmt:'mc',note:'문장17',
+passage:``,
+stem:'다음 문장의 빈칸에 알맞은 어휘를 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #4F46E5;">In Indian English, the term "prepone" was __________ to mean "to reschedule" as the opposite of "postpone."</div>',
+ch:['① coined','② quoted','③ removed','④ translated','⑤ abandoned'],ans:0,
+det:{ref:'[원문] In Indian English, the term "prepone" was coined to mean...\n[해석] 인도 영어에서 "prepone"이라는 용어는 "postpone"의 반대 의미로 "일정을 앞당기다"라는 뜻으로 만들어졌다. [문장 17 참고]',
+correct:'정답: ① coined (만들어지다, 새로 조어하다). 새로운 단어를 창조했음을 나타냄.',
+wrongs:['① coined ✅ — (새 용어를) 만들어내다','② quoted ❌ — 인용하다','③ removed ❌ — 제거하다','④ translated ❌ — 번역하다','⑤ abandoned ❌ — 포기하다'],
+tip:'💡 coin a word/term\n• coin = (새로운 단어를) 만들어내다, 조어하다\n• 명사: coin = 동전 / 동사: coin = 만들다\n\n⚠️ coin vs create: coin은 특히 \"신조어\"에 사용'}},
+
+{id:15,type:'의미파악',diff:'보통',pts:3,fmt:'mc',note:'문장19',
+passage:`Hong Kong English speakers shout "<u>add oil</u>" to show encouragement or support, a direct translation from a Chinese expression, which originally meant to inject more gasoline into an engine.`,
+stem:'위 문장에서 밑줄 친 <b>"add oil"</b>의 의미로 가장 적절한 것은?',
+ch:['① 기름을 더 넣다','② 힘내! / 화이팅!','③ 불에 기름을 붓다(상황 악화)','④ 엔진을 수리하다','⑤ 연료를 절약하다'],ans:1,
+det:{ref:'[원문] Hong Kong English speakers shout "add oil" to show encouragement or support...\n[해석] 홍콩 영어 화자들은 격려나 응원을 보여주기 위해 "add oil"이라고 외친다. [문장 19 참고]',
+correct:'정답: ② 힘내! / 화이팅! "to show encouragement or support"에서 격려와 응원의 의미임을 알 수 있다.',
+wrongs:['① ❌ — 원래 중국어 표현의 직역이지, 문맥상 의미 아님','② ✅ — 격려/응원의 표현','③ ❌ — add fuel to the fire와 혼동','④ ❌ — 본문에 없는 의미','⑤ ❌ — 본문에 없는 의미'],
+tip:'💡 의미파악 전략\n• 밑줄 표현 전후 문맥(to show encouragement)으로 추론\n• 직역 ≠ 문맥상 의미\n\n⚠️ \"add oil\" = 중국어 加油(jiāyóu)의 직역, 영어에서는 cheering 표현'}},
+
+{id:16,type:'지칭추론',diff:'보통',pts:3,fmt:'mc',note:'문장21',
+passage:`Instead, <u>they</u> refer to kitchens outside the home, where most of the cooking takes place to avoid trapping heat and smell inside the house in a hot climate.`,
+stem:'위 문장에서 밑줄 친 <b>they</b>가 가리키는 것으로 가장 적절한 것은?',
+ch:['① Filipino people','② dirty kitchens','③ many houses','④ the Philippines','⑤ hot climates'],ans:1,
+det:{ref:'[원문] Instead, they refer to kitchens outside the home...\n[해석] 대신, 그것들은 집 밖의 부엌을 가리킨다. [문장 21 참고]',
+correct:'정답: ② dirty kitchens. 앞 문장(20)에서 "dirty kitchens"가 실제로 더러운 부엌이 아님을 말한 뒤, they가 이를 다시 지칭.',
+wrongs:['① ❌ — Filipino people가 아닌 \"dirty kitchens\"라는 용어 자체를 설명','② ✅ — 문장20의 "dirty kitchens"를 지칭','③ ❌ — many houses는 장소이지 refer의 주어로 부적합','④ ❌ — the Philippines는 국가명(단수 취급)','⑤ ❌ — hot climates는 마지막에 언급된 부가 정보'],
+tip:'💡 지칭추론 they\n• 복수 대명사 → 앞의 복수 명사 찾기\n• 동사 refer와의 의미 관계 확인\n\n⚠️ they refer to = ~을 가리키다/의미하다'}},
+
+{id:17,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장22',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">This evolution allows language to better <u>① match up</u> / <u>② matching up</u> with the everyday experiences.</div>',
+ch:['① match up','② matching up'],ans:0,
+det:{ref:'[원문] This evolution allows language to better match up with the everyday experiences...\n[해석] 이러한 진화 덕분에 언어가 일상적 경험에 더 잘 부합할 수 있다. [문장 22 참고]',
+correct:'정답: ① match up. allow + O + to V 구조. to better match up에서 better는 부사(split infinitive).',
+wrongs:['① match up ✅ — allow + O + to V 구문','② matching up ❌ — allow는 to부정사를 목적격보어로 취함'],
+tip:'💡 allow + O + to V\n• allow language to match (언어가 ~하도록 허용하다)\n• to와 V 사이에 부사 삽입 가능: to better match (split infinitive)\n\n⚠️ allow + V-ing도 가능하지만 목적어 있으면 반드시 to V'}},
+
+{id:18,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장24',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">Moreover, English dictionaries <u>① have incorporated</u> / <u>② has incorporated</u> words borrowed from foreign languages.</div>',
+ch:['① have incorporated','② has incorporated'],ans:0,
+det:{ref:'[원문] Moreover, English dictionaries have incorporated words borrowed from foreign languages.\n[해석] 더구나, 영어 사전들은 외국어에서 차용한 단어들을 수록해왔다. [문장 24 참고]',
+correct:'정답: ① have incorporated. 주어 English dictionaries(복수)에 맞는 복수 동사 have.',
+wrongs:['① have incorporated ✅ — 복수 주어 dictionaries → have','② has incorporated ❌ — has는 단수 주어용'],
+tip:'💡 수일치\n• dictionaries(복수) → have\n• dictionary(단수) → has\n\n⚠️ 현재완료(have/has + p.p.) 수일치 주의'}},
+
+{id:19,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장25',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">Some of the most popular English words borrowed from foreign languages include <u>① established</u> / <u>② establishing</u> terms such as tsunami, emoji, and origami in Japanese.</div>',
+ch:['① established','② establishing'],ans:0,
+det:{ref:'[원문] ...include established terms such as tsunami, emoji, and origami in Japanese.\n[해석] 일본어에서 온 tsunami, emoji, origami 같은 확립된 용어들이 포함된다. [문장 25 참고]',
+correct:'정답: ① established. terms를 수식하는 과거분사("확립된 용어들"). 용어가 확립\"된\" 것이므로 수동.',
+wrongs:['① established ✅ — 과거분사(수동), 확립된 용어','② establishing ❌ — 현재분사(능동), 용어가 스스로 확립하는 것은 부적절'],
+tip:'💡 분사의 수식\n• established terms = 확립된 용어 (수동)\n• establishing terms = 확립하고 있는 용어 (능동, 부자연스러움)\n\n⚠️ established는 형용사화된 과거분사'}},
+
+{id:20,type:'어순배열',diff:'어려움',pts:4,fmt:'mc',note:'문장28',
+passage:``,
+stem:'다음 주어진 단어를 배열하여 올바른 문장을 완성하시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #8D6E63;">More and more Korean words including oppa, noona, mukbang, daebak, and so forth<br><b>[ ① are / ② being / ③ added / ④ to / ⑤ English dictionaries ]</b>,<br>resulting in a richer English vocabulary.</div>',
+ch:['① are being added to English dictionaries','② are added being to English dictionaries','③ being are added to English dictionaries','④ to English dictionaries are being added','⑤ are being to added English dictionaries'],ans:0,
+det:{ref:'[원문] More and more Korean words... are being added to English dictionaries, resulting in a richer English vocabulary.\n[해석] 점점 더 많은 한국어 단어들이 영어 사전에 추가되고 있으며, 그 결과 더 풍부한 영어 어휘가 만들어지고 있다. [문장 28 참고]',
+correct:'정답: ① are being added to English dictionaries. 현재 진행 수동태(be being p.p.) 구문.',
+wrongs:['① ✅ — are being added (현재 진행 수동태)','② ❌ — being 위치 오류','③ ❌ — being이 are 앞에 올 수 없음','④ ❌ — 전치사구가 동사 앞에 오면 어순 오류','⑤ ❌ — to와 added 순서 오류'],
+tip:'💡 진행 수동태: be + being + p.p.\n• 현재 진행 수동: am/are/is + being + p.p.\n• 과거 진행 수동: was/were + being + p.p.\n\n⚠️ are being added = 추가되고 있다 (진행 + 수동)'}},
+
+{id:21,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장29',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">...English vocabulary is becoming more <u>① diversified</u> / <u>② diversifying</u> and the understanding of Korean culture around the world is deepened, accordingly.</div>',
+ch:['① diversified','② diversifying'],ans:0,
+det:{ref:'[원문] ...English vocabulary is becoming more diversified and the understanding... is deepened.\n[해석] 영어 어휘는 더욱 다양해지고 있으며, 세계의 한국 문화에 대한 이해도 그에 따라 깊어지고 있다. [문장 29 참고]',
+correct:'정답: ① diversified. become + 형용사/p.p. 구문. 어휘가 다양화\"되는\" 것이므로 과거분사.',
+wrongs:['① diversified ✅ — become + p.p.(형용사적), 다양화된','② diversifying ❌ — become + V-ing는 부자연스러움'],
+tip:'💡 become + 형용사/p.p.\n• become diversified = 다양화되다\n• become interested = 흥미를 갖게 되다\n\n⚠️ diversified(다양화된) vs diverse(다양한) 구분'}},
+
+{id:22,type:'서술형',diff:'어려움',pts:4,fmt:'written',note:'문장30',
+passage:`( ___ ) English expressions that incorporate the cultures of different countries, we are creating opportunities to broaden our understanding of and respect for other cultures.`,
+stem:'위 문장의 빈칸에 들어갈 알맞은 단어를 본문에서 찾아 쓰시오. (1단어, 영문 5자, U로 시작)',
+wa:"Using",accept:["Using","using","USING"],
+det:{ref:'[원문] Using English expressions that incorporate the cultures of different countries, we are creating opportunities...\n[해석] 다양한 나라의 문화를 통합하는 영어 표현을 사용하면서, 우리는 다른 문화에 대한 이해와 존중을 넓힐 기회를 만들고 있다. [문장 30 참고]',
+correct:'정답: Using. 분사구문(동시동작/수단)으로, 주절 주어 we가 Using의 의미상 주어.',
+wrongs:[],
+tip:'💡 분사구문\n• V-ing ~, S + V: ~하면서 / ~함으로써\n• Using = 사용하면서 (동시동작/수단)\n\n⚠️ 분사구문의 의미상 주어 = 주절 주어 일치 확인'}},
+
+{id:23,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장32',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">Embracing the diversity of English, we can build a more inclusive community of English speakers <u>① where</u> / <u>② which</u> everyone\'s voice is heard without prejudice or stereotypes.</div>',
+ch:['① where','② which'],ans:0,
+det:{ref:"[원문] ...a more inclusive community of English speakers where everyone's voice is heard...\n[해석] 모든 사람의 목소리가 편견이나 고정관념 없이 들리는 더 포용적인 영어 화자 공동체 [문장 32 참고]",
+correct:"정답: ① where. 선행사 community(장소/추상적 공간) + 관계부사 where. where = in which.",
+wrongs:["① where ✅ — 관계부사, community라는 추상적 장소 수식","② which ❌ — 관계대명사, 뒤에 완전한 절이 오므로 부적합"],
+tip:"💡 관계부사 where\n• 선행사: 장소(place, city, community 등)\n• where + 완전한 절 (S+V 갖춤)\n• where = in which\n\n⚠️ 추상명사(situation, case, community)도 where 가능"}},
+
+{id:24,type:'지칭추론',diff:'보통',pts:3,fmt:'mc',note:'문장33',
+passage:`English does not solely belong to native speakers, but instead <u>it</u> is a language for anyone who uses it.`,
+stem:'위 문장에서 밑줄 친 <b>it</b>이 가리키는 것으로 가장 적절한 것은?',
+ch:['① World Englishes','② native speakers','③ English','④ community','⑤ diversity'],ans:2,
+det:{ref:'[원문] English does not solely belong to native speakers, but instead it is a language for anyone who uses it.\n[해석] 영어는 원어민에게만 속하는 것이 아니라, 그것을 사용하는 모든 사람을 위한 언어이다. [문장 33 참고]',
+correct:'정답: ③ English. 같은 문장에서 주어 English를 대명사 it으로 받음.',
+wrongs:['① ❌ — World Englishes는 이 문장에 언급 없음','② ❌ — native speakers는 복수(they)','③ ✅ — 문장 주어 English를 지칭','④ ❌ — community는 앞 문장의 목적어','⑤ ❌ — diversity는 앞 문장의 목적어'],
+tip:'💡 it 지칭추론\n• 같은 문장 내 주어를 확인\n• 단수 명사만 가능\n\n⚠️ it이 같은 문장에서 2번 나올 때: 둘 다 같은 대상 지칭 확인'}},
+
+{id:25,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장35',
+passage:``,
+stem:'다음 문장의 밑줄 친 부분 중 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #DC2626;">Most dictionaries in Webster\'s day dictated how English words should be used rather than <u>① documenting</u> / <u>② documented</u> the way people actually used English in daily life.</div>',
+ch:['① documenting','② documented'],ans:0,
+det:{ref:"[원문] Most dictionaries... dictated how English words should be used rather than documenting the way people actually used English.\n[해석] 대부분의 사전은 사람들이 실제로 영어를 사용하는 방식을 기록하기보다 영어 단어가 어떻게 사용되어야 하는지를 지시했다. [문장 35 참고]",
+correct:"정답: ① documenting. rather than + V-ing(동명사) 병렬 구조. dictating(지시하기)보다 documenting(기록하기).",
+wrongs:["① documenting ✅ — rather than + V-ing 병렬","② documented ❌ — 과거분사/과거형으로는 병렬 불일치"],
+tip:"💡 rather than + V-ing\n• A rather than B: B보다 A를 (하다)\n• rather than 뒤: V-ing 또는 동사원형\n\n⚠️ rather than 뒤 형태는 앞 동사와 병렬을 이루어야 함"}},
+
+{id:26,type:'주제',diff:'어려움',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글의 주제로 가장 적절한 것은?',
+ch:['① 영어 교육의 효과적인 방법론과 교수법','② 영국 영어와 미국 영어의 문법적 차이점','③ 세계 공통 언어로서 영어의 다양성과 문화적 진화','④ 외국어 학습이 경제 발전에 미치는 영향','⑤ 인터넷 시대의 언어 소멸과 보존 노력'],ans:2,
+det:{ref:'[원문] 전체 지문 참고\n[해석] 이 글은 세계 각지에서 영어가 다양한 형태로 진화하고 있으며, 이러한 다양성을 포용해야 한다는 내용이다.',
+correct:'정답: ③ 세계 공통 언어로서 영어의 다양성과 문화적 진화. 지문 전체가 World Englishes의 다양성, 지역적 변형, 문화 반영을 다룸.',
+wrongs:['① ❌ — 영어 교육 방법론은 언급 없음','② ❌ — 영미 영어 차이는 부분적 언급에 불과','③ ✅ — 전체 주제와 일치','④ ❌ — 경제 발전 관련 내용 없음','⑤ ❌ — 언어 소멸/보존은 언급 없음'],
+tip:'💡 주제 파악 전략\n• 반복 키워드 확인: varieties, diversity, Englishes, culture\n• 첫 문단 + 마지막 문단 핵심 파악\n\n⚠️ 부분적 내용이 아닌 전체 요지를 선택'}},
+
+{id:27,type:'T/F',diff:'보통',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'다음 중 윗글의 내용과 <b>일치하지 않는</b> 것은?',
+ch:['① 남아프리카에서 robot은 traffic light을 의미하기도 한다.','② 약 17억 5천만 명이 영어를 의사소통 수단으로 사용한다.','③ 인도 영어의 prepone은 postpone과 같은 의미이다.','④ 필리핀의 dirty kitchen은 집 밖에 있는 부엌을 가리킨다.','⑤ Noah Webster는 미국인이 실제로 사용하는 영어를 기록하고자 했다.'],ans:2,
+det:{ref:'[원문] In Indian English, the term "prepone" was coined to mean "to reschedule" as the opposite of "postpone."\n[해석] 인도 영어에서 "prepone"은 "postpone"의 반대 의미로 만들어졌다. [문장 17 참고]',
+correct:'정답: ③ prepone은 postpone의 반대(opposite) 의미이지, 같은 의미가 아니다.',
+wrongs:['① ✅ — 문장03 내용과 일치','② ✅ — 문장06 내용과 일치','③ ❌ — 지문: opposite of postpone, 선지: 같은 의미라고 잘못 서술','④ ✅ — 문장20~21 내용과 일치','⑤ ✅ — 문장36 내용과 일치'],
+tip:'💡 T/F 전략\n• \"일치하지 않는 것\" 문제 → 오답이 정답\n• 각 선지를 본문과 하나씩 대조\n\n⚠️ opposite(반대) vs same(같은) 같은 핵심어 변조 주의'}},
+
+{id:28,type:'요약문',diff:'어려움',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글을 다음과 같이 요약할 때, 빈칸 (A)와 (B)에 들어갈 말로 가장 적절한 것은?<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #059669;">English has evolved into various forms around the world, reflecting local cultures and realities. This (A)________ of English should be (B)________ as it enriches the language and promotes cultural understanding.</div>',
+ch:['① diversity — embraced','② uniformity — rejected','③ complexity — avoided','④ simplicity — maintained','⑤ diversity — restricted'],ans:0,
+det:{ref:'[원문] 전체 지문 종합\n[해석] 영어가 다양한 형태로 진화하였고, 이 다양성을 포용해야 한다는 내용.',
+correct:'정답: ① diversity — embraced. (A) 영어의 다양성(diversity), (B) 포용해야 한다(embraced). 문장32: "Embracing the diversity of English"와 일치.',
+wrongs:['① ✅ — diversity(다양성) + embraced(포용하다)','② ❌ — uniformity(획일성)는 지문 반대 개념 + rejected(거부하다) 부적절','③ ❌ — complexity(복잡성) 부적합 + avoided(회피하다) 지문 반대','④ ❌ — simplicity(단순성) 부적합','⑤ ❌ — diversity는 맞으나 restricted(제한하다)는 지문 반대'],
+tip:'💡 요약문 전략\n• 핵심 키워드 반복 확인: diversity, embrace\n• 지문의 주장/태도와 일치하는 쌍 선택\n\n⚠️ 한 단어만 맞고 나머지가 틀린 함정 선지 주의'}},
+
+{id:29,type:'추론',diff:'보통',pts:3,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글을 읽고 <b>추론할 수 없는</b> 내용은?',
+ch:['① 영어는 과학, 기술, 사업 등 다양한 분야에서 필요하다.','② 한류의 확산으로 한국어 단어가 영어 사전에 추가되고 있다.','③ Noah Webster는 비격식 단어를 사전에 포함시켜 비판을 받았다.','④ 영어의 다양성을 수용하면 더 포용적인 공동체를 만들 수 있다.','⑤ 모든 영어 변종은 영국 영어를 기반으로 발전했다.'],ans:4,
+det:{ref:'[원문] 전체 지문 종합\n[해석] 지문에서 모든 영어 변종이 영국 영어를 기반으로 했다는 내용은 없다.',
+correct:'정답: ⑤ "모든 영어 변종은 영국 영어를 기반으로 발전했다"는 지문에서 언급하거나 추론할 수 없는 내용.',
+wrongs:['① ✅ — 문장06에서 추론 가능','② ✅ — 문장27~28에서 직접 언급','③ ✅ — 문장37에서 직접 언급','④ ✅ — 문장32에서 직접 언급','⑤ ❌ — 지문에 없는 내용, 추론 불가'],
+tip:'💡 추론 불가 전략\n• 각 선지를 본문 근거와 대조\n• \"추론할 수 없는\" = 본문에 근거 없는 선지\n\n⚠️ \"모든\", \"항상\" 같은 절대적 표현 주의'}},
+
+{id:30,type:'주제빈칸',diff:'어려움',pts:4,fmt:'written',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글의 주제를 다음과 같이 쓸 때 빈칸에 알맞은 단어를 본문에서 찾아 쓰시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #059669;">The ( ___ ) of World Englishes and the importance of embracing them</div><br>(1단어, 영문 9자, d로 시작)',
+wa:"diversity",accept:["diversity","Diversity","DIVERSITY"],
+det:{ref:'[원문] Embracing the diversity of English, we can build a more inclusive community...\n[해석] 영어의 다양성을 포용하며, 우리는 더 포용적인 공동체를 만들 수 있다. [문장 32 참고]',
+correct:'정답: diversity. 지문 핵심 주제어. 문장04 "diversity of World Englishes", 문장32 "diversity of English"에서 반복.',
+wrongs:[],
+tip:'💡 주제 빈칸 전략\n• 지문에서 반복되는 핵심 키워드 확인\n• diversity는 문장04, 32에서 반복 → 핵심 주제어\n\n⚠️ variety(변종)와 diversity(다양성) 구분'}
+}
+];
+
+const QCOUNT=Q.length;
+let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,pct:Math.round(r.correct/QCOUNT*100)});try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 기록이 없습니다.</p>';else p.innerHTML=h.slice(-5).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){const p=s;if(p>=95)return{name:'Challenger',icon:'👑',range:'95~100',msg:'완벽에 가까운 실력!'};if(p>=90)return{name:'Diamond',icon:'💎',range:'90~94',msg:'최상위! 틀린 문항만 점검하세요.'};if(p>=80)return{name:'Gold',icon:'🏆',range:'80~89',msg:'통과! 약한 유형을 집중 복습하면 최상위.'};if(p>=60)return{name:'Silver',icon:'🥈',range:'60~79',msg:'조금만 더! 오답 해설을 꼼꼼히.'};if(p>=40)return{name:'Bronze',icon:'🥉',range:'40~59',msg:'기본기를 다지면 크게 향상됩니다.'};return{name:'Iron',icon:'⚔️',range:'0~39',msg:'지문 해석부터 완벽히 익히세요.'};}
+function fmtTime(s){return`${Math.floor(s/60)}분 ${s%60}초`;}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(QCOUNT).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc='tag-'+q.type;h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body"><div class="q-passage"><span class="label">📖 ${q.note}</span>${q.passage}</div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${q.ch.length===2?(ci===0?'T':'F'):'①②③④⑤'[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="영어로 입력 (대소문자 무관, 띄어쓰기 주의)" oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:QCOUNT},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('current',i===S.cur);d.classList.toggle('answered',S.ans[i]!==null&&i!==S.cur);});}
+function scrollToQ(i){if(i<0||i>=QCOUNT)return;S.cur=i;document.getElementById(`qc-${i}`).scrollIntoView({behavior:'smooth',block:'center'});upDots();}
+function sel(qi,ci){document.querySelectorAll(`.choice-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));document.querySelector(`.choice-btn[data-q="${qi}"][data-c="${ci}"]`).classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById(`w-${qi}`).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{
+  const u=String(a).trim().toLowerCase().replace(/[!.,;'?"\u2019]/g,'').replace(/\s+/g,' ');if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase().replace(/[!.]/g,''));if(!ok&&q.wa)ok=u===q.wa.toLowerCase().replace(/[!.]/g,'');}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok,pts:ok?q.pts:0});});return{score,correct,wrong,unanswered,details};}
+function generateFeedback(r){const pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.total);const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total);let fb=[];weakTypes.forEach(([type,data])=>{const p=Math.round(data.o/data.t*100);fb.push(`⚠️ [${type}] 정답률 ${p}% — 이 유형을 집중 복습하세요.`);});r.details.forEach(d=>{if(!d.ok)fb.push(`📌 ${d.q.id}번(${d.q.type}) 오답 — ${d.q.det.tip||'해설을 확인하세요.'}`)});if(pct>=95)fb.unshift('🏆 거의 완벽! 심화 문제로 도전하세요.');else if(pct>=80)fb.unshift('✅ 통과! 틀린 유형만 집중 복습하면 최상위.');else if(pct>=60)fb.unshift('💪 조금 더! 오답 해설을 꼼꼼히 읽고 반복.');else fb.unshift('📖 기본기부터! 지문 정독 → 문법·어휘 정리.');if(perfectTypes.length)fb.push(`🌟 만점 유형: ${perfectTypes.map(([k])=>k).join(', ')}`);return fb;}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,pts:0,mx:0};typeMap[t].t++;typeMap[t].mx+=d.q.pts;if(d.ok){typeMap[t].o++;typeMap[t].pts+=d.q.pts;}});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);const fb=generateFeedback(r);
+let h=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/100</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong>/${QCOUNT}</span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교/학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간/통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽에 가까운 실력!</h4><p>심화 문제로 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>${weakTypes.join(', ')} 유형을 집중 복습하면 최상위.</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기를 다지는 시간!</h4><p>지문 정독 → 핵심 문법·어휘 정리.</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">💬 보완 피드백</div>`;fb.forEach(f=>{const isW=f.startsWith('⚠️'),isP=f.startsWith('📌'),isS=f.startsWith('🌟');const bg=isW?'var(--rl)':isP?'var(--oxl)':isS?'var(--gl)':'#F8F7F5';const bd=isW?'var(--r)':isP?'var(--o)':isS?'var(--g)':'#e0dcd8';h+=`<div style="padding:10px 14px;background:${bg};border-left:3px solid ${bd};border-radius:0 var(--rs) var(--rs) 0;margin-bottom:8px;font-size:13px;line-height:1.7">${f}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyDetailedResult()"><span class="act-icon">📄</span><span class="act-label">상세 결과 복사</span></button><button class="act-btn" onclick="saveResultImage()"><span class="act-icon">🖼️</span><span class="act-label">이미지 저장</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);font-weight:500;margin-left:8px">클릭하여 펼치기</span></div>`;
+r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const tc='tag-'+d.q.type;h+=`<div class="rev-card"><div class="rev-header" onclick="document.getElementById('rv-${i}').classList.toggle('open')"><div class="q-num" style="width:30px;height:30px;font-size:13px">${d.q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 9px">${d.q.type}</span><span style="font-size:12px;color:var(--tl)">${d.q.diff}·${d.q.pts}점</span><span class="rev-icon">${icon}</span></div><div class="rev-body" id="rv-${i}">`;
+if(d.q.fmt==='mc'){if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else if(d.ans!==null)h+=`<div class="your-ans wrong">❌ 내 답: ${d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]} ${d.q.ch[d.ans]}</div>`;else h+=`<div class="your-ans wrong">⬜ 미응답</div>`;}else{if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else h+=`<div class="your-ans wrong">${d.ans?'❌ 내 답: '+d.ans:'⬜ 미응답'}</div>`;}
+h+=`<div class="expl-sec"><div class="expl-tag ans">✅ 정답</div><div class="expl-box ans-b">${d.q.fmt==='mc'?`<b>${d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]} ${d.q.ch[d.q.ans]}</b>`:`<b>${d.q.wa}</b>`}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag ref">📖 근거</div><div class="expl-box ref-b">${d.q.det.ref}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag tip">💡 풀이</div><div class="expl-box tip-b">${d.q.det.correct}</div></div>`;
+if(d.q.det.wrongs&&d.q.det.wrongs.length&&d.q.det.wrongs[0]!=='')h+=`<div class="expl-sec"><div class="expl-tag wrng">❌ 오답</div><div class="expl-box wrng-b">${d.q.det.wrongs.map(w=>`<div style="margin-bottom:4px">${w}</div>`).join('')}</div></div>`;
+if(d.q.det.tip)h+=`<div class="expl-sec"><div class="expl-tag key">🔑 핵심</div><div class="expl-box key-b">${d.q.det.tip}</div></div>`;
+h+=`</div></div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📋 시험 기록</div>`;const hist=getHistory();if(!hist.length)h+=`<p style="color:var(--tl)">기록 없음</p>`;else h+=hist.slice(-10).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date}·${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');h+=`</div></div>`;
+document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex(d=>!d.ok);if(fw>=0)setTimeout(()=>{const el=document.getElementById(`rv-${fw}`);if(el)el.classList.add('open');},500);}
+function copyDetailedResult(){const nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);let txt=`━━━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신핏 온라인퀴즈 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} ${EI.pub} ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n\n📊 점수: ${r.score}/100 (${r.score}%)\n✅ 정답 ${r.correct}/${QCOUNT} | ❌ 오답 ${r.wrong} | ⬜ 미응답 ${r.unanswered}\n🏅 레벨: ${lv.icon} ${lv.name}\n${r.score>=80?'🎉 통과!':'📚 미통과'}\n\n━━ 문항별 결과 ━━\n`;r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const at=d.q.fmt==='mc'?(d.ans!==null?(d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]):'미응답'):(d.ans||'미응답');const ct=d.q.fmt==='mc'?(d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]):d.q.wa;txt+=`${mk} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점 — 내답:${at} | 정답:${ct}\n`;});const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={t:0,o:0};tm[t].t++;if(d.ok)tm[t].o++;});txt+=`\n━━ 유형별 ━━\n`;Object.entries(tm).forEach(([t,v])=>txt+=`${t}: ${v.o}/${v.t} (${Math.round(v.o/v.t*100)}%)\n`);txt+=`\n━━ 보완 피드백 ━━\n`;fb.forEach(f=>txt+=`${f}\n`);txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>toast('📄 상세 결과 복사 완료!')).catch(()=>toast('복사 실패'));}
+function saveResultImage(){const nm=document.getElementById('inpName').value.trim(),r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);const W=800,pad=40;const lines=[{t:'🎯 내신핏 온라인퀴즈 상세 결과',s:22,b:1,c:'#E8772E'},{t:''},{t:`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}`,s:14,c:'#555'},{t:`👤 ${nm} · ${new Date().toLocaleDateString('ko-KR')}`,s:14,c:'#555'},{t:''},{t:`📊 점수: ${r.score}/100`,s:20,b:1},{t:`✅${r.correct}/${QCOUNT} ❌${r.wrong} ⬜${r.unanswered}`,s:14,c:'#555'},{t:`🏅 ${lv.icon} ${lv.name} ${r.score>=80?'🎉 통과':'📚 미통과'}`,s:16,b:1,c:r.score>=80?'#1A9960':'#D63B3B'},{t:''}];r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const ct=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;lines.push({t:`${mk} ${d.q.id}번[${d.q.type}]${d.q.pts}점 정답:${ct}`,s:12,c:d.ok?'#1A9960':'#D63B3B'});});lines.push({t:''});fb.forEach(f=>lines.push({t:f,s:11,c:'#444'}));lines.push({t:''},{t:'내신핏 · 온라인퀴즈 TEST',s:10,c:'#bbb'});let H=pad*2;lines.forEach(l=>{H+=(l.s||14)+10;});const canvas=document.createElement('canvas');canvas.width=W*2;canvas.height=H*2;const ctx=canvas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#FFF';ctx.fillRect(0,0,W,H);ctx.fillStyle='#E8772E';ctx.fillRect(0,0,W,4);let y=pad+10;lines.forEach(l=>{const fs=l.s||14;ctx.font=`${l.b?'800':'500'} ${fs}px sans-serif`;ctx.fillStyle=l.c||'#222';if(l.t)ctx.fillText(l.t,pad,y);y+=fs+10;});ctx.fillStyle='#E8772E';ctx.fillRect(0,H-4,W,4);canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`퀴즈결과_${nm}_${new Date().toISOString().slice(0,10)}.png`;a.click();toast('🖼️ 이미지 저장 완료!');});}
+function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+
+</script>
+
+</body>
+</html>

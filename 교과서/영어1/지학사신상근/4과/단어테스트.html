@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>영어1 지학사 4과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">지학사 4과 · The Joy of Giving · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">지학사</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">4과 The Joy of Giving</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어1 · 지학사 · <span>4과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"영어1","pub":"지학사(신상근)","lesson":"4과","title":"The Joy of Giving","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_jihak_4"};
+
+const Q=[
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`(A) devote − (B) fulfill − (C) passed away`,`(A) abandon − (B) fulfill − (C) passed away`,`(A) devote − (B) neglect − (C) passed away`,`(A) devote − (B) fulfill − (C) survived`,`(A) abandon − (B) neglect − (C) survived`],passage:`Born in Bernezzo, Italy in 1943, Sister Carla became a nun at the age of 19 and ended up caring for more than 120 war orphans. "I thought that instead of starting a family and caring for my own children only, I could (A)[<b>devote / abandon</b>] my life to caring for more children." She added, "I also became a nun because I wanted to (B)[<b>fulfill / neglect</b>] the dream of my late brother, who wanted to become a priest but (C)[<b>passed away / survived</b>] before he could."`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`1943년 이탈리아 베르네초에서 태어난 칼라 수녀는 19세에 수녀가 되어 120명 이상의 전쟁 고아를 돌보게 되었다. "가정을 꾸리고 제 아이만 돌보는 대신, 더 많은 아이들을 돌보는 데 제 삶을 <b>바칠</b> 수 있다고 생각했습니다." 그녀는 덧붙였다. "사제가 되고 싶었지만 그렇게 하기 전에 <b>돌아가신</b> 형의 꿈을 <b>이루고</b> 싶어서 수녀가 되기도 했습니다."`,analysis:`✅ ① (A) devote(바치다) − (B) fulfill(이루다) − (C) passed away(돌아가시다): 자신의 삶을 헌신하고, 형의 꿈을 이루며, 형이 돌아가셨다는 문맥에 적합
+❌ ② abandon(버리다)은 문맥과 반대
+❌ ③ neglect(무시하다)은 꿈을 이루려는 의도에 부적절
+❌ ④ survived(살아남다)는 "before he could"와 모순
+❌ ⑤ 모두 반대 의미`,tip:`devote A to B = A를 B에 바치다 / fulfill a dream = 꿈을 이루다 / pass away = 돌아가시다(완곡 표현)`}},
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`(A) included − (B) fairness − (C) harmless`,`(A) excluded − (B) fairness − (C) contagious`,`(A) included − (B) prejudices − (C) contagious`,`(A) excluded − (B) prejudices − (C) contagious`,`(A) excluded − (B) prejudices − (C) harmless`],passage:`The 25-year-old Sister Carla came to Korea in 1968 after hearing about many war orphans and Hansen's patients in Korea. Back then, people (A)[<b>excluded / included</b>] Hansen's patients from the general public due to various (B)[<b>prejudices / fairness</b>]. People falsely believed that Hansen's disease was highly (C)[<b>contagious / harmless</b>], and also felt uncomfortable with the appearance of Hansen's patients.`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`25세의 칼라 수녀는 한국의 많은 전쟁 고아와 한센병 환자에 대해 듣고 1968년 한국에 왔다. 당시 사람들은 다양한 <b>편견</b> 때문에 한센병 환자를 일반 대중으로부터 <b>배제</b>했다. 사람들은 한센병이 매우 <b>전염성이 강하다</b>고 잘못 믿었고, 한센병 환자의 외모에 불편함을 느끼기도 했다.`,analysis:`✅ ④ (A) excluded(배제하다) − (B) prejudices(편견) − (C) contagious(전염성이 있는): 편견으로 인해 배제하고, 전염성이 강하다고 잘못 믿었다는 문맥에 적합
+❌ ① included(포함하다), fairness(공정), harmless(무해한) 모두 반대
+❌ ② fairness는 prejudices와 반대
+❌ ③ included는 excluded와 반대
+❌ ⑤ harmless는 contagious와 반대`,tip:`exclude A from B = A를 B에서 배제하다 / prejudice = 편견 / contagious = 전염성이 있는`}},
+{id:3,type:`(A)(B)(C) 조합형`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`(A) improperly − (B) severely − (C) frugally`,`(A) properly − (B) severely − (C) frugally`,`(A) properly − (B) mildly − (C) frugally`,`(A) properly − (B) severely − (C) lavishly`,`(A) improperly − (B) mildly − (C) lavishly`],passage:`Sister Carla did her best to be there for anyone who needed her help, but sadly she didn't have enough time to care for herself. She developed rheumatism but didn't treat the disease (A)[<b>properly / improperly</b>] because she was busy working for her patients. As a result, her toes became (B)[<b>severely / mildly</b>] twisted. She devoted everything she had to the sick, lonely, and poor while she lived very (C)[<b>frugally / lavishly</b>].`,stem:`다음 글의 (A), (B), (C)의 각 괄호 안에서 문맥에 맞는 낱말로 가장 적절한 것은?`,det:{korean:`칼라 수녀는 도움이 필요한 모든 사람을 위해 최선을 다했지만, 안타깝게도 자신을 돌볼 충분한 시간이 없었다. 그녀는 류머티즘에 걸렸지만 환자를 위해 일하느라 바빠서 병을 <b>제대로</b> 치료하지 못했다. 그 결과 발가락이 <b>심하게</b> 뒤틀렸다. 그녀는 매우 <b>검소하게</b> 살면서 아프고, 외롭고, 가난한 사람들에게 가진 모든 것을 바쳤다.`,analysis:`✅ ② (A) properly(제대로) − (B) severely(심하게) − (C) frugally(검소하게): didn't treat properly(제대로 치료하지 못했다), severely twisted(심하게 뒤틀렸다), lived frugally(검소하게 살았다)
+❌ ① improperly는 didn't와 이중부정이 되어 부적절
+❌ ③ mildly(가볍게)는 뒤틀린 결과의 심각성과 불일치
+❌ ④ lavishly(호화롭게)는 검소한 삶과 반대
+❌ ⑤ 모두 반대 의미`,tip:`properly = 적절하게, 제대로 / severely = 심하게 / frugally = 검소하게 (↔ lavishly 호화롭게)`}},
+{id:4,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`remarkable`,`sacrifice`,`routine`,`after`,`excellent`],passage:`We sometimes meet ①<u>remarkable</u> individuals who ②<u>sacrifice</u> themselves for those in need. It's their daily ③<u>routine</u> to help others, and they even put others ④<u>after</u> themselves. Sister Carla is an ⑤<u>excellent</u> example of such a person.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`우리는 때때로 도움이 필요한 사람들을 위해 자신을 ②<b>희생하는</b> ①<b>뛰어난</b> 사람들을 만난다. 다른 사람을 돕는 것이 그들의 일상적인 ③<b>일과</b>이며, 그들은 심지어 다른 사람을 자신보다 ④<b>앞에(→뒤에?)</b> 둔다. 칼라 수녀는 그런 사람의 ⑤<b>훌륭한</b> 예이다.`,analysis:`❌ ④ after(~후에) → <b>before</b>(~앞에)로 바꿔야 적절: "put others before themselves"(다른 사람을 자신보다 우선시하다)가 원문
+✅ ① remarkable(뛰어난): 헌신적인 사람을 묘사하는 맥락에 적절
+✅ ② sacrifice(희생하다): 도움이 필요한 사람을 위한 행동으로 적절
+✅ ③ routine(일과): 일상적으로 돕는다는 맥락에 적절
+✅ ⑤ excellent(훌륭한): 모범적인 사례라는 맥락에 적절`,tip:`put others before oneself = 다른 사람을 자신보다 우선시하다 (before ↔ after)`}},
+{id:5,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`inferior`,`accepted`,`wanted`,`economically`,`independent`],passage:`For Sister Carla, however, Hansen's patients were equally ①<u>inferior</u> human beings. She ②<u>accepted</u> the pain of those patients as her own. Sister Carla ③<u>wanted</u> to help the Hansen's patients in as many ways as she could. She raised pigs with the patients to help them become ④<u>economically</u> ⑤<u>independent</u>.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`그러나 칼라 수녀에게 한센병 환자들은 똑같이 ①<b>열등한(→고귀한)</b> 인간이었다. 그녀는 그 환자들의 고통을 자신의 것으로 ②<b>받아들였다</b>. 칼라 수녀는 가능한 한 많은 방법으로 한센병 환자들을 ③<b>돕고 싶었다</b>. 그녀는 환자들이 ④<b>경제적으로</b> ⑤<b>독립</b>할 수 있도록 그들과 함께 돼지를 키웠다.`,analysis:`❌ ① inferior(열등한) → <b>noble</b>(고귀한)로 바꿔야 적절: 한센병 환자도 동등하게 고귀한 존재라는 원문 맥락
+✅ ② accepted(받아들이다): 환자의 고통을 자신의 것으로 수용
+✅ ③ wanted(원하다): 돕고자 하는 의지 표현
+✅ ④ economically(경제적으로): 경제적 독립이라는 맥락
+✅ ⑤ independent(독립적인): 자립을 돕는다는 맥락에 적합`,tip:`noble = 고귀한, 숭고한 ↔ inferior = 열등한, 하위의`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`surviving`,`continued`,`wasted`,`running`,`senior`],passage:`In addition to helping the ①<u>surviving</u> Hansen's patients, she ②<u>continued</u> to care for the elderly every day. She ③<u>wasted</u> every bit of her time for those in need. She continued working in the community, ④<u>running</u> a pottery-making program, and sold pottery to help ⑤<u>senior</u> citizens in poor neighborhoods.`,stem:`다음 글의 밑줄 친 낱말 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`살아남은 한센병 환자들을 돕는 것 외에도, 그녀는 매일 노인들을 ②<b>계속</b> 돌보았다. 그녀는 도움이 필요한 사람들을 위해 시간의 모든 부분을 ③<b>낭비했다(→사용했다)</b>. 그녀는 지역사회에서 계속 일하며 도자기 만들기 프로그램을 ④<b>운영</b>하고, 가난한 지역의 ⑤<b>고령</b> 시민들을 돕기 위해 도자기를 팔았다.`,analysis:`❌ ③ wasted(낭비하다) → <b>used</b>(사용하다)로 바꿔야 적절: 도움이 필요한 사람들을 위해 시간을 '사용했다'가 원문
+✅ ① surviving(살아남은): 생존 환자라는 맥락에 적절
+✅ ② continued(계속하다): 지속적인 돌봄 활동
+✅ ④ running(운영하다): 프로그램을 운영한다는 맥락
+✅ ⑤ senior(고령의): 노인 시민이라는 맥락에 적합`,tip:`use = (목적을 위해) 사용하다 ↔ waste = 낭비하다. 문맥상 헌신의 의미이므로 use가 적절`}},
+{id:7,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`celebration`,`circulation`,`certification`,`confirmation`],passage:`Additionally, she went to a hospital in Spain to study Hansen's disease and earn a nurse's assistant __________. When she first began treating Hansen's patients, she was able to treat them with only the small amount of medicine she received from German aid agencies.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`또한 그녀는 한센병을 연구하고 간호 보조 <b>자격증</b>을 취득하기 위해 스페인의 한 병원에 갔다. 그녀가 처음 한센병 환자를 치료하기 시작했을 때, 독일 원조 기관에서 받은 소량의 약으로만 그들을 치료할 수 있었다.`,analysis:`✅ ③ certification(자격증): 간호 보조 자격증을 취득하기 위해 병원에 갔다는 맥락에 적합
+❌ ① celebration(축하): 문맥과 무관
+❌ ② circulation(순환): 의미 부적합
+❌ ④ confirmation(확인): 자격증 취득 맥락에 부적합`,tip:`certification = 자격증, 인증서 / earn a certification = 자격증을 취득하다`}},
+{id:8,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`succeeded`,`struggled`,`settled`,`surrendered`],passage:`She started to learn Korean so she could understand each individual's problems more deeply. She __________ with the language at first, but after about two years, she was able to communicate with local people freely and truly understand the patients' specific challenges.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`그녀는 각 개인의 문제를 더 깊이 이해할 수 있도록 한국어를 배우기 시작했다. 그녀는 처음에 언어에 <b>어려움을 겪었지만</b>, 약 2년 후에는 지역 주민들과 자유롭게 소통하고 환자들의 구체적인 어려움을 진정으로 이해할 수 있었다.`,analysis:`✅ ② struggled(고군분투하다): 처음에 어려움을 겪었지만(at first ~ but) 이후 극복했다는 역접 구조에 적합
+❌ ① succeeded(성공하다): but 이하의 역접과 어울리지 않음
+❌ ③ settled(정착하다): 언어와의 관계에서 부적합
+❌ ④ surrendered(항복하다): 이후 소통에 성공했으므로 부적합`,tip:`struggle with = ~에 어려움을 겪다 / at first ~ but = 처음에 ~했지만 (역접 구조)`}},
+{id:9,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`ordinary`,`temporary`,`secondary`,`extraordinary`],passage:`Sister Carla's __________ life reminds us that we all can make a difference and that through our actions we can bring about a positive change in the lives of those who need help most. As she said, being respectful, caring, and supportive towards others can improve our society and also bring us happiness.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`칼라 수녀의 <b>비범한</b> 삶은 우리 모두가 변화를 만들 수 있으며, 우리의 행동을 통해 가장 도움이 필요한 사람들의 삶에 긍정적인 변화를 가져올 수 있음을 일깨워 준다. 그녀가 말했듯이, 다른 사람에게 존중하고, 배려하며, 지지하는 것은 우리 사회를 개선하고 또한 우리에게 행복을 가져다줄 수 있다.`,analysis:`✅ ④ extraordinary(비범한): 평생 헌신한 삶을 '비범한'으로 표현하는 것이 적합
+❌ ① ordinary(평범한): 헌신적인 삶과 반대
+❌ ② temporary(일시적인): 평생의 삶과 모순
+❌ ③ secondary(부차적인): 문맥과 무관`,tip:`extraordinary = extra(넘어서) + ordinary(평범한) → 비범한, 놀라운`}},
+{id:10,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`uneasy`,`pleased`,`relaxed`,`satisfied`],passage:`People falsely believed that Hansen's disease was highly contagious, and also felt <u>uncomfortable</u> with the appearance of Hansen's patients. Nowhere was the place for those patients, and their miserable lives were passed on to their own children.`,stem:`다음 글의 밑줄 친 낱말과 의미가 가장 가까운 것은?`,det:{korean:`사람들은 한센병이 매우 전염성이 강하다고 잘못 믿었고, 한센병 환자의 외모에 <b>불편함을</b> 느꼈다. 그 환자들을 위한 곳은 어디에도 없었고, 그들의 비참한 삶은 그들 자신의 아이들에게 이어졌다.`,analysis:`✅ ① uneasy(불안한, 불편한): uncomfortable과 유사한 의미
+❌ ② pleased(기뻐하는): 반대 의미
+❌ ③ relaxed(편안한): 반대 의미
+❌ ④ satisfied(만족하는): 반대 의미`,tip:`uncomfortable = uneasy = 불편한, 불안한. un- 접두사 = 부정`}},
+{id:11,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`pleasant`,`joyful`,`fortunate`,`wretched`],passage:`Nowhere was the place for those patients, and their <u>miserable</u> lives were passed on to their own children. For Sister Carla, however, Hansen's patients were equally noble human beings. She accepted the pain of those patients as her own.`,stem:`다음 글의 밑줄 친 낱말과 의미가 가장 가까운 것은?`,det:{korean:`그 환자들을 위한 곳은 어디에도 없었고, 그들의 <b>비참한</b> 삶은 그들 자신의 아이들에게 이어졌다. 그러나 칼라 수녀에게 한센병 환자들은 똑같이 고귀한 인간이었다. 그녀는 그 환자들의 고통을 자신의 것으로 받아들였다.`,analysis:`✅ ④ wretched(비참한): miserable과 유사한 의미
+❌ ① pleasant(쾌적한): 반대 의미
+❌ ② joyful(즐거운): 반대 의미
+❌ ③ fortunate(운 좋은): 반대 의미`,tip:`miserable = wretched = 비참한, 불쌍한. misery(비참함)의 형용사형`}},
+{id:12,type:`동의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`truly`,`honestly`,`incorrectly`,`accurately`],passage:`People <u>falsely</u> believed that Hansen's disease was highly contagious, and also felt uncomfortable with the appearance of Hansen's patients. Nowhere was the place for those patients, and their miserable lives were passed on to their own children.`,stem:`다음 글의 밑줄 친 낱말과 의미가 가장 가까운 것은?`,det:{korean:`사람들은 한센병이 매우 전염성이 강하다고 <b>잘못</b> 믿었고, 한센병 환자의 외모에 불편함을 느꼈다. 그 환자들을 위한 곳은 어디에도 없었고, 그들의 비참한 삶은 그들 자신의 아이들에게 이어졌다.`,analysis:`✅ ③ incorrectly(부정확하게, 잘못): falsely와 유사한 의미
+❌ ① truly(진실로): 반대 의미
+❌ ② honestly(정직하게): 반대 의미
+❌ ④ accurately(정확하게): 반대 의미`,tip:`falsely = incorrectly = 잘못, 틀리게. false(거짓의) + -ly`}},
+{id:13,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`nearby`,`distant`,`isolated`,`faraway`],passage:`Often called the angel with blue eyes, she devoted her life to caring for patients with Hansen's disease in the <u>remote</u> village of Hoam, Gochang, Jeollabuk-do. Born in Bernezzo, Italy in 1943, Sister Carla became a nun at the age of 19 and ended up caring for more than 120 war orphans.`,stem:`다음 글의 밑줄 친 낱말과 의미가 가장 <b>먼</b> 것은?`,det:{korean:`파란 눈의 천사라고 불리는 그녀는 전라북도 고창 호암의 <b>외진</b> 마을에서 한센병 환자를 돌보는 데 일생을 바쳤다. 1943년 이탈리아 베르네초에서 태어난 칼라 수녀는 19세에 수녀가 되어 120명 이상의 전쟁 고아를 돌보게 되었다.`,analysis:`✅ ① nearby(가까운): remote(외진, 먼)의 반의어
+❌ ② distant(먼): remote와 유사
+❌ ③ isolated(고립된): remote와 유사
+❌ ④ faraway(먼): remote와 유사`,tip:`remote = distant = faraway = isolated ↔ nearby = close = 가까운`}},
+{id:14,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`bent`,`straight`,`crooked`,`contorted`],passage:`She developed rheumatism but didn't treat the disease properly because she was busy working for her patients. As a result, her toes became severely <u>twisted</u>. Her twisted toes reminded her neighbors of ginger roots, and so they called her toes "ginger feet."`,stem:`다음 글의 밑줄 친 낱말과 의미가 가장 <b>먼</b> 것은?`,det:{korean:`그녀는 류머티즘에 걸렸지만 환자를 위해 일하느라 바빠서 병을 제대로 치료하지 못했다. 그 결과 발가락이 심하게 <b>뒤틀렸다</b>. 그녀의 뒤틀린 발가락은 이웃들에게 생강 뿌리를 떠올리게 했고, 그래서 그들은 그녀의 발을 "생강 발"이라고 불렀다.`,analysis:`✅ ② straight(곧은, 일직선의): twisted(뒤틀린)의 반의어
+❌ ① bent(구부러진): twisted와 유사
+❌ ③ crooked(구부러진): twisted와 유사
+❌ ④ contorted(뒤틀린): twisted와 유사`,tip:`twisted = bent = crooked = contorted(뒤틀린) ↔ straight(곧은, 일직선의)`}},
+{id:15,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:4,ch:[`When she first began treating Hansen's patients, she had very little medicine.`,`She didn't treat the disease properly because she was too busy.`,`The doctor treated his injuries carefully at the hospital.`,`He was treated for severe burns after the fire.`,`My father treated the whole family to dinner at a fancy restaurant.`],passage:`[참고] When she first began <u>treating</u> Hansen's patients, she was able to <u>treat</u> them with only the small amount of medicine she received from German aid agencies.`,stem:`다음 밑줄 친 <b>treat</b>의 의미가 나머지 넷과 <b>다른</b> 것은?`,det:{korean:`① 그녀가 처음 한센병 환자를 <b>치료하기</b> 시작했을 때, 약이 거의 없었다.
+② 그녀는 너무 바빠서 병을 제대로 <b>치료하지</b> 못했다.
+③ 의사가 병원에서 그의 부상을 주의 깊게 <b>치료했다</b>.
+④ 그는 화재 후 심한 화상으로 <b>치료를 받았다</b>.
+⑤ 아버지가 온 가족에게 고급 식당에서 저녁을 <b>대접했다</b>.`,analysis:`①②③④ treat = 치료하다 (to give medical care)
+❌ ⑤ treat = 대접하다, 한턱내다 (to provide someone with food/entertainment at one's own expense)
+✅ 정답: ⑤`,tip:`treat의 다의: ① 치료하다(medical) ② 대접하다(entertain) ③ 다루다(handle) ④ 취급하다(regard)`}},
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`founded`,`destroyed`,`abandoned`,`closed`],passage:`<i>"to establish or set up (an institution or organization)"</i><br><br>[참고] "The saddest thing at the time was not the fact that there was a lack of medicine, but the prejudice towards the Hansen's patients. Because of that, the children of Hansen's patients were not accepted by normal schools," Sister Carla said. So she __________ a school for the children of Hansen's patients in the village.`,stem:`다음 영영 풀이에 해당하는 낱말로 가장 적절한 것은?`,det:{korean:`"(기관이나 조직을) 설립하다, 세우다"<br>"당시 가장 슬픈 것은 약이 부족하다는 사실이 아니라 한센병 환자에 대한 편견이었습니다. 그 때문에 한센병 환자의 아이들은 일반 학교에서 받아들여지지 않았습니다." 칼라 수녀가 말했다. 그래서 그녀는 마을에 한센병 환자의 아이들을 위한 학교를 <b>설립했다</b>.`,analysis:`✅ ① founded(설립하다): 영영 풀이 'to establish or set up'에 해당
+❌ ② destroyed(파괴하다): 반대 의미
+❌ ③ abandoned(버리다): 설립과 반대
+❌ ④ closed(닫다): 학교를 세운 맥락에 부적합`,tip:`found(설립하다) - founded - founded ※ find(찾다) - found - found와 구별!`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`shopping`,accept:[`shopping`],passage:`Even in her old age, she took them to the hospital, did their dishes, and took care of problems at the bank for them. She even went grocery (shop) __________ for them. She used every bit of her time for those in need.`,stem:`다음 글의 괄호 안에 주어진 단어의 알맞은 형태를 쓰시오.`,det:{korean:`노년에도 그녀는 그들을 병원에 데려가고, 설거지를 하고, 은행 문제를 처리해 주었다. 그녀는 심지어 그들을 위해 식료품 <b>쇼핑</b>을 하러 갔다. 그녀는 도움이 필요한 사람들을 위해 시간의 모든 부분을 사용했다.`,analysis:`go + -ing: go shopping(쇼핑하러 가다), go fishing(낚시하러 가다) 등 'go + 동명사' 구문
+shop → shopping (동명사 형태)`,tip:`go + 동명사: go shopping / go swimming / go hiking 등 여가·이동 활동에 사용`}},
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`respectful`,accept:[`respectful`],passage:`Sister Carla's extraordinary life reminds us that we all can make a difference. As she said, being (respect) __________, caring, and supportive towards others can improve our society and also bring us happiness.`,stem:`다음 글의 괄호 안에 주어진 단어의 알맞은 형태를 쓰시오.`,det:{korean:`칼라 수녀의 비범한 삶은 우리 모두가 변화를 만들 수 있음을 일깨워 준다. 그녀가 말했듯이, 다른 사람에게 <b>존중하고</b>, 배려하며, 지지하는 것은 우리 사회를 개선하고 또한 우리에게 행복을 가져다줄 수 있다.`,analysis:`being + 형용사 구조: being respectful, caring, and supportive (병렬 구조)
+respect(동사/명사) → respectful(형용사: 존중하는)`,tip:`respect(존중) → respectful(존중하는, 공손한) / 접미사 -ful = ~이 가득한`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`rejected`,`restricted`,`reflected`,`replaced`],passage:`Her love for the Hansen's patients is also __________ in her Korean name, "Kang Kalla." She adopted the Korean family name "Kang" when the first patient she met at the Hoam Village told her, "I would really like you to use my family name." As her personal name, she decided to use "Kalla," which is the Korean pronunciation of her Catholic name, "Carla."`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`한센병 환자에 대한 그녀의 사랑은 그녀의 한국 이름 "강 칼라"에도 <b>반영</b>되어 있다. 그녀는 호암 마을에서 처음 만난 환자가 "제 성을 사용해 주시면 정말 좋겠습니다"라고 말했을 때 한국 성 "강"을 택했다. 이름으로는 가톨릭 이름 "Carla"의 한국어 발음인 "칼라"를 사용하기로 했다.`,analysis:`✅ ③ reflected(반영되다): 사랑이 이름에 반영되어 있다는 맥락에 적합
+❌ ① rejected(거부되다): 문맥과 반대
+❌ ② restricted(제한되다): 의미 부적합
+❌ ④ replaced(대체되다): 의미 부적합`,tip:`be reflected in = ~에 반영되다 / reflect = 반사하다, 반영하다, 숙고하다`}},
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`benefit`,`burden`,`balance`,`barrier`],passage:`When asked how to live a valuable life, she replied: "When you live only for the __________ of yourself, your joy and happiness become that much smaller. But when you open your heart to other people, it changes your life."`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`가치 있는 삶을 사는 방법에 대해 질문을 받았을 때, 그녀는 대답했다: "자신의 <b>이익</b>만을 위해 살면, 기쁨과 행복은 그만큼 작아집니다. 하지만 다른 사람에게 마음을 열면, 그것이 여러분의 삶을 변화시킵니다."`,analysis:`✅ ① benefit(이익, 혜택): 자신의 이익만을 위해 살면 행복이 작아진다는 맥락에 적합
+❌ ② burden(부담): 문맥상 부자연스러움
+❌ ③ balance(균형): 문맥과 맞지 않음
+❌ ④ barrier(장벽): 문맥과 무관`,tip:`for the benefit of = ~의 이익을 위해 / benefit = 이익, 혜택, 수당`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type.replace(/\(.+?\)/g,'').trim().slice(0,6)}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
+let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n\n━━ 📊 문항별 결과 ━━\n`;
+r.details.forEach(d=>{const mark=d.ok?'✅':'❌';const mk=d.q.ch&&d.q.ch.length===5?mk5:mk4;const ans=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const cor=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;txt+=`${mark} ${d.q.id}번 [${d.q.type.slice(0,6)}] ${d.q.pts}점 — 내답:${ans} 정답:${cor}\n`;});
+txt+=`\n━━ 📈 유형별 분석 ━━\n`;Object.entries(typeMap).forEach(([t,v])=>{const p=Math.round(v.o/v.t*100);const ic=p===100?'🟢':(p>0?'🟡':'🔴');txt+=`${ic} ${t.slice(0,6)}: ${v.o}/${v.t} (${p}%)`;if(v.w.length)txt+=` ← 틀린:${v.w.join(',')}번`;txt+=`\n`;});
+txt+=`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n#온라인단어TEST #영어내신`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 상세 결과가 복사되었습니다!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('📋 복사되었습니다!');}catch(e){toast('복사 실패');}document.body.removeChild(ta);});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+</script>
+</body>
+</html>

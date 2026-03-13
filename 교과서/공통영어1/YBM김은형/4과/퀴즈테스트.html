@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온라인퀴즈 TEST · YBM(김은형) 4과</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard+Variable:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#d0ccc8;border-radius:3px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFFAF5,#F6F2EE 40%,#FFF3E8);position:relative;}
+.start-container{max-width:460px;width:100%;position:relative;z-index:1;}
+.brand-badge{background:linear-gradient(135deg,var(--o),var(--ol));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;letter-spacing:.8px;box-shadow:0 4px 14px rgba(232,119,46,.25);display:inline-block;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;font-weight:500;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.info-card-header{background:linear-gradient(135deg,var(--o),var(--ol));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f5f1ed;}.info-row:last-child{border:none;}.info-label{color:var(--tm);font-weight:500;}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid #ebe7e3;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #e8e4e0;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #e0dcd8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #ebe7e3;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item .hi-left .hi-name{font-weight:700;font-size:13px;}.history-item .hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.history-item .hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.history-item .hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+#examScreen{min-height:100vh;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:1px;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFFAF5,#FFF6EE);border-bottom:1px solid #f0ece8;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;box-shadow:0 3px 8px rgba(232,119,46,.25);}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-어법{background:var(--rl);color:var(--r);}.tag-어휘{background:var(--bl);color:var(--b);}.tag-대의{background:var(--gl);color:var(--g);}.tag-일치{background:var(--oxl);color:var(--od);}.tag-빈칸{background:var(--pl);color:var(--p);}.tag-함축{background:#FFF0F5;color:#D946A0;}.tag-순서{background:var(--skyl);color:var(--sky);}.tag-무관{background:#F0FDF4;color:#16A34A;}.tag-서술형{background:var(--gl);color:var(--g);}.tag-지칭{background:#FEF3C7;color:#D97706;}.tag-TF{background:#E0E7FF;color:#4338CA;}.tag-불일치{background:var(--oxl);color:var(--od);}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f5f1ed;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-passage .label{font-size:11px;font-weight:800;color:var(--o);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.q-passage u{text-decoration-color:var(--o);text-decoration-thickness:2px;text-underline-offset:3px;}
+.q-stem{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #ebe7e3;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;position:relative;overflow:hidden;}
+.choice-btn:hover{border-color:var(--o);transform:translateX(2px);}
+.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#f0ece8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;transition:var(--tr);}
+.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #e0dcd8;border-radius:var(--rs);font-size:15px;font-family:inherit;resize:none;min-height:56px;transition:var(--tr);}
+.written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.08);}
+.cond-box{background:linear-gradient(135deg,#F8F6F3,#F3F0EC);border:1.5px solid #e0dcd8;border-radius:var(--rs);padding:16px;margin-bottom:16px;}.cond-box .ct{font-weight:800;color:var(--od);margin-bottom:8px;font-size:13px;}.cond-box ul{margin-left:18px;margin-bottom:10px;}.cond-box li{margin-bottom:3px;font-size:13px;}
+.bogi-label{font-size:11px;color:var(--tl);font-weight:800;margin-bottom:4px;}.bogi-box{background:#fff;border:1.5px solid #d8d4d0;border-radius:var(--rxs);padding:12px;text-align:center;font-weight:700;font-size:14px;}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.nav-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:65%;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#ebe7e3;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:var(--tr);}
+.nav-dot.current{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 3px 10px rgba(232,119,46,.3);transform:scale(1.08);}
+.nav-dot.answered{background:var(--g);color:#fff;}
+.nav-btn{padding:9px 18px;background:#fff;border:2px solid #e0dcd8;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);}.nav-btn:hover{border-color:var(--o);color:var(--o);}
+#resultScreen{background:var(--bg);}
+.r-hero{padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}.r-hero.pass{background:linear-gradient(160deg,#E8F7F0,#D1FAE5,#E6F9F0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA,#FFF0F0);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;box-shadow:0 4px 14px rgba(26,153,96,.25);}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;letter-spacing:-2px;}.r-score sup{font-size:24px;color:var(--tl);font-weight:700;}
+.r-stats{display:flex;justify-content:center;gap:20px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.r-stats .stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}
+.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.level-range{font-size:13px;color:var(--tm);margin-top:4px;}.level-bar{margin-top:16px;height:8px;background:#f0ece8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);line-height:1.6;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-radius:var(--rs);border:1px solid #ebe7e3;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:linear-gradient(135deg,var(--oxl),#FFF6EE);border-color:rgba(232,119,46,.15);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:50px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#f0ece8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;align-items:flex-start;padding:16px;background:linear-gradient(135deg,var(--oxxl),#FFF6EE);border-radius:var(--rs);border:1px solid rgba(232,119,46,.1);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.rev-card{border:1.5px solid #ebe7e3;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr);}.rev-header:hover{background:#F8F5F0;}.rev-icon{font-size:18px;margin-left:auto;}
+.rev-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}.rev-body.open{padding:20px;max-height:3000px;}
+.your-ans{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rxs);margin-bottom:14px;font-size:13px;font-weight:700;}.your-ans.right{background:var(--gl);color:#0D7A45;border:1px solid rgba(26,153,96,.15);}.your-ans.wrong{background:var(--rl);color:var(--r);border:1px solid rgba(214,59,59,.15);}
+.expl-sec{margin-bottom:14px;}.expl-sec:last-child{margin-bottom:0;}.expl-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.ref{background:var(--bl);color:var(--b);}.expl-tag.tip{background:var(--oxl);color:var(--od);}.expl-tag.wrng{background:var(--rl);color:var(--r);}.expl-tag.key{background:#FFF3E8;color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);border-left:3px solid #e0dcd8;}.expl-box.ans-b{border-left-color:var(--g);}.expl-box.ref-b{border-left-color:var(--b);}.expl-box.tip-b{border-left-color:var(--o);}.expl-box.wrng-b{border-left-color:var(--r);}.expl-box.key-b{border-left-color:var(--ol);background:var(--oxxl);}.expl-box b{color:var(--od);}.hl{background:linear-gradient(transparent 60%,rgba(232,119,46,.15) 60%);font-weight:700;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #e0dcd8;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);background:var(--oxxl);}.act-btn.primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid,.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.nav-dots{max-width:55%;}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">🎯 내신핏</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">YBM(김은형) 4과 · Fake or Fact, That Is the Question</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">YBM(김은형)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">4과 Fake or Fact, That Is the Question</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row"><div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div><div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div></div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · YBM(김은형) · <span>4과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav"><button class="nav-btn" onclick="scrollToQ(S.cur-1)">←</button><div class="nav-dots" id="navDots"></div><button class="nav-btn" onclick="scrollToQ(S.cur+1)">→</button></div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+<script>
+const EI={"subject":"공통영어1","pub":"YBM(김은형)","lesson":"4과","title":"Fake or Fact, That Is the Question","total":100,"time":1200,"histKey":"quizH_YBM_4_20","qCount":20};
+
+const Q = [
+  {
+    id: 1, type: '어법', diff: '보통', pts: 5, fmt: 'mc',
+    note: '분사의 능동/수동',
+    passage: `British writer Oobah Butler wanted to experiment with how easily one can manipulate public opinion online. He <u>ⓐ created</u> a fake restaurant <u>ⓑ calling</u> The Shed at Dulwich. Butler set up an account for his "restaurant" on a popular online review site. He did not provide an exact address and <u>ⓒ wrote</u> it was reservations only. He did this to <u>ⓓ make</u> people think The Shed was a special restaurant. He faked photos of The Shed's food with shaving cream, whitening tablets, and even his own foot. He then asked his friends <u>ⓔ to write</u> favorable fake reviews on the review site.`,
+    stem: '다음 글의 밑줄 친 ⓐ~ⓔ 중, 어법상 어색한 것은?',
+    ch: ['ⓐ created','ⓑ calling','ⓒ wrote','ⓓ make','ⓔ to write'],
+    ans: 1,
+    det: {
+      ref: `[원문] He created a fake restaurant <b>calling</b> The Shed at Dulwich. [해석] 그는 The Shed at Dulwich라고 <b>불리는</b> 가짜 식당을 만들었다. 여기서 restaurant는 '불리는' 대상이므로 수동의 의미를 나타내는 과거분사 <b>called</b>가 와야 합니다. calling(현재분사)은 능동의 의미로 어색합니다.`,
+      correct: `ⓐ created: wanted to experiment의 주어 He가 과거에 한 행위 → 과거형 created ✅<br>ⓑ calling: a fake restaurant를 수식하는 분사. restaurant는 '불리는' 대상이므로 수동 → called가 맞음. calling(능동)은 ❌<br>ⓒ wrote: and로 did not provide와 병렬 연결된 과거형 동사 → wrote ✅<br>ⓓ make: to make는 목적을 나타내는 to부정사, 사역동사 make + O + 동사원형(think) → make ✅<br>ⓔ to write: ask + 목적어(his friends) + to부정사 → to write ✅`,
+      wrongs: [],
+      tip: `🔑 분사 수식: 명사가 동작의 주체 → 현재분사(-ing), 명사가 동작의 대상 → 과거분사(-ed). 'a restaurant called X'(X라고 불리는 식당) vs 'a man calling X'(X에게 전화하는 남자). ask + O + to-v: 5형식 동사 패턴.`
+    }
+  },
+  {
+    id: 2, type: '어법', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '관계사/수일치',
+    passage: `Butler's story shows that much of (A) [what / which] we see on the Internet cannot be trusted. This emphasizes the importance of digital literacy. Digital literacy is about more than just using computers. It is the ability to use digital technology to find, evaluate, create, and communicate information. To become digitally literate, we need to develop an attitude and knowledge that (B) [enable / enables] us to detect false information online. False information is any information that (C) [misinforms / misinforming] or deceives people.`,
+    stem: '다음 글의 괄호 (A), (B), (C) 안에서 어법에 맞는 표현으로 가장 적절한 것은?',
+    ch: ['what – enable – misinforms','what – enables – misinforms','which – enable – misinforming','what – enable – misinforming','which – enables – misinforms'],
+    ans: 0,
+    det: {
+      ref: `[원문] (A) much of <b>what</b> we see / (B) knowledge that <b>enable</b> us / (C) information that <b>misinforms</b> [해석] (A) 인터넷에서 우리가 보는 것의 많은 부분 (B) 허위 정보를 감지할 수 있게 해주는 태도와 지식 (C) 사람들을 잘못된 방향으로 이끌거나 속이는 모든 정보`,
+      correct: `① what – enable – misinforms ✅: (A) what은 선행사 포함 관계대명사로 see의 목적어 역할. (B) 선행사 an attitude and knowledge(복수) → enable. (C) any information(단수) → misinforms.<br>② what – enables – misinforms ❌: (B) enables는 단수 일치로 부적절.<br>③ which – enable – misinforming ❌: (A) which는 선행사 없이 불가, (C) 분사형 부적절.<br>④ what – enable – misinforming ❌: (C) 동사 자리에 분사형 부적절.<br>⑤ which – enables – misinforms ❌: (A) which 부적절, (B) 단수 일치 오류.`,
+      wrongs: [],
+      tip: `🔑 what vs which: what = the thing(s) which (선행사 포함), which는 반드시 선행사 필요. 수 일치: A and B(복수) + 복수동사. any information(단수 불가산) + 단수동사.`
+    }
+  },
+  {
+    id: 3, type: '어법', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '가정법 과거완료/시제일치',
+    passage: `If people had been digitally literate, they <u>ⓐ would not have been fooled</u> by The Shed experiment so easily. Digitally literate people would have carefully <u>ⓑ considered</u> information about The Shed without <u>ⓒ being distracted</u> by other people's reactions. They would have been suspicious that the restaurant did not have an address. They would have wondered why reviews on the restaurant <u>ⓓ did not appear</u> in other more credible media.`,
+    stem: '다음 글의 밑줄 친 ⓐ~ⓓ 중, 어법상 어색한 것은?',
+    ch: ['ⓐ would not have been fooled','ⓑ considered','ⓒ being distracted','ⓓ did not appear'],
+    ans: 3,
+    det: {
+      ref: `[원문] They would have wondered why reviews on the restaurant <b>did not appear</b> in other more credible media. [해석] 그들은 그 식당 리뷰가 다른 신뢰할 만한 매체에 왜 나타나지 않았는지 궁금해했을 것이다. 가정법 과거완료 맥락에서 종속절도 과거완료 시제가 되어야 하므로 <b>had not appeared</b>가 적절합니다.`,
+      correct: `ⓐ would not have been fooled: 가정법 과거완료 + 수동태 → ✅<br>ⓑ considered: would have + p.p. 구조 → ✅<br>ⓒ being distracted: without + 동명사(수동) → ✅<br>ⓓ did not appear: 가정법 과거완료 문맥에서 종속절 시제도 과거완료 필요. did not appear → had not appeared ❌`,
+      wrongs: [],
+      tip: `🔑 가정법 과거완료: If S had p.p., S would have p.p. 종속절(간접의문문) 안에서도 시제 일치(backshift) 적용. wondered why ~ had not appeared. without + being p.p.: 수동 동명사 구문.`
+    }
+  },
+  {
+    id: 4, type: '어휘', diff: '보통', pts: 5, fmt: 'mc',
+    note: '문맥 어휘 선택',
+    passage: `He faked photos of The Shed's food with shaving cream, whitening tablets, and even his own foot. He then asked his friends to write (A) [favorable / unfavorable] fake reviews on the review site. Things quickly got, in Butler's words, "a little out of hand." From the lowest of the charts of the review site, The Shed (B) [continuously / occasionally] climbed the London rankings. He started getting e-mails and phone calls requesting reservations. Interest further (C) [increased / decreased] when he told callers The Shed was "fully booked for the next six weeks."`,
+    stem: '다음 글의 괄호 (A), (B), (C) 안에서 문맥에 맞는 낱말로 가장 적절한 것은?',
+    ch: ['favorable – continuously – increased','unfavorable – continuously – increased','favorable – occasionally – decreased','unfavorable – occasionally – increased','favorable – continuously – decreased'],
+    ans: 0,
+    det: {
+      ref: `[원문] (A) favorable fake reviews / (B) continuously climbed / (C) Interest further increased [해석] (A) 호의적인 가짜 리뷰 (B) 지속적으로 순위 상승 (C) 관심이 더 높아짐`,
+      correct: `① favorable – continuously – increased ✅: 순위 올리려면 호의적 리뷰, 꾸준한 상승, 관심 증가.<br>② unfavorable ❌: 비호의적 리뷰로는 순위 상승 불가.<br>③ occasionally ❌: 가끔이 아닌 지속적 상승.<br>④ unfavorable – occasionally ❌: 둘 다 문맥 부적합.<br>⑤ decreased ❌: 관심 감소는 문맥 모순.`,
+      wrongs: [],
+      tip: `🔑 favorable(호의적인) ≈ positive ↔ unfavorable. continuously(지속적으로) ≈ constantly ↔ occasionally(가끔). increase ↔ decrease. 문맥 흐름: 가짜 리뷰 → 순위 상승 → 관심 증가.`
+    }
+  },
+  {
+    id: 5, type: '어휘', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '어휘 부적절(반의어)',
+    passage: `To avoid being deceived by false information, we need to develop a habit of ① <u>critically</u> evaluating what we see online. If you see a story that looks too good or too bad to be true, check the source first. Look at the website the story comes from. Does it look ② <u>real</u>? Are there spelling errors? Check that the story contains ③ <u>references</u> and links to other information. Websites with false information often do not have many ④ <u>authentic</u> stories about other topics. They also often have lots of advertisements that ⑤ <u>disappear</u> when you visit the sites.`,
+    stem: '다음 글의 밑줄 친 낱말 중, 문맥상 가장 부적절한 것은?',
+    ch: ['① critically','② real','③ references','④ authentic','⑤ disappear'],
+    ans: 4,
+    det: {
+      ref: `[원문] lots of advertisements that <b>disappear</b> when you visit the sites. [해석] 방문 시 사라지는 광고 → 원문은 pop up(나타나다)이므로 disappear(사라지다)는 반대 의미. 가짜 정보 사이트는 팝업 광고가 '나타나는' 것이 특징.`,
+      correct: `① critically: 비판적으로 평가 → 적절 ✅<br>② real: 웹사이트가 진짜처럼 보이는지 → 적절 ✅<br>③ references: 참고 자료 포함 여부 확인 → 적절 ✅<br>④ authentic: 진짜 기사가 많지 않다 → 적절 ✅<br>⑤ disappear: 사라진다 → 원문 pop up(나타나다)의 반대 ❌`,
+      wrongs: [],
+      tip: `🔑 disappear(사라지다) ↔ pop up(갑자기 나타나다) ≈ appear. authentic(진짜의) ≈ genuine ↔ fake. critically(비판적으로) ≈ analytically. 어휘 부적절 문제는 반의어 함정에 주의!`
+    }
+  },
+  {
+    id: 6, type: '어휘', diff: '보통', pts: 5, fmt: 'mc',
+    note: '어휘 부적절(동사 패턴)',
+    passage: `False information can cause emotional or financial harm to people. For example, false information about a certain gender or belief group can ① <u>stir up</u> hatred against that group. It can cause fights between those who support the group and those who do not. In addition, ② <u>misleading</u> online reviews about ③ <u>questionable</u> products often ④ <u>discourage</u> people into wasting money. Sorting through the vast amount of information created and shared online is ⑤ <u>challenging</u>.`,
+    stem: '다음 글의 밑줄 친 낱말 중, 문맥상 가장 부적절한 것은?',
+    ch: ['① stir up','② misleading','③ questionable','④ discourage','⑤ challenging'],
+    ans: 3,
+    det: {
+      ref: `[원문] misleading online reviews often <b>discourage</b> people into wasting money. [해석] 오해를 불러일으키는 리뷰가 사람들이 돈 낭비를 단념시킨다(?) → 원문은 trick(속이다). trick A into -ing(속여서 ~하게 하다) ↔ discourage A from -ing(단념시키다).`,
+      correct: `① stir up: 증오를 자극하다 → 적절 ✅<br>② misleading: 오해를 불러일으키는 → 적절 ✅<br>③ questionable: 의심스러운 → 적절 ✅<br>④ discourage: 단념시키다 → trick(속이다)의 반대 의미 ❌<br>⑤ challenging: 어려운 → 적절 ✅`,
+      wrongs: [],
+      tip: `🔑 trick A into B(속여서 B하게 하다) ↔ discourage A from B(B하지 못하게 하다). stir up ≈ provoke. misleading ≈ deceptive. questionable ≈ doubtful.`
+    }
+  },
+  {
+    id: 7, type: '대의', diff: '보통', pts: 5, fmt: 'mc',
+    note: '주제 파악',
+    passage: `Butler's story shows that much of what we see on the Internet cannot be trusted. This emphasizes the importance of digital literacy. Digital literacy is about more than just using computers. It is the ability to use digital technology to find, evaluate, create, and communicate information. To become digitally literate, we need to develop an attitude and knowledge that enable us to detect false information online. False information is any information that misinforms or deceives people. It can be about anything such as health, the environment, and economics across many platforms. It can be influential, as The Shed incident shows.`,
+    stem: '다음 글의 주제로 가장 적절한 것은?',
+    ch: ['the growth of online restaurant review sites','the importance of digital literacy in detecting false information','the difference between active and passive digital footprints','the negative effects of social media on teenagers','the reasons why people write fake reviews online'],
+    ans: 1,
+    det: {
+      ref: `[원문] This emphasizes the importance of digital literacy. / the ability to detect false information online. [해석] 디지털 리터러시의 중요성을 강조하며, 허위 정보를 감지하는 능력이 핵심.`,
+      correct: `① the growth of online restaurant review sites ❌: 리뷰 사이트 성장은 소재일 뿐.<br>② the importance of digital literacy in detecting false information ✅: 디지털 리터러시의 중요성과 허위 정보 감지가 핵심.<br>③ the difference between active and passive digital footprints ❌: 다른 지문 내용.<br>④ the negative effects of social media on teenagers ❌: 관련 없음.<br>⑤ the reasons why people write fake reviews online ❌: 가짜 리뷰는 예시일 뿐.`,
+      wrongs: [],
+      tip: `🔑 주제 문제: 반복 키워드(digital literacy, false information) 파악. 소재(가짜 식당)와 주제(디지털 리터러시)를 구분.`
+    }
+  },
+  {
+    id: 8, type: '대의', diff: '보통', pts: 5, fmt: 'mc',
+    note: '제목 추론',
+    passage: `To avoid being deceived by false information, we need to develop a habit of critically evaluating what we see online. If you see a story that looks too good or too bad to be true, check the source first. Look at the website the story comes from. Does it look real? Are there spelling errors? Check that the story contains references and links to other information. You should then check the credibility of the content creator. If a story has no writer's name, this could be a sign that its content is questionable. Finally, check who else is reporting the story. If no other media are reporting the same story, the story may not be true.`,
+    stem: '다음 글의 제목으로 가장 적절한 것은?',
+    ch: ['How to Create Reliable Online Content','The History of Fake News in the Digital Age','A Practical Guide to Spotting False Information Online','Why Social Media Companies Should Ban Fake Reviews','The Role of Journalists in Fighting Misinformation'],
+    ans: 2,
+    det: {
+      ref: `[원문] To avoid being deceived ... critically evaluating what we see online. [해석] 허위 정보에 속지 않으려면 비판적 평가 습관 필요. 출처, 작성자, 다른 매체 교차 확인 등 구체적 방법 제시.`,
+      correct: `① How to Create Reliable Online Content ❌: 콘텐츠 만들기가 아닌 판별 방법.<br>② The History of Fake News ❌: 역사가 아닌 현재의 대응 방법.<br>③ A Practical Guide to Spotting False Information Online ✅: 출처·작성자·교차 확인 등 실용적 가이드와 일치.<br>④ Why Social Media Companies Should Ban Fake Reviews ❌: 기업 조치 없음.<br>⑤ The Role of Journalists ❌: 언론인 역할 아님.`,
+      wrongs: [],
+      tip: `🔑 제목은 글 전체를 포괄. spot(발견하다) ≈ detect, identify. practical(실용적인) ≈ useful.`
+    }
+  },
+  {
+    id: 9, type: '대의', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '시사점 추론',
+    passage: `Even funnier, food suppliers started guessing The Shed's address and sent him free samples, and many job applications came in. These things happened without Butler serving a single meal. The Shed eventually became London's number-one restaurant on one of the most trusted restaurant review sites. According to Butler, The Shed held that ranking for two weeks. Butler's story shows that much of what we see on the Internet cannot be trusted. This emphasizes the importance of digital literacy.`,
+    stem: '다음 글이 시사하는 바로 가장 적절한 것은?',
+    ch: ['Online review sites should be abolished entirely.','People tend to blindly trust online information without verifying it.','Food suppliers are responsible for the spread of false information.','The government should regulate all online content strictly.','Fake restaurants can succeed only in large cities like London.'],
+    ans: 1,
+    det: {
+      ref: `[원문] These things happened without Butler serving a single meal. / much of what we see on the Internet cannot be trusted. [해석] 한 끼도 제공하지 않았는데도 모든 일이 일어남 → 검증 없이 맹목적 신뢰.`,
+      correct: `① abolished entirely ❌: 지나친 확대 해석.<br>② blindly trust online information without verifying ✅: 한 끼도 안 팔고 1위 → 맹목적 신뢰의 위험.<br>③ Food suppliers are responsible ❌: 공급업체 책임 언급 없음.<br>④ regulate all online content ❌: 정부 규제 없음, 개인 리터러시 강조.<br>⑤ only in large cities ❌: 도시 제한 없음.`,
+      wrongs: [],
+      tip: `🔑 시사점 문제: 극단적 표현(entirely, all, only) 포함 선지는 오답 가능성 높음. blindly trust ≈ uncritically accept. verify ≈ confirm.`
+    }
+  },
+  {
+    id: 10, type: '일치', diff: '쉬움', pts: 3, fmt: 'mc',
+    note: '세부 내용 일치',
+    passage: `British writer Oobah Butler wanted to experiment with how easily one can manipulate public opinion online. He created a fake restaurant called The Shed at Dulwich. Butler set up an account for his "restaurant" on a popular online review site. He did not provide an exact address and wrote it was reservations only. He faked photos of The Shed's food with shaving cream, whitening tablets, and even his own foot. He then asked his friends to write favorable fake reviews on the review site. The Shed eventually became London's number-one restaurant. According to Butler, The Shed held that ranking for two weeks.`,
+    stem: 'The Shed at Dulwich에 관한 다음 글의 내용과 일치하는 것은?',
+    ch: ['Butler는 실제 식당을 운영하며 실험을 진행했다.','The Shed의 정확한 주소가 리뷰 사이트에 공개되었다.','Butler는 면도 크림 등으로 음식 사진을 조작했다.','The Shed는 런던 랭킹 1위를 한 달간 유지했다.','Butler의 친구들은 부정적인 리뷰를 작성했다.'],
+    ans: 2,
+    det: {
+      ref: `[원문] He faked photos of The Shed's food with shaving cream, whitening tablets, and even his own foot. [해석] 면도 크림, 미백 정제, 자신의 발로 음식 사진을 조작했다.`,
+      correct: `① 실제 식당 운영 ❌: a fake restaurant → 가짜 식당.<br>② 정확한 주소 공개 ❌: did not provide an exact address.<br>③ 면도 크림 등으로 사진 조작 ✅: shaving cream, whitening tablets, foot과 일치.<br>④ 한 달간 유지 ❌: two weeks(2주).<br>⑤ 부정적 리뷰 ❌: favorable(호의적) 리뷰.`,
+      wrongs: [],
+      tip: `🔑 일치 문제: 숫자·기간·행위를 본문과 정확히 대조. two weeks ≠ 한 달, favorable ≠ 부정적.`
+    }
+  },
+  {
+    id: 11, type: '불일치', diff: '보통', pts: 5, fmt: 'mc',
+    note: '디지털 발자국 불일치',
+    passage: `Walking on the beach, you do not need to worry about footprints. They vanish with the waves. However, a "digital footprint"—the data trail left when you sign up, access, or send content—not only proves challenging to remove but enables tracking of your behavior, preferences, and opinions. There are two types of digital footprints. Active footprints, like social media posts, are intentionally created data, while passive footprints, such as website cookies and mobile phone activity, occur without your direct involvement.`,
+    stem: 'Digital Footprints에 관한 다음 글의 내용과 일치하지 않는 것은?',
+    ch: ['해변의 발자국은 파도에 의해 사라진다.','디지털 발자국은 삭제하기 어렵다.','능동적 발자국은 의도적으로 생성된 데이터이다.','수동적 발자국에는 웹사이트 쿠키가 포함된다.','디지털 발자국은 사용자의 행동 추적을 불가능하게 한다.'],
+    ans: 4,
+    det: {
+      ref: `[원문] enables tracking of your behavior, preferences, and opinions. [해석] 디지털 발자국은 행동, 선호도, 의견의 추적을 <b>가능하게 한다</b>. 선지 ⑤는 '불가능하게 한다'로 반대.`,
+      correct: `① 파도에 의해 사라진다 ✅: vanish with the waves와 일치.<br>② 삭제하기 어렵다 ✅: challenging to remove와 일치.<br>③ 의도적으로 생성 ✅: intentionally created data와 일치.<br>④ 웹사이트 쿠키 포함 ✅: such as website cookies와 일치.<br>⑤ 추적 불가능 ❌: enables tracking → '가능하게 하다'이므로 불일치.`,
+      wrongs: [],
+      tip: `🔑 enables(가능하게 하다) ↔ 불가능하게 하다. vanish ≈ disappear. challenging ≈ difficult. intentionally ↔ unintentionally.`
+    }
+  },
+  {
+    id: 12, type: '빈칸', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '빈칸(구) 추론',
+    passage: `If people had been digitally literate, they would not have been fooled by The Shed experiment so easily. Digitally literate people would have carefully considered information about The Shed without being distracted by other people's reactions. They would have been suspicious that the restaurant did not have an address. They would have wondered why reviews on the restaurant did not appear in other more credible media. If they had done these things, they would likely have suspected that _______________.`,
+    stem: '다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+    ch: ['the reviews were worth reading','something was not right','the restaurant deserved its ranking','Butler was a talented chef','online reviews are always accurate'],
+    ans: 1,
+    det: {
+      ref: `[원문] they would likely have suspected that <b>something was not right</b>. [해석] 무언가 잘못되었다고 의심했을 것이다.`,
+      correct: `① the reviews were worth reading ❌: 의심과 반대 방향.<br>② something was not right ✅: 주소 없음, 다른 매체 없음 → 무언가 잘못됨이 논리적.<br>③ the restaurant deserved its ranking ❌: 의심과 모순.<br>④ Butler was a talented chef ❌: 요리사 언급 없음.<br>⑤ online reviews are always accurate ❌: 글의 메시지와 반대.`,
+      wrongs: [],
+      tip: `🔑 suspected that ~ → 의심의 내용이므로 부정적 내용 필요. suspect ≈ doubt, question. 빈칸 앞 의심 근거(주소 없음, 매체 없음)와 연결.`
+    }
+  },
+  {
+    id: 13, type: '빈칸', diff: '어려움', pts: 6, fmt: 'mc',
+    note: '빈칸(문장) the 비교급',
+    passage: `Sorting through the vast amount of information created and shared online is challenging. However, it is important that we know what false information is and how it spreads. _______________, the better we will be at avoiding it and helping others do the same.`,
+    stem: '다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+    ch: ['The more we create false information','The less we use the Internet','The better we recognize false information','The more advertisements we click on','The fewer websites we visit'],
+    ans: 2,
+    det: {
+      ref: `[원문] <b>The better we recognize false information</b>, the better we will be at avoiding it. [해석] 허위 정보를 더 잘 인식할수록 더 잘 피할 수 있다.`,
+      correct: `① The more we create ❌: 허위 정보 생산은 글 메시지와 모순.<br>② The less we use ❌: 인터넷 줄이라는 내용 없음.<br>③ The better we recognize ✅: 인식 → 회피의 비례 관계 성립.<br>④ advertisements ❌: 광고 클릭과 무관.<br>⑤ fewer websites ❌: 방문 줄이기 없음.`,
+      wrongs: [],
+      tip: `🔑 the 비교급 S V, the 비교급 S V: ~할수록 더 …하다. recognize ≈ identify, detect. avoid ≈ evade. 뒤 절과 논리적으로 연결되는 선지 선택.`
+    }
+  },
+  {
+    id: 14, type: '함축', diff: '보통', pts: 5, fmt: 'mc',
+    note: '관용 표현 의미',
+    passage: `He faked photos of The Shed's food with shaving cream, whitening tablets, and even his own foot. He then asked his friends to write favorable fake reviews on the review site. Things quickly got, in Butler's words, <u>"a little out of hand."</u> From the lowest of the charts of the review site, The Shed continuously climbed the London rankings. He started getting e-mails and phone calls requesting reservations. Interest further increased when he told callers The Shed was "fully booked for the next six weeks."`,
+    stem: '다음 글의 밑줄 친 "a little out of hand"가 의미하는 바로 가장 적절한 것은?',
+    ch: ['상황이 예상보다 지루해졌다','상황이 통제할 수 없을 정도로 커졌다','사람들이 더 이상 관심을 보이지 않았다','Butler가 직접 음식을 만들기 시작했다','리뷰 사이트가 The Shed를 삭제했다'],
+    ans: 1,
+    det: {
+      ref: `[원문] Things quickly got "a little out of hand." [해석] 상황이 빠르게 걷잡을 수 없게 되었다. 순위 급상승, 예약 쇄도 등 통제 불능 상태.`,
+      correct: `① 지루해졌다 ❌: 오히려 너무 활발해짐.<br>② 통제할 수 없을 정도로 커졌다 ✅: out of hand = 통제 불능. 순위 급상승, 예약 쇄도가 증거.<br>③ 관심 안 보임 ❌: 오히려 관심 폭증.<br>④ 직접 음식 제작 ❌: without serving a single meal.<br>⑤ 삭제 ❌: 1위까지 올라감.`,
+      wrongs: [],
+      tip: `🔑 out of hand: 통제 불능의 ≈ out of control, unmanageable. 함축 문제: 밑줄 표현의 사전적 의미 + 전후 맥락으로 확인.`
+    }
+  },
+  {
+    id: 15, type: '순서', diff: '보통', pts: 5, fmt: 'mc',
+    note: '글 순서 배열',
+    passage: `You should then check the credibility of the content creator.<br><br>(A) If the person has not written anything else or writes for a website that looks unreliable, think twice before believing the content.<br>(B) If a story has no writer's name, this could be a sign that its content is questionable.<br>(C) If there is a name, find out what and where the person has reported before.`,
+    stem: '주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
+    ch: ['(A)-(B)-(C)','(B)-(C)-(A)','(B)-(A)-(C)','(C)-(A)-(B)','(C)-(B)-(A)'],
+    ans: 1,
+    det: {
+      ref: `[해석] 작성자 신뢰도 확인 → (B) 이름 없으면 의심 → (C) 이름 있으면 조사 → (A) 신뢰 불가 시 재고`,
+      correct: `① (A)-(B)-(C) ❌: (A)는 (C) 결과에 대한 판단이므로 (C) 뒤에 와야 함.<br>② (B)-(C)-(A) ✅: 이름 없음(B) → 이름 있으면 조사(C) → 결과 판단(A)의 논리적 흐름.<br>③ (B)-(A)-(C) ❌: (A)가 (C)보다 먼저 오면 논리 단절.<br>④ (C)-(A)-(B) ❌: 이름 있는 경우가 먼저 오면 이름 없는 경우가 뒤로 밀려 어색.<br>⑤ (C)-(B)-(A) ❌: 같은 이유.`,
+      wrongs: [],
+      tip: `🔑 순서 배열: 대명사·지시어 연결. (B) no writer's name → (C) If there is a name → (A) the person. 조건문 논리: 이름 없음 vs 있음 → 판단.`
+    }
+  },
+  {
+    id: 16, type: '무관', diff: '쉬움', pts: 3, fmt: 'mc',
+    note: '무관 문장 찾기',
+    passage: `① Fortunately, The Shed incident was an experiment that caused little damage. ② However, false information can cause emotional or financial harm to people. ③ For example, false information about a certain gender or belief group can stir up hatred against that group. ④ Meanwhile, many restaurants in London have earned high ratings through genuine customer satisfaction. ⑤ In addition, misleading online reviews about questionable products often trick people into wasting money.`,
+    stem: '다음 글에서 전체 흐름과 관계없는 문장은?',
+    ch: ['①','②','③','④','⑤'],
+    ans: 3,
+    det: {
+      ref: `[원문] ④ Meanwhile, many restaurants in London have earned high ratings through genuine customer satisfaction. [해석] 런던의 많은 식당이 진정한 고객 만족으로 높은 평점을 얻었다 → 허위 정보 피해와 무관.`,
+      correct: `① The Shed는 피해가 적은 실험 → 도입부 적절 ✅<br>② 허위 정보는 피해 줄 수 있다 → 본론 진입 ✅<br>③ 특정 집단에 대한 증오 → 구체적 피해 사례 ✅<br>④ 런던 식당의 긍정적 사례 → 허위 정보 피해와 무관 ❌<br>⑤ 오해하게 하는 리뷰 → 재정적 피해 사례 ✅`,
+      wrongs: [],
+      tip: `🔑 무관 문장: 글의 주제(허위 정보의 피해)와 관련 없는 내용 찾기. Meanwhile 같은 접속사가 있어도 내용이 무관하면 무관 문장. genuine ↔ fake.`
+    }
+  },
+  {
+    id: 17, type: 'TF', diff: '쉬움', pts: 3, fmt: 'mc',
+    note: 'T/F 판별',
+    passage: `Walking on the beach, you do not need to worry about footprints. They vanish with the waves. However, a "digital footprint"—the data trail left when you sign up, access, or send content—not only proves challenging to remove but enables tracking of your behavior, preferences, and opinions. Your digital footprints from these activities may remain permanent. Even if you request a website or social media platform to remove your personal information, someone might have already collected your information with bad intent.`,
+    stem: '다음 글의 내용을 바탕으로 "Digital footprints vanish as easily as beach footprints."라는 문장이 맞으면 T, 틀리면 F를 고르시오.',
+    ch: ['T','F'],
+    ans: 1,
+    det: {
+      ref: `[원문] proves challenging to remove / may remain permanent [해석] 디지털 발자국은 제거 어렵고 영구적. 해변 발자국처럼 쉽게 사라지지 않음 → F.`,
+      correct: `T ❌: 디지털 발자국이 쉽게 사라진다는 것은 본문과 반대.<br>F ✅: challenging to remove, permanent → 쉽게 사라지지 않음.`,
+      wrongs: [],
+      tip: `🔑 vanish easily ↔ challenging to remove / permanent. 해변 발자국과 디지털 발자국의 대조가 핵심.`
+    }
+  },
+  {
+    id: 18, type: '서술형', diff: '보통', pts: 5, fmt: 'written',
+    note: '요약형 빈칸',
+    passage: `Butler's story shows that much of what we see on the Internet cannot be trusted. This emphasizes the importance of digital literacy. Digital literacy is about more than just using computers. It is the ability to use digital technology to find, evaluate, create, and communicate information. To become digitally literate, we need to develop an attitude and knowledge that enable us to detect false information online.`,
+    stem: '[조건] 다음 글을 읽고, 빈칸에 들어갈 적절한 단어를 본문에서 찾아 쓰시오. (1단어)<br><br>Butler\'s experiment proves that digital __________ is essential to avoid being fooled by false information online.',
+    wa: 'literacy',
+    accept: ['literacy','Literacy','LITERACY'],
+    det: {
+      ref: `[원문] This emphasizes the importance of digital <b>literacy</b>. [해석] 디지털 리터러시의 중요성을 강조한다.`,
+      correct: `빈칸 앞 digital과 함께 digital literacy를 완성. 본문의 핵심 반복 키워드. ✅ literacy`,
+      wrongs: [],
+      tip: `🔑 literacy(읽고 쓰는 능력, 소양) — digital literacy: 디지털 기술 활용 능력. 요약형에서는 반복 키워드와 정의문 주목.`
+    }
+  },
+  {
+    id: 19, type: '서술형', diff: '어려움', pts: 7, fmt: 'written',
+    note: '영작(가정법 과거완료)',
+    passage: `If people had been digitally literate, they would not have been fooled by The Shed experiment so easily. Digitally literate people would have carefully considered information about The Shed without being distracted by other people's reactions.`,
+    stem: '[조건] 다음 우리말과 같은 뜻이 되도록 주어진 단어를 올바르게 배열하여 영작하시오.<br>「사람들이 디지털 리터러시를 갖추었더라면, The Shed 실험에 그렇게 쉽게 속지 않았을 것이다.」<br><br>[보기] people / digitally / had / been / literate / they / not / fooled / would / have / been',
+    wa: 'If people had been digitally literate, they would not have been fooled',
+    accept: ['If people had been digitally literate, they would not have been fooled','if people had been digitally literate, they would not have been fooled','If people had been digitally literate they would not have been fooled'],
+    det: {
+      ref: `[원문] <b>If people had been digitally literate, they would not have been fooled</b> by The Shed experiment so easily. [해석] 사람들이 디지털 리터러시를 갖추었더라면, 속지 않았을 것이다.`,
+      correct: `가정법 과거완료: If절(If people had been digitally literate) + 주절(they would not have been fooled). 수동태: been fooled. ✅`,
+      wrongs: [],
+      tip: `🔑 가정법 과거완료: If + S + had p.p., S + would/could/might + have p.p. 수동태 결합: would have been p.p. literate ≈ knowledgeable.`
+    }
+  },
+  {
+    id: 20, type: '서술형', diff: '쉬움', pts: 3, fmt: 'written',
+    note: '어형 변환(부사)',
+    passage: `To avoid being deceived by false information, we need to develop a habit of critically evaluating what we see online. If you see a story that looks too good or too bad to be true, check the source first.`,
+    stem: '[조건] 다음 괄호 안의 단어를 문맥에 맞게 올바른 형태로 고쳐 쓰시오.<br><br>We need to develop a habit of (critical) __________ evaluating what we see online.',
+    wa: 'critically',
+    accept: ['critically','Critically','CRITICALLY'],
+    det: {
+      ref: `[원문] a habit of <b>critically</b> evaluating [해석] 비판적으로 평가하는 습관. critical(형용사) → critically(부사)로 변환.`,
+      correct: `evaluating(동명사)을 수식하려면 부사 필요. critical → critically. ✅`,
+      wrongs: [],
+      tip: `🔑 형용사 → 부사: critical → critically. 동사/동명사 수식 = 부사. 비교: careful → carefully, accurate → accurately.`
+    }
+  }
+];
+
+const QCOUNT=Q.length;
+let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,pct:Math.round(r.correct/QCOUNT*100)});try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 기록이 없습니다.</p>';else p.innerHTML=h.slice(-5).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'Challenger',icon:'👑',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'Diamond',icon:'💎',range:'90~94',msg:'최상위! 틀린 문항만 점검하세요.'};if(s>=80)return{name:'Gold',icon:'🏆',range:'80~89',msg:'통과! 약한 유형을 집중 복습하면 최상위.'};if(s>=60)return{name:'Silver',icon:'🥈',range:'60~79',msg:'조금만 더! 오답 해설을 꼼꼼히.'};if(s>=40)return{name:'Bronze',icon:'🥉',range:'40~59',msg:'기본기를 다지면 크게 향상됩니다.'};return{name:'Iron',icon:'⚔️',range:'0~39',msg:'지문 해석부터 완벽히 익히세요.'};}
+function fmtTime(s){return`${Math.floor(s/60)}분 ${s%60}초`;}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(QCOUNT).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc='tag-'+q.type;h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body"><div class="q-passage"><span class="label">📖 ${q.note}</span>${q.passage}</div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${q.ch.length===2?(ci===0?'T':'F'):'①②③④⑤'[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:QCOUNT},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('current',i===S.cur);d.classList.toggle('answered',S.ans[i]!==null&&i!==S.cur);});}
+function scrollToQ(i){if(i<0||i>=QCOUNT)return;S.cur=i;document.getElementById(`qc-${i}`).scrollIntoView({behavior:'smooth',block:'center'});upDots();}
+function sel(qi,ci){document.querySelectorAll(`.choice-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));document.querySelector(`.choice-btn[data-q="${qi}"][data-c="${ci}"]`).classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById(`w-${qi}`).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase().replace(/[!.]/g,'');if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase().replace(/[!.]/g,''));if(!ok&&q.wa)ok=u===q.wa.toLowerCase().replace(/[!.]/g,'');}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok,pts:ok?q.pts:0});});return{score,correct,wrong,unanswered,details};}
+function generateFeedback(r){const pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t);const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t);let fb=[];weakTypes.forEach(([type,data])=>{const p=Math.round(data.o/data.t*100);fb.push(`⚠️ [${type}] 정답률 ${p}% — 이 유형을 집중 복습하세요.`);});r.details.forEach(d=>{if(!d.ok)fb.push(`📌 ${d.q.id}번(${d.q.type}) 오답 — ${d.q.det.tip||'해설을 확인하세요.'}`)});if(pct>=95)fb.unshift('🏆 거의 완벽! 심화 문제로 도전하세요.');else if(pct>=80)fb.unshift('✅ 통과! 틀린 유형만 집중 복습하면 최상위.');else if(pct>=60)fb.unshift('💪 조금 더! 오답 해설을 꼼꼼히 읽고 반복.');else fb.unshift('📖 기본기부터! 지문 정독 → 문법·어휘 정리.');if(perfectTypes.length)fb.push(`🌟 만점 유형: ${perfectTypes.map(([k])=>k).join(', ')}`);return fb;}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,pts:0,mx:0};typeMap[t].t++;typeMap[t].mx+=d.q.pts;if(d.ok){typeMap[t].o++;typeMap[t].pts+=d.q.pts;}});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);const fb=generateFeedback(r);
+let h=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/100</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong>/${QCOUNT}</span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교/학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간/통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽에 가까운 실력!</h4><p>심화 문제로 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>${weakTypes.join(', ')} 유형을 집중 복습하면 최상위.</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기를 다지는 시간!</h4><p>지문 정독 → 핵심 문법·어휘 정리.</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">💬 보완 피드백</div>`;fb.forEach(f=>{const isW=f.startsWith('⚠️'),isP=f.startsWith('📌'),isS=f.startsWith('🌟');const bg=isW?'var(--rl)':isP?'var(--oxl)':isS?'var(--gl)':'#F8F7F5';const bd=isW?'var(--r)':isP?'var(--o)':isS?'var(--g)':'#e0dcd8';h+=`<div style="padding:10px 14px;background:${bg};border-left:3px solid ${bd};border-radius:0 var(--rs) var(--rs) 0;margin-bottom:8px;font-size:13px;line-height:1.7">${f}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn" onclick="shareResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);font-weight:500;margin-left:8px">클릭하여 펼치기</span></div>`;
+r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const tc='tag-'+d.q.type;h+=`<div class="rev-card"><div class="rev-header" onclick="document.getElementById('rv-${i}').classList.toggle('open')"><div class="q-num" style="width:30px;height:30px;font-size:13px">${d.q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 9px">${d.q.type}</span><span style="font-size:12px;color:var(--tl)">${d.q.diff}·${d.q.pts}점</span><span class="rev-icon">${icon}</span></div><div class="rev-body" id="rv-${i}">`;
+if(d.q.fmt==='mc'){if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else if(d.ans!==null)h+=`<div class="your-ans wrong">❌ 내 답: ${d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]} ${d.q.ch[d.ans]}</div>`;else h+=`<div class="your-ans wrong">⬜ 미응답</div>`;}else{if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else h+=`<div class="your-ans wrong">${d.ans?'❌ 내 답: '+d.ans:'⬜ 미응답'}</div>`;}
+h+=`<div class="expl-sec"><div class="expl-tag ans">✅ 정답</div><div class="expl-box ans-b">${d.q.fmt==='mc'?`<b>${d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]} ${d.q.ch[d.q.ans]}</b>`:`<b>${d.q.wa}</b>`}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag ref">📖 근거</div><div class="expl-box ref-b">${d.q.det.ref}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag tip">💡 풀이</div><div class="expl-box tip-b">${d.q.det.correct}</div></div>`;
+if(d.q.det.wrongs&&d.q.det.wrongs.length&&d.q.det.wrongs[0]!=='')h+=`<div class="expl-sec"><div class="expl-tag wrng">❌ 오답</div><div class="expl-box wrng-b">${d.q.det.wrongs.map(w=>`<div style="margin-bottom:4px">${w}</div>`).join('')}</div></div>`;
+if(d.q.det.tip)h+=`<div class="expl-sec"><div class="expl-tag key">🔑 핵심</div><div class="expl-box key-b">${d.q.det.tip}</div></div>`;
+h+=`</div></div>`;});h+=`</div></div>`;
+document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex(d=>!d.ok);if(fw>=0)setTimeout(()=>{const el=document.getElementById(`rv-${fw}`);if(el)el.classList.add('open');},500);window._lastResult=r;window._lastElapsed=elapsed;}
+function shareResult(){const r=window._lastResult;const elapsed=window._lastElapsed;if(!r)return;const nm=document.getElementById('inpName').value.trim();const sc=document.getElementById('inpSchool').value.trim();const gr=document.getElementById('inpGrade').value;const lv=getLevel(r.score);const pass=r.score>=80;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});let txt=`━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 온라인퀴즈 TEST 결과\n`;txt+=`━━━━━━━━━━━━━━━━━━━━\n\n`;txt+=`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n`;txt+=`📖 ${EI.title}\n\n`;txt+=`┌─────────────────────┐\n`;txt+=`│  📋 기본 정보\n`;txt+=`│  👤 이름: ${nm}\n`;if(sc)txt+=`│  🏫 학교: ${sc} · ${gr}\n`;else txt+=`│  🎓 학년: ${gr}\n`;txt+=`│  📅 응시일: ${new Date().toLocaleDateString('ko-KR')}\n`;txt+=`│  ⏱️ 소요시간: ${fmtTime(elapsed)}\n`;txt+=`└─────────────────────┘\n\n`;txt+=`🏆 ── 성적 결과 ──────────\n\n`;txt+=`   ${lv.icon} ${lv.name} (${lv.range}점)\n`;txt+=`   📊 ${r.score}점 / 100점  ${pass?'✅ 통과':'❌ 미통과'}\n\n`;txt+=`   ✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n\n`;txt+=`📊 ── 유형별 분석 ────────\n\n`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const bar='█'.repeat(Math.round(p/10))+'░'.repeat(10-Math.round(p/10));const icon=p===100?'🌟':p>=80?'✅':p>=50?'⚠️':'❌';txt+=`   ${icon} ${type}\t${bar} ${p}% (${d.o}/${d.t})\n`;});txt+=`\n`;const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);if(perfectTypes.length)txt+=`   🌟 만점 유형: ${perfectTypes.join(', ')}\n`;if(weakTypes.length)txt+=`   📌 보완 필요: ${weakTypes.join(', ')}\n`;txt+=`\n💬 ── 상세 피드백 ────────\n\n`;r.details.forEach(d=>{if(!d.ok){const icon=d.ans===null?'⬜':'❌';const ansInfo=d.q.fmt==='mc'?(d.ans!==null?'①②③④⑤'[d.ans]:'미응답'):(d.ans||'미응답');const correctAns=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;txt+=`   ${icon} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점\n`;txt+=`      내 답: ${ansInfo} → 정답: ${correctAns}\n`;const tipClean=(d.q.det.tip||'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').substring(0,80);if(tipClean)txt+=`      💡 ${tipClean}...\n`;txt+=`\n`;}});if(r.wrong===0&&r.unanswered===0)txt+=`   🎉 전 문항 정답! 완벽합니다!\n\n`;txt+=`📝 ── 학습 조언 ──────────\n\n`;if(r.score>=95)txt+=`   🏅 거의 완벽! 심화 문제에 도전하세요.\n`;else if(r.score>=80)txt+=`   📈 통과! ${weakTypes.join(', ')} 유형만 보강하면 최상위.\n`;else if(r.score>=60)txt+=`   💪 조금만 더! 오답 해설을 꼼꼼히 확인하세요.\n`;else txt+=`   📖 기본기부터! 지문 정독 → 문법·어휘 정리.\n`;txt+=`\n━━━━━━━━━━━━━━━━━━━━\n`;txt+=`🎯 내신핏 온라인퀴즈 TEST\n`;txt+=`━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>{toast('📋 결과가 클립보드에 복사되었습니다!');}).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 결과가 클립보드에 복사되었습니다!');});}
+function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+</script>
+</body>
+</html>

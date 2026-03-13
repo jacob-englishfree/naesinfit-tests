@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 YBM(김은형) 1과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">YBM(김은형) 1과 · The Magic of Believing That You Can Grow · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">YBM(김은형)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">1과 The Magic of Believing That You Can Grow</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · YBM(김은형) · <span>1과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1","pub":"YBM(김은형)","lesson":"1과","title":"The Magic of Believing That You Can Grow","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_ybm_1"};
+
+const Q=[
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`endurance — reject — easy`,`endurance — embrace — hard`,`endurance — embrace — easy`,`avoidance — reject — easy`,`avoidance — embrace — hard`],passage:`The boy now faces a big choice. He could choose to challenge himself to grow and face difficulties with <b>(A)</b> and courage. Or he could <b>(B)</b> new and challenging experiences and choose an <b>(C)</b>, familiar path.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`소년은 <b>인내심(endurance)</b>과 용기로 어려움에 맞서거나, 새로운 경험을 <b>받아들이거나(embrace)</b>, <b>쉬운(easy)</b> 익숙한 길을 택할 수 있다.`,analysis:`✅ ③ endurance — embrace — easy: 원문 일치
+❌ ① reject: embrace의 반의어
+❌ ② hard: easy의 반의어
+❌ ④ avoidance: endurance의 반의어
+❌ ⑤ avoidance/hard: (A)(C) 모두 반의어`,tip:`endurance(인내심)↔avoidance(회피), embrace(받아들이다)↔reject(거부하다), easy↔hard`}},
+{id:2,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`pain — better — obstacles`,`pain — worse — rewards`,`comfort — better — obstacles`,`pain — better — rewards`,`comfort — worse — opportunities`],passage:`He sets the paddle on the table, saying, 'I have had enough,' and leaves for his room. His dad asks for another game the next week, but the boy still has some <b>(A)</b> in his elbow. When his mom suggests playing against his older brother, he turns down her suggestion, saying, 'He's going to be <b>(B)</b> than me anyway.' In his eyes, challenges are nothing more than <b>(C)</b>.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`팔꿈치의 <b>통증(pain)</b>, 오빠가 자신보다 <b>더 잘할(better)</b> 것이라는 체념, 도전을 <b>장애물(obstacles)</b>로만 보는 회피형 사고가 드러난다.`,analysis:`✅ ① pain — better — obstacles: 원문 일치
+❌ ② worse: better의 반의어
+❌ ③ comfort: pain의 반의어
+❌ ④ rewards: obstacles의 반의어 방향
+❌ ⑤ comfort/worse/opportunities: 다수 부적절`,tip:`pain↔comfort, better↔worse, obstacles(장애물)↔opportunities(기회)`}},
+{id:3,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`exposed — difficulties — emotional`,`exposed — difficulties — emotionless`,`immune — pleasures — emotionless`,`exposed — pleasures — emotional`,`immune — difficulties — emotional`],passage:`Think of it like building your body's immune system. Just as you need to be <b>(A)</b> to germs to build immunity, you must experience <b>(B)</b> to build resilience. In simple terms, resilience is not about being <b>(C)</b>: you experience, you feel, you fail, you hurt, you fall. But you keep going.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`세균에 <b>노출되어야(exposed)</b> 면역이 생기듯, <b>어려움(difficulties)</b>을 겪어야 회복탄력성이 생기며, 이는 <b>감정 없음(emotionless)</b>이 아니다.`,analysis:`✅ ② exposed — difficulties — emotionless: 원문 일치
+❌ ① emotional: emotionless의 반의어 (부정 구문과 모순)
+❌ ③ immune: exposed의 반의어
+❌ ④ pleasures: difficulties의 반의어
+❌ ⑤ immune/emotional: (A)(C) 모두 반의어`,tip:`be exposed to↔be immune to, difficulties↔pleasures, emotionless↔emotional`}},
+{id:4,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`His dad asks for another game the next week, but the boy still has some ①<u>pain</u> in his elbow and just does not feel like taking up the ②<u>challenge</u>. When his mom ③<u>suggests</u> playing against his older brother, he ④<u>accepts</u> her suggestion because his brother is very ⑤<u>tough</u>. 'No, thanks,' sighs the boy. 'He's going to be better than me anyway.'`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`소년은 엄마의 제안을 <b>거절(turns down)</b>한다. ④ accepts(수락하다)는 문맥상 부적절하다.`,analysis:`❌ ④ accepts(수락하다): 원문은 'turns down(거절하다)' → 부적절
+✅ ① pain: 팔꿈치 통증 → 적절
+✅ ② challenge: 'taking up the challenge' → 적절
+✅ ③ suggests: 제안하다 → 적절
+✅ ⑤ tough: 강한 → 오빠 묘사에 적절`,tip:`turn down = reject(거절) ↔ accept(수락) — 핵심 반의어`}},
+{id:5,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`You may have the idea that this is simply a fictional tale. However, this is the true story of Matthew Syed, a former member of the British national table-tennis team. His ①<u>tale</u> shows how an ②<u>ordinary</u> boy developed his ③<u>indifference</u> for table tennis and eventually became the national ④<u>champion</u>. Because he had a ⑤<u>growth</u> mindset, he tried something new and discovered what he truly desired.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`소년이 탁구에 대한 <b>열정(passion)</b>을 키워 챔피언이 됐다. ③ indifference(무관심)는 passion의 반의어로 부적절.`,analysis:`❌ ③ indifference(무관심): 원문은 'passion(열정)' → 부적절
+✅ ① tale: 이야기 → 적절
+✅ ② ordinary: 평범한 → 적절
+✅ ④ champion: 챔피언 → 적절
+✅ ⑤ growth: 'growth mindset' → 적절`,tip:`passion(열정) ↔ indifference(무관심) — 핵심 반의어`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Teenage life on social media might seem ①<u>fun</u> and easy, but being a real teenager presents its own set of ②<u>comforts</u>, both big and small. So why can some people ③<u>handle</u> tough times and become ④<u>stronger</u> while others remain ⑤<u>unchanged</u> and helpless? The answer lies in resilience—the ability to adapt to challenging experiences.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`실제 십대의 삶은 자신만의 <b>도전(challenges)</b>을 가져온다. ② comforts(편안함)는 challenges의 반의어로 부적절.`,analysis:`❌ ② comforts(편안함): 원문은 'challenges(도전)' → 부적절
+✅ ① fun: 재미있는 → 소셜 미디어 묘사에 적절
+✅ ③ handle: 감당하다 → 적절
+✅ ④ stronger: 더 강해지다 → 회복탄력성 결과로 적절
+✅ ⑤ unchanged: 변화 없는 → 대비 표현으로 적절`,tip:`challenges(도전/어려움) ↔ comforts(편안함)`}},
+{id:7,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`obstacles`,`opportunities`,`rewards`,`achievements`],passage:`He sets the paddle on the table, saying, 'I have had enough,' and leaves for his room. His dad asks for another game the next week, but the boy still has some pain in his elbow and just does not feel like taking up the challenge. In his eyes, challenges are nothing more than __________, and he holds onto the belief that they are best avoided.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`회피형 소년에게 도전은 <b>장애물(obstacles)</b>에 불과하며, 피하는 것이 최선이라 믿는다.`,analysis:`✅ ① obstacles(장애물): 원문 일치, 회피 심리와 일관성
+❌ ② opportunities: 기회 → 성장형 사고, 문맥과 반대
+❌ ③ rewards: 보상 → 회피 이유가 되지 않음
+❌ ④ achievements: 성취 → 피할 이유가 없음`,tip:`obstacle = barrier = hurdle(장애물) ↔ opportunity(기회)`}},
+{id:8,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`teammate`,`coach`,`opponent`,`audience`],passage:`He participates in the national championship and makes it all the way to the finals. He finds his __________ to be skillful and smart, but he plays hard. He finds himself at match point, and the audience holds its breath.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`결승전에서 소년의 <b>상대(opponent)</b>가 능숙하고 영리하지만, 소년은 열심히 경기한다.`,analysis:`✅ ③ opponent(상대/적수): 1:1 경기 상대 → 원문 일치
+❌ ① teammate: 같은 팀 → 경기 상대가 아님
+❌ ② coach: 코치 → 경기 상대가 아님
+❌ ④ audience: 관객 → 경기 참여자가 아님`,tip:`opponent = rival = adversary(상대방) — 경기 문맥 필수 어휘`}},
+{id:9,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`endurance`,`persistence`,`confidence`,`resilience`],passage:`So why can some people handle tough times and become stronger while others remain unchanged and helpless? The answer lies in __________—the ability to adapt to challenging experiences, such as unexpected events or personal difficulties. The good news is that humans can recover from pressure and hardship and you can develop this skill.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`그 답은 <b>회복탄력성(resilience)</b>에 있다 — 예상치 못한 사건이나 개인적 어려움 같은 도전적 경험에 적응하는 능력.`,analysis:`✅ ④ resilience: 이어지는 정의 'ability to adapt to challenging experiences'와 일치
+❌ ① endurance: 인내심 → 적응 능력과 다름
+❌ ② persistence: 끈기 → 정의 표현과 불일치
+❌ ③ confidence: 자신감 → 문맥상 부적절`,tip:`resilience = the ability to adapt to challenging experiences — 정의 문장 암기`}},
+{id:10,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`patience`,`bravery`,`wisdom`,`kindness`],passage:`Let's start with the path of avoidance. The boy waits for his dad and concentrates hard. He could choose to challenge himself to grow and face difficulties with endurance and <u>courage</u>.`,stem:`다음 글의 밑줄 친 <b>courage</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`소년은 <b>용기(courage)</b>를 갖고 어려움에 맞설 수 있었다.`,analysis:`✅ ② bravery(용감함): courage의 정확한 동의어
+❌ ① patience: 인내심 → endurance에 더 가까움
+❌ ③ wisdom: 지혜 → 다른 의미
+❌ ④ kindness: 친절 → 다른 의미`,tip:`courage = bravery = valor = boldness — 용기 동의어 세트`}},
+{id:11,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`talent`,`strategy`,`ambition`,`enthusiasm`],passage:`You may have the idea that this is simply a fictional tale. However, this is the true story of Matthew Syed, a former member of the British national table-tennis team. His tale shows how an ordinary boy developed his <u>passion</u> for table tennis and eventually became the national champion.`,stem:`다음 글의 밑줄 친 <b>passion</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`소년이 탁구에 가진 <b>열정(passion)</b>이 그를 국가 챔피언으로 이끌었다.`,analysis:`✅ ④ enthusiasm(열의): passion의 동의어
+❌ ① talent: 재능 → 타고난 능력
+❌ ② strategy: 전략 → 다른 의미
+❌ ③ ambition: 야망 → 유사하나 passion의 가장 정확한 동의어는 아님`,tip:`passion = enthusiasm = zeal = ardor — 열정 동의어 세트`}},
+{id:12,type:`동의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`strengthen`,`weaken`,`measure`,`ignore`],passage:`Think of it like building your body's immune system. Just as you need to be exposed to germs to build immunity, you must experience difficulties to build resilience. It is like working out to build your muscles; it takes time and effort to <u>enhance</u> your resilience.`,stem:`다음 글의 밑줄 친 <b>enhance</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`회복탄력성을 <b>강화하는(enhance)</b> 데는 시간과 노력이 필요하다.`,analysis:`✅ ① strengthen(강화하다): enhance의 동의어
+❌ ② weaken: 약화시키다 → 반의어
+❌ ③ measure: 측정하다 → 다른 의미
+❌ ④ ignore: 무시하다 → 다른 의미`,tip:`enhance = strengthen = boost = improve ↔ weaken(약화시키다)`}},
+{id:13,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`takes part in`,`joins`,`withdraws from`,`engages in`],passage:`The boy later on decides to challenge his older brother. He practices hard after school, on weekends, and on holidays until he is able to join the regional team. Eventually, he <u>participates</u> in the national championship and makes it all the way to the finals.`,stem:`다음 글의 밑줄 친 <b>participates</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`소년은 전국 챔피언십에 <b>참가한다(participates)</b>. 의미가 가장 먼 것은 ③ withdraws from(철수하다/빠지다).`,analysis:`❌ ③ withdraws from(~에서 물러나다): participates의 반의어 → 가장 먼 의미
+✅ ① takes part in: 참여하다 → 동의어
+✅ ② joins: 참가하다 → 동의어
+✅ ④ engages in: 참여하다 → 동의어`,tip:`participate = take part in = engage in ↔ withdraw from(철수하다)`}},
+{id:14,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`bounce back`,`succumb to`,`heal from`,`overcome`],passage:`Teenage life on social media might seem fun and easy, but being a real teenager presents its own set of challenges, both big and small. The good news is that humans can <u>recover</u> from pressure and hardship and you can develop this skill. However, having resilience does not mean you will never feel stressed or anxious.`,stem:`다음 글의 밑줄 친 <b>recover</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`인간은 압박과 고난에서 <b>회복할(recover)</b> 수 있다. 의미가 가장 먼 것은 ② succumb to(굴복하다).`,analysis:`❌ ② succumb to(~에 굴복하다): recover의 반의어 → 가장 먼 의미
+✅ ① bounce back: 회복하다 → 동의어
+✅ ③ heal from: ~에서 회복하다 → 동의어
+✅ ④ overcome: 극복하다 → 유사 의미`,tip:`recover = bounce back = recuperate ↔ succumb to = give in to`}},
+{id:15,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`He plays <u>hard</u> and never gives up during the match.`,`It is <u>hard</u> to recover quickly from such a challenging experience.`,`She practices <u>hard</u> every morning to improve her game.`,`He trained <u>hard</u> for months to join the regional team.`,`They worked <u>hard</u> on developing their resilience day by day.`],passage:`He practices <u>hard</u> after school, on weekends, and on holidays until he is able to join the regional team. He finds his opponent to be skillful and smart, but he <u>plays hard</u>. It is like working out to build your muscles; it takes time and effort to enhance your resilience.`,stem:`다음 밑줄 친 <b>hard</b>의 의미가 나머지 넷과 <b>다른</b> 것은?`,det:{korean:`①③④⑤의 hard는 '열심히(부사)'이고, ②의 hard는 'It is hard to...' 구조에서 '<b>어려운(형용사)</b>'으로 사용됐다.`,analysis:`❌ ② hard(어려운, 형용사): 'It is hard to+동사원형' 구조
+✅ ① hard(열심히, 부사): plays hard
+✅ ③ hard(열심히, 부사): practices hard
+✅ ④ hard(열심히, 부사): trained hard
+✅ ⑤ hard(열심히, 부사): worked hard`,tip:`hard 부사: 열심히 (work/play/train hard) vs 형용사: 어려운 (It is hard to do)`}},
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`endurance`,`ambition`,`resilience`,`immunity`],passage:`<i>the ability to recover quickly from difficult or unpleasant situations and return to a normal condition</i><br><br>The good news is that humans can recover from pressure and hardship and you can develop this skill. Resilience will not prevent problems, but it will help you face and overcome them. It is like working out to build your muscles; it takes time and effort to enhance your resilience.`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`어려운 상황에서 빠르게 회복하여 정상으로 돌아오는 능력 → <b>resilience(회복탄력성)</b>`,analysis:`✅ ③ resilience: 영영 정의와 정확히 일치
+❌ ① endurance: 인내심 — 버티는 능력, 회복과 다름
+❌ ② ambition: 야망 — 목표를 이루려는 욕망
+❌ ④ immunity: 면역 — 질병에 저항하는 능력`,tip:`resilience 정의 3요소: recover + adapt + challenging experiences`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`saying`,accept:[`saying`],passage:`When the ball comes flying across the net rapidly, he misses it completely. He puts his hands on his knees and sighs. He sets the paddle on the table, __________ (say), 'I have had enough,' and leaves for his room.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`분사구문 — 패들을 내려놓으며 동시에 '충분히 했다'고 <b>말하면서(saying)</b>`,analysis:`say → saying: 동시동작 분사구문
+주절 주어(He)와 동일 → 접속사·주어 생략 + 동사 → 현재분사(-ing)`,tip:`분사구문: 접속사 + 주어 생략 → V-ing (주절과 동시 동작 표현)`}},
+{id:18,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`building`,accept:[`building`],passage:`The answer lies in resilience—the ability to adapt to challenging experiences, such as unexpected events or personal difficulties. Think of it like __________ (build) your body's immune system. Just as you need to be exposed to germs to build immunity, you must experience difficulties to build resilience.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`전치사 like 다음 동명사 — 면역 체계를 <b>구축하는 것처럼(building)</b> 생각하라`,analysis:`build → building: 전치사(like) 다음에는 동명사(-ing)
+'Think of A like B': B처럼 A를 생각하다 → like + 동명사`,tip:`전치사 + 동명사: like/for/of/without + V-ing (전치사 뒤 동사원형 불가)`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`an easy match`,`a simple problem`,`a friendly opponent`,`a difficult task`],passage:`You may have the idea that this is simply a fictional tale. However, this is the true story of Matthew Syed, a former member of the British national table-tennis team. Because he had a growth mindset, he tried something new, discovered what he truly desired, and then became tough when he faced __________.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`성장 마인드셋 덕분에 <b>어려운 과제(a difficult task)</b>에 직면했을 때 더욱 강해졌다.`,analysis:`✅ ④ a difficult task: 원문 일치, 성장 마인드셋의 핵심(어려움→강해짐)
+❌ ① an easy match: 쉬운 경기 → 성장 계기가 되지 않음
+❌ ② a simple problem: 단순한 문제 → 'tough'해지는 계기로 불충분
+❌ ③ a friendly opponent: 우호적 상대 → 문맥상 어색`,tip:`growth mindset: face difficulty → become tough — 어려움이 성장의 계기`}},
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`avoid all difficulties`,`face and overcome them`,`stay emotionless always`,`prevent future stress`],passage:`Teenage life on social media might seem fun and easy, but being a real teenager presents its own set of challenges, both big and small. However, having resilience does not mean you will never feel stressed or anxious; it is perfectly normal to feel down every now and then. Resilience will not prevent problems, but it will help you __________.`,stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`회복탄력성은 문제를 막아주지 않지만, <b>맞서고 극복하도록(face and overcome them)</b> 도와준다.`,analysis:`✅ ② face and overcome them: 원문 일치
+❌ ① avoid all difficulties: 회피 → resilience 개념과 반대
+❌ ③ stay emotionless always: 원문 '감정 없음이 아니다'와 모순
+❌ ④ prevent future stress: 원문 'will not prevent'와 모순`,tip:`resilience: not prevent → face & overcome — 예방 X, 극복 O (대조 구조 파악)`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type.replace(/\(.+?\)/g,'').trim().slice(0,6)}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
+let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n\n━━ 📊 문항별 결과 ━━\n`;
+r.details.forEach(d=>{const mark=d.ok?'✅':'❌';const mk=d.q.ch&&d.q.ch.length===5?mk5:mk4;const ans=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const cor=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;txt+=`${mark} ${d.q.id}번 [${d.q.type.slice(0,6)}] ${d.q.pts}점 — 내답:${ans} 정답:${cor}\n`;});
+txt+=`\n━━ 📈 유형별 분석 ━━\n`;Object.entries(typeMap).forEach(([t,v])=>{const p=Math.round(v.o/v.t*100);const ic=p===100?'🟢':(p>0?'🟡':'🔴');txt+=`${ic} ${t.slice(0,6)}: ${v.o}/${v.t} (${p}%)`;if(v.w.length)txt+=` ← 틀린:${v.w.join(',')}번`;txt+=`\n`;});
+txt+=`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n#온라인단어TEST #영어내신`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 상세 결과가 복사되었습니다!')).catch(()=>{const ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('📋 복사되었습니다!');}catch(e){toast('복사 실패');}document.body.removeChild(ta);});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+</script>
+</body>
+</html>

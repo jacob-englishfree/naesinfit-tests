@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>영어Ⅰ 천재(강상구) 1과 온라인워크북TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-thumb{background:#C4B5FD;border-radius:3px;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.012;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FAF5FF,#F5F3FF 40%,#F3F0FF);position:relative;}
+.start-container{max-width:460px;width:100%;position:relative;z-index:1;}
+.brand-badge{background:linear-gradient(135deg,var(--o),var(--ol));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;letter-spacing:.8px;box-shadow:0 4px 14px rgba(124,58,237,.25);display:inline-block;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;font-weight:500;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.info-card-header{background:linear-gradient(135deg,var(--o),var(--ol));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #F3F0FF;}.info-row:last-child{border:none;}.info-label{color:var(--tm);font-weight:500;}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{display:inline-flex;align-items:center;gap:5px;background:var(--card);border:1.5px solid #E9E5F5;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #DDD6FE;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(124,58,237,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 6px 20px rgba(124,58,237,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #DDD6FE;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #E9E5F5;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item .hi-left .hi-name{font-weight:700;font-size:13px;}.history-item .hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.history-item .hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.history-item .hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+#examScreen{min-height:100vh;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:1px;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(0,0,0,.04);}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFFAF5,#FFF6EE);border-bottom:1px solid #EDE9FE;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;box-shadow:0 3px 8px rgba(124,58,237,.25);}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-어법{background:var(--rl);color:var(--r);}.tag-어휘{background:var(--bl);color:var(--b);}.tag-대의{background:var(--gl);color:var(--g);}.tag-일치{background:var(--oxl);color:var(--od);}.tag-빈칸{background:var(--pl);color:var(--p);}.tag-함축{background:#FFF0F5;color:#D946A0;}.tag-순서{background:var(--skyl);color:var(--sky);}.tag-무관{background:#F0FDF4;color:#16A34A;}.tag-서술형{background:var(--gl);color:var(--g);}.tag-지칭{background:#FEF3C7;color:#D97706;}.tag-TF{background:#E0E7FF;color:#4338CA;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#F3F0FF;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-passage .label{font-size:11px;font-weight:800;color:var(--o);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.q-passage u{text-decoration-color:var(--o);text-decoration-thickness:2px;text-underline-offset:3px;}
+.q-stem{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.7;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #E9E5F5;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;position:relative;overflow:hidden;}
+.choice-btn:hover{border-color:var(--o);transform:translateX(2px);}
+.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(124,58,237,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#EDE9FE;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;transition:var(--tr);}
+.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #DDD6FE;border-radius:var(--rs);font-size:15px;font-family:inherit;resize:none;min-height:56px;transition:var(--tr);}
+.written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(124,58,237,.08);}
+.cond-box{background:linear-gradient(135deg,#F8F6F3,#F3F0EC);border:1.5px solid #DDD6FE;border-radius:var(--rs);padding:16px;margin-bottom:16px;}.cond-box .ct{font-weight:800;color:var(--od);margin-bottom:8px;font-size:13px;}.cond-box ul{margin-left:18px;margin-bottom:10px;}.cond-box li{margin-bottom:3px;font-size:13px;}
+.bogi-label{font-size:11px;color:var(--tl);font-weight:800;margin-bottom:4px;}.bogi-box{background:#fff;border:1.5px solid #C4B5FD;border-radius:var(--rxs);padding:12px;text-align:center;font-weight:700;font-size:14px;}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100;}
+.nav-dots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;max-width:65%;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#E9E5F5;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:var(--tr);}
+.nav-dot.current{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 3px 10px rgba(124,58,237,.3);transform:scale(1.08);}
+.nav-dot.answered{background:var(--g);color:#fff;}
+.nav-btn{padding:9px 18px;background:#fff;border:2px solid #DDD6FE;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--tr);}.nav-btn:hover{border-color:var(--o);color:var(--o);}
+#resultScreen{background:var(--bg);}
+.r-hero{padding:48px 20px 36px;text-align:center;position:relative;overflow:hidden;}.r-hero.pass{background:linear-gradient(160deg,#E8F7F0,#D1FAE5,#E6F9F0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA,#FFF0F0);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;box-shadow:0 4px 14px rgba(26,153,96,.25);}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;letter-spacing:-2px;}.r-score sup{font-size:24px;color:var(--tl);font-weight:700;}
+.r-stats{display:flex;justify-content:center;gap:20px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.r-stats .stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}
+.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.04);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--o),var(--od));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.level-range{font-size:13px;color:var(--tm);margin-top:4px;}.level-bar{margin-top:16px;height:8px;background:#EDE9FE;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);line-height:1.6;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);border-radius:var(--rs);border:1px solid #E9E5F5;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:linear-gradient(135deg,var(--oxl),#FFF6EE);border-color:rgba(124,58,237,.15);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:50px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#EDE9FE;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;align-items:flex-start;padding:16px;background:linear-gradient(135deg,var(--oxxl),#FFF6EE);border-radius:var(--rs);border:1px solid rgba(124,58,237,.1);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.rev-card{border:1.5px solid #E9E5F5;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:linear-gradient(135deg,#FDFCFA,#FAF8F5);display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--tr);}.rev-header:hover{background:#F3F0FF;}.rev-icon{font-size:18px;margin-left:auto;}
+.rev-body{padding:0;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;}.rev-body.open{padding:20px;max-height:3000px;}
+.your-ans{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:var(--rxs);margin-bottom:14px;font-size:13px;font-weight:700;}.your-ans.right{background:var(--gl);color:#0D7A45;border:1px solid rgba(26,153,96,.15);}.your-ans.wrong{background:var(--rl);color:var(--r);border:1px solid rgba(214,59,59,.15);}
+.expl-sec{margin-bottom:14px;}.expl-sec:last-child{margin-bottom:0;}.expl-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.ref{background:var(--bl);color:var(--b);}.expl-tag.tip{background:var(--oxl);color:var(--od);}.expl-tag.wrng{background:var(--rl);color:var(--r);}.expl-tag.key{background:#FFF3E8;color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);border-left:3px solid #DDD6FE;}.expl-box.ans-b{border-left-color:var(--g);}.expl-box.ref-b{border-left-color:var(--b);}.expl-box.tip-b{border-left-color:var(--o);}.expl-box.wrng-b{border-left-color:var(--r);}.expl-box.key-b{border-left-color:var(--ol);background:var(--oxxl);}.expl-box b{color:var(--od);}.hl{background:linear-gradient(transparent 60%,rgba(124,58,237,.15) 60%);font-weight:700;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #DDD6FE;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);background:var(--oxxl);}.act-btn.primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s ease;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid,.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.nav-dots{max-width:55%;}}
+.tag-어법{background:#FEF2F2;color:#DC2626;}.tag-어휘{background:#EEF2FF;color:#4F46E5;}.tag-오류찾기{background:#FEF2F2;color:#B91C1C;}.tag-연결사{background:#F3F0FF;color:#7C3AED;}.tag-서술형{background:#ECFDF5;color:#059669;}.tag-한영{background:#ECFEFF;color:#0891B2;background:#ECFEFF;}.tag-한→영{background:#ECFEFF;color:#0891B2;}.tag-지칭추론{background:#FFFBEB;color:#B45309;}.tag-어순배열{background:#F3F0FF;color:#6D28D9;}.tag-의미파악{background:#FDF2F8;color:#BE185D;}.tag-T\/F{background:#F0F9FF;color:#0369A1;}.tag-주제{background:#F5F3FF;color:#374151;}.hl{background:linear-gradient(transparent 60%,rgba(124,58,237,.15) 60%);font-weight:700;}
+</style>
+</head>
+<body>
+<div class="grain"></div><div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📚 내신핏</div>
+  <h1 class="start-title">온라인 워크북 <span>TEST</span></h1>
+  <p class="start-subtitle">천재(강상구) 1과 · Joy of Missing Out</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">영어Ⅰ</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">천재(강상구)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">1과 Joy of Missing Out</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 30문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row"><div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div><div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div></div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어Ⅰ · 천재(강상구) · <span>1과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav"><button class="nav-btn" onclick="scrollToQ(S.cur-1)">←</button><div class="nav-dots" id="navDots"></div><button class="nav-btn" onclick="scrollToQ(S.cur+1)">→</button></div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+
+<script>
+const EI={"subject":"영어1","pub":"천재(강상구)","lesson":"1과","title":"Joy of Missing Out","total":100,"time":1200,"histKey":"quizH_JOMO1","qCount":30};
+
+const FULL_PASSAGE=`Part 1 FOMO (Fear of Missing Out)
+"Selena. SELENA!"
+"Yes," I look up from my phone to discover my mom yelling at me. She seems to be searching for an answer to something. "What?" I asked.
+She asked, "Did you not hear what I just said?"
+No, I didn't. I didn't hear anything she said. I usually don't hear a single word said to me by anyone. And why is that? It's because my eyes are fixed on my phone. My mom always asks me, "What is so interesting on your phone?" I never know how to answer that because even I don't know what's so interesting on my phone.
+
+I have a bad case of anxiety that comes from not checking my phone. I spend most of my day on social media. I fear missing out on social media. I fear not being in the know of what everyone is discussing. I fear not being in the know of what my friends are posting on social media.
+
+My mom thinks I'm addicted to my phone. Older people think teenagers like me have an addiction to their phones and computers. But I wouldn't say it's an addiction to a device. It's an addiction to social media. It's an addiction to being online, or in other words, a fear of not being online.
+
+Basically, I have severe FOMO, for which I'm in desperate need of a cure. Maybe this spring break could be a chance to find one.
+
+Part 2 My Two-week Detox
+Day 1
+So it was time to pull the plug. I grabbed my phone. I swiped it open and stared at the social media icons dotting the screen. I removed the apps from my phone. Then I moved to my notebook computer. I logged out of all of the social media sites. I felt an immediate sense of relief.
+
+But soon after, I got restless. I don't remember how long it was, but I stared at my phone screen in complete confusion for quite a while. I called Jamie, and we chatted for about an hour. But there's only so much you can do over a voice call. We decided to meet later in the afternoon for a bike ride.
+
+What else can I do on my phone? I lay on my bed even though I wasn't sleepy. I stayed there until I went out to meet Jamie. Throughout the day, it felt like things slowed down considerably. What a long day!
+
+Day 4
+I woke up late in the morning and reached for my phone. I swiped my phone open only to remember my social media apps were no longer there. Old habits die hard. After breakfast, I felt a strong urge to go online, to which I didn't want to give in. So, I decided to go out for a walk.
+
+While walking in the park, I probably glanced at my phone 20 times. At one moment, I looked at the people around me, most of whom had their eyes glued to their phones. I moved my gaze upward and noticed how purely blue the sky was, without a single cloud in sight. All around the park, trees slowly swayed back and forth. Soon I found myself taking a couple of pictures of the peaceful scene.
+
+After lunch, I took out my old guitar from under my bed. At first, it was because I was bored, but I ended up playing it all afternoon. It didn't matter that I'm not really good at it. It just felt great that I was lost in doing something for several hours without getting interrupted by my phone.
+
+Day 7
+I don't know why, but today I momentarily let down my guard against social media. As if bound by a spell, I logged into one of the social media sites, only to find that there was nothing interesting. I had a weird feeling of being at a place where I didn't belong, which was quickly replaced by a sense of guilt. I really shouldn't have gone back to a social media site in the middle of my detox.
+
+Day 11
+This was the first day my phone felt more like a brick in my pocket than a digital device. I could already feel free from worrying about posting something and hoping it would get some likes. At a gathering with my friends, it was fun to get asked over and over again about how I was surviving without social media. Sam said, "I don't think I could give up social media for even one day." My immediate thought was: Then you really need to give it up! I didn't actually say that, although I wanted to.
+
+Day 14
+Toward the end of the day, I reflected on my social media break and what things had been like before. I realized that social media had taken some control of me. It's kind of silly that all I did was envy others for their perfectly happy moments in life, dress up my everyday events, and think up ways to get others to like my posts. From now on, I want to be in control of how I use something or do something, not the other way around. Tomorrow, I will return to my social media activities, but in more careful and controlled ways. I'm going to stick to just a couple of sites that I really need, while making absolutely sure that my activities are in line with my well-being and happiness.
+
+Read Further: Volunteering Online
+Volunteering has a great deal of benefits. Not only do you make a positive impact on someone's life, but you gain valuable skills for your career. It even reduces stress and anxiety. With busy schedules, it can be hard to find the time to commit to volunteer work. These days, however, you can make a huge difference in the lives of others from your own home by virtually volunteering. Here are a few ways to virtually volunteer.
+
+First, you could be a part of the effort to lend support to senior citizens who struggle with loneliness. Typically, volunteer "phone friends" make regular calls to chat and check in with these people. Second, you can help people with low or no vision with their everyday tasks. Through a live video call, you can offer visual assistance to those who need it with tasks such as reading "use by" dates and instructions on food packages, which helps them to lead more independent lives. Finally, if you have an interest in wildlife and its conservation, you can help with animal monitoring work by watching live videos of animal habitats around the world. Monitoring these animals helps protect wildlife and develop methods of conserving them.
+
+Helping others and giving back to the community can be very rewarding. It can make your day more meaningful and productive. It is also a great way to connect with new people and cultures. For those who believe in karma, if you do good things for others, good things will happen to you!`;
+
+const Q=[
+{id:1,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장02',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">"Yes," I look up from my phone to discover my mom <b>[① yelling / ② yell]</b> at me.</div>',
+ch:['① yelling','② yell'],ans:0,
+det:{ref:'[원문] "Yes," I look up from my phone to discover my mom yelling at me.\n[해석] "네," 나는 핸드폰에서 눈을 들어 엄마가 나에게 소리치고 있는 것을 알아차렸다. [문장 02 참고]',
+correct:'정답: ① yelling\n지각동사(discover)는 「discover + O + V-ing(진행)」 또는 「discover + O + V원형」 구조를 취한다. 여기서 엄마가 "소리치고 있는 중"인 진행 상황을 강조하므로 현재분사 yelling이 적절하다.',
+wrongs:['① yelling ✅ — 지각동사 discover + O + V-ing: 진행 중인 동작 묘사','② yell ❌ — discover는 see/hear와 달리 V원형보다 V-ing가 자연스러움'],
+tip:'💡 지각동사 + O + 보어\n• see/hear/feel + O + V원형(동작 전체) / V-ing(진행)\n• find/discover + O + V-ing(진행) 주로 사용\n\n⚠️ 함정: discover는 원형보다 -ing가 훨씬 자연스러움'}},
+
+{id:2,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장06',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">It\'s because my eyes are <b>[① fixed / ② fixing]</b> on my phone.</div>',
+ch:['① fixed','② fixing'],ans:0,
+det:{ref:'[원문] It\'s because my eyes are fixed on my phone.\n[해석] 그것은 내 눈이 핸드폰에 고정되어 있기 때문이다. [문장 06 참고]',
+correct:'정답: ① fixed\n「be fixed on」은 수동태로 "~에 고정되다"라는 의미. eyes는 fix의 대상(목적어 관계)이므로 과거분사 fixed가 적절하다.',
+wrongs:['① fixed ✅ — be + p.p.: 수동태. 눈이 고정"되는" 것','② fixing ❌ — be + V-ing(진행형)이면 "고정하고 있는 중"으로 의미 부적절'],
+tip:'💡 be + p.p. vs. be + V-ing\n• be fixed on: ~에 고정되다 (수동)\n• be fixing: ~을 고정하는 중 (능동 진행)\n\n⚠️ 주의: fix one\'s eyes on(능동) ↔ one\'s eyes are fixed on(수동)'}},
+
+{id:3,type:'어법',diff:'어려움',pts:3,fmt:'mc',note:'문장09',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I have a bad case of anxiety that comes from not <b>[① checking / ② to check]</b> my phone.</div>',
+ch:['① checking','② to check'],ans:0,
+det:{ref:'[원문] I have a bad case of anxiety that comes from not checking my phone.\n[해석] 나는 핸드폰을 확인하지 않는 것에서 오는 심한 불안감이 있다. [문장 09 참고]',
+correct:'정답: ① checking\n전치사 from 뒤에는 동명사(-ing)가 와야 한다. 「come from + V-ing」 = "~하는 것에서 비롯되다". 동명사의 부정은 not + V-ing.',
+wrongs:['① checking ✅ — 전치사 from + 동명사. not checking = 확인하지 않는 것','② to check ❌ — 전치사 뒤에 to부정사 불가'],
+tip:'💡 전치사 + 동명사\n• from/of/about/in + V-ing (전치사 뒤는 반드시 동명사)\n• 동명사 부정: not + V-ing (not checking)\n\n⚠️ 함정: to부정사와 혼동하기 쉬움. 전치사 뒤 = 항상 동명사!'}},
+
+{id:4,type:'어법',diff:'어려움',pts:3,fmt:'mc',note:'문장17',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">Basically, I have severe FOMO, <b>[① for which / ② which]</b> I\'m in desperate need of a cure.</div>',
+ch:['① for which','② which'],ans:0,
+det:{ref:'[원문] Basically, I have severe FOMO, for which I\'m in desperate need of a cure.\n[해석] 기본적으로 나는 심각한 FOMO가 있고, 이에 대한 치료가 절실히 필요하다. [문장 17 참고]',
+correct:'정답: ① for which\n원래 문장: I\'m in desperate need of a cure for FOMO. 전치사 for가 관계대명사 앞으로 이동하여 「for which」가 된 것이다. be in need of a cure for ~: ~에 대한 치료가 필요하다.',
+wrongs:['① for which ✅ — 전치사+관계대명사: for FOMO → for which','② which ❌ — 전치사 for가 빠지면 문장 구조 불완전'],
+tip:'💡 전치사 + 관계대명사\n• 선행사 뒤 「전치사 + which/whom」 가능\n• be in need of a cure for ~ → for which\n\n⚠️ 시험 빈출: 전치사 + which vs. which 구별'}},
+
+{id:5,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장20',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I swiped it open and stared at the social media icons <b>[① dotting / ② dotted]</b> the screen.</div>',
+ch:['① dotting','② dotted'],ans:0,
+det:{ref:'[원문] I swiped it open and stared at the social media icons dotting the screen.\n[해석] 나는 그것을 밀어 열고 화면에 점점이 흩어진 소셜 미디어 아이콘들을 응시했다. [문장 20 참고]',
+correct:'정답: ① dotting\nicons와 dot은 능동 관계(아이콘들이 화면을 점점이 채우고 있음). 현재분사 dotting이 icons를 뒤에서 수식한다.',
+wrongs:['① dotting ✅ — 능동 관계: icons (are) dotting the screen → 현재분사','② dotted ❌ — 수동 관계가 아님. 아이콘이 화면을 점점이 "채우는" 것'],
+tip:'💡 분사의 선택: 능동 vs. 수동\n• 현재분사(-ing): 명사가 동작의 주체 (능동)\n• 과거분사(-ed/p.p.): 명사가 동작의 대상 (수동)\n\n⚠️ dot(점으로 채우다): icons dot the screen → icons dotting the screen'}},
+
+{id:6,type:'어법',diff:'어려움',pts:3,fmt:'mc',note:'문장27',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I <b>[① lay / ② laid]</b> on my bed even though I wasn\'t sleepy.</div>',
+ch:['① lay','② laid'],ans:0,
+det:{ref:'[원문] I lay on my bed even though I wasn\'t sleepy.\n[해석] 졸리지 않았지만 침대에 누웠다. [문장 27 참고]',
+correct:'정답: ① lay\nlie(눕다)의 과거형은 lay이다. laid는 lay(놓다)의 과거형. 문맥상 "침대에 누웠다"이므로 lie-lay-lain의 lay가 정답.',
+wrongs:['① lay ✅ — lie(눕다)의 과거형: lie-lay-lain','② laid ❌ — lay(놓다)의 과거형: lay-laid-laid. 타동사이므로 목적어 필요'],
+tip:'💡 lie vs. lay 구별\n• lie(눕다): lie-lay-lain-lying (자동사)\n• lay(놓다): lay-laid-laid-laying (타동사)\n\n⚠️ 최빈출 함정: lie의 과거형 lay ≠ lay의 현재형 lay'}},
+
+{id:7,type:'어법',diff:'어려움',pts:4,fmt:'mc',note:'문장31',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I swiped my phone open <b>[① only to remember / ② only remembering]</b> my social media apps were no longer there.</div>',
+ch:['① only to remember','② only remembering'],ans:0,
+det:{ref:'[원문] I swiped my phone open only to remember my social media apps were no longer there.\n[해석] 핸드폰을 밀어 열었으나 소셜 미디어 앱이 더 이상 없다는 것만 기억해냈다. [문장 31 참고]',
+correct:'정답: ① only to remember\n「only to V」는 "~했지만 결국 …하게 되다"라는 뜻의 결과 부사적 용법. 기대하지 않은 결과를 나타낸다.',
+wrongs:['① only to remember ✅ — 결과의 to부정사: 예상 밖의 결과 표현','② only remembering ❌ — only + V-ing는 결과의 부사적 용법으로 쓰이지 않음'],
+tip:'💡 only to V (결과의 to부정사)\n• 주로 부정적이거나 예상 밖의 결과\n• He hurried to the station, only to find the train had left.\n\n⚠️ 구별: only + to V(결과) vs. in order to V(목적)'}},
+
+{id:8,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장36',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I looked at the people around me, most of <b>[① whom / ② who]</b> had their eyes glued to their phones.</div>',
+ch:['① whom','② who'],ans:0,
+det:{ref:'[원문] I looked at the people around me, most of whom had their eyes glued to their phones.\n[해석] 나는 주변 사람들을 바라보았는데, 그들 대부분은 핸드폰에 눈을 붙이고 있었다. [문장 36 참고]',
+correct:'정답: ① whom\n「전치사(of) + 관계대명사」 구조에서 전치사 뒤에는 whom(목적격)이 와야 한다. most of whom = 그들 중 대부분.',
+wrongs:['① whom ✅ — 전치사 of 뒤 목적격 관계대명사','② who ❌ — 전치사 뒤에 주격 who 불가'],
+tip:'💡 전치사 + 관계대명사\n• 전치사 + whom (사람) / which (사물)\n• most of whom, some of which, all of whom\n\n⚠️ 시험 함정: who vs. whom → 전치사 뒤는 반드시 whom'}},
+
+{id:9,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장37',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">I noticed <b>[① how purely blue the sky was / ② how the sky was purely blue]</b>, without a single cloud in sight.</div>',
+ch:['① how purely blue the sky was','② how the sky was purely blue'],ans:0,
+det:{ref:'[원문] I noticed how purely blue the sky was, without a single cloud in sight.\n[해석] 나는 하늘이 얼마나 순수하게 파란지를 알아차렸다, 구름 한 점 없이. [문장 37 참고]',
+correct:'정답: ① how purely blue the sky was\n감탄문이 간접 표현으로 쓰일 때 어순: 「how + 형용사/부사 + S + V」. purely blue가 형용사구로 how 바로 뒤에 위치한다.',
+wrongs:['① how purely blue the sky was ✅ — 간접의문문/감탄문: how + adj + S + V','② how the sky was purely blue ❌ — how 감탄문에서 형용사가 how 바로 뒤에 와야 함'],
+tip:'💡 간접의문문/감탄문 어순\n• how + 형용사/부사 + S + V\n• I know how beautiful she is. (O)\n• I know how she is beautiful. (X)\n\n⚠️ what 감탄문: what + (a/an) + adj + 명사 + S + V'}},
+
+{id:10,type:'어법',diff:'어려움',pts:3,fmt:'mc',note:'문장44',
+passage:``,
+stem:'다음 문장에서 어법상 알맞은 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;"><b>[① As if bound / ② As if binding]</b> by a spell, I logged into one of the social media sites.</div>',
+ch:['① As if bound','② As if binding'],ans:0,
+det:{ref:'[원문] As if bound by a spell, I logged into one of the social media sites, only to find that there was nothing interesting.\n[해석] 마치 마법에 걸린 듯, 나는 소셜 미디어 사이트 중 하나에 로그인했다. [문장 44 참고]',
+correct:'정답: ① As if bound\n주어 I와 bind는 수동 관계(내가 마법에 묶이다). 분사구문에서 수동이면 「as if + p.p.」를 사용한다. bound는 bind의 과거분사.',
+wrongs:['① As if bound ✅ — 수동: I was bound by a spell → As if bound','② As if binding ❌ — 능동: "내가 마법을 묶는 중"이면 의미 부적절'],
+tip:'💡 분사구문의 능동/수동\n• 능동: As if knowing the answer, she smiled.\n• 수동: As if surprised by the news, he froze.\n\n⚠️ by + 행위자 → 수동(p.p.)의 강력한 단서'}},
+
+{id:11,type:'오류찾기',diff:'어려움',pts:4,fmt:'mc',note:'문장23~29',
+passage:``,
+stem:'다음 글에서 어법상 틀린 것을 모두 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">But soon after, I got restless. I don\'t remember how long it was, but I stared at my phone screen in complete confusion for quite a while. I called Jamie, and we chatted for about an hour. But there\'s only so much you can do over a voice call. We decided to meet later in the afternoon for a bike ride. What else can I do on my phone? I <b>ⓐ lay</b> on my bed even though I wasn\'t sleepy. I stayed there until I went out to meet Jamie. <b>ⓑ Throughout</b> the day, it felt like things <b>ⓒ slowed</b> down considerably. <b>ⓓ How</b> a long day!</div>',
+ch:['ⓐ','ⓑ','ⓒ','ⓓ','ⓐ, ⓓ'],ans:3,
+det:{ref:'[원문] What a long day! [문장 29 참고]\n[해석] 정말 긴 하루였어!',
+correct:'정답: ⓓ How → What\n감탄문 구조: 「What + (a/an) + 형용사 + 명사 + S + V!」. a long day는 "관사+형용사+명사"이므로 What이 맞다. How는 「How + 형용사/부사 + S + V!」 구조.',
+wrongs:['ⓐ lay ✅ — lie(눕다)의 과거형 lay, 정상','ⓑ Throughout ✅ — "~내내" 전치사, 정상','ⓒ slowed ✅ — slow down의 과거형, 정상','ⓓ How ❌ → What: 감탄문에서 명사(a long day) 앞은 What'],
+tip:'💡 What vs. How 감탄문\n• What + (a/an) + adj + 명사: What a beautiful day!\n• How + adj/adv: How beautiful the day is!\n\n⚠️ 핵심: 명사 유무로 판단! 명사 있으면 What, 없으면 How'}},
+
+{id:12,type:'오류찾기',diff:'어려움',pts:4,fmt:'mc',note:'문장33~34',
+passage:``,
+stem:'다음 글에서 어법상 틀린 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">After breakfast, I felt a strong urge to go online, <b>ⓐ to which</b> I didn\'t want to give in. So, I decided <b>ⓑ going</b> out for a walk. While walking in the park, I probably <b>ⓒ glanced</b> at my phone 20 times.</div>',
+ch:['ⓐ to which','ⓑ going','ⓒ glanced'],ans:1,
+det:{ref:'[원문] So, I decided to go out for a walk. [문장 34 참고]\n[해석] 그래서 나는 산책하러 나가기로 결심했다.',
+correct:'정답: ⓑ going → to go\ndecide는 to부정사를 목적어로 취하는 동사이다. 「decide to V」가 올바른 구조.',
+wrongs:['ⓐ to which ✅ — give in to ~에서 전치사 to가 관계대명사 앞으로 이동, 정상','ⓑ going ❌ → to go: decide + to V (동명사 불가)','ⓒ glanced ✅ — glance at의 과거형, 정상'],
+tip:'💡 to부정사만 목적어로 취하는 동사\n• decide/hope/wish/want/plan/expect + to V\n• 암기법: 미래지향적 동사 → to부정사\n\n⚠️ 반대: enjoy/mind/finish/avoid + V-ing (동명사만)'}},
+
+{id:13,type:'오류찾기',diff:'어려움',pts:4,fmt:'mc',note:'문장52~54',
+passage:``,
+stem:'다음 글에서 어법상 틀린 것을 고르시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">Toward the end of the day, I reflected on my social media break and what things had been like before. I realized that social media <b>ⓐ had taken</b> some control of me. It\'s kind of silly that all I did was <b>ⓑ envying</b> others for their perfectly happy moments in life, <b>ⓒ dress</b> up my everyday events, and think up ways to get others to like my posts.</div>',
+ch:['ⓐ had taken','ⓑ envying','ⓒ dress'],ans:1,
+det:{ref:'[원문] ...all I did was envy others for their perfectly happy moments in life, dress up my everyday events...\n[해석] 내가 한 것이라곤 다른 사람들의 완벽하게 행복한 순간을 부러워하고, 일상을 꾸미고... [문장 54 참고]',
+correct:'정답: ⓑ envying → envy\n「all S did was + V원형」 구문에서 was 뒤에는 동사원형이 온다. envy, dress, think up이 병렬구조로 모두 원형.',
+wrongs:['ⓐ had taken ✅ — 과거완료: reflected(과거)보다 앞선 시점의 일, 정상','ⓑ envying ❌ → envy: all I did was + V원형','ⓒ dress ✅ — 원형으로 envy와 병렬, 정상'],
+tip:'💡 all S did was + V원형\n• All I did was (to) watch TV. (to 생략 가능)\n• All she does is complain.\n\n⚠️ 주의: was 뒤 동명사(V-ing) 사용 불가!'}},
+
+{id:14,type:'연결사',diff:'보통',pts:3,fmt:'written',note:'문장23',
+passage:`( ___ ) soon after, I got restless. I don't remember how long it was, but I stared at my phone screen in complete confusion for quite a while.`,
+stem:'빈칸에 알맞은 연결사를 쓰시오. (1단어, 영문 3자, B로 시작)<br><b>힌트:</b> 앞 문장의 "sense of relief"와 대조되는 내용이 이어집니다.',
+wa:"But",accept:["But","but"],
+det:{ref:'[원문] But soon after, I got restless.\n[해석] 하지만 곧 후에, 나는 안절부절못하게 되었다. [문장 23 참고]',
+correct:'정답: But\n앞 문장에서 "안도감(sense of relief)"을 느꼈지만, 곧 "안절부절(restless)"해졌다는 대조적 내용이 이어지므로 역접 연결사 But이 적절하다.',
+wrongs:[],
+tip:'💡 역접 연결사\n• But/However/Yet/Nevertheless\n• 앞뒤 문장의 감정/상태가 반대일 때 사용\n\n⚠️ However는 문장 중간에 콤마로 삽입 가능, But은 문두에서 주로 사용'}},
+
+{id:15,type:'연결사',diff:'보통',pts:3,fmt:'written',note:'문장34',
+passage:`After breakfast, I felt a strong urge to go online, to which I didn't want to give in. ( ___ ), I decided to go out for a walk.`,
+stem:'빈칸에 알맞은 연결사를 쓰시오. (1단어, 영문 2자, S로 시작)<br><b>힌트:</b> 앞 내용의 결과/결론을 나타냅니다.',
+wa:"So",accept:["So","so"],
+det:{ref:'[원문] So, I decided to go out for a walk.\n[해석] 그래서 나는 산책하러 나가기로 결심했다. [문장 34 참고]',
+correct:'정답: So\n온라인에 접속하고 싶은 충동을 느꼈지만 굴복하고 싶지 않아서(원인) → 산책을 나가기로 결심(결과). 인과관계를 나타내는 So가 적절.',
+wrongs:[],
+tip:'💡 인과 연결사\n• So/Therefore/Thus/Hence: 원인 → 결과\n• "~하고 싶지 않아서 → 산책하러 나감" = 인과관계\n\n⚠️ So는 구어체에서 자주 사용, Therefore는 격식체'}},
+
+{id:16,type:'서술형',diff:'어려움',pts:3,fmt:'written',note:'문장46',
+passage:`I really ( ___ ) gone back to a social media site in the middle of my detox.`,
+stem:'빈칸에 알맞은 표현을 쓰시오. (2단어, 영문 14자, s로 시작)<br><b>조건:</b> "~하지 말았어야 했다"의 의미가 되도록 과거 후회를 표현',
+wa:"shouldn't have",accept:["shouldn't have","should not have"],
+det:{ref:'[원문] I really shouldn\'t have gone back to a social media site in the middle of my detox.\n[해석] 디톡스 중에 소셜 미디어 사이트에 다시 접속하지 말았어야 했다. [문장 46 참고]',
+correct:'정답: shouldn\'t have\n「shouldn\'t have + p.p.」는 과거에 하지 말았어야 할 일을 후회하는 표현. 디톡스 기간에 소셜 미디어에 접속한 것을 후회하고 있다.',
+wrongs:[],
+tip:'💡 should have p.p. / shouldn\'t have p.p.\n• should have p.p.: ~했어야 했다 (후회)\n• shouldn\'t have p.p.: ~하지 말았어야 했다 (후회)\n\n⚠️ 시험 빈출: 과거 후회 표현 = should(n\'t) have p.p.'}},
+
+{id:17,type:'서술형',diff:'보통',pts:3,fmt:'written',note:'문장54',
+passage:`It's kind of silly that all I did was ( ___ ) others for their perfectly happy moments in life.`,
+stem:'빈칸에 알맞은 단어를 쓰시오. (1단어, 영문 4자, e로 시작)<br><b>조건:</b> "부러워하다"의 의미, all S did was + 동사원형 구문',
+wa:"envy",accept:["envy"],
+det:{ref:'[원문] ...all I did was envy others for their perfectly happy moments in life...\n[해석] 내가 한 것이라곤 다른 사람들의 행복한 순간을 부러워한 것뿐이다. [문장 54 참고]',
+correct:'정답: envy\n「all S did was + V원형」 구문에서 동사원형이 필요. envy = 부러워하다, envy + 사람 + for + 이유.',
+wrongs:[],
+tip:'💡 all S did was + V원형\n• All he did was complain. (그가 한 건 불평뿐이었다)\n• All she does is smile. (그녀가 하는 건 미소뿐이다)\n\n⚠️ envy vs. jealousy: envy는 남의 것을 부러워함, jealousy는 뺏길까 두려워함'}},
+
+{id:18,type:'한→영',diff:'어려움',pts:4,fmt:'written',note:'문장59',
+passage:``,
+stem:'다음 한국어를 영어로 옮길 때, 빈칸에 알맞은 단어를 쓰시오.<br><b>한국어:</b> "나의 활동이 나의 행복과 <u>일치하도록</u>"<br><b>영어:</b> "my activities are in ( ___ ) with my well-being and happiness"<br>(1단어, 영문 4자, l로 시작)',
+wa:"line",accept:["line"],
+det:{ref:'[원문] ...making absolutely sure that my activities are in line with my well-being and happiness.\n[해석] 나의 활동이 나의 안녕과 행복에 부합하는지 확실히 하면서. [문장 57 참고]',
+correct:'정답: line\n「in line with」= ~와 일치하여, ~에 부합하여. 숙어 표현으로 통째로 암기해야 한다.',
+wrongs:[],
+tip:'💡 in line with = ~와 일치하여\n• The plan is in line with our goals.\n• His actions are not in line with his words.\n\n⚠️ 유사표현: in accordance with, consistent with'}},
+
+{id:19,type:'지칭추론',diff:'보통',pts:3,fmt:'mc',note:'문장06',
+passage:`And why is <u>that</u>? <u>It</u>'s because my eyes are fixed on my phone.`,
+stem:'위 문장의 밑줄 친 <u>It</u>이 가리키는 것으로 가장 적절한 것은?',
+ch:['① 내가 아무 말도 듣지 못하는 이유','② 엄마가 소리치는 이유','③ 핸드폰이 재미있는 이유','④ 불안감의 원인','⑤ 소셜 미디어의 문제점'],ans:0,
+det:{ref:'[원문] And why is that? It\'s because my eyes are fixed on my phone.\n[해석] 그건 왜일까? 내 눈이 핸드폰에 고정되어 있기 때문이다. [문장 06 참고]',
+correct:'정답: ① 내가 아무 말도 듣지 못하는 이유\n앞 문장에서 "I usually don\'t hear a single word said to me by anyone(누구의 말도 듣지 못한다)"는 내용이 나오고, "And why is that?"으로 그 이유를 묻고, "It\'s because..."로 이유를 설명한다. It = the reason I don\'t hear anything.',
+wrongs:['① ✅ — 앞 문맥: 아무 말도 듣지 못함 → 그 이유(It) = 핸드폰에 눈 고정','② ❌ — 엄마가 소리치는 이유는 언급되지 않음','③ ❌ — 핸드폰이 재미있는 이유는 "I don\'t know"로 답함','④ ❌ — 불안감은 뒤 문단에서 언급','⑤ ❌ — 소셜 미디어 문제점은 구체적으로 언급 안 됨'],
+tip:'💡 It 지칭 파악법\n• 바로 앞 문장에서 단서 찾기\n• "why is that?" → "It\'s because..." 패턴에서 It = 앞 내용의 이유\n\n⚠️ 대명사 지칭 문제: 항상 앞 문맥을 먼저 확인!'}},
+
+{id:20,type:'지칭추론',diff:'보통',pts:3,fmt:'mc',note:'문장45',
+passage:`I had a weird feeling of being at a place where I didn't belong, <u>which</u> was quickly replaced by a sense of guilt.`,
+stem:'위 문장의 밑줄 친 <u>which</u>가 가리키는 것으로 가장 적절한 것은?',
+ch:['① a place','② a weird feeling','③ social media','④ a sense of guilt','⑤ my detox'],ans:1,
+det:{ref:'[원문] I had a weird feeling of being at a place where I didn\'t belong, which was quickly replaced by a sense of guilt.\n[해석] 내가 속하지 않는 곳에 있다는 이상한 느낌이 들었는데, 그것은 곧 죄책감으로 대체되었다. [문장 45 참고]',
+correct:'정답: ② a weird feeling\n계속적 용법의 which는 앞 절의 일부 또는 전체를 받는다. 여기서 which = a weird feeling(이상한 느낌)이 죄책감으로 대체된 것.',
+wrongs:['① ❌ — a place는 where절의 선행사, which의 선행사가 아님','② ✅ — a weird feeling이 죄책감으로 replaced됨','③ ❌ — social media는 문맥상 먼 선행사','④ ❌ — 죄책감은 대체하는 주체가 아님','⑤ ❌ — detox는 이 문장에 언급 안 됨'],
+tip:'💡 관계대명사 which 계속적 용법\n• 선행사 = 바로 앞 명사 또는 앞 절 전체\n• , which = and it / and this\n\n⚠️ 시험 함정: which의 선행사를 멀리서 찾지 말 것 — 바로 앞이 원칙'}},
+
+{id:21,type:'어순배열',diff:'어려움',pts:3,fmt:'mc',note:'문장38',
+passage:``,
+stem:'주어진 단어를 올바른 순서로 배열하시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">Soon I found <b>[ myself / taking / a couple of / pictures / of the peaceful scene ]</b>.</div>',
+ch:['① myself taking a couple of pictures of the peaceful scene','② taking myself a couple of pictures of the peaceful scene','③ myself a couple of pictures taking of the peaceful scene','④ a couple of pictures of the peaceful scene taking myself','⑤ myself pictures taking a couple of the peaceful scene'],ans:0,
+det:{ref:'[원문] Soon I found myself taking a couple of pictures of the peaceful scene.\n[해석] 곧 나는 그 평화로운 풍경 사진 몇 장을 찍고 있는 나 자신을 발견했다. [문장 38 참고]',
+correct:'정답: ① myself taking a couple of pictures of the peaceful scene\n「find oneself + V-ing」 = 자신이 ~하고 있는 것을 발견하다 (자기도 모르게 ~하다). 목적어 myself 뒤에 현재분사 taking이 온다.',
+wrongs:['① ✅ — find + oneself + V-ing: 올바른 구문','② ❌ — taking이 먼저 오면 구조 성립 불가','③ ❌ — myself 뒤에 바로 명사가 오면 구조 오류','④ ❌ — 목적어 위치 오류','⑤ ❌ — 어순 완전 불일치'],
+tip:'💡 find oneself + V-ing\n• I found myself smiling. (자기도 모르게 웃고 있었다)\n• She found herself crying. (자기도 모르게 울고 있었다)\n\n⚠️ find + O + V-ing: 목적어가 ~하고 있는 것을 발견하다'}},
+
+{id:22,type:'의미파악',diff:'보통',pts:3,fmt:'mc',note:'문장19',
+passage:`So it was time to <u>pull the plug</u>. I grabbed my phone.`,
+stem:'위 문장의 밑줄 친 <u>pull the plug</u>의 의미로 가장 적절한 것은?',
+ch:['① 전원 코드를 뽑다','② 소셜 미디어를 그만두다','③ 핸드폰을 충전하다','④ 새로운 앱을 설치하다','⑤ 친구에게 연락하다'],ans:1,
+det:{ref:'[원문] So it was time to pull the plug.\n[해석] 그래서 이제 (소셜 미디어를) 끊을 때가 되었다. [문장 19 참고]',
+correct:'정답: ② 소셜 미디어를 그만두다\n「pull the plug」는 직역하면 "플러그를 뽑다"이지만, 비유적으로 "중단하다, 그만두다"라는 뜻. Part 2 "My Two-week Detox" 시작 부분이므로 소셜 미디어 사용을 중단한다는 의미.',
+wrongs:['① ❌ — 직역이지만 문맥상 비유적 표현','② ✅ — 소셜 미디어 디톡스를 시작하는 맥락','③ ❌ — 충전과 무관','④ ❌ — 오히려 앱을 삭제하는 상황','⑤ ❌ — 연락과 무관한 비유 표현'],
+tip:'💡 pull the plug (관용 표현)\n• 직역: 플러그를 뽑다\n• 비유: (활동·사업 등을) 중단하다, 끝내다\n• They decided to pull the plug on the project.\n\n⚠️ 시험에서는 비유적 의미를 물어봄!'}},
+
+{id:23,type:'어형변형',diff:'보통',pts:3,fmt:'written',note:'문장42',
+passage:`It just felt great that I was lost in doing something for several hours without getting [interrupt] by my phone.`,
+stem:'주어진 단어를 문맥에 맞게 변형하시오. (1단어, 영문 11자, i로 시작)',
+wa:"interrupted",accept:["interrupted"],
+det:{ref:'[원문] ...without getting interrupted by my phone.\n[해석] 핸드폰에 방해받지 않고. [문장 42 참고]',
+correct:'정답: interrupted\n「get + p.p.」= 수동태. "방해받다"는 수동이므로 과거분사 interrupted. by my phone(행위자)이 단서.',
+wrongs:[],
+tip:'💡 get + p.p. (구어체 수동태)\n• get interrupted = be interrupted (방해받다)\n• get hurt / get married / get lost\n\n⚠️ by + 행위자 → 수동(p.p.)의 확실한 단서'}},
+
+{id:24,type:'문장삽입',diff:'어려움',pts:3,fmt:'mc',note:'전체지문',
+passage:FULL_PASSAGE,
+stem:'다음 주어진 문장이 들어갈 가장 적절한 위치는?<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;"><i>"I never know how to answer that because even I don\'t know what\'s so interesting on my phone."</i></div>',
+ch:['① Part 1 첫째 문단, "What?" I asked. 뒤','② Part 1 첫째 문단, My mom always asks me 뒤','③ Part 1 둘째 문단, I spend most of my day 뒤','④ Part 2 Day 1, I got restless 뒤','⑤ Part 2 Day 4, Old habits die hard 뒤'],ans:1,
+det:{ref:'[원문] My mom always asks me, "What is so interesting on your phone?" I never know how to answer that because even I don\'t know what\'s so interesting on my phone.\n[해석] 엄마는 항상 "핸드폰에 뭐가 그렇게 재미있니?"라고 묻는다. 나도 뭐가 그렇게 재미있는지 몰라서 답을 못 한다.',
+correct:'정답: ② Part 1 첫째 문단, My mom always asks me 뒤\n엄마가 "핸드폰에 뭐가 재미있니?"라고 질문한 직후, 그 질문에 대한 답변("I never know how to answer that...")이 이어지는 것이 자연스럽다.',
+wrongs:['① ❌ — "What?" I asked 뒤에는 엄마의 구체적 질문이 와야 함','② ✅ — 엄마 질문 → 대답 불가라는 자연스러운 흐름','③ ❌ — 소셜 미디어 두려움 문맥과 무관','④ ❌ — Day 1의 안절부절 문맥과 무관','⑤ ❌ — Day 4의 습관 문맥과 무관'],
+tip:'💡 문장 삽입 전략\n• 대명사(that, this, it)의 선행사 찾기\n• 질문-답변 쌍 확인\n• "answer that"의 that = 엄마의 질문\n\n⚠️ 지시어/대명사가 가리키는 대상이 바로 앞에 있어야 함'}},
+
+{id:25,type:'어형변형',diff:'보통',pts:3,fmt:'written',note:'문장44',
+passage:`As if [bind] by a spell, I logged into one of the social media sites.`,
+stem:'주어진 단어를 문맥에 맞게 변형하시오. (1단어, 영문 5자, b로 시작)',
+wa:"bound",accept:["bound"],
+det:{ref:'[원문] As if bound by a spell, I logged into one of the social media sites.\n[해석] 마치 마법에 걸린 듯, 나는 소셜 미디어 사이트에 로그인했다. [문장 44 참고]',
+correct:'정답: bound\nbind(묶다)의 과거분사. 주어 I가 마법에 의해 "묶이는" 수동 관계이므로 p.p.인 bound가 적절. bind-bound-bound.',
+wrongs:[],
+tip:'💡 불규칙 동사 bind\n• bind-bound-bound (묶다)\n• be bound by: ~에 묶이다, ~에 얽매이다\n• be bound to V: 반드시 ~하다\n\n⚠️ bound의 다의어: ① bind의 p.p. ② ~행의(bound for) ③ ~할 의무가 있는'}},
+
+{id:26,type:'주제',diff:'보통',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글의 주제로 가장 적절한 것은?',
+ch:['① 소셜 미디어 중독에서 벗어나 삶의 균형을 되찾는 경험','② 디지털 기기의 발전이 현대인에게 미치는 영향','③ 부모와 청소년 간의 소통 부재와 해결 방안','④ 온라인 자원봉사가 사회에 기여하는 다양한 방법','⑤ 청소년의 불안 장애와 전문적 치료의 필요성'],ans:0,
+det:{ref:'[원문] 전체 지문\n[해석] Selena가 FOMO(소셜 미디어에 대한 두려움)를 겪다가 2주간의 디톡스를 통해 소셜 미디어 사용을 통제하는 법을 배우는 내용.',
+correct:'정답: ① 소셜 미디어 중독에서 벗어나 삶의 균형을 되찾는 경험\n글 전체가 Selena의 소셜 미디어 디톡스 2주간의 경험을 일기 형식으로 서술하며, 마지막에 "in control of how I use something"이라는 결론에 도달한다.',
+wrongs:['① ✅ — 핵심 주제: FOMO → 디톡스 → 균형 회복','② ❌ — 디지털 기기 발전 자체는 주제가 아님','③ ❌ — 부모 소통은 도입부일 뿐 핵심이 아님','④ ❌ — 온라인 자원봉사는 Read Further 보충 자료','⑤ ❌ — 전문 치료는 언급되지 않음'],
+tip:'💡 주제 찾기 전략\n• 글 전체를 관통하는 핵심 메시지\n• 마지막 문단의 결론에 주목\n• 부분적 내용 vs. 전체 주제 구별\n\n⚠️ 함정: Read Further는 보충 자료이므로 주제에서 제외'}},
+
+{id:27,type:'T/F',diff:'보통',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'다음 중 본문의 내용과 <b>일치하지 않는</b> 것은?',
+ch:['① Selena는 소셜 미디어 앱을 삭제한 직후 안도감을 느꼈다.','② Day 4에 Selena는 공원에서 산책 중 하늘의 아름다움을 발견했다.','③ Day 7에 소셜 미디어에 접속했더니 재미있는 내용이 많았다.','④ Day 11에 친구들은 Selena가 소셜 미디어 없이 어떻게 사는지 물었다.','⑤ Day 14에 Selena는 앞으로 소셜 미디어를 통제하며 사용하겠다고 다짐했다.'],ans:2,
+det:{ref:'[원문] ...only to find that there was nothing interesting. [문장 44 참고]\n[해석] ...재미있는 것이 아무것도 없다는 것만 알게 되었다.',
+correct:'정답: ③ (일치하지 않음)\nDay 7에 소셜 미디어에 접속했을 때 "nothing interesting(재미있는 것이 없었다)"고 했으므로, "재미있는 내용이 많았다"는 본문과 반대.',
+wrongs:['① ✅ 일치 — "I felt an immediate sense of relief" 언급됨','② ✅ 일치 — "noticed how purely blue the sky was" 언급됨','③ ❌ 불일치 — "nothing interesting"이므로 재미있는 내용이 많다는 것은 거짓','④ ✅ 일치 — "it was fun to get asked over and over again" 언급됨','⑤ ✅ 일치 — "in more careful and controlled ways" 언급됨'],
+tip:'💡 T/F 문제 풀이 전략\n• 각 선지의 키워드를 본문에서 찾기\n• 긍정/부정, 많다/적다, 있다/없다 등 반대 표현 주의\n\n⚠️ "nothing interesting" ↔ "재미있는 내용이 많았다" = 정반대'}},
+
+{id:28,type:'요약',diff:'보통',pts:4,fmt:'written',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글을 다음과 같이 요약할 때, 빈칸 (A)에 알맞은 단어를 쓰시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">Selena suffered from FOMO and decided to do a two-week social media (A) d_______. Through this experience, she learned to be in control of her social media use.</div><br>(1단어, 영문 5자, d로 시작)',
+wa:"detox",accept:["detox"],
+det:{ref:'[원문] Part 2 My Two-week Detox\n[해석] 파트 2: 나의 2주간 디톡스',
+correct:'정답: detox\n지문의 Part 2 제목이 "My Two-week Detox"이며, 글 전체가 소셜 미디어 디톡스(해독) 경험을 다루고 있다.',
+wrongs:[],
+tip:'💡 요약문 빈칸 전략\n• 지문의 핵심 키워드를 찾기\n• 제목/소제목에서 중요 단어 파악\n\n⚠️ detox = 해독, 독소 제거 → 소셜 미디어를 끊는 행위를 비유적으로 표현'}},
+
+{id:29,type:'추론',diff:'어려움',pts:4,fmt:'mc',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글을 읽고 추론할 수 <b>없는</b> 내용은?',
+ch:['① Selena는 디톡스 전에 소셜 미디어 때문에 대화에 집중하지 못했다.','② Selena는 디톡스 기간에 기타 연주를 다시 시작했다.','③ Selena의 친구 Jamie도 소셜 미디어 디톡스를 함께 시작했다.','④ Day 7에 Selena는 소셜 미디어에 접속한 것을 후회했다.','⑤ Selena는 디톡스 후 소셜 미디어 사용을 완전히 중단하지는 않았다.'],ans:2,
+det:{ref:'[원문] I called Jamie, and we chatted for about an hour.\n[해석] 나는 Jamie에게 전화했고, 약 한 시간 동안 수다를 떨었다. [문장 25 참고]',
+correct:'정답: ③ Selena의 친구 Jamie도 소셜 미디어 디톡스를 함께 시작했다.\nJamie에게 전화하고 자전거를 타러 만났다는 내용은 있지만, Jamie가 함께 디톡스를 했다는 언급은 전혀 없다.',
+wrongs:['① ✅ 추론 가능 — 엄마 말을 못 듣는 장면에서 추론 가능','② ✅ 추론 가능 — "took out my old guitar" = 예전 기타를 다시 꺼냄','③ ❌ 추론 불가 — Jamie의 디톡스 여부는 언급 없음','④ ✅ 추론 가능 — "a sense of guilt", "shouldn\'t have gone back"','⑤ ✅ 추론 가능 — "return to my social media activities, but in more careful ways"'],
+tip:'💡 추론 불가 문제 전략\n• 본문에 근거가 있는 선지 vs. 없는 선지 구별\n• "언급 없음" ≠ "거짓"이 아니라 "추론 불가"\n\n⚠️ 함정: 그럴듯해 보이지만 본문에 근거가 없는 선지 주의'}},
+
+{id:30,type:'주제빈칸',diff:'보통',pts:4,fmt:'written',note:'종합',
+passage:FULL_PASSAGE,
+stem:'윗글의 주제를 다음과 같이 쓸 때 빈칸에 알맞은 단어를 쓰시오.<br><div style="background:#f7f7f9;padding:10px 14px;border-radius:8px;margin:8px 0;line-height:1.85;border-left:3px solid #f59e0b;">How to overcome FOMO and take ( ___ ) of social media use through a digital detox</div><br>(1단어, 영문 7자, c로 시작)',
+wa:"control",accept:["control"],
+det:{ref:'[원문] I want to be in control of how I use something or do something, not the other way around.\n[해석] 나는 무언가를 사용하거나 하는 방식을 통제하고 싶다, 그 반대가 아니라. [문장 55 참고]',
+correct:'정답: control\n글의 핵심 메시지는 소셜 미디어에 대한 통제력(control)을 되찾는 것. "be in control of"가 핵심 표현.',
+wrongs:[],
+tip:'💡 주제 빈칸 전략\n• 글의 결론 부분에서 핵심 키워드 찾기\n• "in control of" = 핵심 메시지\n\n⚠️ control vs. charge: be in control of(통제하다) / be in charge of(담당하다)'}
+}
+];
+
+const QCOUNT=Q.length;
+let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,pct:Math.round(r.correct/QCOUNT*100)});try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 기록이 없습니다.</p>';else p.innerHTML=h.slice(-5).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){const p=s;if(p>=95)return{name:'Challenger',icon:'👑',range:'95~100',msg:'완벽에 가까운 실력!'};if(p>=90)return{name:'Diamond',icon:'💎',range:'90~94',msg:'최상위! 틀린 문항만 점검하세요.'};if(p>=80)return{name:'Gold',icon:'🏆',range:'80~89',msg:'통과! 약한 유형을 집중 복습하면 최상위.'};if(p>=60)return{name:'Silver',icon:'🥈',range:'60~79',msg:'조금만 더! 오답 해설을 꼼꼼히.'};if(p>=40)return{name:'Bronze',icon:'🥉',range:'40~59',msg:'기본기를 다지면 크게 향상됩니다.'};return{name:'Iron',icon:'⚔️',range:'0~39',msg:'지문 해석부터 완벽히 익히세요.'};}
+function fmtTime(s){return`${Math.floor(s/60)}분 ${s%60}초`;}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(QCOUNT).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc='tag-'+q.type;h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body"><div class="q-passage"><span class="label">📖 ${q.note}</span>${q.passage}</div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${q.ch.length===2?(ci===0?'T':'F'):'①②③④⑤'[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="영어로 입력 (대소문자 무관, 띄어쓰기 주의)" oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:QCOUNT},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>{d.classList.toggle('current',i===S.cur);d.classList.toggle('answered',S.ans[i]!==null&&i!==S.cur);});}
+function scrollToQ(i){if(i<0||i>=QCOUNT)return;S.cur=i;document.getElementById(`qc-${i}`).scrollIntoView({behavior:'smooth',block:'center'});upDots();}
+function sel(qi,ci){document.querySelectorAll(`.choice-btn[data-q="${qi}"]`).forEach(b=>b.classList.remove('selected'));document.querySelector(`.choice-btn[data-q="${qi}"][data-c="${ci}"]`).classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById(`w-${qi}`).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{
+  const u=String(a).trim().toLowerCase().replace(/[!.,;'?"\u2019]/g,'').replace(/\s+/g,' ');if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase().replace(/[!.]/g,''));if(!ok&&q.wa)ok=u===q.wa.toLowerCase().replace(/[!.]/g,'');}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok,pts:ok?q.pts:0});});return{score,correct,wrong,unanswered,details};}
+function generateFeedback(r){const pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0};typeMap[t].t++;if(d.ok)typeMap[t].o++;});const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.total);const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total);let fb=[];weakTypes.forEach(([type,data])=>{const p=Math.round(data.o/data.t*100);fb.push(`⚠️ [${type}] 정답률 ${p}% — 이 유형을 집중 복습하세요.`);});r.details.forEach(d=>{if(!d.ok)fb.push(`📌 ${d.q.id}번(${d.q.type}) 오답 — ${d.q.det.tip||'해설을 확인하세요.'}`)});if(pct>=95)fb.unshift('🏆 거의 완벽! 심화 문제로 도전하세요.');else if(pct>=80)fb.unshift('✅ 통과! 틀린 유형만 집중 복습하면 최상위.');else if(pct>=60)fb.unshift('💪 조금 더! 오답 해설을 꼼꼼히 읽고 반복.');else fb.unshift('📖 기본기부터! 지문 정독 → 문법·어휘 정리.');if(perfectTypes.length)fb.push(`🌟 만점 유형: ${perfectTypes.map(([k])=>k).join(', ')}`);return fb;}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=r.score;const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,pts:0,mx:0};typeMap[t].t++;typeMap[t].mx+=d.q.pts;if(d.ok){typeMap[t].o++;typeMap[t].pts+=d.q.pts;}});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.o===v.t).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.o<v.t).map(([k])=>k);const fb=generateFeedback(r);
+let h=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/100</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong>/${QCOUNT}</span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교/학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} · ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간/통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.o/d.t*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽에 가까운 실력!</h4><p>심화 문제로 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>${weakTypes.join(', ')} 유형을 집중 복습하면 최상위.</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기를 다지는 시간!</h4><p>지문 정독 → 핵심 문법·어휘 정리.</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">💬 보완 피드백</div>`;fb.forEach(f=>{const isW=f.startsWith('⚠️'),isP=f.startsWith('📌'),isS=f.startsWith('🌟');const bg=isW?'var(--rl)':isP?'var(--oxl)':isS?'var(--gl)':'#F8F7F5';const bd=isW?'var(--r)':isP?'var(--o)':isS?'var(--g)':'#e0dcd8';h+=`<div style="padding:10px 14px;background:${bg};border-left:3px solid ${bd};border-radius:0 var(--rs) var(--rs) 0;margin-bottom:8px;font-size:13px;line-height:1.7">${f}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyDetailedResult()"><span class="act-icon">📄</span><span class="act-label">상세 결과 복사</span></button><button class="act-btn" onclick="saveResultImage()"><span class="act-icon">🖼️</span><span class="act-label">이미지 저장</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);font-weight:500;margin-left:8px">클릭하여 펼치기</span></div>`;
+r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const tc='tag-'+d.q.type;h+=`<div class="rev-card"><div class="rev-header" onclick="document.getElementById('rv-${i}').classList.toggle('open')"><div class="q-num" style="width:30px;height:30px;font-size:13px">${d.q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 9px">${d.q.type}</span><span style="font-size:12px;color:var(--tl)">${d.q.diff}·${d.q.pts}점</span><span class="rev-icon">${icon}</span></div><div class="rev-body" id="rv-${i}">`;
+if(d.q.fmt==='mc'){if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else if(d.ans!==null)h+=`<div class="your-ans wrong">❌ 내 답: ${d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]} ${d.q.ch[d.ans]}</div>`;else h+=`<div class="your-ans wrong">⬜ 미응답</div>`;}else{if(d.ok)h+=`<div class="your-ans right">✅ 정답!</div>`;else h+=`<div class="your-ans wrong">${d.ans?'❌ 내 답: '+d.ans:'⬜ 미응답'}</div>`;}
+h+=`<div class="expl-sec"><div class="expl-tag ans">✅ 정답</div><div class="expl-box ans-b">${d.q.fmt==='mc'?`<b>${d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]} ${d.q.ch[d.q.ans]}</b>`:`<b>${d.q.wa}</b>`}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag ref">📖 근거</div><div class="expl-box ref-b">${d.q.det.ref}</div></div>`;
+h+=`<div class="expl-sec"><div class="expl-tag tip">💡 풀이</div><div class="expl-box tip-b">${d.q.det.correct}</div></div>`;
+if(d.q.det.wrongs&&d.q.det.wrongs.length&&d.q.det.wrongs[0]!=='')h+=`<div class="expl-sec"><div class="expl-tag wrng">❌ 오답</div><div class="expl-box wrng-b">${d.q.det.wrongs.map(w=>`<div style="margin-bottom:4px">${w}</div>`).join('')}</div></div>`;
+if(d.q.det.tip)h+=`<div class="expl-sec"><div class="expl-tag key">🔑 핵심</div><div class="expl-box key-b">${d.q.det.tip}</div></div>`;
+h+=`</div></div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📋 시험 기록</div>`;const hist=getHistory();if(!hist.length)h+=`<p style="color:var(--tl)">기록 없음</p>`;else h+=hist.slice(-10).reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date}·${r.time}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.level}</div></div></div>`).join('');h+=`</div></div>`;
+document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex(d=>!d.ok);if(fw>=0)setTimeout(()=>{const el=document.getElementById(`rv-${fw}`);if(el)el.classList.add('open');},500);}
+function copyDetailedResult(){const nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);let txt=`━━━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신핏 온라인퀴즈 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} ${EI.pub} ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n\n📊 점수: ${r.score}/100 (${r.score}%)\n✅ 정답 ${r.correct}/${QCOUNT} | ❌ 오답 ${r.wrong} | ⬜ 미응답 ${r.unanswered}\n🏅 레벨: ${lv.icon} ${lv.name}\n${r.score>=80?'🎉 통과!':'📚 미통과'}\n\n━━ 문항별 결과 ━━\n`;r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const at=d.q.fmt==='mc'?(d.ans!==null?(d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]):'미응답'):(d.ans||'미응답');const ct=d.q.fmt==='mc'?(d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]):d.q.wa;txt+=`${mk} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점 — 내답:${at} | 정답:${ct}\n`;});const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={t:0,o:0};tm[t].t++;if(d.ok)tm[t].o++;});txt+=`\n━━ 유형별 ━━\n`;Object.entries(tm).forEach(([t,v])=>txt+=`${t}: ${v.o}/${v.t} (${Math.round(v.o/v.t*100)}%)\n`);txt+=`\n━━ 보완 피드백 ━━\n`;fb.forEach(f=>txt+=`${f}\n`);txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>toast('📄 상세 결과 복사 완료!')).catch(()=>toast('복사 실패'));}
+function saveResultImage(){const nm=document.getElementById('inpName').value.trim(),r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);const W=800,pad=40;const lines=[{t:'🎯 내신핏 온라인퀴즈 상세 결과',s:22,b:1,c:'#E8772E'},{t:''},{t:`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}`,s:14,c:'#555'},{t:`👤 ${nm} · ${new Date().toLocaleDateString('ko-KR')}`,s:14,c:'#555'},{t:''},{t:`📊 점수: ${r.score}/100`,s:20,b:1},{t:`✅${r.correct}/${QCOUNT} ❌${r.wrong} ⬜${r.unanswered}`,s:14,c:'#555'},{t:`🏅 ${lv.icon} ${lv.name} ${r.score>=80?'🎉 통과':'📚 미통과'}`,s:16,b:1,c:r.score>=80?'#1A9960':'#D63B3B'},{t:''}];r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const ct=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;lines.push({t:`${mk} ${d.q.id}번[${d.q.type}]${d.q.pts}점 정답:${ct}`,s:12,c:d.ok?'#1A9960':'#D63B3B'});});lines.push({t:''});fb.forEach(f=>lines.push({t:f,s:11,c:'#444'}));lines.push({t:''},{t:'내신핏 · 온라인퀴즈 TEST',s:10,c:'#bbb'});let H=pad*2;lines.forEach(l=>{H+=(l.s||14)+10;});const canvas=document.createElement('canvas');canvas.width=W*2;canvas.height=H*2;const ctx=canvas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#FFF';ctx.fillRect(0,0,W,H);ctx.fillStyle='#E8772E';ctx.fillRect(0,0,W,4);let y=pad+10;lines.forEach(l=>{const fs=l.s||14;ctx.font=`${l.b?'800':'500'} ${fs}px sans-serif`;ctx.fillStyle=l.c||'#222';if(l.t)ctx.fillText(l.t,pad,y);y+=fs+10;});ctx.fillStyle='#E8772E';ctx.fillRect(0,H-4,W,4);canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`퀴즈결과_${nm}_${new Date().toISOString().slice(0,10)}.png`;a.click();toast('🖼️ 이미지 저장 완료!');});}
+function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+
+</script>
+
+</body>
+</html>
