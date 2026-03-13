@@ -1399,11 +1399,19 @@ function rLogin(){setBottom(null);
           <div style="font-size:24px;font-weight:900;color:var(--g900)">내신핏 시작하기</div>
         </div>
 
+        ${S._challenge?`
+        <!-- Challenge Banner -->
+        <div style="background:linear-gradient(135deg,#FF6B35,#F04452);border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:white;text-align:center">
+          <div style="font-size:14px;opacity:.8;font-weight:600">도전장이 도착했어요!</div>
+          <div style="font-size:24px;font-weight:900;margin-top:4px">${esc(S._challenge.name)}님의 ${S._challenge.score}점</div>
+          <div style="font-size:13px;opacity:.7;margin-top:4px">이길 수 있나요? 🔥</div>
+        </div>`:''}
+
         <div style="background:var(--white);border-radius:var(--r-xl);padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.06)">
-          <div style="margin-bottom:14px">
+          ${S._challenge?'':`<div style="margin-bottom:14px">
             <label style="display:block;font-size:12px;font-weight:600;color:var(--sub);margin-bottom:6px">학원 코드 <span style="color:var(--red)">*</span></label>
             <input id="lgC" class="input" placeholder="학원에서 안내받은 코드를 입력하세요" type="password" style="letter-spacing:2px">
-          </div>
+          </div>`}
           <div style="margin-bottom:14px">
             <label style="display:block;font-size:12px;font-weight:600;color:var(--sub);margin-bottom:6px">이름 <span style="color:var(--red)">*</span></label>
             <input id="lgN" class="input" placeholder="홍길동" value="${esc(p.name)}">
@@ -1422,7 +1430,7 @@ function rLogin(){setBottom(null);
               <option value="고3" ${p.grade==='고3'?'selected':''}>고등학교 3학년</option>
             </select>
           </div>
-          <button class="btn btn-blue" onclick="doLogin()">시작하기</button>
+          <button class="btn btn-blue" onclick="${S._challenge?'doChallengeLogin()':'doLogin()'}">${S._challenge?'도전 시작!':'시작하기'}</button>
         </div>
       </div>
       <div style="text-align:center;padding:0 20px 32px;font-size:11px;color:var(--hint)">© 내신핏 NAESINFIT · 온라인 영어학원</div>
@@ -1497,7 +1505,20 @@ function doLogin(){
   if(!n){toast('이름을 입력해주세요');return;}
   if(!s){toast('학교를 입력해주세요');return;}
   if(!g){toast('학년을 선택해주세요');return;}
-  sP({name:n,school:s,grade:g});S.scr='home';R();
+  localStorage.setItem('nf_academy','1');
+  sP({name:n,school:s,grade:g});
+  // Check if challenge pending
+  if(S._challenge){const ch=S._challenge;S._challenge=null;startChallengeTest(ch);return;}
+  S.scr='home';R();
+}
+function doChallengeLogin(){
+  const n=$('lgN').value.trim(),s=$('lgS').value.trim(),g=$('lgG').value;
+  if(!n){toast('이름을 입력해주세요');return;}
+  if(!s){toast('학교를 입력해주세요');return;}
+  if(!g){toast('학년을 선택해주세요');return;}
+  sP({name:n,school:s,grade:g});
+  if(S._challenge){const ch=S._challenge;S._challenge=null;startChallengeTest(ch);return;}
+  S.scr='home';R();
 }
 
 // ━━ HOME (핵심 액션만) ━━
@@ -1830,7 +1851,7 @@ function openP(){const p=profile;const d=document.createElement('div');d.classNa
 function doLogout(){const s=$('ps');if(s)s.remove();sP({name:'',school:'',grade:''});S.scr='login';R();toast('로그아웃했어요');}
 function viewHistory(idx){const h=gH();const r=h[idx];if(!r||!r.det)return;S.res={score:r.score,ok:r.ok,no:r.no,sk:r.sk||0,tP:r.tP||100,eP:r.eP||0,lv:LV(r.score),det:r.det,tM:r.tM||{}};S.tt=r.type||'테스트';S.te=0;S.fromHist=true;S.scr='result';R();}
 function goMode(m){S.mode=m;S.scr='select';S.sel=[];S.acc={};R();}
-function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S.tl=1200;S.dir='back';R();}
+function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S._challengeScore=null;S._challengeName=null;S.tl=1200;S.dir='back';R();}
 
 // ━━ D-day Settings Sheet ━━
 function openDdaySheet(){
@@ -2107,6 +2128,8 @@ function rSet(){
 // ━━ EXAM ━━
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 async function startE(){
+  // Free test limit check
+  if(!isAcademyUser()&&!S._isDaily&&!S._isReview){if(!checkTestLimit())return;addFreeCount();}
   // Show skeleton loading
   app.innerHTML=`<div class="page"><div style="padding:20px"><div class="skeleton" style="height:52px;margin-bottom:16px"></div><div class="skeleton" style="height:36px;width:60%;margin-bottom:24px"></div><div class="skeleton" style="height:200px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:160px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:44px;width:40%;margin-bottom:12px"></div></div></div>`;
   setBottom(null);
@@ -2242,7 +2265,20 @@ function rResult(){setBottom(null);
   h+=`</div></div>`;
 
   // 액션
-  h+=`<div class="r-sec r-anim" style="${d(500)}"><div class="r-sec-h">액션</div><div class="act-grid"><button class="act" onclick="cpRes()"><span class="ai">📋</span><span class="al">결과 복사</span></button><button class="act" onclick="svImg()"><span class="ai">🖼️</span><span class="al">이미지 저장</span></button>${fromH?'':`<button class="act" onclick="startE()"><span class="ai">🔄</span><span class="al">재시험</span></button>`}<button class="act primary" onclick="goHome()"><span class="ai">🏠</span><span class="al">홈으로</span></button></div></div>`;
+  // Challenge comparison
+  if(S._challengeScore){
+    const cs=S._challengeScore,cn=S._challengeName||'상대';const myS=r.score;const win=myS>cs,draw=myS===cs;
+    h+=`<div class="r-sec r-anim" style="${d(450)}"><div class="r-sec-h">도전 결과</div>
+      <div style="display:flex;align-items:center;gap:12px;padding:16px;background:${win?'var(--blue-l)':draw?'var(--yellow-l)':'var(--red-l)'};border-radius:var(--r-lg)">
+        <div style="flex:1;text-align:center"><div style="font-size:12px;color:var(--sub);font-weight:600">나</div><div style="font-size:28px;font-weight:900;color:${win?'var(--blue)':'var(--g800)'}">${myS}</div></div>
+        <div style="font-size:16px;font-weight:900;color:var(--sub)">VS</div>
+        <div style="flex:1;text-align:center"><div style="font-size:12px;color:var(--sub);font-weight:600">${esc(cn)}</div><div style="font-size:28px;font-weight:900;color:${!win&&!draw?'var(--blue)':'var(--g800)'}">${cs}</div></div>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:15px;font-weight:800;color:${win?'var(--blue)':draw?'var(--yellow)':'var(--red)'}">${win?'승리! 🎉':draw?'무승부!':'아쉽게 패배 😢'}</div>
+    </div>`;
+  }
+
+  h+=`<div class="r-sec r-anim" style="${d(500)}"><div class="r-sec-h">액션</div><div class="act-grid">${fromH?'':`<button class="act" onclick="shareChallenge()"><span class="ai">⚔️</span><span class="al">도전장</span></button>`}<button class="act" onclick="cpRes()"><span class="ai">📋</span><span class="al">결과 복사</span></button>${fromH?'':`<button class="act" onclick="startE()"><span class="ai">🔄</span><span class="al">재시험</span></button>`}<button class="act primary" onclick="goHome()"><span class="ai">🏠</span><span class="al">홈으로</span></button></div></div>`;
 
   // 정답과 해설
   h+=`<div class="r-sec r-anim" style="${d(600)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 펼치기</span></div>`;
@@ -2373,7 +2409,98 @@ function svImg(){
   });
 }
 
+// ━━ Challenge System ━━
+function getChallenge(){try{const u=new URLSearchParams(location.search);if(!u.has('sel'))return null;return{sel:u.get('sel'),tt:u.get('tt')||'단어테스트',qc:parseInt(u.get('qc'))||20,name:u.get('name')||'',score:parseInt(u.get('score'))||0};}catch(e){return null;}}
+
+function isAcademyUser(){return!!localStorage.getItem('nf_academy');}
+function getFreeCount(){return parseInt(localStorage.getItem('nf_freecount'))||0;}
+function addFreeCount(){const c=getFreeCount()+1;localStorage.setItem('nf_freecount',String(c));return c;}
+
+function checkTestLimit(){
+  if(isAcademyUser())return true;
+  const c=getFreeCount();
+  if(c>=3){showCodePrompt();return false;}
+  return true;
+}
+
+function showCodePrompt(){
+  const d=document.createElement('div');d.className='modal-overlay';d.id='codeModal';
+  d.innerHTML=`<div class="modal-box">
+    <div style="font-size:48px;margin-bottom:12px">🔒</div>
+    <div class="t-title">무료 체험이 끝났어요</div>
+    <div class="t-caption c-sub" style="margin-top:8px;margin-bottom:20px">계속 사용하려면 학원 코드를 입력해주세요</div>
+    <input id="codeInput" class="input" placeholder="학원 코드 입력" type="password" style="letter-spacing:2px;margin-bottom:12px">
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('codeModal').remove()">닫기</button>
+      <button class="btn btn-blue btn-sm" style="flex:1" onclick="submitCode()">확인</button>
+    </div>
+  </div>`;
+  document.body.appendChild(d);
+}
+
+function submitCode(){
+  const c=$('codeInput').value.trim();
+  if(!c){toast('코드를 입력해주세요');return;}
+  if(!ACADEMY_CODES.includes(c)){toast('학원 코드가 맞지 않아요');return;}
+  localStorage.setItem('nf_academy','1');
+  $('codeModal').remove();
+  toast('인증 완료! 무제한 이용 가능해요');
+}
+
+function generateChallengeURL(){
+  const base=location.origin+location.pathname;
+  const p=new URLSearchParams();
+  p.set('sel',S.sel.join(','));
+  p.set('tt',S.tt);
+  p.set('qc',String(S.qs.length));
+  p.set('name',profile.name);
+  p.set('score',String(S.res.score));
+  return base+'?'+p.toString();
+}
+
+function shareChallenge(){
+  const url=generateChallengeURL();
+  const text=`${profile.name}님이 ${S.tt}에서 ${S.res.score}점을 받았어요! 이길 수 있나요? 🔥`;
+  if(navigator.share){
+    navigator.share({title:'내신핏 도전장',text,url}).catch(()=>{});
+  }else{
+    navigator.clipboard.writeText(text+'\n'+url).then(()=>toast('도전장 링크를 복사했어요!')).catch(()=>{
+      const a=document.createElement('textarea');a.value=text+'\n'+url;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('도전장 링크를 복사했어요!');
+    });
+  }
+}
+
+// ━━ Challenge Init ━━
+function initChallenge(){
+  const ch=getChallenge();if(!ch)return;
+  S._challenge=ch;
+  // If not logged in, show challenge login
+  if(!profile.name.trim()){S.scr='login';S._challengeLogin=true;R();return;}
+  // Already logged in — start challenge directly
+  startChallengeTest(ch);
+}
+
+function startChallengeTest(ch){
+  if(!checkTestLimit())return;
+  S.sel=ch.sel.split(',');S.tt=ch.tt;S.qc=ch.qc;S.mode='교과서';
+  S._challengeScore=ch.score;S._challengeName=ch.name;
+  startE();
+  // Clean URL
+  history.replaceState(null,'',location.pathname);
+}
+
 R();
+
+// Check for challenge params after initial render
+const _ch=getChallenge();
+if(_ch){
+  S._challenge=_ch;
+  if(profile.name.trim()){
+    // Already logged in, start challenge
+    setTimeout(()=>startChallengeTest(_ch),300);
+  }
+  // If not logged in, login screen will show, handled below
+}
 </script>
 </body>
 </html>
