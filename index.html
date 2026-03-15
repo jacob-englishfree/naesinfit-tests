@@ -160,7 +160,7 @@ input,select{font-family:inherit}
 
 /* ━━ Section ━━ */
 .section{padding:0 20px}
-.sec-label{font-size:13px;font-weight:600;color:var(--sub);padding:24px 20px 8px}
+.sec-label{font-size:14px;font-weight:700;color:var(--sub);padding:24px 20px 8px}
 
 /* ━━ Card ━━ */
 .card{background:var(--card);border-radius:var(--r-lg);margin:0 20px 10px;padding:20px;box-shadow:var(--sh-sm);will-change:transform,opacity;transform:translateZ(0)}
@@ -247,8 +247,8 @@ input,select{font-family:inherit}
 .q-diff.e{background:var(--green-l);color:var(--green)}.q-diff.m{background:var(--yellow-l);color:#D97706}.q-diff.h{background:var(--red-l);color:var(--red)}
 .q-pts{font-size:12px;color:var(--sub);font-weight:600}
 .q-type{font-size:11px;color:var(--sub);background:var(--g100);padding:4px 8px;border-radius:var(--r-sm);font-weight:600}
-.q-stem{font-size:15px;font-weight:600;line-height:1.75;margin-bottom:16px;word-break:keep-all}
-.q-passage{font-size:14px;line-height:2;padding:18px 20px;background:var(--g50);border-radius:var(--r-md);margin-bottom:16px;border-left:3px solid var(--blue);color:var(--g700)}
+.q-stem{font-size:16px;font-weight:700;line-height:1.75;margin-bottom:16px;word-break:keep-all}
+.q-passage{font-size:14px;line-height:2;padding:18px 20px;background:var(--blue-xl);border-radius:var(--r-md);margin-bottom:16px;border-left:3px solid var(--blue);color:var(--g700)}
 .q-passage b{color:var(--blue);font-weight:700}
 .q-passage u{text-decoration-color:var(--red);text-underline-offset:3px}
 .q-passage i{color:var(--sub)}
@@ -258,12 +258,13 @@ input,select{font-family:inherit}
 .c-btn{width:100%;text-align:left;padding:14px 16px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--white);font-size:14px;line-height:1.65;cursor:pointer;transition:all .1s var(--ease-snap);color:var(--text);display:flex;align-items:baseline;gap:10px;position:relative;overflow:hidden;will-change:transform}
 .c-btn:active{transform:scale(.97)}
 .c-btn .c-n{font-weight:700;color:var(--hint);flex-shrink:0;min-width:16px;transition:color .15s}
-.c-btn.on{border-color:var(--blue);background:var(--blue-l)}
+.c-btn.on{border-color:var(--blue);background:var(--blue-l);animation:selectPop .25s var(--ease-spring)}
 .c-btn.on .c-n{color:var(--blue)}
+@keyframes selectPop{0%{transform:scale(1)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
 
 /* Written input */
 .w-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:15px;font-family:inherit;outline:none;transition:all .2s;background:var(--white)}
-.w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.1)}
+.w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.12)}
 
 /* ━━ Result ━━ */
 /* Staggered fade-in animation */
@@ -364,8 +365,8 @@ input,select{font-family:inherit}
 .tab-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:200;padding:6px 0 calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--divider)}
 .tab-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border:none;background:none;cursor:pointer;transition:transform .1s var(--ease-snap);-webkit-tap-highlight-color:transparent}
 .tab-item:active{transform:scale(.88)}
-.tab-icon{font-size:22px;line-height:1;transition:transform .15s var(--ease-spring)}
-.tab-label{font-size:10px;font-weight:600;color:var(--hint);transition:color .1s}
+.tab-icon{font-size:22px;line-height:1;transition:transform .2s var(--ease-spring)}
+.tab-label{font-size:10px;font-weight:600;color:var(--hint);transition:color .2s var(--ease)}
 .tab-item.active .tab-icon{transform:scale(1.1)}
 .tab-item.active .tab-label{color:var(--blue);font-weight:700}
 .tab-spacer{height:calc(72px + env(safe-area-inset-bottom))}
@@ -1438,7 +1439,7 @@ function rLogin(){setBottom(null);
           <div style="display:inline-flex;width:56px;height:56px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border-radius:18px;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(139,92,246,.2);margin-bottom:12px">
             <span style="font-size:28px;filter:brightness(0) invert(1)">📚</span>
           </div>
-          <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:3px;margin-bottom:4px">ONLINE ENGLISH ACADEMY</div>
+          <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:3px;margin-bottom:4px">고등 영어 내신 대비</div>
           <div style="font-size:24px;font-weight:900;color:var(--g900)">내신핏 시작하기</div>
         </div>
 
@@ -2001,7 +2002,6 @@ function rRecord(){setBottom(null);
     </div>
 
     ${totalTests?`
-    <!-- Stats Summary -->
     <div class="card" style="padding:0;margin-top:16px">
       <div style="display:flex;text-align:center;padding:20px 0">
         <div style="flex:1;border-right:1px solid var(--divider)">
@@ -2065,7 +2065,7 @@ function rRecord(){setBottom(null);
         </div>
         ${r.det?'<span style="color:var(--hint);font-size:16px">›</span>':''}
       </div>
-    </div>`).join('')}`:'<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:12px">📊</div><div style="font-size:15px;font-weight:600;color:var(--text)">아직 기록이 없어요</div><div style="font-size:13px;color:var(--sub);margin-top:4px">시험을 보면 여기에 기록돼요</div></div>'}
+    </div>`).join('')}`:'<div style="text-align:center;padding:60px 20px"><div style="font-size:48px;margin-bottom:12px">📊</div><div style="font-size:16px;font-weight:700;color:var(--text)">아직 기록이 없어요</div><div style="font-size:13px;color:var(--sub);margin-top:6px;line-height:1.6">첫 시험을 보면 성장 기록이 쌓여요</div><button onclick="switchTab(\\\'home\\\')" style="margin-top:20px;padding:12px 28px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:14px;font-weight:700;cursor:pointer">첫 시험 보러 가기</button></div>'}
 
     <div class="tab-spacer"></div>
   </div>`;
@@ -2240,7 +2240,7 @@ function rSel(){
       inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">과 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div><div class="chips" id="chips_${subj}_${pub}">${info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" id="ch_${k.replace(/\//g,'_')}" onclick="tgSmooth(this,'${k}','${subj}','${pub}')">${l}과</div>`;}).join('')}</div></div></div></div></div>`;}
     h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">${subj} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
-  setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 다음':'범위를 선택해주세요'}</button>`);
+  setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요'}</button>`);
 }
 
 // Smooth accordion toggle — class-based grid animation
@@ -2278,7 +2278,7 @@ function updateSelUI(subj,pub){
   const bcp=$('bc_p_'+subj+'_'+pub);if(bcp){bcp.textContent=pc;bcp.style.display=pc?'':'none';}
   // Update bottom button
   const btn=$('selBtn');
-  if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 선택 · 다음':'범위를 선택해주세요';}
+  if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요';}
   // Update select all button text
   const info=MANIFEST['교과서'][subj]?.[pub];
   if(info){const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));const sa=$('sa_p_'+subj+'_'+pub);if(sa)sa.textContent=allS?'전체 해제':'전체 선택';}
@@ -2420,7 +2420,7 @@ function rSet(){
     <div class="sec-label">연습 모드</div><div class="section">${SET_TYPES.filter(t=>t.cat==='practice').map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><span style="font-size:11px;font-weight:700;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto;flex-shrink:0">연습</span><div class="opt-check"></div></div>`).join('')}</div>
     <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" id="setSlider" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value;updateSetUI()"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" id="setChips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:''}</div><div class="t-tiny c-sub" id="setInfo" style="margin-top:14px;${S.tt?'':'display:none'}">${S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':''}</div></div>
     <div class="bottom-spacer"></div></div>`;
-  setBottom(`<button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button>`);
+  setBottom(`<button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">준비됐어요!</button>`);
 }
 
 // ━━ EXAM ━━
