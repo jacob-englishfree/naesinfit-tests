@@ -1120,9 +1120,9 @@ async function ensureQuestionsLoaded(testType, selections) {
   await Promise.all(promises);
 }
 
-let MANIFEST = {"교과서":{"영어1":{"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)"}}}};
+let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],dn:"YBM(김은형)"},"YBM박준언":{lessons:[1,2,3,4],dn:"YBM(박준언)"},"능률민병천":{lessons:[1,2,3,4],dn:"능률(민병천)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"동아이병민":{lessons:[1,2,3,4],dn:"동아(이병민)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"}},"영어1":{"YBM박준언":{lessons:[1,2,3,4,5],dn:"YBM(박준언)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"},"천재조수경":{lessons:[1,2,3,4],dn:"천재(조수경)"},"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)"}}}};
 
-// Try to load manifest.json from server
+// Try to load manifest.json from server (overrides default if available)
 (async function loadManifest(){
   try {
     const resp = await fetch('manifest.json');
@@ -1148,7 +1148,7 @@ function localYesterday(){const d=new Date();d.setDate(d.getDate()-1);return loc
 function getWrong(){try{return JSON.parse(localStorage.getItem('nf_wrong'))||[];}catch(e){return[];}}
 function saveWrong(list){try{localStorage.setItem('nf_wrong',JSON.stringify(list.slice(-200)));}catch(e){console.warn('저장 실패:',e);}}
 function wrongKey(q){return(q.stem||'').slice(0,60)+'|'+(q.ans!=null?q.ans:'');}
-function addWrongs(det){const w=getWrong();det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=wrongKey(d.q);if(!w.some(x=>wrongKey(x.q)===key)){const today=localDate();w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR'),reviewDates:[addDays(today,1),addDays(today,3),addDays(today,7),addDays(today,14)],reviewStep:0});}}});saveWrong(w);}
+function addWrongs(det){const w=getWrong();const scopes=S.sel&&S.sel.length?S.sel:[];const tt=S.tt||'';det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=wrongKey(d.q);if(!w.some(x=>wrongKey(x.q)===key)){const today=localDate();w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR'),scope:scopes.length===1?scopes[0]:scopes.join(','),scopes,tt,reviewDates:[addDays(today,1),addDays(today,3),addDays(today,7),addDays(today,14)],reviewStep:0});}}});saveWrong(w);}
 function addDays(dateStr,n){const d=new Date(dateStr);d.setDate(d.getDate()+n);return localDate(d);}
 function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filter(x=>{const key=wrongKey(x.q);return!solvedQuestions.some(s=>wrongKey(s.q)===key&&s.ok);});saveWrong(remaining);}
 
@@ -1260,6 +1260,70 @@ function checkBadges(){
 function getCumType(){try{return JSON.parse(localStorage.getItem('nf_cumtype'))||{};}catch(e){return{};}}
 function saveCumType(d){try{localStorage.setItem('nf_cumtype',JSON.stringify(d));}catch(e){}}
 function addCumType(tM){const c=getCumType();Object.entries(tM).forEach(([t,v])=>{if(!c[t])c[t]={total:0,ok:0};c[t].total+=v.total;c[t].ok+=v.ok;});saveCumType(c);}
+
+// ━━ Scope Analysis ━━
+function getScopeAnalysis(){
+  const hist=gH();const wrongs=getWrong();
+  // Collect per-lesson stats from history
+  const lessonStats={};
+  hist.forEach(r=>{
+    if(!r.scopes||!r.scopes.length)return;
+    const pct=r.tP>0?Math.round(r.eP/r.tP*100):0;
+    r.scopes.forEach(s=>{
+      if(!lessonStats[s])lessonStats[s]={tests:0,totalScore:0,wrongCount:0,types:{}};
+      lessonStats[s].tests++;
+      lessonStats[s].totalScore+=pct;
+      // Collect type stats per lesson
+      if(r.tM){Object.entries(r.tM).forEach(([t,v])=>{
+        if(!lessonStats[s].types[t])lessonStats[s].types[t]={total:0,ok:0};
+        lessonStats[s].types[t].total+=v.total;
+        lessonStats[s].types[t].ok+=v.ok;
+      });}
+    });
+  });
+  // Count wrongs per lesson
+  wrongs.forEach(w=>{
+    const ss=w.scopes&&w.scopes.length?w.scopes:(w.scope?w.scope.split(','):[]);
+    ss.forEach(s=>{
+      if(!lessonStats[s])lessonStats[s]={tests:0,totalScore:0,wrongCount:0,types:{}};
+      lessonStats[s].wrongCount++;
+    });
+  });
+  return lessonStats;
+}
+
+function renderRadarChart(typeData,size){
+  size=size||200;const cx=size/2,cy=size/2,r=size/2-30;
+  const entries=Object.entries(typeData);
+  if(entries.length<3)return '';
+  const n=entries.length;const step=2*Math.PI/n;
+  // Grid lines
+  let grid='';
+  [0.25,0.5,0.75,1].forEach(s=>{
+    let pts='';
+    for(let i=0;i<n;i++){const a=-Math.PI/2+i*step;pts+=`${cx+r*s*Math.cos(a)},${cy+r*s*Math.sin(a)} `;}
+    grid+=`<polygon points="${pts.trim()}" fill="none" stroke="var(--g200)" stroke-width="1"/>`;
+  });
+  // Axis lines
+  let axes='';
+  for(let i=0;i<n;i++){const a=-Math.PI/2+i*step;axes+=`<line x1="${cx}" y1="${cy}" x2="${cx+r*Math.cos(a)}" y2="${cy+r*Math.sin(a)}" stroke="var(--g200)" stroke-width="1"/>`;}
+  // Data polygon
+  let dataPts='';
+  const vals=entries.map(([,v])=>v.total>0?Math.round(v.ok/v.total*100):0);
+  for(let i=0;i<n;i++){const a=-Math.PI/2+i*step;const v=vals[i]/100;dataPts+=`${cx+r*v*Math.cos(a)},${cy+r*v*Math.sin(a)} `;}
+  // Data dots
+  let dots='';
+  for(let i=0;i<n;i++){const a=-Math.PI/2+i*step;const v=vals[i]/100;dots+=`<circle cx="${cx+r*v*Math.cos(a)}" cy="${cy+r*v*Math.sin(a)}" r="4" fill="var(--blue)" stroke="white" stroke-width="2"/>`;}
+  // Labels
+  let labels='';
+  for(let i=0;i<n;i++){
+    const a=-Math.PI/2+i*step;const lx=cx+(r+20)*Math.cos(a);const ly=cy+(r+20)*Math.sin(a);
+    const anchor=Math.abs(Math.cos(a))<0.1?'middle':Math.cos(a)>0?'start':'end';
+    const name=entries[i][0].length>5?entries[i][0].slice(0,5)+'…':entries[i][0];
+    labels+=`<text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="central" font-size="11" font-weight="600" fill="var(--sub)">${name}</text>`;
+  }
+  return `<svg viewBox="0 0 ${size} ${size}" style="width:100%;max-width:${size}px;margin:0 auto;display:block">${grid}${axes}<polygon points="${dataPts.trim()}" fill="var(--blue)" fill-opacity="0.15" stroke="var(--blue)" stroke-width="2"/>${dots}${labels}</svg>`;
+}
 
 // ━━ Weekly Report ━━
 function getWeeklyReport(){
@@ -1692,7 +1756,11 @@ function rLearn(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
   const ds=getDailyState();const today=localDate();const done=ds.date===today&&ds.completed;
   const wrongCount=getWrong().length;
-  const reviewDue=getReviewDue().length;
+  const reviewDueAll=getReviewDue();
+  const reviewDue=reviewDueAll.length;
+  // Group review items by scope
+  const reviewByScope={};
+  reviewDueAll.forEach(r=>{const ss=r.scopes&&r.scopes.length?r.scopes:[r.scope||'기타'];ss.forEach(s=>{if(!reviewByScope[s])reviewByScope[s]=0;reviewByScope[s]++;});});
 
   app.innerHTML=`<div class="page">
     <div style="padding:24px 20px 0">
@@ -1719,11 +1787,15 @@ function rLearn(){setBottom(null);
       <button onclick="startSpacedReview()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:44px;height:44px;background:var(--purple-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧠</div>
         <div style="flex:1">
-          <div style="font-size:15px;font-weight:700;color:var(--text)">오늘 복습할 문제 ${reviewDue}개</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px">틀렸던 문제를 간격 반복으로 완전 암기</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text)">오늘 복습 ${reviewDue}개</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">전체 범위 · 간격 반복 복습</div>
         </div>
-        <span style="color:var(--blue);font-size:13px;font-weight:700">복습 →</span>
+        <span style="color:var(--blue);font-size:13px;font-weight:700">전체 →</span>
       </button>
+      ${Object.entries(reviewByScope).map(([scope,cnt])=>{
+        const p=scope.split('/');const label=p.length>=3?p[1]+' '+p[2]:scope;
+        return '<div style="height:1px;background:var(--divider);margin:0 20px"></div><button onclick="startSpacedReview(\''+scope.replace(/'/g,"\\'")+'\')" style="width:100%;padding:12px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background=\'var(--g50)\'" ontouchend="this.style.background=\'\'"><div style="width:44px"></div><div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--text)">'+label+'</div></div><div style="display:flex;align-items:center;gap:6px"><span style="font-size:12px;font-weight:700;color:var(--blue)">'+cnt+'개</span><span style="color:var(--hint);font-size:14px">›</span></div></button>';
+      }).join('')}
     </div>`:''}
 
     ${wrongCount?`
@@ -2072,6 +2144,57 @@ function rRecord(){setBottom(null);
       </div>`;}).join('')}
     </div>`;})()}
 
+    ${(()=>{const sa=getScopeAnalysis();const les=Object.entries(sa).filter(([,v])=>v.tests>0);
+      if(!les.length)return '';
+      // Group by textbook (publisher)
+      const byBook={};
+      les.forEach(([path,v])=>{const p=path.split('/');const book=p.length>=2?p[1]:'기타';if(!byBook[book])byBook[book]=[];byBook[book].push({path,lesson:p.length>=3?p[2]:'',avg:Math.round(v.totalScore/v.tests),wrongs:v.wrongCount,tests:v.tests,types:v.types});});
+      // Merge all types for radar
+      const allTypes={};
+      les.forEach(([,v])=>{Object.entries(v.types).forEach(([t,d])=>{if(!allTypes[t])allTypes[t]={total:0,ok:0};allTypes[t].total+=d.total;allTypes[t].ok+=d.ok;});});
+      const radarSvg=Object.keys(allTypes).length>=3?renderRadarChart(allTypes,220):'';
+      // Find weakest lesson
+      const sorted=[...les].sort((a,b)=>{const aAvg=a[1].totalScore/a[1].tests;const bAvg=b[1].totalScore/b[1].tests;return aAvg-bAvg;});
+      const weakest=sorted[0];const wPath=weakest[0].split('/');const wName=(wPath[1]||'')+' '+(wPath[2]||'');
+      const wAvg=Math.round(weakest[1].totalScore/weakest[1].tests);
+      // Find weakest type
+      const typeArr=Object.entries(allTypes).map(([t,v])=>({t,pct:v.total>0?Math.round(v.ok/v.total*100):0})).sort((a,b)=>a.pct-b.pct);
+      const weakType=typeArr.length?typeArr[0]:null;
+      return `
+    <div class="sec-label">시험 범위 분석</div>
+    ${radarSvg?`<div class="card" style="padding:20px">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px;text-align:center">유형별 정답률 레이더</div>
+      ${radarSvg}
+      ${weakType?`<div style="margin-top:16px;padding:12px 16px;background:var(--red-l);border-radius:var(--r-sm);display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🎯</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--red)">약점 유형: ${weakType.t}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">정답률 ${weakType.pct}% · 집중 보충이 필요해요</div>
+        </div>
+      </div>`:''}
+    </div>`:''}
+    <div class="card" style="padding:20px">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px">과별 성적</div>
+      ${Object.entries(byBook).map(([book,items])=>{
+        items.sort((a,b)=>{const an=parseInt(a.lesson)||0;const bn=parseInt(b.lesson)||0;return an-bn;});
+        return `<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:600;color:var(--sub);margin-bottom:8px">${book}</div>
+        ${items.map(it=>{const c=it.avg>=80?'var(--green)':it.avg>=50?'var(--yellow)':'var(--red)';return `
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+          <span style="font-size:13px;font-weight:600;color:var(--text);min-width:36px">${it.lesson}</span>
+          <div style="flex:1">
+            <div style="height:10px;background:var(--g100);border-radius:5px;overflow:hidden"><div style="height:100%;width:${it.avg}%;background:${c};border-radius:5px;transition:width .6s var(--ease)"></div></div>
+          </div>
+          <div style="text-align:right;min-width:56px">
+            <span style="font-size:13px;font-weight:800;color:${c}">${it.avg}점</span>
+          </div>
+          ${it.wrongs?'<span style="font-size:11px;font-weight:600;color:var(--red);background:var(--red-l);padding:2px 8px;border-radius:10px;white-space:nowrap">오답 '+it.wrongs+'</span>':''}
+        </div>`;}).join('')}</div>`;}).join('')}
+      <div style="padding:12px 16px;background:var(--blue-l);border-radius:var(--r-sm);display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">💡</span>
+        <div style="font-size:13px;color:var(--text);line-height:1.5"><b style="color:var(--red)">${wName}</b> 평균 ${wAvg}점으로 가장 보충이 필요해요</div>
+      </div>
+    </div>`;})()}
+
     ${allHist.length?`
     <div class="sec-label">시험 기록</div>
     ${allHist.map((r,i)=>`<div class="card" style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;cursor:${r.det?'pointer':'default'}" ${r.det?`onclick="viewHistory(${allHist.length-1-i})"`:''}>
@@ -2239,8 +2362,9 @@ function startWrongReview(){
 }
 
 // ━━ Spaced Review Quiz ━━
-function startSpacedReview(){
-  const due=getReviewDue();
+function startSpacedReview(scope){
+  let due=getReviewDue();
+  if(scope)due=due.filter(x=>(x.scopes&&x.scopes.includes(scope))||x.scope===scope||(x.scope&&x.scope.split(',').includes(scope)));
   if(!due.length){toast('오늘 복습할 문제가 없어요!');return;}
   S._isSpacedReview=true;
   shuffle(due);
@@ -2541,7 +2665,7 @@ function doSub(auto){
   const det=S.qs.map((q,i)=>{tP+=q.pts||0;const a=S.ans[i];let c=false;if(a===undefined||a==='')sk++;else if(q.fmt==='mc')c=a===q.ans;else{const u=String(a).trim().replace(/\s+/g,' ').toLowerCase();if(q.accept)c=q.accept.some(x=>x.trim().replace(/\s+/g,' ').toLowerCase()===u);if(!c&&q.wa)c=u===q.wa.trim().replace(/\s+/g,' ').toLowerCase();}if(c){ok++;eP+=(q.pts||0);}else if(a!==undefined&&a!=='')no++;const t=q.type||'기타';if(!tM[t])tM[t]={total:0,ok:0};tM[t].total++;if(c)tM[t].ok++;return{q,ua:a,ok:c};});
   const score=tP>0?Math.round(eP/tP*100):0;
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
-  sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM});
+  sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM,scopes:S.sel&&S.sel.length?S.sel:[]});
   if(S._isSpacedReview){advanceReview(det);S._isSpacedReview=false;}
   else if(S._isReview){removeWrongs(det);S._isReview=false;}
   else if(S._isDaily){saveDailyState({date:localDate(),completed:true,score});S._isDaily=false;addWrongs(det);}
