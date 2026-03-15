@@ -1147,8 +1147,14 @@ function localYesterday(){const d=new Date();d.setDate(d.getDate()-1);return loc
 // ━━ Wrong Answer Storage ━━
 function getWrong(){try{return JSON.parse(localStorage.getItem('nf_wrong'))||[];}catch(e){return[];}}
 function saveWrong(list){try{localStorage.setItem('nf_wrong',JSON.stringify(list.slice(-200)));}catch(e){console.warn('저장 실패:',e);}}
-function addWrongs(det){const w=getWrong();det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=JSON.stringify({stem:(d.q.stem||'').slice(0,60),ans:d.q.ans});if(!w.some(x=>JSON.stringify({stem:(x.q.stem||'').slice(0,60),ans:x.q.ans})===key)){w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR')});}}});saveWrong(w);}
-function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filter(x=>{const key=(x.q.stem||'').slice(0,60);return!solvedQuestions.some(s=>(s.q.stem||'').slice(0,60)===key&&s.ok);});saveWrong(remaining);}
+function wrongKey(q){return(q.stem||'').slice(0,60)+'|'+(q.ans!=null?q.ans:'');}
+function addWrongs(det){const w=getWrong();det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=wrongKey(d.q);if(!w.some(x=>wrongKey(x.q)===key)){const today=localDate();w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR'),reviewDates:[addDays(today,1),addDays(today,3),addDays(today,7),addDays(today,14)],reviewStep:0});}}});saveWrong(w);}
+function addDays(dateStr,n){const d=new Date(dateStr);d.setDate(d.getDate()+n);return localDate(d);}
+function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filter(x=>{const key=wrongKey(x.q);return!solvedQuestions.some(s=>wrongKey(s.q)===key&&s.ok);});saveWrong(remaining);}
+
+// ━━ Spaced Repetition ━━
+function getReviewDue(){const w=getWrong();const today=localDate();return w.filter(x=>x.reviewDates&&x.reviewStep<x.reviewDates.length&&x.reviewDates[x.reviewStep]<=today);}
+function advanceReview(det){const w=getWrong();det.forEach(d=>{if(d.ok){const key=wrongKey(d.q);const item=w.find(x=>wrongKey(x.q)===key);if(item&&item.reviewDates){item.reviewStep=(item.reviewStep||0)+1;if(item.reviewStep>=item.reviewDates.length){const idx=w.indexOf(item);if(idx>=0)w.splice(idx,1);}}}});saveWrong(w);}
 
 // ━━ Learning Streak ━━
 function getStreak(){try{return JSON.parse(localStorage.getItem('nf_streak'))||{count:0,lastDate:null};}catch(e){return{count:0,lastDate:null};}}
@@ -1686,6 +1692,7 @@ function rLearn(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
   const ds=getDailyState();const today=localDate();const done=ds.date===today&&ds.completed;
   const wrongCount=getWrong().length;
+  const reviewDue=getReviewDue().length;
 
   app.innerHTML=`<div class="page">
     <div style="padding:24px 20px 0">
@@ -1705,6 +1712,19 @@ function rLearn(){setBottom(null);
         ${done?'':'<span style="color:var(--blue);font-size:13px;font-weight:700">도전 →</span>'}
       </button>
     </div>
+
+    ${reviewDue?`
+    <!-- Spaced Repetition Review -->
+    <div class="card" style="padding:0;overflow:hidden;margin-top:2px">
+      <button onclick="startSpacedReview()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--purple-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧠</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">오늘 복습할 문제 ${reviewDue}개</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">틀렸던 문제를 간격 반복으로 완전 암기</div>
+        </div>
+        <span style="color:var(--blue);font-size:13px;font-weight:700">복습 →</span>
+      </button>
+    </div>`:''}
 
     ${wrongCount?`
     <!-- Wrong Answer Review -->
@@ -2218,6 +2238,21 @@ function startWrongReview(){
   R();
 }
 
+// ━━ Spaced Review Quiz ━━
+function startSpacedReview(){
+  const due=getReviewDue();
+  if(!due.length){toast('오늘 복습할 문제가 없어요!');return;}
+  S._isSpacedReview=true;
+  shuffle(due);
+  const total=Math.min(due.length,20);
+  S.qs=due.slice(0,total).map(w=>({...w.q}));
+  S.ans={};S.ci=0;S.scr='exam';S.tt='복습 퀴즈';
+  S.ts=Date.now();S.te=0;S.tlf=S.tl;
+  cleanupTimers();
+  S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);
+  R();
+}
+
 // ━━ Daily Quiz ━━
 function startDailyQuiz(){
   const ds=getDailyState();const today=localDate();
@@ -2507,7 +2542,8 @@ function doSub(auto){
   const score=tP>0?Math.round(eP/tP*100):0;
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
   sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM});
-  if(S._isReview){removeWrongs(det);S._isReview=false;}
+  if(S._isSpacedReview){advanceReview(det);S._isSpacedReview=false;}
+  else if(S._isReview){removeWrongs(det);S._isReview=false;}
   else if(S._isDaily){saveDailyState({date:localDate(),completed:true,score});S._isDaily=false;addWrongs(det);}
   else{addWrongs(det);}
   updateStreak();
