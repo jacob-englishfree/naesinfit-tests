@@ -1363,7 +1363,7 @@ function animateScore(target){
 }
 
 function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
-function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard,runnergame:rRunnerGame}[S.scr]||rLogin)();
+function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard,runnergame:rRunnerGame,synselect:rSynSelect,synquiz:rSynQuiz}[S.scr]||rLogin)();
   // Apply page transition direction
   const pg=app.querySelector('.page');if(pg&&S.dir){pg.classList.remove('slide-left','slide-right','tab-swap');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');else if(S.dir==='tab')pg.classList.add('tab-swap');}S.dir='fwd';
   // Tab bar visibility
@@ -1713,6 +1713,19 @@ function rLearn(){setBottom(null);
       </button>
     </div>`:''}
 
+    <!-- Synonym/Antonym Quiz -->
+    <div class="sec-label">시험 범위 학습</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="goSynSelect()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:14px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--blue-l);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🔄</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700;color:var(--text)">유의어 · 반의어 퀴즈</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">시험 범위 동의어/반의어 집중 연습</div>
+        </div>
+        <span style="color:var(--blue);font-size:13px;font-weight:700">선택 →</span>
+      </button>
+    </div>
+
     <!-- Speed Quiz & Flashcard -->
     <div class="sec-label">더 많은 학습</div>
     <div class="card" style="padding:0;overflow:hidden">
@@ -1753,6 +1766,219 @@ function rLearn(){setBottom(null);
 
     <div class="tab-spacer"></div>
   </div>`;
+}
+
+// ━━ SYNONYM/ANTONYM QUIZ ━━
+
+// Navigate to synonym quiz selection
+function goSynSelect(){
+  S._synSel=[];S._synAcc={};S.scr='synselect';S.dir='fwd';R();
+}
+
+// Selection screen for syn/ant quiz (reuses MANIFEST)
+function rSynSelect(){setBottom(null);
+  if(!profile.name.trim()){S.scr='login';R();return;}
+  const data=MANIFEST['교과서'];let h='';
+  for(const[subj,pubs]of Object.entries(data)){const sk='syn_s_'+subj,sc=S._synSel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
+    for(const[pub,info]of Object.entries(pubs)){const pk='syn_p_'+subj+'_'+pub,pc=S._synSel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="synTA('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge>'+pc+'</span>':''}</span><span class="arrow${S._synAcc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S._synAcc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div class="chips">${info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S._synSel.includes(k);return`<div class="chip ${on?'on':''}" onclick="synTg(this,'${k}')">${l}과</div>`;}).join('')}</div></div></div></div></div>`;}
+    h+=`<div class="acc"><button class="acc-trigger" onclick="synTA('${sk}')"><span class="lf">${subj} ${sc?'<span class=badge>'+sc+'</span>':''}</span><span class="arrow${S._synAcc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S._synAcc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='learn';S.dir='back';R()">←</button><div class="nav-title">유의어·반의어 퀴즈</div></div>
+    <div class="sec-label">범위 선택</div>${h}<div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="synStartBtn" ${S._synSel.length===0?'disabled':''} onclick="startSynQuiz()">${S._synSel.length?S._synSel.length+'개 선택 · 시작':'범위를 선택해주세요'}</button>`);
+}
+
+function synTA(k){S._synAcc[k]=!S._synAcc[k];const body=$('body_'+k),ar=$('ar_'+k);if(body)body.classList.toggle('open',S._synAcc[k]);if(ar)ar.classList.toggle('open',S._synAcc[k]);}
+function synTg(el,k){const i=S._synSel.indexOf(k);if(i>=0){S._synSel.splice(i,1);el.classList.remove('on');}else{S._synSel.push(k);el.classList.add('on');}const btn=$('synStartBtn');if(btn){btn.disabled=S._synSel.length===0;btn.textContent=S._synSel.length?S._synSel.length+'개 선택 · 시작':'범위를 선택해주세요';}}
+
+// Extract synonym/antonym pairs from test HTML questions
+function extractSynAntPairs(questions){
+  const pairs=[];
+  questions.forEach(q=>{
+    // Direct synonym questions: type === '동의어 고르기'
+    if(q.type==='동의어 고르기'&&q.stem&&q.ch){
+      const match=q.stem.match(/<b>([^<]+)<\/b>/);
+      if(match&&q.ans!=null){
+        pairs.push({word:match[1],answer:q.ch[q.ans].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'syn',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
+      }
+    }
+    // Direct antonym questions: type === '반의어 고르기'
+    if(q.type==='반의어 고르기'&&q.stem&&q.ch){
+      const match=q.stem.match(/<b>([^<]+)<\/b>/);
+      if(match&&q.ans!=null){
+        pairs.push({word:match[1],answer:q.ch[q.ans].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'ant',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
+      }
+    }
+    // Extract from tip field: word ↔ word patterns
+    if(q.det&&q.det.tip){
+      const tipPairs=q.det.tip.match(/(\w[\w\s]*?)\s*[↔⟺]\s*(\w[\w\s]*?)(?=[,;.!\n]|$)/g);
+      if(tipPairs){tipPairs.forEach(p=>{
+        const m=p.match(/(.+?)\s*[↔⟺]\s*(.+)/);
+        if(m){pairs.push({word:m[1].trim(),answer:m[2].trim(),type:'ant',context:''});}
+      });}
+    }
+    // Extract from tip: = patterns (synonyms)
+    if(q.det&&q.det.tip){
+      const synMatches=q.det.tip.match(/(\w[\w\s]*?)\s*=\s*(\w[\w\s]*?)(?=[,;.!\n(]|$)/g);
+      if(synMatches){synMatches.forEach(p=>{
+        const m=p.match(/(.+?)\s*=\s*(.+)/);
+        if(m&&m[1].trim().length>=3&&m[2].trim().length>=3){
+          pairs.push({word:m[1].trim(),answer:m[2].trim(),type:'syn',context:''});
+        }
+      });}
+    }
+  });
+  // Deduplicate
+  const seen=new Set();
+  return pairs.filter(p=>{const key=p.word.toLowerCase()+'|'+p.answer.toLowerCase();if(seen.has(key))return false;seen.add(key);return true;});
+}
+
+// Fetch and build syn/ant quiz data
+async function loadSynAntData(selections){
+  const allPairs=[];
+  const types=['단어테스트','퀴즈테스트','워크북테스트'];
+  for(const sel of selections){
+    for(const tt of types){
+      const path='교과서/'+sel+'/'+tt+'.html';
+      try{
+        const cacheKey='_syn_'+path;
+        if(_fetchCache[cacheKey]){allPairs.push(..._fetchCache[cacheKey]);continue;}
+        const resp=await fetch(path);
+        if(!resp.ok)continue;
+        const html=await resp.text();
+        const{questions}=parseTestHTML(html);
+        if(questions.length){
+          const pairs=extractSynAntPairs(questions);
+          _fetchCache[cacheKey]=pairs;
+          allPairs.push(...pairs);
+        }
+      }catch(e){}
+    }
+  }
+  // Deduplicate across files
+  const seen=new Set();
+  return allPairs.filter(p=>{const key=p.word.toLowerCase()+'|'+p.answer.toLowerCase();if(seen.has(key))return false;seen.add(key);return true;});
+}
+
+async function startSynQuiz(){
+  if(!S._synSel.length)return;
+  // Show loading
+  app.innerHTML=`<div class="page"><div style="padding:60px 20px;text-align:center"><div style="font-size:32px;margin-bottom:16px">🔄</div><div style="font-size:15px;color:var(--sub)">유의어·반의어 데이터 불러오는 중...</div></div></div>`;
+  setBottom(null);
+  const pairs=await loadSynAntData(S._synSel);
+  if(!pairs.length){toast('선택한 범위에 유의어/반의어 데이터가 없어요');S.scr='synselect';R();return;}
+  shuffle(pairs);
+  S._synPairs=pairs;S._synIdx=0;S._synScore=0;S._synTotal=pairs.length;S._synAnswered=0;
+  S._synWrong=[];
+  S.scr='synquiz';S.dir='fwd';R();
+}
+
+function rSynQuiz(){setBottom(null);
+  const pairs=S._synPairs;
+  if(!pairs||!pairs.length){S.scr='learn';R();return;}
+  const idx=S._synIdx;
+  if(idx>=pairs.length){renderSynResult();return;}
+  const p=pairs[idx];
+  const isSyn=p.type==='syn';
+  const progress=Math.round((idx/pairs.length)*100);
+
+  // Generate 4 choices: 1 correct + 3 wrong
+  const wrongPool=pairs.filter((_,i)=>i!==idx).map(x=>x.answer);
+  shuffle(wrongPool);
+  const choices=[p.answer,...wrongPool.slice(0,3)];
+  shuffle(choices);
+  const correctIdx=choices.indexOf(p.answer);
+
+  app.innerHTML=`<div class="page">
+    <div class="nav">
+      <button class="nav-back" onclick="confirmSynExit()">←</button>
+      <div class="nav-title">유의어·반의어 퀴즈</div>
+      <div style="font-size:13px;color:var(--sub);font-weight:600">${idx+1}/${pairs.length}</div>
+    </div>
+    <div style="padding:0 20px">
+      <div class="progress-line" style="margin-bottom:24px"><div class="progress-fill" style="width:${progress}%"></div></div>
+    </div>
+    <div style="padding:0 20px">
+      <div class="card" style="text-align:center;padding:32px 20px">
+        <div style="display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px;${isSyn?'background:var(--blue-l);color:var(--blue)':'background:var(--red-l);color:var(--red)'}">${isSyn?'유의어':'반의어'}</div>
+        <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px">${esc(p.word)}</div>
+        ${p.context?`<div style="font-size:12px;color:var(--sub);line-height:1.5;max-width:280px;margin:0 auto">...${esc(p.context.slice(0,60))}...</div>`:''}
+        <div style="font-size:14px;color:var(--sub);margin-top:12px">${isSyn?'같은 뜻의 단어는?':'반대 뜻의 단어는?'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px" id="synChoices">
+        ${choices.map((c,i)=>`<button class="card" onclick="synAnswer(${i},${correctIdx})" id="synC${i}" style="padding:18px 12px;text-align:center;cursor:pointer;border:2px solid var(--divider);font-size:16px;font-weight:700;color:var(--text);transition:all .2s">${esc(c)}</button>`).join('')}
+      </div>
+    </div>
+    <div style="height:100px"></div>
+  </div>`;
+}
+
+function synAnswer(picked,correct){
+  // Prevent double-tap
+  if(S._synLock)return;S._synLock=true;
+  const p=S._synPairs[S._synIdx];
+  const isCorrect=picked===correct;
+  S._synAnswered++;
+  if(isCorrect)S._synScore++;
+  else S._synWrong.push(p);
+  // Visual feedback
+  const el=$('synC'+picked),cel=$('synC'+correct);
+  if(isCorrect){
+    el.style.borderColor='var(--green)';el.style.background='var(--green-l)';el.style.color='var(--green)';
+  }else{
+    el.style.borderColor='var(--red)';el.style.background='var(--red-l)';el.style.color='var(--red)';
+    if(cel){cel.style.borderColor='var(--green)';cel.style.background='var(--green-l)';cel.style.color='var(--green)';}
+  }
+  // Disable all buttons
+  for(let i=0;i<4;i++){const b=$('synC'+i);if(b)b.onclick=null;}
+  // Auto advance
+  setTimeout(()=>{S._synIdx++;S._synLock=false;R();},isCorrect?600:1200);
+}
+
+function renderSynResult(){
+  const total=S._synTotal,score=S._synScore,wrong=S._synWrong;
+  const pct=Math.round(score/total*100);
+  const emoji=pct>=90?'🏆':pct>=70?'🌟':pct>=50?'💪':'📚';
+  const msg=pct>=90?'완벽에 가까워요!':pct>=70?'잘하고 있어요!':pct>=50?'조금만 더 연습하면 돼요!':'꾸준히 복습해봐요!';
+
+  let wrongH='';
+  if(wrong.length){
+    wrongH=`<div class="sec-label">틀린 문제 복습</div><div class="card" style="padding:0;overflow:hidden">${wrong.map((w,i)=>`<div style="padding:14px 20px;${i?'border-top:1px solid var(--divider)':''}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;${w.type==='syn'?'background:var(--blue-l);color:var(--blue)':'background:var(--red-l);color:var(--red)'}">${w.type==='syn'?'유의어':'반의어'}</span></div>
+      <div style="font-size:16px;font-weight:700;color:var(--text)">${esc(w.word)}</div>
+      <div style="font-size:14px;color:var(--blue);margin-top:2px">${w.type==='syn'?'=':'↔'} ${esc(w.answer)}</div>
+    </div>`).join('')}</div>`;
+  }
+
+  app.innerHTML=`<div class="page">
+    <div class="nav"><div class="nav-title">퀴즈 결과</div></div>
+    <div style="text-align:center;padding:32px 20px">
+      <div style="font-size:48px;margin-bottom:8px">${emoji}</div>
+      <div style="font-size:36px;font-weight:900;color:var(--text)">${pct}<span style="font-size:18px;font-weight:600;color:var(--sub)">%</span></div>
+      <div style="font-size:14px;color:var(--sub);margin-top:4px">${score}/${total} 정답 · ${msg}</div>
+    </div>
+    <div style="padding:0 20px;display:flex;gap:8px;margin-bottom:20px">
+      <button onclick="S.scr='learn';S.dir='back';R()" class="btn" style="flex:1;background:var(--g100);color:var(--text)">돌아가기</button>
+      ${wrong.length?`<button onclick="retrySynWrong()" class="btn btn-blue" style="flex:1">틀린 문제 다시 풀기</button>`:`<button onclick="goSynSelect()" class="btn btn-blue" style="flex:1">다른 범위 도전</button>`}
+    </div>
+    ${wrongH}
+    <div class="tab-spacer"></div>
+  </div>`;
+}
+
+function retrySynWrong(){
+  const wrong=S._synWrong||[];
+  if(!wrong.length){S.scr='learn';R();return;}
+  shuffle(wrong);
+  S._synPairs=wrong;S._synIdx=0;S._synScore=0;S._synTotal=wrong.length;S._synAnswered=0;S._synWrong=[];
+  S.scr='synquiz';S.dir='fwd';R();
+}
+
+function confirmSynExit(){
+  if(S._synIdx>0&&S._synIdx<S._synPairs.length){
+    if(!confirm('퀴즈를 종료할까요? 진행 상황이 사라져요.'))return;
+  }
+  S.scr='learn';S.dir='back';R();
 }
 
 // ━━ RECORD (기록 탭) ━━
@@ -2059,7 +2285,7 @@ function tg(k){const i=S.sel.indexOf(k);if(i>=0)S.sel.splice(i,1);else S.sel.pus
 function sAll(subj,pub,ls,all){ls.forEach(l=>{const k=subj+'/'+pub+'/'+l+'과',i=S.sel.indexOf(k);if(all&&i>=0)S.sel.splice(i,1);if(!all&&i<0)S.sel.push(k);});R();}
 
 // ━━ SETTINGS ━━
-const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈'},{k:'본문암기',i:'📖',n:'본문 암기',d:'빈칸 채우기로 본문 완전 암기'}];
+const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합',cat:'test'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심',cat:'test'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈',cat:'test'},{k:'본문암기',i:'📖',n:'본문 암기',d:'빈칸 채우기로 본문 완전 암기',cat:'practice'}];
 
 // ━━ Passage Memorization Question Generator ━━
 function generatePassageQuestions(passage){
@@ -2185,7 +2411,8 @@ function rSet(){
   const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';S.dir='back';R()">←</button><div class="nav-title">시험 설정</div></div>
     <div class="sec-label">선택 범위</div><div class="card" style="background:var(--g50);border:none;padding:14px 16px">${selSummaryHTML()}</div>
-    <div class="sec-label">테스트 유형</div><div class="section">${SET_TYPES.map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
+    <div class="sec-label">테스트 유형</div><div class="section">${SET_TYPES.filter(t=>t.cat==='test').map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><div class="opt-check"></div></div>`).join('')}</div>
+    <div class="sec-label">연습 모드</div><div class="section">${SET_TYPES.filter(t=>t.cat==='practice').map(t=>`<div class="opt ${S.tt===t.k?'on':''}" id="stt_${t.k}" onclick="selectTestType('${t.k}')"><span class="opt-icon">${t.i}</span><div class="opt-body"><h4>${t.n}</h4><p>${t.d}</p></div><span style="font-size:11px;font-weight:700;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto;flex-shrink:0">연습</span><div class="opt-check"></div></div>`).join('')}</div>
     <div class="sec-label">문항 수</div><div class="card"><div class="slider-wrap"><input type="range" id="setSlider" min="1" max="${mx}" value="${qc}" oninput="S.qc=+this.value;$('qV').textContent=this.value;updateSetUI()"><div class="slider-num" id="qV">${qc}</div></div><div class="chips" id="setChips" style="margin-top:14px">${[5,10,15,20].filter(n=>n<=mx).map(n=>`<div class="chip chip-sm ${S.qc===n?'on':''}" onclick="setQC(${n})">${n}개</div>`).join('')}${mx>0?`<div class="chip chip-sm ${S.qc>=mx?'on':''}" onclick="setQC(${mx})">전체 ${mx}</div>`:''}</div><div class="t-tiny c-sub" id="setInfo" style="margin-top:14px;${S.tt?'':'display:none'}">${S.tt?av+'문항 중 랜덤 '+Math.min(S.qc,av)+'문항 출제':''}</div></div>
     <div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="setStart" ${!S.tt?'disabled':''} onclick="startE()">시험 시작</button>`);
