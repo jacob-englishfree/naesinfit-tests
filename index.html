@@ -20,11 +20,11 @@
    TOSS DESIGN SYSTEM
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 :root {
-  /* Core Palette */
-  --blue: #3182F6;
-  --blue-d: #1B64DA;
-  --blue-l: #E8F3FF;
-  --blue-xl: #F5F9FF;
+  /* Core Palette — NaesinFit Purple */
+  --blue: #8B5CF6;
+  --blue-d: #7C3AED;
+  --blue-l: #F3EEFF;
+  --blue-xl: #F9F5FF;
   --red: #F04452;
   --red-l: #FFF0F0;
   --green: #00C072;
@@ -82,8 +82,8 @@
 
 /* ━━ Dark Mode ━━ */
 [data-theme="dark"] {
-  --blue-l: #1A2F4D;
-  --blue-xl: #141E30;
+  --blue-l: #2D1B69;
+  --blue-xl: #1E1535;
   --red-l: #3D1A1E;
   --green-l: #0F2E1F;
   --yellow-l: #2E2510;
@@ -183,7 +183,7 @@ input,select{font-family:inherit}
 
 /* ━━ Input ━━ */
 .input{width:100%;height:50px;padding:0 16px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:15px;outline:none;background:var(--white);color:var(--text);transition:border .2s,box-shadow .2s}
-.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.1)}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.1)}
 .input::placeholder{color:var(--hint)}
 .select{-webkit-appearance:none;appearance:none}
 
@@ -224,7 +224,7 @@ input,select{font-family:inherit}
 /* ━━ Slider ━━ */
 .slider-wrap{display:flex;align-items:center;gap:16px}
 .slider-wrap input[type=range]{flex:1;height:4px;-webkit-appearance:none;background:var(--g200);border-radius:2px;outline:none}
-.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--blue);border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(49,130,246,.3)}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--blue);border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(139,92,246,.3)}
 .slider-num{font-size:36px;font-weight:900;color:var(--blue);min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
 
 /* ━━ Exam ━━ */
@@ -263,7 +263,7 @@ input,select{font-family:inherit}
 
 /* Written input */
 .w-input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:15px;font-family:inherit;outline:none;transition:all .2s;background:var(--white)}
-.w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.1)}
+.w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.1)}
 
 /* ━━ Result ━━ */
 /* Staggered fade-in animation */
@@ -1333,7 +1333,7 @@ const LV=s=>{if(s>=95)return{n:'전설',i:'🐉',r:'95~100',m:'완벽에 가까�
 function confetti(){
   const cv=$('confetti'),ctx=cv.getContext('2d');
   cv.width=window.innerWidth;cv.height=window.innerHeight;
-  const particles=[];const colors=['#3182F6','#00C072','#F59E0B','#F04452','#8B5CF6','#FF6B6B'];
+  const particles=[];const colors=['#8B5CF6','#00C072','#F59E0B','#F04452','#A78BFA','#FF6B6B'];
   for(let i=0;i<80;i++)particles.push({x:cv.width/2,y:cv.height/2,vx:(Math.random()-.5)*12,vy:Math.random()*-14-4,size:Math.random()*8+4,color:colors[Math.floor(Math.random()*colors.length)],rot:Math.random()*360,rv:(Math.random()-.5)*8,life:1});
   let frame=0;
   function draw(){ctx.clearRect(0,0,cv.width,cv.height);let alive=false;
@@ -1402,7 +1402,7 @@ function rLogin(){setBottom(null);
 
     <!-- STEP 1: Splash (0.8s) -->
     <div id="ob1" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .6s var(--ease)">
-      <div style="width:80px;height:80px;background:linear-gradient(135deg,#3182F6,#1B64DA);border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(49,130,246,.3);transform:scale(0);transition:transform .5s var(--ease)">
+      <div style="width:80px;height:80px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(139,92,246,.3);transform:scale(0);transition:transform .5s var(--ease)">
         <span style="font-size:40px;filter:brightness(0) invert(1)">📚</span>
       </div>
       <div style="margin-top:16px;font-size:28px;font-weight:900;color:var(--g900);opacity:0;transition:opacity .4s .3s">내신핏</div>
@@ -1430,7 +1430,7 @@ function rLogin(){setBottom(null);
     <div id="ob3" style="position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity .5s var(--ease);pointer-events:none;background:linear-gradient(180deg,#F5F9FF 0%,var(--white) 40%)">
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px">
         <div style="text-align:center;margin-bottom:28px">
-          <div style="display:inline-flex;width:56px;height:56px;background:linear-gradient(135deg,#3182F6,#1B64DA);border-radius:18px;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(49,130,246,.2);margin-bottom:12px">
+          <div style="display:inline-flex;width:56px;height:56px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border-radius:18px;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(139,92,246,.2);margin-bottom:12px">
             <span style="font-size:28px;filter:brightness(0) invert(1)">📚</span>
           </div>
           <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:3px;margin-bottom:4px">ONLINE ENGLISH ACADEMY</div>
@@ -1439,7 +1439,7 @@ function rLogin(){setBottom(null);
 
         ${S._challenge?`
         <!-- Challenge Banner -->
-        <div style="background:linear-gradient(135deg,#3182F6,#1B64DA);border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:white;text-align:center">
+        <div style="background:linear-gradient(135deg,#8B5CF6,#7C3AED);border-radius:var(--r-xl);padding:20px;margin-bottom:16px;color:white;text-align:center">
           <div style="font-size:14px;opacity:.8;font-weight:600">${esc(S._challenge.name)}님이 초대했어요!</div>
           <div style="font-size:24px;font-weight:900;margin-top:4px">${S._challenge.mode==='sq'?'스피드퀴즈 대결!':'같이 풀어볼래요?'}</div>
           <div style="font-size:13px;opacity:.7;margin-top:4px">${S._challenge.mode==='sq'?'30초에 '+S._challenge.score+'개 맞춤':(S._challenge.tt+' · '+S._challenge.score+'점 달성')}</div>
@@ -1609,7 +1609,7 @@ function rHome(){setBottom(null);
     </div>`;})()}
 
     ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
-    <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#3182F6 0%,#1B64DA 50%,#0051CC 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
+    <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
       <div style="position:relative">
         <div style="display:flex;align-items:center;justify-content:space-between">
@@ -2407,7 +2407,7 @@ function svImg(){
 
   // ━━ Header gradient card
   const grd=c.createLinearGradient(pad,Y,W-pad,Y+180);
-  grd.addColorStop(0,'#3182F6');grd.addColorStop(1,'#1B64DA');
+  grd.addColorStop(0,'#8B5CF6');grd.addColorStop(1,'#7C3AED');
   fillRR(pad,Y,cw,180,20,grd);
   c.globalAlpha=0.08;c.fillStyle='#FFF';c.beginPath();c.arc(W-100,Y+40,60,0,Math.PI*2);c.fill();
   c.beginPath();c.arc(W-160,Y+140,40,0,Math.PI*2);c.fill();c.globalAlpha=1;
@@ -2421,7 +2421,7 @@ function svImg(){
   fillRR(pad,Y,cw,160,16,'#FFFFFF');
   txt(String(r.score),W/2,Y+65,64,'900',pass?'#191F28':'#F04452','center');
   txt('/ 100점',W/2,Y+100,14,'600','#8B95A1','center');
-  const bTxt=pass?'🎉 통과':'📚 미통과',bBg=pass?'#E8F3FF':'#FFF0F0',bCol=pass?'#3182F6':'#F04452';
+  const bTxt=pass?'🎉 통과':'📚 미통과',bBg=pass?'#F3EEFF':'#FFF0F0',bCol=pass?'#8B5CF6':'#F04452';
   fillRR(W/2-44,Y+118,88,28,14,bBg);
   txt(bTxt,W/2,Y+132,12,'700',bCol,'center');
   Y+=180;
@@ -2429,7 +2429,7 @@ function svImg(){
   // ━━ Stats row
   fillRR(pad,Y,cw,70,16,'#FFFFFF');
   const sw=cw/4;
-  [{v:r.ok,l:'정답',c:'#00C072'},{v:r.no,l:'오답',c:'#F04452'},{v:r.sk,l:'미응답',c:'#8B95A1'},{v:ftk(S.te),l:'소요시간',c:'#3182F6'}].forEach((s,i)=>{
+  [{v:r.ok,l:'정답',c:'#00C072'},{v:r.no,l:'오답',c:'#F04452'},{v:r.sk,l:'미응답',c:'#8B95A1'},{v:ftk(S.te),l:'소요시간',c:'#8B5CF6'}].forEach((s,i)=>{
     txt(String(s.v),pad+sw*i+sw/2,Y+30,i===3?14:22,i===3?'700':'800',s.c,'center');
     txt(s.l,pad+sw*i+sw/2,Y+52,11,'500','#8B95A1','center');
     if(i<3){c.fillStyle='#F2F4F6';c.fillRect(pad+sw*(i+1),Y+12,1,46);}
@@ -2439,9 +2439,9 @@ function svImg(){
   // ━━ Level card
   fillRR(pad,Y,cw,90,16,'#FFFFFF');
   txt(l.i,pad+28,Y+45,36,'400','#000');
-  txt(l.n,pad+80,Y+35,20,'800','#3182F6');
+  txt(l.n,pad+80,Y+35,20,'800','#8B5CF6');
   txt(l.r+'점 구간 · '+l.m,pad+80,Y+60,12,'500','#8B95A1');
-  bar(pad+80,Y+74,cw-80-pad,6,r.score,'#F2F4F6','#3182F6');
+  bar(pad+80,Y+74,cw-80-pad,6,r.score,'#F2F4F6','#8B5CF6');
   Y+=110;
 
   // ━━ Type analysis
@@ -2940,7 +2940,7 @@ function initGame(){
   const ground=h-30;
   const isDark=document.documentElement.getAttribute('data-theme')==='dark';
   const colors={bg:isDark?'#1A1A1A':'#FFFFFF',ground:isDark?'#333':'#F2F4F6',groundLine:isDark?'#555':'#D1D6DB',
-    player:isDark?'#6CB4F6':'#3182F6',coin:'#F59E0B',obstacle:isDark?'#F04452':'#F04452',text:isDark?'#EEE':'#191F28',sub:isDark?'#888':'#8B95A1'};
+    player:isDark?'#A78BFA':'#8B5CF6',coin:'#F59E0B',obstacle:isDark?'#F04452':'#F04452',text:isDark?'#EEE':'#191F28',sub:isDark?'#888':'#8B95A1'};
 
   let py=ground-24,vy=0,jumping=false,score=0,speed=4,dist=0,alive=true,started=false,coins=[],obs=[];
   const pw=20,ph=24,gravity=0.6,jumpForce=-11;
