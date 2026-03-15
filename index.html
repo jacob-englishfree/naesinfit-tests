@@ -1469,6 +1469,7 @@ function rLogin(){setBottom(null);
             </select>
           </div>
           <button class="btn btn-blue" onclick="${S._challenge?'doChallengeLogin()':'doLogin()'}">${S._challenge?'같이 풀기!':'시작하기'}</button>
+          ${S._challenge?'':`<button onclick="doPreview()" style="width:100%;margin-top:10px;padding:14px;border:none;background:none;color:var(--sub);font-size:14px;font-weight:600;cursor:pointer">먼저 둘러볼게요 👀</button>`}
         </div>
       </div>
       <div style="text-align:center;padding:0 20px 32px;font-size:11px;color:var(--hint)">© 내신핏 NAESINFIT · 온라인 영어학원</div>
@@ -1560,6 +1561,13 @@ function doChallengeLogin(){
     else if(ch.mode==='run'){startRunnerGame();}
     else{startChallengeTest(ch);}
     return;}
+  S.scr='home';R();
+}
+function doPreview(){
+  const n=$('lgN').value.trim()||'체험유저';
+  const s=$('lgS').value.trim()||'';
+  const g=$('lgG').value||'고1';
+  sP({name:n,school:s,grade:g});
   S.scr='home';R();
 }
 
