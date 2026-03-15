@@ -1139,18 +1139,22 @@ initTheme();
 // ━━ Haptic Feedback ━━
 function haptic(type){if(!navigator.vibrate)return;if(type==='ok')navigator.vibrate(30);else if(type==='no')navigator.vibrate([30,50,30]);else if(type==='submit')navigator.vibrate(80);else if(type==='tap')navigator.vibrate(10);}
 
+// ━━ Local Date Helper (KST) ━━
+function localDate(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function localYesterday(){const d=new Date();d.setDate(d.getDate()-1);return localDate(d);}
+
 // ━━ Wrong Answer Storage ━━
 function getWrong(){try{return JSON.parse(localStorage.getItem('nf_wrong'))||[];}catch(e){return[];}}
-function saveWrong(list){try{localStorage.setItem('nf_wrong',JSON.stringify(list.slice(-200)));}catch(e){}}
+function saveWrong(list){try{localStorage.setItem('nf_wrong',JSON.stringify(list.slice(-200)));}catch(e){console.warn('저장 실패:',e);}}
 function addWrongs(det){const w=getWrong();det.forEach(d=>{if(!d.ok&&d.ua!==undefined&&d.ua!==''){const key=JSON.stringify({stem:(d.q.stem||'').slice(0,60),ans:d.q.ans});if(!w.some(x=>JSON.stringify({stem:(x.q.stem||'').slice(0,60),ans:x.q.ans})===key)){w.push({q:d.q,ua:d.ua,date:new Date().toLocaleDateString('ko-KR')});}}});saveWrong(w);}
 function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filter(x=>{const key=(x.q.stem||'').slice(0,60);return!solvedQuestions.some(s=>(s.q.stem||'').slice(0,60)===key&&s.ok);});saveWrong(remaining);}
 
 // ━━ Learning Streak ━━
 function getStreak(){try{return JSON.parse(localStorage.getItem('nf_streak'))||{count:0,lastDate:null};}catch(e){return{count:0,lastDate:null};}}
 function updateStreak(){
-  const s=getStreak();const today=new Date().toISOString().slice(0,10);
+  const s=getStreak();const today=localDate();
   if(s.lastDate===today)return s;
-  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const yesterday=localYesterday();
   if(s.lastDate===yesterday){s.count++;s.lastDate=today;}
   else if(s.lastDate&&s.lastDate!==today){s.count=1;s.lastDate=today;}
   else{s.count=1;s.lastDate=today;}
@@ -1159,8 +1163,8 @@ function updateStreak(){
 }
 function checkStreak(){
   const s=getStreak();if(!s.lastDate)return s;
-  const today=new Date().toISOString().slice(0,10);
-  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  const today=localDate();
+  const yesterday=localYesterday();
   if(s.lastDate!==today&&s.lastDate!==yesterday){s.count=0;try{localStorage.setItem('nf_streak',JSON.stringify(s));}catch(e){}}
   return s;
 }
@@ -1168,7 +1172,7 @@ function checkStreak(){
 // ━━ Daily Vocab Quiz ━━
 function getDailyState(){try{return JSON.parse(localStorage.getItem('nf_daily'))||{date:null,completed:false,score:null};}catch(e){return{date:null,completed:false,score:null};}}
 function saveDailyState(s){try{localStorage.setItem('nf_daily',JSON.stringify(s));}catch(e){}}
-function dailySeed(){const d=new Date().toISOString().slice(0,10);let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h|=0;}return Math.abs(h);}
+function dailySeed(){const d=localDate();let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h|=0;}return Math.abs(h);}
 // Daily vocab word bank — core words from textbook passages
 const DAILY_WORDS=[
   {en:'impression',ko:'인상'},{ en:'perception',ko:'인식'},{ en:'assumption',ko:'추정, 가정'},
@@ -1232,7 +1236,7 @@ const BADGE_DEFS=[
   {id:'pass_first',name:'첫 통과',desc:'80점 이상 달성',icon:'🎉',check:h=>h.some(r=>r.score>=80)},
   {id:'streak3',name:'3일 연속',desc:'3일 연속 학습',icon:'🔥',check:()=>checkStreak().count>=3},
   {id:'streak7',name:'일주일 연속',desc:'7일 연속 학습',icon:'🔥',check:()=>checkStreak().count>=7},
-  {id:'daily_done',name:'오늘의 도전',desc:'오늘의 단어퀴즈 완료',icon:'⚡',check:()=>{const d=getDailyState();return d.date===new Date().toISOString().slice(0,10)&&d.completed;}},
+  {id:'daily_done',name:'오늘의 도전',desc:'오늘의 단어퀴즈 완료',icon:'⚡',check:()=>{const d=getDailyState();return d.date===localDate()&&d.completed;}},
   {id:'review_clear',name:'오답 정복',desc:'오답 문제 모두 해결',icon:'✅',check:()=>getWrong().length===0&&gH().length>0},
   {id:'lv5',name:'레벨 5',desc:'레벨 5 달성',icon:'⭐',check:()=>getXP().lv>=5},
   {id:'lv10',name:'레벨 10',desc:'레벨 10 달성',icon:'🌟',check:()=>getXP().lv>=10},
@@ -1320,7 +1324,7 @@ let profile=P();
 if(!profile.name.trim())S.scr='login';
 const sP=p=>{profile=p;try{localStorage.setItem('nf_p',JSON.stringify(p));}catch(e){}};
 const gH=()=>{try{return JSON.parse(localStorage.getItem('nf_h'))||[];}catch(e){return[];}};
-const sH=e=>{const h=gH();h.push(e);if(h.length>20)h.shift();try{localStorage.setItem('nf_h',JSON.stringify(h));}catch(e){}};
+const sH=e=>{const h=gH();h.push(e);if(h.length>20)h.shift();try{localStorage.setItem('nf_h',JSON.stringify(h));}catch(e){toast('저장 공간이 부족해요. 기록 일부를 삭제해주세요.');}};
 
 const $=id=>document.getElementById(id),app=$('app'),NM='①②③④⑤⑥⑦⑧⑨⑩';
 const esc=s=>String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -1373,7 +1377,8 @@ function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select
     // Staggered reveal + count-up for tab pages
     requestAnimationFrame(()=>{const cards=app.querySelectorAll('.card,.sec-label');cards.forEach((c,i)=>{c.classList.add('reveal');setTimeout(()=>c.classList.add('show'),30*i);});setTimeout(applyCountUps,150);});
   }else{tb.style.display='none';}}
-function switchTab(tab){if(S.scr===tab)return;haptic('tap');S.scr=tab;S.dir='tab';R();
+function cleanupTimers(){if(S.ti){clearInterval(S.ti);S.ti=null;}}
+function switchTab(tab){if(S.scr===tab)return;cleanupTimers();haptic('tap');S.scr=tab;S.dir='tab';R();
   // Tab bounce animation
   const ti=$('tab_'+tab);if(ti){ti.classList.remove('tab-bounce');void ti.offsetWidth;ti.classList.add('tab-bounce');ti.addEventListener('animationend',()=>ti.classList.remove('tab-bounce'),{once:true});}
   // Staggered reveal for cards
@@ -1678,7 +1683,7 @@ function rHome(){setBottom(null);
 // ━━ LEARN (학습 탭) ━━
 function rLearn(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
-  const ds=getDailyState();const today=new Date().toISOString().slice(0,10);const done=ds.date===today&&ds.completed;
+  const ds=getDailyState();const today=localDate();const done=ds.date===today&&ds.completed;
   const wrongCount=getWrong().length;
 
   app.innerHTML=`<div class="page">
@@ -2143,7 +2148,7 @@ function openP(){const p=profile;const d=document.createElement('div');d.classNa
 function doLogout(){const s=$('ps');if(s)s.remove();sP({name:'',school:'',grade:''});S.scr='login';R();toast('로그아웃했어요');}
 function viewHistory(idx){const h=gH();const r=h[idx];if(!r||!r.det)return;S.res={score:r.score,ok:r.ok,no:r.no,sk:r.sk||0,tP:r.tP||100,eP:r.eP||0,lv:LV(r.score),det:r.det,tM:r.tM||{}};S.tt=r.type||'테스트';S.te=0;S.fromHist=true;S.scr='result';R();}
 function goMode(m){S.mode=m;S.scr='select';S.sel=[];S.acc={};R();}
-function goHome(){if(S.ti)clearInterval(S.ti);Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S._challengeScore=null;S._challengeName=null;S.tl=1200;S.dir='back';R();}
+function goHome(){cleanupTimers();Object.assign(S,{scr:'home',mode:null,sel:[],tt:null,qs:[],ans:{},res:null,rv:{}});S._isReview=false;S._isDaily=false;S._challengeScore=null;S._challengeName=null;S.tl=1200;S.dir='back';R();}
 
 // ━━ D-day Settings Sheet ━━
 function openDdaySheet(){
@@ -2215,7 +2220,7 @@ function startWrongReview(){
 
 // ━━ Daily Quiz ━━
 function startDailyQuiz(){
-  const ds=getDailyState();const today=new Date().toISOString().slice(0,10);
+  const ds=getDailyState();const today=localDate();
   if(ds.date===today&&ds.completed){toast('오늘의 퀴즈는 이미 완료했어요!');return;}
   const qs=getDailyVocabQuestions();
   if(!qs.length){toast('퀴즈 문항이 없어요');return;}
@@ -2488,14 +2493,14 @@ function updateExDot(){
 
 function updateExAc(){const ac=Object.keys(S.ans).length,tot=S.qs.length;const el=$('exAc');if(el)el.textContent=ac+'/'+tot+' 응답';}
 
-function goQ(di){if(di<0||di>=S.qs.length)return;S.ci=di;renderExQ();scrollTo(0,0);}
+function goQ(di){if(di<0||di>=S.qs.length)return;document.activeElement?.blur();S.ci=di;renderExQ();scrollTo(0,0);}
 
-function confirmExit(){const d=document.createElement('div');d.className='modal-overlay';d.id='cexit';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">🚪</div><div class="t-title">시험을 그만둘까요?</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">진행 중인 시험은 저장되지 않아요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cexit').remove()">계속 풀게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cexit').remove();goHome()">나갈게요</button></div></div>`;document.body.appendChild(d);}
+function confirmExit(){const ex=$('cexit');if(ex)return;const d=document.createElement('div');d.className='modal-overlay';d.id='cexit';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">🚪</div><div class="t-title">시험을 그만둘까요?</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">진행 중인 시험은 저장되지 않아요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cexit').remove()">계속 풀게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cexit').remove();goHome()">나갈게요</button></div></div>`;document.body.appendChild(d);}
 
 // ━━ SUBMIT ━━
 function doSub(auto){
   if(!S.qs.length){toast('시험 데이터가 없어요');return;}
-  if(!auto){const un=S.qs.length-Object.keys(S.ans).length;if(un>0){const d=document.createElement('div');d.className='modal-overlay';d.id='cm';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">⚠️</div><div class="t-title">${un}문항이 비어있어요</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">빈 문항은 오답으로 처리돼요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cm').remove()">돌아갈게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cm').remove();doSub(true)">제출할게요</button></div></div>`;document.body.appendChild(d);return;}}
+  if(!auto){const un=S.qs.length-Object.keys(S.ans).length;if(un>0){if($('cm'))return;const d=document.createElement('div');d.className='modal-overlay';d.id='cm';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">⚠️</div><div class="t-title">${un}문항이 비어있어요</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">빈 문항은 오답으로 처리돼요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cm').remove()">돌아갈게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cm').remove();doSub(true)">제출할게요</button></div></div>`;document.body.appendChild(d);return;}}
   if(S.ti)clearInterval(S.ti);
   let tP=0,eP=0,ok=0,no=0,sk=0;const tM={};
   const det=S.qs.map((q,i)=>{tP+=q.pts||0;const a=S.ans[i];let c=false;if(a===undefined||a==='')sk++;else if(q.fmt==='mc')c=a===q.ans;else{const u=String(a).trim().replace(/\s+/g,' ').toLowerCase();if(q.accept)c=q.accept.some(x=>x.trim().replace(/\s+/g,' ').toLowerCase()===u);if(!c&&q.wa)c=u===q.wa.trim().replace(/\s+/g,' ').toLowerCase();}if(c){ok++;eP+=(q.pts||0);}else if(a!==undefined&&a!=='')no++;const t=q.type||'기타';if(!tM[t])tM[t]={total:0,ok:0};tM[t].total++;if(c)tM[t].ok++;return{q,ua:a,ok:c};});
@@ -2503,7 +2508,7 @@ function doSub(auto){
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
   sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM});
   if(S._isReview){removeWrongs(det);S._isReview=false;}
-  else if(S._isDaily){saveDailyState({date:new Date().toISOString().slice(0,10),completed:true,score});S._isDaily=false;addWrongs(det);}
+  else if(S._isDaily){saveDailyState({date:localDate(),completed:true,score});S._isDaily=false;addWrongs(det);}
   else{addWrongs(det);}
   updateStreak();
   // XP, Type Analysis, Badges
@@ -2589,6 +2594,7 @@ function rResult(){setBottom(null);
   // Nudge popup — 결과 직후 "같이 풀기" 넛지 (기록 열람 시 미표시)
   if(!fromH&&!S._nudgeShown&&S._challengeScore==null){S._nudgeShown=true;
     setTimeout(()=>{
+      if($('nudgeModal'))return;
       const label=challengeLabel();
       const msg=r.score>=90?`${label} ${r.score}점! 이길 수 있는 친구 있어? 😏`:r.score>=70?`${label} ${r.score}점! 넌 몇 점일까? ㅋㅋ`:`${label} 같이 풀면 더 재밌어!`;
       const d=document.createElement('div');d.className='modal-overlay';d.id='nudgeModal';
@@ -2711,11 +2717,18 @@ function svImg(){
   txt('내신핏 NAESINFIT · 온라인 영어학원',W/2,Y,10,'500','#B0B8C1','center');
 
   cv.toBlob(blob=>{
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download='내신핏_'+S.tt+'_'+p.name+'_'+new Date().toISOString().slice(0,10)+'.png';
-    a.click();
-    toast('🖼️ 이미지를 저장했어요');
+    const url=URL.createObjectURL(blob);
+    const fname='내신핏_'+S.tt+'_'+p.name+'_'+localDate()+'.png';
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    if(isIOS){
+      const w=window.open();
+      if(w){w.document.write('<html><head><title>'+fname+'</title><meta name="viewport" content="width=device-width"><style>body{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;background:#f5f5f5}img{max-width:100%;height:auto}</style></head><body><img src="'+url+'"><p style="text-align:center;font-size:14px;color:#888;padding:12px">이미지를 길게 눌러 저장하세요</p></body></html>');w.document.close();}
+      toast('🖼️ 이미지를 길게 눌러 저장하세요');
+    }else{
+      const a=document.createElement('a');a.href=url;a.download=fname;a.click();
+      toast('🖼️ 이미지를 저장했어요');
+    }
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
   });
 }
 
@@ -3120,8 +3133,8 @@ function endFlashcard(){S.scr='learn';S.dir='back';R();}
 
 // ━━ RUNNER GAME ━━
 const GAME_DAILY_KEY='nf_game_';
-function getGameData(){const k=GAME_DAILY_KEY+new Date().toISOString().slice(0,10);try{return JSON.parse(localStorage.getItem(k))||{plays:0,shared:false};}catch(e){return{plays:0,shared:false};}}
-function saveGameData(d){const k=GAME_DAILY_KEY+new Date().toISOString().slice(0,10);try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}}
+function getGameData(){const k=GAME_DAILY_KEY+localDate();try{return JSON.parse(localStorage.getItem(k))||{plays:0,shared:false};}catch(e){return{plays:0,shared:false};}}
+function saveGameData(d){const k=GAME_DAILY_KEY+localDate();try{localStorage.setItem(k,JSON.stringify(d));}catch(e){}}
 function getGamePlays(){const d=getGameData();const max=3+(d.shared?2:0)+(d.bonus?1:0);return Math.max(0,max-d.plays);}
 function getGameBest(){return parseInt(localStorage.getItem('nf_game_best'))||0;}
 function setGameBest(s){if(s>getGameBest())localStorage.setItem('nf_game_best',String(s));}
