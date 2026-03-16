@@ -127,7 +127,6 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 
 <script>
 const EI={subject:'공통영어1',pub:'동아(이병민)',lesson:'2과',title:'Great Opening Lines',total:100,time:1200,histKey:'quizH_GreatOpeningLines_2',qCount:30};
-
 const Q=[
 {id:1,type:'어법',diff:'보통',pts:3,fmt:'mc',note:'문장02',
 passage:``,
@@ -352,11 +351,7 @@ wa:"unfamiliar",accept:["unfamiliar","Unfamiliar","UNFAMILIAR"],
 det:{ref:'[원문] In this way, Orwell hints to the readers that they are about to enter a world that is dark and unfamiliar.\n[해석] 이런 식으로 오웰은 독자들에게 곧 어둡고 생소한 세계로 들어갈 것이라는 암시를 준다. [문장 45 참고]',
 correct:'정답: unfamiliar\nfamiliar(익숙한)에 부정 접두사 un-을 붙여 unfamiliar(생소한, 낯선)이 된다. dark and unfamiliar는 1984의 세계가 어둡고 낯설다는 의미이다.',
 wrongs:[],
-tip:'💡 부정 접두사 un-\n• familiar → unfamiliar (익숙한 → 낯선)\n• usual → unusual (보통의 → 비범한)\n• happy → unhappy (행복한 → 불행한)\n\n⚠️ 접두사 un-/in-/im-/dis- 구분하여 암기!'}},
-
-{id:26,type:'주제',diff:'어려움',pts:4,fmt:'mc',note:'종합',
-passage:`
-
+tip:'💡 부정 접두사 un-\n• familiar → unfamiliar (익숙한 → 낯선)\n• usual → unusual (보통의 → 비범한)\n• happy → unhappy (행복한 → 불행한)\n\n⚠️ 접두사 un-/in-/im-/dis- 구분하여 암기!'}}];
 const QCOUNT=Q.length;
 let S={cur:0,ans:new Array(QCOUNT).fill(null),start:null,left:EI.time,ti:null};
 function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
@@ -402,6 +397,7 @@ document.getElementById('resultScreen').innerHTML=h;const fw=r.details.findIndex
 function copyDetailedResult(){const nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);let txt=`━━━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신핏 온라인퀴즈 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} ${EI.pub} ${EI.lesson}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n\n📊 점수: ${r.score}/100 (${r.score}%)\n✅ 정답 ${r.correct}/${QCOUNT} | ❌ 오답 ${r.wrong} | ⬜ 미응답 ${r.unanswered}\n🏅 레벨: ${lv.icon} ${lv.name}\n${r.score>=80?'🎉 통과!':'📚 미통과'}\n\n━━ 문항별 결과 ━━\n`;r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const at=d.q.fmt==='mc'?(d.ans!==null?(d.q.ch.length===2?(d.ans===0?'T':'F'):'①②③④⑤'[d.ans]):'미응답'):(d.ans||'미응답');const ct=d.q.fmt==='mc'?(d.q.ch.length===2?(d.q.ans===0?'T':'F'):'①②③④⑤'[d.q.ans]):d.q.wa;txt+=`${mk} ${d.q.id}번 [${d.q.type}] ${d.q.pts}점 — 내답:${at} | 정답:${ct}\n`;});const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={t:0,o:0};tm[t].t++;if(d.ok)tm[t].o++;});txt+=`\n━━ 유형별 ━━\n`;Object.entries(tm).forEach(([t,v])=>txt+=`${t}: ${v.o}/${v.t} (${Math.round(v.o/v.t*100)}%)\n`);txt+=`\n━━ 보완 피드백 ━━\n`;fb.forEach(f=>txt+=`${f}\n`);txt+=`━━━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(txt).then(()=>toast('📄 상세 결과 복사 완료!')).catch(()=>toast('복사 실패'));}
 function saveResultImage(){const nm=document.getElementById('inpName').value.trim(),r=grade(),lv=getLevel(r.score),fb=generateFeedback(r);const W=800,pad=40;const lines=[{t:'🎯 내신핏 온라인퀴즈 상세 결과',s:22,b:1,c:'#E8772E'},{t:''},{t:`📚 ${EI.subject} · ${EI.pub} · ${EI.lesson}`,s:14,c:'#555'},{t:`👤 ${nm} · ${new Date().toLocaleDateString('ko-KR')}`,s:14,c:'#555'},{t:''},{t:`📊 점수: ${r.score}/100`,s:20,b:1},{t:`✅${r.correct}/${QCOUNT} ❌${r.wrong} ⬜${r.unanswered}`,s:14,c:'#555'},{t:`🏅 ${lv.icon} ${lv.name} ${r.score>=80?'🎉 통과':'📚 미통과'}`,s:16,b:1,c:r.score>=80?'#1A9960':'#D63B3B'},{t:''}];r.details.forEach(d=>{const mk=d.ok?'✅':'❌';const ct=d.q.fmt==='mc'?'①②③④⑤'[d.q.ans]:d.q.wa;lines.push({t:`${mk} ${d.q.id}번[${d.q.type}]${d.q.pts}점 정답:${ct}`,s:12,c:d.ok?'#1A9960':'#D63B3B'});});lines.push({t:''});fb.forEach(f=>lines.push({t:f,s:11,c:'#444'}));lines.push({t:''},{t:'내신핏 · 온라인퀴즈 TEST',s:10,c:'#bbb'});let H=pad*2;lines.forEach(l=>{H+=(l.s||14)+10;});const canvas=document.createElement('canvas');canvas.width=W*2;canvas.height=H*2;const ctx=canvas.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#FFF';ctx.fillRect(0,0,W,H);ctx.fillStyle='#E8772E';ctx.fillRect(0,0,W,4);let y=pad+10;lines.forEach(l=>{const fs=l.s||14;ctx.font=`${l.b?'800':'500'} ${fs}px sans-serif`;ctx.fillStyle=l.c||'#222';if(l.t)ctx.fillText(l.t,pad,y);y+=fs+10;});ctx.fillStyle='#E8772E';ctx.fillRect(0,H-4,W,4);canvas.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`퀴즈결과_${nm}_${new Date().toISOString().slice(0,10)}.png`;a.click();toast('🖼️ 이미지 저장 완료!');});}
 function retake(){startExam();}function goHome(){showScreen('startScreen');updateHCount();}
+
 
 </script>
 
