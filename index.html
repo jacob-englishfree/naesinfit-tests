@@ -1122,6 +1122,37 @@ async function ensureQuestionsLoaded(testType, selections) {
 
 let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],dn:"YBM(김은형)"},"YBM박준언":{lessons:[1,2,3,4],dn:"YBM(박준언)"},"능률민병천":{lessons:[1,2,3,4],dn:"능률(민병천)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"동아이병민":{lessons:[1,2,3,4],dn:"동아(이병민)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"}},"영어1":{"YBM박준언":{lessons:[1,2,3,4,5],dn:"YBM(박준언)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"},"천재조수경":{lessons:[1,2,3,4],dn:"천재(조수경)"},"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)"}}}};
 
+// Full scope catalog — includes future data sources. hasData checked at runtime.
+const SCOPE_CATALOG = {
+  "교과서":{ icon:"📚", items:null }, // items=null → use MANIFEST
+  "모의고사":{ icon:"📝", items:{
+    "고1":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
+    "고2":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
+    "고3":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의평가"},"9월":{dn:"9월 모의평가"},"수능":{dn:"수능"}}
+  }},
+  "부교재":{ icon:"📖", items:{
+    "수능특강":{"영어":{dn:"수능특강 영어",lessons:[1,2,3,4,5,6,7,8,9,10]},"영어독해":{dn:"수능특강 영어독해",lessons:[1,2,3,4,5,6,7,8,9,10]}},
+    "수능완성":{"영어":{dn:"수능완성 영어",lessons:[1,2,3,4,5,6,7,8]}}
+  }}
+};
+function hasScopeData(path){
+  // Check if MANIFEST has this path or test files exist
+  const parts=path.split('/');
+  if(parts.length<2)return false;
+  const cat=parts[0];
+  if(cat==='교과서'||MANIFEST['교과서']){
+    // For textbook paths, check MANIFEST
+    const m=MANIFEST['교과서'];
+    if(parts.length>=3&&m[parts[0]]){
+      const subj=parts[0],pub=parts[1];
+      if(m[subj]&&m[subj][pub])return true;
+    }
+    // Check if any subject matches
+    if(m[parts[0]])return true;
+  }
+  return false;
+}
+
 // Try to load manifest.json from server (overrides default if available)
 (async function loadManifest(){
   try {
@@ -1155,6 +1186,85 @@ function removeWrongs(solvedQuestions){const w=getWrong();const remaining=w.filt
 // ━━ Spaced Repetition ━━
 function getReviewDue(){const w=getWrong();const today=localDate();return w.filter(x=>x.reviewDates&&x.reviewStep<x.reviewDates.length&&x.reviewDates[x.reviewStep]<=today);}
 function advanceReview(det){const w=getWrong();det.forEach(d=>{if(d.ok){const key=wrongKey(d.q);const item=w.find(x=>wrongKey(x.q)===key);if(item&&item.reviewDates){item.reviewStep=(item.reviewStep||0)+1;if(item.reviewStep>=item.reviewDates.length){const idx=w.indexOf(item);if(idx>=0)w.splice(idx,1);}}}});saveWrong(w);}
+
+// ━━ Exam Plan (시험 일정 + 범위 통합) ━━
+// Structure: { exams: [{id,name,date,scope:[],icon}], activeId: 'mid' }
+function getExamPlan(){try{return JSON.parse(localStorage.getItem('nf_examPlan'))||{exams:[],activeId:null};}catch(e){return{exams:[],activeId:null};}}
+function saveExamPlan(plan){try{localStorage.setItem('nf_examPlan',JSON.stringify(plan));}catch(e){}}
+function getActiveExam(){const plan=getExamPlan();if(!plan.activeId||!plan.exams.length)return null;return plan.exams.find(e=>e.id===plan.activeId)||null;}
+function getExamScope(){const ex=getActiveExam();return ex?ex.scope:null;}
+function saveExamScope(scope){const plan=getExamPlan();if(plan.activeId){const ex=plan.exams.find(e=>e.id===plan.activeId);if(ex)ex.scope=scope;saveExamPlan(plan);}}
+function clearExamScope(){const plan=getExamPlan();plan.activeId=null;saveExamPlan(plan);}
+function examScopeLabel(scope){
+  if(!scope||!scope.length)return '';
+  const g={};scope.forEach(s=>{const p=s.split('/');const book=p.length>=2?p[1]:'기타';const lesson=p.length>=3?p[2]:'';if(!g[book])g[book]=[];if(lesson)g[book].push(lesson);});
+  return Object.entries(g).map(([b,ls])=>b+' '+ls.join(',')).join(' · ');
+}
+function initExamPlan(){
+  const plan=getExamPlan();
+  if(plan.exams.length)return;// already initialized
+  const dd=getDdays();const suneung=getSuneungDate();
+  plan.exams=[
+    {id:'mid',name:'중간고사',date:dd.mid||'',scope:[],icon:'📝'},
+    {id:'fin',name:'기말고사',date:dd.fin||'',scope:[],icon:'📋'},
+    {id:'csat',name:'수능',date:suneung.getFullYear()+'-'+String(suneung.getMonth()+1).padStart(2,'0')+'-'+String(suneung.getDate()).padStart(2,'0'),scope:[],icon:'🎯'}
+  ];
+  saveExamPlan(plan);
+}
+
+function getDashboardData(scope){
+  const hist=gH();const wrongs=getWrong();
+  const testTypes=['단어테스트','워크북테스트','퀴즈테스트'];
+  // Per lesson × test type matrix
+  const matrix={};// {lesson: {testType: {score,count}}}
+  const allTypes={};// question type stats
+  let totalTests=0,totalScore=0,totalWrongs=0;
+
+  scope.forEach(s=>{if(!matrix[s])matrix[s]={};});
+
+  hist.forEach(r=>{
+    if(!r.scopes||!r.scopes.length)return;
+    const overlap=r.scopes.filter(s=>scope.includes(s));
+    if(!overlap.length)return;
+    totalTests++;totalScore+=r.score;
+    overlap.forEach(s=>{
+      if(!matrix[s])matrix[s]={};
+      const tt=r.type||'';
+      if(!matrix[s][tt])matrix[s][tt]={totalScore:0,count:0};
+      matrix[s][tt].totalScore+=r.score;
+      matrix[s][tt].count++;
+    });
+    if(r.tM){Object.entries(r.tM).forEach(([t,v])=>{
+      if(!allTypes[t])allTypes[t]={total:0,ok:0};
+      allTypes[t].total+=v.total;allTypes[t].ok+=v.ok;
+    });}
+  });
+
+  wrongs.forEach(w=>{
+    const ss=w.scopes&&w.scopes.length?w.scopes:(w.scope?w.scope.split(','):[]);
+    if(ss.some(s=>scope.includes(s)))totalWrongs++;
+  });
+
+  const avgScore=totalTests?Math.round(totalScore/totalTests):0;
+  // Readiness: weighted by coverage + accuracy
+  const coverage=scope.length>0?Object.keys(matrix).filter(s=>Object.keys(matrix[s]).length>0).length/scope.length:0;
+  const readiness=Math.round(avgScore*0.7+coverage*100*0.3);
+
+  // Find weakest
+  let weakest=null,weakScore=101;
+  Object.entries(matrix).forEach(([lesson,types])=>{
+    Object.entries(types).forEach(([tt,d])=>{
+      const avg=Math.round(d.totalScore/d.count);
+      if(avg<weakScore){weakScore=avg;weakest={lesson,tt,avg};}
+    });
+  });
+
+  // Find weakest question type
+  const typeArr=Object.entries(allTypes).map(([t,v])=>({t,pct:v.total>0?Math.round(v.ok/v.total*100):0})).sort((a,b)=>a.pct-b.pct);
+  const weakType=typeArr.length?typeArr[0]:null;
+
+  return{matrix,allTypes,totalTests,avgScore,totalWrongs,readiness,weakest,weakType,testTypes};
+}
 
 // ━━ Learning Streak ━━
 function getStreak(){try{return JSON.parse(localStorage.getItem('nf_streak'))||{count:0,lastDate:null};}catch(e){return{count:0,lastDate:null};}}
@@ -1438,7 +1548,7 @@ function animateScore(target){
 }
 
 function setBottom(html){const b=$('bottomBar');if(!html){b.style.display='none';b.innerHTML='';return;}b.innerHTML=html;b.style.display='';}
-function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard,runnergame:rRunnerGame,synselect:rSynSelect,synquiz:rSynQuiz}[S.scr]||rLogin)();
+function R(){({login:rLogin,home:rHome,learn:rLearn,record:rRecord,my:rMy,select:rSel,settings:rSet,exam:rExam,result:rResult,speedquiz:rSpeedQuiz,flashcard:rFlashcard,runnergame:rRunnerGame,synselect:rSynSelect,synquiz:rSynQuiz,scopeselect:rScopeSelect,dashboard:rDashboard}[S.scr]||rLogin)();
   // Apply page transition direction
   const pg=app.querySelector('.page');if(pg&&S.dir){pg.classList.remove('slide-left','slide-right','tab-swap');if(S.dir==='back')pg.classList.add('slide-right');else if(S.dir==='fwd')pg.classList.add('slide-left');else if(S.dir==='tab')pg.classList.add('tab-swap');}S.dir='fwd';
   // Tab bar visibility
@@ -1670,19 +1780,46 @@ function rHome(){setBottom(null);
       ${sk.count>=7?'<span style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto">대단해요!</span>':sk.count>=3?'<span style="font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:8px;margin-left:auto">좋아요!</span>':''}
     </div>`:'';})()}
 
-    ${(()=>{const suneung=getSuneungDate();const ddays=getDdays();const hasDday=ddays.mid||ddays.fin;return `
-    <div class="card" style="padding:16px 20px;margin-top:12px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${hasDday?'8px':'0'}">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:16px">📅</span>
-          <span style="font-size:14px;font-weight:700;color:var(--text)">수능</span>
-          <span style="font-size:12px;color:var(--sub)">${suneung.getFullYear()}.${suneung.getMonth()+1}.${suneung.getDate()}</span>
+    ${(()=>{initExamPlan();const plan=getExamPlan();const active=getActiveExam();
+      return `
+    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
+      ${plan.exams.map(ex=>{
+        const isActive=plan.activeId===ex.id;
+        const hasDate=!!ex.date;
+        const hasScope=ex.scope&&ex.scope.length>0;
+        const d=hasDate?new Date(ex.date):null;
+        const dStr=d?`${d.getMonth()+1}.${d.getDate()}`:'날짜 미설정';
+        const dd=d?ddayStr(d):'';
+        const scopeLabel=hasScope?examScopeLabel(ex.scope):'범위 미설정';
+        return `<div style="border-bottom:1px solid var(--divider)">
+          <button onclick="selectActiveExam('${ex.id}')" style="width:100%;padding:14px 20px;border:none;background:${isActive?'var(--blue-l)':'none'};display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s">
+            <div style="width:40px;height:40px;background:${isActive?'var(--blue)':'var(--g100)'};border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:background .2s">${ex.icon}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:14px;font-weight:700;color:var(--text)">${ex.name}</span>
+                ${isActive?'<span style="font-size:10px;font-weight:700;color:var(--blue);background:var(--blue-l);border:1px solid var(--blue);padding:1px 8px;border-radius:8px">이번 시험</span>':''}
+              </div>
+              <div style="font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${hasDate?dStr+' '+dd:dStr}${hasScope?' · '+scopeLabel:''}</div>
+            </div>
+            <span style="color:var(--hint);font-size:14px">›</span>
+          </button>
+        </div>`;
+      }).join('')}
+    </div>
+    ${active&&active.scope&&active.scope.length?`
+    <div class="card" style="padding:0;overflow:hidden;margin-top:4px">
+      <button onclick="S.scr='dashboard';S.dir='fwd';R()" style="width:100%;padding:14px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <span style="font-size:15px;font-weight:800;color:var(--red)">${ddayStr(suneung)}</span>
-      </div>
-      ${ddays.mid?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">중간고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.mid).getMonth()+1}.${new Date(ddays.mid).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.mid))}</span></div>`:''}
-      ${ddays.fin?`<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;font-weight:600;color:var(--text)">기말고사</span><span style="font-size:12px;color:var(--sub)">${new Date(ddays.fin).getMonth()+1}.${new Date(ddays.fin).getDate()}</span></div><span style="font-size:13px;font-weight:800;color:var(--blue)">${ddayStr(new Date(ddays.fin))}</span></div>`:''}
-    </div>`;})()}
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:700;color:var(--text)">시험 준비 대시보드</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">약점 분석 · 히트맵 · 레이더 차트</div>
+        </div>
+        <span style="color:var(--blue);font-size:13px;font-weight:700">분석 →</span>
+      </button>
+    </div>`:''}`;
+    })()}
 
     ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
     <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
@@ -1874,6 +2011,248 @@ function goSynSelect(){
 }
 
 // Selection screen for syn/ant quiz (reuses MANIFEST)
+// ━━ Scope Select (이번 시험 범위 설정) ━━
+function selectActiveExam(id){
+  const plan=getExamPlan();
+  plan.activeId=id;saveExamPlan(plan);
+  const ex=plan.exams.find(e=>e.id===id);
+  if(ex&&ex.scope&&ex.scope.length){
+    S.scr='dashboard';S.dir='fwd';R();
+  }else{
+    goScopeSelect();
+  }
+}
+function goScopeSelect(){S._scopeSel=getExamScope()||[];S._scopeAcc={};S.scr='scopeselect';S.dir='fwd';R();}
+function rScopeSelect(){setBottom(null);
+  let h='';
+  // 1) 교과서 — from MANIFEST
+  const tData=MANIFEST['교과서'];
+  for(const[subj,pubs]of Object.entries(tData)){const sk='es_s_'+subj,sc=S._scopeSel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
+    for(const[pub,info]of Object.entries(pubs)){const pk='es_p_'+subj+'_'+pub,pc=S._scopeSel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="esTA('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge>'+pc+'</span>':''}</span><span class="arrow${S._scopeAcc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S._scopeAcc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div class="chips">${info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S._scopeSel.includes(k);return`<div class="chip ${on?'on':''}" onclick="esTg(this,'${k}')">${l}과</div>`;}).join('')}</div></div></div></div></div>`;}
+    h+=`<div class="acc"><button class="acc-trigger" onclick="esTA('${sk}')"><span class="lf">📚 ${subj} ${sc?'<span class=badge>'+sc+'</span>':''}</span><span class="arrow${S._scopeAcc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S._scopeAcc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
+
+  // 2) 모의고사 & 부교재 — from SCOPE_CATALOG
+  for(const[catName,cat]of Object.entries(SCOPE_CATALOG)){
+    if(catName==='교과서'||!cat.items)continue;
+    for(const[group,subs]of Object.entries(cat.items)){
+      const sk='es_c_'+catName+'_'+group;
+      const sc=S._scopeSel.filter(s=>s.startsWith(catName+'/'+group+'/')).length;
+      let inner='';
+      for(const[item,info]of Object.entries(subs)){
+        if(info.lessons){
+          // Has lessons (like 부교재)
+          const pk='es_cp_'+catName+'_'+group+'_'+item;
+          const pc=S._scopeSel.filter(s=>s.startsWith(catName+'/'+group+'/'+item+'/')).length;
+          const hasData=!!MANIFEST[catName]?.[group]?.[item];
+          inner+=`<div class="sub-section"><div class="sub-trigger" onclick="esTA('${pk}')"><span>${info.dn||item} ${!hasData?'<span style="font-size:10px;font-weight:600;color:var(--hint);background:var(--g100);padding:2px 8px;border-radius:8px;margin-left:4px">준비중</span>':''} ${pc?'<span class=badge>'+pc+'</span>':''}</span><span class="arrow${S._scopeAcc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S._scopeAcc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div class="chips">${info.lessons.map(l=>{const k=catName+'/'+group+'/'+item+'/'+l,on=S._scopeSel.includes(k);return`<div class="chip ${on?'on':''}" onclick="esTg(this,'${k}')">${l}</div>`;}).join('')}</div></div></div></div></div>`;
+        }else{
+          // Single item (like 모의고사 months)
+          const k=catName+'/'+group+'/'+item;
+          const on=S._scopeSel.includes(k);
+          const hasData=!!MANIFEST[catName]?.[group]?.[item];
+          inner+=`<div style="padding:4px 0"><div class="chip ${on?'on':''}" onclick="esTg(this,'${k}')" style="display:inline-flex;align-items:center;gap:6px">${info.dn||item}${!hasData?' <span style="font-size:9px;color:var(--hint)">준비중</span>':''}</div></div>`;
+        }
+      }
+      h+=`<div class="acc"><button class="acc-trigger" onclick="esTA('${sk}')"><span class="lf">${cat.icon} ${catName} ${group} ${sc?'<span class=badge>'+sc+'</span>':''}</span><span class="arrow${S._scopeAcc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S._scopeAcc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;
+    }
+  }
+
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">이번 시험 범위 설정</div></div>
+    <div style="padding:8px 20px 0"><div style="font-size:12px;color:var(--sub);line-height:1.6">시험에 나오는 범위를 모두 선택하세요.<br><span style="color:var(--hint)">준비중 항목도 선택 가능 · 데이터 추가 시 자동 반영</span></div></div>
+    ${h}<div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="esSaveBtn" ${S._scopeSel.length===0?'disabled':''} onclick="saveExamScopeAndGo()">${S._scopeSel.length?S._scopeSel.length+'개 선택 · 저장하기':'범위를 선택해주세요'}</button>`);
+}
+function esTA(k){S._scopeAcc[k]=!S._scopeAcc[k];const body=$('body_'+k),ar=$('ar_'+k);if(body)body.classList.toggle('open',S._scopeAcc[k]);if(ar)ar.classList.toggle('open',S._scopeAcc[k]);}
+function esTg(el,k){const i=S._scopeSel.indexOf(k);if(i>=0){S._scopeSel.splice(i,1);el.classList.remove('on');}else{S._scopeSel.push(k);el.classList.add('on');}const btn=$('esSaveBtn');if(btn){btn.disabled=S._scopeSel.length===0;btn.textContent=S._scopeSel.length?S._scopeSel.length+'개 선택 · 저장하기':'범위를 선택해주세요';}}
+function saveExamScopeAndGo(){
+  saveExamScope(S._scopeSel);
+  const plan=getExamPlan();
+  const ex=plan.exams.find(e=>e.id===plan.activeId);
+  // If no date set, prompt for date
+  if(ex&&!ex.date){
+    showExamDatePicker(ex.id);
+  }else{
+    toast('시험 범위가 저장됐어요!');S.scr='dashboard';S.dir='fwd';R();
+  }
+}
+function showExamDatePicker(examId){
+  const plan=getExamPlan();const ex=plan.exams.find(e=>e.id===examId);if(!ex)return;
+  const d=document.createElement('div');d.className='modal-overlay';d.id='examDateModal';
+  d.innerHTML=`<div class="modal-box" style="max-width:320px">
+    <div style="font-size:32px;margin-bottom:8px">${ex.icon}</div>
+    <div class="t-title">${ex.name} 날짜 설정</div>
+    <div class="t-caption c-sub" style="margin-top:4px;margin-bottom:20px">D-day 카운트에 사용돼요</div>
+    <input type="date" id="examDateInput" class="input" value="${ex.date||''}" style="color-scheme:auto;margin-bottom:16px">
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('examDateModal').remove();toast('시험 범위가 저장됐어요!');S.scr='dashboard';S.dir='fwd';R()">건너뛰기</button>
+      <button class="btn btn-blue btn-sm" style="flex:1" onclick="saveExamDate('${examId}')">저장</button>
+    </div>
+  </div>`;
+  document.body.appendChild(d);
+}
+function saveExamDate(examId){
+  const input=$('examDateInput');if(!input)return;
+  const plan=getExamPlan();const ex=plan.exams.find(e=>e.id===examId);
+  if(ex){ex.date=input.value;saveExamPlan(plan);
+    // Sync with legacy dday
+    const dd=getDdays();
+    if(examId==='mid')dd.mid=input.value;
+    if(examId==='fin')dd.fin=input.value;
+    saveDdays(dd);
+  }
+  const modal=$('examDateModal');if(modal)modal.remove();
+  toast('시험 범위가 저장됐어요!');S.scr='dashboard';S.dir='fwd';R();
+}
+
+// ━━ Dashboard (시험 준비 대시보드) ━━
+function rDashboard(){setBottom(null);
+  const es=getExamScope();
+  if(!es||!es.length){goScopeSelect();return;}
+  const activeEx=getActiveExam();
+  const examName=activeEx?activeEx.name:'시험';
+  const examDate=activeEx&&activeEx.date?new Date(activeEx.date):null;
+  const d=getDashboardData(es);
+  const label=examScopeLabel(es);
+  const radarSvg=Object.keys(d.allTypes).length>=3?renderRadarChart(d.allTypes,220):'';
+
+  // Build heatmap
+  let heatmap='';
+  const byBook={};
+  es.forEach(s=>{const p=s.split('/');const book=p.length>=2?p[1]:'기타';const lesson=p.length>=3?p[2]:'';if(!byBook[book])byBook[book]=[];byBook[book].push({path:s,lesson});});
+
+  Object.entries(byBook).forEach(([book,items])=>{
+    items.sort((a,b)=>(parseInt(a.lesson)||0)-(parseInt(b.lesson)||0));
+    heatmap+=`<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:var(--sub);margin-bottom:8px">${book}</div>`;
+    heatmap+=`<div style="display:grid;grid-template-columns:48px repeat(${d.testTypes.length},1fr);gap:6px;align-items:center">`;
+    // Header row
+    heatmap+=`<div></div>`;
+    d.testTypes.forEach(tt=>{heatmap+=`<div style="font-size:10px;font-weight:600;color:var(--hint);text-align:center;white-space:nowrap">${tt.replace('테스트','')}</div>`;});
+    // Data rows
+    items.forEach(it=>{
+      heatmap+=`<div style="font-size:13px;font-weight:700;color:var(--text)">${it.lesson}</div>`;
+      d.testTypes.forEach(tt=>{
+        const cell=d.matrix[it.path]&&d.matrix[it.path][tt];
+        if(cell){
+          const avg=Math.round(cell.totalScore/cell.count);
+          const bg=avg>=80?'var(--green)':avg>=50?'var(--yellow)':'var(--red)';
+          const textC=avg>=80?'#fff':avg>=50?'#fff':'#fff';
+          heatmap+=`<div style="background:${bg};color:${textC};border-radius:var(--r-sm);padding:8px 4px;text-align:center;font-size:13px;font-weight:800;cursor:pointer" onclick="quickTest('${it.path}','${tt}')">${avg}</div>`;
+        }else{
+          const isTextbook=it.path.split('/').length>=3&&MANIFEST['교과서']?.[it.path.split('/')[0]]?.[it.path.split('/')[1]];
+          if(isTextbook){
+            heatmap+=`<div style="background:var(--g100);color:var(--hint);border-radius:var(--r-sm);padding:8px 4px;text-align:center;font-size:11px;font-weight:600;cursor:pointer" onclick="quickTest('${it.path}','${tt}')">미응시</div>`;
+          }else{
+            heatmap+=`<div style="background:var(--g50);color:var(--hint);border-radius:var(--r-sm);padding:8px 4px;text-align:center;font-size:10px;font-weight:500">준비중</div>`;
+          }
+        }
+      });
+    });
+    heatmap+=`</div></div>`;
+  });
+
+  // Readiness ring SVG
+  const ringSize=140,ringR=55,circ=2*Math.PI*ringR;
+  const ringOffset=circ*(1-d.readiness/100);
+  const ringColor=d.readiness>=70?'var(--green)':d.readiness>=40?'var(--yellow)':'var(--red)';
+
+  app.innerHTML=`<div class="page">
+    <div class="nav">
+      <button class="nav-back" onclick="goHome()">←</button>
+      <div class="nav-title">${examName} 대시보드</div>
+      <button onclick="goScopeSelect()" style="border:none;background:none;font-size:12px;font-weight:700;color:var(--blue);cursor:pointer;padding:8px">범위 변경</button>
+    </div>
+
+    <!-- Scope & Date Badge -->
+    <div style="padding:0 20px;margin-top:4px;display:flex;flex-wrap:wrap;gap:6px">
+      ${examDate?`<div style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--red-l);border-radius:20px">
+        <span style="font-size:11px">📅</span>
+        <span style="font-size:12px;font-weight:700;color:var(--red)">${ddayStr(examDate)}</span>
+      </div>`:''}
+      <div style="display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--blue-l);border-radius:20px">
+        <span style="font-size:11px">🎯</span>
+        <span style="font-size:12px;font-weight:600;color:var(--blue)">${label}</span>
+      </div>
+    </div>
+
+    <!-- Readiness Ring -->
+    <div class="card" style="padding:24px;text-align:center">
+      <div style="position:relative;display:inline-block">
+        <svg viewBox="0 0 ${ringSize} ${ringSize}" width="${ringSize}" height="${ringSize}">
+          <circle cx="${ringSize/2}" cy="${ringSize/2}" r="${ringR}" fill="none" stroke="var(--g100)" stroke-width="10"/>
+          <circle cx="${ringSize/2}" cy="${ringSize/2}" r="${ringR}" fill="none" stroke="${ringColor}" stroke-width="10" stroke-linecap="round"
+            stroke-dasharray="${circ}" stroke-dashoffset="${ringOffset}" transform="rotate(-90 ${ringSize/2} ${ringSize/2})" style="transition:stroke-dashoffset 1s var(--ease)"/>
+        </svg>
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+          <div style="font-size:32px;font-weight:900;color:${ringColor}" data-count="${d.readiness}">0</div>
+          <div style="font-size:11px;font-weight:600;color:var(--sub)">준비도</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:24px;margin-top:16px">
+        <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--text)" data-count="${d.totalTests}">0</div><div style="font-size:11px;color:var(--sub);font-weight:500">응시</div></div>
+        <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:${d.avgScore>=80?'var(--green)':'var(--text)'}" data-count="${d.avgScore}">0</div><div style="font-size:11px;color:var(--sub);font-weight:500">평균</div></div>
+        <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--red)" data-count="${d.totalWrongs}">0</div><div style="font-size:11px;color:var(--sub);font-weight:500">오답</div></div>
+      </div>
+    </div>
+
+    <!-- Heatmap Grid -->
+    <div class="sec-label">과별 × 유형별 성적</div>
+    <div class="card" style="padding:16px 12px">
+      ${heatmap}
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:12px;font-size:10px;color:var(--sub)">
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:3px;vertical-align:middle"></span> 80+</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--yellow);border-radius:3px;vertical-align:middle"></span> 50-79</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--red);border-radius:3px;vertical-align:middle"></span> ~49</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--g100);border-radius:3px;vertical-align:middle"></span> 미응시</span>
+      </div>
+    </div>
+
+    ${radarSvg?`
+    <!-- Radar Chart -->
+    <div class="sec-label">유형별 정답률</div>
+    <div class="card" style="padding:20px">
+      ${radarSvg}
+    </div>`:''}
+
+    <!-- Weakness Summary -->
+    ${d.weakest||d.weakType?`
+    <div class="sec-label">약점 분석</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      ${d.weakest?`
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:12px">
+        <div style="width:40px;height:40px;background:var(--red-l);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📉</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${(()=>{const p=d.weakest.lesson.split('/');return(p[1]||'')+' '+(p[2]||'');})()}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">${d.weakest.tt.replace('테스트','')} 평균 ${d.weakest.avg}점</div>
+        </div>
+        <button onclick="quickTest('${d.weakest.lesson}','${d.weakest.tt}')" style="border:none;background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:var(--r-sm);cursor:pointer;white-space:nowrap">연습 →</button>
+      </div>`:''}
+      ${d.weakest&&d.weakType?'<div style="height:1px;background:var(--divider);margin:0 20px"></div>':''}
+      ${d.weakType?`
+      <div style="padding:16px 20px;display:flex;align-items:center;gap:12px">
+        <div style="width:40px;height:40px;background:var(--yellow-l);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎯</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${d.weakType.t} 유형</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">정답률 ${d.weakType.pct}% · 집중 보충 필요</div>
+        </div>
+      </div>`:''}
+    </div>`:''}
+
+    <!-- Reset -->
+    <div style="text-align:center;padding:20px">
+      <button onclick="clearExamScope();goHome()" style="border:none;background:none;font-size:13px;color:var(--hint);cursor:pointer;text-decoration:underline">시험 범위 초기화</button>
+    </div>
+
+    <div class="tab-spacer"></div>
+  </div>`;
+  setTimeout(applyCountUps,150);
+}
+
+// Quick test from dashboard — jump directly to exam for a specific lesson+type
+function quickTest(lesson,testType){
+  S.sel=[lesson];S.tt=testType;S.qc=20;S.scr='settings';S.dir='fwd';R();
+}
+
 function rSynSelect(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
   const data=MANIFEST['교과서'];let h='';
