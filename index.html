@@ -117,19 +117,6 @@
   --bottom-bg: rgba(17,17,17,.85);
 }
 
-/* ━━ Scroll Reveal (Landing-page step animation) ━━ */
-.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.08s}
-.reveal-d2{transition-delay:.16s}
-.reveal-d3{transition-delay:.24s}
-.reveal-d4{transition-delay:.32s}
-.reveal-d5{transition-delay:.4s}
-.reveal-d6{transition-delay:.48s}
-.reveal-d7{transition-delay:.56s}
-.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
-.reveal-scale.visible{opacity:1;transform:scale(1)}
-
 /* ━━ Reset ━━ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -1774,9 +1761,9 @@ function doPreview(){
 function rHome(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
 
-  app.innerHTML=`<div class="page" style="animation:none">
-    <!-- Step 1: Greeting Header -->
-    <div class="reveal reveal-d1" style="padding:24px 20px 0">
+  app.innerHTML=`<div class="page">
+    <!-- Greeting Header -->
+    <div style="padding:24px 20px 0">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div>
           <div style="font-size:14px;color:var(--sub);font-weight:500">안녕하세요 👋</div>
@@ -1787,7 +1774,7 @@ function rHome(){setBottom(null);
     </div>
 
     ${(()=>{const sk=checkStreak();return sk.count>0?`
-    <div class="reveal reveal-d2" style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
+    <div style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
       <span style="font-size:20px">🔥</span>
       <span style="font-size:14px;font-weight:700;color:var(--text)">${sk.count}일 연속 학습 중</span>
       ${sk.count>=7?'<span style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto">대단해요!</span>':sk.count>=3?'<span style="font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:8px;margin-left:auto">좋아요!</span>':''}
@@ -1795,7 +1782,7 @@ function rHome(){setBottom(null);
 
     ${(()=>{initExamPlan();const plan=getExamPlan();const active=getActiveExam();
       return `
-    <div class="card reveal reveal-d3" style="padding:0;overflow:hidden;margin-top:12px">
+    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
       ${plan.exams.map(ex=>{
         const isActive=plan.activeId===ex.id;
         const hasDate=!!ex.date;
@@ -1820,7 +1807,7 @@ function rHome(){setBottom(null);
       }).join('')}
     </div>
     ${active&&active.scope&&active.scope.length?`
-    <div class="card reveal reveal-d3" style="padding:0;overflow:hidden;margin-top:4px">
+    <div class="card" style="padding:0;overflow:hidden;margin-top:4px">
       <button onclick="S.scr='dashboard';S.dir='fwd';R()" style="width:100%;padding:14px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -1835,7 +1822,7 @@ function rHome(){setBottom(null);
     })()}
 
     ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
-    <div class="card reveal reveal-d4" style="margin-top:4px;background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
+    <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
       <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
       <div style="position:relative">
         <div style="display:flex;align-items:center;justify-content:space-between">
@@ -1856,8 +1843,8 @@ function rHome(){setBottom(null);
     </div>`;})()}
 
     <!-- Test Start -->
-    <div class="sec-label reveal reveal-d5">시험 보기</div>
-    <div class="card reveal reveal-d5" style="padding:0;overflow:hidden">
+    <div class="sec-label">시험 보기</div>
+    <div class="card" style="padding:0;overflow:hidden">
       <button onclick="goMode('교과서')" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:52px;height:52px;background:var(--blue-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📚</div>
         <div style="flex:1">
@@ -1877,40 +1864,28 @@ function rHome(){setBottom(null);
       </button>
     </div>
 
-    <div class="sec-label reveal reveal-d6">제공 테스트 유형</div>
-    <div class="reveal reveal-d6" style="padding:0 20px;display:flex;gap:8px">
-      <div class="reveal-scale reveal-d6" style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
+    <div class="sec-label">제공 테스트 유형</div>
+    <div style="padding:0 20px;display:flex;gap:8px">
+      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
         <div style="font-size:28px;margin-bottom:6px">📝</div>
         <div style="font-size:13px;font-weight:700">단어</div>
         <div style="font-size:11px;color:var(--sub);margin-top:2px">어휘·문맥</div>
       </div>
-      <div class="reveal-scale reveal-d7" style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
+      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
         <div style="font-size:28px;margin-bottom:6px">📘</div>
         <div style="font-size:13px;font-weight:700">워크북</div>
         <div style="font-size:11px;color:var(--sub);margin-top:2px">문법·구문</div>
       </div>
-      <div class="reveal-scale" style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm);transition-delay:.64s">
+      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
         <div style="font-size:28px;margin-bottom:6px">🎯</div>
         <div style="font-size:13px;font-weight:700">퀴즈</div>
         <div style="font-size:11px;color:var(--sub);margin-top:2px">빠른복습</div>
       </div>
     </div>
 
-    <div class="reveal reveal-d7" style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
+    <div style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
     <div class="tab-spacer"></div>
   </div>`;
-  initReveal();
-}
-
-function initReveal(){
-  const els=document.querySelectorAll('.reveal,.reveal-scale');
-  if(!els.length)return;
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
-    });
-  },{threshold:0.1});
-  els.forEach(el=>io.observe(el));
 }
 
 // ━━ LEARN (학습 탭) ━━
