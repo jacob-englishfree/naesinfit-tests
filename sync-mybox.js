@@ -221,6 +221,36 @@ for (const gradeEntry of gradeDirs) {
 log('');
 log(`📊 동기화 결과: 복사=${copied}, 스킵(동일)=${skipped}, 유효하지않음=${invalid}`);
 
+// ─── 자동 검수 (복사된 파일이 있을 때) ───
+if (copied > 0 && !DRY_RUN) {
+  log('');
+  log('🔍 자동 검수 시작 (validate-all.js)...');
+  try {
+    const validateOutput = execSync('node validate-all.js', {
+      cwd: REPO, encoding: 'utf-8', stdio: 'pipe'
+    });
+    console.log(validateOutput);
+    log('✅ 자동 검수 통과 — 구조 오류 0건');
+  } catch (e) {
+    // validate-all.js exits with 1 if errors found
+    console.log(e.stdout || '');
+    log('❌ 자동 검수에서 오류 발견! 위 내용을 확인하세요.');
+    log('⚠️  오류가 있어도 동기화는 계속 진행합니다.');
+  }
+
+  log('🔍 런타임 테스트 시작 (runtime-test.js)...');
+  try {
+    const rtOutput = execSync('node runtime-test.js', {
+      cwd: REPO, encoding: 'utf-8', stdio: 'pipe'
+    });
+    console.log(rtOutput);
+    log('✅ 런타임 테스트 통과');
+  } catch (e) {
+    console.log(e.stdout || '');
+    log('❌ 런타임 테스트 실패! 위 내용을 확인하세요.');
+  }
+}
+
 // ─── manifest.json 업데이트 ───
 if (copied > 0 && !DRY_RUN) {
   log('📝 manifest.json 업데이트 중...');
