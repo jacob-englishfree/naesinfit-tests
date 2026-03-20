@@ -1093,7 +1093,12 @@ async function fetchTestQuestions(testType, selKey) {
   const cacheKey = testType + '|' + selKey;
   if (_fetchCache[cacheKey]) return _fetchCache[cacheKey];
 
-  const path = '교과서/' + selKey + '/' + testType + '.html';
+  let path;
+  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
+    path = selKey + '/' + testType + '.html';
+  } else {
+    path = '교과서/' + selKey + '/' + testType + '.html';
+  }
   try {
     const resp = await fetch(path);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -1126,7 +1131,7 @@ let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],
 const SCOPE_CATALOG = {
   "교과서":{ icon:"📚", items:null }, // items=null → use MANIFEST
   "모의고사":{ icon:"📝", items:{
-    "고1":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
+    "고1":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"]},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
     "고2":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
     "고3":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의평가"},"9월":{dn:"9월 모의평가"},"수능":{dn:"수능"}}
   }},
@@ -1136,18 +1141,24 @@ const SCOPE_CATALOG = {
   }}
 };
 function hasScopeData(path){
-  // Check if MANIFEST has this path or test files exist
   const parts=path.split('/');
   if(parts.length<2)return false;
-  const cat=parts[0];
-  if(cat==='교과서'||MANIFEST['교과서']){
-    // For textbook paths, check MANIFEST
-    const m=MANIFEST['교과서'];
+  // Check 모의고사 — if lessons exist in SCOPE_CATALOG, it has data
+  if(parts[0]==='모의고사'&&parts.length>=3){
+    const cat=SCOPE_CATALOG['모의고사'];
+    if(cat&&cat.items&&cat.items[parts[1]]&&cat.items[parts[1]][parts[2]]){
+      const item=cat.items[parts[1]][parts[2]];
+      if(item.lessons&&item.lessons.length>0)return true;
+    }
+    return false;
+  }
+  // 교과서 — check MANIFEST
+  const m=MANIFEST['교과서'];
+  if(m){
     if(parts.length>=3&&m[parts[0]]){
       const subj=parts[0],pub=parts[1];
       if(m[subj]&&m[subj][pub])return true;
     }
-    // Check if any subject matches
     if(m[parts[0]])return true;
   }
   return false;
@@ -1854,13 +1865,13 @@ function rHome(){setBottom(null);
         <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
       </button>
       <div style="height:1px;background:var(--divider);margin:0 20px"></div>
-      <button onclick="toast('모의고사는 준비 중이에요')" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s;opacity:.5" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+      <button onclick="S.scr='learn';S.dir='fwd';R()" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:52px;height:52px;background:var(--red-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📝</div>
         <div style="flex:1">
           <div class="t-title">모의고사 테스트</div>
           <div class="t-caption c-sub" style="margin-top:2px">학년 · 시험 · 문항별 맞춤 시험</div>
         </div>
-        <span style="font-size:11px;font-weight:600;color:var(--hint);background:var(--g100);padding:4px 10px;border-radius:10px">준비중</span>
+        <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
       </button>
     </div>
 
