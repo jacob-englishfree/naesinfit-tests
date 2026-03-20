@@ -1865,7 +1865,7 @@ function rHome(){setBottom(null);
         <span style="color:var(--hint);font-size:18px;font-weight:300">›</span>
       </button>
       <div style="height:1px;background:var(--divider);margin:0 20px"></div>
-      <button onclick="S.scr='learn';S.dir='fwd';R()" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+      <button onclick="goMode('모의고사')" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
         <div style="width:52px;height:52px;background:var(--red-l);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">📝</div>
         <div style="flex:1">
           <div class="t-title">모의고사 테스트</div>
@@ -2783,6 +2783,7 @@ function startDailyQuiz(){
 
 // ━━ SELECT ━━
 function rSel(){
+  if(S.mode==='모의고사') return rSelMock();
   const data=MANIFEST['교과서'];let h='';
   for(const[subj,pubs]of Object.entries(data)){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
     for(const[pub,info]of Object.entries(pubs)){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
@@ -2791,6 +2792,29 @@ function rSel(){
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요'}</button>`);
 }
+
+function rSelMock(){
+  const cat=SCOPE_CATALOG['모의고사'];if(!cat||!cat.items)return;
+  let h='';
+  for(const[grade,months]of Object.entries(cat.items)){
+    const sk='m_'+grade;const sc=S.sel.filter(s=>s.startsWith('모의고사/'+grade+'/')).length;
+    let inner='';
+    for(const[month,info]of Object.entries(months)){
+      if(!info.lessons||!info.lessons.length){
+        inner+=`<div style="padding:8px 0"><span class="chip" style="opacity:.5">${info.dn||month} <span style="font-size:9px;color:var(--hint)">준비중</span></span></div>`;
+        continue;
+      }
+      const pk='m_'+grade+'_'+month;const pc=S.sel.filter(s=>s.startsWith('모의고사/'+grade+'/'+month+'/')).length;
+      const allS=info.lessons.every(l=>S.sel.includes('모의고사/'+grade+'/'+month+'/'+l));
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||month} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">문항 선택</span><button onclick="mockSelAll('${grade}','${month}')" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer">전체 선택</button></div><div class="chips">${info.lessons.map(l=>{const k='모의고사/'+grade+'/'+month+'/'+l,on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" onclick="mockTg(this,'${k}')">${l}</div>`;}).join('')}</div></div></div></div></div>`;
+    }
+    h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">📝 ${grade} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;
+  }
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">모의고사 범위 선택</div></div><div class="sec-label">학년 · 시험 · 문항</div>${h}<div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'문항을 선택해주세요'}</button>`);
+}
+function mockTg(el,k){const i=S.sel.indexOf(k);if(i>=0){S.sel.splice(i,1);el.classList.remove('on');}else{S.sel.push(k);el.classList.add('on');}const btn=$('selBtn');if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 선택 · 시작하기':'문항을 선택해주세요';}}
+function mockSelAll(grade,month){const info=SCOPE_CATALOG['모의고사'].items[grade][month];if(!info||!info.lessons)return;const allS=info.lessons.every(l=>S.sel.includes('모의고사/'+grade+'/'+month+'/'+l));info.lessons.forEach(l=>{const k='모의고사/'+grade+'/'+month+'/'+l,i=S.sel.indexOf(k);if(allS){if(i>=0)S.sel.splice(i,1);}else{if(i<0)S.sel.push(k);}});rSelMock();}
 
 // Smooth accordion toggle — class-based grid animation
 function taSmooth(k){
