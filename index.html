@@ -1131,8 +1131,8 @@ let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],
 const SCOPE_CATALOG = {
   "교과서":{ icon:"📚", items:null }, // items=null → use MANIFEST
   "모의고사":{ icon:"📝", items:{
-    "고1":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"]},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
-    "고2":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
+    "고1":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"3월_2024":{dn:"2024년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
+    "고2":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"3월_2024":{dn:"2024년 3월",lessons:["26번","29번","30번","31번","32번","33번","34번"],isNew:true},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
     "고3":{"3월":{dn:"3월 모의고사"},"6월":{dn:"6월 모의평가"},"9월":{dn:"9월 모의평가"},"수능":{dn:"수능"}}
   }},
   "부교재":{ icon:"📖", items:{
@@ -1783,6 +1783,16 @@ function rHome(){setBottom(null);
         <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
       </div>
     </div>
+
+    <!-- NEW 모의고사 알림 배너 -->
+    ${!localStorage.getItem('nf_mock_seen_v2')?`
+    <div style="margin:16px 20px 0;background:linear-gradient(135deg,#6C5CE7,#A29BFE);border-radius:16px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer" onclick="goMode('모의고사');localStorage.setItem('nf_mock_seen_v2','1')">
+      <div style="position:absolute;top:-20px;right:-10px;font-size:80px;opacity:.12">📝</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:10px;font-weight:800;color:#fff;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:8px">NEW</span></div>
+      <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.4">모의고사 테스트가 추가됐어요!</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px">고1·고2 3월 모의고사 단어/워크북/퀴즈 →</div>
+      <button onclick="localStorage.setItem('nf_mock_seen_v2','1');this.parentElement.remove();event.stopPropagation()" style="position:absolute;top:10px;right:12px;background:none;border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer">✕</button>
+    </div>`:''}`
 
     ${(()=>{const sk=checkStreak();return sk.count>0?`
     <div style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
@@ -2806,7 +2816,7 @@ function rSelMock(){
       }
       const pk='m_'+grade+'_'+month;const pc=S.sel.filter(s=>s.startsWith('모의고사/'+grade+'/'+month+'/')).length;
       const allS=info.lessons.every(l=>S.sel.includes('모의고사/'+grade+'/'+month+'/'+l));
-      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||month} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">문항 선택</span><button onclick="mockSelAll('${grade}','${month}')" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer">전체 선택</button></div><div class="chips">${info.lessons.map(l=>{const k='모의고사/'+grade+'/'+month+'/'+l,on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" onclick="mockTg(this,'${k}')">${l}</div>`;}).join('')}</div></div></div></div></div>`;
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||month}${info.isNew?' <span style="font-size:10px;font-weight:800;color:#fff;background:linear-gradient(135deg,#F04452,#FF6B6B);padding:2px 7px;border-radius:8px;margin-left:6px;letter-spacing:.5px">NEW</span>':''} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">문항 선택</span><button onclick="mockSelAll('${grade}','${month}')" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer">전체 선택</button></div><div class="chips">${info.lessons.map(l=>{const k='모의고사/'+grade+'/'+month+'/'+l,on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" onclick="mockTg(this,'${k}')">${l}</div>`;}).join('')}</div></div></div></div></div>`;
     }
     h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">📝 ${grade} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;
   }
