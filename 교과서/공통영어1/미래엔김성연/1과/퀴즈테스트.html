@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 미래엔(김성연) 1과 온라인퀴즈TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D5 40%,#FFDDC4);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D4691E);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D4691E);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f5ede5;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #e0d0c0;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d8c8b8;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #d0c0b0;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #e0d0c0;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--warn);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFF3E8,#FFE8D5);border-bottom:1px solid #e8d8c8;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-insert{background:#FFF3E0;color:#E65100;}.tag-order{background:#FCE4EC;color:#C2185B;}.tag-grammar{background:#EDE7F6;color:#5E35B1;}.tag-vocab{background:#E0F7FA;color:#00838F;}.tag-blank{background:var(--bl);color:var(--b);}.tag-written{background:#FFF8E1;color:#B45309;}.tag-content{background:#E8F5E9;color:#2E7D32;}.tag-tf{background:#FCE4EC;color:#C2185B;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f5ede5;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FFFAF5,#FFF3E8);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #e0d0c0;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#f0e0d0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d8c8b8;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#e0d0c0;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--o);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#FFF3E8,#FFE0C0);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--o),#D4691E);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#f0e0d0;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FFFAF5;border-radius:var(--rs);border:1px solid #e0d0c0;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#f0e0d0;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--oxl);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d8c8b8;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #e0d0c0;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FFFAF5;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#FFF3E8;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--oxl);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인퀴즈 TEST</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">공통영어1 미래엔(김성연) · 1과 · The Power of Friendliness · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">교과서</span><span class="info-value">공통영어1 미래엔(김성연)</span></div>
+    <div class="info-row"><span class="info-label">과</span><span class="info-value">1과</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">The Power of Friendliness: Soft but Strong</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 미래엔(김성연) · <span>1과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1 미래엔(김성연)","pub":"1과","lesson":"The Power of Friendliness","title":"The Power of Friendliness: Soft but Strong","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_common1_mirae_L1_v1"};
+
+const Q=[
+// ━━━ 문장삽입/어순배열 FIRST ━━━
+
+// Q1: 문장삽입 · 어려움 · 6pts
+{id:1,type:`문장삽입`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`\u2460`,`\u2461`,`\u2462`,`\u2463`],
+passage:`He explained that dogs, unlike wolves, have developed communicative skills with humans and a sense of friendliness. \u2460 They say that from the common ancestors of these two species, those that acted friendly toward humans evolved into dogs, and those that didn\u2019t became wolves. \u2461 Furthermore, Dr. Hare suggested that the friendly nature of dogs probably provided them with a survival advantage that allowed their population to grow larger than that of wolves. \u2462 I\u2019ll give you another example of how friendliness is related to survival. \u2463`,
+stem:`다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>"This explanation sounds reasonable according to several evolutionary biologists."</b>`,
+det:{korean:`"This explanation"은 Hare 박사가 개의 의사소통 능력과 친밀감에 대해 설명한 것을 가리킨다. 이 설명이 합리적이라고 말한 "several evolutionary biologists"가 바로 다음 문장의 "They"이다.`,
+analysis:`✅ ①: "He explained..." 직후 → "This explanation"이 가리킬 대상이 바로 앞에 있고, "They say..."의 "They" = evolutionary biologists\n❌ ②: 이미 They의 말이 끝난 후 → This explanation의 지칭 대상이 모호\n❌ ③: 새 단락 시작 전 → 흐름 방해\n❌ ④: 새 예시 시작 후 → 문맥 불일치`,
+tip:`"This explanation" → 앞 문장의 설명을 지칭, "They" → 바로 뒤에 나오는 주어와 연결`}},
+
+// Q2: 문장삽입 · 보통 · 5pts
+{id:2,type:`문장삽입`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`\u2460`,`\u2461`,`\u2462`,`\u2463`],
+passage:`Neanderthals existed together with Homo sapiens until about 40,000 years ago, and they were known to be intelligent and physically superior to Homo sapiens. \u2460 Neanderthals were able to make tools and fire and had strong bodies with well-developed muscles and broad shoulders. \u2461 One possible explanation is that our ancestors lived in larger communities that promoted cooperation and the free exchange of knowledge, while Neanderthals tended to live in smaller groups. \u2462 These social differences may have given Homo sapiens a competitive advantage over Neanderthals, allowing them to adapt to an ever-changing environment. \u2463`,
+stem:`다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>"Despite these attributes, however, it was Homo sapiens who ultimately survived and thrived."</b>`,
+det:{korean:`"these attributes"는 네안데르탈인의 도구/불 제작 능력과 강한 신체를 가리킨다. 이 자질에도 "불구하고(Despite)" 호모 사피엔스가 살아남았다는 전환이 와야 한다.`,
+analysis:`✅ ②: 네안데르탈인의 강점 서술 직후 → "these attributes" = 도구, 불, 강한 신체 → Despite로 전환\n❌ ①: 아직 구체적 자질 나열 전\n❌ ③: 이미 설명이 시작된 후\n❌ ④: 결론 이후`,
+tip:`"Despite these attributes" → 앞에 attributes(자질)가 구체적으로 나열되어야 함`}},
+
+// Q3: 어순배열 · 어려움 · 6pts
+{id:3,type:`어순배열`,diff:`어려움`,pts:6,fmt:"written",wa:`each person can contribute to a more beautiful world`,accept:[`each person can contribute to a more beautiful world`,`Each person can contribute to a more beautiful world`],
+passage:`Think of our society as a bouquet. Just as each flower adds to the beauty when it harmonizes with the others, __________________________________________ when they cooperate. By being kind and working together, we can truly flourish.`,
+stem:`다음 주어진 단어를 올바른 순서로 배열하시오.\n<br><br><b>person / each / to / can / world / beautiful / a more / contribute</b>`,
+det:{korean:`"<b>each person can contribute to a more beautiful world</b>" → 각 사람은 더 아름다운 세상에 기여할 수 있다.`,
+analysis:`each person(주어) + can contribute(동사) + to a more beautiful world(전치사구)\n조동사 can 뒤 동사원형 contribute, "a more beautiful"이 world를 수식`,
+tip:`주어(each person) + 조동사(can) + 동사(contribute) + to + 명사구(a more beautiful world)`}},
+
+// ━━━ 어법/어휘 SECOND ━━━
+
+// Q4: 어법 5지선다 · 보통 · 5pts
+{id:4,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`\u2460`,`\u2461`,`\u2462`,`\u2463`,`\u2464`],
+passage:`Although the two are \u2460<u>genetically</u> similar, they are different in nature. To study their cooperative behavior, Dr. Hare\u2019s team set up a device \u2461<u>which</u> required two individuals to pull both ends of a rope at the same time in order to access food on a board. When \u2462<u>placed</u> with partners that the chimpanzees knew, they were able to work together to get the food. However, when \u2463<u>pairing</u> with new partners, the chimpanzees usually failed to get the food, and when they occasionally \u2464<u>succeeded</u>, they did not share the food with their partner.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 어법상 <b>틀린</b> 것은?`,
+det:{korean:`④ pairing → <b>paired</b>: 침팬지가 짝지어<b>지는</b> 것(수동)이므로 과거분사 paired가 적절하다.`,
+analysis:`❌ ④ pairing(능동) → paired(수동): 실험에서 짝지어진 것(수동)\n✅ ① genetically: 부사 → similar 수식\n✅ ② which: 사물 선행사(device) 주격 관계대명사\n✅ ③ placed: 수동 분사구문\n✅ ⑤ succeeded: 과거형 동사`,
+tip:`분사구문 능동/수동: 주어가 동작을 당하면 p.p.(수동)`}},
+
+// Q5: 어법 빈칸 · 보통 · 5pts
+{id:5,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`fascinate`,`fascinated`,`fascinating`,`fascination`],
+passage:`It\u2019s good to see you, everyone! I\u2019m Dr. Edward Wilson, an evolutionary biologist. Thank you for inviting me here today. On my way, I had trouble locating this room. Luckily, a friendly student came up to me and walked me here. It\u2019s __________ how, in situations like this, we want to help someone in need.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`"It\u2019s + 형용사" 구문에서 상황이 흥미를 유발하므로 <b>fascinating</b>(흥미로운)이 적절하다.`,
+analysis:`✅ ③ fascinating: It\u2019s + 형용사 → 상황 주어에 -ing형 형용사\n❌ ① fascinate: 동사원형 → 문법적 불가\n❌ ② fascinated: -ed형 → 사람이 느끼는 감정 (It\u2019s 주어에 부적절)\n❌ ④ fascination: 명사 → It\u2019s + 명사 구조 부자연스러움`,
+tip:`It\u2019s + 감정 형용사: 상황/사물 주어 → -ing형 (fascinating, surprising)`}},
+
+// Q6: 어법 빈칸 · 보통 · 5pts
+{id:6,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`provide`,`provided`,`providing`,`to provide`],
+passage:`Furthermore, Dr. Hare suggested that the friendly nature of dogs probably __________ them with a survival advantage that allowed their population to grow larger than that of wolves.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`that절 내의 동사로, 주절 동사 suggested(과거)에 맞춰 <b>과거시제 provided</b>가 적절하다.`,
+analysis:`✅ ② provided: that절 안의 과거시제 동사\n❌ ① provide: 현재형 → suggested와 시제 불일치\n❌ ③ providing: 분사 → 동사 자리에 부적절\n❌ ④ to provide: to부정사 → 동사 자리에 부적절`,
+tip:`주절이 과거(suggested) → that절도 과거(provided)로 시제 일치`}},
+
+// Q7: 부적절 어휘 · 보통 · 5pts
+{id:7,type:`어휘`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`\u2460`,`\u2461`,`\u2462`,`\u2463`,`\u2464`],
+passage:`Despite these attributes, however, it was Homo sapiens who ultimately survived and \u2460<u>thrived</u>. One possible explanation is that our ancestors lived in larger \u2461<u>communities</u> that promoted \u2462<u>isolation</u> and the free exchange of knowledge, while Neanderthals tended to live in \u2463<u>smaller</u> groups. These social differences may have given Homo sapiens a \u2464<u>competitive</u> advantage over Neanderthals.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "promoted <b>cooperation</b>"(협력을 촉진). ③ isolation(고립)은 cooperation의 반의어로 부적절하다.`,
+analysis:`❌ ③ isolation(고립): 원문 cooperation → "free exchange of knowledge"와 병렬 → 고립이 아닌 협력\n✅ ① thrived(번성했다): 원문 일치\n✅ ② communities(공동체): 원문 일치\n✅ ④ smaller(더 작은): 원문 일치\n✅ ⑤ competitive(경쟁적): 원문 일치`,
+tip:`cooperation(협력) ↔ isolation(고립) — "free exchange of knowledge"와 함께 나오므로 협력이 적절`}},
+
+// ━━━ 빈칸추론/서술형/내용/TF LAST ━━━
+
+// Q8: 빈칸추론 · 어려움 · 6pts
+{id:8,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`competition`,`strength`,`kindness`,`intelligence`,`independence`],
+passage:`In our competitive society, many people believe that only the biggest or the strongest can survive and thrive. However, I propose an alternative view: __________ is the key to success. Isn\u2019t that a comforting thought?`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`경쟁 사회에서 강한 자만 살아남는다는 통념에 대한 "대안적 견해(alternative view)"로 <b>친절(kindness)</b>이 성공의 열쇠라고 제안한다.`,
+analysis:`✅ ③ kindness: "alternative view" → 강함이 아닌 친절이 성공의 열쇠\n❌ ① competition: "alternative"가 아닌 기존 관점\n❌ ② strength: biggest/strongest와 같은 맥락 → 대안이 아님\n❌ ④ intelligence: 언급 없음\n❌ ⑤ independence: 언급 없음`,
+tip:`"alternative view" = 기존 관점(강함)의 대안 → kindness(친절)`}},
+
+// Q9: 빈칸추론 · 보통 · 5pts
+{id:9,type:`빈칸추론`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`commands`,`gestures`,`speeches`,`emotions`],
+passage:`To answer these questions, I\u2019d like to tell you about my childhood companion dog, Sparky. When we played with a ball, I noticed that he responded well to my __________.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`Sparky는 주인의 <b>몸짓(gestures)</b>에 잘 반응했다. 이후 본문에서 개의 인간 몸짓에 대한 반응이 핵심 주제로 이어진다.`,
+analysis:`✅ ② gestures: 본문의 핵심 주제 = 몸짓에 대한 반응\n❌ ① commands: 명령은 이 글의 초점이 아님\n❌ ③ speeches: 말/연설은 개와의 놀이 맥락에 부적절\n❌ ④ emotions: 감정에 대한 반응은 이 글의 주제가 아님`,
+tip:`responded well to → 반응의 대상 + 이후 dog vs wolf 실험의 주제 = gestures`}},
+
+// Q10: 서술형 어형변환 · 쉬움 · 4pts
+{id:10,type:`서술형`,diff:`쉬움`,pts:4,fmt:"written",wa:`evolutionary`,accept:[`evolutionary`,`Evolutionary`],
+passage:`It\u2019s good to see you, everyone! I\u2019m Dr. Edward Wilson, an __________ (evolution) biologist. Thank you for inviting me here today.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`evolution(명사) → <b>evolutionary(형용사)</b>: 명사 biologist를 수식하는 형용사 필요`,
+analysis:`evolution(명사) → evolutionary(형용사)\n빈칸 뒤 biologist(명사)를 수식하는 형용사가 필요`,
+tip:`evolution → evolutionary / revolution → revolutionary — -tion → -tionary 형용사화`}},
+
+// Q11: 서술형 어형변환 · 보통 · 5pts
+{id:11,type:`서술형`,diff:`보통`,pts:5,fmt:"written",wa:`cooperative`,accept:[`cooperative`,`Cooperative`],
+passage:`I\u2019ll give you another example of how friendliness is related to survival. Dr. Hare and his colleagues designed an experiment with chimpanzees and bonobos. Although the two are genetically similar, they are different in nature. To study their __________ (cooperate) behavior, Dr. Hare\u2019s team set up a device which required two individuals to pull both ends of a rope at the same time.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`cooperate(동사) → <b>cooperative(형용사)</b>: 명사 behavior를 수식하는 형용사 필요`,
+analysis:`cooperate(동사) → cooperative(형용사)\n빈칸 뒤 behavior(명사)를 수식하는 형용사가 필요\ncooperative behavior = 협력적 행동`,
+tip:`cooperate → cooperative / compete → competitive — 동사 → -ive/-ative 형용사화`}},
+
+// Q12: 서술형 본문찾기 · 쉬움 · 4pts
+{id:12,type:`서술형`,diff:`쉬움`,pts:4,fmt:"written",wa:`ancestor`,accept:[`ancestor`,`Ancestor`],
+passage:`The responsive behavior of dogs also caught the attention of an evolutionary anthropologist, Brian Hare. He conducted an experiment to see how dogs would respond to human gestures compared to wolves, who share the same common ancestor.`,
+stem:`다음 글에서 개와 늑대가 공유하는 것을 본문에서 <b>1단어</b>로 찾아 쓰시오.`,
+det:{korean:`"wolves, who share the same common <b>ancestor</b>" → 공통 조상 = <b>ancestor</b>`,
+analysis:`개와 늑대가 공유하는 것 = the same common ancestor\n1단어 답 = ancestor`,
+tip:`common ancestor = 공통 조상 — share the same common ancestor = 같은 공통 조상을 공유하다`}},
+
+// Q13: 서술형 본문찾기 · 보통 · 5pts
+{id:13,type:`서술형`,diff:`보통`,pts:5,fmt:"written",wa:`competitive advantage`,accept:[`competitive advantage`,`Competitive advantage`,`competitive Advantage`,`Competitive Advantage`],
+passage:`One possible explanation is that our ancestors lived in larger communities that promoted cooperation and the free exchange of knowledge, while Neanderthals tended to live in smaller groups. These social differences may have given Homo sapiens a competitive advantage over Neanderthals, allowing them to adapt to an ever-changing environment.`,
+stem:`다음 글에서 사회적 차이가 호모 사피엔스에게 제공한 것을 본문에서 <b>2단어</b>로 찾아 쓰시오.`,
+det:{korean:`"given Homo sapiens a <b>competitive advantage</b> over Neanderthals" → 경쟁적 이점`,
+analysis:`사회적 차이가 제공한 것 = competitive advantage\n2단어 답 = competitive advantage`,
+tip:`competitive advantage = 경쟁적 우위/이점 — given A a B over C = C에 비해 A에게 B를 주다`}},
+
+// Q14: 내용이해 일치 · 쉬움 · 4pts
+{id:14,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
+ch:[`침팬지는 새로운 짝과도 쉽게 협력했다.`,`보노보는 어떤 개체와 짝을 이루든 문제를 해결했다.`,`침팬지와 보노보는 본질적으로 같은 성격을 가진다.`,`보노보는 음식을 나누는 것을 거부했다.`],
+passage:`I\u2019ll give you another example of how friendliness is related to survival. Dr. Hare and his colleagues designed an experiment with chimpanzees and bonobos. Although the two are genetically similar, they are different in nature. To study their cooperative behavior, Dr. Hare\u2019s team set up a device which required two individuals to pull both ends of a rope at the same time in order to access food on a board. When placed with partners that the chimpanzees knew, they were able to work together to get the food. However, when paired with new partners, the chimpanzees usually failed to get the food, and when they occasionally succeeded, they did not share the food with their partner. The bonobos, on the other hand, got along much better than the chimpanzees. They solved the problem regardless of which individual they were paired with, and they were also more willing to share the food.`,
+stem:`다음 글의 내용과 <b>일치하는</b> 것은?`,
+det:{korean:`"They solved the problem regardless of which individual they were paired with" → 보노보는 어떤 개체와 짝을 이루든 문제를 해결했다.`,
+analysis:`✅ ② 보노보는 어떤 개체와도 문제 해결: 원문 "regardless of which individual" 일치\n❌ ① 침팬지는 새 짝과 실패: "usually failed"\n❌ ③ 본질적으로 같다: "different in nature"\n❌ ④ 보노보는 나눔 거부: "more willing to share"`,
+tip:`내용 일치: regardless of = ~에 상관없이 → 어떤 짝과도 성공`}},
+
+// Q15: 내용이해 불일치 · 어려움 · 6pts
+{id:15,type:`내용이해`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`네안데르탈인은 호모 사피엔스보다 신체적으로 우월했다.`,`호모 사피엔스의 조상들은 더 큰 공동체에서 살았다.`,`네안데르탈인은 도구와 불을 만들 수 있었다.`,`호모 사피엔스는 네안데르탈인보다 먼저 멸종했다.`],
+passage:`Now let\u2019s turn our attention to ourselves, Homo sapiens. How have we managed to survive for so long? Neanderthals existed together with Homo sapiens until about 40,000 years ago, and they were known to be intelligent and physically superior to Homo sapiens. Neanderthals were able to make tools and fire and had strong bodies with well-developed muscles and broad shoulders. Despite these attributes, however, it was Homo sapiens who ultimately survived and thrived.`,
+stem:`다음 글의 내용과 <b>일치하지 않는</b> 것은?`,
+det:{korean:`본문: "it was Homo sapiens who ultimately survived and thrived" → 호모 사피엔스가 살아남았다. 따라서 "호모 사피엔스가 먼저 멸종했다"는 <b>반대</b>.`,
+analysis:`❌ ④ 호모 사피엔스가 먼저 멸종: 원문과 정반대 → "Homo sapiens survived and thrived"\n✅ ① "physically superior" → 일치\n✅ ② "larger communities" → 일치\n✅ ③ "make tools and fire" → 일치`,
+tip:`불일치 문제: 핵심 사실(누가 생존했는가)을 정확히 파악`}},
+
+// Q16: 글의 목적 · 쉬움 · 4pts
+{id:16,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`경쟁의 중요성을 강조하기 위해`,`동물 실험의 윤리적 문제를 제기하기 위해`,`다정함과 협력이 생존의 핵심임을 주장하기 위해`,`네안데르탈인의 생활 방식을 소개하기 위해`],
+passage:`In our competitive society, many people believe that only the biggest or the strongest can survive and thrive. However, I propose an alternative view: kindness is the key to success. Isn\u2019t that a comforting thought? We can use the power of our natural kindness to communicate and cooperate with different individuals. We can all benefit from this instead of trying to be better than others.`,
+stem:`이 글(강연) 전체의 목적으로 가장 적절한 것은?`,
+det:{korean:`"kindness is the key to success" + 개/보노보/호모 사피엔스의 예시 → <b>다정함과 협력이 생존의 핵심</b>`,
+analysis:`✅ ③ 다정함과 협력이 생존의 핵심: "kindness is the key to success"\n❌ ① 경쟁의 중요성: 오히려 이에 반대\n❌ ② 동물 실험 윤리: 언급 없음\n❌ ④ 네안데르탈인 소개: 예시일 뿐 목적 아님`,
+tip:`강연의 목적: 결론부 "kindness is the key to success"가 핵심 주장`}},
+
+// Q17: T/F · 쉬움 · 4pts
+{id:17,type:`T/F`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`True`,`False`],
+passage:`The responsive behavior of dogs also caught the attention of an evolutionary anthropologist, Brian Hare.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Brian Hare is an evolutionary anthropologist.</b>"`,
+det:{korean:`"an evolutionary anthropologist, Brian Hare" → Brian Hare는 진화 인류학자이다. → <b>True</b>`,
+analysis:`✅ True: 본문 "an evolutionary anthropologist, Brian Hare"와 정확히 일치`,
+tip:`직업/신분 확인: 본문에서 명시된 표현과 진술을 대조`}},
+
+// Q18: T/F · 보통 · 5pts
+{id:18,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`True`,`False`],
+passage:`The bonobos, on the other hand, got along much better than the chimpanzees. They solved the problem regardless of which individual they were paired with, and they were also more willing to share the food. This research shows that bonobos have a cooperative and friendly nature.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Bonobos refused to share food with unfamiliar partners.</b>"`,
+det:{korean:`본문: "they were also more willing to share the food" → 보노보는 더 기꺼이 음식을 나누었다. "거부했다(refused)"는 <b>False</b>.`,
+analysis:`❌ False: "more willing to share" ≠ "refused to share" → 정반대`,
+tip:`willing(기꺼이 하는) ↔ refused(거부한) — 의미가 정반대`}},
+
+// Q19: T/F · 어려움 · 6pts
+{id:19,type:`T/F`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`True`,`False`],
+passage:`Now let\u2019s turn our attention to ourselves, Homo sapiens. How have we managed to survive for so long? Neanderthals existed together with Homo sapiens until about 40,000 years ago, and they were known to be intelligent and physically superior to Homo sapiens. Despite these attributes, however, it was Homo sapiens who ultimately survived and thrived. One possible explanation is that our ancestors lived in larger communities that promoted cooperation and the free exchange of knowledge.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Homo sapiens survived because they were physically stronger than Neanderthals.</b>"`,
+det:{korean:`본문: 네안데르탈인이 "physically superior"했다. 호모 사피엔스 생존 이유는 <b>큰 공동체와 협력</b>이지 신체적 힘이 아니다. → <b>False</b>`,
+analysis:`❌ False: 원문 "Neanderthals were physically superior" → 신체적으로는 네안데르탈인이 우월\n호모 사피엔스 생존 이유 = 큰 공동체 + 협력 + 지식 교환`,
+tip:`인과 관계 파악: 생존 이유 ≠ 신체적 힘 → 사회적 협력과 지식 교환`}},
+
+// Q20: T/F · 보통 · 5pts
+{id:20,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`True`,`False`],
+passage:`I\u2019d like to end this talk with a message. Think of our society as a bouquet. Just as each flower adds to the beauty when it harmonizes with the others, each person can contribute to a more beautiful world when they cooperate.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The speaker compares society to a bouquet.</b>"`,
+det:{korean:`"Think of our society as a bouquet" → 우리 사회를 꽃다발에 비유 → <b>True</b>`,
+analysis:`✅ True: "Think of our society as a bouquet" → 사회를 꽃다발에 비유`,
+tip:`Think of A as B = A를 B로 비유하다 → compare A to B와 같은 의미`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','T/F':'tag-tf'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--o)':p>=50?'var(--warn)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--o);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':d.q.ch.length===4?'①②③④':d.q.ch.length===3?'①②③':'①②'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--oxl);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--oxl);color:var(--o)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000);
+let txt=`📝 온라인퀴즈 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+</script>
+</body>
+</html>
