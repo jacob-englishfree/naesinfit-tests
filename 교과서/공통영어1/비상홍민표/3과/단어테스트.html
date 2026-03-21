@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 비상(홍민표) 3과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">공통영어1 비상(홍민표) · 3과 · My Octopus Teacher · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">교과서</span><span class="info-value">공통영어1 비상(홍민표)</span></div>
+    <div class="info-row"><span class="info-label">과</span><span class="info-value">3과</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">My Octopus Teacher</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 비상(홍민표) · <span>3과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1 비상(홍민표)","pub":"3과","lesson":"My Octopus Teacher","title":"My Octopus Teacher","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_common1_bisang_L3_v1"};
+
+const Q=[
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`extraordinary \u2014 cleverness \u2014 regularly`,`ordinary \u2014 cleverness \u2014 regularly`,`extraordinary \u2014 clumsiness \u2014 regularly`,`extraordinary \u2014 cleverness \u2014 rarely`,`ordinary \u2014 clumsiness \u2014 rarely`],
+passage:`Diving in the cold sea, I encountered an <b>(A)</b> creature in the dense seaweed forests. It was an octopus. From a heap of shells, the octopus grabbed a fish and ate it. Her <b>(B)</b> amazed me. I placed my camera near her den and visited <b>(C)</b>, mapping the environment around me.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`빽빽한 해초 숲에서 <b>비범한(extraordinary)</b> 생물을 만났고, 그녀의 <b>영리함(cleverness)</b>에 놀랐으며, <b>정기적으로(regularly)</b> 방문했다.`,
+analysis:`✅ ① extraordinary \u2014 cleverness \u2014 regularly: 원문과 일치\n❌ ② ordinary(평범한): extraordinary의 반의어\n❌ ③ clumsiness(서투름): cleverness의 반의어\n❌ ④ rarely(드물게): regularly의 반의어\n❌ ⑤ 모두 부적절`,
+tip:`extraordinary(비범한) ↔ ordinary(평범한), cleverness(영리함) ↔ clumsiness(서투름), regularly(정기적으로) ↔ rarely(드물게)`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`bittersweet \u2014 reproducing \u2014 sacrifice`,`bittersweet \u2014 reproducing \u2014 survival`,`joyful \u2014 reproducing \u2014 sacrifice`,`bittersweet \u2014 recovering \u2014 sacrifice`,`joyful \u2014 recovering \u2014 survival`],
+passage:`An octopus lives on average about one year, and its life ends after reproducing. At about eight months, I found her with another octopus. It was <b>(A)</b>. After mating, she stayed in her den without feeding or hunting. She had timed her death for the hatching of her eggs. When the eggs hatched, she died. After <b>(B)</b>, her life came to an end. It was a noble <b>(C)</b>.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`다른 문어와 함께 있는 것을 발견한 것은 <b>씁쓸하면서도 달콤한(bittersweet)</b> 감정이었고, <b>번식(reproducing)</b> 후 생이 마감되었으며, 고귀한 <b>희생(sacrifice)</b>이었다.`,
+analysis:`✅ ① bittersweet \u2014 reproducing \u2014 sacrifice: 원문과 일치\n❌ ② survival(생존): sacrifice가 원문\n❌ ③ joyful(기쁜): bittersweet이 원문\n❌ ④ recovering(회복): reproducing이 원문\n❌ ⑤ 모두 부적절`,
+tip:`bittersweet(씁쓸달콤한) = 기쁨과 슬픔이 공존, reproducing(번식) ↔ recovering(회복), sacrifice(희생) ↔ survival(생존)`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`After twenty years of filmmaking, I returned to the sea near the Cape of Good Hope. Diving in the cold sea, I \u2460<u>encountered</u> an extraordinary creature in the dense seaweed forests. From a heap of shells, the octopus grabbed a fish and ate it. Her \u2461<u>cleverness</u> amazed me. When she sensed danger, she \u2462<u>revealed</u> herself by wrapping seaweed around herself. I placed my camera near her \u2463<u>den</u> and visited \u2464<u>regularly</u>.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "she <b>hid</b>"(숨었다). ③ revealed(드러냈다)는 hid의 반의어로 문맥에 부적절하다. 위험을 감지하면 몸을 숨기는 것이 자연스럽다.`,
+analysis:`❌ ③ revealed(드러냈다): 원문 hid(숨었다) → 해초로 몸을 감싸서 숨은 것\n✅ ① encountered(만났다): 원문 일치\n✅ ② cleverness(영리함): 원문 일치\n✅ ④ den(굴): 원문 일치\n✅ ⑤ regularly(정기적으로): 원문 일치`,
+tip:`hid(숨다) ↔ revealed(드러내다) — 위험 감지 → 해초로 감싸서 숨는 행동`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`She was smart, \u2460<u>sensitive</u>, and strong. She was \u2461<u>committed</u> to protecting the birth of her young. Her sacrifice was not that of simply an octopus, but of a creature deeply \u2462<u>connected</u> to this world. She taught me that we are all \u2463<u>isolated</u> from this extraordinary \u2464<u>planet</u>.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "we are all <b>part of</b> this extraordinary planet"(우리 모두 이 행성의 일부). ④ isolated(고립된)는 part of의 반대 의미로 부적절하다.`,
+analysis:`❌ ④ isolated(고립된): 원문 "part of" → 연결/포함 ≠ 고립\n✅ ① sensitive(민감한): 원문 일치\n✅ ② committed(헌신적인): 원문 일치\n✅ ③ connected(연결된): 원문 일치\n✅ ⑤ planet(행성): 원문 일치`,
+tip:`part of(~의 일부) ↔ isolated from(~에서 고립된) — 연결 vs. 단절`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`avoided`,`ignored`,`met`,`lost`],
+passage:`Diving in the cold sea, I <u>encountered</u> an extraordinary creature in the dense seaweed forests.`,
+stem:`밑줄 친 <b>encountered</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`encountered = 만났다, met = 만났다 → 동의어`,
+analysis:`✅ ③ met(만났다): encountered의 동의어\n❌ ① avoided(피했다): 반의어\n❌ ② ignored(무시했다): 다른 의미\n❌ ④ lost(잃었다): 다른 의미`,
+tip:`encounter = meet = come across = 만나다, 마주치다`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`fear`,`wonder`,`anger`,`sadness`],
+passage:`This sparked my curiosity, and I was filled with <u>amazement</u>.`,
+stem:`밑줄 친 <b>amazement</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`amazement = 경이로움, wonder = 경이 → 동의어`,
+analysis:`✅ ② wonder(경이): amazement의 동의어\n❌ ① fear(두려움): 다른 의미\n❌ ③ anger(분노): 다른 의미\n❌ ④ sadness(슬픔): 다른 의미`,
+tip:`amazement = wonder = astonishment = 경이로움, 놀라움`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`distressed`,`confused`,`disappointed`,`comforted`],
+passage:`I was <u>relieved</u> when the shark lost interest and swam away.`,
+stem:`밑줄 친 <b>relieved</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`relieved = 안도한, comforted = 위안을 받은 → 유사 의미`,
+analysis:`✅ ④ comforted(위안을 받은): relieved의 유사어\n❌ ① distressed(괴로운): 반의어\n❌ ② confused(혼란스러운): 다른 의미\n❌ ③ disappointed(실망한): 다른 의미`,
+tip:`relieved = comforted = reassured = 안도한, 안심한`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`remarkable`,`unusual`,`uncommon`,`ordinary`],
+passage:`I encountered an <u>extraordinary</u> creature in the dense seaweed forests.`,
+stem:`밑줄 친 <b>extraordinary</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`extraordinary = 비범한 ↔ ordinary = 평범한`,
+analysis:`❌ ④ ordinary(평범한): extraordinary의 반의어 → 가장 먼 의미\n✅ ① remarkable(주목할 만한): 동의어\n✅ ② unusual(특이한): 유사어\n✅ ③ uncommon(흔치 않은): 유사어`,
+tip:`extraordinary = remarkable = unusual ↔ ordinary = common = normal`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`harsh`,`tough`,`forgiving`,`cruel`],
+passage:`I started spending more time with my family and began diving with my son, sharing this <u>unforgiving</u> but beautiful underwater world.`,
+stem:`밑줄 친 <b>unforgiving</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`unforgiving = 가혹한, 용서 없는 ↔ forgiving = 관대한, 너그러운`,
+analysis:`❌ ③ forgiving(관대한): unforgiving의 반의어 → 가장 먼 의미\n✅ ① harsh(가혹한): 동의어\n✅ ② tough(힘든): 유사어\n✅ ④ cruel(잔인한): 유사어`,
+tip:`unforgiving = harsh = tough ↔ forgiving = lenient = merciful`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`perspective`,`curiosity`,`anxiety`,`sympathy`],
+passage:`After about a month, the octopus came near me. She reached out and waved like a human friend. Then she covered my hand and rode to the surface on my hand. This sparked my __________, and I was filled with amazement.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`문어의 놀라운 행동이 화자의 <b>호기심(curiosity)</b>을 자극했다.`,
+analysis:`✅ ② curiosity(호기심): "sparked" + 놀라운 행동 → 호기심이 자극됨\n❌ ① perspective(관점): 문맥과 부적절\n❌ ③ anxiety(불안): 긍정적 맥락과 불일치\n❌ ④ sympathy(동정): 문맥과 부적절`,
+tip:`spark one's curiosity = 호기심을 자극하다 — "amazement"와 병렬로 긍정적 반응`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`attack`,`sacrifice`,`competition`,`migration`],
+passage:`She was committed to protecting the birth of her young. After mating, she stayed in her den without feeding or hunting. She had timed her death for the hatching of her eggs. It was a noble __________.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`먹이도 먹지 않고 새끼를 위해 죽음의 시기를 맞춘 것은 고귀한 <b>희생(sacrifice)</b>이다.`,
+analysis:`✅ ② sacrifice(희생): 새끼를 위해 목숨을 바침 = 고귀한 희생\n❌ ① attack(공격): 문맥과 무관\n❌ ③ competition(경쟁): 문맥과 무관\n❌ ④ migration(이동): 문맥과 무관`,
+tip:`noble sacrifice = 고귀한 희생 — "timed her death for the hatching"이 핵심 단서`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`coating`,`alternative`,`addition`,`obstacle`],
+passage:`Seaweed can be used as an __________ to plastic coating for hamburger packages. Eco-friendly leather made from pineapple leaves, grape waste, and mushroom is gaining popularity.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`해초를 플라스틱 코팅의 <b>대안(alternative)</b>으로 사용할 수 있다.`,
+analysis:`✅ ② alternative(대안): 플라스틱 대신 사용 = 대안\n❌ ① coating(코팅): 플라스틱 코팅의 대안이지 코팅 자체가 아님\n❌ ③ addition(추가): 대체가 아닌 추가\n❌ ④ obstacle(장애물): 문맥과 반대`,
+tip:`an alternative to ~: ~에 대한 대안 → 기존 것을 대체하는 새로운 방법`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`촉발했다`,`호기심을 자극했다`,`불꽃을 일으켰다`,`시동을 걸었다`],
+passage:`Then she covered my hand and rode to the surface on my hand. This <u>sparked</u> my curiosity.`,
+stem:`밑줄 친 <b>sparked</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`sparked my curiosity = 호기심을 <b>자극했다</b>`,
+analysis:`✅ ② 호기심을 자극했다: spark + curiosity = 호기심을 불러일으키다\n❌ ① 촉발했다: spark a debate와 같은 맥락\n❌ ③ 불꽃을 일으켰다: 물리적 불꽃\n❌ ④ 시동을 걸었다: spark an engine`,
+tip:`spark: 불꽃을 일으키다 | spark curiosity = 호기심을 자극하다 | spark a debate = 논쟁을 촉발하다`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`기능을 멈추다`,`작용하다`,`역할을 하다`,`기능 장애를 일으키다`],
+passage:`I learned that an octopus\u2019s arms <u>function</u> like hands, legs, a nose, and eyes all at once.`,
+stem:`밑줄 친 <b>function</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`function like ~ = ~처럼 <b>역할을 하다</b>`,
+analysis:`✅ ③ 역할을 하다: function like = ~처럼 기능하다/역할하다\n❌ ① 기능을 멈추다: 반대 의미\n❌ ② 작용하다: 가능하지만 "like"와 함께 쓰여 역할 강조\n❌ ④ 기능 장애: 부정적 의미`,
+tip:`function like ~: ~처럼 역할/기능을 하다 — arms function like hands = 팔이 손처럼 기능한다`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`cleverness`,`sacrifice`,`encounter`,`perspective`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"the act of giving up something valued for the sake of something else regarded as more important"</b>`,
+det:{korean:`'더 중요하다고 여겨지는 것을 위해 소중한 것을 포기하는 행위' → <b>sacrifice(희생)</b>`,
+analysis:`✅ ② sacrifice: 영영 정의와 정확히 일치\n❌ ① cleverness(영리함): 다른 의미\n❌ ③ encounter(만남): 다른 의미\n❌ ④ perspective(관점): 다른 의미`,
+tip:`sacrifice = giving up something valued → 희생, 포기`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`amazement`,`curiosity`,`predator`,`tracking`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a strong desire to know or learn something new"</b>`,
+det:{korean:`'새로운 것을 알거나 배우고 싶은 강한 욕구' → <b>curiosity(호기심)</b>`,
+analysis:`✅ ② curiosity: 영영 정의와 일치\n❌ ① amazement(경이로움): 다른 의미\n❌ ③ predator(포식자): 다른 의미\n❌ ④ tracking(추적): 다른 의미`,
+tip:`curiosity = a strong desire to know = 호기심 — "curious"의 명사형`}},
+
+// ━━━ Q17: 어형변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`extraordinary`,accept:[`extraordinary`,`Extraordinary`],
+passage:`Diving in the cold sea, I encountered an __________ (extraordinary) creature in the dense seaweed forests. It was an octopus.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`extraordinary(형용사) → <b>extraordinary(형용사)</b>: 명사 creature를 수식하는 형용사가 필요. 원형 그대로 사용.`,
+analysis:`extraordinary(형용사) → extraordinary(형용사)\n빈칸 뒤 creature(명사)를 수식하는 형용사 필요\nan extraordinary creature = 비범한 생물`,
+tip:`형용사가 명사를 수식: an + 형용사 + 명사 → 변형 불필요 시 원형 그대로`}},
+
+// ━━━ Q18: 어형변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`functional`,accept:[`functional`,`Functional`],
+passage:`I learned that an octopus\u2019s arms are highly __________ (function), serving as hands, legs, a nose, and eyes all at once.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`function(명사/동사) → <b>functional(형용사)</b>: "are highly + 형용사" 구문에서 보어 역할. "매우 기능적인"`,
+analysis:`function(명사/동사) → functional(형용사)\nare highly ____: highly(부사)가 수식하는 형용사 보어 필요\nfunctional = 기능적인, 작동하는`,
+tip:`function → functional / tradition → traditional / emotion → emotional — 명사 → -al 형용사 변환`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`predators`,`den`,`hatching`,`tracking`,`bleeding`],
+passage:`An octopus lives on average about one year, and its life ends after reproducing. After mating, she stayed in her den without feeding or hunting. She had timed her death for the __________ of her eggs. When the eggs hatched, she died.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`그녀는 알의 <b>부화(hatching)</b>에 맞춰 죽음의 시기를 정했다.`,
+analysis:`✅ ③ hatching(부화): "timed her death for the ___" → 알이 부화하는 시기에 맞춤\n❌ ① predators(포식자): 문맥과 무관\n❌ ② den(굴): 문맥과 부적절\n❌ ④ tracking(추적): 문맥과 무관\n❌ ⑤ bleeding(출혈): 문맥과 무관`,
+tip:`hatch = 부화하다 → hatching = 부화 — "When the eggs hatched"가 핵심 단서`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`indifferent`,`committed`,`hostile`,`reluctant`,`confused`],
+passage:`She was smart, sensitive, and strong. She was __________ to protecting the birth of her young. Her sacrifice was not that of simply an octopus, but of a creature deeply connected to this world.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`새끼의 탄생을 보호하는 데 <b>헌신적인(committed)</b>이었다.`,
+analysis:`✅ ② committed(헌신적인): "committed to protecting" = 보호에 전념하는\n❌ ① indifferent(무관심한): 헌신의 반대\n❌ ③ hostile(적대적인): 문맥과 무관\n❌ ④ reluctant(꺼리는): 헌신과 모순\n❌ ⑤ confused(혼란스러운): 문맥과 무관`,
+tip:`be committed to + ~ing: ~에 헌신하다/전념하다 ↔ be indifferent to: ~에 무관심하다`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':d.q.ch.length===4?'①②③④':d.q.ch.length===3?'①②③':'①②'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000);
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+</script>
+</body>
+</html>
