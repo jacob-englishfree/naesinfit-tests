@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>공통영어1 천재(조수경) 2과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">공통영어1 천재(조수경) · 2과 · How Fashion Items Got Their Names · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">교과서</span><span class="info-value">공통영어1 천재(조수경)</span></div>
+    <div class="info-row"><span class="info-label">과</span><span class="info-value">2과</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">How Fashion Items Got Their Names</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 천재(조수경) · <span>2과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"공통영어1 천재(조수경)","pub":"2과","lesson":"How Fashion Items Got Their Names","title":"How Fashion Items Got Their Names","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_common1_chunjo_L2_v1"};
+
+const Q=[
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`derived \u2014 functional \u2014 merchants`,`transformed \u2014 functional \u2014 merchants`,`derived \u2014 luxurious \u2014 merchants`,`derived \u2014 functional \u2014 athletes`,`transformed \u2014 luxurious \u2014 athletes`],
+passage:`The word "jeans" is <b>(A)</b> from the name of an Italian city, Genoa, where sailors wore sturdy cotton pants for <b>(B)</b> purposes. These pants were sold by <b>(C)</b> who traded goods across Europe, and the name gradually changed from "Genes" to "jeans."`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`"jeans"라는 단어는 이탈리아 도시 이름에서 <b>유래되었고(derived)</b>, 선원들이 <b>실용적인(functional)</b> 목적으로 입었으며, 유럽 전역에서 물건을 거래하는 <b>상인들(merchants)</b>이 판매했다.`,
+analysis:`✅ ① derived \u2014 functional \u2014 merchants: 원문과 일치\n❌ ② transformed: 변형된 ≠ 유래된\n❌ ③ luxurious: 호화로운 ≠ 실용적인\n❌ ④ athletes: 운동선수 ≠ 상인\n❌ ⑤ 모두 부적절`,
+tip:`derived from(~에서 유래된) ↔ transformed(변형된), functional(실용적인) ↔ luxurious(호화로운)`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`specifically \u2014 suited \u2014 modified`,`generally \u2014 suited \u2014 modified`,`specifically \u2014 suited \u2014 replaced`,`specifically \u2014 fascinated \u2014 modified`,`generally \u2014 fascinated \u2014 replaced`],
+passage:`T-shirts were <b>(A)</b> designed as undergarments for the U.S. Navy. The simple design was perfectly <b>(B)</b> for physical labor in hot weather. Over time, the garment was <b>(C)</b> and became an outer clothing item worn by people of all ages.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`티셔츠는 <b>특별히(specifically)</b> 속옷으로 디자인되었고, 단순한 디자인이 완벽하게 <b>적합했으며(suited)</b>, 시간이 지나면서 <b>변형되어(modified)</b> 겉옷이 되었다.`,
+analysis:`✅ ① specifically \u2014 suited \u2014 modified: 원문과 일치\n❌ ② generally: 일반적으로 ≠ 특별히\n❌ ③ replaced(대체된): modified(변형된)와 다름\n❌ ④ fascinated(매혹된): suited(적합한)와 다름\n❌ ⑤ 모두 부적절`,
+tip:`specifically(구체적으로) ↔ generally(일반적으로), modified(변형된) ↔ replaced(대체된)`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Fashion has always been a way for people to express themselves. The names of many clothing items have interesting origins. Some are \u2460<u>derived</u> from the names of places, while others were named after the people who \u2461<u>transformed</u> them. Interestingly, many items that are now considered \u2462<u>ancient</u> were originally designed for very practical purposes. Over time, these items were \u2463<u>modified</u> and became popular fashion \u2464<u>items</u>.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "now considered <b>luxurious</b>"(호화로운 것으로 여겨지는). ③ ancient(고대의)는 luxurious(호화로운)와 달리 문맥에 부적절하다.`,
+analysis:`❌ ③ ancient(고대의): 원문 luxurious → 현재 호화로운 것으로 여겨진다는 맥락\n✅ ① derived(유래된): 원문 일치\n✅ ② transformed(변형시킨): 원문 일치\n✅ ④ modified(수정된): 원문 일치\n✅ ⑤ items(품목): 원문 일치`,
+tip:`luxurious(호화로운) ↔ ancient(고대의) — 문맥: 현재 패션 아이템의 가치를 설명`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`The sneaker was originally an \u2460<u>athletic</u> shoe designed for sports. Its rubber sole made it quiet, which is how it got the name "sneaker" \u2014 you could \u2461<u>indicate</u> your presence without making noise. It is \u2462<u>ironic</u> that a shoe designed for activity became known for its \u2463<u>formal</u> appearance. Eventually, sneakers \u2464<u>replaced</u> many traditional shoes in everyday use.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문 맥락에서 고무 바닥 덕분에 몰래 다가갈 수 있어 "sneaker"라는 이름을 얻었으므로, ② indicate(나타내다)는 문맥에 맞지 않고 "sneak up on(몰래 다가가다)"이 적절하다. 그러나 ④ formal(격식 있는)이 가장 부적절하다 — 운동화는 <b>조용한(quiet)</b> 특성으로 유명하지, 격식 있는 외모가 아니다.`,
+analysis:`❌ ④ formal(격식 있는): 운동화가 격식 있는 외모로 유명하다는 것은 문맥에 부적절 → quiet이 적절\n✅ ① athletic(운동의): 원문 일치\n✅ ② indicate(나타내다): 문맥상 sneak의 의미와 연결\n✅ ③ ironic(아이러니한): 원문 일치\n✅ ⑤ replaced(대체했다): 원문 일치`,
+tip:`formal(격식 있는) ↔ quiet(조용한) — sneaker의 핵심 특징은 고무 밑창의 조용함`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`hidden`,`destroyed`,`changed`,`created`],
+passage:`Over time, the garment was <u>transformed</u> and became an outer clothing item.`,
+stem:`밑줄 친 <b>transformed</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`transformed = 변형되었다, changed = 변화되었다 → 동의어`,
+analysis:`✅ ③ changed(변화된): transformed의 동의어\n❌ ① hidden(숨겨진): 다른 의미\n❌ ② destroyed(파괴된): 반대 방향\n❌ ④ created(만들어진): 변형과 다름`,
+tip:`transform = change = alter = convert = 변형하다, 바꾸다`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`replaced`,`showed`,`denied`,`removed`],
+passage:`The design of the shoe <u>indicated</u> its purpose as a sports item.`,
+stem:`밑줄 친 <b>indicated</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`indicated = 나타냈다, showed = 보여주었다 → 동의어`,
+analysis:`✅ ② showed(보여주었다): indicated의 동의어\n❌ ① replaced(대체했다): 다른 의미\n❌ ③ denied(부정했다): 반의어\n❌ ④ removed(제거했다): 다른 의미`,
+tip:`indicate = show = suggest = point out = 나타내다, 보여주다`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`captivated`,`bored`,`confused`,`annoyed`],
+passage:`People were <u>fascinated</u> by the elegant designs of the new fashion items.`,
+stem:`밑줄 친 <b>fascinated</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`fascinated = 매혹되었다, captivated = 매료되었다 → 동의어`,
+analysis:`✅ ① captivated(매료된): fascinated의 동의어\n❌ ② bored(지루해진): 반의어\n❌ ③ confused(혼란스러운): 다른 의미\n❌ ④ annoyed(짜증난): 다른 의미`,
+tip:`fascinated = captivated = enchanted = charmed = 매혹된, 매료된`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`elegant`,`expensive`,`stylish`,`plain`],
+passage:`In the past, only the wealthy could afford <u>luxurious</u> fabrics like silk and velvet.`,
+stem:`밑줄 친 <b>luxurious</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`luxurious = 호화로운 ↔ plain = 수수한, 평범한`,
+analysis:`❌ ④ plain(수수한): luxurious의 반의어 → 가장 먼 의미\n✅ ① elegant(우아한): 유사어\n✅ ② expensive(비싼): 유사어\n✅ ③ stylish(세련된): 유사어`,
+tip:`luxurious = elegant = fancy ↔ plain = simple = modest`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`altered`,`adjusted`,`preserved`,`revised`],
+passage:`The original design was significantly <u>modified</u> to meet modern fashion trends.`,
+stem:`밑줄 친 <b>modified</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`modified = 수정된 ↔ preserved = 보존된`,
+analysis:`❌ ③ preserved(보존된): modified의 반의어 → 가장 먼 의미\n✅ ① altered(변경된): 동의어\n✅ ② adjusted(조정된): 유사어\n✅ ④ revised(수정된): 동의어`,
+tip:`modify = alter = adjust = revise ↔ preserve = maintain = keep = 보존하다`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`transformed`,`replaced`,`derived`,`shortened`],
+passage:`The word "jeans" is __________ from the name of the Italian city Genoa, where sturdy cotton pants were originally worn by sailors.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`"jeans"라는 단어는 이탈리아 도시 Genoa의 이름에서 <b>유래되었다(derived)</b>.`,
+analysis:`✅ ③ derived(유래된): "derived from" = ~에서 유래된\n❌ ① transformed(변형된): 이름의 유래를 설명하는 문맥과 불일치\n❌ ② replaced(대체된): 문맥과 무관\n❌ ④ shortened(줄여진): 유래와 다름`,
+tip:`be derived from = ~에서 유래하다 — 어원 설명 시 자주 사용되는 표현`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`functional`,`luxurious`,`formal`,`ancient`],
+passage:`T-shirts were originally designed as undergarments for the U.S. Navy. The simple design was perfectly suited for physical labor in hot weather, making them highly __________.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`단순한 디자인이 더운 날씨의 육체노동에 완벽하게 적합했으므로 매우 <b>실용적(functional)</b>이었다.`,
+analysis:`✅ ① functional(실용적인): 육체노동 + 더운 날씨 → 실용적 목적\n❌ ② luxurious(호화로운): 속옷/노동복과 불일치\n❌ ③ formal(격식 있는): 속옷과 불일치\n❌ ④ ancient(고대의): 문맥과 무관`,
+tip:`functional = practical = useful = 실용적인 — "suited for physical labor"가 핵심 단서`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`fascinated`,`ironic`,`functional`,`ancient`],
+passage:`Sneakers were designed to be quiet so people could move without making noise. It is __________ that a shoe made for athletic activity became famous not for speed, but for silence.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`운동용으로 만들어진 신발이 속도가 아닌 조용함으로 유명해졌다는 것은 <b>아이러니(ironic)</b>하다.`,
+analysis:`✅ ② ironic(아이러니한): 운동용 → 조용함으로 유명 = 예상과 반대\n❌ ① fascinated(매혹된): 문법적으로 부적절 (It is fascinated X)\n❌ ③ functional(실용적인): 문맥과 불일치\n❌ ④ ancient(고대의): 문맥과 무관`,
+tip:`ironic = 아이러니한, 예상과 반대되는 — "designed for A but known for B" 구조가 단서`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`적합한`,`유래된`,`도출된`,`운전한`],
+passage:`The name "cardigan" is <u>derived</u> from Lord Cardigan, a British military leader.`,
+stem:`밑줄 친 <b>derived</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`derived from = ~에서 <b>유래된</b>`,
+analysis:`✅ ② 유래된: be derived from + 인물 이름 = ~에서 유래하다\n❌ ① 적합한: suited의 의미\n❌ ③ 도출된: 수학/과학 맥락\n❌ ④ 운전한: drove의 의미`,
+tip:`derive: 유래하다 | derive from a name = 이름에서 유래하다 | derive a formula = 공식을 도출하다`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`적합한`,`소송`,`한 벌`,`추구하다`],
+passage:`The tailor made a perfectly <u>suited</u> outfit for the formal occasion.`,
+stem:`밑줄 친 <b>suited</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`suited = <b>적합한</b> (격식 있는 행사에 완벽하게 적합한 의상)`,
+analysis:`✅ ① 적합한: suited for/to = ~에 적합한\n❌ ② 소송: lawsuit\n❌ ③ 한 벌: a suit of clothes\n❌ ④ 추구하다: pursue`,
+tip:`suit: 한 벌(명사) | suited = 적합한(형용사) | lawsuit = 소송 | pursue = 추구하다`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`transformation`,`indication`,`modification`,`fascination`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a small change made to something in order to improve it or make it more suitable"</b>`,
+det:{korean:`'무언가를 개선하거나 더 적합하게 만들기 위한 작은 변화' → <b>modification(수정, 변형)</b>`,
+analysis:`✅ ③ modification: 영영 정의와 정확히 일치 — 개선 목적의 작은 변화\n❌ ① transformation(변환): 큰 변화를 의미\n❌ ② indication(표시): 다른 의미\n❌ ④ fascination(매혹): 다른 의미`,
+tip:`modification = small change for improvement, transformation = big/complete change`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`functional`,`ancient`,`luxurious`,`athletic`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"belonging to a time long ago, especially before the fall of the Roman Empire"</b>`,
+det:{korean:`'아주 오래전, 특히 로마 제국 멸망 이전의 시대에 속하는' → <b>ancient(고대의)</b>`,
+analysis:`✅ ② ancient(고대의): 영영 정의와 일치\n❌ ① functional(실용적인): 다른 의미\n❌ ③ luxurious(호화로운): 다른 의미\n❌ ④ athletic(운동의): 다른 의미`,
+tip:`ancient = very old, from long ago ↔ modern = 현대의`}},
+
+// ━━━ Q17: 어형변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`specifically`,accept:[`specifically`,`Specifically`],
+passage:`T-shirts were __________ (specific) designed as undergarments for the U.S. Navy. The simple design was perfectly suited for physical labor in hot weather.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`specific(형용사) → <b>specifically(부사)</b>: 동사 designed를 수식하는 부사 필요. "특별히, 구체적으로"`,
+analysis:`specific(형용사) → specifically(부사)\n빈칸 뒤 designed(동사)를 수식하는 부사가 필요\nspecifically designed = 특별히 디자인된`,
+tip:`specific → specifically / general → generally / original → originally — 형용사 → -ly 부사 변환`}},
+
+// ━━━ Q18: 어형변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`modification`,accept:[`modification`,`Modification`],
+passage:`The original design of the T-shirt underwent significant __________ (modify) before it became the popular garment we know today.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`modify(동사) → <b>modification(명사)</b>: 형용사 significant 뒤에 명사 필요. "수정, 변형"`,
+analysis:`modify(동사) → modification(명사)\nsignificant(형용사) 뒤에 명사가 필요\nsignificant modification = 상당한 수정`,
+tip:`modify → modification / specify → specification / classify → classification — 동사 → -ation 명사 변환`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`lengthened`,`derived`,`transformed`,`shortened`,`replaced`],
+passage:`The word "jeans" has an interesting history. It comes from "Genes," the French word for the city of Genoa. As English speakers adopted the term, the pronunciation gradually changed. Over time, the word was __________ and simplified, eventually becoming the familiar "jeans" we use today.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`"Genes"라는 단어가 영어 화자들에 의해 <b>줄여져서(shortened)</b> 간소화되어 "jeans"가 되었다.`,
+analysis:`✅ ④ shortened(줄여진): "simplified"와 병렬 + Genes → jeans 변화 = 줄어짐\n❌ ① lengthened(길어진): shortened의 반의어\n❌ ② derived(유래된): 이미 유래 설명 후의 변화 과정\n❌ ③ transformed(변형된): 가능하나 "simplified"와의 병렬에서 shortened이 더 적절\n❌ ⑤ replaced(대체된): 단어 자체의 변화이므로 부적절`,
+tip:`shortened = 줄여진 — "simplified(간소화된)"와 병렬 구조가 핵심 단서`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`indicated`,`replaced`,`fascinated`,`derived`,`shortened`],
+passage:`As fashion evolved, new materials and designs emerged. Traditional leather shoes were gradually __________ by sneakers in many everyday situations. The comfort and practicality of sneakers made them the preferred choice for people of all ages, transforming them from athletic gear into a fashion staple.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`전통적인 가죽 신발이 일상적 상황에서 점차 운동화로 <b>대체되었다(replaced)</b>.`,
+analysis:`✅ ② replaced(대체된): "replaced by" = ~로 대체되다 — 가죽 신발 → 운동화\n❌ ① indicated(나타냈다): 문맥과 불일치\n❌ ③ fascinated(매혹된): 수동태 구조와 불일치\n❌ ④ derived(유래된): 문맥과 불일치\n❌ ⑤ shortened(줄여진): 문맥과 불일치`,
+tip:`replace = substitute = take the place of = 대체하다 — "replaced by"는 수동태로 자주 출제`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':d.q.ch.length===4?'①②③④':d.q.ch.length===3?'①②③':'①②'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000);
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+</script>
+</body>
+</html>
