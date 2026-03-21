@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수능특강 06강 온라인퀴즈TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D5 40%,#FFDDC4);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #F0E8DF;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #E0D8CF;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #E0D8CF;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #E0D8CF;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #E0D8CF;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--warn);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFF3E8,#FFE8D5);border-bottom:1px solid #E0D8CF;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-insert{background:#E0F7FA;color:#00838F;}
+.tag-order{background:#FFF3E0;color:#E65100;}
+.tag-grammar{background:#EDE7F6;color:#5E35B1;}
+.tag-vocab{background:#FCE4EC;color:#C2185B;}
+.tag-blank{background:#E8F6FF;color:#0277BD;}
+.tag-written{background:var(--oxl);color:var(--od);}
+.tag-content{background:#E8F5E9;color:#2E7D32;}
+.tag-tf{background:#FFF8E1;color:#F57F17;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#F0E8DF;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FFFAF5,#FFF5EE);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.q-given-sentence{background:var(--oxl);border:2px solid var(--ol);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px;font-size:13.5px;line-height:1.8;font-weight:600;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #E0D8CF;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:26px;height:26px;background:#F0E8DF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #E0D8CF;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#F0E8DF;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--o);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#FFF3E8,#FFE8D5);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--o),#D97706);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#F0E8DF;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #E0D8CF;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#F0E8DF;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--oxl);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #E0D8CF;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #E0D8CF;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--oxl);color:var(--o);}.expl-tag.tip{background:var(--oxxl);color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--ol);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인퀴즈 TEST</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">2027학년도 EBS수능특강 영어 · 06강 · 주제 파악 · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">시험</span><span class="info-value">2027학년도 EBS수능특강 영어</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">06강 (주제 파악)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Topic Identification (5 passages)</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>06강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"06강","lesson":"주제 파악","title":"Topic Identification","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_suneung_06_v1"};
+
+const P_GW=`Emphasizing speed over frequency can make sense in contexts where everyone is expected to plan around the timetable, including peak-only commute services and very long trips with low demand. In all other contexts, though, it seems to be a common motorist\u2019s error. Roads are there all the time, so their speed is the most important fact that distinguishes them. But transit is only there if it\u2019s coming soon. If you have a car, you can use a road whenever you want and experience its speed. But transit has to exist when you need it (span), and it needs to be coming soon (frequency). Otherwise, waiting time will wipe out any time savings from a faster service. Unless you\u2019re comfortable planning your life around a particular scheduled trip, speed is worthless without frequency, so a transit map that screams about speed and whispers about frequency may simply be planting confusion.`;
+
+const P_EX01=`In the United States, the practice of permitting aliens to vote could be seen as compatible with the idea of an exclusionary citizenship, but that is a hard balance to maintain. If the vote, of all rights, is in the hands of noncitizens, why should they not count as citizens, and the entire distinction between resident alien and citizen be abandoned? Indeed, something like this thought probably lay behind the disappearance of alien voting: with universal adult citizen suffrage after 1920, the only way to maintain an exclusionary kind of citizenship was to restrict the vote to citizens and not residents. But no theory of \u201cactive\u201d democracy can countenance this distinction: the laws concerning our common life must be made by all those who are taking part in it, and residence is the only convincing test of whether someone is taking part \u2014 as is understood almost universally when it comes to questions of which citizens should have a voice in local government.`;
+
+const P_EX02=`When people are asked what any painting hanging on a gallery wall means, no matter how strange it might appear, as is the case with most abstract-expressionist paintings, they tend to find meaning in it because it is located in a gallery. Consider a soda can found thrown away on a city street. If we were to come across this item on the street, we would no doubt view it as a piece of garbage or rubbish. But if we saw the very same object on a pedestal, displayed in an art gallery, signed by some artist, and given a title such as \u201cWaste,\u201d then we would interpret its meaning in a vastly different way. We would, in fact, be inclined to interpret it as an artistic form, descrying a throw-away or materialistic society. Clearly, the can\u2019s location on a sidewalk versus its display on a pedestal in an art gallery will influence how we will interpret it.`;
+
+const P_EX03=`The reliance on the computer as a model for the operations of the human mind may well prove to be as limited as an earlier fascination with behaviorism. Psychologists have already begun to recognize the flaws of the mind-as-computer metaphor. Some have turned to cultural anthropology as a way of understanding the factors outside any particular individual\u2019s brain that help the individual make sense out of the world. Others, such as Jerome Bruner, one of the founders of cognitive psychology, find that the computer analogy carries with it an unfortunate shift \u201cfrom the construction of meaning to the processing of information.\u201d Bruner\u2019s reflections on the limits of the machine model lead him back to a humanistic emphasis on narrative and story-telling as essential ingredients in understanding human cognition, a fascinating intellectual journey that reveals both the power and the limits of computers as guides to the way we think.`;
+
+const P_EX04=`In the escape that reading literature provides through vicarious identification and comparison with other lives, places, and times, we activate our imagination, that uniquely human ability to explore an alternative set of ideas and experiences that are outside our present environment and that may not even be real. As opposed to perception that receives and processes information from the outside world \u2014 light, sound, shape \u2014 and finds meaning in it \u2014 a sunset, a symphony, a house \u2014 in imagination, the process is reversed. Translating the words we read into what they signify, we populate an inner world in which imagery is created from the memory. For example, we read \u201chouse\u201d and picture a representation of a house from memory. It is our imagination, the complex interweaving of perception and memory that literature activates, releasing a latent creativity that pleases. The writer may provide the blueprint, but the reader builds literature\u2019s many rooms, and like any satisfying occupation, literature gratifies our imaginative and creative abilities.`;
+
+const Q=[
+{"id":1,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["대중교통의 운행 빈도 조정의 결과","정확한 대중교통 지도를 설계하는 것의 중요성","대중교통에서 운행 빈도에 가치를 부여하는 것의 중요성","고속 대중교통 시스템을 만드는 것의 영향","통근 서비스의 속도와 운행 빈도를 개선하는 방법"],"passage":P_GW,"stem":"다음 글의 주제로 가장 적절한 것은?","det":{"korean":"속도보다 빈도가 중요하며, 빈도 없는 속도는 가치 없다는 내용.","analysis":"\u2705 \u2462 빈도에 가치 부여: speed is worthless without frequency\n\u274c 나머지: 부분적이거나 무관","tip":"frequency > speed in transit"}},
+{"id":2,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["시민이 가져야 할 정치적 권리에 대한 전통적 견해","진정한 민주주의를 위해 모든 거주자를 투표에 포함시키는 것의 필요성","민주주의에서 대표성 있는 후보를 선출하는 것의 중요성","의사결정에서 거주자 참여를 촉진하는 어려움","다양한 이해관계를 충족하며 정치적 안정을 유지하는 방법"],"passage":P_EX01,"stem":"다음 글의 주제로 가장 적절한 것은?","det":{"korean":"능동적 민주주의에서 거주가 참여의 유일한 기준이며, 모든 거주자를 포함해야 한다는 내용.","analysis":"\u2705 \u2461 거주자 포함 투표: residence is the only convincing test\n\u274c 나머지: 부분적이거나 무관","tip":"residence = the only test of taking part"}},
+{"id":3,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":4,"ch":["예술 운동의 변화가 미술 감상에 미치는 영향","쓸모없어 보이는 재료를 재활용하는 새로운 예술 형식","도시 지역의 오염원으로 보이는 거리의 예술가 활동","예술가의 명성이 갤러리 전시 결정에 미치는 영향","물체가 위치한 곳에 따라 달라지는 해석"],"passage":P_EX02,"stem":"다음 글의 주제로 가장 적절한 것은?","det":{"korean":"같은 물체라도 거리에서는 쓰레기, 갤러리에서는 예술 작품으로 해석됨.","analysis":"\u2705 \u2464 위치에 따른 해석: location influences interpretation\n\u274c 나머지: 무관","tip":"location on sidewalk vs pedestal = different interpretation"}},
+{"id":4,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["인간이 생각하는 방식과 컴퓨터 작동의 유사성","개인이 세상을 이해하는 데 영향을 미치는 다양한 요인","인간 마음을 논할 때 컴퓨터 비유를 사용하는 이유","컴퓨터 모델을 넘어선 인간 인지에 대한 대안적 관점","컴퓨터 기반 사고 모델의 정확도를 높이는 기술"],"passage":P_EX03,"stem":"다음 글의 주제로 가장 적절한 것은?","det":{"korean":"컴퓨터 비유의 한계를 인식하고, 서사/스토리텔링 등 대안적 관점으로 인간 인지를 이해.","analysis":"\u2705 \u2463 대안적 관점: beyond the computer model\n\u274c 나머지: 부분적이거나 무관","tip":"limits of computer metaphor \u2192 narrative/storytelling"}},
+{"id":5,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["언어가 서사 구조에 미치는 영향","역사적 진실을 보존하는 문학의 역할","문학에서 상상력과 사실주의의 갈등","문학적 경험이 부여하는 상상력의 즐거움","문학 분석에서 논리가 상상력보다 우세한 이유"],"passage":P_EX04,"stem":"다음 글의 주제로 가장 적절한 것은?","det":{"korean":"문학이 상상력을 활성화하고, 독자가 내면 세계를 구축하며 창의적 능력을 만족시킨다는 내용.","analysis":"\u2705 \u2463 상상력의 즐거움: imagination, creativity, gratifies\n\u274c 나머지: 부분적이거나 무관","tip":"literature activates imagination, gratifies creative abilities"}},
+{"id":6,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","ans":1,"ch":["distinguish","distinguishes","distinguishing","to distinguish"],"passage":"Roads are there all the time, so their speed is the most important fact that __________ them.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"that절의 동사. 선행사 fact(단수) \u2192 distinguishes.","analysis":"\u2705 \u2461distinguishes: 단수주어(fact)+3인칭 단수\n\u274c 나머지: 수일치 불성립","tip":"fact that distinguishes = 구별하는 사실"}},
+{"id":7,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["locate","located","locating","location"],"passage":"they tend to find meaning in it because it is __________ in a gallery.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"is located = 수동태. 위치해 있다.","analysis":"\u2705 \u2462located: is located = 수동태\n\u274c \u2460locate: 원형\n\u274c \u2461locating: 능동진행\n\u274c \u2463location: 명사","tip":"is located = ~에 위치해 있다"}},
+{"id":8,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["limit","limited","limiting","to limit"],"passage":"The reliance on the computer as a model may well prove to be as __________ as an earlier fascination with behaviorism.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"as limited as = 비교급 구조. 형용사 limited.","analysis":"\u2705 \u2461limited: as+형용사+as 비교\n\u274c 나머지: 형용사 자리 불가","tip":"as limited as = ~만큼 한정된"}},
+{"id":9,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["\u2460","\u2461","\u2462"],"passage":"Translating the words we read into what they \u2460<u>signify</u>, we populate an inner world in which imagery is \u2461<u>creating</u> from the memory. It is our imagination that literature activates, \u2462<u>releasing</u> a latent creativity that pleases.","stem":"밑줄 친 \u2460~\u2462 중 어법상 틀린 것은?","det":{"korean":"imagery is created(수동)가 원문. creating(능동)은 부적합.","analysis":"\u2705 \u2460signify: 의미하다 적절\n\u274c \u2461creating \u2192 created: imagery가 만들어지는(수동)\n\u2705 \u2462releasing: 분사구문(능동) 적절","tip":"imagery is created = 심상이 만들어지다(수동)"}},
+{"id":10,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","ans":2,"ch":["satisfy","satisfied","satisfying","satisfaction"],"passage":"like any __________ occupation, literature gratifies our imaginative and creative abilities.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"satisfying occupation = 만족스러운 직업. 현재분사 형용사.","analysis":"\u2705 \u2462satisfying: 만족스러운(감정 유발)\n\u274c \u2460satisfy: 동사원형\n\u274c \u2461satisfied: 만족한(감정 느낌)\n\u274c \u2463satisfaction: 명사","tip":"satisfying = 만족을 주는 (감정 유발 형용사)"}},
+{"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["speed","accuracy","frequency","distance","schedule"],"passage":"speed is worthless without __________, so a transit map that screams about speed and whispers about it may simply be planting confusion.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈도(frequency) 없는 속도는 가치 없다. frequency가 whispers의 대상.","analysis":"\u2705 \u2462frequency: 빈도\n\u274c 나머지: 문맥 부적합","tip":"speed is worthless without frequency"}},
+{"id":12,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["location","value","origin","meaning"],"passage":"Consider a soda can found thrown away on a city street. If we saw the very same object on a pedestal in an art gallery, signed by some artist, then we would interpret its __________ in a vastly different way.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"같은 물체도 위치에 따라 의미(meaning)가 달라진다.","analysis":"\u2705 \u2463meaning: 의미 해석\n\u274c \u2460location: 위치 자체\n\u274c \u2461value: 가치(유사하나 원문은 meaning)\n\u274c \u2462origin: 기원","tip":"interpret its meaning = 의미를 해석하다"}},
+{"id":13,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["similarities","flaws","advantages","origins","applications"],"passage":"Psychologists have already begun to recognize the __________ of the mind-as-computer metaphor.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"컴퓨터 비유의 결함(flaws)을 인식하기 시작.","analysis":"\u2705 \u2461flaws: 결함\n\u274c \u2460similarities: 유사성\n\u274c \u2462advantages: 장점\n\u274c \u2463origins: 기원\n\u274c \u2464applications: 응용","tip":"recognize the flaws = 결함을 인식하다"}},
+{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"frequency","accept":["frequency","Frequency"],"ch":null,"passage":P_GW,"stem":"다음 글에서 대중교통에서 속도보다 중요하다고 한 것을 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"speed is worthless without frequency.","analysis":"frequency = 운행 빈도","tip":"빈도 = frequency"}},
+{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"residence","accept":["residence","Residence"],"ch":null,"passage":P_EX01,"stem":"다음 글에서 누군가가 공동 생활에 참여하고 있는지를 판단하는 유일한 기준을 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"residence is the only convincing test.","analysis":"residence = 거주","tip":"residence = 거주 (참여 판단 기준)"}},
+{"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"materialistic","accept":["materialistic","Materialistic"],"ch":null,"passage":"We would be inclined to interpret it as an artistic form, descrying a throw-away or __________ (material) society.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"material \u2192 materialistic(형용사). 물질만능주의적 사회.","analysis":"material \u2192 materialistic: 형용사 파생","tip":"materialistic society = 물질만능주의 사회"}},
+{"id":17,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"humanistic","accept":["humanistic","Humanistic"],"ch":null,"passage":"Bruner\u2019s reflections lead him back to a __________ (human) emphasis on narrative and story-telling as essential ingredients in understanding human cognition.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"human \u2192 humanistic(형용사). 인본주의적 강조.","analysis":"human \u2192 humanistic: 형용사 파생","tip":"humanistic = 인본주의적인"}},
+{"id":18,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","ans":0,"ch":["True","False"],"passage":P_GW,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"Roads are there all the time, so their speed is the most important fact that distinguishes them.\"</b>","det":{"korean":"원문에 동일한 문장이 있음. True.","analysis":"\u2705 True: 원문 직접 인용","tip":"원문과 동일 \u2192 True"}},
+{"id":19,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["True","False"],"passage":P_EX02,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"A soda can found on a city street would be interpreted as an artistic form by most people.\"</b>","det":{"korean":"원문: view it as a piece of garbage or rubbish. 거리에서는 쓰레기로 봄. False.","analysis":"\u274c False: garbage/rubbish \u2260 artistic form","tip":"street = garbage, gallery = artistic form"}},
+{"id":20,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","ans":0,"ch":["True","False"],"passage":P_EX04,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"The writer provides the blueprint, but the reader builds literature\u2019s many rooms.\"</b>","det":{"korean":"원문에 동일한 내용이 있음. True.","analysis":"\u2705 True: 원문과 동일","tip":"writer = blueprint, reader = builds"}}
+];
+const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','T/F':'tag-tf'};
+
+const Q=[
+{id:1,type:'문장삽입',diff:'어려움',pts:6,fmt:'mc',ans:2,
+ch:['①','②','③','④'],
+passage:`"Where could it be?" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. <b>①</b> Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. <b>②</b> Suddenly, Sophie saw a familiar sight. "Yes, this must be it," she thought. <b>③</b> Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. <b>④</b> Sophie nodded, smiled brightly, and walked toward the gate.`,
+stem:`다음 글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?<div class="q-given-sentence">In front of her was a wall with flowers painted on it.</div>`,
+det:{korean:`"Yes, this must be it"이라고 생각한 직후, 그녀 앞에 꽃이 그려진 벽이 있었다는 문장이 와야 자연스러움. 그 다음 벽의 색이 바랜 것을 설명.`,analysis:`✅③: "this must be it" 직후 → 꽃 벽 발견 → 색이 바랜 설명으로 연결\n❌①: 아직 길을 찾는 중\n❌②: 익숙한 광경을 보기 전\n❌④: 이미 벽 설명 완료 후`,tip:`대명사 "this must be it"이 가리키는 대상이 바로 뒤에 나와야 자연스러움`}},
+
+{id:2,type:'문장삽입',diff:'어려움',pts:6,fmt:'mc',ans:1,
+ch:['①','②','③','④'],
+passage:`The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. <b>①</b> But his peace was interrupted by the distant roar of engines breaking the calm. <b>②</b> Francis' heart raced; it was wartime, and soldiers often took what they wanted. <b>③</b> Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. <b>④</b> Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home.`,
+stem:`다음 글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?<div class="q-given-sentence">Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders.</div>`,
+det:{korean:`엔진 소리가 평화를 깨뜨린 직후, 군인들이 나타나는 것이 자연스러움. 그 후 Francis의 심장이 빨리 뛰는 것으로 연결.`,analysis:`✅②: 엔진 소리 → 군인 등장 → 심장이 뛰는 반응\n❌①: 아직 평화가 깨지기 전\n❌③: 이미 숨으려고 행동 중\n❌④: 이미 밖으로 나와서 보는 중`,tip:`사건 순서: 엔진 소리 → 군인 등장 → 공포 반응 → 숨기`}},
+
+{id:3,type:'어순배열',diff:'어려움',pts:6,fmt:'written',wa:'pressing down on my mind',
+accept:['pressing down on my mind','Pressing down on my mind'],
+passage:`I felt as if a heavy rock was __________________________________________.`,
+stem:`주어진 단어를 올바른 순서로 배열하시오.<div class="q-given-sentence">down / my / on / pressing / mind</div>`,
+det:{korean:`press down on(~을 짓누르다) + my mind → "마음을 짓누르는" 비유 표현`,analysis:`pressing down on my mind: press down on(~을 짓누르다) + my mind(내 마음)`,tip:`press down on = ~을 짓누르다 / 무거운 돌이 마음을 짓누르는 비유`}},
+
+{id:4,type:'어법',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`After a few nights, we ①<u>ventured</u> out on a hike to 16,000 feet. The group members were all ②<u>experienced</u>, so I couldn't understand why they were climbing so slowly. Having ③<u>trained</u> hard for this, I was in the best shape of my life. Then, as we ④<u>approached</u> 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. In a matter of minutes, I became a basket case, needing assistance just ⑤<u>walk</u>.`,
+stem:`밑줄 친 ①~⑤ 중 어법상 틀린 것은?`,
+det:{korean:`"needing assistance just to walk"에서 '걷기 위해'라는 목적의 to부정사가 필요하다.`,analysis:`❌⑤walk: needing assistance just to walk → to부정사 필요\n✅①ventured: 과거시제 동사\n✅②experienced: 형용사(경험 많은)\n✅③trained: 분사구문(Having trained)\n✅④approached: 과거시제 동사`,tip:`need assistance to V = ~하기 위해 도움이 필요하다`}},
+
+{id:5,type:'어법',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`Vera ①<u>couldn't</u> wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant ②<u>relying</u> on the bus for her commute. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, ③<u>having left</u> her umbrella at the gym. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ④<u>ringing</u> above her head. She was also polite enough not to ask why Vera looked so tired, which was ⑤<u>appreciating</u>.`,
+stem:`밑줄 친 ①~⑤ 중 어법상 틀린 것은?`,
+det:{korean:`"which was appreciated"에서 주어(it)가 감사히 여겨지는 대상이므로 수동태(was appreciated)가 필요하다.`,analysis:`❌⑤appreciating: which was appreciated → 수동태 필요\n✅①couldn't: 조동사 부정\n✅②relying: mean + ~ing(~을 의미하다)\n✅③having left: 완료 분사구문\n✅④ringing: 진행형(was ringing)`,tip:`which was appreciated = 그것은 감사히 여겨졌다 (수동태)`}},
+
+{id:6,type:'어휘',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`It was the day I had been ①<u>preparing</u> for. I drove for an hour and a half to apply for a visa. That same day, I helped three people who didn't know English by ②<u>translating</u> for the immigration officer. Believing things were going ③<u>smoothly</u>, I made my way to the counter. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned ④<u>serious</u>. I didn't expect to hear her words of ⑤<u>acceptance</u>.`,
+stem:`밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?`,
+det:{korean:`빨간 도장, 서류 무시 등 거절 상황이므로 rejection(거절)이 적절. acceptance(수락)는 맥락에 맞지 않음.`,analysis:`❌⑤acceptance(수락): 원문은 rejection(거절). 빨간 도장+서류 무시=거절 상황\n✅①preparing ✅②translating ✅③smoothly ✅④serious`,tip:`rejection(거절) ↔ acceptance(수락)`}},
+
+{id:7,type:'어휘',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`The group members were all ①<u>experienced</u>, so I couldn't understand why they were climbing so slowly — what I thought was a ②<u>ridiculous</u> pace. And, being the rookie, I wanted to prove myself to the group. Why not show off my ③<u>superior</u> conditioning? In a matter of minutes, I became a basket case, needing ④<u>assistance</u> just to walk. Now all I felt was ⑤<u>reward</u> for becoming a burden to the group.`,
+stem:`밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?`,
+det:{korean:`짐이 된 것에 대해 죄책감(guilt)을 느끼는 것이 자연스러움. reward(보상)는 맥락에 맞지 않음.`,analysis:`❌⑤reward(보상): 원문은 guilt(죄책감). 짐이 된 것에 보상을 느끼는 것은 부적절\n✅①experienced ✅②ridiculous ✅③superior ✅④assistance`,tip:`guilt(죄책감) ↔ reward(보상)`}},
+
+{id:8,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:2,
+ch:['instrument','decoration','possession','weapon','melody'],
+passage:`Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious __________, was a source of comfort and joy, especially in these uncertain times.`,
+stem:`윗글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`가장 소중한 소유물(possession). 오르간은 악기이지만 여기서는 "가장 소중한 소유물"로서 위안과 기쁨의 원천으로 표현됨.`,analysis:`✅③possession(소유물): 가장 소중한 소유물\n❌①instrument(악기): 의미는 통하나 precious와의 조합이 부자연스러움\n❌②decoration(장식): 오르간은 장식이 아님\n❌④weapon(무기): 문맥과 무관\n❌⑤melody(멜로디): 오르간 자체가 멜로디는 아님`,tip:`possession = 소유물 / precious possession = 소중한 소유물`}},
+
+{id:9,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:2,
+ch:['vacation','exercise','commute','entertainment','hobby'],
+passage:`Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her __________.`,
+stem:`윗글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`차가 수리 중이라 버스로 통근(commute)해야 했다.`,analysis:`✅③commute(통근): 차 수리 중 → 버스로 통근\n❌①vacation(휴가): 문맥과 무관\n❌②exercise(운동): 버스를 운동에 이용하지 않음\n❌④entertainment(오락): 문맥과 무관\n❌⑤hobby(취미): 문맥과 무관`,tip:`commute = 통근 / 차가 고장 → 버스로 통근`}},
+
+{id:10,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'Believing',
+accept:['Believing','believing'],
+passage:`__________ (believe) things were going smoothly, I made my way to the counter.`,
+stem:`괄호 안의 단어를 어법에 맞게 변형하시오.`,
+det:{korean:`believe → Believing: 분사구문(동시동작/이유), 능동이므로 현재분사. 문장 앞에 위치하므로 대문자 시작.`,analysis:`Believing: 분사구문(능동/동시동작) → 현재분사`,tip:`분사구문: 주어 동일 + 능동 → 현재분사(V-ing)`}},
+
+{id:11,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'Whispering',
+accept:['Whispering','whispering'],
+passage:`__________ (whisper) urgently to his sister, Ellen, he led her to hide behind a tall tree`,
+stem:`괄호 안의 단어를 어법에 맞게 변형하시오.`,
+det:{korean:`whisper → Whispering: 분사구문, 능동/동시동작. 속삭이면서 이끌었다.`,analysis:`Whispering: 분사구문(능동/동시동작) → 현재분사`,tip:`분사구문: 주어 동일 + 능동 → 현재분사(V-ing)`}},
+
+{id:12,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'nausea, headache, and dizziness',
+accept:['nausea, headache, and dizziness','nausea headache and dizziness','nausea, headache, dizziness'],
+passage:P_EX02,
+stem:`다음 글에서 화자가 등산 중 느낀 세 가지 신체 증상을 본문에서 영어로 쓰시오.`,
+det:{korean:`"because of the nausea, headache, and dizziness" → 메스꺼움, 두통, 어지러움`,analysis:`nausea(메스꺼움), headache(두통), dizziness(어지러움) — 본문에서 직접 확인 가능`,tip:`because of 뒤에 나열된 세 가지 증상을 찾기`}},
+
+{id:13,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:0,
+ch:['confused → pleased','confident → embarrassed','thrilled → anxious','relieved → nervous','bored → excited'],
+passage:P_GW,
+stem:`위 글에 드러난 Sophie의 심경 변화로 가장 적절한 것은?`,
+det:{korean:`혼란(Uncertain, unsure) → 기쁨(smiled brightly, finally found)`,analysis:`✅①confused → pleased: 혼란(길을 모름) → 기쁨(집을 찾음)\n❌②: 자신감이 아닌 혼란에서 시작\n❌③: 신남이 아닌 혼란\n❌④: 안도가 아닌 혼란\n❌⑤: 지루함이 아님`,tip:`심경 변화: Uncertain/unsure → smiled brightly/finally found`}},
+
+{id:14,type:'내용이해',diff:'쉬움',pts:4,fmt:'mc',ans:2,
+ch:['pleased → alarmed','anxious → relieved','confident → regretful','delighted → indifferent','disappointed → satisfied'],
+passage:P_EX02,
+stem:`위 글에 드러난 화자의 심경 변화로 가장 적절한 것은?`,
+det:{korean:`자신감(best shape, prove myself) → 후회(guilt, wished I hadn't pushed)`,analysis:`✅③confident → regretful: 자신감 → 후회\n❌①: 기쁨이 아닌 자신감\n❌②: 불안이 아닌 자신감\n❌④: 기쁨이 아닌 자신감\n❌⑤: 실망이 아닌 자신감`,tip:`심경 변화: best shape/prove myself → guilt/wished I hadn't`}},
+
+{id:15,type:'내용이해',diff:'쉬움',pts:4,fmt:'mc',ans:3,
+ch:['ashamed → grateful','indifferent → satisfied','curious → disappointed','exhausted → comforted','encouraged → frustrated'],
+passage:P_EX04,
+stem:`위 글에 드러난 Vera의 심경 변화로 가장 적절한 것은?`,
+det:{korean:`지침(cold, soaked, tired) → 위로(warm scent, friendly face, ease the weight)`,analysis:`✅④exhausted → comforted: 지침 → 위로\n❌①: 부끄러움이 아닌 지침\n❌②: 무관심이 아닌 지침\n❌③: 호기심이 아닌 지침\n❌⑤: 격려가 아닌 지침`,tip:`심경 변화: cold/soaked/tired → warm/friendly face/ease the weight`}},
+
+{id:16,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_GW,
+stem:`"Sophie painted flowers on the wall by herself." (T/F)`,
+det:{korean:`"the same ones she had painted with her father as a child" → 아버지와 함께 그렸음, 혼자가 아님.`,analysis:`❌False: with her father → 혼자가 아닌 아버지와 함께`,tip:`by herself(혼자) vs. with her father(아버지와 함께)`}},
+
+{id:17,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_EX01,
+stem:`"The narrator helped three people get their visas by translating for them." (T/F)`,
+det:{korean:`"I helped three people... Two of them were lucky to get their visas." → 3명을 도왔지만 2명만 비자를 받음.`,analysis:`❌False: 3명을 도왔으나 비자를 받은 것은 2명뿐\n"three people get their visas" → 3명 모두가 비자를 받은 것은 아님`,tip:`helped three people ≠ three people got visas / Two of them만 성공`}},
+
+{id:18,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_EX02,
+stem:`"The narrator was the most experienced member of the hiking group." (T/F)`,
+det:{korean:`"being the rookie" → 신참이었음. 가장 경험 많은 멤버가 아님.`,analysis:`❌False: the rookie(신참) ≠ the most experienced\n"The group members were all experienced" → 다른 멤버들이 경험이 많음`,tip:`rookie = 신참, 초보자 ↔ most experienced`}},
+
+{id:19,type:'T/F',diff:'어려움',pts:6,fmt:'mc',ans:0,
+ch:['True','False'],
+passage:P_EX03,
+stem:`"Francis hid behind a tall tree with his sister before the soldiers reached their home." (T/F)`,
+det:{korean:`"he led her to hide behind a tall tree" → soldiers가 집에 도착하기 전에 숨음. "looked at the soldiers walking toward their home" → 아직 걸어오는 중.`,analysis:`✅True: 나무 뒤에 숨은 후 → 군인들이 집을 향해 걸어오는 것을 봄\n시간 순서: 숨기 → 군인들 접근 중`,tip:`walked toward(~를 향해 걸어갔다) = 아직 도착하지 않음`}},
+
+{id:20,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_EX04,
+stem:`"Vera left her umbrella at home." (T/F)`,
+det:{korean:`"having left her umbrella at the gym" → 집이 아니라 체육관에 두고 옴.`,analysis:`❌False: at the gym ≠ at home\n우산을 집이 아니라 체육관에 두고 옴`,tip:`at home(집) vs. at the gym(체육관) — 장소 정보 정확히 확인`}}
+];
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const markers=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${markers[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--o)':p>=50?'var(--warn)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--o);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const markers=d.q.ch&&d.q.ch.length===5?'①②③④⑤':d.q.ch&&d.q.ch.length===4?'①②③④':d.q.ch&&d.q.ch.length===3?'①②③':'①②';const ua=d.q.fmt==='mc'?(d.ans!==null?markers[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?markers[d.q.ans]:d.q.wa;const open=!d.ok;const det=d.q.det||{};h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--oxl);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--oxl);color:var(--o)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div>${det.korean?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${det.korean}</div>`:''}${det.analysis?`<div class="expl-tag tip">📋 분석</div><div class="expl-box">${det.analysis}</div>`:''}${det.tip?`<div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${det.tip}</div>`:''}</div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인퀴즈 TEST 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+</script>
+</body>
+</html>
