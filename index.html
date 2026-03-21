@@ -1063,6 +1063,14 @@ function parseTestHTML(htmlText) {
     try { ei = (new Function('return ' + eiMatch[1]))(); } catch(e) { console.warn('EI parse error:', e); }
   }
 
+  // Extract passage constants (P_GW, P_EX01~04 etc.)
+  const passageVars = {};
+  const pvRegex = /const\s+(P_\w+)\s*=\s*`([\s\S]*?)`;/g;
+  let pvM;
+  while ((pvM = pvRegex.exec(htmlText)) !== null) {
+    passageVars[pvM[1]] = pvM[2];
+  }
+
   // Extract Q array — bracket matching
   const qIdx = htmlText.search(/const\s+Q\s*=\s*\[/);
   let questions = [];
@@ -1076,11 +1084,9 @@ function parseTestHTML(htmlText) {
     }
     const qStr = htmlText.slice(bracketStart, end);
     try {
-      if (fullPassage) {
-        questions = (new Function('FULL_PASSAGE', 'return ' + qStr))(fullPassage);
-      } else {
-        questions = (new Function('return ' + qStr))();
-      }
+      const argNames = ['FULL_PASSAGE', ...Object.keys(passageVars)];
+      const argVals = [fullPassage || '', ...Object.values(passageVars)];
+      questions = (new Function(...argNames, 'return ' + qStr))(...argVals);
     } catch(e) { console.warn('Q parse error:', e); }
   }
   return { ei, questions, fullPassage };
