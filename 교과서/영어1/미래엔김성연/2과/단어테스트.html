@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>영어1 미래엔(김성연) 2과 온라인단어TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F0FDF4,#E8F5E9 40%,#DCFCE7);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--g),#0D9488);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;box-shadow:0 6px 20px rgba(22,163,74,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8d8ca;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--g);color:var(--g);}
+.history-badge{background:var(--gxl);color:var(--g);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #dde8df;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--g);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--g);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--g);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
+.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#F0FDF4,#E8F5E9);border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0f5f1;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--g);font-weight:800;}
+.q-body{padding:22px;}
+.q-passage{background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-left:4px solid var(--g);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
+.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #dde8df;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
+.choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.12);background:var(--gxxl);}
+.c-num{min-width:26px;height:26px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.written-input{width:100%;padding:14px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#E8F5E9,#C8E6C9);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--g),#15A35A);color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--gd),var(--g));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8efe9;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--g),#4ADE80);transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:#FAFDFB;border-radius:var(--rs);border:1px solid #dde8df;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--gxl);}.info-cell.highlight .ic-value{color:var(--g);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8efe9;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--gl);color:var(--g);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--gxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0dcd2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--g);color:var(--g);}.act-btn.primary{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:#FAFDFB;display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:#F0F8F1;}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인단어 TEST</div>
+  <h1 class="start-title">온라인단어 <span>TEST</span></h1>
+  <p class="start-subtitle">영어1 미래엔(김성연) · 2과 · Generation Gap · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">교과서</span><span class="info-value">영어1 미래엔(김성연)</span></div>
+    <div class="info-row"><span class="info-label">과</span><span class="info-value">2과</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Seeing Through the Generation Gap</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어1 미래엔(김성연) · <span>2과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="exam-nav" id="navDots"></div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"영어1 미래엔(김성연)","pub":"2과","lesson":"Generation Gap","title":"Seeing Through the Generation Gap","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_eng1_mirae_L2_v1"};
+
+const Q=[
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`classify \u2014 cohort \u2014 distinct`,`identify \u2014 cohort \u2014 distinct`,`classify \u2014 lifecycle \u2014 distinct`,`classify \u2014 cohort \u2014 similar`,`identify \u2014 lifecycle \u2014 similar`],
+passage:`Let us look at how sociologists <b>(A)</b> generations. One factor that shapes generational characteristics is the <b>(B)</b> effect. People born around the same time are often socialized by similar political, economic, and social events, which can shape their attitudes and beliefs in <b>(C)</b> ways.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`사회학자들이 세대를 <b>분류(classify)</b>하고, <b>코호트(cohort)</b> 효과가 세대 특성을 형성하며, 태도와 신념이 <b>뚜렷한(distinct)</b> 방식으로 형성된다.`,
+analysis:`✅ ① classify \u2014 cohort \u2014 distinct: 원문과 일치\n❌ ② identify: 분류가 아닌 확인\n❌ ③ lifecycle: cohort effect가 원문\n❌ ④ similar: distinct의 반의어\n❌ ⑤ 모두 부적절`,
+tip:`classify(분류하다) ↔ identify(확인하다), cohort(코호트) ↔ lifecycle(생애주기), distinct(뚜렷한) ↔ similar(비슷한)`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`perceived \u2014 diligent \u2014 hasty`,`perceived \u2014 lazy \u2014 hasty`,`recognized \u2014 diligent \u2014 careful`,`perceived \u2014 diligent \u2014 careful`,`recognized \u2014 lazy \u2014 hasty`],
+passage:`For instance, millennials were initially <b>(A)</b> as less committed to their work, but as they aged, they proved to be just as <b>(B)</b> as previous generations. Therefore, we should not make <b>(C)</b> judgments based on generation labels.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`밀레니얼은 처음에 덜 헌신적이라고 <b>인식(perceived)</b>되었지만, <b>근면(diligent)</b>함을 증명했고, <b>성급한(hasty)</b> 판단을 하지 말아야 한다.`,
+analysis:`✅ ① perceived \u2014 diligent \u2014 hasty: 원문과 일치\n❌ ② lazy: diligent의 반의어\n❌ ③ careful: hasty의 반의어\n❌ ④ careful: hasty의 반의어\n❌ ⑤ lazy + recognized: 부적절`,
+tip:`perceived(인식된) ↔ recognized(인정된), diligent(근면한) ↔ lazy(게으른), hasty(성급한) ↔ careful(신중한)`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Have you ever had a \u2460<u>conflict</u> with your parents or other adults? If so, you are not alone. The generational conflict is a social \u2461<u>phenomenon</u> that has existed for as long as human civilization. Older generations have always \u2462<u>praised</u> younger ones. But what exactly is a generation?`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "always <b>complained about</b>"(항상 불평해 왔다). ③ praised(칭찬했다)는 complained about의 반의어로 문맥에 부적절하다.`,
+analysis:`❌ ③ praised(칭찬했다): 원문 complained about(불평했다) → 세대 간 갈등 맥락에서 칭찬은 부적절\n✅ ① conflict(갈등): 원문 일치\n✅ ② phenomenon(현상): 원문 일치\n✅ ④ 해당 없음\n✅ ⑤ 해당 없음`,
+tip:`complained about(불평했다) ↔ praised(칭찬했다) — 세대 갈등 맥락에서 불평이 자연스러움`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`One factor that shapes generational characteristics is the cohort effect. People born around the same time are often \u2460<u>socialized</u> by similar political, economic, and social events, which can shape their \u2461<u>attitudes</u> and beliefs in \u2462<u>distinct</u> ways. For example, those who experienced the IMF crisis in 1997 may \u2463<u>neglect</u> job stability. Generation Z, having grown up as digital natives \u2464<u>accustomed</u> to technology, may lack some traditional social skills.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "may <b>prioritize</b> job stability"(직업 안정성을 우선시하다). ④ neglect(무시하다)는 prioritize의 반의어로 부적절하다.`,
+analysis:`❌ ④ neglect(무시하다): 원문 prioritize(우선시하다) → IMF 위기 경험 → 직업 안정성 우선\n✅ ① socialized(사회화된): 원문 일치\n✅ ② attitudes(태도): 원문 일치\n✅ ③ distinct(뚜렷한): 원문 일치\n✅ ⑤ accustomed(익숙한): 원문 일치`,
+tip:`prioritize(우선시하다) ↔ neglect(무시하다) — IMF 위기 경험자가 직업 안정성을 우선시하는 맥락`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`disagreement`,`tradition`,`categorize`,`simplify`],
+passage:`Let us look at how sociologists <u>classify</u> generations.`,
+stem:`밑줄 친 <b>classify</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`classify = 분류하다, categorize = 분류하다 → 동의어`,
+analysis:`✅ ③ categorize(분류하다): classify의 동의어\n❌ ① disagreement(불일치): 다른 의미\n❌ ② tradition(전통): 다른 의미\n❌ ④ simplify(단순화하다): 다른 의미`,
+tip:`classify = categorize = sort = 분류하다`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`ignored`,`denied`,`criticized`,`regarded`],
+passage:`Millennials were initially <u>perceived</u> as less committed to their work.`,
+stem:`밑줄 친 <b>perceived</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`perceived = 인식된, regarded = 간주된 → 유사 의미`,
+analysis:`✅ ④ regarded(간주된): perceived의 동의어\n❌ ① ignored(무시된): 반대\n❌ ② denied(부인된): 다른 의미\n❌ ③ criticized(비판받은): 인식과 다름`,
+tip:`perceive = regard = view = consider: ~로 인식하다/간주하다`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`maintain`,`change`,`predict`,`create`],
+passage:`Major life events such as leaving home, getting married, or having children can <u>alter</u> a person\u2019s values and perspectives.`,
+stem:`밑줄 친 <b>alter</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`alter = 변화시키다, change = 바꾸다 → 동의어`,
+analysis:`✅ ② change(바꾸다): alter의 동의어\n❌ ① maintain(유지하다): 반의어\n❌ ③ predict(예측하다): 다른 의미\n❌ ④ create(만들다): 다른 의미`,
+tip:`alter = change = modify = transform: 변화시키다`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`quick`,`reckless`,`impulsive`,`careful`],
+passage:`We should not make <u>hasty</u> judgments based on generation labels.`,
+stem:`밑줄 친 <b>hasty</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`hasty = 성급한 ↔ careful = 신중한`,
+analysis:`❌ ④ careful(신중한): hasty의 반의어 → 가장 먼 의미\n✅ ① quick(빠른): 유사어\n✅ ② reckless(무모한): 유사어\n✅ ③ impulsive(충동적인): 유사어`,
+tip:`hasty = quick = reckless = impulsive ↔ careful = cautious = deliberate`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`hardworking`,`dedicated`,`lazy`,`industrious`],
+passage:`As they aged, they proved to be just as <u>diligent</u> as previous generations.`,
+stem:`밑줄 친 <b>diligent</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`diligent = 근면한 ↔ lazy = 게으른`,
+analysis:`❌ ③ lazy(게으른): diligent의 반의어 → 가장 먼 의미\n✅ ① hardworking(열심히 일하는): 동의어\n✅ ② dedicated(헌신적인): 유사어\n✅ ④ industrious(부지런한): 동의어`,
+tip:`diligent = hardworking = industrious = dedicated ↔ lazy = idle = indolent`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`instability`,`stability`,`flexibility`,`mobility`],
+passage:`For example, those who experienced the IMF crisis in 1997 may prioritize job __________. They value secure employment over risk-taking.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`IMF 위기를 경험한 사람들은 직업 <b>안정성(stability)</b>을 우선시한다.`,
+analysis:`✅ ② stability(안정성): IMF 위기 경험 → 안정적 고용 추구\n❌ ① instability(불안정): 우선시할 대상과 반대\n❌ ③ flexibility(유연성): 문맥과 부적절\n❌ ④ mobility(이동성): 문맥과 부적절`,
+tip:`prioritize job stability = 직업 안정성을 우선시하다 — 위기 경험이 안정 추구로 이어짐`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`ignore`,`alter`,`predict`,`repeat`],
+passage:`Another factor is the life cycle effect. Major life events such as leaving home, getting married, or having children can __________ a person\u2019s values and perspectives.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`결혼, 출산 같은 생애 사건이 가치관과 관점을 <b>변화시킬(alter)</b> 수 있다.`,
+analysis:`✅ ② alter(변화시키다): 생애 사건 → 가치관 변화\n❌ ① ignore(무시하다): 문맥과 반대\n❌ ③ predict(예측하다): 변화가 아닌 예측\n❌ ④ repeat(반복하다): 문맥과 무관`,
+tip:`alter = change = modify: 변화시키다 — 생애 사건이 가치관을 바꾸는 맥락`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`Understatements`,`Overgeneralizations`,`Specifications`,`Qualifications`],
+passage:`Therefore, we should not make hasty judgments based on generation labels. __________ can lead to misunderstandings and prejudice. Instead, we should try to understand each other as individuals.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`성급한 판단 + 세대 라벨 → <b>과잉 일반화(Overgeneralizations)</b>가 오해와 편견으로 이어진다.`,
+analysis:`✅ ② Overgeneralizations(과잉 일반화): hasty judgments → 일반화 → 오해/편견\n❌ ① Understatements(과소표현): 반대 방향\n❌ ③ Specifications(구체화): 일반화와 반대\n❌ ④ Qualifications(자격): 문맥과 무관`,
+tip:`overgeneralization: over(과도한) + generalization(일반화) = 과잉 일반화`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`만들었다`,`형성했다`,`깎았다`,`모양을 만들었다`],
+passage:`People born around the same time are often socialized by similar political, economic, and social events, which can <u>shape</u> their attitudes and beliefs in distinct ways.`,
+stem:`밑줄 친 <b>shape</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`shape their attitudes = 태도를 <b>형성하다</b>`,
+analysis:`✅ ② 형성했다: shape = 형성하다/만들다 (추상적 의미)\n❌ ① 만들었다: 물리적 제작\n❌ ③ 깎았다: 물리적 가공\n❌ ④ 모양을 만들었다: 물리적 의미`,
+tip:`shape: 모양을 만들다 | shape attitudes = 태도를 형성하다 | shape policy = 정책을 결정짓다`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`나이가 있는`,`성숙한`,`나이를 먹으면서`,`늙어가는`],
+passage:`Millennials were initially perceived as less committed to their work, but as they <u>aged</u>, they proved to be just as diligent as previous generations.`,
+stem:`밑줄 친 <b>aged</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`as they aged = 그들이 <b>나이를 먹으면서</b> (시간이 지나면서)`,
+analysis:`✅ ③ 나이를 먹으면서: aged = 나이가 들다 (동사)\n❌ ① 나이가 있는: 형용사적 의미\n❌ ② 성숙한: 다른 의미\n❌ ④ 늙어가는: 부정적 뉘앙스`,
+tip:`age(동사): 나이가 들다 | as they aged = 나이가 들면서 | aged(형용사) = 나이 든`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`phenomenon`,`cohort`,`conflict`,`instability`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a group of people born around the same time who share similar experiences"</b>`,
+det:{korean:`'비슷한 시기에 태어나 비슷한 경험을 공유하는 사람들의 집단' → <b>cohort(코호트, 동일 세대 집단)</b>`,
+analysis:`✅ ② cohort: 영영 정의와 정확히 일치\n❌ ① phenomenon(현상): 다른 의미\n❌ ③ conflict(갈등): 다른 의미\n❌ ④ instability(불안정): 다른 의미`,
+tip:`cohort = 같은 시기에 태어난 집단 → cohort effect의 핵심 개념`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`committed`,`diligent`,`perceived`,`adventurous`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"showing care and effort in one\u2019s work or duties; hardworking"</b>`,
+det:{korean:`'일이나 의무에 주의와 노력을 기울이는; 부지런한' → <b>diligent(근면한)</b>`,
+analysis:`✅ ② diligent(근면한): hardworking과 동의어, 영영 정의와 일치\n❌ ① committed(헌신적인): 비슷하나 정의와 정확히 불일치\n❌ ③ perceived(인식된): 다른 의미\n❌ ④ adventurous(모험적인): 다른 의미`,
+tip:`diligent = hardworking = industrious: 근면한, 부지런한`}},
+
+// ━━━ Q17: 어형변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`generational`,accept:[`generational`,`Generational`],
+passage:`The __________ (generation) conflict is a social phenomenon that has existed for as long as human civilization. Older generations have always complained about younger ones.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`generation(명사) → <b>generational(형용사)</b>: 명사 conflict를 수식하는 형용사 필요. "세대 간의 갈등"`,
+analysis:`generation(명사) → generational(형용사)\n빈칸 뒤 conflict(명사)를 수식하는 형용사 필요\ngenerational conflict = 세대 간 갈등`,
+tip:`generation → generational / tradition → traditional / nation → national — 명사 → -al 형용사 변환`}},
+
+// ━━━ Q18: 어형변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`instability`,accept:[`instability`,`Instability`],
+passage:`For example, those who experienced the IMF crisis in 1997 were affected by economic __________. (unstable) As a result, they may prioritize job stability.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`unstable(형용사) → <b>instability(명사)</b>: 전치사 by 뒤 + economic 다음에 명사 필요. "경제적 불안정"`,
+analysis:`unstable(형용사) → instability(명사)\neconomic ___: 형용사 뒤 명사가 필요\neconomic instability = 경제적 불안정`,
+tip:`unstable → instability / stable → stability — 형용사 → 명사 변환 (접두사 in- 유지)`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`praise`,`criticize`,`understand`,`compete`,`ignore`],
+passage:`Therefore, we should not make hasty judgments based on generation labels. Overgeneralizations can lead to misunderstandings and prejudice. Instead, we should try to __________ each other as individuals.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`성급한 판단 대신 서로를 개인으로서 <b>이해(understand)</b>하려고 노력해야 한다.`,
+analysis:`✅ ③ understand(이해하다): "instead" + 개인으로서 → 이해 = 올바른 태도\n❌ ① praise(칭찬하다): 문맥과 불일치\n❌ ② criticize(비판하다): hasty judgments와 같은 방향\n❌ ④ compete(경쟁하다): 문맥과 무관\n❌ ⑤ ignore(무시하다): 이해와 반대`,
+tip:`instead(대신): 앞의 부정적 행동(성급한 판단)과 반대되는 긍정적 행동 → understand`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`relaxed`,`committed`,`indifferent`,`hostile`,`confused`],
+passage:`For instance, millennials were initially perceived as less __________ to their work, but as they aged, they proved to be just as diligent as previous generations.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`밀레니얼은 처음에 일에 덜 <b>헌신적(committed)</b>이라고 인식되었지만, 나이가 들면서 근면함을 증명했다.`,
+analysis:`✅ ② committed(헌신적인): "less committed to their work" → 뒤에 diligent로 반전\n❌ ① relaxed(편안한): 문맥과 부적절\n❌ ③ indifferent(무관심한): 너무 강한 표현\n❌ ④ hostile(적대적인): 문맥과 무관\n❌ ⑤ confused(혼란스러운): 문맥과 무관`,
+tip:`committed to = ~에 헌신적인 — "less committed but later diligent" = 반전 구조`}}
+];
+
+
+let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
+function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
+function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
+updateHCount();
+function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
+function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
+function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
+function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--g)':p>=50?'var(--o)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
+if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':d.q.ch.length===4?'①②③④':d.q.ch.length===3?'①②③':'①②'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000);
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+</script>
+</body>
+</html>
