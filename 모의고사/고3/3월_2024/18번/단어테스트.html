@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -82,17 +81,17 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div class="start-container">
   <div class="brand-badge">📝 온라인단어 TEST</div>
   <h1 class="start-title">온라인단어 <span>TEST</span></h1>
-  <p class="start-subtitle">2024 고3 3월 모의고사 · 18번 · 글의 목적 · 20문항</p>
+  <p class="start-subtitle">2024 고3 3월 모의고사 · 18번 · 주장 · 20문항</p>
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2024 고3 3월 모의고사</span></div>
     <div class="info-row"><span class="info-label">문항</span><span class="info-value">18번 (글의 목적)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">회사 이직 알림 편지</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Leaving Lewis Ltd.</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고3</option><option>고2</option><option>고1</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -106,31 +105,109 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2024 고3 3월 모의고사","pub":"18번","lesson":"글의 목적","title":"회사 이직 알림 편지","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2024_g3_mar_18"};
+const EI={"subject":"2024 고3 3월 모의고사","pub":"18번","lesson":"글의 목적","title":"Leaving Lewis Ltd.","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2024_g3_mar_18_v1"};
 
 const FULL_PASSAGE=`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decision to make, but I am confident that my new role will help me with my future goals. My last day of work will be on April 30th. I will do all I can to assist in a smooth transfer of duties. I wish both you and Lewis Ltd. every good fortune.`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`privilege — worthless — accepted`,`privilege — invaluable — accepted`,`burden — invaluable — rejected`,`privilege — invaluable — rejected`,`burden — worthless — accepted`],passage:`It has been a <b>(A)</b> to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been <b>(B)</b>. However, after careful consideration, I have <b>(C)</b> a position at another company and will be leaving Lewis Ltd.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`이 회사에서 근무한 것은 <b>특권(privilege)</b>이었습니다. 경험과 통찰은 <b>매우 귀중했습니다(invaluable)</b>. 다른 회사의 직책을 <b>수락했습니다(accepted)</b>.`,analysis:`✅ ② privilege — invaluable — accepted: 원문 일치\n❌ ① worthless: invaluable의 반의어\n❌ ③ burden/rejected: privilege와 accepted의 반의어\n❌ ④ rejected: accepted의 반의어\n❌ ⑤ burden/worthless: 둘 다 반의어`,tip:`privilege(특권)↔burden(짐), invaluable(매우 귀중한)↔worthless(가치없는), accepted(수락)↔rejected(거절)`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`confident — smooth — fortune`,`confident — rough — fortune`,`doubtful — smooth — misfortune`,`confident — smooth — misfortune`,`doubtful — rough — fortune`],passage:`This was not an easy decision to make, but I am <b>(A)</b> that my new role will help me with my future goals. My last day of work will be on April 30th. I will do all I can to assist in a <b>(B)</b> transfer of duties. I wish both you and Lewis Ltd. every good <b>(C)</b>.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`새 역할이 도움이 될 것이라고 <b>확신합니다(confident)</b>. <b>원활한(smooth)</b> 업무 이관을 돕겠습니다. <b>행운(fortune)</b>을 빕니다.`,analysis:`✅ ① confident — smooth — fortune: 원문 일치\n❌ ② rough: smooth의 반의어\n❌ ③ doubtful/misfortune: confident와 fortune의 반의어\n❌ ④ misfortune: fortune의 반의어\n❌ ⑤ doubtful/rough: 둘 다 반의어`,tip:`confident(확신하는)↔doubtful(의심하는), smooth(원활한)↔rough(거친), fortune(행운)↔misfortune(불행)`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have ①<u>gained</u> as a safety manager have been invaluable. However, after ②<u>careful</u> consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decision to make, but I am ③<u>doubtful</u> that my new role will help me with my future goals. My last day of work will be on April 30th. I will do all I can to ④<u>assist</u> in a smooth transfer of ⑤<u>duties</u>.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`새 역할이 도움이 될 것이라고 <b>확신한다(confident)</b>. ③ doubtful(의심하는)은 confident의 반의어로 부적절.`,analysis:`❌ ③ doubtful(의심하는): 원문은 'confident(확신하는)' → 부적절\n✅ ① gained: 얻다 → 적절\n✅ ② careful: 신중한 → 적절\n✅ ④ assist: 돕다 → 적절\n✅ ⑤ duties: 업무 → 적절`,tip:`confident(확신하는) ↔ doubtful(의심하는) — 핵심 반의어`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`It has been a privilege to ①<u>serve</u> in this company for the past four years. The experiences and insights I have gained as a safety manager have been ②<u>invaluable</u>. However, after careful consideration, I have accepted a position at another company and will be ③<u>leaving</u> Lewis Ltd. This was not an easy decision to make, but I am confident that my new role will help me with my future goals. My last day of work will be on April 30th. I will do all I can to assist in a ④<u>chaotic</u> transfer of duties. I wish both you and Lewis Ltd. every good ⑤<u>fortune</u>.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`<b>원활한(smooth)</b> 업무 이관을 돕겠습니다. ④ chaotic(혼란스러운)은 smooth의 반의어로 부적절.`,analysis:`❌ ④ chaotic(혼란스러운): 원문은 'smooth(원활한)' → 부적절\n✅ ① serve: 근무하다 → 적절\n✅ ② invaluable: 매우 귀중한 → 적절\n✅ ③ leaving: 떠나다 → 적절\n✅ ⑤ fortune: 행운 → 적절`,tip:`smooth(원활한) ↔ chaotic(혼란스러운) — 핵심 반의어`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`punishment`,`honor`,`burden`,`routine`],passage:`It has been a <u>privilege</u> to serve in this company.`,stem:`밑줄 친 <b>privilege</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`privilege = 특권, honor = 영광 → 동의어`,analysis:`✅ ② honor: 영광 → privilege의 동의어\n❌ ① punishment: 처벌\n❌ ③ burden: 짐\n❌ ④ routine: 일상`,tip:`privilege = honor = 특권, 영광`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`priceless`,`useless`,`ordinary`,`temporary`],passage:`The experiences and insights I have gained have been <u>invaluable</u>.`,stem:`밑줄 친 <b>invaluable</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`invaluable = 매우 귀중한, priceless = 값을 매길 수 없는 → 동의어`,analysis:`✅ ① priceless: 값을 매길 수 없는 → invaluable의 동의어\n❌ ② useless: 쓸모없는\n❌ ③ ordinary: 평범한\n❌ ④ temporary: 일시적인`,tip:`invaluable = priceless = 매우 귀중한 (주의: invaluable ≠ not valuable)`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`rejected`,`delayed`,`taken on`,`abandoned`],passage:`I have <u>accepted</u> a position at another company.`,stem:`밑줄 친 <b>accepted</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`accepted = 수락한, taken on = 맡은 → 동의어`,analysis:`✅ ③ taken on: 맡은 → accepted의 동의어\n❌ ① rejected: 거절한\n❌ ② delayed: 미룬\n❌ ④ abandoned: 포기한`,tip:`accept = take on = 수락하다, 맡다`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`helpful`,`useful`,`supportive`,`hindering`],passage:`I will do all I can to <u>assist</u> in a smooth transfer.`,stem:`밑줄 친 <b>assist</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`assist = 돕다 ↔ hindering = 방해하는`,analysis:`❌ ④ hindering(방해하는): assist의 반의어 → 가장 먼 의미\n✅ ① helpful: 도움이 되는 → 유사어\n✅ ② useful: 유용한 → 유사어\n✅ ③ supportive: 지지하는 → 유사어`,tip:`assist = help = support ↔ hinder = obstruct = 방해하다`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`uncertain`,`sure`,`positive`,`assured`],passage:`I am <u>confident</u> that my new role will help me.`,stem:`밑줄 친 <b>confident</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`confident = 확신하는 ↔ uncertain = 불확실한`,analysis:`❌ ① uncertain(불확실한): confident의 반의어 → 가장 먼 의미\n✅ ② sure: 확신하는 → 동의어\n✅ ③ positive: 긍정적인 → 유사어\n✅ ④ assured: 확신하는 → 동의어`,tip:`confident = sure = assured ↔ uncertain = doubtful = 불확실한`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`complaints`,`failures`,`insights`,`conflicts`],passage:`It has been a privilege to serve in this company for the past four years. The experiences and __________ I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`안전 관리자로서 얻은 경험과 <b>통찰(insights)</b>은 매우 귀중했습니다.`,analysis:`✅ ③ insights: 통찰 → 원문 일치\n❌ ① complaints: 불만\n❌ ② failures: 실패\n❌ ④ conflicts: 갈등`,tip:`insight = 통찰, 이해 / gain insights = 통찰을 얻다`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`ignored`,`accepted`,`abandoned`,`postponed`],passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have __________ a position at another company and will be leaving Lewis Ltd.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`신중한 고려 끝에, 다른 회사의 직책을 <b>수락했습니다(accepted)</b>.`,analysis:`✅ ② accepted: 수락하다 → 원문 일치\n❌ ① ignored: 무시하다\n❌ ③ abandoned: 포기하다\n❌ ④ postponed: 연기하다`,tip:`accept a position = 직책을 수락하다`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`obstacle`,`conflict`,`complaint`,`transfer`],passage:`This was not an easy decision to make, but I am confident that my new role will help me with my future goals. My last day of work will be on April 30th. I will do all I can to assist in a smooth __________ of duties. I wish both you and Lewis Ltd. every good fortune.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`원활한 업무 <b>이관(transfer)</b>을 돕겠습니다.`,analysis:`✅ ④ transfer: 이관, 이전 → 원문 일치\n❌ ① obstacle: 장애물\n❌ ② conflict: 갈등\n❌ ③ complaint: 불만`,tip:`transfer of duties = 업무 이관, 인수인계`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`봉사하다, 제공하다`,`근무하다, 일하다`,`(음식을) 차려주다`,`(공을) 서브하다`],passage:`It has been a privilege to <u>serve</u> in this company for the past four years.`,stem:`밑줄 친 <b>serve</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`이 회사에서 4년간 <b>근무한(serve)</b> 것은 특권이었다.`,analysis:`✅ ② 근무하다, 일하다: serve in a company = 회사에서 근무하다\n❌ ① 봉사하다: serve the community\n❌ ③ 차려주다: serve dinner\n❌ ④ 서브하다: serve in tennis`,tip:`serve 다의어: 근무하다(회사) / 봉사하다(사회) / 제공하다(음식) / 서브하다(스포츠)`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`직책, 직위`,`위치, 장소`,`자세, 포즈`,`입장, 견해`],passage:`I have accepted a <u>position</u> at another company.`,stem:`밑줄 친 <b>position</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`다른 회사의 <b>직책(position)</b>을 수락했다.`,analysis:`✅ ① 직책, 직위: accept a position = 직책을 수락하다\n❌ ② 위치, 장소: the position of the building\n❌ ③ 자세, 포즈: sleeping position\n❌ ④ 입장, 견해: political position`,tip:`position 다의어: 직책(직장) / 위치(장소) / 자세(몸) / 입장(의견)`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`privilege`,`insight`,`consideration`,`fortune`],passage:`<i>careful thought about something before making a decision</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`결정을 내리기 전 무언가에 대한 신중한 생각 → <b>consideration(고려)</b>`,analysis:`✅ ③ consideration: 고려, 숙고 → 영영 정의와 일치\n❌ ① privilege: 특권\n❌ ② insight: 통찰\n❌ ④ fortune: 행운`,tip:`consideration = careful thought = 신중한 고려`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`duty`,`decision`,`goal`,`fortune`],passage:`<i>good luck or success, especially in life or career</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`인생이나 경력에서의 행운이나 성공 → <b>fortune(행운)</b>`,analysis:`✅ ④ fortune: 행운 → 영영 정의와 일치\n❌ ① duty: 의무\n❌ ② decision: 결정\n❌ ③ goal: 목표`,tip:`fortune = luck = 행운, 성공`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`gained`,accept:[`gained`,`Gained`],passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have __________ (gain) as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`have + 과거분사 → gain → <b>gained</b> (현재완료)`,analysis:`gain → gained: 현재완료(have + p.p.)\n'I have gained' = 내가 얻어온`,tip:`현재완료: have/has + 과거분사(p.p.) — 경험·결과 표현`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`leaving`,accept:[`leaving`,`Leaving`],passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be __________ (leave) Lewis Ltd.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`will be + V-ing → leave → <b>leaving</b> (미래진행형)`,analysis:`leave → leaving: 미래진행형(will be + V-ing)\n'will be leaving' = 떠나게 될 것이다`,tip:`미래진행형: will be + V-ing — 가까운 미래에 진행될 동작`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`업무에 대한 조언을 구하려고`,`다른 부서로의 이동을 요청하려고`,`신규 채용 조건에 대해 안내하려고`,`다른 회사로 이직하게 되었음을 알리려고`],passage:FULL_PASSAGE,stem:`다음 글의 목적으로 가장 적절한 것은? (원래 모의고사 18번 문제)`,det:{korean:`필자는 4년간 근무한 회사를 떠나 다른 회사의 직책을 수락했음을 알리고, 원활한 업무 이관을 돕겠다고 밝히고 있다.`,analysis:`✅ ④ 다른 회사로 이직하게 되었음을 알리려고: 편지 핵심 내용과 일치\n❌ ① 업무 조언 구하기: 언급 없음\n❌ ② 부서 이동 요청: 이직이지 부서 이동이 아님\n❌ ③ 신규 채용 안내: 언급 없음`,tip:`편지 목적 파악: accepted a position at another company → 이직 알림`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`refuse the transfer of duties immediately`,`prepare for a smooth handover before April 30th`,`demand a higher salary from the new company`,`cancel the decision and stay at Lewis Ltd.`],passage:`The writer states: "My last day of work will be on April 30th. I will do all I can to assist in a smooth transfer of duties. I wish both you and Lewis Ltd. every good fortune."\n\nAfter reading this letter, the company would most likely __________.`,stem:`편지를 읽은 후 회사 측에서 가장 가능성 있는 행동은?`,det:{korean:`필자가 4월 30일까지 원활한 업무 이관을 돕겠다고 했으므로, 회사는 <b>4월 30일 전까지 원활한 인수인계를 준비할(prepare for a smooth handover)</b> 것이다.`,analysis:`✅ ② prepare for a smooth handover before April 30th: 업무 이관 준비\n❌ ① refuse: 이관 거부 → 비현실적\n❌ ③ demand: 새 회사에 요구 → 관련 없음\n❌ ④ cancel: 결정 취소 → 이미 수락 완료`,tip:`smooth transfer of duties = 원활한 업무 인수인계`}}
+{id:1,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`privilege — insight — invaluable`,`disgrace — insight — invaluable`,`privilege — ignorance — invaluable`,`privilege — insight — worthless`,`disgrace — ignorance — worthless`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`(A) privilege(영광, 특권), (B) insight(통찰력), (C) invaluable(귀중한, 매우 가치 있는)`,analysis:`✅ ① 정답: 원문과 일치\n❌ ② disgrace: privilege의 반의어\n❌ ③ ignorance: insight의 반의어\n❌ ④ worthless: invaluable의 반의어\n❌ ⑤ 세 단어 모두 반의어`,tip:`privilege↔disgrace, insight↔ignorance, invaluable↔worthless`}},
+{id:2,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`disgrace`,`honor`,`consideration`,`assist`],
+passage:`...privilege...`,
+stem:`밑줄 친 <b>privilege</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`privilege = 영광, 특권, honor = 동의어`,analysis:`✅ ② honor: privilege의 동의어\n❌ ① disgrace: 반의어\n❌ ③ consideration: 다른 의미\n❌ ④ assist: 다른 의미`,tip:`privilege = honor (영광, 특권) ↔ disgrace`}},
+{id:3,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`perception`,`consideration`,`ignorance`,`assist`],
+passage:`...insight...`,
+stem:`밑줄 친 <b>insight</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`insight = 통찰력 ↔ ignorance`,analysis:`❌ ③ ignorance: insight의 반의어 → 가장 먼 의미\n✅ ① perception: 동의어\n✅ ② consideration: 유사어\n✅ ④ assist: 유사어`,tip:`insight = perception ↔ ignorance`}},
+{id:4,type:`영영풀이 매칭`,diff:`어려움`,pts:5,fmt:"mc",ans:2,
+ch:[`invaluable`,`confident`,`insight`,`smooth`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a deep understanding of something"</b>`,
+det:{korean:`'a deep understanding of something' → <b>insight(통찰력)</b>`,analysis:`✅ ③ insight: 영영 정의와 정확히 일치\n❌ ① invaluable: 귀중한, 매우 가치 있는\n❌ ② confident: 확신하는\n❌ ④ smooth: 매끄러운, 순조로운`,tip:`insight = 통찰력: a deep understanding of something`}},
+{id:5,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`worthless`,`confident`,`invaluable`,`smooth`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I h...`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`빈칸에는 <b>invaluable(귀중한, 매우 가치 있는)</b>이 적절하다.`,analysis:`✅ ③ invaluable: 문맥과 일치\n❌ ① worthless: 반의어\n❌ ② confident: 문맥과 맞지 않음\n❌ ④ smooth: 문맥과 맞지 않음`,tip:`invaluable(귀중한, 매우 가치 있는) ↔ worthless`}},
+{id:6,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`④ worthless(→ invaluable): 원문은 invaluable(귀중한, 매우 가치 있는)이므로 worthless은 부적절`,analysis:`❌ ④ worthless: 원문은 invaluable → worthless은 반의어로 부적절\n✅ 나머지: 원문과 일치`,tip:`invaluable(귀중한, 매우 가치 있는) ↔ worthless`}},
+{id:7,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`consideration`,accept:[`consideration`,`Consideration`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I h...`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`consider → <b>consideration</b>: consider(동사) → consideration(명사)`,analysis:`consider(동사) → consideration(명사)`,tip:`consider(동사) → consideration(명사)`}},
+{id:8,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`확신하는`,`매끄러운, 순조로운`,`고려, 숙고`,`행운`],
+passage:`...consideration...`,
+stem:`밑줄 친 <b>consideration</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`consideration = <b>고려, 숙고</b>`,analysis:`✅ ③ 고려, 숙고: 문맥에 가장 적절\n❌ ① 확신하는: 다른 의미\n❌ ② 매끄러운, 순조로운: 다른 의미\n❌ ④ 행운: 다른 의미`,tip:`consideration: 고려, 숙고 (careful thought before making a decision)`}},
+{id:9,type:`빈칸 문맥 완성`,diff:`어려움`,pts:5,fmt:"mc",ans:1,
+ch:[`assist`,`confident`,`transfer`,`doubtful`,`serve`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`빈칸에는 <b>confident(확신하는)</b>이 적절하다.`,analysis:`✅ ② confident: 문맥과 일치\n❌ ① assist: 다른 의미\n❌ ③ transfer: 다른 의미\n❌ ④ doubtful: 반의어\n❌ ⑤ serve: 다른 의미`,tip:`confident(확신하는) ↔ doubtful`}},
+{id:10,type:`동의어 고르기`,diff:`쉬움`,pts:5,fmt:"mc",ans:0,
+ch:[`certain`,`doubtful`,`smooth`,`fortune`],
+passage:`...confident...`,
+stem:`밑줄 친 <b>confident</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`confident = 확신하는, certain = 동의어`,analysis:`✅ ① certain: confident의 동의어\n❌ ② doubtful: 반의어\n❌ ③ smooth: 다른 의미\n❌ ④ fortune: 다른 의미`,tip:`confident = certain ↔ doubtful`}},
+{id:11,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`assist — smooth — transfer`,`hinder — smooth — transfer`,`assist — rough — transfer`,`assist — smooth — retention`,`hinder — rough — retention`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`(A) assist(돕다), (B) smooth(매끄러운, 순조로운), (C) transfer(이전, 인수인계)`,analysis:`✅ ① 정답: 원문과 일치\n❌ ② hinder: assist의 반의어\n❌ ③ rough: smooth의 반의어\n❌ ④ retention: transfer의 반의어\n❌ ⑤ 세 단어 모두 반의어`,tip:`assist↔hinder, smooth↔rough, transfer↔retention`}},
+{id:12,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`hinder`,`help`,`fortune`,`privilege`],
+passage:`...assist...`,
+stem:`밑줄 친 <b>assist</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`assist = 돕다, help = 동의어`,analysis:`✅ ② help: assist의 동의어\n❌ ① hinder: 반의어\n❌ ③ fortune: 다른 의미\n❌ ④ privilege: 다른 의미`,tip:`assist = help (돕다) ↔ hinder`}},
+{id:13,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`seamless`,`fortune`,`rough`,`privilege`],
+passage:`...smooth...`,
+stem:`밑줄 친 <b>smooth</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`smooth = 매끄러운, 순조로운 ↔ rough`,analysis:`❌ ③ rough: smooth의 반의어 → 가장 먼 의미\n✅ ① seamless: 동의어\n✅ ② fortune: 유사어\n✅ ④ privilege: 유사어`,tip:`smooth = seamless ↔ rough`}},
+{id:14,type:`영영풀이 매칭`,diff:`어려움`,pts:5,fmt:"mc",ans:2,
+ch:[`transfer`,`serve`,`smooth`,`insight`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"happening without problems"</b>`,
+det:{korean:`'happening without problems' → <b>smooth(매끄러운, 순조로운)</b>`,analysis:`✅ ③ smooth: 영영 정의와 정확히 일치\n❌ ① transfer: 이전, 인수인계\n❌ ② serve: 근무하다, 봉사하다\n❌ ④ insight: 통찰력`,tip:`smooth = 매끄러운, 순조로운: happening without problems`}},
+{id:15,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`retention`,`serve`,`transfer`,`insight`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I h...`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`빈칸에는 <b>transfer(이전, 인수인계)</b>이 적절하다.`,analysis:`✅ ③ transfer: 문맥과 일치\n❌ ① retention: 반의어\n❌ ② serve: 문맥과 맞지 않음\n❌ ④ insight: 문맥과 맞지 않음`,tip:`transfer(이전, 인수인계) ↔ retention`}},
+{id:16,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`④ retention(→ transfer): 원문은 transfer(이전, 인수인계)이므로 retention은 부적절`,analysis:`❌ ④ retention: 원문은 transfer → retention은 반의어로 부적절\n✅ 나머지: 원문과 일치`,tip:`transfer(이전, 인수인계) ↔ retention`}},
+{id:17,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`fortunate`,accept:[`fortunate`,`Fortunate`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I h...`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`fortune → <b>fortunate</b>: fortune(명사) → fortunate(형용사)`,analysis:`fortune(명사) → fortunate(형용사)`,tip:`fortune(명사) → fortunate(형용사)`}},
+{id:18,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`근무하다, 봉사하다`,`통찰력`,`행운`,`고려, 숙고`],
+passage:`...fortune...`,
+stem:`밑줄 친 <b>fortune</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`fortune = <b>행운</b>`,analysis:`✅ ③ 행운: 문맥에 가장 적절\n❌ ① 근무하다, 봉사하다: 다른 의미\n❌ ② 통찰력: 다른 의미\n❌ ④ 고려, 숙고: 다른 의미`,tip:`fortune: 행운 (good luck or success)`}},
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:5,fmt:"mc",ans:1,
+ch:[`privilege`,`serve`,`invaluable`,`neglect`,`confident`],
+passage:`It has been a privilege to serve in this company for the past four years. The experiences and insights I have gained as a safety manager have been invaluable. However, after careful consideration, I have accepted a position at another company and will be leaving Lewis Ltd. This was not an easy decis...`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`빈칸에는 <b>serve(근무하다, 봉사하다)</b>이 적절하다.`,analysis:`✅ ② serve: 문맥과 일치\n❌ ① privilege: 다른 의미\n❌ ③ invaluable: 다른 의미\n❌ ④ neglect: 반의어\n❌ ⑤ confident: 다른 의미`,tip:`serve(근무하다, 봉사하다) ↔ neglect`}},
+{id:20,type:`동의어 고르기`,diff:`쉬움`,pts:5,fmt:"mc",ans:0,
+ch:[`work`,`neglect`,`insight`,`consideration`],
+passage:`...serve...`,
+stem:`밑줄 친 <b>serve</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`serve = 근무하다, 봉사하다, work = 동의어`,analysis:`✅ ① work: serve의 동의어\n❌ ② neglect: 반의어\n❌ ③ insight: 다른 의미\n❌ ④ consideration: 다른 의미`,tip:`serve = work ↔ neglect`}}
 ];
 
 
@@ -164,8 +241,9 @@ if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
 h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
