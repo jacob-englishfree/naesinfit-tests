@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -86,7 +85,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2025 고1 3월 모의고사</span></div>
     <div class="info-row"><span class="info-label">문항</span><span class="info-value">18번 (글의 목적)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Crafts Art Fair — Helen Dwyer의 편지</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Crafts Art Fair Letter</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
@@ -111,26 +110,183 @@ const EI={"subject":"2025 고1 3월 모의고사","pub":"18번","lesson":"글의
 const FULL_PASSAGE=`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`participating — rejected — entrance`,`participating — assigned — entrance`,`withdrawing — assigned — exit`,`participating — assigned — exit`,`withdrawing — rejected — entrance`],passage:`Dear Miranda,\nThank you for <b>(A)</b> in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the <b>(B)</b> table, number seven. Visitors can easily find your artworks located near the <b>(C)</b>. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`공예 박람회에 <b>참가해(participating)</b> 주셔서 감사합니다. 작품은 <b>지정된(assigned)</b> 테이블에 전시되며, <b>입구(entrance)</b> 근처입니다.`,analysis:`✅ ② participating — assigned — entrance: 원문 일치\n❌ ① rejected: assigned의 반의어\n❌ ③ withdrawing: participating의 반의어\n❌ ④ exit: entrance의 반의어\n❌ ⑤ withdrawing/rejected: 둘 다 반의어`,tip:`participate(참가)↔withdraw(철수), assigned(지정된)↔rejected(거부된), entrance(입구)↔exit(출구)`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`unique — exhibition — assistance`,`common — exhibition — assistance`,`unique — competition — resistance`,`unique — exhibition — resistance`,`common — competition — assistance`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your <b>(A)</b> handmade baskets to our community. As part of organizing the <b>(B)</b> plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further <b>(C)</b>, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`<b>독특한(unique)</b> 수공예 바구니를 소개하며, <b>전시(exhibition)</b> 계획의 일환으로, 추가 <b>도움(assistance)</b>이 필요하면 연락하세요.`,analysis:`✅ ① unique — exhibition — assistance: 원문 일치\n❌ ② common: unique의 반의어\n❌ ③ competition/resistance: 전시가 아닌 경쟁, 도움이 아닌 저항\n❌ ④ resistance: assistance의 반의어\n❌ ⑤ common/competition: 둘 다 부적절`,tip:`unique↔common, exhibition↔competition, assistance↔resistance`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Dear Miranda,\nThank you for ①<u>participating</u> in our Crafts Art Fair. Since we've ②<u>chosen</u> you as one of the 'Artists of This Year', we are looking forward to ③<u>introducing</u> your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be ④<u>hidden</u> at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to ⑤<u>contact</u> us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`작품은 테이블에 <b>전시된다(exhibited)</b>. ④ hidden(숨겨진)은 exhibited의 반의어로 부적절.`,analysis:`❌ ④ hidden(숨겨진): 원문은 'exhibited(전시된)' → 부적절\n✅ ① participating: 참가하다 → 적절\n✅ ② chosen: 선정하다 → 적절\n✅ ③ introducing: 소개하다 → 적절\n✅ ⑤ contact: 연락하다 → 적절`,tip:`exhibited(전시된) ↔ hidden(숨겨진) — 핵심 반의어`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are ①<u>happy</u> to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can ②<u>hardly</u> find your artworks located near the ③<u>entrance</u>. If you have any ④<u>special</u> requirements or need further ⑤<u>assistance</u>, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`방문객들이 작품을 <b>쉽게(easily)</b> 찾을 수 있다. ② hardly(거의 ~못하다)는 easily의 반의어로 부적절.`,analysis:`❌ ② hardly(거의 ~못하다): 원문은 'easily(쉽게)' → 부적절\n✅ ① happy: 기꺼이 → 적절\n✅ ③ entrance: 입구 → 적절\n✅ ④ special: 특별한 → 적절\n✅ ⑤ assistance: 도움 → 적절`,tip:`easily(쉽게) ↔ hardly(거의 ~못하다) — 핵심 반의어`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`rejecting`,`ignoring`,`joining`,`leaving`],passage:`Thank you for <u>participating</u> in our Crafts Art Fair.`,stem:`밑줄 친 <b>participating</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`participating = 참가하다, joining = 참여하다 → 동의어`,analysis:`✅ ③ joining: 참여하다 → participating의 동의어\n❌ ① rejecting: 거부하다\n❌ ② ignoring: 무시하다\n❌ ④ leaving: 떠나다`,tip:`participate = join = take part in = 참가하다`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`selected`,`removed`,`replaced`,`forgotten`],passage:`Since we've <u>chosen</u> you as one of the 'Artists of This Year'.`,stem:`밑줄 친 <b>chosen</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`chosen = 선택한, selected = 선택한 → 동의어`,analysis:`✅ ① selected: 선택한 → chosen의 동의어\n❌ ② removed: 제거한\n❌ ③ replaced: 교체한\n❌ ④ forgotten: 잊혀진`,tip:`choose = select = pick = 선택하다`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`displayed`,`designated`,`destroyed`,`dismissed`],passage:`Your artworks will be exhibited at the <u>assigned</u> table, number seven.`,stem:`밑줄 친 <b>assigned</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`assigned = 지정된, designated = 지정된 → 동의어`,analysis:`✅ ② designated: 지정된 → assigned의 동의어\n❌ ① displayed: 전시된 (다른 의미)\n❌ ③ destroyed: 파괴된\n❌ ④ dismissed: 해고된`,tip:`assign = designate = allocate = 지정·배정하다`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`showing`,`displaying`,`presenting`,`concealing`],passage:`Your artworks will be <u>exhibited</u> at the assigned table.`,stem:`밑줄 친 <b>exhibited</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`exhibited = 전시된 ↔ concealing = 숨기는`,analysis:`❌ ④ concealing(숨기는): exhibited의 반의어 → 가장 먼 의미\n✅ ① showing: 보여주는 → 동의어\n✅ ② displaying: 전시하는 → 동의어\n✅ ③ presenting: 제시하는 → 동의어`,tip:`exhibit = display = show ↔ conceal = hide = 숨기다`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`ordinary`,`special`,`rare`,`distinctive`],passage:`We are looking forward to introducing your <u>unique</u> handmade baskets.`,stem:`밑줄 친 <b>unique</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`unique = 독특한 ↔ ordinary = 평범한`,analysis:`❌ ① ordinary(평범한): unique의 반의어 → 가장 먼 의미\n✅ ② special: 특별한 → 유사어\n✅ ③ rare: 드문 → 유사어\n✅ ④ distinctive: 독특한 → 동의어`,tip:`unique = distinctive = one-of-a-kind ↔ ordinary = common = 평범한`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`refusing`,`canceling`,`introducing`,`withdrawing`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to __________ your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`독특한 수공예 바구니를 우리 지역사회에 <b>소개하기를(introducing)</b> 기대합니다.`,analysis:`✅ ③ introducing: 소개하다 → 원문 일치\n❌ ① refusing: 거부하다\n❌ ② canceling: 취소하다\n❌ ④ withdrawing: 철수하다`,tip:`look forward to + V-ing: ~하기를 기대하다`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`complaints`,`requirements`,`excuses`,`protests`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special __________ or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`특별한 <b>요구 사항(requirements)</b>이 있거나 추가 도움이 필요하면 연락하세요.`,analysis:`✅ ② requirements: 요구 사항 → 원문 일치\n❌ ① complaints: 불만 사항\n❌ ③ excuses: 변명\n❌ ④ protests: 항의`,tip:`requirement = 요구 사항, 필요 조건`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`reject`,`delay`,`cancel`,`contact`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to __________ us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`미리 <b>연락(contact)</b>하시기 바랍니다.`,analysis:`✅ ④ contact: 연락하다 → 원문 일치\n❌ ① reject: 거부하다\n❌ ② delay: 미루다\n❌ ③ cancel: 취소하다`,tip:`feel free to + 동사원형: 편하게 ~하세요 / contact = reach out to`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`공정한, 공평한`,`날씨가 좋은`,`박람회, 전시회`,`피부가 밝은`],passage:`Thank you for participating in our Crafts Art <u>Fair</u>.`,stem:`밑줄 친 <b>Fair</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`Crafts Art Fair에서 fair는 <b>박람회/전시회</b>의 의미로 사용됨.`,analysis:`✅ ③ 박람회, 전시회: Crafts Art Fair = 공예 박람회\n❌ ① 공정한: fair play의 fair\n❌ ② 날씨가 좋은: fair weather의 fair\n❌ ④ 피부가 밝은: fair skin의 fair`,tip:`fair 다의어: 박람회(명사) / 공정한(형용사) / 맑은(형용사)`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`일부분, 역할`,`부품`,`지역`,`편, 파트`],passage:`As <u>part</u> of organizing the exhibition plan, we are happy to inform you.`,stem:`밑줄 친 <b>part</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`전시 계획 조직의 <b>일환(part)</b>으로 → as part of = ~의 일부로`,analysis:`✅ ① 일부분, 역할: as part of = ~의 일부로\n❌ ② 부품: machine part\n❌ ③ 지역: part of the country\n❌ ④ 편, 파트: Part 1, Part 2`,tip:`as part of + 명사 = ~의 일환으로, ~의 일부로`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`participate`,`exhibit`,`organize`,`inform`],passage:`<i>to show something publicly, especially in a museum or gallery</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`박물관이나 갤러리에서 공개적으로 보여주다 → <b>exhibit(전시하다)</b>`,analysis:`✅ ② exhibit: 전시하다 → 영영 정의와 일치\n❌ ① participate: 참가하다\n❌ ③ organize: 조직하다\n❌ ④ inform: 알리다`,tip:`exhibit = display publicly = 공개 전시하다`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`exhibition`,`community`,`requirement`,`assistance`],passage:`<i>help or support given to someone who needs it</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`필요한 사람에게 제공되는 도움이나 지원 → <b>assistance(도움)</b>`,analysis:`✅ ④ assistance: 도움, 지원 → 영영 정의와 일치\n❌ ① exhibition: 전시회\n❌ ② community: 지역사회\n❌ ③ requirement: 요구 사항`,tip:`assistance = help = aid = support = 도움, 지원`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`participating`,accept:[`participating`,`Participating`],passage:`Dear Miranda,\nThank you for __________ (participate) in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`전치사 for 다음에는 동명사가 온다 → participate → <b>participating</b>`,analysis:`participate → participating: 전치사(for) + 동명사(-ing)\n'Thank you for + V-ing' 구문`,tip:`전치사 + 동명사: for/of/about + V-ing (전치사 뒤 동사원형 불가)`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`located`,accept:[`located`,`Located`],passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks __________ (locate) near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`작품이 입구 근처에 <b>위치해 있는(located)</b> → 과거분사(수동)`,analysis:`locate → located: 과거분사(수동)\n'artworks located near' = 입구 근처에 위치한 작품들`,tip:`locate → located (과거분사): ~에 위치한 — 수동 의미의 분사`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,ch:[`공예품 구매 희망자를 소개하려고`,`비상시 박람회장 대피 동선을 안내하려고`,`작품이 전시될 지정 테이블을 알려 주려고`,`올해의 공예가 선정 투표 방식을 공지하려고`],passage:FULL_PASSAGE,stem:`다음 글의 목적으로 가장 적절한 것은? (원래 모의고사 18번 문제)`,det:{korean:`Helen Dwyer가 Miranda에게 보낸 편지의 목적은 <b>작품이 전시될 지정 테이블(assigned table, number seven)</b>을 알려 주는 것이다.`,analysis:`✅ ③ 작품이 전시될 지정 테이블을 알려 주려고: 편지 핵심 내용과 일치\n❌ ① 구매 희망자 소개: 언급 없음\n❌ ② 대피 동선 안내: 언급 없음\n❌ ④ 투표 방식 공지: 이미 선정 완료`,tip:`편지 목적 파악: 핵심 정보(테이블 번호 7, 입구 근처) 전달`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`reject the invitation politely`,`prepare for the art fair confidently`,`cancel her participation immediately`,`change her artwork style completely`],passage:`Helen Dwyer writes to Miranda: "Your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance."\n\nAfter reading this letter, Miranda would most likely __________.`,stem:`편지를 읽은 후 Miranda가 가장 가능성 있는 행동은?`,det:{korean:`편지는 테이블 위치와 도움 제공을 안내하므로, Miranda는 <b>자신 있게 박람회를 준비할(prepare for the art fair confidently)</b> 것이다.`,analysis:`✅ ② prepare for the art fair confidently: 테이블 배정 확인 → 자신감 갖고 준비\n❌ ① reject: 초대 거절 → 이미 참가 확정\n❌ ③ cancel: 취소 → 편지 톤과 반대\n❌ ④ change style: 스타일 변경 → 언급 없음`,tip:`편지의 긍정적 톤(happy to inform, feel free to contact) → 수신자의 긍정적 반응 추론`}}
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`participating — introducing — exhibited`,`competing — introducing — exhibited`,`participating — hiding — exhibited`,`participating — introducing — removed`,`competing — hiding — removed`],
+passage:`Dear Miranda,\nThank you for <b>(A)</b> in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to <b>(B)</b> your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be <b>(C)</b> at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`공예품 박람회에 <b>참여해(participating)</b> 주셔서 감사하고, 바구니를 <b>소개(introducing)</b>하기를 기대하며, 작품이 지정 테이블에 <b>전시될(exhibited)</b> 것이라는 내용.`,
+analysis:`✅ ① participating — introducing — exhibited: 원문과 정확히 일치\n❌ ② competing(경쟁하다): participating의 의미와 다름\n❌ ③ hiding(숨기다): introducing의 반의어\n❌ ④ removed(제거된): exhibited의 반의어\n❌ ⑤ 세 단어 모두 부적절`,
+tip:`participate in(~에 참여하다), introduce(소개하다), exhibit(전시하다)`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`unique — organizing — assigned`,`common — organizing — assigned`,`unique — canceling — assigned`,`unique — organizing — random`,`common — canceling — random`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your <b>(A)</b> handmade baskets to our community. As part of <b>(B)</b> the exhibition plan, we are happy to inform you that your artworks will be exhibited at the <b>(C)</b> table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`당신의 <b>독특한(unique)</b> 수제 바구니를 소개하고, 전시 계획을 <b>조직하는(organizing)</b> 일환으로 <b>지정된(assigned)</b> 테이블에서 전시된다.`,
+analysis:`✅ ① unique — organizing — assigned: 원문 일치\n❌ ② common(흔한): unique의 반의어\n❌ ③ canceling(취소하다): organizing의 반의어\n❌ ④ random(임의의): assigned의 반의어\n❌ ⑤ 세 단어 모두 부적절`,
+tip:`unique(독특한)↔common(흔한), organize(조직하다)↔cancel(취소하다), assigned(지정된)↔random(임의의)`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to ①<u>introducing</u> your unique handmade baskets to our community. As part of organizing the ②<u>exhibition</u> plan, we are happy to ③<u>inform</u> you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily ④<u>overlook</u> your artworks located near the entrance. If you have any special ⑤<u>requirements</u> or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`방문객들이 작품을 쉽게 <b>찾을 수 있다(find)</b>는 의미인데, ④ overlook(간과하다)은 find의 반의어로 부적절.`,
+analysis:`❌ ④ overlook(간과하다): 원문은 find(찾다) → "easily overlook"은 문맥상 반대\n✅ ① introducing(소개하다): 원문 일치\n✅ ② exhibition(전시): 원문 일치\n✅ ③ inform(알려주다): 원문 일치\n✅ ⑤ requirements(요구사항): 원문 일치`,
+tip:`find(찾다) ↔ overlook(간과하다) — "easily" 다음에 find가 자연스러움`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've ①<u>chosen</u> you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our ②<u>competitor</u>. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be ③<u>exhibited</u> at the assigned table, number seven. Visitors can easily find your artworks ④<u>located</u> near the entrance. If you have any special requirements or need further ⑤<u>assistance</u>, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`바구니를 우리 <b>지역 사회(community)</b>에 소개한다는 의미인데, ② competitor(경쟁자)는 community와 전혀 다른 의미.`,
+analysis:`❌ ② competitor(경쟁자): 원문은 community(지역 사회) → 소개 대상이 경쟁자가 아님\n✅ ① chosen(선정한): 원문 일치\n✅ ③ exhibited(전시되는): 원문 일치\n✅ ④ located(위치한): 원문 일치\n✅ ⑤ assistance(도움): 원문 일치`,
+tip:`community(지역 사회) ↔ competitor(경쟁자) — 작품을 소개하는 대상은 지역 사회`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`rejecting`,`ignoring`,`joining`,`avoiding`],
+passage:`Thank you for <u>participating</u> in our Crafts Art Fair.`,
+stem:`밑줄 친 <b>participating</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`participating = 참여하다, joining = 참여하다 → 동의어`,
+analysis:`✅ ③ joining(참여하다): participating의 동의어\n❌ ① rejecting(거부하다): 반의어\n❌ ② ignoring(무시하다): 다른 의미\n❌ ④ avoiding(피하다): 반의어`,
+tip:`participate in = join = take part in = 참여하다`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`hide`,`notify`,`confuse`,`deceive`],
+passage:`We are happy to <u>inform</u> you that your artworks will be exhibited at the assigned table.`,
+stem:`밑줄 친 <b>inform</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`inform = 알려주다, notify = 통지하다 → 동의어`,
+analysis:`✅ ② notify(통지하다): inform의 동의어\n❌ ① hide(숨기다): 반의어\n❌ ③ confuse(혼란시키다): 다른 의미\n❌ ④ deceive(속이다): 다른 의미`,
+tip:`inform = notify = let someone know = 알려주다`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`displayed`,`hidden`,`damaged`,`purchased`],
+passage:`Your artworks will be <u>exhibited</u> at the assigned table, number seven.`,
+stem:`밑줄 친 <b>exhibited</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`exhibited = 전시된, displayed = 전시된 → 동의어`,
+analysis:`✅ ① displayed(전시된): exhibited의 동의어\n❌ ② hidden(숨겨진): 반의어\n❌ ③ damaged(손상된): 다른 의미\n❌ ④ purchased(구매된): 다른 의미`,
+tip:`exhibit = display = show = 전시하다, 보여주다`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`special`,`particular`,`ordinary`,`unusual`],
+passage:`We are looking forward to introducing your <u>unique</u> handmade baskets to our community.`,
+stem:`밑줄 친 <b>unique</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`unique = 독특한 ↔ ordinary = 평범한`,
+analysis:`❌ ③ ordinary(평범한): unique의 반의어 → 가장 먼 의미\n✅ ① special(특별한): 유사어\n✅ ② particular(독특한): 유사어\n✅ ④ unusual(특이한): 유사어`,
+tip:`unique = special = unusual ↔ ordinary = common = typical`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`help`,`aid`,`support`,`hindrance`],
+passage:`If you have any special requirements or need further <u>assistance</u>, feel free to contact us.`,
+stem:`밑줄 친 <b>assistance</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`assistance = 도움 ↔ hindrance = 방해`,
+analysis:`❌ ④ hindrance(방해): assistance의 반의어 → 가장 먼 의미\n✅ ① help(도움): 동의어\n✅ ② aid(도움): 동의어\n✅ ③ support(지원): 유사어`,
+tip:`assistance = help = aid = support ↔ hindrance = obstacle = barrier`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`rejecting`,`participating`,`withdrawing`,`protesting`],
+passage:`Dear Miranda,\nThank you for __________ in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`공예품 박람회에 <b>참여해(participating)</b> 주셔서 감사합니다.`,
+analysis:`✅ ② participating(참여하다): "Thank you for ~ing" + Art Fair 문맥에 적합\n❌ ① rejecting(거부하다): 감사의 맥락과 반대\n❌ ③ withdrawing(철수하다): 문맥과 반대\n❌ ④ protesting(항의하다): 문맥과 무관`,
+tip:`Thank you for participating in = ~에 참여해 주셔서 감사합니다`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`conceal`,`demolish`,`exhibit`,`withdraw`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be __________(ed) at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`작품이 지정 테이블에 <b>전시될(exhibited)</b> 것이다.`,
+analysis:`✅ ③ exhibit(전시하다): "at the assigned table"과 자연스럽게 연결\n❌ ① conceal(숨기다): 반의어\n❌ ② demolish(철거하다): 무관\n❌ ④ withdraw(철수하다): 무관`,
+tip:`exhibit at the assigned table = 지정된 테이블에 전시하다`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`deny`,`postpone`,`restrict`,`contact`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to __________ us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`추가 도움이 필요하면 미리 <b>연락(contact)</b>하라는 의미.`,
+analysis:`✅ ④ contact(연락하다): "feel free to ______ us in advance" → 연락하다가 적절\n❌ ① deny(거부하다): 문맥과 반대\n❌ ② postpone(연기하다): 무관\n❌ ③ restrict(제한하다): 무관`,
+tip:`feel free to contact us = 부담 없이 연락하세요`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`공정한`,`박람회`,`날씨가 맑은`,`상당한`],
+passage:`Thank you for participating in our Crafts Art <u>Fair</u>.`,
+stem:`밑줄 친 <b>Fair</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`Crafts Art Fair = 공예품 <b>박람회</b>`,
+analysis:`✅ ② 박람회: Crafts Art Fair = 공예품 박람회\n❌ ① 공정한: fair play(공정한 경기)\n❌ ③ 날씨가 맑은: fair weather\n❌ ④ 상당한: a fair amount`,
+tip:`fair: 박람회(명사) | 공정한(형용사) | 맑은(형용사) | 상당한(형용사)`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`부분`,`역할`,`부품`,`이별`],
+passage:`As <u>part</u> of organizing the exhibition plan, we are happy to inform you.`,
+stem:`밑줄 친 <b>part</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`전시 계획을 조직하는 <b>일환(part)</b>으로 → as part of = ~의 일부로`,
+analysis:`✅ ① 부분: as part of = ~의 일부/일환으로\n❌ ② 역할: play a part(역할을 하다)\n❌ ③ 부품: car parts(자동차 부품)\n❌ ④ 이별: part ways(헤어지다)`,
+tip:`as part of = ~의 일부/일환으로 | play a part = 역할을 하다`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`participate`,`exhibit`,`organize`,`assist`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"to show or display something publicly for others to see"</b>`,
+det:{korean:`'다른 사람들이 볼 수 있도록 공개적으로 보여주거나 전시하다' → <b>exhibit(전시하다)</b>`,
+analysis:`✅ ② exhibit: 영영 정의와 정확히 일치\n❌ ① participate: 참여하다\n❌ ③ organize: 조직하다\n❌ ④ assist: 돕다`,
+tip:`exhibit = show/display publicly = 공개적으로 전시하다`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`inform`,`exhibit`,`assistance`,`requirement`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"help or support given to someone who needs it"</b>`,
+det:{korean:`'도움이 필요한 사람에게 주어지는 도움이나 지원' → <b>assistance(도움)</b>`,
+analysis:`✅ ③ assistance: 영영 정의와 일치\n❌ ① inform: 알려주다\n❌ ② exhibit: 전시하다\n❌ ④ requirement: 요구사항`,
+tip:`assistance = help = support = 도움, 지원`}},
+
+// ━━━ Q17: 어형 변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`exhibition`,accept:[`exhibition`,`Exhibition`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the __________ (exhibit) plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks located near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`exhibit(동사/명사) → <b>exhibition(명사)</b>: plan을 수식하는 명사가 필요 (exhibition plan = 전시 계획)`,
+analysis:`exhibit → exhibition\n명사 plan 앞에서 수식하는 명사가 필요: exhibition plan = 전시 계획`,
+tip:`exhibit → exhibition / compete → competition — 동사 → -tion/-ition 명사화`}},
+
+// ━━━ Q18: 어형 변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`located`,accept:[`located`,`Located`],
+passage:`Dear Miranda,\nThank you for participating in our Crafts Art Fair. Since we've chosen you as one of the 'Artists of This Year', we are looking forward to introducing your unique handmade baskets to our community. As part of organizing the exhibition plan, we are happy to inform you that your artworks will be exhibited at the assigned table, number seven. Visitors can easily find your artworks __________ (locate) near the entrance. If you have any special requirements or need further assistance, feel free to contact us in advance.\nSincerely,\nHelen Dwyer`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`locate(동사) → <b>located(과거분사)</b>: artworks를 수식하는 과거분사(위치해 있는)`,
+analysis:`locate(동사) → located(과거분사)\nartworks (which are) located near the entrance — 분사구문으로 "위치해 있는"이라는 수동 의미`,
+tip:`locate → located(위치한) — 과거분사가 뒤에서 명사를 수식하는 후치수식 패턴`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`작품이 전시될 지정 테이블을 알려 주려고`,`공예품 구매 희망자를 소개하려고`,`비상시 박람회장 대피 동선을 안내하려고`,`올해의 공예가 선정 투표 방식을 공지하려고`,`박람회에 참여할 새로운 공예가를 모집하려고`],
+passage:FULL_PASSAGE,
+stem:`다음 글의 목적으로 가장 적절한 것은?`,
+det:{korean:`"we are happy to inform you that your artworks will be exhibited at the assigned table, number seven" → <b>작품이 전시될 지정 테이블을 알려 주려고</b>`,
+analysis:`✅ ① 작품이 전시될 지정 테이블을 알려 주려고: "exhibited at the assigned table, number seven"이 핵심\n❌ ② 구매 희망자 소개: 언급 없음\n❌ ③ 대피 동선 안내: 언급 없음\n❌ ④ 투표 방식 공지: 언급 없음\n❌ ⑤ 새로운 공예가 모집: 이미 선정된 상태`,
+tip:`글의 목적: inform(알려주다) + assigned table, number seven → 전시 테이블 안내`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`reject`,`delay`,`contact`,`compete`,`withdraw`],
+passage:FULL_PASSAGE.replace('contact us in advance','__________ us in advance'),
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`특별한 요구사항이 있으면 미리 <b>연락(contact)</b>하라는 의미.`,
+analysis:`✅ ③ contact(연락하다): "feel free to ______ us in advance" + "further assistance" → 연락하다\n❌ ① reject(거부하다): 문맥과 반대\n❌ ② delay(지연하다): 무관\n❌ ④ compete(경쟁하다): 무관\n❌ ⑤ withdraw(철수하다): 무관`,
+tip:`feel free to contact us in advance = 미리 부담 없이 연락하세요`}}
 ];
 
 
@@ -163,10 +319,10 @@ h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.en
 if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
-let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':'①②③④'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});

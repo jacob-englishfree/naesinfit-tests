@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -82,11 +81,11 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div class="start-container">
   <div class="brand-badge">📝 온라인단어 TEST</div>
   <h1 class="start-title">온라인단어 <span>TEST</span></h1>
-  <p class="start-subtitle">2025 고1 3월 모의고사 · 41-42번 · 장문 (제목+어휘) · 20문항</p>
+  <p class="start-subtitle">2025 고1 3월 모의고사 · 41-42번 · 장문(제목+어휘) · 20문항</p>
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2025 고1 3월 모의고사</span></div>
-    <div class="info-row"><span class="info-label">문항</span><span class="info-value">41-42번 (장문 — 제목+어휘)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Numbers Don't Tell Us Everything</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">41-42번 (장문: 제목+어휘)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Statistics & Numbers</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
@@ -106,31 +105,188 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2025 고1 3월 모의고사","pub":"41-42번","lesson":"장문 (제목+어휘)","title":"Numbers Don't Tell Us Everything","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_41_42"};
+const EI={"subject":"2025 고1 3월 모의고사","pub":"41-42번","lesson":"장문(제목+어휘)","title":"Statistics & Numbers","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_41_42_v1"};
 
-const FULL_PASSAGE=`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`;
+const FULL_PASSAGE=`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g. census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`complete — neutral — accuracy`,`incomplete — biased — accuracy`,`incomplete — neutral — accuracy`,`incomplete — neutral — precision`,`complete — neutral — precision`],passage:`Some researchers view spoken languages as <b>(A)</b> devices for capturing precise differences. They think numbers represent the most <b>(B)</b> language of description. However, when our language of description is changed to numbers, we do not move toward greater <b>(C)</b>. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`연구자들은 구어를 정밀한 차이를 포착하기에 <b>불완전한(incomplete)</b> 장치로 본다. 숫자가 가장 <b>중립적인(neutral)</b> 기술 언어라고 생각한다. 그러나 더 큰 <b>정확성(accuracy)</b>을 향해 나아가지 못한다.`,analysis:`✅ ③ incomplete — neutral — accuracy: 원문 일치\n❌ ① complete: incomplete의 반의어\n❌ ② biased: neutral의 반의어\n❌ ④ precision: 유사하지만 원문은 accuracy\n❌ ⑤ complete: 부적절`,tip:`incomplete(불완전한) ↔ complete(완전한), neutral(중립적인) ↔ biased(편향된)`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`appropriate — census — exclude`,`appropriate — census — include`,`inappropriate — census — include`,`appropriate — income — exclude`,`inappropriate — income — include`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more <b>(A)</b> 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., <b>(B)</b> taking, income distribution), they <b>(C)</b> information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`숫자는 단어, 음악, 회화보다 더 <b>적절한(appropriate)</b> 세상의 그림이 아니다. <b>인구 조사(census)</b> 등 특정 목적에는 유용하지만, 엄청난 가치의 정보를 <b>포함한다(include)</b> [원문 — 실제로는 exclude가 맞음].`,analysis:`✅ ② appropriate — census — include: 원문 그대로 일치\n❌ ① exclude: 원문은 include (42번 정답에서 이것이 부적절 어휘)\n❌ ③ inappropriate: appropriate가 원문\n❌ ④⑤ 조합 불일치`,tip:`appropriate(적절한), census(인구 조사), include(포함하다) ↔ exclude(배제하다) — 42번 핵심 어휘`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Some researchers view spoken languages as ①<u>incomplete</u> devices for capturing precise differences. They think numbers represent the most ②<u>neutral</u> language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more ③<u>inappropriate</u> 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they ④<u>include</u> information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as ⑤<u>reports</u> on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`원문은 "no more <b>appropriate</b>(적절한)"이다. ③ inappropriate(부적절한)는 문맥과 맞지 않는다. "no more appropriate"는 '더 적절하지 않다'는 뜻이므로 appropriate가 맞다.`,analysis:`❌ ③ inappropriate(부적절한): 원문은 'appropriate(적절한)' → 부적절\n✅ ① incomplete: 불완전한 → 적절\n✅ ② neutral: 중립적인 → 적절\n✅ ④ include: 포함하다 → 원문 일치\n✅ ⑤ reports: 보고서 → 적절`,tip:`appropriate(적절한) ↔ inappropriate(부적절한) — "no more appropriate"는 부정 비교 구문`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`어려움`,pts:6,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are ①<u>tied</u> to their scores on national tests. In effect, whether they can continue with their ②<u>education</u>, where, and at what cost depends importantly on a handful of numbers. These numbers do not ③<u>account for</u> the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is ④<u>morally comforting</u> insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears ⑤<u>wiped off</u>. Quantify with caution.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`원문은 "morally <b>insulating</b>(도덕적으로 무감각하게 하는)"이다. ④ comforting(위로가 되는)은 문맥상 부적절하다.`,analysis:`❌ ④ morally comforting: 원문은 'morally insulating(도덕적으로 차단하는)' → 부적절\n✅ ① tied: 연결된 → 적절\n✅ ② education: 교육 → 적절\n✅ ③ account for: 설명하다 → 적절\n✅ ⑤ wiped off: 닦아낸 → 적절`,tip:`insulating(차단하는, 무감각하게 하는) ↔ comforting(위로가 되는)`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`rough`,`exact`,`vague`,`broad`],passage:`Some researchers view spoken languages as incomplete devices for capturing <u>precise</u> differences.`,stem:`밑줄 친 <b>precise</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`precise = 정밀한, exact = 정확한 → 동의어`,analysis:`✅ ② exact: 정확한 → precise의 동의어\n❌ ① rough: 대략적인\n❌ ③ vague: 모호한\n❌ ④ broad: 넓은, 광범위한`,tip:`precise = exact = accurate = 정밀한, 정확한`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`huge`,`tiny`,`minor`,`slight`],passage:`They <u>include</u> information of <u>enormous</u> value.`,stem:`밑줄 친 <b>enormous</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`enormous = 엄청난, huge = 거대한 → 동의어`,analysis:`✅ ① huge: 거대한 → enormous의 동의어\n❌ ② tiny: 아주 작은\n❌ ③ minor: 사소한\n❌ ④ slight: 약간의`,tip:`enormous = huge = immense = vast = 엄청난`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`ignored`,`created`,`controlled`,`improved`],passage:`There are many ways in which statistical results can be <u>manipulated</u>.`,stem:`밑줄 친 <b>manipulated</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`manipulated = 조작된, controlled = 조종된 → 동의어`,analysis:`✅ ③ controlled: 조종된 → manipulated의 동의어\n❌ ① ignored: 무시된\n❌ ② created: 창조된\n❌ ④ improved: 개선된`,tip:`manipulate = control = tamper with = 조작하다, 조종하다`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`flawed`,`partial`,`lacking`,`complete`],passage:`Some researchers view spoken languages as <u>incomplete</u> devices.`,stem:`밑줄 친 <b>incomplete</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`incomplete = 불완전한 ↔ complete = 완전한`,analysis:`❌ ④ complete(완전한): incomplete의 반의어 → 가장 먼 의미\n✅ ① flawed: 결함 있는 → 유사어\n✅ ② partial: 부분적인 → 유사어\n✅ ③ lacking: 부족한 → 유사어`,tip:`incomplete ↔ complete, partial ↔ whole`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`peace`,`violence`,`theft`,`offense`],passage:`Statistics on <u>crime</u>, homelessness, or the spread of a disease say nothing of people's suffering.`,stem:`밑줄 친 <b>crime</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`crime = 범죄 ↔ peace = 평화`,analysis:`❌ ① peace(평화): crime의 반의어 → 가장 먼 의미\n✅ ② violence: 폭력 → 관련어\n✅ ③ theft: 도둑질 → 범죄 유형\n✅ ④ offense: 범행 → 유사어`,tip:`crime(범죄) ↔ peace(평화), justice(정의)`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`joy`,`comfort`,`happiness`,`suffering`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's __________. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`통계는 사람들의 <b>고통(suffering)</b>에 대해 아무것도 말해주지 않는다.`,analysis:`✅ ④ suffering: 고통 → 원문 일치\n❌ ① joy: 기쁨\n❌ ② comfort: 위안\n❌ ③ happiness: 행복`,tip:`suffering = pain = agony = 고통, 고난`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`a pile`,`a couple`,`a handful`,`a majority`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on __________ handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`교육을 계속할 수 있는지는 <b>소수의(a handful of)</b> 숫자에 달려 있다.`,analysis:`✅ ③ a handful of: 소수의 → 원문 일치\n❌ ① a pile: 더미\n❌ ② a couple: 두세 개\n❌ ④ a majority: 다수`,tip:`a handful of = a small number of = 소수의, 한 줌의`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`accuracy`,`caution`,`numbers`,`statistics`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with __________.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`통계는 눈물을 닦아낸 인간이다. <b>주의(caution)</b>를 기울여 수량화하라.`,analysis:`✅ ② caution: 주의 → 원문 일치\n❌ ① accuracy: 정확성\n❌ ③ numbers: 숫자\n❌ ④ statistics: 통계`,tip:`quantify with caution = 주의를 기울여 수량화하다`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`장치, 기기 (전자)`,`장치, 수단 (방법)`,`책략, 계략`,`고안, 디자인`],passage:`Some researchers view spoken languages as incomplete <u>devices</u> for capturing precise differences.`,stem:`밑줄 친 <b>devices</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`구어를 정밀한 차이를 포착하는 불완전한 <b>수단(devices)</b>으로 본다.`,analysis:`✅ ② 장치, 수단 (방법): 언어를 차이를 포착하는 도구/수단으로 비유\n❌ ① 전자 기기: electronic device\n❌ ③ 책략: left to one's own devices\n❌ ④ 고안: 디자인 의미`,tip:`device 다의어: 기기(명사) / 수단, 방법(명사) / 책략(명사)`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`설명하다, 고려하다`,`계좌`,`이유, 원인`,`보고서`],passage:`These numbers do not <u>account for</u> the quality of schools they have attended.`,stem:`밑줄 친 <b>account for</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`이 숫자들은 학교의 질을 <b>설명하지(account for)</b> 못한다.`,analysis:`✅ ① 설명하다, 고려하다: account for = explain / take into consideration\n❌ ② 계좌: bank account\n❌ ③ 이유: on account of\n❌ ④ 보고서: give an account of`,tip:`account for = explain = 설명하다, 차지하다`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`precise`,`neutral`,`manipulate`,`quantify`],passage:`<i>to control or influence something or someone in a clever or dishonest way</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`교묘하거나 부정직한 방법으로 무언가를 통제하거나 영향을 미치다 → <b>manipulate(조작하다)</b>`,analysis:`✅ ③ manipulate: 조작하다, 조종하다 → 영영 정의와 일치\n❌ ① precise: 정밀한\n❌ ② neutral: 중립적인\n❌ ④ quantify: 수량화하다`,tip:`manipulate = tamper with = 조작하다, 교묘히 다루다`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`crime`,`suffering`,`distance`,`homelessness`],passage:`<i>the state of having no home or permanent place to live</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`집이나 영구적인 거처가 없는 상태 → <b>homelessness(노숙, 무주택)</b>`,analysis:`✅ ④ homelessness: 노숙 → 영영 정의와 일치\n❌ ① crime: 범죄\n❌ ② suffering: 고통\n❌ ③ distance: 거리`,tip:`homelessness = 노숙 상태 (home + less + ness)`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`description`,accept:[`description`,`Description`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of __________ (describe). However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`전치사 of 뒤에 명사가 온다 → describe → <b>description</b>`,analysis:`describe(동사) → description(명사): 전치사(of) + 명사\n'language of description' = 기술의 언어`,tip:`describe(동사: 묘사하다) → description(명사: 묘사, 기술)`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`supportive`,accept:[`supportive`,`Supportive`],passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g., census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have __________ (support) tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed. Statistics are human beings with the tears wiped off. Quantify with caution.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`명사 parents를 수식하는 형용사가 필요하다 → support → <b>supportive</b>`,analysis:`support(동사/명사) → supportive(형용사): 명사 수식\n'supportive parents' = 도움을 주는 부모`,tip:`support(지지) → supportive(지지하는, 도움이 되는) — 형용사 접미사 -ive`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`Numbers Don't Tell Us Everything`,`The Power of Statistics in Education`,`Why We Should Trust Numbers More`,`How Language Fails to Describe Reality`],passage:FULL_PASSAGE,stem:`다음 글의 제목으로 가장 적절한 것은? (원래 모의고사 41번 문제)`,det:{korean:`글의 핵심은 숫자/통계가 모든 것을 말해주지 못한다는 것이다. 숫자는 고통, 학교의 질, 불안 등을 반영하지 못하며 도덕적으로 무감각하게 한다.`,analysis:`✅ ① Numbers Don't Tell Us Everything: 글의 핵심 주제 → 숫자의 한계\n❌ ② The Power of Statistics: 통계의 힘을 긍정 → 글의 논조와 반대\n❌ ③ Trust Numbers More: 숫자를 더 신뢰 → 글의 논조와 반대\n❌ ④ Language Fails: 언어의 실패가 아닌 숫자의 한계가 주제`,tip:`41번 정답: ① — 글의 주제는 숫자/통계의 한계와 주의 필요성`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`(a) accuracy`,`(b) include`,`(c) quality`,`(d) morally`,`(e) escape`],passage:FULL_PASSAGE,stem:`다음 글의 밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은? (원래 모의고사 42번 문제)`,det:{korean:`"they <b>include</b> information of enormous value"에서 include(포함하다)는 문맥상 <b>exclude(배제하다)</b>가 되어야 한다. 숫자가 특정 목적에 유용하지만 엄청난 가치의 정보를 배제한다는 의미이다.`,analysis:`✅ ② (b) include: exclude(배제하다)가 되어야 함 → 부적절\n❌ ① (a) accuracy: 정확성 → 적절\n❌ ③ (c) quality: 질 → 적절\n❌ ④ (d) morally: 도덕적으로 → 적절\n❌ ⑤ (e) escape: 벗어나다 → 적절`,tip:`42번 정답: ② — include(포함) → exclude(배제)로 바꿔야 문맥에 맞음`}}
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`accuracy — include — escape`,`accuracy — exclude — escape`,`accuracy — include — confront`,`precision — exclude — confront`,`precision — include — escape`],
+passage:`However, when our language of description is changed to numbers, we do not move toward greater <b>(A)</b>. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g. census taking, income distribution), they <b>(B)</b> information of enormous value. For example, the future lives of young students are tied to their scores on national tests. ... We read the statistics as reports on events at a distance, thus allowing us to <b>(C)</b> without being disturbed.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`숫자로 바꿔도 더 큰 <b>정확성(accuracy)</b>으로 나아가지 않고, 숫자는 엄청난 가치의 정보를 <b>포함하며(include)</b>, 통계는 우리가 동요 없이 <b>벗어나게(escape)</b> 해준다.`,
+analysis:`✅ ① accuracy — include — escape: 원문과 정확히 일치\n❌ ② exclude: include의 반의어\n❌ ③ confront: escape의 반의어\n❌ ④ precision+exclude+confront: 모두 부적절\n❌ ⑤ precision: accuracy와 유사하나 include — escape 조합만 맞음`,
+tip:`accuracy(정확성), include(포함하다), escape(벗어나다) — 원문 핵심 어휘`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`neutral — manipulated — insulating`,`neutral — improved — insulating`,`biased — manipulated — connecting`,`neutral — manipulated — connecting`,`biased — improved — insulating`],
+passage:`They think numbers represent the most <b>(A)</b> language of description. ... Finally, putting aside the many ways in which statistical results can be <b>(B)</b>, there are ways in which turning people's lives into numbers is morally <b>(C)</b>.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`숫자는 가장 <b>중립적인(neutral)</b> 묘사 언어이고, 통계 결과는 <b>조작될(manipulated)</b> 수 있으며, 사람의 삶을 숫자로 바꾸는 것은 도덕적으로 <b>차단하는(insulating)</b> 것이다.`,
+analysis:`✅ ① neutral — manipulated — insulating: 원문 일치\n❌ ② improved: manipulated와 다른 의미\n❌ ③ biased+connecting: 반의어들\n❌ ④ connecting: insulating의 반의어\n❌ ⑤ biased+improved: 부적절`,
+tip:`neutral(중립적), manipulated(조작된), insulating(차단하는) — 지문 핵심 개념`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater ①<u>accuracy</u>. Numbers are no more appropriate 'pictures of the world' than words, music, or painting. While useful for specific purposes (e.g. census taking, income distribution), they ②<u>include</u> information of enormous value. ... These numbers do not account for the ③<u>quality</u> of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be ④<u>improved</u>, there are ways in which turning people's lives into numbers is morally insulating. ... We read the statistics as reports on events at a distance, thus allowing us to ⑤<u>escape</u> without being disturbed.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`통계 결과는 <b>조작될(manipulated)</b> 수 있다. ④ improved(개선된)는 manipulated의 반의어로 부적절.`,
+analysis:`❌ ④ improved(개선된): 원문은 manipulated(조작된) → "putting aside the many ways"와 improved는 어울리지 않음\n✅ ① accuracy(정확성): 원문 일치\n✅ ② include(포함하다): 원문 일치\n✅ ③ quality(질): 원문 일치\n✅ ⑤ escape(벗어나다): 원문 일치`,
+tip:`manipulated(조작된) ↔ improved(개선된) — 통계 결과가 "개선"이 아닌 "조작"될 수 있다는 맥락`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Some researchers view spoken languages as ①<u>incomplete</u> devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater accuracy. ... While useful for specific purposes (e.g. census taking, income distribution), they include information of enormous value. For example, the future lives of young students are tied to their scores on national tests. In effect, whether they can continue with their education, where, and at what cost depends importantly on a handful of numbers. These numbers do not account for the quality of schools they have attended, whether they have been tutored, have supportive parents, have test anxiety, and so on. Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally ②<u>connecting</u>. Statistics on crime, ③<u>homelessness</u>, or the spread of a disease say nothing of people's ④<u>suffering</u>. We read the statistics as reports on events at a distance, thus allowing us to escape without being ⑤<u>disturbed</u>.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`사람의 삶을 숫자로 바꾸는 것은 도덕적으로 <b>차단하는(insulating)</b> 것이다. ② connecting(연결하는)은 insulating의 반의어로 부적절.`,
+analysis:`❌ ② connecting(연결하는): 원문은 insulating(차단하는) → 숫자화는 우리를 고통으로부터 "연결"이 아닌 "차단"시킴\n✅ ① incomplete(불완전한): 원문 일치\n✅ ③ homelessness(노숙자 문제): 원문 일치\n✅ ④ suffering(고통): 원문 일치\n✅ ⑤ disturbed(동요된): 원문 일치`,
+tip:`insulating(차단하는) ↔ connecting(연결하는) — 숫자화는 감정적 "차단"을 일으킨다`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
+ch:[`imperfect`,`exactness`,`beauty`,`simplicity`],
+passage:`However, when our language of description is changed to numbers, we do not move toward greater <u>accuracy</u>.`,
+stem:`밑줄 친 <b>accuracy</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`accuracy = 정확성, exactness = 정확성 → 동의어`,
+analysis:`✅ ② exactness(정확성): accuracy의 동의어\n❌ ① imperfect(불완전한): 형용사, 다른 의미\n❌ ③ beauty(아름다움): 무관\n❌ ④ simplicity(단순함): 다른 의미`,
+tip:`accuracy = exactness = precision = 정확성`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`improved`,`created`,`tampered with`,`verified`],
+passage:`Finally, putting aside the many ways in which statistical results can be <u>manipulated</u>, there are ways in which turning people's lives into numbers is morally insulating.`,
+stem:`밑줄 친 <b>manipulated</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`manipulated = 조작된, tampered with = 조작된/변조된 → 동의어`,
+analysis:`✅ ③ tampered with(변조된): manipulated의 동의어\n❌ ① improved(개선된): 반의어적 의미\n❌ ② created(만들어진): 다른 의미\n❌ ④ verified(검증된): 다른 의미`,
+tip:`manipulated = tampered with = distorted = 조작된, 변조된`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`enormous`,`tiny`,`average`,`variable`],
+passage:`While useful for specific purposes (e.g. census taking, income distribution), they include information of <u>enormous</u> value.`,
+stem:`밑줄 친 <b>enormous</b>의 의미와 가장 <b>가까운</b> 것은? (보기 중 동의어)`,
+det:{korean:`enormous = 엄청난, 거대한`,
+analysis:`✅ ① enormous(엄청난): 그 자체가 정답 — 원문 그대로\n❌ ② tiny(작은): 반의어\n❌ ③ average(평균적인): 다른 의미\n❌ ④ variable(변동하는): 다른 의미`,
+tip:`enormous = huge = immense = vast = 엄청난, 거대한`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`flee`,`avoid`,`retreat`,`confront`],
+passage:`We read the statistics as reports on events at a distance, thus allowing us to <u>escape</u> without being disturbed.`,
+stem:`밑줄 친 <b>escape</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`escape = 벗어나다 ↔ confront = 직면하다`,
+analysis:`❌ ④ confront(직면하다): escape의 반의어 → 가장 먼 의미\n✅ ① flee(도망치다): 동의어\n✅ ② avoid(피하다): 유사어\n✅ ③ retreat(물러나다): 유사어`,
+tip:`escape = flee = avoid ↔ confront = face = 직면하다`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`deficient`,`partial`,`thorough`,`flawed`],
+passage:`Some researchers view spoken languages as <u>incomplete</u> devices for capturing precise differences.`,
+stem:`밑줄 친 <b>incomplete</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`incomplete = 불완전한 ↔ thorough = 완전한, 철저한`,
+analysis:`❌ ③ thorough(철저한, 완전한): incomplete의 반의어\n✅ ① deficient(결핍된): 유사어\n✅ ② partial(부분적인): 유사어\n✅ ④ flawed(결함 있는): 유사어`,
+tip:`incomplete = deficient = partial ↔ thorough = complete = comprehensive`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`precision`,`creativity`,`accuracy`,`simplicity`],
+passage:`Some researchers view spoken languages as incomplete devices for capturing precise differences. They think numbers represent the most neutral language of description. However, when our language of description is changed to numbers, we do not move toward greater __________. Numbers are no more appropriate 'pictures of the world' than words, music, or painting.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`숫자로 바꿔도 더 큰 <b>정확성(accuracy)</b>으로 나아가지 않는다.`,
+analysis:`✅ ③ accuracy(정확성): "we do not move toward greater ___" 뒤에 정확성이 자연스러움\n❌ ① precision(정밀함): 유사하나 원문은 accuracy\n❌ ② creativity(창의성): 무관\n❌ ④ simplicity(단순함): 문맥과 무관`,
+tip:`accuracy = 정확성 — 숫자가 더 정확하다는 통념을 반박하는 맥락`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`enhanced`,`simplified`,`created`,`manipulated`],
+passage:`Finally, putting aside the many ways in which statistical results can be __________, there are ways in which turning people's lives into numbers is morally insulating. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`통계 결과는 여러 방식으로 <b>조작될(manipulated)</b> 수 있다.`,
+analysis:`✅ ④ manipulated(조작된): "putting aside the many ways"와 자연스럽게 연결\n❌ ① enhanced(향상된): 문맥과 반대\n❌ ② simplified(단순화된): 무관\n❌ ③ created(만들어진): 의미 약함`,
+tip:`manipulated = 조작된 — 통계 결과의 신뢰성 문제를 지적하는 맥락`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`insulating`,`connecting`,`inspiring`,`motivating`],
+passage:`Finally, putting aside the many ways in which statistical results can be manipulated, there are ways in which turning people's lives into numbers is morally __________. Statistics on crime, homelessness, or the spread of a disease say nothing of people's suffering. We read the statistics as reports on events at a distance, thus allowing us to escape without being disturbed.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`사람의 삶을 숫자로 바꾸는 것은 도덕적으로 <b>차단하는(insulating)</b> 것이다.`,
+analysis:`✅ ① insulating(차단하는): 통계가 감정적 거리를 만든다는 문맥과 일치\n❌ ② connecting(연결하는): 반의어\n❌ ③ inspiring(영감을 주는): 문맥과 반대\n❌ ④ motivating(동기를 부여하는): 문맥과 반대`,
+tip:`insulating = 차단하는, 절연하는 — 숫자화가 도덕적 감수성을 "차단"한다는 의미`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`말하다, 이야기하다`,`설명하다, 차지하다`,`계산하다`,`간주하다`],
+passage:`These numbers do not <u>account</u> for the quality of schools they have attended.`,
+stem:`밑줄 친 <b>account</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`account for = ~을 <b>설명하다, 차지하다</b>`,
+analysis:`✅ ② 설명하다, 차지하다: account for = ~을 설명하다/고려하다\n❌ ① 말하다: account의 기본 의미 아님\n❌ ③ 계산하다: 다른 의미\n❌ ④ 간주하다: 다른 의미`,
+tip:`account for = 설명하다/차지하다 | account = 계좌/설명 | on account of = ~때문에`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`장치, 도구`,`계략, 수단`,`문양, 디자인`,`기기, 기계`],
+passage:`Some researchers view spoken languages as incomplete <u>devices</u> for capturing precise differences.`,
+stem:`밑줄 친 <b>devices</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`languages as devices = 언어를 <b>도구/장치</b>로 봄`,
+analysis:`✅ ① 장치, 도구: 언어를 정보 전달의 "도구"로 보는 맥락\n❌ ② 계략: left to one's own devices\n❌ ③ 문양: heraldic device\n❌ ④ 기기: electronic device`,
+tip:`device: 도구(추상적) | 기기(전자) | 계략(계획) | 문양(문장학)`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`accuracy`,`escape`,`insulating`,`manipulated`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"protecting from the effects of something; creating a barrier or separation"</b>`,
+det:{korean:`'무언가의 영향으로부터 보호하는; 장벽이나 분리를 만드는' → <b>insulating(차단하는)</b>`,
+analysis:`✅ ③ insulating: 영영 정의와 정확히 일치 (차단, 절연)\n❌ ① accuracy: 정확성\n❌ ② escape: 벗어나다\n❌ ④ manipulated: 조작된`,
+tip:`insulating = protecting + creating barrier → 차단하는, 절연하는`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`incomplete`,`neutral`,`insulating`,`manipulated`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"controlled or influenced in a clever or dishonest way"</b>`,
+det:{korean:`'교묘하거나 부정직한 방식으로 통제되거나 영향을 받은' → <b>manipulated(조작된)</b>`,
+analysis:`✅ ④ manipulated: 영영 정의와 일치\n❌ ① incomplete: 불완전한\n❌ ② neutral: 중립적인\n❌ ③ insulating: 차단하는`,
+tip:`manipulated = controlled dishonestly = 조작된, 변조된`}},
+
+// ━━━ Q17: 어형 변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`incomplete`,accept:[`incomplete`,`Incomplete`],
+passage:`Some researchers view spoken languages as __________ (complete) devices for capturing precise differences.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`complete(완전한) → <b>incomplete(불완전한)</b>: 문맥상 언어가 불완전한 도구라는 의미`,
+analysis:`complete(형용사) → incomplete(형용사)\n접두사 in-을 붙여 반의어 형성: 불완전한 도구`,
+tip:`complete → incomplete / perfect → imperfect — in- 접두사로 반의어 형성`}},
+
+// ━━━ Q18: 어형 변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`importantly`,accept:[`importantly`,`Importantly`],
+passage:`In effect, whether they can continue with their education, where, and at what cost depends __________ (important) on a handful of numbers.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`important(형용사) → <b>importantly(부사)</b>: 동사 depends를 수식하는 부사 필요`,
+analysis:`important(형용사) → importantly(부사)\n동사 depends를 수식하므로 부사 형태 필요`,
+tip:`important → importantly — -ly를 붙여 부사로 변환. 동사 수식에는 부사 사용`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`숫자는 세상을 가장 정확하게 묘사한다.`,`통계는 인간의 고통을 생생하게 전달한다.`,`숫자는 세상의 적절한 그림이 아니다.`,`모든 학문은 숫자에 기반해야 한다.`,`통계적 결과는 조작될 수 없다.`],
+passage:FULL_PASSAGE,
+stem:`다음 글의 내용으로 보아, 필자가 가장 동의할 만한 진술은?`,
+det:{korean:`"Numbers are no more appropriate 'pictures of the world' than words, music, or painting." → <b>숫자는 세상의 적절한 그림이 아니다.</b>`,
+analysis:`✅ ③ 숫자는 세상의 적절한 그림이 아니다: 원문의 핵심 주장과 일치\n❌ ① 가장 정확하게 묘사: 본문과 반대\n❌ ② 고통을 생생하게 전달: "say nothing of people's suffering"과 반대\n❌ ④ 모든 학문은 숫자에: 과장\n❌ ⑤ 조작될 수 없다: "can be manipulated"와 반대`,
+tip:`필자의 핵심 주장: 숫자/통계는 완벽하지 않으며, 주의해서 사용해야 한다`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 (제목) · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`Numbers Don't Tell Us Everything`,`Human Stories Uncovered by the Numbers`,`Data: A Framework for Understanding Humans`,`The Limitations of Language in Conveying Truth`,`The Advantages of Quantifying Human Experiences`],
+passage:FULL_PASSAGE,
+stem:`다음 글의 제목으로 가장 적절한 것은?`,
+det:{korean:`숫자와 통계는 인간의 삶, 고통, 질적 측면을 담아내지 못한다 → <b>Numbers Don't Tell Us Everything</b>`,
+analysis:`✅ ① Numbers Don't Tell Us Everything: 숫자가 모든 것을 말해주지 않는다는 핵심 주제와 일치\n❌ ② Human Stories Uncovered by the Numbers: 숫자가 이야기를 "발견"한다는 뜻 → 본문과 반대\n❌ ③ Data: A Framework: 데이터를 긍정적으로 봄\n❌ ④ Limitations of Language: 언어의 한계가 주제가 아님\n❌ ⑤ Advantages of Quantifying: 정량화의 장점 → 본문과 반대`,
+tip:`제목 파악: "Quantify with caution" + "Numbers are no more appropriate" → 숫자의 한계`}}
 ];
 
 
@@ -146,7 +302,7 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 const typeTag={'(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','빈칸 어휘 완성':'tag-blank','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx'};
-function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
+function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
 function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
 function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
 function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
@@ -164,9 +320,9 @@ if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
 h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
-let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});

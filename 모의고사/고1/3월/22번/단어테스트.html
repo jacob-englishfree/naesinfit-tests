@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -86,7 +85,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2025 고1 3월 모의고사</span></div>
     <div class="info-row"><span class="info-label">문항</span><span class="info-value">22번 (요지)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">과학의 불확실성 감소 과정</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Science & Uncertainty</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
@@ -106,33 +105,169 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2025 고1 3월 모의고사","pub":"22번","lesson":"요지","title":"과학의 불확실성 감소 과정","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_22"};
+const EI={"subject":"2025 고1 3월 모의고사","pub":"22번","lesson":"요지","title":"Science & Uncertainty","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_22_v1"};
 
-const FULL_PASSAGE=`The science we learn in grade school is a collection of certainties about the natural world — the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these 'facts' was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process — today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`;
+const FULL_PASSAGE=`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`doubts — logical — increasing`,`certainties — random — reducing`,`certainties — logical — reducing`,`uncertainties — logical — collecting`,`certainties — logical — collecting`],passage:`The science we learn in grade school is a collection of <b>(A)</b> about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of <b>(B)</b> inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about <b>(C)</b> the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`학교에서 배우는 과학은 자연세계에 대한 <b>확실한 것들(certainties)</b>의 모음이다. 각 사실은 <b>논리적(logical)</b> 추론의 연속을 통해 얻어졌다. 과학의 과정은 불확실성을 <b>줄이는(reducing)</b> 것이다.`,analysis:`✅ ③ certainties — logical — reducing: 원문 일치\n❌ ① doubts/increasing: 확실성이 아닌 의심, 줄이는 것이 아닌 증가\n❌ ② random: logical이 아닌 무작위\n❌ ④ uncertainties/collecting: 확실성이 아닌 불확실성, 수집\n❌ ⑤ collecting: reducing이 아닌 수집`,tip:`certainties(확실한 것들), logical(논리적인), reducing(줄이는) — 원문 핵심어`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`practice — observations — progress`,`theory — observations — progress`,`practice — assumptions — decline`,`practice — observations — decline`,`theory — assumptions — progress`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the <b>(A)</b> of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many <b>(B)</b> or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in <b>(C)</b> after more than a century of effort.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`과학의 <b>실천(practice)</b>을 배우기 시작할 때 깨닫는다. 많은 <b>관찰(observations)</b>이나 실험에 근거한 추론이다. 난류 유체 흐름의 이해는 여전히 <b>진행(progress)</b> 중인 작업이다.`,analysis:`✅ ① practice — observations — progress: 원문 일치\n❌ ② theory: practice가 아닌 이론\n❌ ③ assumptions/decline: 관찰이 아닌 가정, 진행이 아닌 쇠퇴\n❌ ④ decline: progress의 반의어\n❌ ⑤ theory/assumptions: 둘 다 부적절`,tip:`practice(실천), observations(관찰), a work in progress(진행 중인 작업)`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`The science we learn in grade school is a collection of ①<u>certainties</u> about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you ②<u>realize</u> that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about ③<u>increasing</u> the uncertainties in what we know. Our uncertainties can be ④<u>greater</u> or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in ⑤<u>progress</u> after more than a century of effort.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`과학의 과정은 불확실성을 <b>줄이는(reducing)</b> 것이다. ③ increasing(증가시키는)은 reducing의 반의어로 부적절.`,analysis:`❌ ③ increasing(증가시키는): 원문은 'reducing(줄이는)' → 부적절\n✅ ① certainties: 확실한 것들 → 적절\n✅ ② realize: 깨닫다 → 적절\n✅ ④ greater: 더 큰 → 적절\n✅ ⑤ progress: 진행 → 적절`,tip:`reducing(줄이는) ↔ increasing(증가시키는) — 핵심 반의어`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was ①<u>hard</u> won through a ②<u>succession</u> of logical inferences based upon many ③<u>observations</u> or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite ④<u>doubtful</u> of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in ⑤<u>progress</u> after more than a century of effort.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`오늘날 우리는 사과가 나무에서 어떻게 떨어지는지 꽤 <b>확신한다(certain)</b>. ④ doubtful(의심스러운)은 certain의 반의어로 부적절.`,analysis:`❌ ④ doubtful(의심스러운): 원문은 'certain(확신하는)' → 부적절\n✅ ① hard: 어렵게 → 적절\n✅ ② succession: 연속 → 적절\n✅ ③ observations: 관찰 → 적절\n✅ ⑤ progress: 진행 → 적절`,tip:`certain(확신하는) ↔ doubtful(의심스러운) — 핵심 반의어`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:5,fmt:"mc",ans:1,ch:[`doubts`,`sure things`,`guesses`,`opinions`],passage:`The science we learn in grade school is a collection of <u>certainties</u> about the natural world.`,stem:`밑줄 친 <b>certainties</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`certainties = 확실한 것들, sure things = 확실한 것들 → 동의어`,analysis:`✅ ② sure things: 확실한 것들 → certainties의 동의어\n❌ ① doubts: 의심\n❌ ③ guesses: 추측\n❌ ④ opinions: 의견`,tip:`certainty = sureness = assurance = 확실성`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:5,fmt:"mc",ans:0,ch:[`understand`,`forget`,`deny`,`ignore`],passage:`Only when you start to learn the practice of science do you <u>realize</u> that each of these facts was hard won.`,stem:`밑줄 친 <b>realize</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`realize = 깨닫다, understand = 이해하다/깨닫다 → 동의어`,analysis:`✅ ① understand: 이해하다/깨닫다 → realize의 동의어\n❌ ② forget: 잊다\n❌ ③ deny: 부인하다\n❌ ④ ignore: 무시하다`,tip:`realize = understand = recognize = 깨닫다, 인식하다`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`conclusions`,`assumptions`,`deductions`,`inventions`],passage:`Each of these facts was hard won through a succession of logical <u>inferences</u>.`,stem:`밑줄 친 <b>inferences</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`inferences = 추론, deductions = 연역/추론 → 동의어`,analysis:`✅ ③ deductions: 추론 → inferences의 동의어\n❌ ① conclusions: 결론 (유사하지만 추론 과정 자체가 아님)\n❌ ② assumptions: 가정\n❌ ④ inventions: 발명`,tip:`inference = deduction = reasoning = 추론`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:5,fmt:"mc",ans:3,ch:[`assurances`,`confidences`,`convictions`,`doubts`],passage:`The science we learn is a collection of <u>certainties</u> about the natural world.`,stem:`밑줄 친 <b>certainties</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`certainties = 확실한 것들 ↔ doubts = 의심`,analysis:`❌ ④ doubts(의심): certainties의 반의어 → 가장 먼 의미\n✅ ① assurances: 확신 → 유사어\n✅ ② confidences: 확신 → 유사어\n✅ ③ convictions: 확신 → 유사어`,tip:`certainty ↔ doubt = uncertainty = 불확실성`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`increasing`,`lessening`,`minimizing`,`decreasing`],passage:`The process of science is about <u>reducing</u> the uncertainties in what we know.`,stem:`밑줄 친 <b>reducing</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`reducing = 줄이는 ↔ increasing = 증가시키는`,analysis:`❌ ① increasing(증가시키는): reducing의 반의어 → 가장 먼 의미\n✅ ② lessening: 줄이는 → 동의어\n✅ ③ minimizing: 최소화하는 → 동의어\n✅ ④ decreasing: 감소시키는 → 동의어`,tip:`reduce = decrease = lessen ↔ increase = 증가시키다`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:5,fmt:"mc",ans:1,ch:[`assumptions`,`observations`,`inventions`,`complaints`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many __________ or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`많은 <b>관찰(observations)</b>이나 실험에 근거한 논리적 추론의 연속이다.`,analysis:`✅ ② observations: 관찰 → 원문 일치\n❌ ① assumptions: 가정\n❌ ③ inventions: 발명\n❌ ④ complaints: 불만`,tip:`observation = 관찰 — 과학적 방법의 핵심 요소`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`certainties`,`pieces`,`collections`,`uncertainties`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the __________ in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`과학의 과정은 우리가 아는 것에서 <b>불확실성(uncertainties)</b>을 줄이는 것이다.`,analysis:`✅ ④ uncertainties: 불확실성 → 원문 일치\n❌ ① certainties: 확실성 (반대)\n❌ ② pieces: 조각\n❌ ③ collections: 모음`,tip:`uncertainty = 불확실성 — 이 지문의 핵심 키워드`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`regression`,`completion`,`progress`,`perfection`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in __________ after more than a century of effort.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`난류 유체 흐름에 대한 이해는 한 세기 이상의 노력 후에도 여전히 <b>진행(progress)</b> 중인 작업이다.`,analysis:`✅ ③ progress: 진행 → 원문 일치 (a work in progress)\n❌ ① regression: 퇴보\n❌ ② completion: 완성\n❌ ④ perfection: 완벽`,tip:`a work in progress = 진행 중인 작업, 아직 완성되지 않은 것`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`실행, 연습`,`실제 수행, 실천`,`의료 행위`,`관행, 관습`],passage:`Only when you start to learn the <u>practice</u> of science do you realize that each of these facts was hard won.`,stem:`밑줄 친 <b>practice</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`과학의 practice = 과학을 <b>실제로 수행하는 것(실천)</b>을 배우기 시작할 때 깨닫는다.`,analysis:`✅ ② 실제 수행, 실천: 과학의 실제적 수행을 의미\n❌ ① 실행, 연습: 반복적 훈련의 의미\n❌ ③ 의료 행위: medical practice\n❌ ④ 관행, 관습: common practice`,tip:`practice 다의어: 실천(명사) / 연습(명사) / 의료행위(명사) / 관행(명사)`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`과정, 절차`,`가공하다`,`처리하다`,`진행`],passage:`The <u>process</u> of science is less about collecting pieces of knowledge than it is about reducing the uncertainties.`,stem:`밑줄 친 <b>process</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`과학의 process = <b>과정</b>은 지식 조각을 모으는 것이 아니라 불확실성을 줄이는 것이다.`,analysis:`✅ ① 과정, 절차: the process of science = 과학의 과정\n(정답은 ① — 0-indexed로 ans:0이지만 보기 배열상 ③이 '처리하다'이므로 재확인)`,tip:`process 다의어: 과정(명사) / 가공하다(동사) / 처리하다(동사)`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`certainty`,`knowledge`,`inference`,`uncertainty`],passage:`<i>the state of not being sure or definite about something</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`무언가에 대해 확실하거나 분명하지 않은 상태 → <b>uncertainty(불확실성)</b>`,analysis:`✅ ④ uncertainty: 불확실성 → 영영 정의와 일치\n❌ ① certainty: 확실성 (반대)\n❌ ② knowledge: 지식\n❌ ③ inference: 추론`,tip:`uncertainty = the state of being uncertain = 불확실성`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`natural`,`turbulent`,`certain`,`logical`],passage:`<i>characterized by conflict, disorder, or confusion; not controlled or calm</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`갈등, 무질서, 혼란으로 특징지어지는; 통제되거나 차분하지 않은 → <b>turbulent(격동의, 난류의)</b>`,analysis:`✅ ② turbulent: 격동의, 난류의 → 영영 정의와 일치\n❌ ① natural: 자연의\n❌ ③ certain: 확실한\n❌ ④ logical: 논리적인`,tip:`turbulent = 격동의, 소란스러운 (turbulent fluid flow = 난류 유체 흐름)`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:5,fmt:"written",wa:`reducing`,accept:[`reducing`,`Reducing`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about __________ (reduce) the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`전치사 about 다음에는 동명사가 온다 → reduce → <b>reducing</b>`,analysis:`reduce → reducing: 전치사(about) + 동명사(-ing)\n'about + V-ing' 구문`,tip:`전치사 + 동명사: about/for/of + V-ing (전치사 뒤 동사원형 불가)`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`logical`,accept:[`logical`,`Logical`],passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these \u2018facts\u2019 was hard won through a succession of __________ (logic) inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`명사 inferences를 수식하는 형용사가 필요하다 → logic → <b>logical</b>`,analysis:`logic(명사) → logical(형용사): 명사 앞에 형용사 필요\n'logical inferences' = 논리적 추론`,tip:`logic(논리, 명사) → logical(논리적인, 형용사) — 명사 수식에는 형용사`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`과학은 현재의 지식에 대한 불확실함을 줄이는 과정이다`,`과학적 사실은 학교에서 배우는 것만으로 충분하다`,`과학은 확실한 지식을 수집하는 데 목적이 있다`,`난류 유체 흐름은 이미 완전히 이해되었다`],passage:FULL_PASSAGE,stem:`다음 글의 요지로 가장 적절한 것은? (원래 모의고사 22번 문제)`,det:{korean:`글의 핵심: 과학의 과정은 지식 조각을 모으는 것이 아니라 <b>불확실성을 줄이는 것</b>이다.`,analysis:`✅ ① 과학은 현재의 지식에 대한 불확실함을 줄이는 과정이다: 글의 핵심 요지\n❌ ② 학교에서 배우는 것만으로 충분: 반대 (실천을 배워야 깨닫는다)\n❌ ③ 확실한 지식을 수집: 원문은 "less about collecting"\n❌ ④ 완전히 이해됨: "a work in progress"라고 명시`,tip:`요지 파악: "less about A than B" 구문 → B가 핵심`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`scientific certainties are always permanent and unchangeable`,`some scientific knowledge is still being refined and developed`,`all natural phenomena have already been fully explained`,`grade school science provides a complete understanding`],passage:`"Today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort."\n\nThe author uses this contrast to show that __________.`,stem:`저자가 이 대조를 사용하여 보여주고자 하는 것은?`,det:{korean:`사과의 낙하(확실한 것)와 난류 유체 흐름(아직 진행 중)을 대비하여, <b>일부 과학 지식은 여전히 다듬어지고 발전 중</b>임을 보여준다.`,analysis:`✅ ② some scientific knowledge is still being refined: 대조의 목적과 일치\n❌ ① permanent and unchangeable: 반대 (불확실성이 줄어가는 과정)\n❌ ③ fully explained: "a work in progress"와 모순\n❌ ④ complete understanding: 학교 과학의 한계를 말하는 것`,tip:`대조(contrast) 파악: certain(사과 낙하) vs. work in progress(난류) → 지식의 불균등한 발전 단계`}}
-];
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`certainties \u2014 succession \u2014 reducing`,`certainties \u2014 succession \u2014 increasing`,`doubts \u2014 succession \u2014 reducing`,`certainties \u2014 failure \u2014 reducing`,`doubts \u2014 failure \u2014 increasing`],
+passage:`The science we learn in grade school is a collection of <b>(A)</b> about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a <b>(B)</b> of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about <b>(C)</b> the uncertainties in what we know.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`초등학교 과학은 <b>확실한 것들(certainties)</b>의 모음이고, 각 사실은 논리적 추론의 <b>연속(succession)</b>을 통해 얻어졌으며, 과학의 과정은 불확실성을 <b>줄이는(reducing)</b> 것이다.`,
+analysis:`✅ ① certainties \u2014 succession \u2014 reducing: 원문과 일치\n❌ ② increasing: reducing의 반의어\n❌ ③ doubts: certainties의 반의어\n❌ ④ failure: succession과 다른 의미\n❌ ⑤ 세 단어 모두 부적절`,
+tip:`certainties(확실한 것), succession(연속), reducing(줄이기) \u2014 과학 과정의 핵심 단어`}},
 
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`inferences \u2014 uncertainties \u2014 progress`,`inferences \u2014 certainties \u2014 progress`,`conclusions \u2014 uncertainties \u2014 decline`,`inferences \u2014 uncertainties \u2014 decline`,`conclusions \u2014 certainties \u2014 progress`],
+passage:`Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical <b>(A)</b> based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the <b>(B)</b> in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in <b>(C)</b> after more than a century of effort.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`논리적 <b>추론(inferences)</b>을 통해, <b>불확실성(uncertainties)</b>을 줄이며, 난류 유동에 대한 이해는 여전히 <b>진행(progress)</b> 중이다.`,
+analysis:`✅ ① inferences \u2014 uncertainties \u2014 progress: 원문과 일치\n❌ ② certainties: uncertainties의 반의어\n❌ ③ decline: progress의 반의어\n❌ ④ decline: progress와 반대\n❌ ⑤ 두 단어 부적절`,
+tip:`inferences(추론), uncertainties(불확실성), work in progress(진행 중인 작업)`}},
+
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`The science we learn in grade school is a collection of ①<u>certainties</u> about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a ②<u>succession</u> of logical inferences based upon many observations or experiments. The process of science is less about ③<u>collecting</u> pieces of knowledge than it is about ④<u>increasing</u> the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in ⑤<u>progress</u> after more than a century of effort.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`과학의 과정은 불확실성을 <b>줄이는(reducing)</b> 것이다. ④ increasing(증가시키는)은 reducing의 반의어로 부적절.`,
+analysis:`❌ ④ increasing(증가시키는): 원문은 reducing(줄이는) → 불확실성을 줄이는 것이 과학의 과정\n✅ ① certainties: 원문 일치\n✅ ② succession: 원문 일치\n✅ ③ collecting: 원문 일치\n✅ ⑤ progress: 원문 일치`,
+tip:`reducing(줄이는) ↔ increasing(증가시키는) \u2014 과학은 불확실성을 줄이는 과정`}},
+
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the ①<u>information</u> of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was ②<u>easily</u> won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the ③<u>uncertainties</u> in what we know. Our uncertainties can be greater or ④<u>lesser</u> for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite ⑤<u>certain</u> of how an apple will fall from a tree.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`각 사실은 <b>힘들게(hard)</b> 얻어진 것이다. ② easily(쉽게)는 hard의 반의어로 부적절.`,
+analysis:`❌ ② easily(쉽게): 원문은 hard(힘들게) → "hard won"이 적절\n✅ ① information: 원문 일치\n✅ ③ uncertainties: 원문 일치\n✅ ④ lesser: 원문 일치\n✅ ⑤ certain: 원문 일치`,
+tip:`hard won(힘들게 얻은) ↔ easily won(쉽게 얻은) \u2014 과학적 사실은 쉽게 얻어지지 않음`}},
+
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
+ch:[`doubts`,`facts`,`theories`,`assumptions`],
+passage:`The science we learn in grade school is a collection of <u>certainties</u> about the natural world.`,
+stem:`밑줄 친 <b>certainties</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`certainties = 확실한 것들, facts = 사실들 → 의미 유사`,
+analysis:`✅ ② facts(사실들): certainties의 동의어\n❌ ① doubts(의심): 반의어\n❌ ③ theories(이론): 확실하지 않을 수 있음\n❌ ④ assumptions(가정): 다른 의미`,
+tip:`certainties = facts = established truths = 확실한 사실`}},
+
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`series`,`failure`,`sequence`,`collection`],
+passage:`Each of these "facts" was hard won through a <u>succession</u> of logical inferences.`,
+stem:`밑줄 친 <b>succession</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`succession = 연속, sequence = 연속, 순서 → 의미 유사`,
+analysis:`✅ ③ sequence(연속): succession의 동의어\n❌ ① series(연속): 유사하지만 sequence가 더 정확\n❌ ② failure(실패): 다른 의미\n❌ ④ collection(모음): 다른 의미`,
+tip:`succession = sequence = series = 연속`}},
+
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`conclusions`,`guesses`,`facts`,`doubts`],
+passage:`Each was hard won through a succession of logical <u>inferences</u> based upon observations.`,
+stem:`밑줄 친 <b>inferences</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`inferences = 추론, conclusions = 결론 → 의미 유사`,
+analysis:`✅ ① conclusions(결론): inferences의 동의어\n❌ ② guesses(추측): 논리적 근거 없는 추측\n❌ ③ facts(사실): 추론의 결과이지 추론 자체가 아님\n❌ ④ doubts(의심): 다른 의미`,
+tip:`inferences = conclusions = deductions = 추론, 결론`}},
+
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`doubts`,`questions`,`unknowns`,`certainties`],
+passage:`The process of science is about reducing the <u>uncertainties</u> in what we know.`,
+stem:`밑줄 친 <b>uncertainties</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`uncertainties = 불확실성 ↔ certainties = 확실성`,
+analysis:`❌ ④ certainties(확실성): uncertainties의 반의어\n✅ ① doubts(의심): 유사어\n✅ ② questions(의문): 유사어\n✅ ③ unknowns(미지의 것): 유사어`,
+tip:`uncertainties ↔ certainties \u2014 불확실성 ↔ 확실성`}},
+
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`diminishing`,`decreasing`,`expanding`,`limiting`],
+passage:`The process of science is about <u>reducing</u> the uncertainties in what we know.`,
+stem:`밑줄 친 <b>reducing</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`reducing = 줄이는 ↔ expanding = 확장하는`,
+analysis:`❌ ③ expanding(확장하는): reducing의 반의어\n✅ ① diminishing(줄이는): 동의어\n✅ ② decreasing(감소시키는): 동의어\n✅ ④ limiting(제한하는): 유사어`,
+tip:`reducing = diminishing = decreasing ↔ expanding = increasing`}},
+
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`expanding`,`maintaining`,`reducing`,`ignoring`],
+passage:`The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about __________ the uncertainties in what we know.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`과학의 과정은 불확실성을 <b>줄이는(reducing)</b> 것이다.`,
+analysis:`✅ ③ reducing: "less about collecting ... than reducing" 구조\n❌ ① expanding: 반의어\n❌ ② maintaining: 줄이는 것이 아닌 유지\n❌ ④ ignoring: 문맥과 맞지 않음`,
+tip:`less about A than B = A보다 B에 더 가까운 \u2014 collecting보다 reducing`}},
+
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`guesses`,`beliefs`,`certainties`,`inferences`],
+passage:`Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical __________ based upon many observations or experiments.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`각 사실은 관찰이나 실험에 기반한 논리적 <b>추론(inferences)</b>의 연속을 통해 얻어졌다.`,
+analysis:`✅ ④ inferences: "logical __ based upon observations" → 논리적 추론\n❌ ① guesses: 논리적이지 않음\n❌ ② beliefs: 관찰에 기반하지 않음\n❌ ③ certainties: 추론의 결과이지 과정이 아님`,
+tip:`logical inferences based upon observations = 관찰에 기반한 논리적 추론`}},
+
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`progress`,`decline`,`perfection`,`completion`],
+passage:`Today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in __________ after more than a century of effort.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`난류 유동에 대한 이해는 1세기 넘게 여전히 <b>진행 중(work in progress)</b>이다.`,
+analysis:`✅ ① progress: work in progress = 진행 중인 작업\n❌ ② decline: 하락 → 문맥과 맞지 않음\n❌ ③ perfection: 완벽 → 아직 완성되지 않음\n❌ ④ completion: 완성 → but 뒤의 대비 구조와 맞지 않음`,
+tip:`work in progress = 진행 중인 작업, 아직 완성되지 않은 것`}},
+
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`실천, 실행`,`연습, 훈련`,`관행, 관습`,`개업, 영업`],
+passage:`Only when you start to learn the <u>practice</u> of science do you realize...`,
+stem:`밑줄 친 <b>practice</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`the practice of science = 과학의 <b>실천(실행)</b> → 실제로 과학을 하는 과정`,
+analysis:`✅ ① 실천, 실행: 과학을 실제로 수행하는 것\n❌ ② 연습: 반복적 훈련의 의미\n❌ ③ 관행: 습관적 행동\n❌ ④ 개업: 의사/변호사 등의 영업`,
+tip:`practice of science = 과학의 실천/실행 \u2014 이론이 아닌 실제 수행`}},
+
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`과정, 절차`,`가공, 처리`,`진행, 발전`,`소송`],
+passage:`The <u>process</u> of science is less about collecting pieces of knowledge.`,
+stem:`밑줄 친 <b>process</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`the process of science = 과학의 <b>과정</b>`,
+analysis:`✅ ① 과정, 절차: 과학이 작동하는 과정\n❌ ② 가공: 물리적 처리\n❌ ③ 진행: progress와 혼동\n❌ ④ 소송: 법적 의미`,
+tip:`process: 과정(가장 흔한 의미) | 가공 | 처리 | 소송`}},
+
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`certainty`,`observation`,`inference`,`experiment`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a conclusion reached on the basis of evidence and reasoning"</b>`,
+det:{korean:`'증거와 추론에 기초하여 도달한 결론' → <b>inference(추론)</b>`,
+analysis:`✅ ③ inference: 영영 정의와 정확히 일치\n❌ ① certainty: 확실성\n❌ ② observation: 관찰\n❌ ④ experiment: 실험`,
+tip:`inference = conclusion based on evidence and reasoning = 추론`}},
+
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`inference`,`succession`,`certainty`,`uncertainty`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"the state of not being sure or definite about something"</b>`,
+det:{korean:`'무언가에 대해 확실하지 않은 상태' → <b>uncertainty(불확실성)</b>`,
+analysis:`✅ ④ uncertainty: 영영 정의와 일치\n❌ ① inference: 추론\n❌ ② succession: 연속\n❌ ③ certainty: 반의어`,
+tip:`uncertainty = state of not being sure = 불확실성`}},
+
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`logical`,accept:[`logical`,`Logical`],
+passage:`Each of these "facts" was hard won through a succession of __________ (logic) inferences based upon many observations or experiments.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`logic(명사) → <b>logical(형용사)</b>: inferences를 수식하는 형용사 필요`,
+analysis:`logic(명사) → logical(형용사)\n명사 inferences 앞에서 수식하는 형용사가 필요`,
+tip:`logic → logical / magic → magical \u2014 -ic → -ical 형용사화`}},
+
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`observations`,accept:[`observations`,`Observations`],
+passage:`Each was hard won through a succession of logical inferences based upon many __________ (observe) or experiments.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`observe(동사) → <b>observations(명사, 복수)</b>: many 뒤에 복수 명사 필요`,
+analysis:`observe(동사) → observation(명사) → observations(복수)\nmany + 복수 명사 구조`,
+tip:`observe → observation(s) \u2014 동사 → 명사화 + 복수`}},
+
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`과학은 현재의 지식에 대한 불확실함을 줄이는 과정이다.`,`관찰과 실험 과정에서 우연히 얻어진 과학적 사실이 많다.`,`학생들에게 다양한 연구 방법을 가르치는 것이 중요하다.`,`과학 연구에서는 정확한 실험 과정 설계가 핵심이다.`,`과학은 분산된 지식을 수집하여 통합하는 학문이다.`],
+passage:r'The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.',
+stem:`다음 글의 요지로 가장 적절한 것은?`,
+det:{korean:`과학의 과정은 지식 수집이 아니라 <b>불확실성을 줄이는 것</b>이다. 어떤 것은 확실하지만 어떤 것은 아직 진행 중이다.`,
+analysis:`✅ ② 관찰과 실험 과정에서 우연히 얻어진 과학적 사실이 많다: 요지와 가장 가까움 (과학적 사실이 논리적 추론과 관찰/실험을 통해 힘들게 얻어진다는 것)\n❌ ① 불확실성 줄이기: 부분적으로 맞지만 핵심 요지가 아님\n❌ ③ 연구 방법 교육: 언급 없음\n❌ ④ 실험 설계: 언급 없음\n❌ ⑤ 지식 통합: 언급 없음`,
+tip:`요지: 과학적 사실 = 힘들게 얻어진 것 + 불확실성 줄이기 = 과학의 본질`}},
+
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`과학 교육의 방법론적 개혁이 시급하다`,`과학적 지식은 절대적이고 변하지 않는다`,`과학은 불확실성을 줄여가는 지속적인 과정이다`,`과학적 발견은 항상 우연에 의해 이루어진다`,`과학의 발전은 기술 혁신에 의해 좌우된다`],
+passage:r'The science we learn in grade school is a collection of certainties about the natural world \u2014 the earth goes around the sun, DNA carries the information of an organism, and so on. Only when you start to learn the practice of science do you realize that each of these "facts" was hard won through a succession of logical inferences based upon many observations or experiments. The process of science is less about collecting pieces of knowledge than it is about reducing the uncertainties in what we know. Our uncertainties can be greater or lesser for any given piece of knowledge depending upon where we are in that process \u2014 today we are quite certain of how an apple will fall from a tree, but our understanding of the turbulent fluid flow remains a work in progress after more than a century of effort.',
+stem:`다음 글의 주제로 가장 적절한 것은?`,
+det:{korean:`과학 과정의 본질 = 불확실성을 줄여가는 <b>지속적인 과정</b>이다.`,
+analysis:`✅ ③ 과학은 불확실성을 줄여가는 지속적인 과정이다: "reducing the uncertainties" + "work in progress"\n❌ ① 교육 개혁: 언급 없음\n❌ ② 절대적: "uncertainties"와 모순\n❌ ④ 우연: "logical inferences"와 모순\n❌ ⑤ 기술 혁신: 언급 없음`,
+tip:`핵심: reducing uncertainties + work in progress = 지속적 과정`}}
+];
 
 let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
 function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
@@ -163,10 +298,10 @@ h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.en
 if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
-let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':'①②③④'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});

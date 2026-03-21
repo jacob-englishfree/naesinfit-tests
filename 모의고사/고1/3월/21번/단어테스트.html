@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -82,11 +81,11 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div class="start-container">
   <div class="brand-badge">📝 온라인단어 TEST</div>
   <h1 class="start-title">온라인단어 <span>TEST</span></h1>
-  <p class="start-subtitle">2025 고1 3월 모의고사 · 21번 · 밑줄 의미 · 20문항</p>
+  <p class="start-subtitle">2025 고1 3월 모의고사 · 21번 · 함축 의미 · 20문항</p>
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2025 고1 3월 모의고사</span></div>
-    <div class="info-row"><span class="info-label">문항</span><span class="info-value">21번 (밑줄 의미)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">유전자 편집(Gene Editing)</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">21번 (함축 의미)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Gene Editing Ethics</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
@@ -106,31 +105,188 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2025 고1 3월 모의고사","pub":"21번","lesson":"밑줄 의미","title":"Gene Editing","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_21"};
+const EI={"subject":"2025 고1 3월 모의고사","pub":"21번","lesson":"함축 의미","title":"Gene Editing Ethics","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_21_v1"};
 
-const FULL_PASSAGE=`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`;
+const FULL_PASSAGE=`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`dangerous — mutations — inferior`,`safe — mutations — inferior`,`safe — mutations — superior`,`effective — cures — superior`,`safe — symptoms — superior`],passage:`Assuming gene editing in humans proves to be <b>(A)</b> and effective, it might seem logical, even preferable, to correct disease-causing <b>(B)</b> at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to <b>(C)</b> versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`유전자 편집이 <b>안전하고(safe)</b> 효과적이라면, 질병 유발 <b>돌연변이(mutations)</b>를 교정하고, 정상 유전자를 <b>우월한(superior)</b> 버전으로 업그레이드하려는 유혹이 있을 것이다.`,analysis:`✅ ③ safe — mutations — superior: 원문 일치\n❌ ① dangerous: safe의 반의어\n❌ ② inferior: superior의 반의어\n❌ ④ cures: mutations가 맞음\n❌ ⑤ symptoms: mutations가 맞음`,tip:`safe↔dangerous, mutations(돌연변이), superior↔inferior`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`logical — harmful — perfection`,`preferable — beneficial — perfection`,`preferable — harmful — imperfection`,`logical — beneficial — destruction`,`preferable — beneficial — destruction`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even <b>(A)</b>, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children <b>(B)</b> features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for <b>(C)</b> seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`논리적이고 심지어 <b>바람직하게(preferable)</b> 보일 수 있다. <b>해로운(harmful)</b> 유전자가 문제를 일으키기 전에. <b>완벽함(perfection)</b>에 대한 추구.`,analysis:`✅ ② preferable — beneficial — perfection: 맥락 일치 (beneficial features 언급)\n❌ ① harmful: 문맥상 beneficial features를 주는 것\n❌ ③ imperfection: perfection의 반의어\n❌ ④ destruction: 파괴\n❌ ⑤ destruction: 마찬가지`,tip:`preferable(바람직한), beneficial(유익한), perfection(완벽함)`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Assuming gene editing in humans proves to be safe and ①<u>effective</u>, it might seem ②<u>illogical</u>, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be ③<u>temptations</u> to upgrade normal genes to ④<u>superior</u> versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for ⑤<u>perfection</u> seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`돌연변이를 교정하는 것이 <b>논리적으로(logical)</b> 보인다. ② illogical(비논리적)은 logical의 반의어로 부적절.`,analysis:`❌ ② illogical(비논리적): 원문은 'logical(논리적)' → 부적절\n✅ ① effective: 효과적인 → 적절\n✅ ③ temptations: 유혹 → 적절\n✅ ④ superior: 우월한 → 적절\n✅ ⑤ perfection: 완벽함 → 적절`,tip:`logical(논리적) ↔ illogical(비논리적) — 핵심 반의어`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in ①<u>unborn</u> children to ②<u>lower</u> their lifetime risk of heart disease or cancer? What about giving unborn children ③<u>harmful</u> features, like greater ④<u>strength</u> and increased mental ⑤<u>abilities</u>, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`태어나지 않은 아이들에게 <b>유익한(beneficial)</b> 특성을 주는 것. ③ harmful(해로운)은 beneficial의 반의어로 부적절.`,analysis:`❌ ③ harmful(해로운): 원문은 'beneficial(유익한)' → 부적절\n✅ ① unborn: 태어나지 않은 → 적절\n✅ ② lower: 낮추다 → 적절\n✅ ④ strength: 힘 → 적절\n✅ ⑤ abilities: 능력 → 적절`,tip:`beneficial(유익한) ↔ harmful(해로운) — 핵심 반의어`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`fix`,`cause`,`ignore`,`worsen`],passage:`It might seem logical to <u>correct</u> disease-causing mutations.`,stem:`밑줄 친 <b>correct</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`correct = 교정하다, fix = 고치다 → 동의어`,analysis:`✅ ① fix: 고치다 → correct의 동의어\n❌ ② cause: 야기하다\n❌ ③ ignore: 무시하다\n❌ ④ worsen: 악화시키다`,tip:`correct = fix = repair = rectify = 교정·수정하다`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`downgrade`,`maintain`,`improve`,`eliminate`],passage:`There will be temptations to <u>upgrade</u> normal genes to superior versions.`,stem:`밑줄 친 <b>upgrade</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`upgrade = 향상시키다, improve = 개선하다 → 동의어`,analysis:`✅ ③ improve: 개선하다 → upgrade의 동의어\n❌ ① downgrade: 하향시키다 (반의어)\n❌ ② maintain: 유지하다\n❌ ④ eliminate: 제거하다`,tip:`upgrade = improve = enhance ↔ downgrade = 하향시키다`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`desire`,`allurement`,`requirement`,`obligation`],passage:`There will certainly be <u>temptations</u> to upgrade normal genes.`,stem:`밑줄 친 <b>temptations</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`temptation = 유혹, allurement = 유혹·매력 → 동의어`,analysis:`✅ ② allurement: 유혹, 매력 → temptation의 동의어\n❌ ① desire: 욕구 (유혹과 유사하나 정확히는 다름)\n❌ ③ requirement: 요구 사항\n❌ ④ obligation: 의무`,tip:`temptation = allurement = lure = 유혹`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`helpful`,`advantageous`,`useful`,`detrimental`],passage:`What about giving unborn children <u>beneficial</u> features?`,stem:`밑줄 친 <b>beneficial</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`beneficial = 유익한 ↔ detrimental = 해로운`,analysis:`❌ ④ detrimental(해로운): beneficial의 반의어 → 가장 먼 의미\n✅ ① helpful: 도움이 되는 → 유사어\n✅ ② advantageous: 유리한 → 유사어\n✅ ③ useful: 유용한 → 유사어`,tip:`beneficial = helpful ↔ detrimental = harmful = 해로운`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`inferior`,`outstanding`,`exceptional`,`excellent`],passage:`There will be temptations to upgrade normal genes to <u>superior</u> versions.`,stem:`밑줄 친 <b>superior</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`superior = 우월한 ↔ inferior = 열등한`,analysis:`❌ ① inferior(열등한): superior의 반의어 → 가장 먼 의미\n✅ ② outstanding: 뛰어난 → 유사어\n✅ ③ exceptional: 탁월한 → 유사어\n✅ ④ excellent: 훌륭한 → 유사어`,tip:`superior ↔ inferior — 라틴어 비교급 (more 불필요)`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`strengthen`,`correct`,`spread`,`create`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to __________ disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`질병 유발 돌연변이를 <b>교정하는(correct)</b> 것이 논리적으로 보인다.`,analysis:`✅ ② correct: 교정하다 → 원문 일치\n❌ ① strengthen: 강화하다\n❌ ③ spread: 퍼뜨리다\n❌ ④ create: 만들다`,tip:`correct disease-causing mutations = 질병 유발 돌연변이를 교정하다`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`resistance`,`rejection`,`caution`,`temptations`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be __________ to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`정상 유전자로 변환이 가능해지면, 정상 유전자를 업그레이드하려는 <b>유혹(temptations)</b>이 있을 것이다.`,analysis:`✅ ④ temptations: 유혹 → 원문 일치\n❌ ① resistance: 저항\n❌ ② rejection: 거부\n❌ ③ caution: 주의`,tip:`temptation to + 동사원형 = ~하려는 유혹`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`artificial`,`ordinary`,`beneficial`,`dangerous`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children __________ features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`태어나지 않은 아이들에게 더 큰 힘과 정신적 능력 같은 <b>유익한(beneficial)</b> 특성을 주는 것은?`,analysis:`✅ ③ beneficial: 유익한 → 원문 일치\n❌ ① artificial: 인공적인\n❌ ② ordinary: 평범한\n❌ ④ dangerous: 위험한`,tip:`beneficial features = 유익한 특성 (greater strength, increased mental abilities)`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`입증되다, 판명되다`,`증거를 제시하다`,`증명하다 (수학)`,`시험해보다`],passage:`Assuming gene editing in humans <u>proves</u> to be safe and effective.`,stem:`밑줄 친 <b>proves</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`유전자 편집이 안전하고 효과적이라고 <b>입증되면(proves to be)</b>`,analysis:`✅ ① 입증되다, 판명되다: prove to be = ~로 판명되다\n❌ ② 증거 제시: prove + 목적어\n❌ ③ 수학적 증명: prove a theorem\n❌ ④ 시험: test와 혼동`,tip:`prove to be + 형용사 = ~로 판명되다/입증되다`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`무대, 스테이지`,`단계 (과정)`,`시기, 단계 (인생)`,`연출하다`],passage:`To correct disease-causing mutations at the earliest possible <u>stage</u> of life.`,stem:`밑줄 친 <b>stage</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`생명의 가장 이른 <b>시기(stage)</b>에 돌연변이를 교정 → 인생의 단계`,analysis:`✅ ③ 시기, 단계 (인생): stage of life = 삶의 시기\n❌ ① 무대: stage performance\n❌ ② 과정의 단계: stage of development\n❌ ④ 연출하다: stage a play`,tip:`stage 다의어: 무대/단계/시기/연출하다 — 'of life'과 결합 시 '시기'`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`correct`,`upgrade`,`transform`,`mutation`],passage:`<i>a change in the structure of a gene that can result in a different characteristic</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`다른 특성을 초래할 수 있는 유전자 구조의 변화 → <b>mutation(돌연변이)</b>`,analysis:`✅ ④ mutation: 돌연변이 → 영영 정의와 일치\n❌ ① correct: 교정하다\n❌ ② upgrade: 향상시키다\n❌ ③ transform: 변환하다`,tip:`mutation = 돌연변이 (mutate 동사: 돌연변이하다)`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`embryo`,`gene`,`mutation`,`offspring`],passage:`<i>an unborn human in the early stages of development, typically in the first eight weeks after fertilization</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`수정 후 초기 발달 단계의 태어나지 않은 인간 → <b>embryo(배아)</b>`,analysis:`✅ ① embryo: 배아 → 영영 정의와 일치\n❌ ② gene: 유전자\n❌ ③ mutation: 돌연변이\n❌ ④ offspring: 자손`,tip:`embryo = 배아, 태아 초기 단계 (fetus는 이후 단계)`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`Assuming`,accept:[`Assuming`,`assuming`],passage:`__________ (assume) gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`분사구문으로 '~라고 가정하면' → assume → <b>Assuming</b>`,analysis:`assume → Assuming: 분사구문(조건)\n'Assuming (that) ~' = ~라고 가정하면`,tip:`Assuming (that) = If we assume (that) = ~라고 가정하면`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`beneficial`,accept:[`beneficial`,`Beneficial`],passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into 'normal' ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children __________ (benefit) features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`명사 features를 수식하는 형용사 필요 → benefit → <b>beneficial</b>`,analysis:`benefit(명사/동사) → beneficial(형용사): 명사 수식\n'beneficial features' = 유익한 특성`,tip:`benefit(명사: 이익) → beneficial(형용사: 유익한) → beneficially(부사)`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`한 번 시작하면 점점 통제할 수 없게 되는 위험한 과정에 빠질 수 있다`,`유전자 편집 기술이 매우 미끄러운 경사면에서만 작동한다`,`과학 기술의 발전이 항상 긍정적인 결과를 가져온다`,`유전자 편집은 물리적으로 불안정한 환경에서 이루어진다`],passage:FULL_PASSAGE,stem:`밑줄 친 "start down this slippery slope"가 의미하는 바로 가장 적절한 것은?`,det:{korean:`<b>slippery slope</b>는 '한 번 시작하면 멈출 수 없는 위험한 과정'을 비유적으로 표현한 것이다. 유전자 편집이 질병 치료에서 시작하여 외모 변경까지 확대될 수 있음을 경고한다.`,analysis:`✅ ① 한 번 시작하면 점점 통제할 수 없게 되는 위험한 과정: slippery slope의 비유적 의미\n❌ ② 물리적 경사면: 비유를 문자 그대로 해석\n❌ ③ 항상 긍정적: 글은 부정적 가능성 경고\n❌ ④ 물리적 환경: 비유를 문자 그대로 해석`,tip:`slippery slope = 미끄러운 비탈길 → 한 번 시작하면 멈출 수 없는 위험한 과정 (관용적 표현)`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`유전자 편집 기술은 아직 안전하지 않으므로 사용을 금지해야 한다`,`유전자 편집이 질병 치료를 넘어 '완벽한 인간' 설계로 확대될 위험이 있다`,`유전자 편집은 모든 질병을 치료할 수 있는 만능 기술이다`,`태어나지 않은 아이의 외모를 바꾸는 것은 이미 합법이다`],passage:FULL_PASSAGE,stem:`이 글의 요지로 가장 적절한 것은?`,det:{korean:`유전자 편집이 질병 치료에서 시작하여 <b>우월한 유전자 업그레이드</b>, <b>외모 변경</b>까지 확대될 수 있다는 <b>위험성</b>을 경고한다.`,analysis:`✅ ② 질병 치료를 넘어 완벽한 인간 설계로 확대될 위험: 글의 핵심 우려\n❌ ① 사용 금지: 글은 가능성 논의이지 금지 주장 아님\n❌ ③ 만능 기술: 글은 기술 자체보다 윤리적 문제 논의\n❌ ④ 이미 합법: 사실 아님`,tip:`질병 치료(correct) → 유전자 업그레이드(upgrade) → 외모 변경 = slippery slope`}}
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`preferable — transform — upgrade`,`preferable — transform — downgrade`,`avoidable — transform — upgrade`,`preferable — preserve — upgrade`,`avoidable — preserve — downgrade`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even <b>(A)</b>, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to <b>(B)</b> an embryo's mutated genes into "normal" ones, there will certainly be temptations to <b>(C)</b> normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`안전하고 효과적이면 <b>바람직한(preferable)</b> 것이고, 돌연변이 유전자를 <b>변형(transform)</b>하여, 정상 유전자를 <b>업그레이드(upgrade)</b>하려는 유혹이 생긴다.`,
+analysis:`✅ ① preferable — transform — upgrade: 원문과 정확히 일치\n❌ ② downgrade(하향): upgrade의 반의어\n❌ ③ avoidable(피할 수 있는): preferable의 반의어 맥락\n❌ ④ preserve(보존): transform의 반의어\n❌ ⑤ 세 단어 모두 부적절`,
+tip:`preferable(바람직한), transform(변형하다), upgrade(업그레이드) — 유전자 편집의 단계적 확장을 보여주는 단어들`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`temptations — beneficial — perfection`,`temptations — harmful — perfection`,`obstacles — beneficial — perfection`,`temptations — beneficial — imperfection`,`obstacles — harmful — imperfection`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be <b>(A)</b> to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children <b>(B)</b> features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for <b>(C)</b> seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`정상 유전자를 업그레이드하려는 <b>유혹(temptations)</b>이 생기고, 태어나지 않은 아이에게 <b>유익한(beneficial)</b> 특성을 주며, <b>완벽(perfection)</b>을 추구하게 된다.`,
+analysis:`✅ ① temptations — beneficial — perfection: 원문과 일치\n❌ ② harmful(해로운): beneficial의 반의어\n❌ ③ obstacles(장애물): temptations와 다른 의미\n❌ ④ imperfection(불완전): perfection의 반의어\n❌ ⑤ 세 단어 모두 부적절`,
+tip:`temptations(유혹), beneficial(유익한), perfection(완벽) — 유전자 편집의 매력과 위험을 나타내는 핵심 단어`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing ①<u>mutations</u> at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be ②<u>temptations</u> to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children ③<u>beneficial</u> features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost ④<u>unnatural</u> to human nature, but if we start down this slippery slope, we may not like where we ⑤<u>end up</u>.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`완벽 추구가 인간 본성에 거의 <b>자연스러운(natural)</b> 것이다. ④ unnatural(부자연스러운)은 natural의 반의어로 부적절.`,
+analysis:`❌ ④ unnatural(부자연스러운): 원문은 natural(자연스러운) → "almost natural to human nature"에서 natural이 적절\n✅ ① mutations(돌연변이): 원문 일치\n✅ ② temptations(유혹): 원문 일치\n✅ ③ beneficial(유익한): 원문 일치\n✅ ⑤ end up(결국 ~하게 되다): 원문 일치`,
+tip:`natural(자연스러운) ↔ unnatural(부자연스러운) — "almost natural to human nature"에서 natural이 문맥에 맞음`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before ①<u>harmful</u> genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to ②<u>downgrade</u> normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater ③<u>strength</u> and increased mental abilities, or changing physical ④<u>characteristics</u>, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this ⑤<u>slippery slope</u>, we may not like where we end up.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`정상 유전자를 우수한 버전으로 <b>업그레이드(upgrade)</b>하려는 유혹이다. ② downgrade(하향시키다)는 upgrade의 반의어로 부적절.`,
+analysis:`❌ ② downgrade(하향시키다): 원문은 upgrade(업그레이드) → "to superior versions"와 downgrade는 의미 충돌\n✅ ① harmful(해로운): 원문 일치\n✅ ③ strength(힘): 원문 일치\n✅ ④ characteristics(특성): 원문 일치\n✅ ⑤ slippery slope(미끄러운 비탈길): 원문 일치`,
+tip:`upgrade(업그레이드) ↔ downgrade(하향) — "to superior versions"와 함께 쓰이므로 upgrade가 적절`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
+ch:[`dangerous`,`desirable`,`avoidable`,`impossible`],
+passage:`It might seem logical, even <u>preferable</u>, to correct disease-causing mutations.`,
+stem:`밑줄 친 <b>preferable</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`preferable = 바람직한, desirable = 바람직한 → 의미 유사`,
+analysis:`✅ ② desirable(바람직한): preferable의 동의어\n❌ ① dangerous(위험한): 다른 의미\n❌ ③ avoidable(피할 수 있는): 다른 의미\n❌ ④ impossible(불가능한): 다른 의미`,
+tip:`preferable = desirable = 바람직한, 더 나은`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`preserve`,`destroy`,`convert`,`create`],
+passage:`Yet once it becomes possible to <u>transform</u> an embryo's mutated genes into "normal" ones.`,
+stem:`밑줄 친 <b>transform</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`transform = 변형하다, convert = 전환하다 → 의미 유사`,
+analysis:`✅ ③ convert(전환하다): transform의 동의어\n❌ ① preserve(보존하다): 다른 의미\n❌ ② destroy(파괴하다): 다른 의미\n❌ ④ create(만들다): 다른 의미`,
+tip:`transform = convert = change = 변형하다, 전환하다`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`urges`,`obstacles`,`requirements`,`guarantees`],
+passage:`There will certainly be <u>temptations</u> to upgrade normal genes to superior versions.`,
+stem:`밑줄 친 <b>temptations</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`temptations = 유혹, urges = 충동, 강한 욕구 → 의미 유사`,
+analysis:`✅ ① urges(충동): temptations의 동의어\n❌ ② obstacles(장애물): 다른 의미\n❌ ③ requirements(필수요건): 다른 의미\n❌ ④ guarantees(보장): 다른 의미`,
+tip:`temptation = urge = desire = 유혹, 충동`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`helpful`,`advantageous`,`useful`,`detrimental`],
+passage:`What about giving unborn children <u>beneficial</u> features, like greater strength?`,
+stem:`밑줄 친 <b>beneficial</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`beneficial = 유익한 ↔ detrimental = 해로운`,
+analysis:`❌ ④ detrimental(해로운): beneficial의 반의어 → 가장 먼 의미\n✅ ① helpful(도움이 되는): 동의어\n✅ ② advantageous(유리한): 동의어\n✅ ③ useful(유용한): 유사어`,
+tip:`beneficial = helpful = advantageous ↔ detrimental = harmful`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`fix`,`amend`,`damage`,`remedy`],
+passage:`It might seem logical to <u>correct</u> disease-causing mutations at the earliest possible stage.`,
+stem:`밑줄 친 <b>correct</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`correct = 교정하다, 바로잡다 ↔ damage = 손상시키다`,
+analysis:`❌ ③ damage(손상시키다): correct의 반의어 → 가장 먼 의미\n✅ ① fix(고치다): 동의어\n✅ ② amend(수정하다): 동의어\n✅ ④ remedy(치료하다): 유사어`,
+tip:`correct = fix = amend = remedy(교정하다) ↔ damage = harm(손상시키다)`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`preserve`,`downgrade`,`transform`,`eliminate`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to __________ an embryo's mutated genes into "normal" ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`돌연변이 유전자를 정상으로 <b>변형(transform)</b>하는 것이 가능해지면 업그레이드 유혹이 생긴다.`,
+analysis:`✅ ③ transform(변형하다): "into normal ones"와 자연스럽게 연결\n❌ ① preserve(보존하다): 변형이 아닌 보존\n❌ ② downgrade(하향시키다): 문맥과 반대\n❌ ④ eliminate(제거하다): "into normal ones"와 어울리지 않음`,
+tip:`transform A into B = A를 B로 변형하다`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`decrease`,`maintain`,`abandon`,`upgrade`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to __________ normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`정상 유전자를 우수한 버전으로 <b>업그레이드(upgrade)</b>하려는 유혹이 생긴다.`,
+analysis:`✅ ④ upgrade(업그레이드하다): "to superior versions"와 자연스럽게 연결\n❌ ① decrease(줄이다): 문맥과 반대\n❌ ② maintain(유지하다): 업그레이드가 아닌 유지\n❌ ③ abandon(포기하다): 문맥과 맞지 않음`,
+tip:`upgrade to superior versions = 우수한 버전으로 업그레이드하다`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`perfection`,`protection`,`prevention`,`permission`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for __________ seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`<b>완벽(perfection)</b>에 대한 추구는 인간 본성에 거의 자연스러운 것이다.`,
+analysis:`✅ ① perfection(완벽): "upgrade to superior versions" + "natural to human nature"와 연결 → 완벽 추구\n❌ ② protection(보호): 문맥과 맞지 않음\n❌ ③ prevention(예방): 문맥과 맞지 않음\n❌ ④ permission(허가): 문맥과 맞지 않음`,
+tip:`The pursuit for perfection = 완벽에 대한 추구 — 유전자 편집이 업그레이드로 이어지는 맥락`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`무대, 공연장`,`단계, 시기`,`준비하다`,`연출하다`],
+passage:`To correct disease-causing mutations at the earliest possible <u>stage</u> of life.`,
+stem:`밑줄 친 <b>stage</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`the earliest possible stage of life = 삶의 가능한 가장 이른 <b>단계</b>`,
+analysis:`✅ ② 단계, 시기: stage of life = 삶의 단계\n❌ ① 무대: performance stage\n❌ ③ 준비하다: stage an event\n❌ ④ 연출하다: stage a play`,
+tip:`stage: 단계(가장 흔한 의미) | 무대 | 준비하다/연출하다`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`특성, 특징`,`성격, 인물`,`문자, 글자`,`캐릭터, 등장인물`],
+passage:`Or changing physical <u>characteristics</u>, like eye and hair color?`,
+stem:`밑줄 친 <b>characteristics</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`physical characteristics = 신체적 <b>특성</b>(눈 색깔, 머리 색깔 등)`,
+analysis:`✅ ① 특성, 특징: physical characteristics = 신체적 특성\n❌ ② 성격, 인물: character의 의미\n❌ ③ 문자, 글자: character의 다른 의미\n❌ ④ 캐릭터, 등장인물: character의 다른 의미`,
+tip:`characteristics = traits = features = 특성, 특징`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
+ch:[`mutation`,`temptation`,`embryo`,`perfection`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"an organism in the earliest stages of development, before birth"</b>`,
+det:{korean:`'태어나기 전 발달의 가장 초기 단계에 있는 유기체' → <b>embryo(배아)</b>`,
+analysis:`✅ ③ embryo: 영영 정의와 정확히 일치\n❌ ① mutation: 돌연변이\n❌ ② temptation: 유혹\n❌ ④ perfection: 완벽`,
+tip:`embryo = 배아 — before birth + earliest stages of development`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`transform`,`upgrade`,`beneficial`,`mutation`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"a change in the structure of a gene, which can cause disease"</b>`,
+det:{korean:`'질병을 유발할 수 있는 유전자 구조의 변화' → <b>mutation(돌연변이)</b>`,
+analysis:`✅ ④ mutation: 영영 정의와 일치\n❌ ① transform: 변형하다\n❌ ② upgrade: 업그레이드하다\n❌ ③ beneficial: 유익한`,
+tip:`mutation = 돌연변이 — change in gene structure + cause disease`}},
+
+// ━━━ Q17: 어형 변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`effective`,accept:[`effective`,`Effective`],
+passage:`Assuming gene editing in humans proves to be safe and __________ (effect), it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for perfection seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`effect(명사) → <b>effective(형용사)</b>: "safe and __" 병렬 구조에서 형용사 필요`,
+analysis:`effect(명사) → effective(형용사)\nsafe(형용사) and ________(형용사) — and 병렬 구조`,
+tip:`effect → effective / affect → affective — -ect → -ective 형용사화 패턴`}},
+
+// ━━━ Q18: 어형 변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`perfection`,accept:[`perfection`,`Perfection`],
+passage:`Assuming gene editing in humans proves to be safe and effective, it might seem logical, even preferable, to correct disease-causing mutations at the earliest possible stage of life, before harmful genes begin causing serious problems. Yet once it becomes possible to transform an embryo's mutated genes into "normal" ones, there will certainly be temptations to upgrade normal genes to superior versions. Should we begin editing genes in unborn children to lower their lifetime risk of heart disease or cancer? What about giving unborn children beneficial features, like greater strength and increased mental abilities, or changing physical characteristics, like eye and hair color? The pursuit for __________ (perfect) seems almost natural to human nature, but if we start down this slippery slope, we may not like where we end up.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`perfect(형용사) → <b>perfection(명사)</b>: "The pursuit for __" 전치사 for 뒤에 명사 필요`,
+analysis:`perfect(형용사) → perfection(명사)\nThe pursuit for ________(명사) — 전치사 for 뒤에 명사가 필요`,
+tip:`perfect → perfection / protect → protection — -ect → -ection 명사화 패턴`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`begin a new chapter`,`reach the finish line`,`find a silver lining`,`start down this slippery slope`,`turn over a new leaf`],
+passage:FULL_PASSAGE.replace('start down this slippery slope','__________'),
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`완벽 추구가 자연스러워 보이지만, 이 <b>미끄러운 비탈길을 내려가기 시작하면(start down this slippery slope)</b> 결과를 좋아하지 않을 수 있다.`,
+analysis:`✅ ④ start down this slippery slope: "we may not like where we end up"과 연결 → 위험한 경로\n❌ ① begin a new chapter(새 장을 시작하다): 긍정적 의미\n❌ ② reach the finish line(결승선에 도달하다): 문맥과 맞지 않음\n❌ ③ find a silver lining(긍정적 면을 찾다): 문맥과 반대\n❌ ⑤ turn over a new leaf(새출발하다): 문맥과 맞지 않음`,
+tip:`slippery slope = 미끄러운 비탈길 = 한 번 시작하면 멈출 수 없는 위험한 경향`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 (함축 의미) · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:4,
+ch:[`allow genetic alterations to upgrade humans`,`stick to the traditional beliefs in human nature`,`resist the temptation to change genes in humans`,`fail to reduce the risk of suffering from diseases`,`consider more about the moral issues of genetics`],
+passage:FULL_PASSAGE,
+stem:`밑줄 친 "start down this slippery slope"가 다음 글에서 의미하는 바로 가장 적절한 것은?`,
+det:{korean:`유전자 편집이 치료에서 업그레이드로, 업그레이드에서 완벽 추구로 이어지는 위험 → 유전학의 <b>도덕적 문제를 더 고려해야 한다</b>는 의미.`,
+analysis:`✅ ⑤ consider more about the moral issues of genetics: slippery slope는 윤리적 위험을 경고하는 표현\n❌ ① 유전적 변형을 허용: 글의 경고와 반대 방향\n❌ ② 전통적 믿음 고수: 본문에서 직접 언급되지 않음\n❌ ③ 유전자 변경 유혹 저항: 부분적으로 관련 있지만 핵심 의미가 아님\n❌ ④ 질병 위험 감소 실패: 본문의 주된 우려가 아님`,
+tip:`slippery slope(미끄러운 비탈길): 한 번 시작하면 통제 불능 → 윤리적 경계의 중요성 시사`}}
 ];
 
 
@@ -163,10 +319,10 @@ h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.en
 if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t.slice(0,8)}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t.slice(0,8)}</span>`).join('')}</div></div>`;h+=`</div>`;
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
-let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch?(d.q.ch.length===5?'①②③④⑤':'①②③④'):'';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});

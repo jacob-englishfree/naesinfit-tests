@@ -20,8 +20,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .info-card-header{background:linear-gradient(135deg,var(--g),#0D9488);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
 .info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0f5f1;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
-.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}.chip{background:var(--card);border:1.5px solid #dde8df;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
 .input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0dcd2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
 .input-group input:focus,.input-group select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(22,163,74,.1);}
@@ -82,11 +81,11 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div class="start-container">
   <div class="brand-badge">📝 온라인단어 TEST</div>
   <h1 class="start-title">온라인단어 <span>TEST</span></h1>
-  <p class="start-subtitle">2025 고1 3월 모의고사 · 24번 · 글의 제목 · 20문항</p>
+  <p class="start-subtitle">2025 고1 3월 모의고사 · 24번 · 제목 · 20문항</p>
   <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
     <div class="info-row"><span class="info-label">시험</span><span class="info-value">2025 고1 3월 모의고사</span></div>
-    <div class="info-row"><span class="info-label">문항</span><span class="info-value">24번 (글의 제목)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Reading Aloud — 소리 내어 읽기의 효과</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">24번 (제목)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Reading Aloud & Brainpower</span></div>
   </div></div>
   <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
@@ -106,31 +105,188 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2025 고1 3월 모의고사","pub":"24번","lesson":"글의 제목","title":"Reading Aloud","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_24"};
+const EI={"subject":"2025 고1 3월 모의고사","pub":"24번","lesson":"제목","title":"Reading Aloud & Brainpower","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g1_mar_24_v1"};
 
-const FULL_PASSAGE=`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word — something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`;
+const FULL_PASSAGE=`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`;
 
 const Q=[
-{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,ch:[`techniques — revealed — strengthens`,`methods — concealed — weakens`,`techniques — concealed — strengthens`,`methods — revealed — weakens`,`techniques — revealed — weakens`],passage:`Modern brain-scanning <b>(A)</b> such as fMRI (functional Magnetic Resonance Imaging) have <b>(B)</b> that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which <b>(C)</b> the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`현대 뇌 스캔 <b>기법(techniques)</b>이 소리 내어 읽기가 뇌의 많은 영역을 활성화한다는 것을 <b>밝혀냈다(revealed)</b>. 이것이 뇌세포의 연결 구조를 <b>강화한다(strengthens)</b>.`,analysis:`✅ ① techniques — revealed — strengthens: 원문 일치\n❌ ② concealed: revealed의 반의어\n❌ ③ concealed: 부적절\n❌ ④ weakens: strengthens의 반의어\n❌ ⑤ weakens: 부적절`,tip:`technique(기법), reveal(밝히다)↔conceal(숨기다), strengthen(강화하다)↔weaken(약화시키다)`}},
-{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`improvement — forces — discouraged`,`decline — forces — encouraged`,`improvement — forces — encouraged`,`improvement — allows — encouraged`,`decline — allows — discouraged`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall <b>(A)</b> in concentration. Reading aloud is also a good way to develop your public speaking skills because it <b>(B)</b> you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be <b>(C)</b> to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,det:{korean:`집중력의 전반적인 <b>향상(improvement)</b>으로 이어진다. 소리 내어 읽기는 모든 단어를 읽도록 <b>강제한다(forces)</b>. 아이들은 소리 내어 읽기를 <b>권장받아야(encouraged)</b> 한다.`,analysis:`✅ ③ improvement — forces — encouraged: 원문 일치\n❌ ① discouraged: encouraged의 반의어\n❌ ② decline: improvement의 반의어\n❌ ④ allows: forces가 아닌 허락\n❌ ⑤ decline/allows/discouraged: 모두 부적절`,tip:`improvement(향상)↔decline(하락), force(강제하다)↔allow(허용하다), encourage(격려하다)↔discourage(낙담시키다)`}},
-{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Modern brain-scanning techniques have ①<u>revealed</u> that reading aloud lights up many areas of the brain. There is ②<u>intense</u> activity in areas associated with pronunciation. This ③<u>weakens</u> the connective structures of your brain cells. Reading aloud is a good way to ④<u>develop</u> your public speaking skills. Children should be ⑤<u>encouraged</u> to read aloud.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`소리 내어 읽기가 뇌세포의 연결 구조를 <b>강화한다(strengthens)</b>. ③ weakens(약화시킨다)는 strengthens의 반의어로 부적절.`,analysis:`❌ ③ weakens(약화시킨다): 원문은 'strengthens(강화하다)' → 부적절\n✅ ① revealed: 밝혀냈다 → 적절\n✅ ② intense: 강렬한 → 적절\n✅ ④ develop: 발전시키다 → 적절\n✅ ⑤ encouraged: 격려받다 → 적절`,tip:`strengthen(강화하다) ↔ weaken(약화시키다) — 핵심 반의어`}},
-{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:3,ch:[`①`,`②`,`③`,`④`,`⑤`],passage:`Reading aloud lights up many ①<u>areas</u> of the brain. This leads to an overall ②<u>improvement</u> in concentration. It forces you to read each and every word — something people don't often do when reading in ③<u>silence</u>. Children should be ④<u>discouraged</u> from reading aloud because the brain is ⑤<u>wired</u> for learning through connections.`,stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,det:{korean:`아이들은 소리 내어 읽기를 <b>격려받아야(encouraged)</b> 한다. ④ discouraged(단념시키다)는 encouraged의 반의어로 부적절.`,analysis:`❌ ④ discouraged(단념시키다): 원문은 'encouraged(격려하다)' → 부적절\n✅ ① areas: 영역 → 적절\n✅ ② improvement: 향상 → 적절\n✅ ③ silence: 침묵 → 적절\n✅ ⑤ wired: 연결된 → 적절`,tip:`encourage(격려하다) ↔ discourage(단념시키다) — 핵심 반의어`}},
-{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,ch:[`hidden`,`disclosed`,`concealed`,`denied`],passage:`Modern brain-scanning techniques have <u>revealed</u> that reading aloud lights up many areas of the brain.`,stem:`밑줄 친 <b>revealed</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`revealed = 밝혀냈다, disclosed = 공개하다 → 동의어`,analysis:`✅ ② disclosed: 공개하다 → revealed의 동의어\n❌ ① hidden: 숨기다\n❌ ③ concealed: 감추다\n❌ ④ denied: 부인하다`,tip:`reveal = disclose = uncover = 밝히다, 드러내다`}},
-{id:6,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`mild`,`moderate`,`weak`,`strong`],passage:`There is <u>intense</u> activity in areas associated with pronunciation.`,stem:`밑줄 친 <b>intense</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`intense = 강렬한, strong = 강한 → 동의어`,analysis:`✅ ④ strong: 강한 → intense의 동의어\n❌ ① mild: 가벼운\n❌ ② moderate: 적당한\n❌ ③ weak: 약한`,tip:`intense = strong = powerful = 강렬한, 격렬한`}},
-{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`reinforces`,`damages`,`reduces`,`removes`],passage:`This <u>strengthens</u> the connective structures of your brain cells for more brainpower.`,stem:`밑줄 친 <b>strengthens</b>의 의미와 가장 <b>가까운</b> 것은?`,det:{korean:`strengthens = 강화한다, reinforces = 보강한다 → 동의어`,analysis:`✅ ① reinforces: 보강하다 → strengthens의 동의어\n❌ ② damages: 손상시키다\n❌ ③ reduces: 줄이다\n❌ ④ removes: 제거하다`,tip:`strengthen = reinforce = fortify = 강화하다`}},
-{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,ch:[`shown`,`uncovered`,`concealed`,`exposed`],passage:`Modern brain-scanning techniques have <u>revealed</u> that reading aloud lights up many areas.`,stem:`밑줄 친 <b>revealed</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`revealed = 밝혀냈다 ↔ concealed = 숨겼다`,analysis:`❌ ③ concealed(숨겼다): revealed의 반의어 → 가장 먼 의미\n✅ ① shown: 보여주다 → 동의어\n✅ ② uncovered: 밝히다 → 동의어\n✅ ④ exposed: 드러내다 → 동의어`,tip:`reveal = show = expose ↔ conceal = hide = 숨기다`}},
-{id:9,type:`반의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`enhancement`,`deterioration`,`progress`,`advancement`],passage:`This leads to an overall <u>improvement</u> in concentration.`,stem:`밑줄 친 <b>improvement</b>의 의미와 가장 <b>먼</b> 것은?`,det:{korean:`improvement = 향상 ↔ deterioration = 악화`,analysis:`❌ ② deterioration(악화): improvement의 반의어 → 가장 먼 의미\n✅ ① enhancement: 향상 → 동의어\n✅ ③ progress: 진전 → 유사어\n✅ ④ advancement: 발전 → 유사어`,tip:`improvement = enhancement ↔ deterioration = decline = 악화`}},
-{id:10,type:`빈칸 어휘 완성`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,ch:[`concealed`,`weakened`,`ignored`,`revealed`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have __________ that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`현대 뇌 스캔 기법이 소리 내어 읽기가 뇌의 많은 영역을 활성화한다는 것을 <b>밝혀냈다(revealed)</b>.`,analysis:`✅ ④ revealed: 밝혀냈다 → 원문 일치\n❌ ① concealed: 숨겼다\n❌ ② weakened: 약화시켰다\n❌ ③ ignored: 무시했다`,tip:`reveal = 밝히다, 드러내다 (연구 결과를 밝힐 때 자주 사용)`}},
-{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`concentration`,`distraction`,`confusion`,`exhaustion`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in __________. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`이것은 <b>집중력(concentration)</b>의 전반적인 향상으로 이어진다.`,analysis:`✅ ① concentration: 집중력 → 원문 일치\n❌ ② distraction: 주의산만\n❌ ③ confusion: 혼란\n❌ ④ exhaustion: 피로`,tip:`concentration = focus = 집중력`}},
-{id:12,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`allows`,`prevents`,`forces`,`helps`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it __________ you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 빈칸에 들어갈 말로 가장 적절한 것은?`,det:{korean:`소리 내어 읽기는 모든 단어를 읽도록 <b>강제한다(forces)</b>.`,analysis:`✅ ③ forces: 강제하다 → 원문 일치\n❌ ① allows: 허용하다\n❌ ② prevents: 막다\n❌ ④ helps: 돕다 (의미는 유사하나 원문은 forces)`,tip:`force + 목적어 + to부정사: ~에게 ~하도록 강제하다`}},
-{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,ch:[`빛, 조명`,`활성화시키다, 밝히다`,`불을 붙이다`,`가벼운`],passage:`Reading aloud <u>lights up</u> many areas of the brain.`,stem:`밑줄 친 <b>lights up</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`뇌의 많은 영역을 <b>활성화시키다(lights up)</b> → 뇌 스캔 맥락에서 활성화를 의미.`,analysis:`✅ ② 활성화시키다, 밝히다: 뇌 영역이 활성화되는 맥락\n❌ ① 빛, 조명: 명사적 의미\n❌ ③ 불을 붙이다: 물리적 의미\n❌ ④ 가벼운: light의 형용사적 의미`,tip:`light up 다의어: 활성화시키다(뇌 과학) / 밝히다 / 불을 붙이다`}},
-{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`전선으로 연결된`,`피곤한`,`(능력이) 타고난, 내재된`,`유선의`],passage:`The brain is <u>wired</u> for learning through connections that are created by positive stimulation.`,stem:`밑줄 친 <b>wired</b>의 문맥적 의미로 가장 적절한 것은?`,det:{korean:`뇌가 긍정적 자극으로 만들어진 연결을 통해 학습하도록 <b>설계되어 있다(wired)</b>.`,analysis:`✅ ③ (능력이) 타고난, 내재된: 뇌가 학습을 위해 프로그래밍되어 있다는 맥락\n❌ ① 전선으로 연결된: 물리적 의미\n❌ ② 피곤한: wired의 구어적 의미\n❌ ④ 유선의: 기술적 의미`,tip:`wired 다의어: 타고난/설계된(뇌 과학) / 전선 연결된(물리) / 흥분한(구어)`}},
-{id:15,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,ch:[`pronunciation`,`concentration`,`stimulation`,`improvement`],passage:`<i>something that encourages activity or development in a body, mind, or system</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`신체, 정신 또는 시스템의 활동이나 발달을 촉진하는 것 → <b>stimulation(자극)</b>`,analysis:`✅ ③ stimulation: 자극 → 영영 정의와 일치\n❌ ① pronunciation: 발음\n❌ ② concentration: 집중력\n❌ ④ improvement: 향상`,tip:`stimulation = encouragement of activity = 자극, 촉진`}},
-{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,ch:[`connective`,`intensive`,`productive`,`selective`],passage:`<i>relating to or serving to connect things together</i>`,stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?`,det:{korean:`사물을 함께 연결하는 것과 관련된 → <b>connective(연결하는)</b>`,analysis:`✅ ① connective: 연결하는 → 영영 정의와 일치\n❌ ② intensive: 집중적인\n❌ ③ productive: 생산적인\n❌ ④ selective: 선택적인`,tip:`connective = connecting = linking = 연결하는`}},
-{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`associated`,accept:[`associated`,`Associated`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas __________ (associate) with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`발음과 청취에 <b>관련된(associated)</b> 영역에서 → 과거분사(수동)`,analysis:`associate → associated: 과거분사(수동)\n'areas associated with' = ~와 관련된 영역`,tip:`be associated with = ~와 관련되다 (수동태 형태로 자주 사용)`}},
-{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`encouraged`,accept:[`encouraged`,`Encouraged`],passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don't often do when reading quickly, or reading in silence. Children, in particular, should be __________ (encourage) to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,det:{korean:`아이들은 소리 내어 읽기를 <b>격려받아야(encouraged)</b> 한다 → 수동태`,analysis:`encourage → encouraged: should be + 과거분사(수동태)\n'should be encouraged to' = ~하도록 격려받아야 한다`,tip:`should be + p.p.: 수동태 조동사 구문 (be encouraged to = ~하도록 격려받다)`}},
-{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,ch:[`Reading Aloud: Improving Brainpower and Speaking Skills`,`Reading Practices: Shortcuts to Academic Achievements`,`Improve Your Writing Skills Through Reading Aloud`,`How Your Brain Changes When You Read in Silence`,`Techniques for Faster and More Effective Reading`],passage:FULL_PASSAGE,stem:`다음 글의 제목으로 가장 적절한 것은? (원래 모의고사 24번 문제)`,det:{korean:`소리 내어 읽기가 <b>두뇌 능력(brainpower)</b>과 <b>말하기 능력(speaking skills)</b>을 향상시킨다는 내용이다.`,analysis:`✅ ① Reading Aloud: Improving Brainpower and Speaking Skills: 글의 핵심 주제\n❌ ② Academic Achievements: 학업 성취는 언급 없음\n❌ ③ Writing Skills: 쓰기 능력이 아닌 말하기 능력\n❌ ④ Read in Silence: 침묵 속 읽기가 아닌 소리 내어 읽기\n❌ ⑤ Faster Reading: 빠른 읽기가 아닌 소리 내어 읽기`,tip:`제목 문제: 글의 핵심 키워드(reading aloud, brainpower, speaking skills) 포함 여부 확인`}},
-{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,ch:[`decrease brain activity significantly`,`enhance both brainpower and speaking ability`,`only benefit children under a certain age`,`replace traditional reading methods entirely`],passage:FULL_PASSAGE,stem:`본문에 따르면, 소리 내어 읽기가 할 수 있는 것은?`,det:{korean:`본문에 따르면 소리 내어 읽기는 <b>두뇌 능력과 말하기 능력 모두를 향상시킬(enhance both brainpower and speaking ability)</b> 수 있다.`,analysis:`✅ ② enhance both brainpower and speaking ability: 본문 핵심 내용\n❌ ① decrease brain activity: 반대 내용\n❌ ③ only benefit children: 아이들에게만 해당하지 않음\n❌ ④ replace traditional methods: 대체가 아닌 보완`,tip:`글의 주제 추론: brainpower 강화 + public speaking 발전 = 두 가지 이점`}}
+// ━━━ Q1: (A)(B)(C) 조합형 · 쉬움 · 4pts ━━━
+{id:1,type:`(A)(B)(C) 조합형`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`revealed — strengthens — develop`,`concealed — strengthens — develop`,`revealed — weakens — develop`,`revealed — strengthens — diminish`,`concealed — weakens — diminish`],
+passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have <b>(A)</b> that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which <b>(B)</b> the connective structures of your brain cells for more brainpower. This leads to an overall improvement in concentration. Reading aloud is also a good way to <b>(C)</b> your public speaking skills because it forces you to read each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`뇌 스캔 기술이 소리 내어 읽기가 뇌의 많은 영역을 활성화한다고 <b>밝혔다(revealed)</b>. 발음과 관련된 활동이 뇌세포의 연결 구조를 <b>강화한다(strengthens)</b>. 소리 내어 읽기는 대중 연설 능력을 <b>개발(develop)</b>하는 좋은 방법이다.`,
+analysis:`✅ ① revealed — strengthens — develop: 원문과 정확히 일치\n❌ ② concealed(숨겼다): revealed의 반의어\n❌ ③ weakens(약화시킨다): strengthens의 반의어\n❌ ④ diminish(감소시키다): develop의 반의어\n❌ ⑤ 세 단어 모두 반의어`,
+tip:`revealed(밝히다)↔concealed(숨기다), strengthens(강화)↔weakens(약화), develop(발전)↔diminish(감소)`}},
+
+// ━━━ Q2: (A)(B)(C) 조합형 · 보통 · 5pts ━━━
+{id:2,type:`(A)(B)(C) 조합형`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`intense — concentration — encouraged`,`intense — distraction — encouraged`,`mild — concentration — discouraged`,`intense — concentration — discouraged`,`mild — distraction — encouraged`],
+passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is <b>(A)</b> activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in <b>(B)</b>. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence. Children, in particular, should be <b>(C)</b> to read aloud because the brain is wired for learning through connections that are created by positive stimulation, such as singing, touching, and reading aloud.`,
+stem:`다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?`,
+det:{korean:`발음과 관련된 영역에서 <b>강렬한(intense)</b> 활동이 있고, 이는 <b>집중력(concentration)</b> 향상으로 이어진다. 아이들은 소리 내어 읽도록 <b>격려(encouraged)</b>받아야 한다.`,
+analysis:`✅ ① intense — concentration — encouraged: 원문 일치\n❌ ② distraction(산만): concentration의 반의어\n❌ ③ mild(약한): intense의 반의어, discouraged(낙담): encouraged의 반의어\n❌ ④ discouraged: encouraged의 반의어\n❌ ⑤ mild/distraction: 부적절`,
+tip:`intense(강렬한)↔mild(약한), concentration(집중)↔distraction(산만), encouraged(격려)↔discouraged(낙담)`}},
+
+// ━━━ Q3: 부적절 어휘 · 쉬움 · 4pts ━━━
+{id:3,type:`문맥상 부적절한 어휘`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have ①<u>revealed</u> that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the ②<u>connective</u> structures of your brain cells for more brainpower. This leads to an overall improvement in ③<u>concentration</u>. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence. Children, in particular, should be ④<u>discouraged</u> to read aloud because the brain is wired for learning through connections that are created by ⑤<u>positive</u> stimulation, such as singing, touching, and reading aloud.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`아이들은 소리 내어 읽도록 <b>격려(encouraged)</b>받아야 한다. ④ discouraged(낙담시키다)는 encouraged의 반의어로 부적절.`,
+analysis:`❌ ④ discouraged(낙담시키다): 원문은 encouraged(격려하다) → 문맥상 소리 내어 읽기를 권장하므로 discouraged는 부적절\n✅ ① revealed(밝히다): 원문 일치\n✅ ② connective(연결하는): 원문 일치\n✅ ③ concentration(집중): 원문 일치\n✅ ⑤ positive(긍정적인): 원문 일치`,
+tip:`encouraged(격려하다) ↔ discouraged(낙담시키다) — "brain is wired for learning"과 discouraged는 의미 충돌`}},
+
+// ━━━ Q4: 부적절 어휘 · 보통 · 5pts ━━━
+{id:4,type:`문맥상 부적절한 어휘`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which ①<u>strengthens</u> the connective structures of your brain cells for more brainpower. This leads to an overall ②<u>decline</u> in concentration. Reading aloud is also a good way to ③<u>develop</u> your public speaking skills because it forces you to read each and every ④<u>word</u> \u2014 something people don\u2019t often do when reading quickly, or reading in silence. Children, in particular, should be encouraged to read aloud because the brain is ⑤<u>wired</u> for learning through connections that are created by positive stimulation.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`뇌세포 연결 구조가 강화되면 집중력이 <b>향상(improvement)</b>된다. ② decline(감소)은 improvement의 반의어로 부적절.`,
+analysis:`❌ ② decline(감소): 원문은 improvement(향상) → 뇌 강화 후 집중력이 감소한다는 것은 문맥과 모순\n✅ ① strengthens(강화하다): 원문 일치\n✅ ③ develop(개발하다): 원문 일치\n✅ ④ word(단어): 원문 일치\n✅ ⑤ wired(연결된): 원문 일치`,
+tip:`improvement(향상) ↔ decline(감소) — 뇌 강화 → 집중력 "향상"이 자연스러움`}},
+
+// ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
+{id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`hidden`,`denied`,`disclosed`,`ignored`],
+passage:`Modern brain-scanning techniques have <u>revealed</u> that reading aloud lights up many areas of the brain.`,
+stem:`밑줄 친 <b>revealed</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`revealed = 밝히다, disclosed = 드러내다 → 의미 유사`,
+analysis:`✅ ③ disclosed(드러내다): revealed의 동의어\n❌ ① hidden(숨겨진): 반의어\n❌ ② denied(부인하다): 다른 의미\n❌ ④ ignored(무시하다): 다른 의미`,
+tip:`revealed = disclosed = uncovered = showed = 밝히다, 드러내다`}},
+
+// ━━━ Q6: 동의어 · 보통 · 5pts ━━━
+{id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`weakens`,`reinforces`,`eliminates`,`separates`],
+passage:`There is intense activity in areas associated with pronunciation, which <u>strengthens</u> the connective structures of your brain cells.`,
+stem:`밑줄 친 <b>strengthens</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`strengthens = 강화하다, reinforces = 보강하다 → 의미 유사`,
+analysis:`✅ ② reinforces(보강하다): strengthens의 동의어\n❌ ① weakens(약화시키다): 반의어\n❌ ③ eliminates(제거하다): 다른 의미\n❌ ④ separates(분리하다): 다른 의미`,
+tip:`strengthens = reinforces = fortifies = 강화하다, 보강하다`}},
+
+// ━━━ Q7: 동의어 · 보통 · 5pts ━━━
+{id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,
+ch:[`prohibits`,`allows`,`reminds`,`compels`],
+passage:`Reading aloud is a good way to develop your public speaking skills because it <u>forces</u> you to read each and every word.`,
+stem:`밑줄 친 <b>forces</b>의 의미와 가장 <b>가까운</b> 것은?`,
+det:{korean:`forces = 강제로 ~하게 하다, compels = 강요하다 → 의미 유사`,
+analysis:`✅ ④ compels(강요하다): forces의 동의어\n❌ ① prohibits(금지하다): 다른 의미\n❌ ② allows(허용하다): 다른 뉘앙스\n❌ ③ reminds(상기시키다): 다른 의미`,
+tip:`forces = compels = obliges = 강제로 ~하게 하다`}},
+
+// ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
+{id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`vigorous`,`powerful`,`weak`,`lively`],
+passage:`There is <u>intense</u> activity in areas associated with pronunciation and hearing the sound of the spoken response.`,
+stem:`밑줄 친 <b>intense</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`intense = 강렬한 ↔ weak = 약한`,
+analysis:`❌ ③ weak(약한): intense의 반의어 → 가장 먼 의미\n✅ ① vigorous(활기찬): 유사어\n✅ ② powerful(강력한): 유사어\n✅ ④ lively(활발한): 유사어`,
+tip:`intense = vigorous = powerful ↔ weak = mild = faint`}},
+
+// ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
+{id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`urged`,`motivated`,`inspired`,`prohibited`],
+passage:`Children, in particular, should be <u>encouraged</u> to read aloud because the brain is wired for learning.`,
+stem:`밑줄 친 <b>encouraged</b>의 의미와 가장 <b>먼</b> 것은?`,
+det:{korean:`encouraged = 격려하다 ↔ prohibited = 금지하다`,
+analysis:`❌ ④ prohibited(금지하다): encouraged의 반의어 → 가장 먼 의미\n✅ ① urged(촉구하다): 유사어\n✅ ② motivated(동기 부여하다): 유사어\n✅ ③ inspired(영감을 주다): 유사어`,
+tip:`encouraged = urged = motivated ↔ prohibited = discouraged = forbidden`}},
+
+// ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`concentration`,`confusion`,`isolation`,`hesitation`],
+passage:`Modern brain-scanning techniques such as fMRI (functional Magnetic Resonance Imaging) have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall improvement in __________. Reading aloud is also a good way to develop your public speaking skills because it forces you to read each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`뇌세포 연결 구조의 강화는 전반적인 <b>집중력(concentration)</b> 향상으로 이어진다.`,
+analysis:`✅ ① concentration(집중력): "improvement in"과 자연스럽게 연결\n❌ ② confusion(혼란): 반대 의미\n❌ ③ isolation(고립): 무관\n❌ ④ hesitation(망설임): 무관`,
+tip:`improvement in concentration = 집중력 향상 — brainpower 강화의 결과`}},
+
+// ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
+{id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`forget`,`skip`,`read`,`avoid`],
+passage:`Reading aloud is also a good way to develop your public speaking skills because it forces you to __________ each and every word \u2014 something people don\u2019t often do when reading quickly, or reading in silence.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`소리 내어 읽기는 모든 단어를 <b>읽게(read)</b> 강제한다.`,
+analysis:`✅ ③ read(읽다): "forces you to read each and every word" → 원문 일치\n❌ ① forget(잊다): 문맥과 반대\n❌ ② skip(건너뛰다): 문맥과 반대\n❌ ④ avoid(피하다): 문맥과 반대`,
+tip:`forces you to read each and every word: 빠르게 읽을 때 건너뛰는 것과 대비`}},
+
+// ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
+{id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`negative`,`positive`,`neutral`,`artificial`],
+passage:`Children, in particular, should be encouraged to read aloud because the brain is wired for learning through connections that are created by __________ stimulation, such as singing, touching, and reading aloud.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`노래, 접촉, 소리 내어 읽기 등의 <b>긍정적인(positive)</b> 자극이 뇌 연결을 만든다.`,
+analysis:`✅ ② positive(긍정적인): singing, touching, reading aloud은 긍정적 자극\n❌ ① negative(부정적인): 문맥과 반대\n❌ ③ neutral(중립적인): 의미 약함\n❌ ④ artificial(인공적인): 무관`,
+tip:`positive stimulation: 노래, 접촉, 읽기 = 긍정적 자극 → 학습 연결 생성`}},
+
+// ━━━ Q13: 다의어 · 보통 · 5pts ━━━
+{id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`가벼운, 밝은`,`밝히다, 활성화하다`,`불을 붙이다`,`점등하다`],
+passage:`Reading aloud <u>lights up</u> many areas of the brain.`,
+stem:`밑줄 친 <b>lights up</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`lights up = 뇌의 많은 영역을 <b>활성화하다</b>`,
+analysis:`✅ ② 밝히다, 활성화하다: fMRI에서 뇌 영역이 활성화되는 것\n❌ ① 가벼운, 밝은: 형용사 의미\n❌ ③ 불을 붙이다: 물리적 점화\n❌ ④ 점등하다: 조명 관련`,
+tip:`lights up (뇌 관련 맥락) = 활성화하다 | lights up (물리적) = 불을 켜다`}},
+
+// ━━━ Q14: 다의어 · 보통 · 5pts ━━━
+{id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`전기 배선이 된`,`피곤한`,`연결된, 설계된`,`긴장한`],
+passage:`The brain is <u>wired</u> for learning through connections that are created by positive stimulation.`,
+stem:`밑줄 친 <b>wired</b>의 문맥적 의미로 가장 적절한 것은?`,
+det:{korean:`뇌는 긍정적 자극으로 만들어진 연결을 통해 학습하도록 <b>설계되어 있다(wired)</b>.`,
+analysis:`✅ ③ 연결된, 설계된: wired for = ~을 위해 설계된/연결된\n❌ ① 전기 배선이 된: 물리적 의미\n❌ ② 피곤한: 구어적 의미\n❌ ④ 긴장한: 구어적 의미`,
+tip:`wired for = ~을 위해 타고난/설계된 | wired = 전기 배선된 | wired (구어) = 피곤한/긴장한`}},
+
+// ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
+{id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`concentration`,`stimulation`,`pronunciation`,`brainpower`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"the act of encouraging something to develop or become more active"</b>`,
+det:{korean:`'무언가가 발전하거나 더 활발해지도록 장려하는 행위' → <b>stimulation(자극)</b>`,
+analysis:`✅ ② stimulation: 영영 정의와 정확히 일치\n❌ ① concentration: 집중력\n❌ ③ pronunciation: 발음\n❌ ④ brainpower: 두뇌 능력`,
+tip:`stimulation = encouraging development/activity → 자극, 촉진`}},
+
+// ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
+{id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,
+ch:[`connective`,`destructive`,`collective`,`protective`],
+passage:``,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"serving to link or join things together"</b>`,
+det:{korean:`'사물을 연결하거나 결합하는 역할을 하는' → <b>connective(연결하는)</b>`,
+analysis:`✅ ① connective: 영영 정의와 일치\n❌ ② destructive: 파괴적인\n❌ ③ collective: 집단적인\n❌ ④ protective: 보호하는`,
+tip:`connective = linking/joining → 연결하는 (connective structures = 연결 구조)`}},
+
+// ━━━ Q17: 어형 변환 · 쉬움 · 4pts ━━━
+{id:17,type:`어형 변환 (서술형)`,diff:`쉬움`,pts:4,fmt:"written",wa:`improvement`,accept:[`improvement`,`Improvement`],
+passage:`Modern brain-scanning techniques such as fMRI have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with pronunciation and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower. This leads to an overall __________ (improve) in concentration.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`improve(동사) → <b>improvement(명사)</b>: "an overall __"에서 관사+형용사 뒤에 명사 필요`,
+analysis:`improve(동사) → improvement(명사)\nan overall improvement: 관사(an) + 형용사(overall) + 명사(improvement)`,
+tip:`improve → improvement / develop → development — 동사 → -ment 명사화`}},
+
+// ━━━ Q18: 어형 변환 · 보통 · 5pts ━━━
+{id:18,type:`어형 변환 (서술형)`,diff:`보통`,pts:5,fmt:"written",wa:`pronunciation`,accept:[`pronunciation`,`Pronunciation`],
+passage:`Modern brain-scanning techniques such as fMRI have revealed that reading aloud lights up many areas of the brain. There is intense activity in areas associated with __________ (pronounce) and hearing the sound of the spoken response, which strengthens the connective structures of your brain cells for more brainpower.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`pronounce(동사) → <b>pronunciation(명사)</b>: "associated with"의 전치사 뒤 명사 필요`,
+analysis:`pronounce(동사) → pronunciation(명사)\nwith 뒤에 명사가 와야 하므로 명사형으로 변환`,
+tip:`pronounce → pronunciation (철자 주의: pronounce에서 o가 빠지고 -unciation)`}},
+
+// ━━━ Q19: 빈칸 문맥 완성 · 어려움 · 6pts ━━━
+{id:19,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`creativity and artistic expression`,`memory loss in elderly patients`,`physical fitness and muscle strength`,`brainpower and public speaking skills`,`social relationships and teamwork`],
+passage:FULL_PASSAGE,
+stem:`다음 글의 내용으로 보아, 소리 내어 읽기(reading aloud)가 향상시키는 것으로 가장 적절한 것은?`,
+det:{korean:`소리 내어 읽기는 <b>두뇌 능력(brainpower)</b>과 <b>대중 연설 능력(public speaking skills)</b>을 향상시킨다.`,
+analysis:`✅ ④ brainpower and public speaking skills: "more brainpower" + "develop your public speaking skills"\n❌ ① creativity: 언급 없음\n❌ ② memory loss: 언급 없음\n❌ ③ physical fitness: 언급 없음\n❌ ⑤ social relationships: 언급 없음`,
+tip:`글의 두 가지 핵심 효과: brainpower(두뇌 능력) + public speaking skills(대중 연설 능력)`}},
+
+// ━━━ Q20: 빈칸 문맥 완성 (제목) · 어려움 · 6pts ━━━
+{id:20,type:`빈칸 문맥 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`Reading Aloud: Improving Brainpower and Speaking Skills`,`Reading Practices: Shortcuts to Academic Achievements`,`Improve Your Writing Skills Through Reading Aloud`,`How Your Brain Changes When You Read in Silence`,`Techniques for Faster and More Effective Reading`],
+passage:FULL_PASSAGE,
+stem:`다음 글의 제목으로 가장 적절한 것은?`,
+det:{korean:`소리 내어 읽기가 뇌 활동을 강화하고 대중 연설 능력을 발전시킨다는 내용 → <b>Reading Aloud: Improving Brainpower and Speaking Skills</b>`,
+analysis:`✅ ① Reading Aloud: Improving Brainpower and Speaking Skills: 글의 두 핵심 주제(brainpower + speaking skills)를 모두 포함\n❌ ② Academic Achievements: 학업 성취 언급 없음\n❌ ③ Writing Skills: 글쓰기 능력 언급 없음\n❌ ④ Read in Silence: 묵독은 대조 대상일 뿐\n❌ ⑤ Faster Reading: 빠른 읽기는 주제가 아님`,
+tip:`제목 찾기: 글 전체를 아우르는 핵심 키워드 두 개 = brainpower + speaking skills`}}
 ];
 
 
@@ -164,9 +320,9 @@ if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13
 h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
 h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
 h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:d.q.wa;const open=!d.ok;h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,6)}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div><div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean}</div><div class="expl-tag tip">📋 분석</div><div class="expl-box">${d.q.det.analysis}</div><div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${d.q.det.tip}</div></div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;const mk5='①②③④⑤',mk4='①②③④';const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={t:0,o:0,w:[]};typeMap[t].t++;if(d.ok)typeMap[t].o++;else typeMap[t].w.push(d.q.id);});
-let txt=`📝 온라인단어 TEST 상세 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
+let txt=`📝 온라인단어 TEST 결과\n${EI.subject} · ${EI.pub}\n👤 ${nm}\n🏆 ${r.score}/${EI.total}점 (${pct}%) ${lv.icon}${lv.name}\n✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}`;
+navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>toast('복사 실패'));}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
