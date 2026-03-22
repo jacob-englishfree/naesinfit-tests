@@ -105,7 +105,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div class="exam-scroll" id="examScroll"></div>
 <div class="exam-nav" id="navDots"></div>
 </div>
-
+<script>
 const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"09강","lesson":"내용 일치·불일치(설명문)","title":"Content Match","total":100,"time":1200,"totalQ":20,"histKey":"workbookTest_suneung_09_v1"};
 
 const P_GW=`Max Kleiber, a pioneer in the study of animal biology, was best known for his research on animal nutrition and metabolism. He was born in Zurich, Switzerland in 1893. Kleiber graduated from the Swiss Federal Institute of Technology in 1920 and earned his doctoral degree in 1924. He came to the University of California at Davis (UC Davis) in 1929 to conduct research on energy metabolism in animals. In 1952, Kleiber received the distinguished Borden Award from the American Institute of Nutrition and, a year later, the Morrison Award from the American Society for Animal Production. Kleiber\u2019s book, The Fire of Life, was published in 1961 and subsequently translated into German, Polish, Spanish, and Japanese. Kleiber was an outstanding teacher popular with undergraduates and graduate students alike. Before his death, a new classroom building at UC Davis was named Kleiber Hall in his honor.`;
@@ -119,26 +119,125 @@ const P_EX03=`Charles Lyell (1797\u20131875), best known as the author of Princi
 const P_EX04=`Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine \u2014 his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.`;
 
 const Q=[
-{"id":1,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["스위스의 Zurich에서 태어났다.","1924년에 박사 학위를 받았다.","1952년에 Borden Award와 Morrison Award를 수상했다.","그의 저서 The Fire of Life는 여러 언어로 번역되었다.","대학생과 대학원생에게 인기 있는 뛰어난 선생님이었다."],"passage":P_GW,"stem":"Max Kleiber에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?","det":{"korean":"1952년 Borden Award, 1년 후(1953년) Morrison Award. 같은 해가 아님.","analysis":"\u274c \u2462: 1952년에 둘 다 수상한 것이 아님 (Borden=1952, Morrison=1953)\n\u2705 나머지: 모두 본문과 일치","tip":"a year later = 1년 후 = 1953년"}},
-{"id":2,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["12세 때 친구로부터 간단한 화학 세트를 소개받았다.","Royal College of Chemistry에서 August Wilhelm von Hofmann에게 배웠다.","집에 작은 실험실을 짓고 그곳에서 실험을 계속했다.","고가의 말라리아 치료제 퀴닌의 개발에 성공했다.","합성염료 산업의 시작에 도움을 주었다."],"passage":P_EX01,"stem":"William Henry Perkin에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?","det":{"korean":"퀴닌 개발에 실패(failed)하고 검은 물질을 생산. 성공한 것이 아님.","analysis":"\u274c \u2463: He failed(실패함) \u2260 성공했다\n\u2705 나머지: 모두 본문과 일치","tip":"He failed and produced only an ugly black substance"}},
-{"id":3,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","ans":2,"ch":["11세 무렵에 아버지가 가족을 버렸다.","인쇄소에서 일하는 것을 싫어했다.","어머니의 권유로 마지못해 런던으로 이주했다.","Swan & Edgar에서 일하며 옷감을 다룰 기회를 얻었다.","National Gallery에서 의상 역사에 관한 지식을 얻었다."],"passage":P_EX02,"stem":"Charles Frederick Worth에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?","det":{"korean":"He persuaded his mother = 그가 어머니를 설득함. 어머니의 권유가 아님.","analysis":"\u274c \u2462: 본인이 어머니를 설득(persuaded his mother) \u2260 어머니 권유\n\u2705 나머지: 모두 본문과 일치","tip":"He persuaded his mother = 그가 어머니를 설득"}},
-{"id":4,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["어렸을 때 가족과 함께 잉글랜드 남부로 이주했다.","지질학에 대한 스승의 성경적 해석에 실망하게 되었다.","법학을 공부한 후 고전학 학사 학위를 취득했다.","아버지의 재정 지원으로 자연과 지질학을 계속 연구할 수 있었다.","런던 지질학회에서 두 번의 임기 동안 회장을 역임했다."],"passage":P_EX03,"stem":"Charles Lyell에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?","det":{"korean":"고전학 학사 학위 취득 후 법학을 공부함. 순서가 반대.","analysis":"\u274c \u2462: earning bachelor\u2019s in classics \u2192 pursued law (고전학 먼저, 법학 나중)\n\u2705 나머지: 모두 본문과 일치","tip":"After earning bachelor\u2019s in classics, Lyell pursued law"}},
-{"id":5,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","ans":4,"ch":["의사인 아버지와 간호사인 어머니 사이에서 태어났다.","유대인 친구들이 직면한 차별에 영향을 받았다.","제2차 세계 대전 중에 의학을 공부했다.","1942년부터 도움이 필요한 사람들에게 의료 도움을 제공했다.","전쟁 후에는 의료와 관련된 모든 활동에서 물러났다."],"passage":P_EX04,"stem":"Ivan Beltrami에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?","det":{"korean":"전쟁 후 의료 접근성 개선에 헌신(dedicated himself). 물러난 것이 아님.","analysis":"\u274c \u2464: dedicated himself \u2260 물러났다\n\u2705 나머지: 모두 본문과 일치","tip":"After the war, he dedicated himself to improving healthcare"}},
-{"id":6,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","ans":1,"ch":["know","known","knowing","to know"],"passage":"Max Kleiber, a pioneer in the study of animal biology, was best __________ for his research on animal nutrition and metabolism.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"was best known = 수동태. 가장 잘 알려져 있었다.","analysis":"\u2705 \u2461known: was known = 수동태\n\u274c 나머지: 구문 불성립","tip":"was best known for = ~로 가장 잘 알려진"}},
-{"id":7,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["introduce","introduced","introducing","introduction"],"passage":"at the age of twelve, a friend __________ him to a simple chemistry set.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"과거시제 서술. introduced(소개했다).","analysis":"\u2705 \u2461introduced: 과거시제\n\u274c \u2460introduce: 현재형\n\u274c \u2462introducing: 분사\n\u274c \u2463introduction: 명사","tip":"a friend introduced him = 친구가 그를 소개했다"}},
-{"id":8,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["impoverish","impoverished","impoverishing","impoverishment"],"passage":"His father abandoned the family by the time he was 11, leaving them __________.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"leaving them impoverished = 그들을 빈곤하게 만들며. 과거분사.","analysis":"\u2705 \u2461impoverished: 과거분사(형용사)\n\u274c 나머지: 구문 부적합","tip":"leaving them impoverished = 빈곤한 상태로 남겨두며"}},
-{"id":9,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","ans":0,"ch":["\u2460","\u2461","\u2462"],"passage":"After earning his bachelor\u2019s degree in the classics, Lyell pursued law, but his eyesight was weak. Although he was called to the bar in 1822, his father\u2019s financing allowed him \u2460<u>pursuing</u> his childhood love of nature. He became Secretary of the Geological Society of London in 1823 and \u2461<u>served</u> as its president for two terms, \u2462<u>traveling</u> widely and studying geology.","stem":"밑줄 친 \u2460~\u2462 중 어법상 틀린 것은?","det":{"korean":"allow + O + to V 구문. pursuing이 아닌 to pursue가 적절.","analysis":"\u274c \u2460pursuing \u2192 to pursue: allow+O+to V\n\u2705 \u2461served: 과거시제 적절\n\u2705 \u2462traveling: 분사구문(동시동작) 적절","tip":"allow + O + to V = ~가 ~하도록 허용하다"}},
-{"id":10,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","ans":2,"ch":["commit","committed","committing","commitment"],"passage":"Ivan Beltrami was born in Marseille, France, to a family __________ to medicine.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"a family committed to = ~에 헌신하는 가족. 과거분사 수식.","analysis":"\u2705 \u2461committed: 과거분사 후치 수식\n\u274c 나머지: 구문 불성립","tip":"committed to = ~에 헌신하는"}},
-{"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["physics","chemistry","biology","metabolism"],"passage":"Max Kleiber was best known for his research on animal nutrition and __________. He came to UC Davis in 1929 to conduct research on energy __________ in animals.","stem":"다음 빈칸에 공통으로 들어갈 말로 가장 적절한 것은?","det":{"korean":"동물 영양과 신진대사(metabolism). 에너지 신진대사 연구.","analysis":"\u2705 \u2463metabolism: 신진대사\n\u274c 나머지: 문맥 부적합","tip":"metabolism = 신진대사"}},
-{"id":12,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["success","medicine","experiment","substance"],"passage":"He tried to make quinine. He failed and produced only an ugly black __________, in which he became interested.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"못생긴 검은 물질(substance)을 생산. 이것에 관심을 가짐.","analysis":"\u2705 \u2463substance: 물질\n\u274c \u2460success: 실패했으므로 부적합\n\u274c \u2461medicine: 퀴닌 제조 실패\n\u274c \u2462experiment: 실험 자체가 아님","tip":"ugly black substance = 못생긴 검은 물질"}},
-{"id":13,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["employment","apprenticeship","scholarship","partnership"],"passage":"His mother was left with little choice but to find an __________ for him at a printer\u2019s shop, but the young boy hated the work.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"인쇄소에서의 수습직(apprenticeship).","analysis":"\u2705 \u2461apprenticeship: 수습직\n\u274c 나머지: 문맥 부적합","tip":"apprenticeship = 도제/수습 과정"}},
-{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"mauve","accept":["mauve","Mauve"],"ch":null,"passage":P_EX01,"stem":"다음 글에서 Perkin이 만든 최초의 합성 염료 이름을 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"the first synthetic dye, mauve.","analysis":"mauve = 모브(보라색 합성 염료)","tip":"mauve = 최초의 합성 염료"}},
-{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"compassion","accept":["compassion","Compassion"],"ch":null,"passage":P_EX04,"stem":"다음 글에서 Ivan Beltrami가 어린 시절부터 소중히 여긴 가치 중 하나를 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"he grew up valuing compassion and justice.","analysis":"compassion = 연민/동정심","tip":"valuing compassion = 연민을 소중히 여기며"}},
-{"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"subsequently","accept":["subsequently","Subsequently"],"ch":null,"passage":"Kleiber\u2019s book was published in 1961 and __________ (subsequent) translated into German, Polish, Spanish, and Japanese.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"subsequent(형용사) \u2192 subsequently(부사). translated를 수식.","analysis":"subsequent \u2192 subsequently: 형용사 \u2192 부사","tip":"subsequently = 이후에, 나중에"}},
-{"id":17,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"discrimination","accept":["discrimination","Discrimination"],"ch":null,"passage":"he grew up valuing compassion and justice, particularly influenced by the __________ (discriminate) faced by his Jewish friends.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"discriminate(동사) \u2192 discrimination(명사). the 뒤 명사 자리.","analysis":"discriminate \u2192 discrimination: 동사 \u2192 명사","tip":"discrimination = 차별"}},
-{"id":18,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","ans":0,"ch":["True","False"],"passage":P_GW,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"Kleiber was born in Zurich, Switzerland in 1893.\"</b>","det":{"korean":"원문에 동일한 문장이 있음. True.","analysis":"\u2705 True: 원문 직접 인용","tip":"원문과 동일 \u2192 True"}},
-{"id":19,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["True","False"],"passage":P_EX01,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"Perkin successfully created quinine, a medicine for malaria, at the age of eighteen.\"</b>","det":{"korean":"원문: He failed. 퀴닌 제조에 실패함. False.","analysis":"\u274c False: He failed \u2260 successfully created","tip":"He failed = 실패했다"}},
-{"id":20,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["True","False"],"passage":P_EX02,"stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"Worth\u2019s mother encouraged him to move to London to work at Swan & Edgar.\"</b>","det":{"korean":"원문: He persuaded his mother. 그가 어머니를 설득한 것. 어머니가 권유한 것이 아님. False.","analysis":"\u274c False: He persuaded his mother \u2260 mother encouraged him","tip":"He persuaded his mother = 그가 어머니를 설득"}}
+{id:1,type:'어법빈칸',diff:'쉬움',pts:4,fmt:'mc',ans:1,
+ch:['know','known','knowing','to know'],
+passage:`Max Kleiber, a pioneer in the study of animal biology, was best __________ for his research on animal nutrition and metabolism. He was born in Zurich, Switzerland in 1893.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'was best known = 수동태. 가장 잘 알려져 있었다.',analysis:'✅②known: was + p.p. = 수동태\n❌①know: 원형 불가\n❌③knowing: 현재분사 불가\n❌④to know: to부정사 불가',tip:'was best known for = ~로 가장 잘 알려진'}},
+
+{id:2,type:'어법빈칸',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['introduce','introduced','introducing','introduction'],
+passage:`However, his life changed when, at the age of twelve, a friend __________ him to a simple chemistry set.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'과거시제 문맥. a friend introduced him = 친구가 그를 소개했다.',analysis:'✅②introduced: 과거시제\n❌①introduce: 현재형(과거 문맥 부적합)\n❌③introducing: 분사(주어+동사 구조 필요)\n❌④introduction: 명사',tip:'과거시제 문맥에서 동사 과거형 필요'}},
+
+{id:3,type:'어법빈칸',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['impoverish','impoverished','impoverishing','impoverishment'],
+passage:`His father abandoned the family by the time he was 11, leaving them __________.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'leaving them impoverished = 그들을 빈곤한 상태로 남겨두며. 목적격 보어로 과거분사.',analysis:'✅②impoverished: 과거분사(형용사적 용법), 목적격 보어\n❌①impoverish: 원형\n❌③impoverishing: 현재분사(능동)\n❌④impoverishment: 명사',tip:'leaving + O + p.p. = O를 ~한 상태로 남겨두며'}},
+
+{id:4,type:'어법빈칸',diff:'어려움',pts:6,fmt:'mc',ans:0,
+ch:['①','②','③'],
+passage:`After earning his bachelor\u2019s degree in the classics, Lyell pursued law, but his eyesight was weak. Although he was called to the bar in 1822, his father\u2019s financing allowed him ①<u>pursuing</u> his childhood love of nature. He became Secretary of the Geological Society of London in 1823 and ②<u>served</u> as its president for two terms, ③<u>traveling</u> widely and studying geology.`,
+stem:'밑줄 친 ①~③ 중 어법상 틀린 것은?',
+det:{korean:'allow + O + to V 구문. pursuing → to pursue.',analysis:'❌①pursuing → to pursue: allow + O + to V\n✅②served: 과거시제 적절\n✅③traveling: 분사구문(동시동작) 적절',tip:'allow + O + to V = ~가 ~하도록 허용하다'}},
+
+{id:5,type:'어법빈칸',diff:'쉬움',pts:4,fmt:'mc',ans:1,
+ch:['commit','committed','committing','commitment'],
+passage:`Ivan Beltrami was born in Marseille, France, to a family __________ to medicine.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'a family committed to = ~에 헌신하는 가족. 과거분사 후치 수식.',analysis:'✅②committed: 과거분사 후치 수식\n❌①commit: 원형\n❌③committing: 현재분사(능동)\n❌④commitment: 명사',tip:'committed to = ~에 헌신하는'}},
+
+{id:6,type:'내용일치',diff:'보통',pts:5,fmt:'mc',ans:2,
+ch:['Kleiber는 1920년에 박사 학위를 받았다.','Kleiber는 Swiss Federal Institute of Technology를 졸업했다.','Kleiber의 저서는 독일어, 폴란드어, 스페인어, 일본어로 번역되었다.','UC Davis의 새 강의동은 Kleiber 생전에 명명되었다.'],
+passage:P_GW,
+stem:'다음 글의 내용과 일치하는 것은?',
+det:{korean:'The Fire of Life는 독일어, 폴란드어, 스페인어, 일본어로 번역됨.',analysis:'✅③: subsequently translated into German, Polish, Spanish, and Japanese\n❌①: 1920년 졸업, 1924년 박사 학위\n❌②: 졸업은 맞지만 선택지의 핵심은 번역\n❌④: Before his death(사망 전) = 생전이 맞으나, 선택지 ③이 더 직접적 일치',tip:'내용 일치: 선택지를 하나씩 본문과 대조'}},
+
+{id:7,type:'내용일치',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['Perkin은 Royal College of Chemistry에서 독일 화학자에게 배웠다.','Perkin은 18세에 인생을 바꿀 실험을 했다.','Perkin은 quinine 제조에 성공했다.','합성 염료 mauve는 검은색이었다.'],
+passage:P_EX01,
+stem:'다음 글의 내용과 일치하는 것은?',
+det:{korean:'At eighteen, he conducted an experiment that would change his life.',analysis:'✅②: 18세에 인생을 바꿀 실험 = 본문과 일치\n❌①: 맞지만 ②가 더 직접적\n❌③: He failed = 실패\n❌④: bright purple = 밝은 보라색',tip:'내용 일치 문제: 각 선택지의 세부 사실을 확인'}},
+
+{id:8,type:'내용불일치',diff:'어려움',pts:6,fmt:'mc',ans:2,
+ch:['11세 무렵에 아버지가 가족을 버렸다.','인쇄소에서 일하는 것을 싫어했다.','어머니의 권유로 마지못해 런던으로 이주했다.','Swan & Edgar에서 일하며 옷감을 다룰 기회를 얻었다.','National Gallery에서 의상 역사에 관한 지식을 얻었다.'],
+passage:P_EX02,
+stem:'Charles Frederick Worth에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?',
+det:{korean:'He persuaded his mother = 그가 어머니를 설득함. 어머니의 권유가 아님.',analysis:'❌③: 본인이 어머니를 설득(persuaded his mother) ≠ 어머니 권유\n✅ 나머지: 모두 본문과 일치',tip:'He persuaded his mother = 그가 어머니를 설득'}},
+
+{id:9,type:'내용불일치',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['의사인 아버지와 간호사인 어머니 사이에서 태어났다.','유대인 친구들이 직면한 차별에 영향을 받았다.','제2차 세계 대전 중에 의학을 공부했다.','1942년부터 도움이 필요한 사람들에게 의료 도움을 제공했다.','전쟁 후에는 의료와 관련된 모든 활동에서 물러났다.'],
+passage:P_EX04,
+stem:'Ivan Beltrami에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?',
+det:{korean:'전쟁 후 의료 접근성 개선에 헌신(dedicated himself). 물러난 것이 아님.',analysis:'❌⑤: dedicated himself to improving healthcare ≠ 물러났다\n✅ 나머지: 모두 본문과 일치',tip:'After the war, he dedicated himself to improving healthcare'}},
+
+{id:10,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:0,
+ch:['True','False'],
+passage:P_GW,
+stem:'다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>"Kleiber graduated from the Swiss Federal Institute of Technology in 1920."</b>',
+det:{korean:'원문에 동일한 내용이 있음. True.',analysis:'✅True: 원문 직접 확인 가능',tip:'원문과 동일 → True'}},
+
+{id:11,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_EX01,
+stem:'다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>"Perkin successfully created quinine, a medicine for malaria, at the age of eighteen."</b>',
+det:{korean:'원문: He failed. 퀴닌 제조에 실패함. False.',analysis:'❌False: He failed ≠ successfully created',tip:'He failed = 실패했다'}},
+
+{id:12,type:'T/F',diff:'어려움',pts:6,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P_EX02,
+stem:'다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>"Worth\u2019s mother encouraged him to move to London to work at Swan & Edgar."</b>',
+det:{korean:'원문: He persuaded his mother. 그가 어머니를 설득한 것. 어머니가 권유한 것이 아님.',analysis:'❌False: He persuaded his mother ≠ mother encouraged him',tip:'He persuaded his mother = 그가 어머니를 설득'}},
+
+{id:13,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'mauve',
+accept:['mauve','Mauve'],
+passage:P_EX01,
+stem:'다음 글에서 Perkin이 만든 최초의 합성 염료 이름을 본문에서 <b>1단어</b>로 찾아 쓰시오.',
+det:{korean:'the first synthetic dye, mauve.',analysis:'mauve = 모브(보라색 합성 염료)',tip:'the first synthetic dye = 최초의 합성 염료'}},
+
+{id:14,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'subsequently',
+accept:['subsequently','Subsequently'],
+passage:`Kleiber\u2019s book was published in 1961 and __________ (subsequent) translated into German, Polish, Spanish, and Japanese.`,
+stem:'다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.',
+det:{korean:'subsequent(형용사) → subsequently(부사). translated를 수식.',analysis:'subsequent → subsequently: 형용사 → 부사',tip:'subsequently = 이후에, 나중에'}},
+
+{id:15,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'discrimination',
+accept:['discrimination','Discrimination'],
+passage:`he grew up valuing compassion and justice, particularly influenced by the __________ (discriminate) faced by his Jewish friends.`,
+stem:'다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.',
+det:{korean:'discriminate(동사) → discrimination(명사). the 뒤 명사 자리.',analysis:'discriminate → discrimination: 동사 → 명사',tip:'discrimination = 차별'}},
+
+{id:16,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'compassion',
+accept:['compassion','Compassion'],
+passage:P_EX04,
+stem:'다음 글에서 Ivan Beltrami가 어린 시절부터 소중히 여긴 가치 중 하나를 본문에서 <b>1단어</b>로 찾아 쓰시오.',
+det:{korean:'he grew up valuing compassion and justice.',analysis:'compassion = 연민/동정심',tip:'valuing compassion = 연민을 소중히 여기며'}},
+
+{id:17,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:3,
+ch:['physics','chemistry','biology','metabolism'],
+passage:`Max Kleiber was best known for his research on animal nutrition and __________. He came to UC Davis in 1929 to conduct research on energy __________ in animals.`,
+stem:'다음 빈칸에 공통으로 들어갈 말로 가장 적절한 것은?',
+det:{korean:'동물 영양과 신진대사(metabolism). 에너지 신진대사 연구.',analysis:'✅④metabolism: 신진대사\n❌①②③: 문맥 부적합',tip:'metabolism = 신진대사'}},
+
+{id:18,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:3,
+ch:['success','medicine','experiment','substance'],
+passage:`He tried to make quinine. He failed and produced only an ugly black __________, in which he became interested.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'못생긴 검은 물질(substance)을 생산. 이것에 관심을 가짐.',analysis:'✅④substance: 물질\n❌①success: 실패했으므로 부적합\n❌②medicine: 퀴닌 제조 실패\n❌③experiment: 실험 자체가 아님',tip:'ugly black substance = 못생긴 검은 물질'}},
+
+{id:19,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['employment','apprenticeship','scholarship','partnership'],
+passage:`His mother was left with little choice but to find an __________ for him at a printer\u2019s shop, but the young boy hated the work.`,
+stem:'다음 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'인쇄소에서의 수습직(apprenticeship).',analysis:'✅②apprenticeship: 수습직\n❌①employment: 취업(어린 나이에 부적합)\n❌③scholarship: 장학금\n❌④partnership: 동업',tip:'apprenticeship = 도제/수습 과정'}},
+
+{id:20,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:2,
+ch:['어렸을 때 가족과 함께 잉글랜드 남부로 이주했다.','지질학에 대한 스승의 성경적 해석에 실망하게 되었다.','법학을 공부한 후 고전학 학사 학위를 취득했다.','아버지의 재정 지원으로 자연과 지질학을 계속 연구할 수 있었다.','런던 지질학회에서 두 번의 임기 동안 회장을 역임했다.'],
+passage:P_EX03,
+stem:'Charles Lyell에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것은?',
+det:{korean:'고전학 학사 학위 취득 후 법학을 공부함. 순서가 반대.',analysis:'❌③: earning bachelor\u2019s in classics → pursued law (고전학 먼저, 법학 나중)\n✅ 나머지: 모두 본문과 일치',tip:'After earning bachelor\u2019s in classics, Lyell pursued law'}}
 ];
 let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
 function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
@@ -151,7 +250,7 @@ function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
-const typeTag={'어법':'tag-grammar','내용이해':'tag-content','빈칸추론':'tag-blank','서술형':'tag-written','T/F':'tag-tf'};
+const typeTag={'어법빈칸':'tag-grammar','내용일치':'tag-content','내용불일치':'tag-content','빈칸추론':'tag-blank','서술형':'tag-written','T/F':'tag-tf'};
 function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':q.ch.length===3?'①②③':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
 function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
 function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
