@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
@@ -42,25 +43,44 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 @keyframes pulse{50%{opacity:.3;}}
 .btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .exam-scroll{display:none;}
-.slide-wrap{height:calc(100vh - 52px);display:flex;flex-direction:column;}
-.slide-passage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;background:#fff;}
-.slide-passage .q-passage{padding:0;border:none;border-radius:0;background:transparent;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
-.slide-bottom{flex-shrink:0;background:rgba(255,255,255,.2);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,.25);box-shadow:0 -2px 20px rgba(0,0,0,.05);padding:10px 14px 12px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;}
-.slide-stem{font-size:12.5px;font-weight:700;margin-bottom:6px;overflow-wrap:break-word;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:2px;}
-.slide-choices .choice-btn{padding:6px 9px;font-size:12px;line-height:1.3;gap:6px;border:1px solid rgba(0,0,0,.05);border-radius:8px;background:rgba(255,255,255,.15);}
-.slide-choices .choice-btn:hover{background:rgba(255,255,255,.35);}
-.slide-choices .choice-btn.selected{border-color:var(--g);background:rgba(22,163,74,.12);box-shadow:0 0 0 2px rgba(22,163,74,.2);}
-.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.06);}
+/* Progress bar at top */
+.exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--g),#0D9488);transition:width .5s ease;border-radius:0 2px 2px 0;}
+/* Slide container */
+.slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
+.slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
+.slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
+.slide-passage.fade-in{opacity:0;transform:translateX(20px);}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--gxl),var(--gl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--gd);}
+.q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
+.slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
+.slide-choices{display:flex;flex-direction:column;gap:4px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices .choice-btn:active{transform:scale(.97);}
+.slide-choices .choice-btn.selected{border-color:var(--g);background:rgba(22,163,74,.08);box-shadow:0 0 0 3px rgba(22,163,74,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.3)}70%{box-shadow:0 0 0 8px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
+.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
-.slide-choices .written-input{padding:7px 10px;font-size:13px;background:rgba(255,255,255,.2);border:1px solid rgba(0,0,0,.05);}
-.slide-nav{display:flex;align-items:center;justify-content:space-between;padding:5px 0 0;margin-top:5px;}
-.slide-nav button{padding:6px 14px;border:1px solid rgba(0,0,0,.05);border-radius:7px;background:rgba(255,255,255,.15);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
-.slide-nav button.sn-next{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}
+/* Written input */
+.slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
+.slide-choices .written-input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(22,163,74,.1);}
+/* Navigation */
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
+.slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.slide-nav button:active{transform:scale(.95);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(22,163,74,.25);}
 .slide-nav button:disabled{opacity:.3;}
-.slide-nav .nav-cur{font-size:11px;font-weight:800;color:var(--g);}
-.q-card{background:var(--card);border-radius:12px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;}
-.q-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,var(--gxl),var(--gl));border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--g);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--g);background:var(--gxl);padding:3px 10px;border-radius:12px;}
 .q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
 .q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
 .tag-combo{background:var(--gl);color:#166534;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
@@ -73,8 +93,6 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .choice-btn:hover{border-color:var(--g);}.choice-btn.selected{border-color:var(--g);box-shadow:0 0 0 2px rgba(22,163,74,.12);background:var(--gxxl);}
 .c-num{min-width:22px;height:22px;background:#e8efe9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
 .written-input{width:100%;padding:10px 12px;border:1.5px solid #d0dcd2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--g);}
-.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
-.nav-dot{width:28px;height:28px;border-radius:50%;background:#dde8df;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--g);color:#fff;}
 .r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--gxl),var(--gl));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
 .r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
 .r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
@@ -92,6 +110,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
 .expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
 @media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+
 </style>
 </head>
 <body>
@@ -117,15 +136,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div id="historyPanel"></div>
 </div>
 </div>
-
 <div id="examScreen" class="screen">
   <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">2025 고2 3월 · <span>22번</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+  <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
-  <div class="exam-nav" id="navDots"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-
 const EI={"subject":"2025 고2 3월 모의고사","pub":"22번","lesson":"글의 요지","title":"Commitment in Social Life","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g2_mar_22"};
 
 const FULL_PASSAGE=`Commitment is the glue holding together characteristically human forms of social life. Commitments make individuals\u2019 behavior predictable in the face of fluctuations in their desires and interests, thereby facilitating the planning and coordination of joint actions involving multiple agents. Moreover, commitments make people willing to perform actions that they would not otherwise perform. For example, a taxi driver picks up his clients and transports them to their desired destination because they are committed to paying him afterwards for the service, and a construction worker performs her job every day because her employer has made a credible commitment to pay her at the end of the month. Indeed, the taxi driver and the construction worker are willing to accept money as payment only because a network of other agents (notably the central bank) is committed to taking various measures to sustain the currency in question. Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the credibility of commitments.`;
@@ -288,30 +310,105 @@ function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderSlide(0);startTimer();}
-
-function renderSlide(idx){
-S.cur=idx;const q=Q[idx];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';
-// passage area
-const pp=document.getElementById('slidePassage');
-let ph=`<div class="slide-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
-if(q.passage)ph+=`<div class="q-passage">${q.passage}</div>`;
-if(!q.passage)ph+=`<div style="padding:20px;text-align:center;color:var(--tl);font-size:13px">이 문항은 지문이 없습니다.</div>`;
-pp.innerHTML=ph;pp.scrollTop=0;
-// bottom area
-const bt=document.getElementById('slideBottom');
-let bh=`<div class="slide-stem">${q.stem}</div>`;
-if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[idx]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
-if(q.fmt==='written'){const val=S.ans[idx]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
-bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
-bt.innerHTML=bh;bt.scrollTop=0;
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function startExam(){
+  const nm=document.getElementById('inpName').value.trim();
+  if(!nm){toast('이름을 입력해주세요!');return;}
+  S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};
+  showScreen('examScreen');
+  showQ(0);
+  startTimer();
+  updateProgress();
+  initSwipe();
 }
-function slideSel(qi,ci){S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(qi);document.getElementById('slidePassage').scrollTop=st;}
-function slideWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;}
+function showQ(idx,direction){
+  S.cur=idx;
+  const qi=S.order?S.order[idx]:idx;
+  const q=Q[qi];
+  const tc=typeTag[q.type]||'';
+  const mk='①②③④⑤';
+  const pp=document.getElementById('slidePassage');
+  if(direction){
+    pp.classList.add(direction>0?'fade-out':'fade-in');
+    setTimeout(()=>{
+      renderContent(idx,qi,q,tc,mk,pp);
+      pp.classList.remove('fade-out','fade-in');
+    },150);
+  } else {
+    renderContent(idx,qi,q,tc,mk,pp);
+  }
+}
+function renderContent(idx,qi,q,tc,mk,pp){
+  let ph='<div class="q-badge"><div class="q-num">'+( idx+1)+'</div><span>'+q.type+'</span><span style="opacity:.6">'+q.diff+' \u00b7 '+q.pts+'\uc810</span></div>';
+  if(q.passage) ph+='<div class="q-passage">'+q.passage+'</div>';
+  else ph+='<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
+  pp.innerHTML=ph;
+  pp.scrollTop=0;
+  const bt=document.getElementById('slideBottom');
+  let bh='<div class="slide-stem">'+q.stem+'</div><div class="slide-choices">';
+  if(q.fmt==='mc'){
+    q.ch.forEach(function(c,ci){
+      var sel=S.ans[qi]===ci?' selected':'';
+      bh+='<button class="choice-btn'+sel+'" onclick="selectAns('+idx+','+ci+')"><span class="c-num">'+mk[ci]+'</span><span>'+c+'</span></button>';
+    });
+  }
+  if(q.fmt==='written'){
+    var val=S.ans[qi]||'';
+    bh+='<input class="written-input" value="'+val+'" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns('+idx+',this.value)">';
+  }
+  bh+='</div><div class="slide-nav"><button '+(idx===0?'disabled ':'')+' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">'+(idx+1)+' / '+EI.totalQ+'</span><button class="sn-next" '+(idx===EI.totalQ-1?'disabled ':'')+' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
+  bt.innerHTML=bh;
+}
+function selectAns(idx,ci){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=ci;
+  var btns=document.querySelectorAll('.slide-choices .choice-btn');
+  btns.forEach(function(b,i){
+    b.classList.toggle('selected',i===ci);
+    if(i===ci)b.classList.add('just-selected');
+  });
+  updateProgress();
+  setTimeout(function(){if(idx<EI.totalQ-1)showQ(idx+1,1);},400);
+}
+function writeAns(idx,val){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=val.trim()||null;
+  updateProgress();
+}
+function navQ(dir){
+  var next=S.cur+dir;
+  if(next>=0&&next<EI.totalQ)showQ(next,dir);
+}
+function updateProgress(){
+  var answered=S.ans.filter(function(a){return a!==null;}).length;
+  document.getElementById('progressFill').style.width=(answered/EI.totalQ*100)+'%';
+  document.getElementById('ansCount').textContent=answered+'/'+EI.totalQ;
+}
+function initSwipe(){
+  var startX=0,startY=0;
+  var el=document.getElementById('slideWrap');
+  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+  el.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx<0&&S.cur<EI.totalQ-1)navQ(1);
+      if(dx>0&&S.cur>0)navQ(-1);
+    }
+  },{passive:true});
+}
+function renderSlide(i){showQ(i);}
+function slideSel(){}
+function slideWrite(){}
 function renderQ(){}
 function renderDots(){}
 function upDots(){}
-function scrollToQ(i){if(i>=0&&i<EI.totalQ)renderSlide(i);}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
+function openCard(){}
+function closeCard(){}
+function gcSel(){}
+function gcWrite(){}
+function gcNav(){}
 function sel(){}
 function sw(){}
 function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
@@ -336,7 +433,6 @@ function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
 updateHCount();
-
 </script>
 </body>
 </html>
