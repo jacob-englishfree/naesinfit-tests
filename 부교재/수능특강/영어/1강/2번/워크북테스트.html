@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수능특강 1강 2번 온라인워크북 TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+
+:root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1A1A2E;--tm:#6B5B8A;--tl:#9A8DB8;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F3F0FF,#EDE7F6 40%,#E8E0F6);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--warn),#6D28D9);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--warn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--warn),#6D28D9);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0edf5;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #d8d0e8;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #c8c0d8;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--warn);box-shadow:0 0 0 4px rgba(124,58,237,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;box-shadow:0 6px 20px rgba(124,58,237,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c0b8d8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--warn);color:var(--warn);}
+.history-badge{background:var(--oxl);color:var(--warn);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #d8d0e8;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--warn);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--warn);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--warn);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--warn);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{display:none;}
+/* Progress bar at top */
+.exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--warn),#6D28D9);transition:width .5s ease;border-radius:0 2px 2px 0;}
+/* Slide container */
+.slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
+.slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
+.slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
+.slide-passage.fade-in{opacity:0;transform:translateX(20px);}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
+.q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
+.slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
+.slide-choices{display:flex;flex-direction:column;gap:4px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices .choice-btn:active{transform:scale(.97);}
+.slide-choices .choice-btn.selected{border-color:var(--warn);background:rgba(124,58,237,.08);box-shadow:0 0 0 3px rgba(124,58,237,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(124,58,237,.3)}70%{box-shadow:0 0 0 8px rgba(124,58,237,0)}100%{box-shadow:0 0 0 0 rgba(124,58,237,0)}}
+.slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
+.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;}
+/* Written input */
+.slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
+.slide-choices .written-input:focus{outline:none;border-color:var(--warn);box-shadow:0 0 0 3px rgba(124,58,237,.1);}
+/* Navigation */
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
+.slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.slide-nav button:active{transform:scale(.95);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(124,58,237,.25);}
+.slide-nav button:disabled{opacity:.3;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--warn);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--warn);background:var(--oxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--ol);color:#4A148C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0edf5;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--warn);font-weight:800;}
+.q-body{padding:14px 16px;}
+.q-passage{background:linear-gradient(135deg,#FAFAFF,#F5F3FA);border-left:3px solid var(--warn);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
+.choices{display:flex;flex-direction:column;gap:4px;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #d8d0e8;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--warn);}.choice-btn.selected{border-color:var(--warn);box-shadow:0 0 0 2px rgba(124,58,237,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#e8e0f0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #c8c0d8;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--warn);}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--warn));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8e0f0;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--warn),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #d8d0e8;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--warn);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0f0;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--warn);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #c8c0d8;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--warn);color:var(--warn);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--warn));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #d8d0e8;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--warn);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--warn);}.expl-box.tip-b{border-left:3px solid var(--warn);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인워크북 TEST</div>
+  <h1 class="start-title">온라인워크북 <span>TEST</span></h1>
+  <p class="start-subtitle">2027학년도 EBS수능특강 영어 · 1강 2번 · Manuscript Revision Request · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows"><div class="info-row"><span class="info-label">시험</span><span class="info-value">2027학년도 EBS수능특강 영어</span></div><div class="info-row"><span class="info-label">범위</span><span class="info-value">1강 2번 (Manuscript Revision Request)</span></div><div class="info-row"><span class="info-label">유형</span><span class="info-value">워크북 테스트 (6유형)</span></div></div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>1강 2번</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+  <div class="ans-count" id="ansCount">0/20</div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"1강","lesson":"2번","title":"Manuscript Revision Request","total":100,"time":1200,"totalQ":20,"histKey":"workbookTest_suneung_01_ex2_v1"};
+
+const PASSAGE=`Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor`;
+
+const Q=[
+{"id":1,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["approach","approached","approaching","to approach"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly __________, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"is + ~ing = 현재진행형. 마감일이 빠르게 다가오고 있다.","analysis":"✅ ③approaching: is + 현재분사 = 진행형<br>❌ ①approach: 원형<br>❌ ②approached: 과거형<br>❌ ④to approach: 부정사","tip":"be + ~ing = 현재진행형 (is approaching = 다가오고 있다)"}},
+{"id":2,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","ans":1,"ch":["evaluate","evaluated","evaluating","to evaluating"],"passage":"The reviewers have carefully __________ your manuscript and provided insightful and critical feedback.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"have + p.p.(현재완료): 리뷰어들이 원고를 신중하게 평가했다.","analysis":"✅ ②evaluated: have + p.p. = 현재완료<br>❌ ①evaluate: 원형<br>❌ ③evaluating: 현재분사<br>❌ ④to evaluating: 문법 오류","tip":"have + p.p. = 현재완료 (have evaluated = 평가했다)"}},
+{"id":3,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["①","②","③","④","⑤"],"passage":"Dear Professor Langford,<br><br>First of all, we ①<u>apologize</u> for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly ②<u>approaching</u>, we kindly ask for your cooperation in ③<u>addressing</u> the reviewers' comments as thoroughly as possible within the ④<u>limiting</u> time available. The reviewers have carefully ⑤<u>evaluated</u> your manuscript.<br><br>Best regards,<br>Nora Ellison","stem":"밑줄 친 ①~⑤ 중 어법상 틀린 것은?","det":{"korean":"④ limiting → limited: 시간이 제한하는 것이 아니라 제한된 것(수동)이므로 과거분사 limited가 올바릅니다.","analysis":"❌ ④limiting(제한하는): 시간이 제한되는 대상(수동) → limited<br>✅ ①apologize: 동사 원형(주어 we)<br>✅ ②approaching: is approaching(현재진행)<br>✅ ③addressing: in + 동명사<br>✅ ⑤evaluated: have evaluated(현재완료)","tip":"limited(제한된, 수동) vs limiting(제한하는, 능동) — 감정/상태 분사 구분"}},
+{"id":4,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["①","②","③","④","⑤"],"passage":"Dear Professor Langford,<br><br>We kindly ask for your cooperation in addressing the reviewers' comments as ①<u>thoroughly</u> as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you ②<u>revise</u>, we have summarized the key points ③<u>raising</u> by both reviewers. We are confident that ④<u>incorporating</u> these suggestions will significantly ⑤<u>improve</u> the manuscript.<br><br>Best regards,<br>Nora Ellison","stem":"밑줄 친 ①~⑤ 중 어법상 틀린 것은?","det":{"korean":"③ raising → raised: key points가 제기되는 대상(수동)이므로 과거분사 raised가 올바릅니다.","analysis":"❌ ③raising: points raised by(수동) → raised가 올바름<br>✅ ①thoroughly: as ~ as possible(원급 비교)<br>✅ ②revise: help + 목적어 + (to) V<br>✅ ④incorporating: 동명사 주어<br>✅ ⑤improve: will + 동사원형","tip":"raised by(~에 의해 제기된) vs raising(제기하는): 수동/능동 구분"}},
+{"id":5,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":0,"ch":["be accepted","accept","to accepting","accepting"],"passage":"We hope that the revised manuscript will satisfy the reviewers and __________ in our journal.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"원고가 수락되는 것(수동)이므로 be accepted가 적절. and 앞의 will satisfy와 병렬.","analysis":"✅ ①be accepted: will + be p.p.(수동태) — satisfy와 병렬<br>❌ ②accept: 능동(원고가 수락하는 것이 아님)<br>❌ ③to accepting: 문법 오류<br>❌ ④accepting: 진행형(be 동사 없음)","tip":"will satisfy A and (will) be accepted: 등위접속사 and에 의한 병렬 구조"}},
+{"id":6,"type":"내용일치","diff":"쉬움","pts":4,"fmt":"mc","ans":1,"ch":["휴일에 연구 지원금을 신청하라고 독려하려고","원고 수정 마감에 맞춰 리뷰어 의견 반영을 요청하려고","학술 대회 발표 자료를 제출하라고 요청하려고","새로운 연구 주제를 제안하려고","학술지 구독을 권장하려고"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 글의 목적으로 가장 적절한 것은?","det":{"korean":"편집자가 교수에게 원고 수정 마감일에 맞춰 리뷰어 의견을 반영해 달라고 요청하는 편지.","analysis":"✅ ② revision deadline + reviewers' comments 반영 요청<br>❌ ①연구지원금 아님<br>❌ ③학술대회 아님<br>❌ ④연구주제 제안 아님<br>❌ ⑤구독 권장 아님","tip":"글의 목적: revision deadline + address reviewers' comments = 수정 요청"}},
+{"id":7,"type":"내용불일치","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["편집자가 휴일에 연락한 것에 대해 사과하였다.","원고 수정 마감일은 12월 27일이다.","리뷰어들이 통찰력 있고 비판적인 피드백을 제공했다.","편집자는 제안을 반영하면 원고가 약간 개선될 것이라고 보았다.","편집자는 수정된 원고가 저널에 수락되기를 바랐다."],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 중 글의 내용과 <b>일치하지 않는</b> 것은?","det":{"korean":"④ 원문에 'significantly improve'(상당히 개선)라고 했지, '약간 개선'이 아닙니다.","analysis":"❌ ④ significantly(상당히) ≠ 약간 → 불일치<br>✅ ① apologize for contacting during holiday → 일치<br>✅ ② December 27th → 일치<br>✅ ③ insightful and critical → 일치<br>✅ ⑤ be accepted in our journal → 일치","tip":"significantly(상당히) ≠ slightly(약간): 정도 부사 차이에 주의"}},
+{"id":8,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["rejecting","ignoring","incorporating","overlooking"],"passage":"Dear Professor Langford,<br><br>We are confident that __________ these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"이 제안들을 <b>반영(incorporating)</b>하면 원고가 크게 개선될 것이라 확신한다.","analysis":"✅ ③incorporating(반영하다): improve와 논리적 연결<br>❌ ①rejecting(거부): 개선과 모순<br>❌ ②ignoring(무시): 개선과 모순<br>❌ ④overlooking(간과): 개선과 모순","tip":"incorporate = 반영하다, 통합하다"}},
+{"id":9,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["rejection","extension","cancellation","cooperation","competition"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your __________ in addressing the reviewers' comments as thoroughly as possible within the limited time available.<br><br>Best regards,<br>Nora Ellison","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"리뷰어 의견을 반영하는 데 <b>협조(cooperation)</b>를 요청합니다.","analysis":"✅ ④cooperation(협조): 정중한 요청<br>❌ ①rejection(거부): 문맥과 반대<br>❌ ②extension(연장): 수정 요청이지 연장 아님<br>❌ ③cancellation(취소): 문맥과 무관<br>❌ ⑤competition(경쟁): 문맥과 무관","tip":"ask for cooperation = 협조를 요청하다"}},
+{"id":10,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","ans":2,"ch":["approval","publication","feedback","subscription","advertisement"],"passage":"Dear Professor Langford,<br><br>The reviewers have carefully evaluated your manuscript and provided insightful and critical __________. To help you revise, we have summarized the key points raised by both reviewers.<br><br>Best regards,<br>Nora Ellison","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"리뷰어들이 통찰력 있고 비판적인 <b>피드백(feedback)</b>을 제공했습니다.","analysis":"✅ ③feedback(피드백): insightful and critical과 자연스럽게 연결<br>❌ ①approval(승인): critical과 불일치<br>❌ ②publication(출판): 아직 수정 단계<br>❌ ④subscription(구독): 문맥과 무관<br>❌ ⑤advertisement(광고): 문맥과 무관","tip":"insightful and critical feedback = 통찰력 있고 비판적인 피드백"}},
+{"id":11,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"cooperation","accept":["cooperation","Cooperation"],"passage":"We kindly ask for your __________ (cooperate) in addressing the reviewers' comments.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"cooperate(동사) → cooperation(명사): your + 명사 자리","analysis":"cooperate → cooperation: 동사 → 명사<br>'your cooperation' = 귀하의 협조","tip":"cooperate(동) → cooperation(명) — -ate → -ation"}},
+{"id":12,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"revised","accept":["revised","Revised"],"passage":"Please review these comments carefully and submit a __________ (revise) version of your manuscript.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"revise(동사) → revised(과거분사/형용사): 수정된 원고","analysis":"revise → revised: 동사 → 형용사(과거분사)<br>'a revised version' = 수정된 버전","tip":"revise(동) → revised(형) / revision(명)"}},
+{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"Associate Editor","accept":["Associate Editor","associate editor"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"Nora Ellison의 직책을 본문에서 영어로 쓰시오.","det":{"korean":"편지 끝에 \"Nora Ellison, Associate Editor\"로 명시되어 있다.","analysis":"Associate Editor = 부편집장","tip":"편지 서명에서 직책 확인"}},
+{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"December 27th","accept":["December 27th","december 27th","December 27"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"원고 수정 마감일을 본문에서 영어로 쓰시오.","det":{"korean":"\"\"the revision deadline of your manuscript (December 27th)\" → December 27th","analysis":"December 27th = 12월 27일<br>괄호 안에 명시됨","tip":"날짜 표기: December 27th"}},
+{"id":15,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"The editor summarized the key points raised by both reviewers.\"</b>","det":{"korean":"\"we have summarized the key points raised by both reviewers\" → 일치.","analysis":"✅ True: 원문과 정확히 일치","tip":"주어(we=편집팀)와 행위(summarize)를 정확히 대조"}},
+{"id":16,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["True","False"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"The editor expects the manuscript to be published immediately.\"</b>","det":{"korean":"편집자는 즉시 출판이 아니라 수정 후 리뷰어를 만족시키고 저널에 수락되기를 바란다고 했습니다.","analysis":"❌ False: published immediately(즉시 출판) ≠ be accepted after revision(수정 후 수락)<br>수정 과정이 필요하므로 즉시 출판이 아님","tip":"immediately(즉시) 키워드에 주의 — 본문에는 수정 과정이 필요하다고 함"}},
+{"id":17,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 문장이 본문과 일치하면 True, 일치하지 않으면 False를 선택하시오.<br><br><b>\"The editor is confident that the suggestions will strengthen the manuscript.\"</b>","det":{"korean":"원문: \"incorporating these suggestions will significantly improve the manuscript\" → improve = strengthen의 유의어이므로 의미상 일치.","analysis":"✅ True: improve ≈ strengthen (개선하다 ≈ 강화하다)<br>의미상 동일한 내용을 paraphrase한 것","tip":"paraphrase 판별: improve ≈ strengthen (유의어 관계)"}},
+{"id":18,"type":"내용불일치","diff":"어려움","pts":6,"fmt":"mc","ans":4,"ch":["편집자는 휴가철에 연락한 것에 대해 사과했다.","원고 수정 마감일은 12월 27일이다.","리뷰어 두 명 모두의 핵심 사항을 요약했다.","제안을 반영하면 주요 주장에 대한 더 강력한 뒷받침이 될 것이다.","편집자는 리뷰어 한 명의 의견만 요약했다."],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 중 글의 내용과 <b>일치하지 않는</b> 것은?","det":{"korean":"⑤ 원문에 'both reviewers(두 리뷰어 모두)'라고 했지, 한 명만이 아닙니다.","analysis":"❌ ⑤ both reviewers(두 명 모두) ≠ 한 명만 → 불일치<br>✅ ① apologize → 일치<br>✅ ② December 27th → 일치<br>✅ ③ both reviewers → 일치<br>✅ ④ stronger support for main claims → 일치","tip":"both(둘 다) vs one(하나): 수량 표현의 차이에 주의"}},
+{"id":19,"type":"내용일치","diff":"쉬움","pts":4,"fmt":"mc","ans":2,"ch":["원고를 철회해 달라고 요청하려고","새로운 논문 주제를 제안하려고","원고 수정 마감에 맞춰 리뷰어 의견 반영을 요청하려고","리뷰어를 교체해 달라고 요청하려고","학술지 폐간을 알리려고"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor","stem":"다음 글의 목적으로 가장 적절한 것은?","det":{"korean":"편집자가 교수에게 원고 수정 마감일에 맞춰 리뷰어 의견을 반영해 달라고 요청하는 편지.","analysis":"✅ ③ revision deadline + address reviewers' comments<br>❌ ①철회 아님<br>❌ ②새 주제 아님<br>❌ ④리뷰어 교체 아님<br>❌ ⑤폐간 아님","tip":"글의 핵심: revision deadline + reviewers' comments 반영 요청"}},
+{"id":20,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["deadline","journal","reviewer","manuscript","editor"],"passage":"Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your __________ (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available.<br><br>Best regards,<br>Nora Ellison","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"원고(manuscript)의 수정 마감일이 다가오고 있습니다.","analysis":"✅ ④manuscript(원고): your manuscript의 수정 마감일<br>❌ ①deadline(마감일): revision deadline of와 중복<br>❌ ②journal(학술지): your journal이 아님<br>❌ ③reviewer(리뷰어): your reviewer가 아님<br>❌ ⑤editor(편집자): your editor가 아님","tip":"manuscript = 원고. revision deadline of your manuscript = 원고 수정 마감일"}}
+];
+
+const typeTag={'어법':'tag-grammar','내용일치':'tag-content','내용불일치':'tag-content','빈칸추론':'tag-blank','서술형':'tag-written','T/F':'tag-tf'};
+
+let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
+
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
+function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
+function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--g)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--g)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
+function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
+function getTypeAdvice(t){const m={'(A)(B)(C) 조합형':'반의어 함정 주의, 원문 단어 정확히 암기','문맥상 부적절한 어휘':'밑줄 단어가 반의어로 바뀌었는지 확인','동의어 고르기':'동의어 쌍을 세트로 묶어 암기','반의어 고르기':'반의어 쌍을 세트로 묶어 암기','빈칸 어휘 완성':'문맥 단서(clue) 찾기 연습 필요','다의어 문맥적 의미':'다의어의 여러 뜻을 문맥별로 구분','영영풀이 매칭':'영영사전 정의 읽기 연습','어형 변환 (서술형)':'품사 변환 규칙(명↔형, 동↔명) 정리','빈칸 문맥 완성':'글의 흐름과 논리적 연결 파악','어법':'핵심 어법 규칙 정리 및 반복 연습','내용일치':'지문과 선지를 꼼꼼히 대조','내용불일치':'함정 선지의 미세한 차이 찾기','T/F':'원문과 진술을 정확히 대조','서술형':'정확한 철자와 어형 변환 주의','빈칸추론':'빈칸 전후 문맥 단서 찾기','빈칸 추론':'빈칸 전후 문맥 단서 찾기','문장삽입':'글의 흐름과 연결사 파악','어순배열':'문장 구조(S+V+O) 정확히 파악','어휘':'문맥에서 적절한 어휘 고르기 연습','내용이해':'지문 핵심 내용 정확히 파악'};return m[t]||'해당 유형 집중 복습 필요';}
+function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function startExam(){
+  const nm=document.getElementById('inpName').value.trim();
+  if(!nm){toast('이름을 입력해주세요!');return;}
+  S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};
+  showScreen('examScreen');
+  showQ(0);
+  startTimer();
+  updateProgress();
+  initSwipe();
+}
+function showQ(idx,direction){
+  S.cur=idx;
+  const qi=S.order?S.order[idx]:idx;
+  const q=Q[qi];
+  const tc=typeTag[q.type]||'';
+  const mk='①②③④⑤';
+  const pp=document.getElementById('slidePassage');
+  if(direction){
+    pp.classList.add(direction>0?'fade-out':'fade-in');
+    setTimeout(()=>{
+      renderContent(idx,qi,q,tc,mk,pp);
+      pp.classList.remove('fade-out','fade-in');
+    },150);
+  } else {
+    renderContent(idx,qi,q,tc,mk,pp);
+  }
+}
+function renderContent(idx,qi,q,tc,mk,pp){
+  let ph='<div class="q-badge"><div class="q-num">'+(idx+1)+'</div><span>'+q.type+'</span><span style="opacity:.6">'+q.diff+' \u00b7 '+q.pts+'\uc810</span></div>';
+  if(q.passage) ph+='<div class="q-passage">'+q.passage+'</div>';
+  else ph+='<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
+  pp.innerHTML=ph;
+  pp.scrollTop=0;
+  const bt=document.getElementById('slideBottom');
+  let bh='<div class="slide-stem">'+q.stem+'</div><div class="slide-choices">';
+  if(q.fmt==='mc'){
+    q.ch.forEach(function(c,ci){
+      var sel=S.ans[qi]===ci?' selected':'';
+      bh+='<button class="choice-btn'+sel+'" onclick="selectAns('+idx+','+ci+')"><span class="c-num">'+mk[ci]+'</span><span>'+c+'</span></button>';
+    });
+  }
+  if(q.fmt==='written'){
+    var val=S.ans[qi]||'';
+    bh+='<input class="written-input" value="'+val+'" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns('+idx+',this.value)">';
+  }
+  bh+='</div><div class="slide-nav"><button '+(idx===0?'disabled ':'')+' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">'+(idx+1)+' / '+EI.totalQ+'</span><button class="sn-next" '+(idx===EI.totalQ-1?'disabled ':'')+' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
+  bt.innerHTML=bh;
+}
+function selectAns(idx,ci){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=ci;
+  var btns=document.querySelectorAll('.slide-choices .choice-btn');
+  btns.forEach(function(b,i){
+    b.classList.toggle('selected',i===ci);
+    if(i===ci)b.classList.add('just-selected');
+  });
+  updateProgress();
+  setTimeout(function(){if(idx<EI.totalQ-1)showQ(idx+1,1);},400);
+}
+function writeAns(idx,val){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=val.trim()||null;
+  updateProgress();
+}
+function navQ(dir){
+  var next=S.cur+dir;
+  if(next>=0&&next<EI.totalQ)showQ(next,dir);
+}
+function updateProgress(){
+  var answered=S.ans.filter(function(a){return a!==null;}).length;
+  document.getElementById('progressFill').style.width=(answered/EI.totalQ*100)+'%';
+  document.getElementById('ansCount').textContent=answered+'/'+EI.totalQ;
+}
+function initSwipe(){
+  var startX=0,startY=0;
+  var el=document.getElementById('slideWrap');
+  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+  el.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx<0&&S.cur<EI.totalQ-1)navQ(1);
+      if(dx>0&&S.cur>0)navQ(-1);
+    }
+  },{passive:true});
+}
+function renderSlide(i){showQ(i);}
+function slideSel(){}
+function slideWrite(){}
+function renderQ(){}
+function renderDots(){}
+function upDots(){}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
+function openCard(){}
+function closeCard(){}
+function gcSel(){}
+function gcWrite(){}
+function gcNav(){}
+function sel(){}
+function sw(){}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub} ${EI.lesson}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--g)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--g)':p>=50?'var(--o)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
+let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--g)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--gl)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
+h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--gl);color:var(--g)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--gl);color:var(--g)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
+function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub} ${EI.lesson}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#16A34A':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#E8F5E9,#C8E6C9':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub} ${EI.lesson}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#16A34A':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
+function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+updateHCount();
+
+</script>
+</body>
+</html>
