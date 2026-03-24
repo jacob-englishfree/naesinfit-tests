@@ -42,23 +42,40 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 @keyframes pulse{50%{opacity:.3;}}
 .btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .exam-scroll{display:none;}
-.slide-wrap{height:calc(100vh - 52px);display:flex;flex-direction:column;}
-.slide-passage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;background:#fff;}
+.slide-wrap{height:calc(100vh - 52px);position:relative;}
+.slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 80px;background:#fff;}
 .slide-passage .q-passage{padding:0;border:none;border-radius:0;background:transparent;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
-.slide-bottom{flex-shrink:0;background:rgba(255,255,255,.2);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,.25);box-shadow:0 -2px 20px rgba(0,0,0,.05);padding:10px 14px 12px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;}
-.slide-stem{font-size:12.5px;font-weight:700;margin-bottom:6px;overflow-wrap:break-word;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:2px;}
-.slide-choices .choice-btn{padding:6px 9px;font-size:12px;line-height:1.3;gap:6px;border:1px solid rgba(0,0,0,.05);border-radius:8px;background:rgba(255,255,255,.15);}
-.slide-choices .choice-btn:hover{background:rgba(255,255,255,.35);}
-.slide-choices .choice-btn.selected{border-color:var(--g);background:rgba(22,163,74,.12);box-shadow:0 0 0 2px rgba(22,163,74,.2);}
-.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.06);}
-.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
-.slide-choices .written-input{padding:7px 10px;font-size:13px;background:rgba(255,255,255,.2);border:1px solid rgba(0,0,0,.05);}
-.slide-nav{display:flex;align-items:center;justify-content:space-between;padding:5px 0 0;margin-top:5px;}
-.slide-nav button{padding:6px 14px;border:1px solid rgba(0,0,0,.05);border-radius:7px;background:rgba(255,255,255,.15);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
-.slide-nav button.sn-next{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}
-.slide-nav button:disabled{opacity:.3;}
-.slide-nav .nav-cur{font-size:11px;font-weight:800;color:var(--g);}
+.slide-bottom{display:none;}
+/* 미니 알약 */
+.pill{position:fixed;bottom:16px;left:16px;right:16px;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.5);cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);}
+.pill:active{transform:scale(.97);}
+.pill-left{display:flex;align-items:center;gap:8px;}
+.pill-num{width:24px;height:24px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;}
+.pill-info{font-size:12px;font-weight:700;color:var(--text);}
+.pill-info span{font-size:10px;color:var(--tl);font-weight:600;}
+.pill-right{display:flex;align-items:center;gap:6px;}
+.pill-ans{font-size:11px;font-weight:800;color:var(--g);}
+.pill-arrow{font-size:14px;color:var(--tl);transition:transform .3s;}
+/* 플로팅 글래스 카드 */
+.glass-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .3s;}
+.glass-overlay.open{opacity:1;pointer-events:auto;}
+.glass-card{position:fixed;bottom:0;left:0;right:0;z-index:101;background:rgba(255,255,255,.75);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);border-radius:20px 20px 0 0;box-shadow:0 -8px 40px rgba(0,0,0,.12);border-top:1px solid rgba(255,255,255,.6);padding:0 16px 20px;max-height:70vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.glass-card.open{transform:translateY(0);}
+.glass-handle{width:36px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;margin:10px auto 12px;}
+.glass-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.glass-stem{font-size:13px;font-weight:700;margin-bottom:10px;line-height:1.5;overflow-wrap:break-word;}
+.glass-choices{display:flex;flex-direction:column;gap:4px;}
+.glass-choices .choice-btn{padding:10px 12px;font-size:13px;line-height:1.4;gap:8px;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);transition:all .2s;}
+.glass-choices .choice-btn:active{transform:scale(.98);}
+.glass-choices .choice-btn.selected{border-color:var(--g);background:rgba(22,163,74,.1);box-shadow:0 0 0 3px rgba(22,163,74,.15);}
+.glass-choices .c-num{min-width:22px;height:22px;font-size:10px;background:rgba(0,0,0,.06);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);}
+.glass-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;}
+.glass-choices .written-input{padding:10px 12px;font-size:14px;background:rgba(255,255,255,.5);border:1.5px solid rgba(0,0,0,.06);border-radius:10px;width:100%;}
+.glass-nav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06);}
+.glass-nav button{padding:8px 18px;border:1px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.4);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;}
+.glass-nav button.sn-next{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}
+.glass-nav button:disabled{opacity:.3;}
+.glass-nav .nav-cur{font-size:12px;font-weight:800;color:var(--g);}
 .q-card{background:var(--card);border-radius:12px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;}
 .q-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,var(--gxl),var(--gl));border-bottom:1px solid #e0ece2;flex-wrap:wrap;}
 .q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
@@ -123,6 +140,22 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="slide-wrap" id="slideWrap">
     <div class="slide-passage" id="slidePassage"></div>
     <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+  <div class="pill" id="pill" onclick="openCard()">
+    <div class="pill-left"><div class="pill-num" id="pillNum">1</div><div class="pill-info" id="pillInfo">문제 <span>터치하여 풀기</span></div></div>
+    <div class="pill-right"><span class="pill-ans" id="pillAns"></span><span class="pill-arrow">▲</span></div>
+  </div>
+  <div class="glass-overlay" id="glassOverlay" onclick="closeCard()"></div>
+  <div class="glass-card" id="glassCard">
+    <div class="glass-handle"></div>
+    <div class="glass-header" id="glassHeader"></div>
+    <div class="glass-stem" id="glassStem"></div>
+    <div class="glass-choices" id="glassChoices"></div>
+    <div class="glass-nav">
+      <button id="gcPrev" onclick="gcNav(-1)">← 이전</button>
+      <span class="nav-cur" id="gcCur">1/20</span>
+      <button class="sn-next" id="gcNext" onclick="gcNav(1)">다음 →</button>
+    </div>
   </div>
 </div>
 <div id="resultScreen" class="screen"></div>
@@ -196,40 +229,49 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};showScreen('examScreen');renderSlide(0);startTimer();}
-
-function renderSlide(idx){
-S.cur=idx;const qi=S.order?S.order[idx]:idx;const q=Q[qi];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';
-const pLen=q.passage?q.passage.replace(/<[^>]*>/g,'').length:0;const isShort=pLen<=200;
+function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};showScreen('examScreen');showQ(0);startTimer();}
+function showQ(idx){
+S.cur=idx;const qi=S.order?S.order[idx]:idx;const q=Q[qi];const tc=typeTag[q.type]||'';const mk='①②③④⑤';
+// 지문 표시 (전체 화면)
 const pp=document.getElementById('slidePassage');
-const bt=document.getElementById('slideBottom');
-if(isShort){
-// 짧은 지문: 인라인 모드 — 지문+발문+선지 한 화면
-let h=`<div class="slide-header"><div class="q-num">${idx+1}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
-if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;
-h+=`<div class="slide-stem" style="margin-top:12px">${q.stem}</div>`;
-if(q.fmt==='mc'){h+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[qi]===ci?' selected':'';h+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});h+=`</div>`;}
-if(q.fmt==='written'){const val=S.ans[qi]||'';h+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
-h+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
-pp.innerHTML=h;pp.scrollTop=0;bt.innerHTML='';bt.style.display='none';
-}else{
-// 긴 지문: 슬라이드 모드 — 위 지문 + 하단 선지
-bt.style.display='';
-let ph=`<div class="slide-header"><div class="q-num">${idx+1}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
-ph+=`<div class="q-passage">${q.passage}</div>`;
+let ph=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;opacity:.5;font-size:11px;font-weight:700"><div class="pill-num" style="width:20px;height:20px;font-size:9px">${idx+1}</div>${q.type} · ${q.diff} · ${q.pts}점</div>`;
+if(q.passage)ph+=`<div class="q-passage">${q.passage}</div>`;
+if(!q.passage)ph+=`<div style="padding:40px 20px;text-align:center;color:var(--tl)">이 문항은 지문이 없습니다.</div>`;
 pp.innerHTML=ph;pp.scrollTop=0;
-let bh=`<div class="slide-stem">${q.stem}</div>`;
-if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[qi]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
-if(q.fmt==='written'){const val=S.ans[qi]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
-bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
-bt.innerHTML=bh;bt.scrollTop=0;
-}}
-function slideSel(idx,ci){const qi=S.order?S.order[idx]:idx;S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(idx);document.getElementById('slidePassage').scrollTop=st;}
-function slideWrite(idx){const qi=S.order?S.order[idx]:idx;const el=document.getElementById('sw-'+idx);S.ans[qi]=el?el.value.trim()||null:null;}
+// 알약 업데이트
+const pill=document.getElementById('pill');pill.style.display='flex';
+document.getElementById('pillNum').textContent=idx+1;
+const ansVal=S.ans[qi];
+if(ansVal!==null&&q.fmt==='mc'){document.getElementById('pillInfo').innerHTML=`${q.type.slice(0,6)} <span>${q.diff} ${q.pts}점</span>`;document.getElementById('pillAns').textContent='✅ '+mk[ansVal];}
+else if(ansVal!==null&&q.fmt==='written'){document.getElementById('pillInfo').innerHTML=`${q.type.slice(0,6)} <span>${q.diff} ${q.pts}점</span>`;document.getElementById('pillAns').textContent='✅ '+ansVal;}
+else{document.getElementById('pillInfo').innerHTML=`${q.type.slice(0,6)} <span>터치하여 풀기</span>`;document.getElementById('pillAns').textContent='';}
+document.getElementById('gcCur').textContent=`${idx+1} / ${EI.totalQ}`;
+document.getElementById('gcPrev').disabled=idx===0;
+document.getElementById('gcNext').disabled=idx===EI.totalQ-1;
+}
+function openCard(){
+const idx=S.cur;const qi=S.order?S.order[idx]:idx;const q=Q[qi];const tc=typeTag[q.type]||'';const mk='①②③④⑤';
+document.getElementById('glassHeader').innerHTML=`<div class="q-num" style="width:26px;height:26px;font-size:11px">${idx+1}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span>`;
+document.getElementById('glassStem').innerHTML=q.stem;
+const cc=document.getElementById('glassChoices');
+let ch='';
+if(q.fmt==='mc'){q.ch.forEach((c,ci)=>{const sel=S.ans[qi]===ci?' selected':'';ch+=`<button class="choice-btn${sel}" onclick="gcSel(${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});}
+if(q.fmt==='written'){const val=S.ans[qi]||'';ch+=`<input class="written-input" value="${val}" placeholder="답안을 입력하세요..." oninput="gcWrite(this.value)">`;}
+cc.innerHTML=ch;
+document.getElementById('glassOverlay').classList.add('open');
+document.getElementById('glassCard').classList.add('open');
+}
+function closeCard(){document.getElementById('glassOverlay').classList.remove('open');document.getElementById('glassCard').classList.remove('open');}
+function gcSel(ci){const idx=S.cur;const qi=S.order?S.order[idx]:idx;S.ans[qi]=ci;closeCard();setTimeout(()=>{if(idx<EI.totalQ-1)showQ(idx+1);else showQ(idx);},350);}
+function gcWrite(val){const qi=S.order?S.order[S.cur]:S.cur;S.ans[qi]=val.trim()||null;}
+function gcNav(dir){closeCard();const next=S.cur+dir;if(next>=0&&next<EI.totalQ)setTimeout(()=>showQ(next),200);}
+function renderSlide(i){showQ(i);}
+function slideSel(){}
+function slideWrite(){}
 function renderQ(){}
 function renderDots(){}
 function upDots(){}
-function scrollToQ(i){if(i>=0&&i<EI.totalQ)renderSlide(i);}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
 function sel(){}
 function sw(){}
 function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
