@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>2027학년도 EBS수능특강 21강 3번 온라인워크북 TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1A1A2E;--tm:#6B5B8A;--tl:#9A8DB8;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#F3F0FF,#E8E0FF 40%,#DDD6FE);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#6D28D9);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#6D28D9);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #F0EDFF;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #DDD0EF;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #D0C8E2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(124,58,237,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(124,58,237,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #C8C0DA;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #DDD0EF;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--warn);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{display:none;}
+.slide-wrap{height:calc(100vh - 52px);display:flex;flex-direction:column;}
+.slide-passage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;background:#fff;}
+.slide-passage .q-passage{padding:0;border:none;border-radius:0;background:transparent;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.slide-bottom{flex-shrink:0;background:rgba(255,255,255,.2);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,.25);box-shadow:0 -2px 20px rgba(0,0,0,.05);padding:10px 14px 12px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;}
+.slide-stem{font-size:12.5px;font-weight:700;margin-bottom:6px;overflow-wrap:break-word;color:var(--text);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{padding:6px 9px;font-size:12px;line-height:1.3;gap:6px;border:1px solid rgba(0,0,0,.05);border-radius:8px;background:rgba(255,255,255,.15);}
+.slide-choices .choice-btn:hover{background:rgba(255,255,255,.35);}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(124,58,237,.12);box-shadow:0 0 0 2px rgba(124,58,237,.2);}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.06);}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.slide-choices .written-input{padding:7px 10px;font-size:13px;background:rgba(255,255,255,.2);border:1px solid rgba(0,0,0,.05);}
+.slide-nav{display:flex;align-items:center;justify-content:space-between;padding:5px 0 0;margin-top:5px;}
+.slide-nav button{padding:6px 14px;border:1px solid rgba(0,0,0,.05);border-radius:7px;background:rgba(255,255,255,.15);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}
+.slide-nav button:disabled{opacity:.3;}
+.slide-nav .nav-cur{font-size:11px;font-weight:800;color:var(--o);}
+.q-card{background:var(--card);border-radius:12px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,var(--oxxl),var(--oxl));border-bottom:1px solid #E0D8F0;flex-wrap:wrap;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-grammar{background:#E8EAF6;color:#283593;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}
+.tag-combo{background:var(--oxl);color:#5B21B6;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--wl);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#F0EDFF;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:14px 16px;}
+.q-passage{background:linear-gradient(135deg,#FAFAFF,#F5F0FF);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
+.choices{display:flex;flex-direction:column;gap:4px;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #DDD0EF;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(124,58,237,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#E8E0F0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #D0C8E2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
+.nav-dot{width:28px;height:28px;border-radius:50%;background:#DDD0EF;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--o);color:#fff;}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--oxxl));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#E8E0F0;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #DDD0EF;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#E8E0F0;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--oxl);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #D0C8E2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #DDD0EF;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--oxl);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인워크북 TEST</div>
+  <h1 class="start-title">온라인워크북 <span>TEST</span></h1>
+  <p class="start-subtitle">2027학년도 EBS수능특강 영어 · 21강 · 3번 · Ache Tribe's Insurance Against Starvation · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">시험</span><span class="info-value">2027학년도 EBS수능특강 영어</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">21강 3번</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Ache Tribe's Insurance Against Starvation</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>21강 3번</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"21강","lesson":"3번","title":"Ache Tribe's Insurance Against Starvation","total":100,"time":1200,"totalQ":20,"histKey":"workbookTest_suneung_21_ex3_v1"};
+
+const P=`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. Some days they bring home much more food than they could possibly eat; other days they come home empty-handed. If a man caught a wild pig and hoarded it for himself and his family, much of it would go to waste (there are no deep-freeze refrigerators in the Paraguayan jungle). During unlucky periods, individual hunters and their families would starve. Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day share their meat with other families. And they don't just share a little; they share a lot — fully 90%. In exchange for this generosity, their neighbors share with them on days when the luck runs the other way. By exchanging resources, particularly those that are unpredictable and uncertain (like meat from the hunt, as opposed to vegetable crops), the group provides a mutual insurance policy against starvation.`;
+
+const typeTag={'어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','T/F':'tag-tf'};
+
+const Q=[
+{id:1,type:'어법',diff:'보통',pts:5,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`Hunters in the Ache tribe, ①<u>living</u> in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. Some days they bring home much more food than they could ②<u>possibly</u> eat; other days they come home ③<u>empty-handed</u>. If a man caught a wild pig and hoarded it for himself and his family, much of it would go to waste (there are no deep-freeze refrigerators in the Paraguayan jungle). During unlucky periods, individual hunters and their families would ④<u>starve</u>. Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day share their meat with other families. And they don't just share a little; they share a lot — fully 90%. In exchange for this generosity, their neighbors share with them on days when the luck runs the other way. By ⑤<u>exchange</u> resources, particularly those that are unpredictable and uncertain, the group provides a mutual insurance policy against starvation.`,
+stem:'밑줄 친 ①~⑤ 중 어법상 틀린 것은?',
+det:{korean:'전치사 By 뒤에는 동명사가 와야 하므로 exchange가 아닌 exchanging이 맞다.',analysis:'❌⑤exchange: By + 동명사(exchanging) → By exchanging resources<br>✅①living: 분사구문(현재분사)<br>✅②possibly: 부사(could를 수식)<br>✅③empty-handed: 복합형용사(보어)<br>✅④starve: 조동사 would 뒤 동사원형',tip:'By + ~ing (전치사 By 뒤에는 동명사)'}},
+
+{id:2,type:'어법',diff:'보통',pts:5,fmt:'mc',ans:2,
+ch:['①','②','③','④','⑤'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in ①<u>their</u> success at the hunt. Some days they bring home much ②<u>more</u> food than they could possibly eat; other days they come home empty-handed. If a man ③<u>catches</u> a wild pig and hoarded it for himself and his family, much of it would go to waste. During unlucky periods, individual hunters and their families would starve. Instead of ④<u>living</u> by a philosophy of "rugged individualism," however, hunters who have a lucky day ⑤<u>share</u> their meat with other families.`,
+stem:'밑줄 친 ①~⑤ 중 어법상 틀린 것은?',
+det:{korean:'가정법 과거(If + 과거동사 ~ , would ~) 구문이므로 catches가 아닌 caught가 맞다.',analysis:'❌③catches: 가정법 과거 → If a man caught(과거형)<br>✅①their: 소유격 대명사<br>✅②more: 비교급(much more food)<br>✅④living: 전치사 of 뒤 동명사<br>✅⑤share: 주어 hunters(복수)에 맞는 동사',tip:'가정법 과거: If + S + 과거동사 ~, S + would + 동사원형'}},
+
+{id:3,type:'어법',diff:'어려움',pts:6,fmt:'mc',ans:3,
+ch:['①','②','③','④','⑤'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. If a man caught a wild pig and hoarded it for ①<u>himself</u> and his family, much of it would go to waste. During unlucky periods, individual hunters and their families would starve. Instead of living by a philosophy of "rugged individualism," however, hunters ②<u>who</u> have a lucky day share their meat with other families. And they don't just share a little; they share a lot — fully 90%. In exchange for this generosity, their neighbors share with ③<u>them</u> on days ④<u>which</u> the luck runs the other way. By exchanging resources, particularly ⑤<u>those</u> that are unpredictable and uncertain, the group provides a mutual insurance policy against starvation.`,
+stem:'밑줄 친 ①~⑤ 중 어법상 틀린 것은?',
+det:{korean:'"days"를 선행사로 하는 관계부사 when이 와야 하므로 which가 아닌 when이 맞다. "on days when the luck runs the other way"',analysis:'❌④which: on days when ~ → 시간의 선행사 days 뒤에는 관계부사 when<br>✅①himself: 재귀대명사(a man = himself)<br>✅②who: 주격 관계대명사(hunters who)<br>✅③them: 목적격 대명사(with them)<br>✅⑤those: 지시대명사(those = resources)',tip:'시간 선행사(days/time/period) + when (관계부사)'}},
+
+{id:4,type:'어휘',diff:'보통',pts:5,fmt:'mc',ans:3,
+ch:['①','②','③','④','⑤'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ①<u>ups and downs</u> in their success at the hunt. Some days they bring home much more food than they could possibly eat; other days they come home ②<u>empty-handed</u>. If a man caught a wild pig and ③<u>hoarded</u> it for himself and his family, much of it would go to waste. During ④<u>fortunate</u> periods, individual hunters and their families would starve. Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day share their meat with ⑤<u>other</u> families.`,
+stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
+det:{korean:'사냥꾼과 가족이 굶주리는 것은 <b>운이 나쁜(unlucky)</b> 기간이지, 운이 좋은(fortunate) 기간이 아니다.',analysis:'❌④fortunate(운이 좋은) → unlucky(운이 나쁜): 굶주리는 상황은 운이 나쁜 기간<br>✅①ups and downs(기복): 적절<br>✅②empty-handed(빈손으로): 적절<br>✅③hoarded(비축하다): 적절<br>✅⑤other(다른): 적절',tip:'unlucky(운이 나쁜) ↔ fortunate(운이 좋은)'}},
+
+{id:5,type:'어휘',diff:'어려움',pts:6,fmt:'mc',ans:4,
+ch:['①','②','③','④','⑤'],
+passage:`Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day share their meat with other families. And they don't just share a little; they share a lot — fully 90%. In exchange for this ①<u>generosity</u>, their neighbors share with them on days when the luck runs the other way. By exchanging resources, particularly those that are ②<u>unpredictable</u> and ③<u>uncertain</u> (like meat from the hunt, as opposed to vegetable crops), the group provides a ④<u>mutual</u> insurance policy against ⑤<u>prosperity</u>.`,
+stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
+det:{korean:'집단이 보험을 제공하는 대상은 <b>굶주림(starvation)</b>이지, 번영(prosperity)이 아니다.',analysis:'❌⑤prosperity(번영) → starvation(굶주림): 보험은 위험에 대한 것<br>✅①generosity(관대함): 적절<br>✅②unpredictable(예측 불가): 적절<br>✅③uncertain(불확실한): 적절<br>✅④mutual(상호의): 적절',tip:'starvation(굶주림) ↔ prosperity(번영)'}},
+
+{id:6,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:2,
+ch:['deep-freeze refrigerators','rugged individualism','sharing their meat','hoarding food','hunting alone'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. Some days they bring home much more food than they could possibly eat; other days they come home empty-handed. If a man caught a wild pig and hoarded it for himself and his family, much of it would go to waste. During unlucky periods, individual hunters and their families would starve. Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day solve this problem by __________ with other families.`,
+stem:'윗글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'개인주의 대신, 운 좋은 사냥꾼은 다른 가족과 <b>고기를 나눔으로써(sharing their meat)</b> 문제를 해결한다.',analysis:'✅③sharing their meat: 본문의 핵심 해결책<br>❌①deep-freeze refrigerators: 존재하지 않음<br>❌②rugged individualism: 반대 개념<br>❌④hoarding food: 문제의 원인<br>❌⑤hunting alone: 나눔과 반대',tip:'by + ~ing = ~함으로써 — 개인주의의 대안이 나눔'}},
+
+{id:7,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:1,
+ch:['individual survival strategies','a system of mutual aid','permanent food storage','competitive hunting practices','vegetable farming techniques'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. If a man caught a wild pig and hoarded it for himself and his family, much of it would go to waste. Instead of living by a philosophy of "rugged individualism," hunters who have a lucky day share their meat with other families — fully 90%. In exchange, their neighbors share with them when luck runs the other way. This passage primarily illustrates how __________ can protect a community from the risks of unpredictable food sources.`,
+stem:'윗글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'이 지문은 <b>상호 부조 시스템(a system of mutual aid)</b>이 예측 불가능한 식량원의 위험으로부터 공동체를 보호하는 방법을 보여준다.',analysis:'✅②a system of mutual aid: mutual insurance policy = 상호 부조<br>❌①individual survival strategies: 개인주의와 유사, 반대 개념<br>❌③permanent food storage: 냉동고 없음<br>❌④competitive hunting practices: 경쟁은 나눔과 반대<br>❌⑤vegetable farming techniques: 채소 농업은 대비 대상',tip:'mutual aid(상호 부조) = mutual insurance policy against starvation'}},
+
+{id:8,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:3,
+ch:['sell the excess meat','store it in refrigerators','eat everything immediately','share it with neighbors','trade it for vegetables'],
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. Some days they bring home much more food than they could possibly eat; other days they come home empty-handed. If a man caught a wild pig and hoarded it for himself, much of it would go to waste. The practical solution to this problem is to __________, ensuring that when luck turns against them, others will return the favor.`,
+stem:'윗글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'이 문제의 실질적 해결책은 <b>이웃과 나누는 것(share it with neighbors)</b>이다.',analysis:'✅④share it with neighbors: 나눔 → 보답 받음<br>❌①sell: 정글에서 판매 불가<br>❌②store in refrigerators: 냉동고 없음<br>❌③eat everything: 먹을 수 있는 양 초과<br>❌⑤trade for vegetables: 직접 교역 언급 없음',tip:'return the favor = 호의를 되갚다 — 상호 나눔의 핵심'}},
+
+{id:9,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'starve',accept:['starve','Starve'],ch:null,
+passage:`Hunters in the Ache tribe, living in the Paraguayan jungle, have a lot of ups and downs in their success at the hunt. Some days they bring home much more food than they could possibly eat; other days they come home empty-handed. If a man caught a wild pig and hoarded it for himself and his family, much of it would go to waste (there are no deep-freeze refrigerators in the Paraguayan jungle). During unlucky periods, individual hunters and their families would __________.`,
+stem:'본문의 내용에 맞게 빈칸에 들어갈 단어를 영어로 쓰시오.',
+det:{korean:'운이 나쁜 기간에 개별 사냥꾼과 그 가족은 <b>굶주리게(starve)</b> 된다.',analysis:'would + 동사원형 → starve (굶주리다)',tip:'starve = 굶주리다, 굶어 죽다'}},
+
+{id:10,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'90',accept:['90','90%'],ch:null,
+passage:`Instead of living by a philosophy of "rugged individualism," however, hunters who have a lucky day share their meat with other families. And they don't just share a little; they share a lot — fully __________%.`,
+stem:'본문의 내용에 맞게 빈칸에 들어갈 숫자를 쓰시오.',
+det:{korean:'사냥꾼들은 조금이 아닌 많이 나눈다 — 무려 <b>90</b>%.',analysis:'fully 90% — 본문에 명시된 수치',tip:'fully = 완전히, 무려 — 강조 부사'}},
+
+{id:11,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'exchanging',accept:['exchanging','Exchanging'],ch:null,
+passage:`By __________ (exchange) resources, particularly those that are unpredictable and uncertain (like meat from the hunt, as opposed to vegetable crops), the group provides a mutual insurance policy against starvation.`,
+stem:'괄호 안의 단어를 어법에 맞게 변형하시오.',
+det:{korean:'전치사 By 뒤에 동명사가 필요: <b>exchanging</b>',analysis:'By + 동명사(exchanging) = ~함으로써',tip:'By + ~ing (전치사 뒤 동명사)'}},
+
+{id:12,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'go to waste',accept:['go to waste','Go to waste'],ch:null,
+passage:`If a man caught a wild pig and hoarded it for himself and his family, much of it would __________ (there are no deep-freeze refrigerators in the Paraguayan jungle).`,
+stem:'본문의 내용에 맞게 빈칸에 들어갈 3단어 영어 표현을 쓰시오.',
+det:{korean:'냉동고가 없으므로 고기의 많은 부분이 <b>낭비되다(go to waste)</b>.',analysis:'go to waste = 낭비되다, 허비되다',tip:'go to waste = be wasted (낭비되다)'}},
+
+{id:13,type:'내용이해',diff:'쉬움',pts:4,fmt:'mc',ans:2,
+ch:['Ache 부족의 사냥 기술을 설명하려고','Ache 부족의 고기 저장 방법을 소개하려고','자원 나눔이 굶주림 방지 보험 역할을 함을 보여주려고','파라과이 정글의 생태계를 설명하려고','개인주의 철학의 장점을 강조하려고'],
+passage:P,
+stem:'위 글의 주제로 가장 적절한 것은?',
+det:{korean:'이 글은 Ache 부족의 고기 나눔이 굶주림에 대한 상호 보험 역할을 한다는 것을 설명한다.',analysis:'✅③: mutual insurance policy against starvation = 주제<br>❌①: 사냥 기술이 아닌 나눔 시스템<br>❌②: 저장이 아닌 나눔<br>❌④: 생태계 설명이 아님<br>❌⑤: 개인주의를 비판하는 글',tip:'글의 주제 = 마지막 문장의 핵심 표현 확인'}},
+
+{id:14,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['Ache 부족은 사냥에서 항상 성공한다.','사냥꾼들은 운이 좋은 날 고기의 90%를 나눈다.','파라과이 정글에는 냉동고가 있다.','Ache 부족은 개인주의 철학으로 살아간다.','사냥꾼들은 채소 작물만 교환한다.'],
+passage:P,
+stem:'위 글의 내용과 일치하는 것은?',
+det:{korean:'사냥꾼들은 운이 좋은 날 고기의 90%를 다른 가족과 나눈다.',analysis:'✅②: "they share a lot — fully 90%" 원문 일치<br>❌①: ups and downs → 항상 성공 아님<br>❌③: "there are no deep-freeze refrigerators" → 없음<br>❌④: "Instead of" individualism → 반대<br>❌⑤: meat from the hunt를 교환',tip:'선지와 원문 내용을 정확히 대조'}},
+
+{id:15,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:3,
+ch:['사냥에 성공하면 고기를 혼자 먹는다.','파라과이 정글에는 야생 돼지가 없다.','채소 작물은 고기보다 예측 가능하다.','사냥꾼의 이웃들은 고기를 절대 나누지 않는다.','Ache 부족은 고기를 얼려서 보관한다.'],
+passage:P,
+stem:'위 글의 내용과 일치하는 것은?',
+det:{korean:'채소 작물(vegetable crops)은 사냥 고기와 달리 예측 가능하고 확실한 자원이다.',analysis:'✅③: "as opposed to vegetable crops" → 고기(unpredictable)와 대비 = 채소는 예측 가능<br>❌①: 나눈다(share)<br>❌②: wild pig를 잡는다고 명시<br>❌④: 이웃도 나눈다(neighbors share)<br>❌⑤: 냉동고 없음',tip:'as opposed to = ~와 대조적으로 — 대비 관계 파악'}},
+
+{id:16,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:0,
+ch:['True','False'],
+passage:P,
+stem:'"The Ache hunters share fully 90% of their meat with other families." (T/F)',
+det:{korean:'"they share a lot — fully 90%" — 본문에 명시되어 있다.',analysis:'✅True: "they share a lot — fully 90%" 원문 그대로',tip:'fully 90% — 본문의 핵심 수치'}},
+
+{id:17,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P,
+stem:'"The Ache tribe has deep-freeze refrigerators to store their meat." (T/F)',
+det:{korean:'"there are no deep-freeze refrigerators in the Paraguayan jungle" — 냉동고가 없다고 명시.',analysis:'❌False: "there are no deep-freeze refrigerators" → 없음',tip:'no = 전혀 없다 — 부정 표현 정확히 확인'}},
+
+{id:18,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:1,
+ch:['True','False'],
+passage:P,
+stem:'"The Ache hunters share their meat based on the philosophy of rugged individualism." (T/F)',
+det:{korean:'"Instead of living by a philosophy of rugged individualism" — 개인주의 대신 나눈다고 했으므로, 개인주의에 기반한 것이 아니다.',analysis:'❌False: "Instead of" = ~대신 → 개인주의를 따르지 않음',tip:'instead of = ~대신에 — 반대 방향을 나타냄'}},
+
+{id:19,type:'T/F',diff:'어려움',pts:6,fmt:'mc',ans:0,
+ch:['True','False'],
+passage:P,
+stem:'"Meat from the hunt is described as unpredictable and uncertain compared to vegetable crops." (T/F)',
+det:{korean:'사냥 고기는 채소 작물과 대비하여 예측할 수 없고 불확실하다고 묘사된다.',analysis:'✅True: "unpredictable and uncertain (like meat from the hunt, as opposed to vegetable crops)" 원문 일치',tip:'as opposed to = ~와 대비하여 — 비교 대조 표현'}},
+
+{id:20,type:'내용이해',diff:'어려움',pts:6,fmt:'mc',ans:3,
+ch:['사냥꾼들이 채소를 재배하는 방법','파라과이 정글의 기후 특성','Ache 부족의 종교적 의식','자원의 불확실성에 대처하는 상호 보험 시스템','야생 돼지의 생태적 특성'],
+passage:P,
+stem:'위 글의 요지로 가장 적절한 것은?',
+det:{korean:'Ache 부족의 고기 나눔 관행은 사냥이라는 불확실한 자원의 위험에 대처하는 상호 보험 시스템이다.',analysis:'✅④: mutual insurance policy against starvation = 요지<br>❌①: 채소 재배 방법 아님<br>❌②: 기후 특성 아님<br>❌③: 종교 의식 아님<br>❌⑤: 야생 돼지 생태 아님',tip:'요지 = 글 전체의 핵심 메시지 → 마지막 문장에 집약'}}
+];
+
+let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
+
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
+function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
+function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--o)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #DDD0EF;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--o)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
+function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
+function getTypeAdvice(t){const m={'어법':'핵심 어법 규칙 정리 및 반복 연습','어휘':'문맥에서 적절한 어휘 고르기 연습','빈칸추론':'빈칸 전후 문맥 단서 찾기','서술형':'정확한 철자와 어형 변환 주의','내용이해':'지문 핵심 내용 정확히 파악','T/F':'원문과 진술을 정확히 대조'};return m[t]||'해당 유형 집중 복습 필요';}
+function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderSlide(0);startTimer();}
+
+function renderSlide(idx){
+S.cur=idx;const q=Q[idx];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':q.ch&&q.ch.length===3?'①②③':'①②③④';
+const pp=document.getElementById('slidePassage');
+let ph=`<div class="slide-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
+if(q.passage)ph+=`<div class="q-passage">${q.passage}</div>`;
+if(!q.passage)ph+=`<div style="padding:20px;text-align:center;color:var(--tl);font-size:13px">이 문항은 지문이 없습니다.</div>`;
+pp.innerHTML=ph;pp.scrollTop=0;
+const bt=document.getElementById('slideBottom');
+let bh=`<div class="slide-stem">${q.stem}</div>`;
+if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[idx]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
+if(q.fmt==='written'){const val=S.ans[idx]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
+bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
+bt.innerHTML=bh;bt.scrollTop=0;
+}
+function slideSel(qi,ci){S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(qi);document.getElementById('slidePassage').scrollTop=st;}
+function slideWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;}
+function renderQ(){}
+function renderDots(){}
+function upDots(){}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)renderSlide(i);}
+function sel(){}
+function sw(){}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--o)':p>=50?'var(--warn)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':d.q.ch&&d.q.ch.length===3?'①②③':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
+let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--o)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--oxl)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
+h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--oxl);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--oxl);color:var(--o)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
+function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#7C3AED':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#F3F0FF,#E8E0FF':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#7C3AED':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
+function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+updateHCount();
+</script>
+</body>
+</html>
