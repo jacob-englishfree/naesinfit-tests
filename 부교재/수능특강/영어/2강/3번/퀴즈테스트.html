@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수능특강 02강 3번 온라인퀴즈 TEST</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0ede8;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #ddd8d2;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0c8c2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8c0b8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #ddd8d2;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{display:none;}
+/* Progress bar at top */
+.exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--o),#D97706);transition:width .5s ease;border-radius:0 2px 2px 0;}
+/* Slide container */
+.slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
+.slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
+.slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
+.slide-passage.fade-in{opacity:0;transform:translateX(20px);}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
+.q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
+.slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
+.slide-choices{display:flex;flex-direction:column;gap:4px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices .choice-btn:active{transform:scale(.97);}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.08);box-shadow:0 0 0 3px rgba(232,119,46,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(232,119,46,.3)}70%{box-shadow:0 0 0 8px rgba(232,119,46,0)}100%{box-shadow:0 0 0 0 rgba(232,119,46,0)}}
+.slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
+.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+/* Written input */
+.slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
+.slide-choices .written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.1);}
+/* Navigation */
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
+.slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.slide-nav button:active{transform:scale(.95);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(232,119,46,.25);}
+.slide-nav button:disabled{opacity:.3;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--o);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--o);background:var(--oxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--ol);color:#BF360C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0ede8;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:14px 16px;}
+.q-passage{background:linear-gradient(135deg,#FFFAF8,#F5F0EB);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
+.choices{display:flex;flex-direction:column;gap:4px;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #ddd8d2;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#e8e0d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #d0c8c2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8e0d8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #ddd8d2;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0d8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0c8c2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #ddd8d2;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인퀴즈 TEST</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">2027학년도 EBS수능특강 영어 · 2강 · 3번 · Organ in Borneo · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">시험</span><span class="info-value">2027학년도 EBS수능특강 영어</span></div>
+    <div class="info-row"><span class="info-label">범위</span><span class="info-value">2강 3번 (Organ in Borneo)</span></div>
+    <div class="info-row"><span class="info-label">유형</span><span class="info-value">온라인퀴즈 · 20문항</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>2강 3번</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+  <div class="ans-count" id="ansCount">0/20</div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"2강","lesson":"3번","title":"Organ in Borneo","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_suneung_02_ex3_v1"};
+const PASSAGE=`Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.`;
+const Q=[{"id":1,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["①","②","③","④","⑤"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had ①<u>practiced</u> for weeks flowed smoothly under his fingers. The melody ②<u>blended</u> with the soft sounds of the jungle, ③<u>filled</u> him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these ④<u>uncertain</u> times. But his peace was ⑤<u>interrupted</u> by the distant roar of engines.","stem":"밑줄 친 ①~⑤ 중 어법상 틀린 것은?","det":{"korean":"③ filled → filling: 분사구문에서 능동/동시동작이므로 현재분사 filling이 적절.","analysis":"❌ ③filled → filling: 분사구문(능동) — 멜로디가 행복으로 채우면서<br>✅ ①practiced: had + p.p.<br>✅ ②blended: 과거시제<br>✅ ④uncertain: 형용사<br>✅ ⑤interrupted: was + p.p.(수동)","tip":"분사구문: 능동 → ~ing, 수동 → p.p."}},{"id":2,"type":"어법","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["①","②","③","④","⑤"],"passage":"Soldiers appeared on the jungle road, their boots loud on the dirt as they ①<u>approaching</u>, weapons ②<u>hanging</u> loosely over their shoulders. Francis' heart ③<u>raced</u>; it was wartime, and soldiers often took ④<u>what</u> they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk ⑤<u>shielding</u> them.","stem":"밑줄 친 ①~⑤ 중 어법상 틀린 것은?","det":{"korean":"① approaching → approached: as + 주어 + 동사 구문이므로 과거시제 approached가 적절.","analysis":"❌ ①approaching → approached: as they approached(접속사+주어+동사)<br>✅ ②hanging: 분사구문(무기가 걸려있는 능동)<br>✅ ③raced: 과거시제<br>✅ ④what: 관계대명사<br>✅ ⑤shielding: 독립분사구문(능동)","tip":"as + S + V (접속사 구문에서 동사는 시제를 가짐)"}},{"id":3,"type":"어휘","diff":"보통","pts":5,"fmt":"mc","ans":3,"ch":["① practiced","② happiness","③ interrupted","④ safety","⑤ urgently"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had <u>① practiced</u> for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with <u>② happiness</u>. But his peace was <u>③ interrupted</u> by the distant roar of engines. Francis' heart raced; it was wartime, and soldiers often took what they wanted. As a result, he felt a sudden sense of <u>④ safety</u>. Whispering <u>⑤ urgently</u> to his sister, Ellen, he led her to hide behind a tall tree.","stem":"밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?","det":{"korean":"④ safety(안전) → fear/danger: 전시에 군인이 다가오는데 안전감을 느끼는 것은 부적절.","analysis":"❌ ④safety → fear/danger: 군인 접근 + 전시 = 공포<br>✅ ①practiced ✅ ②happiness ✅ ③interrupted ✅ ⑤urgently","tip":"safety(안전) ↔ fear/danger(공포/위험)"}},{"id":4,"type":"어휘","diff":"어려움","pts":6,"fmt":"mc","ans":4,"ch":["① smoothly","② precious","③ distant","④ loosely","⑤ visible"],"passage":"Francis Pohan sat at the organ as the hymn flowed <u>① smoothly</u> under his fingers. The organ, his most <u>② precious</u> possession, was a source of comfort. But his peace was interrupted by the <u>③ distant</u> roar of engines. Soldiers appeared, weapons hanging <u>④ loosely</u> over their shoulders. His mind raced with prayers, hoping they would remain <u>⑤ visible</u>.","stem":"밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것은?","det":{"korean":"⑤ visible(보이는) → unseen(보이지 않는): 발견되지 않기를 바라는 맥락.","analysis":"❌ ⑤visible → unseen: 숨어서 발견 안 되기를 바람<br>✅ ①smoothly ✅ ②precious ✅ ③distant ✅ ④loosely","tip":"unseen(보이지 않는) ↔ visible(보이는)"}},{"id":5,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","ans":2,"ch":["melody","rhythm","possession","weapon","memory"],"passage":"The organ, his most precious __________, was a source of comfort and joy, especially in these uncertain times.","stem":"윗글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"가장 소중한 소유물(possession).","analysis":"✅ ③possession<br>❌ ①melody ❌ ②rhythm ❌ ④weapon ❌ ⑤memory","tip":"possession = 소유물"}},{"id":6,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["visible","unseen","captured","exposed","awake"],"passage":"Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain __________.","stem":"윗글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"발견되지 않기를(unseen) 바라며 기도.","analysis":"✅ ②unseen<br>❌ ①visible ❌ ③captured ❌ ④exposed ❌ ⑤awake","tip":"unseen = 보이지 않는"}},{"id":7,"type":"빈칸추론","diff":"쉬움","pts":4,"fmt":"mc","ans":2,"ch":["peace","silence","comfort","music","fear"],"passage":"The organ, his most precious possession, was a source of __________ and joy, especially in these uncertain times.","stem":"윗글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"위안(comfort)과 기쁨의 원천.","analysis":"✅ ③comfort<br>❌ ①peace ❌ ②silence ❌ ④music ❌ ⑤fear","tip":"comfort = 위안"}},{"id":8,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"filling","accept":["filling","Filling"],"ch":null,"passage":"The melody blended with the soft sounds of the jungle, __________ (fill) him with happiness.","stem":"괄호 안의 단어를 어법에 맞게 변형하시오.","det":{"korean":"fill → filling: 분사구문(능동).","analysis":"분사구문: 콤마 뒤 ~ing (능동/동시동작)","tip":"분사구문 → ~ing(능동)"}},{"id":9,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"shielding","accept":["shielding","Shielding"],"ch":null,"passage":"He led her to hide behind a tall tree, its thick trunk __________ (shield) them.","stem":"괄호 안의 단어를 어법에 맞게 변형하시오.","det":{"korean":"shield → shielding: 독립분사구문(능동).","analysis":"독립분사구문: 주어(trunk) + 현재분사(능동)","tip":"독립분사구문: 명사 + ~ing(능동) / p.p.(수동)"}},{"id":10,"type":"서술형","diff":"보통","pts":5,"fmt":"written","wa":"interrupted","accept":["interrupted","Interrupted"],"ch":null,"passage":"But his peace was __________ (interrupt) by the distant roar of engines breaking the calm.","stem":"괄호 안의 단어를 어법에 맞게 변형하시오.","det":{"korean":"interrupt → interrupted: was + p.p. = 수동태.","analysis":"수동태: was interrupted = 방해받았다","tip":"be + p.p. = 수동태"}},{"id":11,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","wa":"Ellen","accept":["Ellen","ellen"],"ch":null,"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"Francis의 여동생(누나) 이름을 영어로 쓰시오.","det":{"korean":"'his sister, Ellen' → Ellen","analysis":"본문에 명시된 이름","tip":"인물 이름 확인"}},{"id":12,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","ans":0,"ch":["행복했다가 두려움으로 변했다","두려웠다가 안도감으로 변했다","슬펐다가 기쁨으로 변했다","지루했다가 흥분으로 변했다","화났다가 평온으로 변했다"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"글에서 Francis의 심경 변화로 가장 적절한 것은?","det":{"korean":"오르간 연주로 행복 → 군인 등장으로 두려움/긴장.","analysis":"✅ ①: happiness → heart raced, prayers<br>❌ ②~⑤: 원문의 감정 흐름과 불일치","tip":"심경 변화: happiness/peace → fear/anxiety"}},{"id":13,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","ans":3,"ch":["Francis가 오르간을 연주하기 시작한 이유","정글의 동물들이 음악에 반응한 모습","군인들이 Francis의 집에 도착한 후의 상황","Francis가 전시 상황에서 느낀 평화와 공포의 대비","Ellen이 Francis에게 숨을 것을 제안한 장면"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"이 글의 중심 내용으로 가장 적절한 것은?","det":{"korean":"④ 오르간 연주의 평화로움과 군인 등장의 공포가 대비되는 것이 핵심.","analysis":"✅ ④: 평화(organ, happiness) vs 공포(soldiers, heart raced, prayers)<br>❌ ①~③, ⑤: 글의 중심 주제가 아님","tip":"대비 구조: peace/comfort ↔ fear/danger"}},{"id":14,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"Francis practiced the hymn for weeks.\" (T/F)","det":{"korean":"'the hymn he had practiced for weeks' → 일치.","analysis":"✅ True","tip":"for weeks = 몇 주간"}},{"id":15,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"The soldiers came peacefully and quietly.\" (T/F)","det":{"korean":"'boots loud', 'loud voices and heavy footsteps' → 시끄럽게 왔음.","analysis":"❌ False: loud/heavy ≠ peacefully/quietly","tip":"loud(시끄러운) ↔ quiet(조용한)"}},{"id":16,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"Francis hid behind a tall tree with his sister.\" (T/F)","det":{"korean":"'he led her to hide behind a tall tree' → 일치.","analysis":"✅ True","tip":"hide behind = ~뒤에 숨다"}},{"id":17,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":1,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"The organ was recently purchased by Francis.\" (T/F)","det":{"korean":"최근 구입했다는 언급 없음. 'most precious possession'만 언급.","analysis":"❌ False: 구입 시점 정보 없음","tip":"원문에 없는 정보는 False"}},{"id":18,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"It was wartime when the soldiers appeared.\" (T/F)","det":{"korean":"'it was wartime' → 일치.","analysis":"✅ True","tip":"wartime = 전시"}},{"id":19,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","ans":1,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"Francis confronted the soldiers directly.\" (T/F)","det":{"korean":"'stepped outside carefully', 'hoping they would remain unseen' → 대면이 아닌 조심스럽게 숨어 관찰.","analysis":"❌ False: hide + carefully + unseen ≠ confronted directly","tip":"confronted(대면했다) vs hid(숨었다)"}},{"id":20,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","ans":0,"ch":["True","False"],"passage":"Francis Pohan sat at the organ in his Borneo home, a smile on his face as the hymn he had practiced for weeks flowed smoothly under his fingers. The melody blended with the soft sounds of the jungle, filling him with happiness. The organ, his most precious possession, was a source of comfort and joy, especially in these uncertain times. But his peace was interrupted by the distant roar of engines breaking the calm. Soldiers appeared on the jungle road, their boots loud on the dirt as they approached, weapons hanging loosely over their shoulders. Francis\' heart raced; it was wartime, and soldiers often took what they wanted. Whispering urgently to his sister, Ellen, he led her to hide behind a tall tree, its thick trunk shielding them. Peeking out, Francis stepped outside carefully and looked at the soldiers walking toward their home. Their loud voices and heavy footsteps filled the quiet jungle. His mind raced with prayers, hoping they would remain unseen.","stem":"\"The melody blended with the sounds of the jungle.\" (T/F)","det":{"korean":"'The melody blended with the soft sounds of the jungle' → 일치.","analysis":"✅ True","tip":"blended with = ~와 어우러지다"}}];
+</script>
+<style>
+
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+.screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);}
+.start-container{max-width:460px;width:100%;z-index:1;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
+.info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0ede8;}.info-row:last-child{border:none;}
+.info-label{color:var(--tm);}.info-value{font-weight:700;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+.chip{background:var(--card);border:1.5px solid #ddd8d2;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0c8c2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-row{display:flex;gap:10px;}
+.btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8c0b8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+#historyPanel{display:none;margin-top:14px;}
+.history-item{background:var(--card);border:1.5px solid #ddd8d2;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+@keyframes pulse{50%{opacity:.3;}}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.exam-scroll{display:none;}
+/* Progress bar at top */
+.exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--o),#D97706);transition:width .5s ease;border-radius:0 2px 2px 0;}
+/* Slide container */
+.slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
+.slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
+.slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
+.slide-passage.fade-in{opacity:0;transform:translateX(20px);}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
+.q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
+.slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
+.slide-choices{display:flex;flex-direction:column;gap:4px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices .choice-btn:active{transform:scale(.97);}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.08);box-shadow:0 0 0 3px rgba(232,119,46,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(232,119,46,.3)}70%{box-shadow:0 0 0 8px rgba(232,119,46,0)}100%{box-shadow:0 0 0 0 rgba(232,119,46,0)}}
+.slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
+.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+/* Written input */
+.slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
+.slide-choices .written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.1);}
+/* Navigation */
+.slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
+.slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.slide-nav button:active{transform:scale(.95);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(232,119,46,.25);}
+.slide-nav button:disabled{opacity:.3;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--o);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--o);background:var(--oxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
+.tag-combo{background:var(--ol);color:#BF360C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0ede8;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+.q-body{padding:14px 16px;}
+.q-passage{background:linear-gradient(135deg,#FFFAF8,#F5F0EB);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
+.choices{display:flex;flex-direction:column;gap:4px;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #ddd8d2;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#e8e0d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #d0c8c2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
+.r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
+.rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
+.level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8e0d8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #ddd8d2;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0d8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0c8c2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #ddd8d2;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">📝 온라인퀴즈 TEST</div>
+  <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
+  <p class="start-subtitle">2027학년도 EBS수능특강 영어 · 02강 · 글의 목적 파악 · 20문항</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">시험</span><span class="info-value">2027학년도 EBS수능특강 영어</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">02강 (글의 목적 파악)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Purpose of Writing (5 passages)</span></div>
+  </div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>02강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+  <div class="ans-count" id="ansCount">0/20</div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+</div>
+<div id="resultScreen" class="screen"></div>
+<script>
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"02강","lesson":"3번","title":"Organ in Borneo","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_suneung_02_ex3_v1"};
+
+const P_GW=`Dear students,<br><br>I am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.<br><br>Best regards,<br>Amanda Clark`;
+
+const P_EX01=`Dear Parents,<br><br>At Greenwood High School, we take great pride in the cultural diversity that enriches our community. We are very pleased to share with you our special new project, a recipe book, created to celebrate the traditions and flavors of families from around the world. This unique collection features 100 recipes from 26 countries, highlighting beloved dishes passed down through generations. It offers a special chance to explore global cuisine and share meaningful moments with your children. We encourage you to try some of these recipes together over the summer. You can download this online recipe book from our school website. Food brings us together, and this project reflects the joy and unity that diversity brings to our school. Thank you, as always, for your continued support.<br><br>Warm regards,<br>Dr. Helen Brooks<br>Principal, Greenwood High School`;
+
+const P_EX02=`Dear Professor Langford,<br><br>First of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.<br><br>Best regards,<br>Nora Ellison, Associate Editor`;
+
+const P_EX03=`To whom it may concern,<br><br>Before I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.<br><br>Sincerely,<br>Cheryl`;
+
+const P_EX04=`Dear Mr. Johnson,<br><br>Have you "settled into" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.<br><br>Sincerely,<br>Joseph Brown<br>Financial Advisor`;
+
+
+</script>
+</body>
+</html>
