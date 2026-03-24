@@ -213,7 +213,7 @@ if(q.fmt==='written'){const val=S.ans[idx]||'';bh+=`<input class="written-input"
 bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
 bt.innerHTML=bh;bt.scrollTop=0;
 }
-function slideSel(qi,ci){S.ans[qi]=ci;renderSlide(qi);}
+function slideSel(qi,ci){S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(qi);document.getElementById('slidePassage').scrollTop=st;}
 function slideWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;}
 function renderQ(){}
 function renderDots(){}
