@@ -75,19 +75,22 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
 .expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
 .split-mode .exam-scroll{display:none;}
-.split-view{display:none;height:calc(100vh - 52px - 56px);flex-direction:column;}
+.split-mode .exam-nav{display:none;}
+.split-view{display:none;height:calc(100vh - 52px);flex-direction:column;}
 .split-mode .split-view{display:flex;}
-.split-passage{height:40%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px;background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-bottom:2px solid var(--g);font-size:clamp(12.5px,3vw,14.5px);line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;}
-.split-question{height:60%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;background:#fff;}
-.split-question .q-header-mini{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.split-question .q-num{width:32px;height:32px;font-size:13px;}
-.split-question .q-stem{font-size:14px;font-weight:700;margin-bottom:14px;}
-.split-question .choices{display:flex;flex-direction:column;gap:8px;}
-.split-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(255,255,255,.95);border-top:1px solid rgba(0,0,0,.06);}
-.split-nav button{padding:8px 16px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.split-passage{flex:6;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-bottom:2px solid var(--g);font-size:clamp(13px,3.2vw,15px);line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;}
+.split-question{flex:4;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px;background:#fff;}
+.split-question .q-header-mini{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.split-question .q-num{width:30px;height:30px;font-size:12px;}
+.split-question .q-stem{font-size:13px;font-weight:700;margin-bottom:12px;}
+.split-question .choices{display:flex;flex-direction:column;gap:6px;}
+.split-question .choice-btn{padding:10px 12px;font-size:13px;}
+.split-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(255,255,255,.98);border-top:1px solid rgba(0,0,0,.08);flex-shrink:0;}
+.split-nav button{padding:10px 20px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.split-nav button.sn-next{background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border-color:transparent;}
 .split-nav button:disabled{opacity:.3;}
-.split-nav .nav-cur{font-size:14px;font-weight:800;color:var(--g);}
-@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.split-passage{height:38%;font-size:12.5px;}.split-question{height:62%;}}
+.split-nav .nav-cur{font-size:13px;font-weight:800;color:var(--g);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.split-passage{font-size:13px;}.split-question .q-stem{font-size:12.5px;}.split-question .choice-btn{font-size:12.5px;padding:9px 10px;}}
 </style>
 </head>
 <body>
@@ -122,7 +125,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
     <div class="split-nav">
       <button onclick="splitPrev()">&larr; 이전</button>
       <span class="nav-cur" id="splitCur">1/20</span>
-      <button onclick="splitNext()">다음 &rarr;</button>
+      <button class="sn-next" onclick="splitNext()">다음 &rarr;</button>
     </div>
   </div>
   <div class="exam-nav" id="navDots"></div>
