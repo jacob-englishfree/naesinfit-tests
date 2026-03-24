@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 37번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 37번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"37번","lesson":"글의 순서","title":"Self-regulation in Tech","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_37_v1"};
 
 const FULL_PASSAGE=`Self-regulation has been suggested as an alternative way to hold the tech industry to account. (A) But without consequences for violating them, these charters are just toothless statements of aspiration. The tech industry is basically saying: trust us. But blind trust is not how we govern doctors, lawyers, bankers, pilots or anyone else in unelected positions of social responsibility. Tech is the exception, and it\u2019s not clear why. (B) But when tech lobbyists speak of self-regulation, they are not describing it as it is understood by professionals like doctors. Unlike in medicine, there are no mandatory ethical qualifications for working as a software engineer or technology executive. There is no enforceable industry code of conduct. There is no obligatory certification. There is no duty to put the public ahead of profit. (C) There are few consequences for serious moral failings; no real fear of being suspended or struck off. Recent years have seen an explosion of AI ethics charters and the like, filled with well-meaning generalities about the responsible use of powerful computers.`;
@@ -135,74 +137,74 @@ det:{korean:'powerful은 원문 toothless의 반의어로 부적절.',
 analysis:'❌ ② powerful: 원문은 toothless\n✅ 나머지: 원문 일치',
 tip:'toothless ↔ powerful'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['voluntary','compulsory','ignore','reject'],
+ch:['voluntary','compulsory','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>mandatory</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'mandatory = 의무적인, compulsory = 동의어',
 analysis:'✅ ② compulsory: 동의어\n❌ ① voluntary: 반의어',
 tip:'mandatory = compulsory'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['conventional','substitute','ignore','reject'],
+ch:['conventional','substitute','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>alternative</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'alternative = 대안적인, substitute = 동의어',
 analysis:'✅ ② substitute: 동의어\n❌ ① conventional: 반의어',
 tip:'alternative = substitute'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['powerful','ineffective','ignore','reject'],
+ch:['powerful','ineffective','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>toothless</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'toothless = 무력한, ineffective = 동의어',
 analysis:'✅ ② ineffective: 동의어\n❌ ① powerful: 반의어',
 tip:'toothless = ineffective'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['compulsory','similar','voluntary','comparable'],
+ch:['compulsory','similar','voluntary','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>mandatory</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'mandatory = 의무적인 ↔ voluntary',
 analysis:'❌ ③ voluntary: 반의어\n✅ 나머지: 유사어',
 tip:'mandatory ↔ voluntary'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['ineffective','similar','powerful','comparable'],
+ch:['ineffective','similar','powerful','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>toothless</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'toothless = 무력한 ↔ powerful',
 analysis:'❌ ③ powerful: 반의어\n✅ 나머지: 유사어',
 tip:'toothless ↔ powerful'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['voluntary','alternative','mandatory','different'],
+ch:['voluntary','alternative','mandatory','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'의무적인 윤리 자격 → <b>mandatory</b>',
 analysis:'✅ ③ mandatory: 원문 일치\n❌ ① voluntary: 반의어',
 tip:'mandatory: 의무적인 윤리 자격'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['powerful','alternative','toothless','different'],
+ch:['powerful','alternative','toothless','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'무력한 열망의 성명서 → <b>toothless</b>',
 analysis:'✅ ③ toothless: 원문 일치\n❌ ① powerful: 반의어',
 tip:'toothless: 무력한 열망의 성명서'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['deregulation','alternative','regulation','different'],
+ch:['deregulation','alternative','regulation','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>regulation</b>이 적절.',
 analysis:'✅ ③ regulation: 원문 일치',
 tip:'regulation(규제) ↔ deregulation(규제 완화)'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','책임','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','책임','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>account</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'account의 문맥적 의미: <b>책임</b>',
 analysis:'✅ ③ 책임\n다른 의미: 계좌/설명/이유',
 tip:'account: 책임 | 기타: 계좌/설명/이유'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','행위 규범','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','행위 규범','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>conduct</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'conduct의 문맥적 의미: <b>행위 규범</b>',
 analysis:'✅ ③ 행위 규범\n다른 의미: 행위/수행/지휘',
 tip:'conduct: 행위 규범 | 기타: 행위/수행/지휘'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','mandatory','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"required by law or rules; compulsory"</b>',
+ch:['wrong1','wrong2','mandatory','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"required by law or rules; compulsory"</b>',
 det:{korean:'영영 정의 → <b>mandatory</b>',
 analysis:'✅ ③ mandatory: 영영 정의와 일치',
 tip:'mandatory = required by law or rules; compulsory'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','toothless','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"lacking genuine power or effectiveness"</b>',
+ch:['wrong1','wrong2','toothless','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"lacking genuine power or effectiveness"</b>',
 det:{korean:'영영 정의 → <b>toothless</b>',
 analysis:'✅ ③ toothless: 영영 정의와 일치',
 tip:'toothless = lacking genuine power or effectiveness'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

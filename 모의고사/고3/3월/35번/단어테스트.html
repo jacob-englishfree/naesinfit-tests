@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 35번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 35번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"35번","lesson":"무관한 문장","title":"Cultural Storage","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_35_v1"};
 
 const FULL_PASSAGE=`Cultural storage and transmission require humans to accomplish the work of storing knowledge and passing it on to the next generation by means other than DNA. To that end, humans developed techniques of memorization, of transmitting knowledge through education and by using external memory devices. The Chauvet cave was such a device, a place that humans returned to generation after generation, cooperating on a project that none of them could have accomplished alone. Each generation of artists learned techniques and continued the work of previous ones, preserving and improving what their predecessors had worked on. Despite advances in technology, there is a limit in restoring damaged cave paintings, leaving us puzzled about what those paintings really were. For us, the idea that humans might work on a single system of caves for thousands of years in the same style is almost unimaginable. But these early humans were highly conscious of the importance of storing and preserving knowledge and of passing down ideas.`;
@@ -135,74 +137,74 @@ det:{korean:'competing은 원문 cooperating의 반의어로 부적절.',
 analysis:'❌ ② competing: 원문은 cooperating\n✅ 나머지: 원문 일치',
 tip:'cooperating ↔ competing'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['fail','achieve','ignore','reject'],
+ch:['fail','achieve','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>accomplish</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'accomplish = 성취하다, achieve = 동의어',
 analysis:'✅ ② achieve: 동의어\n❌ ① fail: 반의어',
 tip:'accomplish = achieve'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['destroying','maintaining','ignore','reject'],
+ch:['destroying','maintaining','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>preserving</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'preserving = 보존하는, maintaining = 동의어',
 analysis:'✅ ② maintaining: 동의어\n❌ ① destroying: 반의어',
 tip:'preserving = maintaining'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['unconscious','aware','ignore','reject'],
+ch:['unconscious','aware','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>conscious</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'conscious = 의식하는, aware = 동의어',
 analysis:'✅ ② aware: 동의어\n❌ ① unconscious: 반의어',
 tip:'conscious = aware'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['maintaining','similar','destroying','comparable'],
+ch:['maintaining','similar','destroying','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>preserving</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'preserving = 보존하는 ↔ destroying',
 analysis:'❌ ③ destroying: 반의어\n✅ 나머지: 유사어',
 tip:'preserving ↔ destroying'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['similar','similar','successors','comparable'],
+ch:['similar','similar','successors','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>predecessors</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'predecessors = 전임자 ↔ successors',
 analysis:'❌ ③ successors: 반의어\n✅ 나머지: 유사어',
 tip:'predecessors ↔ successors'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['destroying','alternative','preserving','different'],
+ch:['destroying','alternative','preserving','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'지식을 보존하고 전달하는 것의 중요성 → <b>preserving</b>',
 analysis:'✅ ③ preserving: 원문 일치\n❌ ① destroying: 반의어',
 tip:'preserving: 지식을 보존하고 전달하는 것의 중요성'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['reception','alternative','transmission','different'],
+ch:['reception','alternative','transmission','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'문화적 저장과 전달 → <b>transmission</b>',
 analysis:'✅ ③ transmission: 원문 일치\n❌ ① reception: 반의어',
 tip:'transmission: 문화적 저장과 전달'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['reception','alternative','transmission','different'],
+ch:['reception','alternative','transmission','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>transmission</b>이 적절.',
 analysis:'✅ ③ transmission: 원문 일치',
 tip:'transmission(전달) ↔ reception(수용)'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','장치','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','장치','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>device</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'device의 문맥적 의미: <b>장치</b>',
 analysis:'✅ ③ 장치\n다른 의미: 장치/기구/고안',
 tip:'device: 장치 | 기타: 장치/기구/고안'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','세대','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','세대','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>generation</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'generation의 문맥적 의미: <b>세대</b>',
 analysis:'✅ ③ 세대\n다른 의미: 세대/발생/생성',
 tip:'generation: 세대 | 기타: 세대/발생/생성'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','transmission','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"the act of passing something from one place or person to another"</b>',
+ch:['wrong1','wrong2','transmission','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"the act of passing something from one place or person to another"</b>',
 det:{korean:'영영 정의 → <b>transmission</b>',
 analysis:'✅ ③ transmission: 영영 정의와 일치',
 tip:'transmission = the act of passing something from one place or person to another'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','predecessor','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"a person who held a position before the current holder"</b>',
+ch:['wrong1','wrong2','predecessor','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"a person who held a position before the current holder"</b>',
 det:{korean:'영영 정의 → <b>predecessor</b>',
 analysis:'✅ ③ predecessor: 영영 정의와 일치',
 tip:'predecessor = a person who held a position before the current holder'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

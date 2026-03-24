@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 41-42번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 41-42번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"41-42번","lesson":"제목+어휘","title":"Literary Translation & Philosophy","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_41-42_v1"};
 
 const FULL_PASSAGE=`Translating a literary text is challenging, and it's often said there will be an inevitable loss in translation. But that challenge frequently inspires creative re-renderings that offer the prospect of a gain in translation as well. A washing-machine manual doesn't present the same challenges, nor therefore does it inspire the same creativity either. But where, in terms of the opposition between literary and nonliterary language, might we position philosophy's language? Might philosophy want to avoid a translatory economy that aims for a gain in translation but risks a loss? Philosophy wishes to convey its truths intact, without loss\u2014and without gain either, or at least it might hesitate to offer its truths to translation without further clarification of what a gain, and indeed a gain in depth, actually means. It cannot be a matter of offsetting "stylistic losses." The loss philosophy fears is a loss of meaning, the compromising of a truth. Thus, philosophy might refuse to be placed on the side of nonliterary language, and express itself in unstylish language, like Badiou's mathematical writing, so that no translator is prompted to rude and bold acts of creative rewriting. If philosophy wishes to increase its range and avoid being restricted to a national or regional tradition, it needs a translation model that conveys philosophical truths to the world without any "economic" fluctuations of loss and gain.`;
@@ -148,7 +150,7 @@ tip:`avoid(피하다) ↔ pursue(추구하다) — 철학은 이득/손실의 �
 
 // ━━━ Q5: 동의어 · 쉬움 · 4pts ━━━
 {id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
-ch:[`avoidable`,`intentional`,`unavoidable`,`reversible`],
+ch:[`avoidable`,`intentional`,`unavoidable`,`reversible`,`eliminate`],
 passage:`Translating a literary text is challenging, and it's often said there will be an <u>inevitable</u> loss in translation.`,
 stem:`밑줄 친 <b>inevitable</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`inevitable = 불가피한, unavoidable = 피할 수 없는 → 동의어`,
@@ -157,7 +159,7 @@ tip:`inevitable = unavoidable = inescapable = 불가피한, 피할 수 없는`}}
 
 // ━━━ Q6: 동의어 · 보통 · 5pts ━━━
 {id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`damage`,`communicate`,`distort`,`invent`],
+ch:[`damage`,`communicate`,`distort`,`invent`,`eliminate`],
 passage:`Philosophy wishes to <u>convey</u> its truths intact, without loss.`,
 stem:`밑줄 친 <b>convey</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`convey = 전달하다, communicate = 소통하다/전달하다 → 동의어`,
@@ -166,7 +168,7 @@ tip:`convey = communicate = transmit = deliver = 전달하다`}},
 
 // ━━━ Q7: 동의어 · 보통 · 5pts ━━━
 {id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:3,
-ch:[`accept`,`demand`,`celebrate`,`waver`],
+ch:[`accept`,`demand`,`celebrate`,`waver`,`eliminate`],
 passage:`At least it might <u>hesitate</u> to offer its truths to translation without further clarification.`,
 stem:`밑줄 친 <b>hesitate</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`hesitate = 주저하다, waver = 망설이다/흔들리다 → 동의어`,
@@ -175,7 +177,7 @@ tip:`hesitate = waver = falter = 주저하다, 망설이다`}},
 
 // ━━━ Q8: 반의어 · 쉬움 · 4pts ━━━
 {id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
-ch:[`accept`,`decline`,`reject`,`deny`],
+ch:[`accept`,`decline`,`reject`,`deny`,`eliminate`],
 passage:`Thus, philosophy might <u>refuse</u> to be placed on the side of nonliterary language.`,
 stem:`밑줄 친 <b>refuse</b>의 의미와 가장 <b>먼</b> 것은?`,
 det:{korean:`refuse = 거부하다 ↔ accept = 수용하다`,
@@ -184,7 +186,7 @@ tip:`refuse = reject = decline = deny(거부) ↔ accept = agree(수용, 동의)
 
 // ━━━ Q9: 반의어 · 어려움 · 6pts ━━━
 {id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
-ch:[`undamaged`,`unbroken`,`whole`,`corrupted`],
+ch:[`undamaged`,`unbroken`,`whole`,`corrupted`,`eliminate`],
 passage:`Philosophy wishes to convey its truths <u>intact</u>, without loss.`,
 stem:`밑줄 친 <b>intact</b>의 의미와 가장 <b>먼</b> 것은?`,
 det:{korean:`intact = 온전한 ↔ corrupted = 손상된, 변질된`,
@@ -193,7 +195,7 @@ tip:`intact = undamaged = whole = complete(온전한) ↔ corrupted = damaged = 
 
 // ━━━ Q10: 빈칸 어휘 · 보통 · 5pts ━━━
 {id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:3,
-ch:[`avoidable`,`predictable`,`desirable`,`inevitable`],
+ch:[`avoidable`,`predictable`,`desirable`,`inevitable`,`eliminate`],
 passage:FULL_PASSAGE.replace('an inevitable loss','an __________ loss'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`문학 번역에서의 손실은 <b>불가피한(inevitable)</b> 것이라고 흔히 말한다.`,
@@ -202,7 +204,7 @@ tip:`inevitable loss = 불가피한 손실 — 번역에서 손실은 피할 수
 
 // ━━━ Q11: 빈칸 어휘 · 보통 · 5pts ━━━
 {id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`convey`,`conceal`,`abandon`,`fabricate`],
+ch:[`convey`,`conceal`,`abandon`,`fabricate`,`eliminate`],
 passage:FULL_PASSAGE.replace('wishes to convey its truths','wishes to __________ its truths'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`철학은 진리를 온전하게 <b>전달하고자(convey)</b> 한다.`,
@@ -211,7 +213,7 @@ tip:`convey + intact = 온전하게 전달하다`}},
 
 // ━━━ Q12: 빈칸 어휘 · 어려움 · 6pts ━━━
 {id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
-ch:[`strengthening`,`compromising`,`defending`,`restoring`],
+ch:[`strengthening`,`compromising`,`defending`,`restoring`,`eliminate`],
 passage:FULL_PASSAGE.replace('the compromising of a truth','the __________ of a truth'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`철학이 두려워하는 것은 의미의 상실, 즉 진리의 <b>훼손(compromising)</b>이다.`,
@@ -220,7 +222,7 @@ tip:`compromising of a truth = 진리의 훼손/타협 — loss of meaning과 �
 
 // ━━━ Q13: 다의어 · 보통 · 5pts ━━━
 {id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`매우, 아주`,`깊이, 심도`,`깊은 곳`,`수심`],
+ch:[`매우, 아주`,`깊이, 심도`,`깊은 곳`,`수심`,`위의 어느 것도 해당하지 않는다.`],
 passage:`...what a gain, and indeed a gain in <u>depth</u>, actually means.`,
 stem:`밑줄 친 <b>depth</b>의 문맥적 의미로 가장 적절한 것은?`,
 det:{korean:`a gain in depth = <b>깊이/심도</b>에서의 이득 → 의미의 깊이`,
@@ -229,7 +231,7 @@ tip:`depth: 깊이/심도(추상적) | 깊은 곳(물리적) | in depth = 깊이
 
 // ━━━ Q14: 다의어 · 보통 · 5pts ━━━
 {id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`범위, 영역`,`산맥`,`사정거리`,`가스레인지`],
+ch:[`범위, 영역`,`산맥`,`사정거리`,`가스레인지`,`위의 어느 것도 해당하지 않는다.`],
 passage:`If philosophy wishes to increase its <u>range</u> and avoid being restricted to a national or regional tradition...`,
 stem:`밑줄 친 <b>range</b>의 문맥적 의미로 가장 적절한 것은?`,
 det:{korean:`increase its range = <b>범위/영역</b>을 넓히다`,
@@ -238,18 +240,18 @@ tip:`range: 범위(가장 흔한 추상적 의미) | 산맥 | 사정거리 | 가
 
 // ━━━ Q15: 영영풀이 · 어려움 · 6pts ━━━
 {id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
-ch:[`convey`,`compromise`,`hesitate`,`restrict`],
+ch:[`convey`,`compromise`,`hesitate`,`restrict`,`eliminate`],
 passage:``,
-stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"to weaken or damage something, especially by failing to maintain its quality or integrity"</b>`,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>"to weaken or damage something, especially by failing to maintain its quality or integrity"</b>`,
 det:{korean:`'특히 품질이나 온전함을 유지하지 못함으로써 무언가를 약화시키거나 손상시키다' → <b>compromise(훼손하다)</b>`,
 analysis:`✅ ② compromise: 영영 정의와 일치 — 진리를 훼손/타협하다\n❌ ① convey: 전달하다\n❌ ③ hesitate: 주저하다\n❌ ④ restrict: 제한하다`,
 tip:`compromise = weaken + damage quality/integrity → 훼손하다, 타협하다`}},
 
 // ━━━ Q16: 영영풀이 · 보통 · 5pts ━━━
 {id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`gain`,`convey`,`offset`,`inspire`],
+ch:[`gain`,`convey`,`offset`,`inspire`,`eliminate`],
 passage:``,
-stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"to counterbalance or make up for something"</b>`,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>"to counterbalance or make up for something"</b>`,
 det:{korean:`'무언가를 상쇄하거나 보충하다' → <b>offset(상쇄하다)</b>`,
 analysis:`✅ ③ offset: 영영 정의와 일치\n❌ ① gain: 얻다\n❌ ② convey: 전달하다\n❌ ④ inspire: 영감을 주다`,
 tip:`offset = counterbalance = compensate = 상쇄하다, 보충하다`}},
@@ -326,6 +328,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 31번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 31번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"31번","lesson":"빈칸추론","title":"Insecurity and Vicissitude","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_31_v1"};
 
 const FULL_PASSAGE=`Life is insecure and human well-being is fragile. If we are honest with ourselves, we realize that, despite our best efforts, we often cannot control the vicissitudes of human existence. We go through life in fear and trembling, fearing what may happen, while hoping for the best. Most of us get anxious in the face of an indeterminate or ambiguous situation. We don\u2019t handle uncertainty very well. We are easily tempted to settle for quick \u201csolutions,\u201d in order to eliminate our anxiety and doubt, even though these quick fixes may not, in the long run, actually be adequate solutions. It is natural, therefore, and even somewhat necessary, for us to seek stability in a sea of change and indeterminacy. We want a fixed star to guide us on our journey through hazardous waters. If only we could have knowledge of what is fixed, unchanging, and ultimately reliable, then, we assume, that would be knowledge most worth having.`;
@@ -135,74 +137,74 @@ det:{korean:'clear은 원문 ambiguous의 반의어로 부적절.',
 analysis:'❌ ② clear: 원문은 ambiguous\n✅ 나머지: 원문 일치',
 tip:'ambiguous ↔ clear'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['durable','delicate','ignore','reject'],
+ch:['durable','delicate','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>fragile</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'fragile = 취약한, delicate = 동의어',
 analysis:'✅ ② delicate: 동의어\n❌ ① durable: 반의어',
 tip:'fragile = delicate'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['create','remove','ignore','reject'],
+ch:['create','remove','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>eliminate</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'eliminate = 제거하다, remove = 동의어',
 analysis:'✅ ② remove: 동의어\n❌ ① create: 반의어',
 tip:'eliminate = remove'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['safe','dangerous','ignore','reject'],
+ch:['safe','dangerous','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>hazardous</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'hazardous = 위험한, dangerous = 동의어',
 analysis:'✅ ② dangerous: 동의어\n❌ ① safe: 반의어',
 tip:'hazardous = dangerous'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['similar','similar','secure','comparable'],
+ch:['similar','similar','secure','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>insecure</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'insecure = 불안정한 ↔ secure',
 analysis:'❌ ③ secure: 반의어\n✅ 나머지: 유사어',
 tip:'insecure ↔ secure'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['similar','similar','chaos','comparable'],
+ch:['similar','similar','chaos','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>stability</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'stability = 안정 ↔ chaos',
 analysis:'❌ ③ chaos: 반의어\n✅ 나머지: 유사어',
 tip:'stability ↔ chaos'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['chaos','alternative','stability','different'],
+ch:['chaos','alternative','stability','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'변화의 바다에서 안정을 추구 → <b>stability</b>',
 analysis:'✅ ③ stability: 원문 일치\n❌ ① chaos: 반의어',
 tip:'stability: 변화의 바다에서 안정을 추구'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['certainties','alternative','vicissitudes','different'],
+ch:['certainties','alternative','vicissitudes','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'인간 존재의 우여곡절 → <b>vicissitudes</b>',
 analysis:'✅ ③ vicissitudes: 원문 일치\n❌ ① certainties: 반의어',
 tip:'vicissitudes: 인간 존재의 우여곡절'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['secure','alternative','insecure','different'],
+ch:['secure','alternative','insecure','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>insecure</b>이 적절.',
 analysis:'✅ ③ insecure: 원문 일치',
 tip:'insecure(불안정한) ↔ secure(안정한)'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','(마지못해) 받아들이다','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','(마지못해) 받아들이다','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>settle</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'settle의 문맥적 의미: <b>(마지못해) 받아들이다</b>',
 analysis:'✅ ③ (마지못해) 받아들이다\n다른 의미: 정착하다/해결하다/진정시키다',
 tip:'settle: (마지못해) 받아들이다 | 기타: 정착하다/해결하다/진정시키다'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','직면','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','직면','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>face</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'face의 문맥적 의미: <b>직면</b>',
 analysis:'✅ ③ 직면\n다른 의미: 얼굴/전면/체면',
 tip:'face: 직면 | 기타: 얼굴/전면/체면'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','vicissitude','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"a change of circumstances or fortune, typically unwelcome"</b>',
+ch:['wrong1','wrong2','vicissitude','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"a change of circumstances or fortune, typically unwelcome"</b>',
 det:{korean:'영영 정의 → <b>vicissitude</b>',
 analysis:'✅ ③ vicissitude: 영영 정의와 일치',
 tip:'vicissitude = a change of circumstances or fortune, typically unwelcome'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','hazardous','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"risky; dangerous; involving risk"</b>',
+ch:['wrong1','wrong2','hazardous','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"risky; dangerous; involving risk"</b>',
 det:{korean:'영영 정의 → <b>hazardous</b>',
 analysis:'✅ ③ hazardous: 영영 정의와 일치',
 tip:'hazardous = risky; dangerous; involving risk'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

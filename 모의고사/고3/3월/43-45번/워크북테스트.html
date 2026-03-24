@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 43-45번 온라인워크북TEST</title>
+<title>2025 고3 3월 모의고사 43-45번 온라인워크북 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1A1A2E;--tm:#6B5B8A;--tl:#9A8DB8;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"43-45번","lesson":"순서+지칭+내용","title":"Spark Fellowship Brothers","total":100,"time":1200,"totalQ":20,"histKey":"workbookTest_2025_g3_mar_43-45_v1"};
 
 const FULL_PASSAGE=`In a small town known for its flourishing academic community, two brothers, James and Daniel Carter, stood out for their exceptional effort and talent. James and his younger brother, Daniel, both applied for the Spark Fellowship. The Spark Fellowship was a highly respected program that selects and supports outstanding students every two years. Unsurprisingly, both brothers advanced to the final round.
@@ -117,7 +119,7 @@ Not long after James had left, Daniel showed up at the selection committee and a
 
 const Q=[
 {id:1,type:`어법`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
-ch:[`know`,`known`,`knowing`,`to know`],
+ch:[`know`,`known`,`knowing`,`to know`,`eliminate`],
 passage:`In a small town __________ for its flourishing academic community, two brothers, James and Daniel Carter, stood out for their exceptional effort and talent.`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`"a small town + 과거분사(known)" → 알려진 마을. 과거분사가 명사를 수식.`,
@@ -125,7 +127,7 @@ analysis:`✅ ② known: 과거분사 → "~로 알려진" (수동)\n❌ ① kno
 tip:`a town known for = ~로 알려진 마을 (과거분사의 후치수식)`}},
 
 {id:2,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`selects`,`select`,`selecting`,`selected`],
+ch:[`selects`,`select`,`selecting`,`selected`,`eliminate`],
 passage:`The Spark Fellowship was a highly respected program that __________ and supports outstanding students every two years.`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`관계대명사 that의 선행사 a program(단수) → <b>단수 동사 selects</b>`,
@@ -133,7 +135,7 @@ analysis:`✅ ① selects: 선행사 a program = 단수 → 단수 동사\n❌ �
 tip:`a program that selects and supports = 선발하고 지원하는 프로그램`}},
 
 {id:3,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`who`,`which`,`whose`,`whom`],
+ch:[`who`,`which`,`whose`,`whom`,`eliminate`],
 passage:`James went to the selection committee. He told the committee, "Daniel has always been the more dedicated and talented one." ... He believed that his brother was the more ideal and deserving candidate. ... However, the program had a strict rule: only one family member could be selected in the same year. This posed a challenge to the selection committee, who thought it almost impossible to choose between the two equally impressive candidates. The committee gathered together, struggling all day long to decide. When James found out about this rule, he tried to seek a way to demonstrate Daniel's exceptional talent to the selection committee. Not long after James had left, Daniel showed up at the selection committee and advocated for his brother, saying "James' leadership and vision make <u><b>him</b></u> the perfect choice."`,
 stem:`밑줄 친 <b>him</b>이 가리키는 대상으로 적절한 것은?`,
 det:{korean:`Daniel이 형(James)을 옹호하며 "James의 리더십과 비전이 <b>그를(him = James)</b> 완벽한 선택으로 만든다"고 말함.`,
@@ -141,7 +143,7 @@ analysis:`him = James: Daniel이 James를 추천하는 문맥`,
 tip:`make him the perfect choice → him = James (Daniel이 추천하는 대상)`}},
 
 {id:4,type:`어법`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
-ch:[`leave`,`had left`,`has left`,`was leaving`],
+ch:[`leave`,`had left`,`has left`,`was leaving`,`eliminate`],
 passage:`Not long after James __________, Daniel showed up at the selection committee and advocated for his brother.`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`"Not long after + 과거완료" → James가 떠난 후(선행 동작) Daniel이 나타남(후행 동작). <b>과거완료 had left</b>가 적절.`,
@@ -149,7 +151,7 @@ analysis:`✅ ② had left: 과거완료 → showed up보다 먼저 일어난 �
 tip:`after + 과거완료(had p.p.) = ~한 후에 (시간 선후 관계)`}},
 
 {id:5,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`①`,`②`,`③`],
+ch:[`①`,`②`,`③`,`④`,`⑤`],
 passage:`In a small town known for its flourishing academic community, two brothers, James and Daniel Carter, stood out for their exceptional effort and talent. James and his younger brother, Daniel, both applied for the Spark Fellowship. The Spark Fellowship was a highly respected program that selects and supports ①<u>outstanding</u> students every two years. ... However, the program had a strict rule: only one family member could be ②<u>selecting</u> in the same year. This posed a challenge to the selection committee, who thought it almost ③<u>impossible</u> to choose between the two equally impressive candidates.`,
 stem:`다음 글의 밑줄 친 ①~③ 중, 어법상 <b>틀린</b> 것은?`,
 det:{korean:`② selecting → <b>selected</b>: "could be + 과거분사" 수동태 구조에서 과거분사 selected가 와야 한다.`,
@@ -157,7 +159,7 @@ analysis:`❌ ② selecting: 수동태 → could be selected(선발될 수 있�
 tip:`could be + p.p.(수동태): could be selected = 선발될 수 있다`}},
 
 {id:6,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
-ch:[`James는 자신이 선발되기 위해 위원회에 갔다.`,`두 형제 모두 Spark Fellowship 최종 라운드에 진출했다.`,`Daniel이 먼저 선정 위원회에 나타났다.`,`위원회는 쉽게 결정을 내렸다.`],
+ch:[`James는 자신이 선발되기 위해 위원회에 갔다.`,`두 형제 모두 Spark Fellowship 최종 라운드에 진출했다.`,`Daniel이 먼저 선정 위원회에 나타났다.`,`위원회는 쉽게 결정을 내렸다.`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글의 내용과 <b>일치하는</b> 것은?`,
 det:{korean:`"both brothers advanced to the final round" → 두 형제 모두 최종 라운드에 진출.`,
@@ -165,7 +167,7 @@ analysis:`✅ ② 원문과 일치\n❌ ① James는 Daniel을 추천하러 감\
 tip:`내용 일치: both brothers advanced to the final round`}},
 
 {id:7,type:`내용이해`,diff:`보통`,pts:5,fmt:"mc",ans:3,
-ch:[`Spark Fellowship은 매년 학생을 선발한다.`,`한 가족에서 한 명만 선발할 수 있는 규정이 있었다.`,`두 형제는 서로를 위해 양보했다.`,`Daniel이 James보다 먼저 위원회에 나타났다.`],
+ch:[`Spark Fellowship은 매년 학생을 선발한다.`,`한 가족에서 한 명만 선발할 수 있는 규정이 있었다.`,`두 형제는 서로를 위해 양보했다.`,`Daniel이 James보다 먼저 위원회에 나타났다.`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글의 내용과 <b>일치하지 않는</b> 것은?`,
 det:{korean:`James가 먼저 위원회에 갔고 Daniel이 나중에 나타남 → "Daniel이 먼저"는 사실과 반대.`,
@@ -181,7 +183,7 @@ analysis:`✅ ② 원문 마지막 문장과 일치\n❌ ① 재능만: 아님\n
 tip:`핵심: supporting and encouraging others = 타인 지지와 격려`}},
 
 {id:9,type:`빈칸추론`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`declining`,`unknown`,`flourishing`,`struggling`],
+ch:[`declining`,`unknown`,`flourishing`,`struggling`,`eliminate`],
 passage:FULL_PASSAGE.replace('its flourishing academic','its __________ academic'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`번창하는(flourishing) 학술 공동체로 알려진 마을`,
@@ -189,7 +191,7 @@ analysis:`✅ ③ flourishing: "known for"와 자연스럽게 연결\n❌ ① de
 tip:`flourishing = 번창하는, 번성하는`}},
 
 {id:10,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
-ch:[`selflessness`,`competitiveness`,`intelligence`,`ambition`],
+ch:[`selflessness`,`competitiveness`,`intelligence`,`ambition`,`eliminate`],
 passage:FULL_PASSAGE.replace('by their selflessness','by their __________'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`서로를 추천하는 이타적 행동 → <b>이타심(selflessness)</b>`,
@@ -197,7 +199,7 @@ analysis:`✅ ① selflessness: 서로를 위해 양보하는 모습\n❌ ② co
 tip:`selflessness = 이타심 → 서로를 추천하는 행동`}},
 
 {id:11,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
-ch:[`competition`,`failure`,`exception`,`rejection`],
+ch:[`competition`,`failure`,`exception`,`rejection`,`eliminate`],
 passage:FULL_PASSAGE.replace('made an exception','made an __________'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`위원회는 <b>예외(exception)</b>를 두어 두 형제를 모두 선발했다.`,
@@ -242,7 +244,7 @@ tip:`advocate for = ~를 옹호하다`}},
 {id:17,type:`T/F`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Both James and Daniel applied for the Spark Fellowship.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>Both James and Daniel applied for the Spark Fellowship.</b>"`,
 det:{korean:`"James and his younger brother, Daniel, both applied for the Spark Fellowship" → <b>True</b>`,
 analysis:`✅ True: 원문과 일치`,
 tip:`both applied = 둘 다 지원했다`}},
@@ -250,7 +252,7 @@ tip:`both applied = 둘 다 지원했다`}},
 {id:18,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:1,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The Spark Fellowship allows multiple family members to be selected in the same year.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>The Spark Fellowship allows multiple family members to be selected in the same year.</b>"`,
 det:{korean:`"only one family member could be selected in the same year" → 한 명만 가능 → <b>False</b>`,
 analysis:`❌ False: strict rule = only one family member → 여러 명 불가`,
 tip:`strict rule: only one family member per year`}},
@@ -258,7 +260,7 @@ tip:`strict rule: only one family member per year`}},
 {id:19,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:0,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The committee made an exception and selected both brothers.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>The committee made an exception and selected both brothers.</b>"`,
 det:{korean:`"the committee made an exception by selecting both brothers" → <b>True</b>`,
 analysis:`✅ True: 원문과 일치`,
 tip:`made an exception = 예외를 두었다`}},
@@ -266,7 +268,7 @@ tip:`made an exception = 예외를 두었다`}},
 {id:20,type:`T/F`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Daniel arrived at the selection committee before James did.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>Daniel arrived at the selection committee before James did.</b>"`,
 det:{korean:`James가 먼저 갔고("Without Daniel knowing, James went"), Daniel은 나중에 나타남("Not long after James had left, Daniel showed up") → <b>False</b>`,
 analysis:`❌ False: James가 먼저 → Daniel이 나중에`,
 tip:`시간 순서: James first → Daniel after`}}
@@ -310,6 +312,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

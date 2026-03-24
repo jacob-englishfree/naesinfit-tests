@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 39번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 39번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"39번","lesson":"문장 삽입","title":"Motivated Reasoning","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_39_v1"};
 
 const FULL_PASSAGE=`Everyone likes to think of themselves as behaving in an unbiased fashion most of the time. We all view ourselves similar to the blindfolded statue of Lady Justice evaluating competing claims without bias, emotions, or motivations. And yet, overwhelming psychological research suggests that such unbiased rationality is actually a fairly elusive quality in humans. Much of the time people are on automatic pilot. In other words, individuals are acting without reflection more often than they are thinking carefully and deliberately. Ziva Kunda, who coined the term \u201cmotivated reasoning\u201d to describe this phenomenon, explained that although individuals try to make well-thought-out decisions, use available evidence, and look at both sides of an issue, the process is often tainted by motivations that may be unknown to them. Individuals\u2019 motivations may direct them to attend more carefully to some information while ignoring other relevant facts. Or they may use different strategies to evaluate information they prefer to be correct while at the same time being hypercritical of flaws in information they prefer to be wrong.`;
@@ -135,74 +137,74 @@ det:{korean:'biased은 원문 unbiased의 반의어로 부적절.',
 analysis:'❌ ② biased: 원문은 unbiased\n✅ 나머지: 원문 일치',
 tip:'unbiased ↔ biased'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['biased','impartial','ignore','reject'],
+ch:['biased','impartial','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>unbiased</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'unbiased = 편견 없는, impartial = 동의어',
 analysis:'✅ ② impartial: 동의어\n❌ ① biased: 반의어',
 tip:'unbiased = impartial'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['attainable','hard to grasp','ignore','reject'],
+ch:['attainable','hard to grasp','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>elusive</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'elusive = 찾기 어려운, hard to grasp = 동의어',
 analysis:'✅ ② hard to grasp: 동의어\n❌ ① attainable: 반의어',
 tip:'elusive = hard to grasp'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['accidentally','intentionally','ignore','reject'],
+ch:['accidentally','intentionally','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>deliberately</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'deliberately = 의도적으로, intentionally = 동의어',
 analysis:'✅ ② intentionally: 동의어\n❌ ① accidentally: 반의어',
 tip:'deliberately = intentionally'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['impartial','similar','biased','comparable'],
+ch:['impartial','similar','biased','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>unbiased</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'unbiased = 편견 없는 ↔ biased',
 analysis:'❌ ③ biased: 반의어\n✅ 나머지: 유사어',
 tip:'unbiased ↔ biased'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['hard to grasp','similar','attainable','comparable'],
+ch:['hard to grasp','similar','attainable','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>elusive</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'elusive = 찾기 어려운 ↔ attainable',
 analysis:'❌ ③ attainable: 반의어\n✅ 나머지: 유사어',
 tip:'elusive ↔ attainable'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['attainable','alternative','elusive','different'],
+ch:['attainable','alternative','elusive','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'편견 없는 합리성은 찾기 어려운 자질 → <b>elusive</b>',
 analysis:'✅ ③ elusive: 원문 일치\n❌ ① attainable: 반의어',
 tip:'elusive: 편견 없는 합리성은 찾기 어려운 자질'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['pure','alternative','tainted','different'],
+ch:['pure','alternative','tainted','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'동기에 의해 오염된 과정 → <b>tainted</b>',
 analysis:'✅ ③ tainted: 원문 일치\n❌ ① pure: 반의어',
 tip:'tainted: 동기에 의해 오염된 과정'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['biased','alternative','unbiased','different'],
+ch:['biased','alternative','unbiased','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>unbiased</b>이 적절.',
 analysis:'✅ ③ unbiased: 원문 일치',
 tip:'unbiased(편견 없는) ↔ biased(편향된)'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','자동적인','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','자동적인','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>automatic</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'automatic의 문맥적 의미: <b>자동적인</b>',
 analysis:'✅ ③ 자동적인\n다른 의미: 자동의/무의식적인',
 tip:'automatic: 자동적인 | 기타: 자동의/무의식적인'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','숙고','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','숙고','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>reflection</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'reflection의 문맥적 의미: <b>숙고</b>',
 analysis:'✅ ③ 숙고\n다른 의미: 숙고/반사/반영',
 tip:'reflection: 숙고 | 기타: 숙고/반사/반영'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','elusive','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"difficult to find, catch, or achieve"</b>',
+ch:['wrong1','wrong2','elusive','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"difficult to find, catch, or achieve"</b>',
 det:{korean:'영영 정의 → <b>elusive</b>',
 analysis:'✅ ③ elusive: 영영 정의와 일치',
 tip:'elusive = difficult to find, catch, or achieve'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','tainted','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"contaminated or corrupted"</b>',
+ch:['wrong1','wrong2','tainted','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"contaminated or corrupted"</b>',
 det:{korean:'영영 정의 → <b>tainted</b>',
 analysis:'✅ ③ tainted: 영영 정의와 일치',
 tip:'tainted = contaminated or corrupted'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 36번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 36번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"36번","lesson":"글의 순서","title":"Language Simplification","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_36_v1"};
 
 const FULL_PASSAGE=`What would a language be like if it didn\u2019t make any simplifications or generalizations? (A) There might be some superintelligent race of beings that could know such a language, but they would have to know virtually everything in the world to learn all these names. Human language has taken a different route \u2014 many fewer names, with a loss of precision, but a basic vocabulary that is readily acquired. However, this fact is not simply a compromise with our limited cognitive capacity. (B) By using the same word for different objects, we\u2019re communicating information about those things. Calling two different-looking things \u201cspider\u201d communicates that they probably have eight legs, weave nests, eat insects, and other noticeable details, which we would not know if we gave them all their own separate names. (C) It would be a language in which every word was a proper noun. Because you don\u2019t want to gloss over the differences between snakes that are slightly different in some respect, every snake must have its own name. Furthermore, every event must have its own verb, because not every occasion of thinking or dancing or talking is identical.`;
@@ -135,74 +137,74 @@ det:{korean:'vagueness은 원문 precision의 반의어로 부적절.',
 analysis:'❌ ② vagueness: 원문은 precision\n✅ 나머지: 원문 일치',
 tip:'precision ↔ vagueness'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['complication','reduction','ignore','reject'],
+ch:['complication','reduction','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>simplification</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'simplification = 단순화, reduction = 동의어',
 analysis:'✅ ② reduction: 동의어\n❌ ① complication: 반의어',
 tip:'simplification = reduction'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['vagueness','accuracy','ignore','reject'],
+ch:['vagueness','accuracy','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>precision</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'precision = 정밀함, accuracy = 동의어',
 analysis:'✅ ② accuracy: 동의어\n❌ ① vagueness: 반의어',
 tip:'precision = accuracy'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['hardly','easily','ignore','reject'],
+ch:['hardly','easily','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>readily</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'readily = 쉽게, easily = 동의어',
 analysis:'✅ ② easily: 동의어\n❌ ① hardly: 반의어',
 tip:'readily = easily'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['reduction','similar','complication','comparable'],
+ch:['reduction','similar','complication','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>simplification</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'simplification = 단순화 ↔ complication',
 analysis:'❌ ③ complication: 반의어\n✅ 나머지: 유사어',
 tip:'simplification ↔ complication'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['accuracy','similar','vagueness','comparable'],
+ch:['accuracy','similar','vagueness','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>precision</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'precision = 정밀함 ↔ vagueness',
 analysis:'❌ ③ vagueness: 반의어\n✅ 나머지: 유사어',
 tip:'precision ↔ vagueness'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['complication','alternative','simplification','different'],
+ch:['complication','alternative','simplification','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'언어의 단순화와 일반화 → <b>simplification</b>',
 analysis:'✅ ③ simplification: 원문 일치\n❌ ① complication: 반의어',
 tip:'simplification: 언어의 단순화와 일반화'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['insistence','alternative','compromise','different'],
+ch:['insistence','alternative','compromise','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'제한된 인지 능력과의 타협 → <b>compromise</b>',
 analysis:'✅ ③ compromise: 원문 일치\n❌ ① insistence: 반의어',
 tip:'compromise: 제한된 인지 능력과의 타협'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['complication','alternative','simplification','different'],
+ch:['complication','alternative','simplification','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>simplification</b>이 적절.',
 analysis:'✅ ③ simplification: 원문 일치',
 tip:'simplification(단순화) ↔ complication(복잡화)'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','길, 방식','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','길, 방식','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>route</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'route의 문맥적 의미: <b>길, 방식</b>',
 analysis:'✅ ③ 길, 방식\n다른 의미: 길/경로/노선',
 tip:'route: 길, 방식 | 기타: 길/경로/노선'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','능력','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','능력','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>capacity</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'capacity의 문맥적 의미: <b>능력</b>',
 analysis:'✅ ③ 능력\n다른 의미: 능력/용량/자격',
 tip:'capacity: 능력 | 기타: 능력/용량/자격'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','simplification','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"the process of making something simpler or easier to understand"</b>',
+ch:['wrong1','wrong2','simplification','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"the process of making something simpler or easier to understand"</b>',
 det:{korean:'영영 정의 → <b>simplification</b>',
 analysis:'✅ ③ simplification: 영영 정의와 일치',
 tip:'simplification = the process of making something simpler or easier to understand'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','compromise','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"an agreement reached by each side making concessions"</b>',
+ch:['wrong1','wrong2','compromise','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"an agreement reached by each side making concessions"</b>',
 det:{korean:'영영 정의 → <b>compromise</b>',
 analysis:'✅ ③ compromise: 영영 정의와 일치',
 tip:'compromise = an agreement reached by each side making concessions'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 43-45번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 43-45번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"43-45번","lesson":"순서+지칭+내용","title":"Spark Fellowship Brothers","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_43-45_v1"};
 
 const FULL_PASSAGE=`In a small town known for its flourishing academic community, two brothers, James and Daniel Carter, stood out for their exceptional effort and talent. James and his younger brother, Daniel, both applied for the Spark Fellowship. The Spark Fellowship was a highly respected program that selects and supports outstanding students every two years. Unsurprisingly, both brothers advanced to the final round.
@@ -149,7 +151,7 @@ analysis:`❌ ③ solution(해결책): 원문은 challenge(난제) → 한 가�
 tip:`challenge(난제) ↔ solution(해결책) — 규정이 위원회에 문제를 야기했다`}},
 
 {id:5,type:`동의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
-ch:[`declining`,`struggling`,`thriving`,`stagnating`],
+ch:[`declining`,`struggling`,`thriving`,`stagnating`,`eliminate`],
 passage:`In a small town known for its <u>flourishing</u> academic community...`,
 stem:`밑줄 친 <b>flourishing</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`flourishing = 번창하는, thriving = 번성하는 → 동의어`,
@@ -157,7 +159,7 @@ analysis:`✅ ③ thriving(번성하는): flourishing의 동의어\n❌ ① decl
 tip:`flourishing = thriving = prospering = 번창하는`}},
 
 {id:6,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`protested`,`supported`,`criticized`,`ignored`],
+ch:[`protested`,`supported`,`criticized`,`ignored`,`eliminate`],
 passage:`Daniel showed up at the selection committee and <u>advocated</u> for his brother.`,
 stem:`밑줄 친 <b>advocated</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`advocated for = ~를 옹호하다/지지하다, supported = 지지하다 → 동의어`,
@@ -165,7 +167,7 @@ analysis:`✅ ② supported(지지하다): advocated for의 동의어\n❌ ① p
 tip:`advocate for = support = champion = 지지하다, 옹호하다`}},
 
 {id:7,type:`동의어 고르기`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`unselfishness`,`generosity`,`pride`,`ambition`],
+ch:[`unselfishness`,`generosity`,`pride`,`ambition`,`eliminate`],
 passage:`Moved by their <u>selflessness</u>, the committee made an exception.`,
 stem:`밑줄 친 <b>selflessness</b>의 의미와 가장 <b>가까운</b> 것은?`,
 det:{korean:`selflessness = 이타심, unselfishness = 비이기적임 → 동의어`,
@@ -173,7 +175,7 @@ analysis:`✅ ① unselfishness(비이기적임): selflessness의 동의어\n✅
 tip:`selflessness = unselfishness = altruism = 이타심`}},
 
 {id:8,type:`반의어 고르기`,diff:`쉬움`,pts:4,fmt:"mc",ans:3,
-ch:[`remarkable`,`extraordinary`,`notable`,`ordinary`],
+ch:[`remarkable`,`extraordinary`,`notable`,`ordinary`,`eliminate`],
 passage:`Two brothers, James and Daniel Carter, stood out for their <u>exceptional</u> effort and talent.`,
 stem:`밑줄 친 <b>exceptional</b>의 의미와 가장 <b>먼</b> 것은?`,
 det:{korean:`exceptional = 뛰어난 ↔ ordinary = 보통의, 평범한`,
@@ -181,7 +183,7 @@ analysis:`❌ ④ ordinary(보통의): exceptional의 반의어 → 가장 먼 �
 tip:`exceptional = remarkable = extraordinary ↔ ordinary = common = average`}},
 
 {id:9,type:`반의어 고르기`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
-ch:[`committed`,`devoted`,`indifferent`,`passionate`],
+ch:[`committed`,`devoted`,`indifferent`,`passionate`,`eliminate`],
 passage:`"Daniel has always been the more <u>dedicated</u> and talented one."`,
 stem:`밑줄 친 <b>dedicated</b>의 의미와 가장 <b>먼</b> 것은?`,
 det:{korean:`dedicated = 헌신적인 ↔ indifferent = 무관심한`,
@@ -189,7 +191,7 @@ analysis:`❌ ③ indifferent(무관심한): dedicated의 반의어 → 가장 �
 tip:`dedicated = committed = devoted ↔ indifferent = apathetic`}},
 
 {id:10,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`declining`,`unknown`,`flourishing`,`isolated`],
+ch:[`declining`,`unknown`,`flourishing`,`isolated`,`eliminate`],
 passage:FULL_PASSAGE.replace('its flourishing academic','its __________ academic'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`학술 공동체가 <b>번창하는(flourishing)</b> 작은 마을로 유명했다.`,
@@ -197,7 +199,7 @@ analysis:`✅ ③ flourishing(번창하는): "known for"와 자연스럽게 연�
 tip:`known for its flourishing community = 번창하는 공동체로 알려진`}},
 
 {id:11,type:`빈칸 어휘 완성`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`protested against`,`advocated for`,`competed with`,`argued against`],
+ch:[`protested against`,`advocated for`,`competed with`,`argued against`,`eliminate`],
 passage:FULL_PASSAGE.replace('advocated for his brother','__________ his brother'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`Daniel은 형을 위해 <b>옹호했다(advocated for)</b>.`,
@@ -205,7 +207,7 @@ analysis:`✅ ② advocated for(옹호하다): 형의 자질을 칭찬하는 문
 tip:`advocate for = 옹호하다, 지지하다`}},
 
 {id:12,type:`빈칸 어휘 완성`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
-ch:[`selfishness`,`competitiveness`,`rivalry`,`selflessness`],
+ch:[`selfishness`,`competitiveness`,`rivalry`,`selflessness`,`eliminate`],
 passage:FULL_PASSAGE.replace('by their selflessness','by their __________'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`위원회는 두 형제의 <b>이타심(selflessness)</b>에 감동받았다.`,
@@ -213,7 +215,7 @@ analysis:`✅ ④ selflessness(이타심): 서로를 추천하는 이타적 행�
 tip:`selflessness = 이타심 — 서로를 위해 양보하는 형제의 모습`}},
 
 {id:13,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`지위, 직위`,`서다, 일어서다`,`두드러지다, 눈에 띄다`,`참다, 견디다`],
+ch:[`지위, 직위`,`서다, 일어서다`,`두드러지다, 눈에 띄다`,`참다, 견디다`,`위의 어느 것도 해당하지 않는다.`],
 passage:`Two brothers, James and Daniel Carter, <u>stood out</u> for their exceptional effort and talent.`,
 stem:`밑줄 친 <b>stood out</b>의 문맥적 의미로 가장 적절한 것은?`,
 det:{korean:`stood out = <b>두드러지다, 눈에 띄다</b> → 뛰어난 노력과 재능으로 눈에 띄었다`,
@@ -221,7 +223,7 @@ analysis:`✅ ③ 두드러지다: stood out for = ~로 인해 두각을 나타�
 tip:`stand out = be conspicuous = 두드러지다, 눈에 띄다`}},
 
 {id:14,type:`다의어 문맥적 의미`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`예외 없이`,`예외, 특례`,`반대, 이의`,`제외, 배제`],
+ch:[`예외 없이`,`예외, 특례`,`반대, 이의`,`제외, 배제`,`위의 어느 것도 해당하지 않는다.`],
 passage:`The committee made an <u>exception</u> by selecting both brothers in the same year.`,
 stem:`밑줄 친 <b>exception</b>의 문맥적 의미로 가장 적절한 것은?`,
 det:{korean:`made an exception = <b>예외/특례</b>를 두다 → 같은 해에 두 형제를 모두 선발`,
@@ -229,17 +231,17 @@ analysis:`✅ ② 예외, 특례: 규정에 예외를 두어 두 형제 모두 �
 tip:`make an exception = 예외를 두다 | without exception = 예외 없이`}},
 
 {id:15,type:`영영풀이 매칭`,diff:`어려움`,pts:6,fmt:"mc",ans:2,
-ch:[`flourishing`,`exceptional`,`selflessness`,`advocated`],
+ch:[`flourishing`,`exceptional`,`selflessness`,`advocated`,`eliminate`],
 passage:``,
-stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"the quality of caring more about the needs and wishes of others than about one's own"</b>`,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>"the quality of caring more about the needs and wishes of others than about one's own"</b>`,
 det:{korean:`'다른 사람들의 필요와 소망을 자신의 것보다 더 걱정하는 자질' → <b>selflessness(이타심)</b>`,
 analysis:`✅ ③ selflessness: 영영 정의와 정확히 일치\n❌ ① flourishing: 번창하는\n❌ ② exceptional: 뛰어난\n❌ ④ advocated: 옹호했다`,
 tip:`selflessness = caring about others more than oneself = 이타심`}},
 
 {id:16,type:`영영풀이 매칭`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`demonstrate`,`conceal`,`ignore`,`deny`],
+ch:[`demonstrate`,`conceal`,`ignore`,`deny`,`eliminate`],
 passage:``,
-stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>"to show or prove something clearly"</b>`,
+stem:`다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>"to show or prove something clearly"</b>`,
 det:{korean:`'무언가를 명확히 보여주거나 증명하다' → <b>demonstrate(보여주다)</b>`,
 analysis:`✅ ① demonstrate: 영영 정의와 일치\n❌ ② conceal(숨기다): 반의어\n❌ ③ ignore(무시하다): 다른 의미\n❌ ④ deny(부인하다): 다른 의미`,
 tip:`demonstrate = show + prove clearly = 보여주다, 입증하다`}},
@@ -313,6 +315,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

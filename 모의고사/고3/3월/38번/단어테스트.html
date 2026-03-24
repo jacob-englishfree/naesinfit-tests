@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 38번 온라인단어TEST</title>
+<title>2025 고3 3월 모의고사 38번 온라인단어 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--g:#16A34A;--gd:#14532D;--gl:#E8F5E9;--gxl:#F0FDF4;--gxxl:#F8FDF9;--bg:#F4F8F5;--text:#1A1A2E;--tm:#5A6A5E;--tl:#8A9A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--o:#F59E0B;--ol:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"38번","lesson":"문장 삽입","title":"Emotions and Words","total":100,"time":1200,"totalQ":20,"histKey":"wordTest_2025_g3_mar_38_v1"};
 
 const FULL_PASSAGE=`We experience emotions as different bodily sensations, such as a beating heart and sweaty palms; we recognize emotions in others by their facial expressions and behaviour. One prominent idea is that we are born with a fixed set of basic emotions that are universal within our species, notably happiness, sadness, fear, surprise, disgust and anger. Just as we attach the word gravity to our intuitive understanding about how objects move through space, we simply attach words to each of these innate and universal emotions once those words become available. Key evidence is that children are unable to categorise facial expressions as representing different emotions until they have acquired a lexicon of words for emotions. Before having such words, faces that we might view as angry, sad or fearful are all categorised together as \u2018unpleasant\u2019. By acquiring the words for different types of emotions while experiencing sensations or observing their expressions in others, we develop a set of concepts into which those feelings can be placed.`;
@@ -135,74 +137,74 @@ det:{korean:'particular은 원문 universal의 반의어로 부적절.',
 analysis:'❌ ② particular: 원문은 universal\n✅ 나머지: 원문 일치',
 tip:'universal ↔ particular'}},
 {id:5,type:'동의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:1,
-ch:['acquired','inborn','ignore','reject'],
+ch:['acquired','inborn','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>innate</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'innate = 타고난, inborn = 동의어',
 analysis:'✅ ② inborn: 동의어\n❌ ① acquired: 반의어',
 tip:'innate = inborn'}},
 {id:6,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['particular','worldwide','ignore','reject'],
+ch:['particular','worldwide','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>universal</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'universal = 보편적인, worldwide = 동의어',
 analysis:'✅ ② worldwide: 동의어\n❌ ① particular: 반의어',
 tip:'universal = worldwide'}},
 {id:7,type:'동의어 고르기',diff:'보통',pts:5,fmt:"mc",ans:1,
-ch:['obscure','notable','ignore','reject'],
+ch:['obscure','notable','ignore','reject','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>prominent</b>의 의미와 가장 <b>가까운</b> 것은?',
 det:{korean:'prominent = 저명한, 두드러진, notable = 동의어',
 analysis:'✅ ② notable: 동의어\n❌ ① obscure: 반의어',
 tip:'prominent = notable'}},
 {id:8,type:'반의어 고르기',diff:'쉬움',pts:4,fmt:"mc",ans:2,
-ch:['inborn','similar','acquired','comparable'],
+ch:['inborn','similar','acquired','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>innate</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'innate = 타고난 ↔ acquired',
 analysis:'❌ ③ acquired: 반의어\n✅ 나머지: 유사어',
 tip:'innate ↔ acquired'}},
 {id:9,type:'반의어 고르기',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['worldwide','similar','particular','comparable'],
+ch:['worldwide','similar','particular','comparable','eliminate'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>universal</b>의 의미와 가장 <b>먼</b> 것은?',
 det:{korean:'universal = 보편적인 ↔ particular',
 analysis:'❌ ③ particular: 반의어\n✅ 나머지: 유사어',
 tip:'universal ↔ particular'}},
 {id:10,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['acquired','alternative','innate','different'],
+ch:['acquired','alternative','innate','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'타고난 보편적 감정 → <b>innate</b>',
 analysis:'✅ ③ innate: 원문 일치\n❌ ① acquired: 반의어',
 tip:'innate: 타고난 보편적 감정'}},
 {id:11,type:'빈칸 어휘 완성',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['opposite','alternative','lexicon','different'],
+ch:['opposite','alternative','lexicon','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'감정에 대한 어휘 목록 → <b>lexicon</b>',
 analysis:'✅ ③ lexicon: 원문 일치\n❌ ① opposite: 반의어',
 tip:'lexicon: 감정에 대한 어휘 목록'}},
 {id:12,type:'빈칸 어휘 완성',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['','alternative','sensations','different'],
+ch:['','alternative','sensations','different','eliminate'],
 passage:FULL_PASSAGE,stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
 det:{korean:'원문에서 <b>sensations</b>이 적절.',
 analysis:'✅ ③ sensations: 원문 일치',
 tip:'sensations(감각) ↔ ()'}},
 {id:13,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','연결하다','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','연결하다','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>attach</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'attach의 문맥적 의미: <b>연결하다</b>',
 analysis:'✅ ③ 연결하다\n다른 의미: 연결/부착/귀속시키다',
 tip:'attach: 연결하다 | 기타: 연결/부착/귀속시키다'}},
 {id:14,type:'다의어 문맥적 의미',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['첫 번째 의미','두 번째 의미','표현','네 번째 의미'],
+ch:['첫 번째 의미','두 번째 의미','표현','네 번째 의미','위의 어느 것도 해당하지 않는다.'],
 passage:FULL_PASSAGE,stem:'밑줄 친 <b>expression</b>의 문맥적 의미로 가장 적절한 것은?',
 det:{korean:'expression의 문맥적 의미: <b>표현</b>',
 analysis:'✅ ③ 표현\n다른 의미: 표현/표정/표현법',
 tip:'expression: 표현 | 기타: 표현/표정/표현법'}},
 {id:15,type:'영영풀이 매칭',diff:'어려움',pts:6,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','innate','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"inborn; natural rather than learned"</b>',
+ch:['wrong1','wrong2','innate','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"inborn; natural rather than learned"</b>',
 det:{korean:'영영 정의 → <b>innate</b>',
 analysis:'✅ ③ innate: 영영 정의와 일치',
 tip:'innate = inborn; natural rather than learned'}},
 {id:16,type:'영영풀이 매칭',diff:'보통',pts:5,fmt:"mc",ans:2,
-ch:['wrong1','wrong2','lexicon','wrong3'],
-passage:'',stem:'다음 영영풀이에 해당하는 단어는?\n<br><b>"the vocabulary of a person, language, or branch of knowledge"</b>',
+ch:['wrong1','wrong2','lexicon','wrong3','eliminate'],
+passage:'',stem:'다음 영영풀이에 해당하는 단어는?<br><br><b>"the vocabulary of a person, language, or branch of knowledge"</b>',
 det:{korean:'영영 정의 → <b>lexicon</b>',
 analysis:'✅ ③ lexicon: 영영 정의와 일치',
 tip:'lexicon = the vocabulary of a person, language, or branch of knowledge'}},
@@ -267,6 +269,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>

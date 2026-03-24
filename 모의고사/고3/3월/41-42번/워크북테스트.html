@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>2025 고3 3월 41-42번 온라인워크북TEST</title>
+<title>2025 고3 3월 모의고사 41-42번 온라인워크북 TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--o:#7C3AED;--od:#5B21B6;--ol:#A78BFA;--oxl:#F3F0FF;--oxxl:#FAF5FF;--bg:#F5F3FF;--text:#1A1A2E;--tm:#6B5B8A;--tl:#9A8DB8;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -91,7 +92,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option selected>고3</option><option>중3</option></select></div>
   </div>
   <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
   <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
@@ -105,6 +106,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
+
 const EI={"subject":"2025 고3 3월 모의고사","pub":"41-42번","lesson":"제목+어휘","title":"Literary Translation & Philosophy","total":100,"time":1200,"totalQ":20,"histKey":"workbookTest_2025_g3_mar_41-42_v1"};
 
 const FULL_PASSAGE=`Translating a literary text is challenging, and it\u2019s often said there will be an inevitable loss in translation. But that challenge frequently inspires creative re-renderings that offer the prospect of a gain in translation as well. A washing-machine manual doesn\u2019t present the same challenges, nor therefore does it inspire the same creativity either. But where, in terms of the opposition between literary and nonliterary language, might we position philosophy\u2019s language? Might philosophy want to avoid a translatory economy that aims for a gain in translation but risks a loss? Philosophy wishes to convey its truths intact, without loss\u2014and without gain either, or at least it might hesitate to offer its truths to translation without further clarification of what a gain, and indeed a gain in depth, actually means. It cannot be a matter of offsetting \u201cstylistic losses.\u201d The loss philosophy fears is a loss of meaning, the compromising of a truth. Thus, philosophy might refuse to be placed on the side of nonliterary language, and express itself in unstylish language, like Badiou\u2019s mathematical writing, so that no translator is prompted to rude and bold acts of creative rewriting. If philosophy wishes to increase its range and avoid being restricted to a national or regional tradition, it needs a translation model that conveys philosophical truths to the world without any \u201ceconomic\u201d fluctuations of loss and gain.`;
@@ -112,7 +114,7 @@ const FULL_PASSAGE=`Translating a literary text is challenging, and it\u2019s of
 const Q=[
 // ━━━ 어법 빈칸 (Q1-Q5) ━━━
 {id:1,type:`어법`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
-ch:[`challenge`,`challenging`,`challenged`,`to challenge`],
+ch:[`challenge`,`challenging`,`challenged`,`to challenge`,`eliminate`],
 passage:FULL_PASSAGE.replace('is challenging','is __________'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`be동사(is) 뒤 보어 자리에 <b>형용사 challenging</b>이 와야 한다. "번역은 도전적이다"`,
@@ -120,7 +122,7 @@ analysis:`✅ ② challenging: be동사 뒤 보어 → 형용사 필요\n❌ ①
 tip:`be동사 + 형용사(보어): is challenging = 도전적이다`}},
 
 {id:2,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`inspire`,`inspiring`,`inspires`,`inspired`],
+ch:[`inspire`,`inspiring`,`inspires`,`inspired`,`eliminate`],
 passage:`Translating a literary text is challenging, and it\u2019s often said there will be an inevitable loss in translation. But that challenge frequently __________ creative re-renderings that offer the prospect of a gain in translation as well.`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`주어 "that challenge"가 3인칭 단수이므로 <b>단수 동사 inspires</b>가 적절하다.`,
@@ -128,7 +130,7 @@ analysis:`✅ ③ inspires: 주어 that challenge = 단수 → 단수 동사\n�
 tip:`주어-동사 수 일치: that challenge(단수) → inspires(단수 동사)`}},
 
 {id:3,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:0,
-ch:[`where`,`which`,`what`,`how`],
+ch:[`where`,`which`,`what`,`how`,`eliminate`],
 passage:`But __________, in terms of the opposition between literary and nonliterary language, might we position philosophy\u2019s language?`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`"문학적 언어와 비문학적 언어의 대립에서 철학의 언어를 <b>어디에(where)</b> 위치시킬 것인가?" → 위치를 묻는 의문부사`,
@@ -136,7 +138,7 @@ analysis:`✅ ① where: position(위치시키다)의 장소를 묻는 의문부
 tip:`position(위치시키다) + where = 어디에 위치시킬까?`}},
 
 {id:4,type:`어법`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
-ch:[`restrict`,`restricted`,`restricting`,`to restrict`],
+ch:[`restrict`,`restricted`,`restricting`,`to restrict`,`eliminate`],
 passage:`If philosophy wishes to increase its range and avoid being __________ to a national or regional tradition, it needs a translation model that conveys philosophical truths to the world.`,
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`"avoid being + 과거분사(수동)" 구조에서 <b>restricted(제한된)</b>가 적절하다. 철학이 국가적/지역적 전통에 <b>제한되는 것</b>을 피하고자 한다.`,
@@ -144,7 +146,7 @@ analysis:`✅ ② restricted: avoid being restricted = 제한되는 것을 피�
 tip:`avoid being + p.p.(과거분사) = ~되는 것을 피하다 (수동태 동명사)`}},
 
 {id:5,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`①`,`②`,`③`],
+ch:[`①`,`②`,`③`,`④`,`⑤`],
 passage:`Translating a literary text is challenging, and it\u2019s often said there will be an inevitable loss in translation. But that challenge frequently inspires creative re-renderings that offer the prospect of a gain in translation as well. A washing-machine manual doesn\u2019t present the same challenges, nor therefore does it inspire the same creativity either. But where, in terms of the opposition between literary and nonliterary language, might we position philosophy\u2019s language? Might philosophy want to avoid a translatory economy that aims for a gain in translation but risks a loss? Philosophy wishes to convey its truths intact, without loss\u2014and without gain either, or at least it might hesitate to offer its truths to translation without further clarification of ①<u>what</u> a gain, and indeed a gain in depth, actually means. It cannot be a matter of offsetting "stylistic losses." The loss philosophy fears is a loss of meaning, the compromising of a truth. Thus, philosophy might refuse to be placed on the side of nonliterary language, and express itself in unstylish language, like Badiou\u2019s mathematical writing, so that no translator is ②<u>prompted</u> to rude and bold acts of creative rewriting. If philosophy wishes to increase its range and avoid being restricted to a national or regional tradition, it needs a translation model that ③<u>conveying</u> philosophical truths to the world without any "economic" fluctuations of loss and gain.`,
 stem:`다음 글의 밑줄 친 ①~③ 중, 어법상 <b>틀린</b> 것은?`,
 det:{korean:`③ conveying → <b>conveys</b>: 관계대명사 that의 선행사 a translation model(단수)에 맞는 동사가 필요하다.`,
@@ -153,7 +155,7 @@ tip:`관계대명사 that + 동사: 선행사의 수에 맞는 동사 필요 (a 
 
 // ━━━ 내용 이해 (Q6-Q8) ━━━
 {id:6,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
-ch:[`세탁기 설명서는 문학 번역과 같은 창의적 도전을 제시한다.`,`문학 번역의 도전은 창의적 재해석을 불러일으킬 수 있다.`,`철학은 번역에서 문체적 손실을 상쇄하는 것을 목표로 한다.`,`철학의 언어는 명확히 비문학적 언어에 속한다.`],
+ch:[`세탁기 설명서는 문학 번역과 같은 창의적 도전을 제시한다.`,`문학 번역의 도전은 창의적 재해석을 불러일으킬 수 있다.`,`철학은 번역에서 문체적 손실을 상쇄하는 것을 목표로 한다.`,`철학의 언어는 명확히 비문학적 언어에 속한다.`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글의 내용과 <b>일치하는</b> 것은?`,
 det:{korean:`"that challenge frequently inspires creative re-renderings" → 문학 번역의 도전은 창의적 재해석을 불러일으킨다.`,
@@ -161,7 +163,7 @@ analysis:`✅ ② 문학 번역의 도전은 창의적 재해석을 불러일으
 tip:`내용 일치: "challenge inspires creative re-renderings" = 도전이 창의적 재해석을 불러일으킴`}},
 
 {id:7,type:`내용이해`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`번역에서의 손실은 피할 수 있다.`,`세탁기 설명서도 문학 번역과 같은 창의성을 필요로 한다.`,`철학은 번역에서 의미의 손실과 진리의 훼손을 두려워한다.`,`Badiou의 글은 번역자에게 창의적 개작을 장려한다.`],
+ch:[`번역에서의 손실은 피할 수 있다.`,`세탁기 설명서도 문학 번역과 같은 창의성을 필요로 한다.`,`철학은 번역에서 의미의 손실과 진리의 훼손을 두려워한다.`,`Badiou의 글은 번역자에게 창의적 개작을 장려한다.`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글의 내용과 <b>일치하는</b> 것은?`,
 det:{korean:`"The loss philosophy fears is a loss of meaning, the compromising of a truth" → 철학은 의미의 손실과 진리의 훼손을 두려워한다.`,
@@ -169,7 +171,7 @@ analysis:`✅ ③ 원문과 일치: 의미 손실 + 진리 훼손을 두려워�
 tip:`philosophy fears: loss of meaning + compromising of a truth`}},
 
 {id:8,type:`내용이해`,diff:`보통`,pts:5,fmt:"mc",ans:1,
-ch:[`문학 번역은 항상 원문보다 나쁜 결과를 낳는다.`,`철학은 번역에서 이득과 손실의 경제적 변동 없이 진리를 전달하는 모델이 필요하다.`,`비문학적 언어는 문학적 언어보다 번역에 유리하다.`,`모든 철학서는 수학적 문체로 써야 한다.`],
+ch:[`문학 번역은 항상 원문보다 나쁜 결과를 낳는다.`,`철학은 번역에서 이득과 손실의 경제적 변동 없이 진리를 전달하는 모델이 필요하다.`,`비문학적 언어는 문학적 언어보다 번역에 유리하다.`,`모든 철학서는 수학적 문체로 써야 한다.`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글에서 필자의 주장에 가장 가까운 것은?`,
 det:{korean:`"without any 'economic' fluctuations of loss and gain" → 이득과 손실의 변동 없이 진리를 전달하는 번역 모델 필요`,
@@ -178,7 +180,7 @@ tip:`핵심: "without any 'economic' fluctuations" → 변동 없는 번역 모�
 
 // ━━━ 빈칸 추론 (Q9-Q11) ━━━
 {id:9,type:`빈칸추론`,diff:`보통`,pts:5,fmt:"mc",ans:2,
-ch:[`conceal`,`fabricate`,`convey`,`distort`],
+ch:[`conceal`,`fabricate`,`convey`,`distort`,`eliminate`],
 passage:FULL_PASSAGE.replace('wishes to convey its truths','wishes to __________ its truths'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`철학은 진리를 온전하게 <b>전달하고자(convey)</b> 한다.`,
@@ -186,7 +188,7 @@ analysis:`✅ ③ convey(전달하다): "intact, without loss"와 자연스럽�
 tip:`convey + intact = 온전하게 전달하다`}},
 
 {id:10,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
-ch:[`refuse`,`agree`,`prefer`,`aspire`],
+ch:[`refuse`,`agree`,`prefer`,`aspire`,`eliminate`],
 passage:FULL_PASSAGE.replace('might refuse to be placed','might __________ to be placed'),
 stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
 det:{korean:`철학은 비문학적 언어 쪽에 놓이기를 <b>거부할(refuse)</b> 수 있다. 세련되지 않은 언어로 표현하여 번역자가 창의적 개작을 하지 않도록.`,
@@ -194,7 +196,7 @@ analysis:`✅ ① refuse(거부하다): 문맥상 비문학적 언어 쪽에 놓
 tip:`refuse to be placed on the side of nonliterary language = 비문학 쪽에 놓이길 거부`}},
 
 {id:11,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
-ch:[`확장`,`축소`,`보존`,`변동`],
+ch:[`확장`,`축소`,`보존`,`변동`,`위의 어느 것도 해당하지 않는다.`],
 passage:FULL_PASSAGE,
 stem:`다음 글에서 철학이 번역 모델에서 배제하고자 하는 "경제적" 요소는 무엇인가?`,
 det:{korean:`"without any 'economic' fluctuations of loss and gain" → 이득과 손실의 <b>변동(fluctuations)</b>을 배제하고자 한다.`,
@@ -241,7 +243,7 @@ tip:`fluctuations of loss and gain = 이득과 손실의 변동/등락`}},
 {id:17,type:`T/F`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Literary translation often involves an inevitable loss.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>Literary translation often involves an inevitable loss.</b>"`,
 det:{korean:`"it's often said there will be an inevitable loss in translation" → <b>True</b>`,
 analysis:`✅ True: 원문과 일치`,
 tip:`inevitable loss in translation = 번역에서의 불가피한 손실`}},
@@ -249,7 +251,7 @@ tip:`inevitable loss in translation = 번역에서의 불가피한 손실`}},
 {id:18,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:1,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>A washing-machine manual presents the same creative challenges as literary texts.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>A washing-machine manual presents the same creative challenges as literary texts.</b>"`,
 det:{korean:`"A washing-machine manual doesn't present the same challenges" → 같은 도전을 제시하지 않는다 → <b>False</b>`,
 analysis:`❌ False: 원문은 "doesn't present the same challenges" → 같은 도전이 아님`,
 tip:`doesn't present the same challenges = 같은 도전을 제시하지 않는다`}},
@@ -257,7 +259,7 @@ tip:`doesn't present the same challenges = 같은 도전을 제시하지 않는�
 {id:19,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:0,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Philosophy fears a loss of meaning in translation.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>Philosophy fears a loss of meaning in translation.</b>"`,
 det:{korean:`"The loss philosophy fears is a loss of meaning" → <b>True</b>`,
 analysis:`✅ True: 원문과 정확히 일치`,
 tip:`philosophy fears: loss of meaning = 의미의 상실을 두려워함`}},
@@ -265,7 +267,7 @@ tip:`philosophy fears: loss of meaning = 의미의 상실을 두려워함`}},
 {id:20,type:`T/F`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
 ch:[`True`,`False`],
 passage:FULL_PASSAGE,
-stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>Philosophy prefers to be placed on the side of nonliterary language.</b>"`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>"<b>Philosophy prefers to be placed on the side of nonliterary language.</b>"`,
 det:{korean:`본문: "philosophy might refuse to be placed on the side of nonliterary language" → 거부한다. "선호한다(prefers)"는 <b>False</b>.`,
 analysis:`❌ False: refuse(거부) ≠ prefer(선호) → 본문과 반대`,
 tip:`refuse(거부) ↔ prefer(선호) — 철학은 비문학 쪽에 놓이기를 거부함`}}
@@ -308,6 +310,7 @@ navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었�
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
 </script>
 </body>
 </html>
