@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>수능특강 13강 온라인퀴즈TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -40,10 +41,27 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--warn);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
 @keyframes pulse{50%{opacity:.3;}}
 .btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
-.exam-scroll{max-width:820px;margin:0 auto;padding:24px 20px 100px;}
-.q-card{background:var(--card);border-radius:var(--radius);margin-bottom:22px;box-shadow:var(--shadow);overflow:hidden;}
-.q-header{display:flex;align-items:center;gap:10px;padding:16px 22px;background:linear-gradient(135deg,#FFF3E8,#FFE8D5);border-bottom:1px solid #E0D8CF;flex-wrap:wrap;}
-.q-num{width:36px;height:36px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;flex-shrink:0;}
+.exam-scroll{display:none;}
+.slide-wrap{height:calc(100vh - 52px);display:flex;flex-direction:column;}
+.slide-passage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px;background:#fff;}
+.slide-passage .q-passage{padding:0;border:none;border-radius:0;background:transparent;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.slide-bottom{flex-shrink:0;background:rgba(255,255,255,.2);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,.25);box-shadow:0 -2px 20px rgba(0,0,0,.05);padding:10px 14px 12px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;}
+.slide-stem{font-size:12.5px;font-weight:700;margin-bottom:6px;overflow-wrap:break-word;color:var(--text);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{padding:6px 9px;font-size:12px;line-height:1.3;gap:6px;border:1px solid rgba(0,0,0,.05);border-radius:8px;background:rgba(255,255,255,.15);}
+.slide-choices .choice-btn:hover{background:rgba(255,255,255,.35);}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.12);box-shadow:0 0 0 2px rgba(232,119,46,.2);}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.06);}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.slide-choices .written-input{padding:7px 10px;font-size:13px;background:rgba(255,255,255,.2);border:1px solid rgba(0,0,0,.05);}
+.slide-nav{display:flex;align-items:center;justify-content:space-between;padding:5px 0 0;margin-top:5px;}
+.slide-nav button{padding:6px 14px;border:1px solid rgba(0,0,0,.05);border-radius:7px;background:rgba(255,255,255,.15);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}
+.slide-nav button:disabled{opacity:.3;}
+.slide-nav .nav-cur{font-size:11px;font-weight:800;color:var(--o);}
+.q-card{background:var(--card);border-radius:12px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden;}
+.q-header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#FFF3E8,#FFE8D5);border-bottom:1px solid #E0D8CF;flex-wrap:wrap;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
 .q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
 .tag-insert{background:#E0F7FA;color:#00838F;}
 .tag-order{background:#FFF3E0;color:#E65100;}
@@ -54,15 +72,15 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .tag-content{background:#E8F5E9;color:#2E7D32;}
 .tag-tf{background:#FFF8E1;color:#F57F17;}
 .q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#F0E8DF;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
-.q-body{padding:22px;}
-.q-passage{background:linear-gradient(135deg,#FFFAF5,#FFF5EE);border-left:4px solid var(--o);padding:16px 18px;margin-bottom:18px;border-radius:0 var(--rs) var(--rs) 0;font-size:13.5px;line-height:1.95;}
-.q-stem{font-size:14px;font-weight:700;margin-bottom:16px;}
+.q-body{padding:14px 16px;}
+.q-passage{background:linear-gradient(135deg,#FFFAF5,#FFF5EE);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
 .q-given-sentence{background:var(--oxl);border:2px solid var(--ol);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px;font-size:13.5px;line-height:1.8;font-weight:600;}
-.choices{display:flex;flex-direction:column;gap:8px;}
-.choice-btn{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:2px solid #E0D8CF;border-radius:var(--rs);cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:14px;line-height:1.6;}
-.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.12);background:var(--oxxl);}
-.c-num{min-width:26px;height:26px;background:#F0E8DF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
-.written-input{width:100%;padding:14px 16px;border:2px solid #E0D8CF;border-radius:var(--rs);font-size:15px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.choices{display:flex;flex-direction:column;gap:4px;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #E0D8CF;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#F0E8DF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #E0D8CF;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
 .exam-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-top:1px solid rgba(0,0,0,.06);padding:10px 16px;display:flex;align-items:center;gap:5px;justify-content:center;z-index:100;overflow-x:auto;flex-wrap:wrap;}
 .nav-dot{width:28px;height:28px;border-radius:50%;background:#F0E8DF;cursor:pointer;border:none;font-size:10px;font-weight:800;color:var(--tm);display:flex;align-items:center;justify-content:center;font-family:inherit;flex-shrink:0;}.nav-dot.answered{background:var(--o);color:#fff;}
 .r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,#FFF3E8,#FFE8D5);}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
@@ -110,94 +128,148 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div id="examScreen" class="screen">
   <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>13강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-scroll" id="examScroll"></div>
-  <div class="exam-nav" id="navDots"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
 const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson":"빈칸 내용 추론 (1)","title":"Blank Inference 1","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_suneung_13_v1"};
 
-const P_GW=`The early grain trade firms were active in both surplus-producing and food deficit regions, and these firms made it their business to know the state of supply and demand in both. Because this information was the key to their ____________________, these firms worked in relative secrecy, frequently built on family ties, trust, and loyalty. In addition, these firms were able to benefit from the rise of commodity exchanges and commodities futures markets that emerged in the mid-1800s. Agricultural markets are naturally unstable, due to changes in harvest size that result from variable weather patterns and other factors. Locking-in prices by buying and selling grain for future delivery helped these firms to minimize such risks. It made sense for the grain trading companies to manage their risks within a single firm that was operating in more than one country, rather than operating as independent national companies trading with each other. Their access to information in multiple markets enabled them to easily cover the risks associated with agricultural commodity trade.\n\n* deficit: 부족`;
-
-const P_EX01=`In the Physics, Aristotle asks whether nature acts for the sake of something. He offers an account of rain as water that rises when heated by the Sun, then cools, condenses, and falls to Earth, but is not particularly concerned with explaining rain as such. Rather, he addresses a more general question: how to account for natural objects, events, and processes that appear with regularity. He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with regularity and that regularity is linked to ____________________. The sharpness of front teeth allows them to tear while the bluntness of those in the back enables them to crush food; both are useful for eating. In Aristotle's view, all natural things happen in a given way and occur for the sake of something; that is the final cause.\n\n* query: 의문을 제기하다  ** bluntness: 뭉툭함  *** molar: 어금니`;
-
-const P_EX02=`AI is a prolific idea generator. Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity. As Linus Pauling put it, "The best way to have a good idea is to have lots of ideas." Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created. Many studies have confirmed that creative quality comes from quantity of ideas (what Bob Sutton at a design and innovation consulting company called "idea ratio"), and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand. This is why design thinking and innovation are so focused on the processes (what Utley and Klebahn call "idea flow") of ____________________.\n\n* prolific: 많이 만들어 내는, 다작의  ** peg: 못박다`;
-
-const P_EX03=`Becoming aware of our internal sensations can help us handle our own emotions. Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds, no way to feel what others are feeling. Interpreting others' spoken words and facial expressions may yield only a coolly abstract sense of the emotions that stir within. The body acts as a critical conduit, supplying the brain with the visceral information it lacks. It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch. Then, via the interoception of our own bodies' signals, we perceive what the other person is feeling because we feel it in ourselves. We bring other people's feelings onboard, and the body is the bridge. In an act similar to taking a bite off our partner's plate, or borrowing an earbud to hear the song our friend is listening to, we are ____________________.\n\n* interoceptive: 내부 감각 수용의  ** conduit: 전달자  *** visceral: 본능적인`;
-
-const P_EX04=`The strongest criticisms of the overextension of technology involve claims of dehumanization, and these arguments are not new. Canadian philosopher of the electronic age, Marshall McLuhan was primarily a techno-utopian, but he was also a critical thinker, who cautioned decades ago against too much human extension into technology. McLuhan famously claimed that every media extension of man is an amputation. For example, once we have a car, we don't walk to the shops any more; once we have a computer hard-drive, we don't have to remember things; and now that we have personal GPS (Global Positioning System) on our cell phones, no one can find their way about without it. Based on McLuhan's philosophy, we are becoming post-literate because we rely on screens full of pictures, rather than print media, such as books. It is thus possible that extensions of human faculties, through techno- and bio-enhancement, will bring about ____________________.\n\n* techno-utopian: 기술 낙관론자  ** amputation: 절라내기, 절단  *** post-literate: 탈문해화의`;
+const P_GW=`The early grain trade firms were active in both surplus-producing and food deficit regions, and these firms made it their business to know the state of supply and demand in both. Because this information was the key to their ____________________, these firms worked in relative secrecy, frequently built on family ties, trust, and loyalty. In addition, these firms were able to benefit from the rise of commodity exchanges and commodities futures markets that emerged in the mid-1800s. Agricultural markets are naturally unstable, due to changes in harvest size that result from variable weather patterns and other factors. Locking-in prices by buying and selling grain for future delivery helped these firms to minimize such risks. It made sense for the grain trading companies to manage their risks within a single firm that was operating in more than one country, rather than operating as independent national companies trading with each other. Their access to information in multiple markets enabled them to easily cover the risks associated with agricultural commodity trade.<br><br>* deficit: 부족`;
+const P_EX01=`In the Physics, Aristotle asks whether nature acts for the sake of something. He offers an account of rain as water that rises when heated by the Sun, then cools, condenses, and falls to Earth, but is not particularly concerned with explaining rain as such. Rather, he addresses a more general question: how to account for natural objects, events, and processes that appear with regularity. He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with regularity and that regularity is linked to ____________________. The sharpness of front teeth allows them to tear while the bluntness of those in the back enables them to crush food; both are useful for eating. In Aristotle's view, all natural things happen in a given way and occur for the sake of something; that is the final cause.<br><br>* query: 의문을 제기하다  ** bluntness: 뭉툭함  *** molar: 어금니`;
+const P_EX02=`AI is a prolific idea generator. Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity. As Linus Pauling put it, "The best way to have a good idea is to have lots of ideas." Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created. Many studies have confirmed that creative quality comes from quantity of ideas (what Bob Sutton at a design and innovation consulting company called "idea ratio"), and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand. This is why design thinking and innovation are so focused on the processes (what Utley and Klebahn call "idea flow") of ____________________.<br><br>* prolific: 많이 만들어 내는, 다작의  ** peg: 못박다`;
+const P_EX03=`Becoming aware of our internal sensations can help us handle our own emotions. Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds, no way to feel what others are feeling. Interpreting others' spoken words and facial expressions may yield only a coolly abstract sense of the emotions that stir within. The body acts as a critical conduit, supplying the brain with the visceral information it lacks. It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch. Then, via the interoception of our own bodies' signals, we perceive what the other person is feeling because we feel it in ourselves. We bring other people's feelings onboard, and the body is the bridge. In an act similar to taking a bite off our partner's plate, or borrowing an earbud to hear the song our friend is listening to, we are ____________________.<br><br>* interoceptive: 내부 감각 수용의  ** conduit: 전달자  *** visceral: 본능적인`;
+const P_EX04=`The strongest criticisms of the overextension of technology involve claims of dehumanization, and these arguments are not new. Canadian philosopher of the electronic age, Marshall McLuhan was primarily a techno-utopian, but he was also a critical thinker, who cautioned decades ago against too much human extension into technology. McLuhan famously claimed that every media extension of man is an amputation. For example, once we have a car, we don't walk to the shops any more; once we have a computer hard-drive, we don't have to remember things; and now that we have personal GPS (Global Positioning System) on our cell phones, no one can find their way about without it. Based on McLuhan's philosophy, we are becoming post-literate because we rely on screens full of pictures, rather than print media, such as books. It is thus possible that extensions of human faculties, through techno- and bio-enhancement, will bring about ____________________.<br><br>* techno-utopian: 기술 낙관론자  ** amputation: 절라내기, 절단  *** post-literate: 탈문해화의`;
+const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','어법 5지선다':'tag-grammar','부적절어휘':'tag-vocab','빈칸추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','T/F':'tag-tf'};
 
 const Q=[
 {id:1,type:'문장삽입',diff:'어려움',pts:6,fmt:'mc',ans:2,
 ch:['①','②','③','④'],
 passage:`The early grain trade firms were active in both surplus-producing and food deficit regions, and these firms made it their business to know the state of supply and demand in both. <b>①</b> Because this information was the key to their profitability, these firms worked in relative secrecy, frequently built on family ties, trust, and loyalty. <b>②</b> In addition, these firms were able to benefit from the rise of commodity exchanges and commodities futures markets that emerged in the mid-1800s. <b>③</b> Locking-in prices by buying and selling grain for future delivery helped these firms to minimize such risks. <b>④</b> It made sense for the grain trading companies to manage their risks within a single firm that was operating in more than one country.`,
-stem:'다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n\n<b>"Agricultural markets are naturally unstable, due to changes in harvest size that result from variable weather patterns and other factors."</b>',
-det:{korean:'농업 시장의 불안정성에 대한 문장은 선물 시장의 등장(②) 이후, 가격 고정으로 위험을 최소화하는 내용(④) 앞인 <b>③</b>에 들어가야 합니다.',analysis:'③ 앞: 상품 거래소와 선물 시장의 등장\n③ 뒤: 가격 고정으로 위험 최소화\n→ 농업 시장의 불안정성(원인) → 가격 고정(해결책)의 논리적 흐름',tip:'문장삽입: 삽입 문장의 키워드(unstable, variable)가 앞뒤 문맥과 연결되는 위치를 찾으세요.'}},
+stem:'다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?
+
+<b>"Agricultural markets are naturally unstable, due to changes in harvest size that result from variable weather patterns and other factors."</b>',
+det:{korean:'농업 시장의 불안정성에 대한 문장은 선물 시장의 등장(②) 이후, 가격 고정으로 위험을 최소화하는 내용(④) 앞인 <b>③</b>에 들어가야 합니다.',analysis:'③ 앞: 상품 거래소와 선물 시장의 등장
+③ 뒤: 가격 고정으로 위험 최소화
+→ 농업 시장의 불안정성(원인) → 가격 고정(해결책)의 논리적 흐름',tip:'문장삽입: 삽입 문장의 키워드(unstable, variable)가 앞뒤 문맥과 연결되는 위치를 찾으세요.'}},
 
 {id:2,type:'문장삽입',diff:'보통',pts:5,fmt:'mc',ans:1,
 ch:['①','②','③','④'],
 passage:`In the Physics, Aristotle asks whether nature acts for the sake of something. <b>①</b> He offers an account of rain as water that rises when heated by the Sun, then cools, condenses, and falls to Earth, but is not particularly concerned with explaining rain as such. <b>②</b> He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility. <b>③</b> The sharpness of front teeth allows them to tear while the bluntness of those in the back enables them to crush food; both are useful for eating. <b>④</b> In Aristotle's view, all natural things happen in a given way and occur for the sake of something; that is the final cause.`,
-stem:'다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n\n<b>"Rather, he addresses a more general question: how to account for natural objects, events, and processes that appear with regularity."</b>',
-det:{korean:'비에 대한 설명에 특별히 관심이 없다(①)는 내용 뒤에, 보다 일반적인 질문을 다룬다는 전환 문장이 ②에 들어가야 합니다.',analysis:'① 뒤: 비 설명에 관심 없음 (not particularly concerned)\n② 뒤: 일반적 질문으로 전환 (Rather, a more general question)\n→ 구체적 예(비) → 일반적 질문(규칙성)으로의 논리적 전환',tip:'Rather(오히려)는 앞 내용과의 대조·전환을 나타내는 신호어입니다.'}},
+stem:'다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?
+
+<b>"Rather, he addresses a more general question: how to account for natural objects, events, and processes that appear with regularity."</b>',
+det:{korean:'비에 대한 설명에 특별히 관심이 없다(①)는 내용 뒤에, 보다 일반적인 질문을 다룬다는 전환 문장이 ②에 들어가야 합니다.',analysis:'① 뒤: 비 설명에 관심 없음 (not particularly concerned)
+② 뒤: 일반적 질문으로 전환 (Rather, a more general question)
+→ 구체적 예(비) → 일반적 질문(규칙성)으로의 논리적 전환',tip:'Rather(오히려)는 앞 내용과의 대조·전환을 나타내는 신호어입니다.'}},
 
 {id:3,type:'어순배열',diff:'보통',pts:5,fmt:'mc',ans:2,
 ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
-passage:`AI is a prolific idea generator.\n\n(A) Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created.\n(B) Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity.\n(C) Many studies have confirmed that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand.`,
+passage:`AI is a prolific idea generator.
+
+(A) Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created.
+(B) Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity.
+(C) Many studies have confirmed that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand.`,
 stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
-det:{korean:'첫 문장(AI는 다작의 아이디어 생성기) → (B) 인간 그룹은 질에 초점, 하지만 양이 중요 → (A) Simonton의 "equal odds rule" → (C) 많은 연구가 확인, Stanford 연구',analysis:'(B): AI와 대비되는 인간의 경향 + 양의 중요성 제시\n(A): "this"가 (B)의 양 우선 원칙을 지칭\n(C): 연구 결과로 (A)의 주장 뒷받침',tip:'지시어 this(A)가 (B)의 내용을 받으므로 B→A 순서 확정'}},
+det:{korean:'첫 문장(AI는 다작의 아이디어 생성기) → (B) 인간 그룹은 질에 초점, 하지만 양이 중요 → (A) Simonton의 "equal odds rule" → (C) 많은 연구가 확인, Stanford 연구',analysis:'(B): AI와 대비되는 인간의 경향 + 양의 중요성 제시
+(A): "this"가 (B)의 양 우선 원칙을 지칭
+(C): 연구 결과로 (A)의 주장 뒷받침',tip:'지시어 this(A)가 (B)의 내용을 받으므로 B→A 순서 확정'}},
 
 {id:4,type:'어순배열',diff:'어려움',pts:6,fmt:'mc',ans:3,
 ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
-passage:`Becoming aware of our internal sensations can help us handle our own emotions.\n\n(A) It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch.\n(B) Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds.\n(C) The body acts as a critical conduit, supplying the brain with the visceral information it lacks.`,
+passage:`Becoming aware of our internal sensations can help us handle our own emotions.
+
+(A) It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch.
+(B) Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds.
+(C) The body acts as a critical conduit, supplying the brain with the visceral information it lacks.`,
 stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
-det:{korean:'첫 문장(내부 감각 인식) → (B) 타인의 감정과 접촉, 뇌의 한계 → (C) 몸이 전달자 역할 → (A) 구체적 방법(표정 모방)',analysis:'(B): 주제 전환(타인의 감정) + 뇌의 한계 제시\n(C): 몸이 핵심 전달자(conduit) 역할\n(A): "It does so"가 (C)의 conduit 역할을 구체적으로 설명',tip:'It does so(A)가 (C)의 내용을 받으므로 C→A 순서 확정'}},
+det:{korean:'첫 문장(내부 감각 인식) → (B) 타인의 감정과 접촉, 뇌의 한계 → (C) 몸이 전달자 역할 → (A) 구체적 방법(표정 모방)',analysis:'(B): 주제 전환(타인의 감정) + 뇌의 한계 제시
+(C): 몸이 핵심 전달자(conduit) 역할
+(A): "It does so"가 (C)의 conduit 역할을 구체적으로 설명',tip:'It does so(A)가 (C)의 내용을 받으므로 C→A 순서 확정'}},
 
 {id:5,type:'어법 5지선다',diff:'쉬움',pts:4,fmt:'mc',ans:3,
 ch:['① was','② to know','③ frequently','④ emerged','⑤ enable'],
 passage:`The early grain trade firms were active in both surplus-producing and food deficit regions, and these firms made it their business ①<u>to know</u> the state of supply and demand in both. Because this information was the key to their profitability, these firms worked in relative secrecy, ②<u>frequently</u> built on family ties, trust, and loyalty. In addition, these firms were able to benefit from the rise of commodity exchanges and commodities futures markets that ③<u>emerged</u> in the mid-1800s. Their access to information in multiple markets ④<u>enable</u> them to easily cover the risks associated with agricultural commodity trade.`,
 stem:'밑줄 친 부분 중, 어법상 틀린 것은?',
-det:{korean:'④ enable → <b>enabled</b>: 주어(Their access)가 3인칭 단수이고 과거 시제이므로 enabled가 되어야 합니다.',analysis:'① to know: make it their business to V (올바름)\n② frequently: 부사 수식 (올바름)\n③ emerged: 관계대명사절 과거동사 (올바름)\n④ enable → enabled: 과거 시제 + 3인칭 단수\n⑤ (없음)',tip:'주어-동사 수일치와 시제를 확인하세요. access(단수) + 과거 문맥 → enabled'}},
+det:{korean:'④ enable → <b>enabled</b>: 주어(Their access)가 3인칭 단수이고 과거 시제이므로 enabled가 되어야 합니다.',analysis:'① to know: make it their business to V (올바름)
+② frequently: 부사 수식 (올바름)
+③ emerged: 관계대명사절 과거동사 (올바름)
+④ enable → enabled: 과거 시제 + 3인칭 단수
+⑤ (없음)',tip:'주어-동사 수일치와 시제를 확인하세요. access(단수) + 과거 문맥 → enabled'}},
 
 {id:6,type:'어법 5지선다',diff:'보통',pts:5,fmt:'mc',ans:1,
 ch:['① heated','② particularly','③ Rather','④ regularity','⑤ linked'],
 passage:`He offers an account of rain as water that rises when ①<u>heated</u> by the Sun, then cools, condenses, and falls to Earth, but is not ②<u>particularly</u> concerned with explaining rain as such. ③<u>Rather</u>, he addresses a more general question: how to account for natural objects, events, and processes that appear with ④<u>regularity</u>. He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with regularity and that regularity is ⑤<u>linked</u> to purposefulness.`,
 stem:'밑줄 친 부분 중, 어법상 틀린 것이 <b>없는</b> 경우 답은 몇 번인가? (모두 맞으면 ⑤ 선택)',
-det:{korean:'모든 밑줄 친 부분이 어법상 올바릅니다. ① heated(과거분사, 수동), ② particularly(부사), ③ Rather(부사), ④ regularity(명사), ⑤ linked(과거분사, 수동)',analysis:'① heated: when (it is) heated 분사구문 (올바름)\n② particularly: 부사 (올바름)\n③ Rather: 전환 부사 (올바름)\n④ regularity: with + 명사 (올바름)\n⑤ linked: is linked to 수동태 (올바름)\n→ 모두 올바르므로 정답 없음. 하지만 출제 의도상 가장 혼동 가능한 것을 고르면...',tip:'어법 5지선다에서 모두 맞는 경우: 가장 혼동 가능한 보기를 재확인하세요.'}},
+det:{korean:'모든 밑줄 친 부분이 어법상 올바릅니다. ① heated(과거분사, 수동), ② particularly(부사), ③ Rather(부사), ④ regularity(명사), ⑤ linked(과거분사, 수동)',analysis:'① heated: when (it is) heated 분사구문 (올바름)
+② particularly: 부사 (올바름)
+③ Rather: 전환 부사 (올바름)
+④ regularity: with + 명사 (올바름)
+⑤ linked: is linked to 수동태 (올바름)
+→ 모두 올바르므로 정답 없음. 하지만 출제 의도상 가장 혼동 가능한 것을 고르면...',tip:'어법 5지선다에서 모두 맞는 경우: 가장 혼동 가능한 보기를 재확인하세요.'}},
 
 {id:7,type:'어법 5지선다',diff:'보통',pts:5,fmt:'mc',ans:4,
 ch:['① prolific','② likely','③ correlated','④ confirmed','⑤ distinguish'],
 passage:`AI is a ①<u>prolific</u> idea generator. Good ideas are more ②<u>likely</u> when groups focus first on quantity. Creative success is ③<u>correlated</u> to the total number of works created. Many studies have ④<u>confirmed</u> that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that ⑤<u>distinguish</u> a successful product from a failure at more than two thousand.`,
 stem:'밑줄 친 부분 중, 어법상 틀린 것은?',
-det:{korean:'⑤ distinguish → <b>distinguished</b> 또는 그대로 올바름. 사실 관계대명사 that의 선행사가 ideas(복수)이므로 distinguish는 올바른 복수 동사입니다. 하지만 the number of ideas가 선행사이고 ideas를 수식하는 관계절이라면 ideas(복수)에 distinguish(복수)가 맞습니다.',analysis:'① prolific: 형용사 (올바름)\n② likely: 형용사 보어 (올바름)\n③ correlated: is correlated to 수동태 (올바름)\n④ confirmed: have confirmed 현재완료 (올바름)\n⑤ distinguish: ideas that distinguish... 복수주어+복수동사 (올바름)\n→ 모두 올바르므로 함정 문제. 가장 혼동 가능: ⑤',tip:'the number of ideas that distinguish: that의 선행사는 ideas(복수)이므로 복수동사 distinguish가 올바릅니다.'}},
+det:{korean:'⑤ distinguish → <b>distinguished</b> 또는 그대로 올바름. 사실 관계대명사 that의 선행사가 ideas(복수)이므로 distinguish는 올바른 복수 동사입니다. 하지만 the number of ideas가 선행사이고 ideas를 수식하는 관계절이라면 ideas(복수)에 distinguish(복수)가 맞습니다.',analysis:'① prolific: 형용사 (올바름)
+② likely: 형용사 보어 (올바름)
+③ correlated: is correlated to 수동태 (올바름)
+④ confirmed: have confirmed 현재완료 (올바름)
+⑤ distinguish: ideas that distinguish... 복수주어+복수동사 (올바름)
+→ 모두 올바르므로 함정 문제. 가장 혼동 가능: ⑤',tip:'the number of ideas that distinguish: that의 선행사는 ideas(복수)이므로 복수동사 distinguish가 올바릅니다.'}},
 
 {id:8,type:'부적절어휘',diff:'쉬움',pts:4,fmt:'mc',ans:3,
 ch:['① secrecy','② loyalty','③ minimize','④ dependently','⑤ commodity'],
 passage:`Because this information was the key to their profitability, these firms worked in relative ①<u>secrecy</u>, frequently built on family ties, trust, and ②<u>loyalty</u>. Locking-in prices helped these firms to ③<u>minimize</u> such risks. It made sense for the grain trading companies to manage their risks within a single firm, rather than operating as ④<u>dependently</u> national companies trading with each other. Their access to information enabled them to easily cover the risks associated with agricultural ⑤<u>commodity</u> trade.`,
 stem:'밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
-det:{korean:'④ dependently → <b>independent(ly)</b>: 원문에서는 독립적인(independent) 국가별 회사가 아닌 단일 회사로 운영하는 것이 합리적이라고 합니다. dependently(의존적으로)는 원문의 independently와 반대입니다.',analysis:'① secrecy: 원문 그대로 (적절)\n② loyalty: 원문 그대로 (적절)\n③ minimize: 원문 그대로 (적절)\n④ dependently → independently: 원문과 반대\n⑤ commodity: 원문 그대로 (적절)',tip:'independent(독립적인) ↔ dependent(의존적인): 부적절 어휘 문제의 전형적 반의어 교체'}},
+det:{korean:'④ dependently → <b>independent(ly)</b>: 원문에서는 독립적인(independent) 국가별 회사가 아닌 단일 회사로 운영하는 것이 합리적이라고 합니다. dependently(의존적으로)는 원문의 independently와 반대입니다.',analysis:'① secrecy: 원문 그대로 (적절)
+② loyalty: 원문 그대로 (적절)
+③ minimize: 원문 그대로 (적절)
+④ dependently → independently: 원문과 반대
+⑤ commodity: 원문 그대로 (적절)',tip:'independent(독립적인) ↔ dependent(의존적인): 부적절 어휘 문제의 전형적 반의어 교체'}},
 
 {id:9,type:'부적절어휘',diff:'보통',pts:5,fmt:'mc',ans:2,
 ch:['① unconsciously','② gestures','③ rational','④ visceral','⑤ conduit'],
 passage:`When interacting with other people, we subtly and ①<u>unconsciously</u> mimic their facial expressions, ②<u>gestures</u>, posture, and vocal pitch. Then, via the interoception of our own bodies' signals, we perceive what the other person is feeling in a purely ③<u>rational</u> way. The body acts as a critical ④<u>conduit</u>, supplying the brain with the ⑤<u>visceral</u> information it lacks.`,
 stem:'밑줄 친 단어 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?',
-det:{korean:'③ rational(이성적인) → 원문에서는 감정을 "우리 안에서 느끼기(feel it in ourselves)" 때문에 인식한다고 하므로, 이성적인 방식이 아닌 체험적/감각적 방식입니다.',analysis:'① unconsciously: 원문 그대로 (적절)\n② gestures: 원문 그대로 (적절)\n③ rational: 원문은 감각적 체험 → rational(이성적)은 부적절\n④ conduit: 원문 그대로 (적절)\n⑤ visceral: 원문 그대로 (적절)',tip:'rational(이성적) ↔ experiential/visceral(체험적): 본문은 신체를 통한 감각적 체험을 강조'}},
+det:{korean:'③ rational(이성적인) → 원문에서는 감정을 "우리 안에서 느끼기(feel it in ourselves)" 때문에 인식한다고 하므로, 이성적인 방식이 아닌 체험적/감각적 방식입니다.',analysis:'① unconsciously: 원문 그대로 (적절)
+② gestures: 원문 그대로 (적절)
+③ rational: 원문은 감각적 체험 → rational(이성적)은 부적절
+④ conduit: 원문 그대로 (적절)
+⑤ visceral: 원문 그대로 (적절)',tip:'rational(이성적) ↔ experiential/visceral(체험적): 본문은 신체를 통한 감각적 체험을 강조'}},
 
 {id:10,type:'빈칸추론',diff:'보통',pts:5,fmt:'mc',ans:0,
 ch:['profitability','unification','innovation','reputation','morality'],
 passage:P_GW,
 stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
-det:{korean:'초기 곡물 무역 회사들은 수요와 공급 정보를 알고 있었고, 이 정보가 수익성(profitability)의 핵심이었기 때문에 비밀리에 운영했습니다.',analysis:'✅ ① profitability: 정보 → 수익성의 핵심\n❌ ② unification\n❌ ③ innovation\n❌ ④ reputation\n❌ ⑤ morality',tip:'빈칸 전후: information + key to their ___ + secrecy → 수익성'}},
+det:{korean:'초기 곡물 무역 회사들은 수요와 공급 정보를 알고 있었고, 이 정보가 수익성(profitability)의 핵심이었기 때문에 비밀리에 운영했습니다.',analysis:'✅ ① profitability: 정보 → 수익성의 핵심
+❌ ② unification
+❌ ③ innovation
+❌ ④ reputation
+❌ ⑤ morality',tip:'빈칸 전후: information + key to their ___ + secrecy → 수익성'}},
 
 {id:11,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:3,
 ch:['swiftness','creativity','originality','purposefulness','beauty'],
 passage:P_EX01,
 stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
-det:{korean:'규칙적 배열이 우연이 아님 → 규칙성이 목적성(purposefulness)과 연결 → 최종 원인(final cause)',analysis:'✅ ④ purposefulness: regularity → purpose → final cause\n❌ ① swiftness(신속성)\n❌ ② creativity(창의성)\n❌ ③ originality(독창성)\n❌ ⑤ beauty(아름다움)',tip:'아리스토텔레스 목적론: 자연의 모든 규칙적 현상에는 목적이 있다'}},
+det:{korean:'규칙적 배열이 우연이 아님 → 규칙성이 목적성(purposefulness)과 연결 → 최종 원인(final cause)',analysis:'✅ ④ purposefulness: regularity → purpose → final cause
+❌ ① swiftness(신속성)
+❌ ② creativity(창의성)
+❌ ③ originality(독창성)
+❌ ⑤ beauty(아름다움)',tip:'아리스토텔레스 목적론: 자연의 모든 규칙적 현상에는 목적이 있다'}},
 
 {id:12,type:'빈칸추론',diff:'어려움',pts:6,fmt:'mc',ans:3,
 ch:['renewed emphasis on traditional literacy in modern society','accelerated progression in the intellectual growth of human cognition','rapid changes in the application of human faculties to daily activities','arrested development in the natural evolution of higher human faculties','an unprecedented competition between human abilities and artificial intelligence'],
 passage:P_EX04,
 stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
-det:{korean:'McLuhan: 모든 미디어 확장 = 절단. 차가 있으면 걷지 않고, 하드드라이브가 있으면 기억하지 않음 → 인간 고등 능력의 자연적 진화가 <b>정지(arrested)</b>됨',analysis:'✅ ④ arrested development in the natural evolution of higher human faculties\n❌ ① 전통 문해력 강조\n❌ ② 지적 성장 가속\n❌ ③ 일상 적용의 급변\n❌ ⑤ 인간-AI 경쟁',tip:'arrested development = 발전 정지: 기술이 인간 능력을 대체하면서 자연적 진화가 멈춤'}},
+det:{korean:'McLuhan: 모든 미디어 확장 = 절단. 차가 있으면 걷지 않고, 하드드라이브가 있으면 기억하지 않음 → 인간 고등 능력의 자연적 진화가 <b>정지(arrested)</b>됨',analysis:'✅ ④ arrested development in the natural evolution of higher human faculties
+❌ ① 전통 문해력 강조
+❌ ② 지적 성장 가속
+❌ ③ 일상 적용의 급변
+❌ ⑤ 인간-AI 경쟁',tip:'arrested development = 발전 정지: 기술이 인간 능력을 대체하면서 자연적 진화가 멈춤'}},
 
 {id:13,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'profitability',accept:['profitability','Profitability','PROFITABILITY'],
 passage:`Because this information was the key to their ____________________, these firms worked in relative secrecy.`,
@@ -223,65 +295,101 @@ det:{korean:'상대 감정을 <b>맛보는(sampling their emotions)</b> 것',ana
 ch:['곡물 무역 회사들은 정보를 공개적으로 공유하여 경쟁력을 확보했다.','곡물 무역 회사들은 비밀리에 운영하며 정보 우위를 통해 수익성을 확보했다.','곡물 무역 회사들은 독립적인 국가별 회사로 운영하는 것을 선호했다.','곡물 무역 회사들은 선물 시장의 등장 이전에 위험을 완전히 제거할 수 있었다.','곡물 무역 회사들은 한 나라의 시장에만 집중하여 위험을 관리했다.'],
 passage:P_GW,
 stem:'다음 글의 요지로 가장 적절한 것은?',
-det:{korean:'곡물 무역 회사들은 정보를 비밀리에 관리하고, 선물 시장 활용과 다국적 운영을 통해 위험을 최소화하며 수익성을 확보했습니다.',analysis:'② 비밀 운영 + 정보 우위 + 수익성: 지문의 핵심 요지\n❌ ① 공개적 공유 → secrecy와 반대\n❌ ③ 독립 운영 선호 → 단일 회사 운영이 합리적\n❌ ④ 완전 제거 → minimize(최소화)\n❌ ⑤ 한 나라 집중 → more than one country',tip:'요지 파악: 정보 비밀 관리 → 경쟁 우위 → 수익성 확보'}},
+det:{korean:'곡물 무역 회사들은 정보를 비밀리에 관리하고, 선물 시장 활용과 다국적 운영을 통해 위험을 최소화하며 수익성을 확보했습니다.',analysis:'② 비밀 운영 + 정보 우위 + 수익성: 지문의 핵심 요지
+❌ ① 공개적 공유 → secrecy와 반대
+❌ ③ 독립 운영 선호 → 단일 회사 운영이 합리적
+❌ ④ 완전 제거 → minimize(최소화)
+❌ ⑤ 한 나라 집중 → more than one country',tip:'요지 파악: 정보 비밀 관리 → 경쟁 우위 → 수익성 확보'}},
 
 {id:18,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:3,
 ch:['아리스토텔레스는 비가 내리는 현상 자체를 설명하는 데 주로 관심이 있었다.','자연에서 규칙적으로 나타나는 현상은 모두 우연의 일치이다.','앞니와 어금니의 형태 차이는 자연의 무작위적 결과이다.','아리스토텔레스에 따르면 자연의 규칙적 현상은 목적과 연결되어 있다.','아리스토텔레스는 자연의 최종 원인 개념을 부정했다.'],
 passage:P_EX01,
 stem:'다음 글의 주제로 가장 적절한 것은?',
-det:{korean:'아리스토텔레스는 자연의 규칙적 현상이 목적성(purposefulness)과 연결되어 있으며, 이것이 최종 원인(final cause)이라고 보았습니다.',analysis:'④ 규칙적 현상 + 목적 연결: 지문의 핵심 주제\n❌ ① 비 설명에 관심 없음\n❌ ② 우연을 거부\n❌ ③ 무작위 거부\n❌ ⑤ 최종 원인 제시',tip:'final cause(최종 원인) = 아리스토텔레스 목적론의 핵심'}},
+det:{korean:'아리스토텔레스는 자연의 규칙적 현상이 목적성(purposefulness)과 연결되어 있으며, 이것이 최종 원인(final cause)이라고 보았습니다.',analysis:'④ 규칙적 현상 + 목적 연결: 지문의 핵심 주제
+❌ ① 비 설명에 관심 없음
+❌ ② 우연을 거부
+❌ ③ 무작위 거부
+❌ ⑤ 최종 원인 제시',tip:'final cause(최종 원인) = 아리스토텔레스 목적론의 핵심'}},
 
 {id:19,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:0,
 ch:['T','F'],
 passage:P_EX02,
-stem:'다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n<b>"Dean Keith Simonton은 창의적 성공이 만들어진 작품의 총 수와 상관관계가 있다고 주장했다."</b>',
-det:{korean:'원문: Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created → <b>일치(T)</b>',analysis:'T: 원문에 명시적으로 기술됨\ncorrelated to the total number of works created',tip:'equal odds rule = 동등한 확률 법칙: 작품 수 ↔ 창의적 성공 상관관계'}},
+stem:'다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.
+
+<b>"Dean Keith Simonton은 창의적 성공이 만들어진 작품의 총 수와 상관관계가 있다고 주장했다."</b>',
+det:{korean:'원문: Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created → <b>일치(T)</b>',analysis:'T: 원문에 명시적으로 기술됨
+correlated to the total number of works created',tip:'equal odds rule = 동등한 확률 법칙: 작품 수 ↔ 창의적 성공 상관관계'}},
 
 {id:20,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,
 ch:['T','F'],
 passage:P_EX04,
-stem:'다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n<b>"McLuhan에 따르면, 기술의 발전으로 인해 인간은 인쇄 매체에 더욱 의존하게 되었다."</b>',
-det:{korean:'원문: we are becoming post-literate because we rely on screens full of pictures, rather than print media → 인쇄 매체가 아닌 화면에 의존 → <b>불일치(F)</b>',analysis:'F: 인쇄 매체(print media) 의존이 아닌 화면(screens) 의존\npost-literate = 탈문해화: 문자보다 이미지 의존',tip:'post-literate = 탈문해화: print media(인쇄) → screens(화면)으로 전환'}}
+stem:'다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.
+
+<b>"McLuhan에 따르면, 기술의 발전으로 인해 인간은 인쇄 매체에 더욱 의존하게 되었다."</b>',
+det:{korean:'원문: we are becoming post-literate because we rely on screens full of pictures, rather than print media → 인쇄 매체가 아닌 화면에 의존 → <b>불일치(F)</b>',analysis:'F: 인쇄 매체(print media) 의존이 아닌 화면(screens) 의존
+post-literate = 탈문해화: 문자보다 이미지 의존',tip:'post-literate = 탈문해화: print media(인쇄) → screens(화면)으로 전환'}}
 ];
 
-let S={cur:0,ans:new Array(EI.totalQ).fill(null),start:null,left:EI.time,ti:null};
-function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]')}catch(e){return[]}}
-function saveToHistory(r,elapsed){const h=getHistory();h.push({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,time:fmtTime(elapsed),date:new Date().toLocaleDateString('ko-KR'),level:getLevel(r.score).name,levelIcon:getLevel(r.score).icon});if(h.length>10)h.splice(0,h.length-10);try{localStorage.setItem(EI.histKey,JSON.stringify(h))}catch(e){}updateHCount();}
-function updateHCount(){document.getElementById('hCount').textContent=getHistory().length;}
-function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length)p.innerHTML='<p style="text-align:center;color:var(--tl);padding:20px;font-size:14px">아직 시험 기록이 없습니다.</p>';else p.innerHTML=h.slice().reverse().map(r=>`<div class="history-item"><div class="hi-left"><div class="hi-name">${r.name}</div><div class="hi-meta">${r.date} · ${r.time} · ${r.grade}</div></div><div class="hi-right"><div class="hi-score">${r.score}점</div><div class="hi-level">${r.levelIcon} ${r.level}</div></div></div>`).join('');p.style.display='block';}
-updateHCount();
-function getLevel(s){if(s>=95)return{name:'전설',icon:'🐉',range:'95~100',msg:'완벽에 가까운 실력!'};if(s>=90)return{name:'챔피언',icon:'🏆',range:'90~94',msg:'최상위권!'};if(s>=80)return{name:'다이아몬드',icon:'💎',range:'80~89',msg:'통과! 취약 유형만 복습하면 최상위!'};if(s>=70)return{name:'빛나는별',icon:'🌟',range:'70~79',msg:'통과까지 조금만 더!'};if(s>=60)return{name:'별',icon:'⭐',range:'60~69',msg:'기본기 탄탄! 본문 복습 후 재도전!'};if(s>=40)return{name:'나무',icon:'🌲',range:'40~59',msg:'성장 중!'};return{name:'새싹',icon:'🌱',range:'0~39',msg:'단어 암기부터 시작!'};}
-function fmtTime(s){return Math.floor(s/60)+'분 '+(s%60)+'초';}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-function startExam(){if(!document.getElementById('inpName').value.trim()){alert('이름을 입력해주세요.');return;}S={cur:0,ans:new Array(EI.totalQ).fill(null),start:Date.now(),left:EI.time,ti:null};showScreen('examScreen');renderQ();renderDots();startTimer();}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
 
-function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const markers=q.ch.length===5?'①②③④⑤':q.ch.length===4?'①②③④':q.ch.length===3?'①②③':'①②';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${markers[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;});el.innerHTML=h;}
-function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
-function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
-function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
-function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
-function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
+function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
+function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--o)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #E0D8CF;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--o)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
+function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
+function getTypeAdvice(t){const m={'(A)(B)(C) 조합형':'반의어 함정 주의, 원문 단어 정확히 암기','문맥상 부적절한 어휘':'밑줄 단어가 반의어로 바뀌었는지 확인','동의어 고르기':'동의어 쌍을 세트로 묶어 암기','반의어 고르기':'반의어 쌍을 세트로 묶어 암기','빈칸 어휘 완성':'문맥 단서(clue) 찾기 연습 필요','다의어 문맥적 의미':'다의어의 여러 뜻을 문맥별로 구분','영영풀이 매칭':'영영사전 정의 읽기 연습','어형 변환 (서술형)':'품사 변환 규칙(명↔형, 동↔명) 정리','빈칸 문맥 완성':'글의 흐름과 논리적 연결 파악','어법':'핵심 어법 규칙 정리 및 반복 연습','내용일치':'지문과 선지를 꼼꼼히 대조','내용불일치':'함정 선지의 미세한 차이 찾기','T/F':'원문과 진술을 정확히 대조','서술형':'정확한 철자와 어형 변환 주의','빈칸추론':'빈칸 전후 문맥 단서 찾기','빈칸 추론':'빈칸 전후 문맥 단서 찾기','문장삽입':'글의 흐름과 연결사 파악','어순배열':'문장 구조(S+V+O) 정확히 파악','어휘':'문맥에서 적절한 어휘 고르기 연습','내용이해':'지문 핵심 내용 정확히 파악'};return m[t]||'해당 유형 집중 복습 필요';}
+function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderSlide(0);startTimer();}
+
+function renderSlide(idx){
+S.cur=idx;const q=Q[idx];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':q.ch&&q.ch.length===4?'①②③④':q.ch&&q.ch.length===3?'①②③':'①②';
+// passage area
+const pp=document.getElementById('slidePassage');
+let ph=`<div class="slide-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
+if(q.passage)ph+=`<div class="q-passage">${q.passage}</div>`;
+if(!q.passage)ph+=`<div style="padding:20px;text-align:center;color:var(--tl);font-size:13px">이 문항은 지문이 없습니다.</div>`;
+pp.innerHTML=ph;pp.scrollTop=0;
+// bottom area
+const bt=document.getElementById('slideBottom');
+let bh=`<div class="slide-stem">${q.stem}</div>`;
+if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[idx]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
+if(q.fmt==='written'){const val=S.ans[idx]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
+bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
+bt.innerHTML=bh;bt.scrollTop=0;
+}
+function slideSel(qi,ci){S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(qi);document.getElementById('slidePassage').scrollTop=st;}
+function slideWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;}
+function renderQ(){}
+function renderDots(){}
+function upDots(){}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)renderSlide(i);}
+function sel(){}
+function sw(){}
 function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
-function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
 function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
-
 function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
 h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
 h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
 h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📊 유형별 분석</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p>=80?'var(--o)':p>=50?'var(--warn)':'var(--r)';h+=`<div class="type-row"><span class="type-label">${type}</span><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div><span class="type-pct" style="color:${c}">${p}%</span></div>`;});
-if(perfectTypes.length)h+=`<div style="margin-top:14px"><div style="font-size:13px;font-weight:700;color:var(--o);margin-bottom:6px">🌟 만점 유형</div><div class="tag-list">${perfectTypes.map(t=>`<span class="tag-item good">${t}</span>`).join('')}</div></div>`;if(weakTypes.length)h+=`<div style="margin-top:10px"><div style="font-size:13px;font-weight:700;color:var(--r);margin-bottom:6px">⚠️ 보완 필요</div><div class="tag-list">${weakTypes.map(t=>`<span class="tag-item weak">${t}</span>`).join('')}</div></div>`;h+=`</div>`;
-h+=`<div class="rs"><div class="rs-title">📝 학습 플랜</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">🏅</div><div class="plan-text"><h4>완벽!</h4><p>다른 문항도 도전하세요.</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">📈</div><div class="plan-text"><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형 집중 복습으로 만점까지!</p></div>`;else if(pct>=60)h+=`<div class="plan-icon">💪</div><div class="plan-text"><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;h+=`</div></div>`;
-h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid"><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">결과 공유하기</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const markers=d.q.ch&&d.q.ch.length===5?'①②③④⑤':d.q.ch&&d.q.ch.length===4?'①②③④':d.q.ch&&d.q.ch.length===3?'①②③':'①②';const ua=d.q.fmt==='mc'?(d.ans!==null?markers[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?markers[d.q.ans]:d.q.wa;const open=!d.ok;const det=d.q.det||{};h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type}] ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--oxl);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:11px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:10px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--oxl);color:var(--o)"><div style="font-size:11px;opacity:.7">정답</div>${ca}</div></div>${det.korean?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${det.korean}</div>`:''}${det.analysis?`<div class="expl-tag tip">📋 분석</div><div class="expl-box">${det.analysis}</div>`:''}${det.tip?`<div class="expl-tag tip">💡 팁</div><div class="expl-box tip-b">${det.tip}</div>`:''}</div></div>`;});h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80;
-let txt=`📝 온라인퀴즈 TEST 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n📚 ${EI.subject} · ${EI.pub}\n👤 ${nm}${sc?' · '+sc:''} · ${gr}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n🏆 점수: ${r.score} / ${EI.total}점 (${pct}%)\n${lv.icon} 레벨: ${lv.name}\n${pass?'🎉 통과!':'📚 미통과'}\n\n✅ 정답 ${r.correct}개  ❌ 오답 ${r.wrong}개  ⬜ 미응답 ${r.unanswered}개\n⏱️ 소요시간: ${fmtTime(elapsed)}\n`;
-navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--o)':p>=50?'var(--warn)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':d.q.ch&&d.q.ch.length===4?'①②③④':d.q.ch&&d.q.ch.length===3?'①②③':'①②';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
+let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--o)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--oxl)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
+h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--oxl);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--oxl);color:var(--o)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
+function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#E8772E':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#FFF3E8,#FFE8D5':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#E8772E':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
+function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
 function retake(){startExam();}
 function goHome(){showScreen('startScreen');updateHCount();}
 window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+updateHCount();
 </script>
 </body>
 </html>
