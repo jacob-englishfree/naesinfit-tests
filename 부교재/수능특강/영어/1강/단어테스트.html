@@ -74,7 +74,20 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .rev-card{border:1.5px solid #dde8df;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--gxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--gxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
 .expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--gl);color:var(--g);}.expl-tag.tip{background:var(--gxl);color:var(--gd);}
 .expl-box{font-size:13.5px;line-height:1.85;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--g);}.expl-box.tip-b{border-left:3px solid var(--g);background:var(--gxl);}
-@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
+.split-mode .exam-scroll{display:none;}
+.split-view{display:none;height:calc(100vh - 52px - 56px);flex-direction:column;}
+.split-mode .split-view{display:flex;}
+.split-passage{height:40%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px;background:linear-gradient(135deg,#FAFDFB,#F5FAF6);border-bottom:2px solid var(--g);font-size:clamp(12.5px,3vw,14.5px);line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;}
+.split-question{height:60%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;background:#fff;}
+.split-question .q-header-mini{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+.split-question .q-num{width:32px;height:32px;font-size:13px;}
+.split-question .q-stem{font-size:14px;font-weight:700;margin-bottom:14px;}
+.split-question .choices{display:flex;flex-direction:column;gap:8px;}
+.split-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(255,255,255,.95);border-top:1px solid rgba(0,0,0,.06);}
+.split-nav button{padding:8px 16px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.split-nav button:disabled{opacity:.3;}
+.split-nav .nav-cur{font-size:14px;font-weight:800;color:var(--g);}
+@media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}.split-passage{height:38%;font-size:12.5px;}.split-question{height:62%;}}
 </style>
 </head>
 <body>
@@ -103,6 +116,15 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <div id="examScreen" class="screen">
   <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">수능특강 · <span>01강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-scroll" id="examScroll"></div>
+  <div class="split-view" id="splitView">
+    <div class="split-passage" id="splitPassage"></div>
+    <div class="split-question" id="splitQuestion"></div>
+    <div class="split-nav">
+      <button onclick="splitPrev()">&larr; 이전</button>
+      <span class="nav-cur" id="splitCur">1/20</span>
+      <button onclick="splitNext()">다음 &rarr;</button>
+    </div>
+  </div>
   <div class="exam-nav" id="navDots"></div>
 </div>
 <div id="resultScreen" class="screen"></div>
@@ -175,14 +197,23 @@ function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderQ();renderDots();startTimer();window.scrollTo(0,0);}
+function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderQ();renderDots();startTimer();if(needsSplit(Q[0])){renderSplitQ(0);}window.scrollTo(0,0);}
 
 function renderQ(){const el=document.getElementById('examScroll');let h='';Q.forEach((q,i)=>{const tc=typeTag[q.type]||'';h+=`<div class="q-card" id="qc-${i}"><div class="q-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><div class="q-meta"><span class="q-diff">${q.diff}</span><span class="q-pts">${q.pts}점</span></div></div><div class="q-body">`;if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;h+=`<div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){const mk=q.ch.length===5?'①②③④⑤':'①②③④';h+=`<div class="choices">`;q.ch.forEach((c,ci)=>h+=`<button class="choice-btn" data-q="${i}" data-c="${ci}" onclick="sel(${i},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`);h+=`</div>`;}if(q.fmt==='written')h+=`<textarea class="written-input" id="w-${i}" placeholder="답안을 입력하세요..." oninput="sw(${i})"></textarea>`;h+=`</div></div>`;}); el.innerHTML=h;}
 function renderDots(){document.getElementById('navDots').innerHTML=Array.from({length:EI.totalQ},(_,i)=>`<button class="nav-dot" onclick="scrollToQ(${i})">${i+1}</button>`).join('');upDots();}
 function upDots(){document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('answered',S.ans[i]!==null));}
-function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}
+function scrollToQ(i){if(i<0||i>=EI.totalQ)return;S.cur=i;if(needsSplit(Q[i])){renderSplitQ(i);}else{exitSplitMode();document.getElementById('qc-'+i).scrollIntoView({behavior:'smooth',block:'center'});}}
 function sel(qi,ci){document.querySelectorAll('.choice-btn[data-q="'+qi+'"]').forEach(b=>b.classList.remove('selected'));document.querySelector('.choice-btn[data-q="'+qi+'"][data-c="'+ci+'"]').classList.add('selected');S.ans[qi]=ci;upDots();}
 function sw(qi){S.ans[qi]=document.getElementById('w-'+qi).value.trim()||null;upDots();}
+const SPLIT_THRESHOLD=200;
+function needsSplit(q){return q.passage&&q.passage.replace(/<[^>]*>/g,'').length>SPLIT_THRESHOLD;}
+function enterSplitMode(){document.getElementById('examScreen').classList.add('split-mode');}
+function exitSplitMode(){document.getElementById('examScreen').classList.remove('split-mode');}
+function renderSplitQ(idx){const q=Q[idx];S.cur=idx;if(!needsSplit(q)){exitSplitMode();document.getElementById('qc-'+idx).scrollIntoView({behavior:'smooth',block:'center'});return;}enterSplitMode();document.getElementById('splitPassage').innerHTML=q.passage;const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';let h=`<div class="q-header-mini"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}">${q.type}</span><span style="margin-left:auto;font-size:12px;color:var(--tl)">${q.diff} ${q.pts}점</span></div><div class="q-stem">${q.stem}</div>`;if(q.fmt==='mc'){h+=`<div class="choices">`;q.ch.forEach((c,ci)=>{const selected=S.ans[idx]===ci?' selected':'';h+=`<button class="choice-btn${selected}" data-q="${idx}" data-c="${ci}" onclick="splitSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});h+=`</div>`;}if(q.fmt==='written'){const val=S.ans[idx]||'';h+=`<textarea class="written-input" id="sw-${idx}" placeholder="답안을 입력하세요..." oninput="splitWrite(${idx})">${val}</textarea>`;}document.getElementById('splitQuestion').innerHTML=h;document.getElementById('splitCur').textContent=`${idx+1}/${EI.totalQ}`;const btns=document.querySelectorAll('.split-nav button');btns[0].disabled=idx===0;btns[1].disabled=idx===EI.totalQ-1;upDots();document.getElementById('splitPassage').scrollTop=0;document.getElementById('splitQuestion').scrollTop=0;}
+function splitSel(qi,ci){S.ans[qi]=ci;renderSplitQ(qi);}
+function splitWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;upDots();}
+function splitPrev(){if(S.cur>0)renderSplitQ(S.cur-1);}
+function splitNext(){if(S.cur<EI.totalQ-1)renderSplitQ(S.cur+1);}
 function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
 function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
 function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
