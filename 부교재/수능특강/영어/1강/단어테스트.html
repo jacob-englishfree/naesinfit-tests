@@ -195,26 +195,37 @@ function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now()};showScreen('examScreen');renderSlide(0);startTimer();}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function startExam(){const nm=document.getElementById('inpName').value.trim();if(!nm){toast('이름을 입력해주세요!');return;}S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};showScreen('examScreen');renderSlide(0);startTimer();}
 
 function renderSlide(idx){
-S.cur=idx;const q=Q[idx];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';
-// passage area
+S.cur=idx;const qi=S.order?S.order[idx]:idx;const q=Q[qi];const tc=typeTag[q.type]||'';const mk=q.ch&&q.ch.length===5?'①②③④⑤':'①②③④';
+const pLen=q.passage?q.passage.replace(/<[^>]*>/g,'').length:0;const isShort=pLen<=200;
 const pp=document.getElementById('slidePassage');
-let ph=`<div class="slide-header"><div class="q-num">${q.id}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
-if(q.passage)ph+=`<div class="q-passage">${q.passage}</div>`;
-if(!q.passage)ph+=`<div style="padding:20px;text-align:center;color:var(--tl);font-size:13px">이 문항은 지문이 없습니다.</div>`;
-pp.innerHTML=ph;pp.scrollTop=0;
-// bottom area
 const bt=document.getElementById('slideBottom');
+if(isShort){
+// 짧은 지문: 인라인 모드 — 지문+발문+선지 한 화면
+let h=`<div class="slide-header"><div class="q-num">${idx+1}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
+if(q.passage)h+=`<div class="q-passage">${q.passage}</div>`;
+h+=`<div class="slide-stem" style="margin-top:12px">${q.stem}</div>`;
+if(q.fmt==='mc'){h+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[qi]===ci?' selected':'';h+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});h+=`</div>`;}
+if(q.fmt==='written'){const val=S.ans[qi]||'';h+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
+h+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
+pp.innerHTML=h;pp.scrollTop=0;bt.innerHTML='';bt.style.display='none';
+}else{
+// 긴 지문: 슬라이드 모드 — 위 지문 + 하단 선지
+bt.style.display='';
+let ph=`<div class="slide-header"><div class="q-num">${idx+1}</div><span class="q-type-tag ${tc}" style="font-size:10px;padding:3px 8px">${q.type}</span><span style="margin-left:auto;font-size:11px;color:var(--tl)">${q.diff} · ${q.pts}점</span></div>`;
+ph+=`<div class="q-passage">${q.passage}</div>`;
+pp.innerHTML=ph;pp.scrollTop=0;
 let bh=`<div class="slide-stem">${q.stem}</div>`;
-if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[idx]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
-if(q.fmt==='written'){const val=S.ans[idx]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
+if(q.fmt==='mc'){bh+=`<div class="slide-choices">`;q.ch.forEach((c,ci)=>{const sel=S.ans[qi]===ci?' selected':'';bh+=`<button class="choice-btn${sel}" onclick="slideSel(${idx},${ci})"><span class="c-num">${mk[ci]}</span><span>${c}</span></button>`;});bh+=`</div>`;}
+if(q.fmt==='written'){const val=S.ans[qi]||'';bh+=`<input class="written-input" id="sw-${idx}" value="${val}" placeholder="답안을 입력하세요..." oninput="slideWrite(${idx})">`;}
 bh+=`<div class="slide-nav"><button ${idx===0?'disabled':''}onclick="renderSlide(${idx-1})">&larr; 이전</button><span class="nav-cur">${idx+1} / ${EI.totalQ}</span><button class="sn-next" ${idx===EI.totalQ-1?'disabled':''}onclick="renderSlide(${idx+1})">다음 &rarr;</button></div>`;
 bt.innerHTML=bh;bt.scrollTop=0;
-}
-function slideSel(qi,ci){S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(qi);document.getElementById('slidePassage').scrollTop=st;}
-function slideWrite(qi){const el=document.getElementById('sw-'+qi);S.ans[qi]=el?el.value.trim()||null:null;}
+}}
+function slideSel(idx,ci){const qi=S.order?S.order[idx]:idx;S.ans[qi]=ci;const st=document.getElementById('slidePassage').scrollTop;renderSlide(idx);document.getElementById('slidePassage').scrollTop=st;}
+function slideWrite(idx){const qi=S.order?S.order[idx]:idx;const el=document.getElementById('sw-'+idx);S.ans[qi]=el?el.value.trim()||null:null;}
 function renderQ(){}
 function renderDots(){}
 function upDots(){}
