@@ -29,7 +29,7 @@ function extractData(htmlPath) {
   else throw new Error(`Cannot determine testType from filename: ${basename}`);
 
   // ── Extract EI ──
-  const eiMatch = script.match(/const\s+EI\s*=\s*(\{[^;]+\});/);
+  const eiMatch = script.match(/(?:const|let|var)\s+EI\s*=\s*(\{[^;]+\});/);
   if (!eiMatch) throw new Error('EI object not found');
   let ei;
   try {
@@ -40,17 +40,27 @@ function extractData(htmlPath) {
   }
 
   // ── Extract passage variables ──
-  // Look for FULL_PASSAGE, P_GW, P_EX01, etc.
+  // Extract ALL uppercase const/let/var string declarations before Q array.
+  // Variable names can be: FULL_PASSAGE, P_GW, P1, DL, RC, L1, T2, etc.
   const passageVars = {};
-  const passageRegex = /const\s+(FULL_PASSAGE|P_\w+)\s*=\s*`([\s\S]*?)`;/g;
   let pm;
+  // Backtick-quoted
+  const passageRegex = /(?:const|let|var)\s+([A-Z][A-Z0-9_]*)\s*=\s*`([\s\S]*?)`;/g;
   while ((pm = passageRegex.exec(script)) !== null) {
+    if (pm[1] === 'EI') continue; // Skip EI object
     passageVars[pm[1]] = pm[2];
   }
-  // Also check for single-quoted or double-quoted passages
-  const passageRegex2 = /const\s+(FULL_PASSAGE|P_\w+)\s*=\s*"([\s\S]*?)";/g;
+  // Double-quoted
+  const passageRegex2 = /(?:const|let|var)\s+([A-Z][A-Z0-9_]*)\s*=\s*"([\s\S]*?)";/g;
   while ((pm = passageRegex2.exec(script)) !== null) {
+    if (pm[1] === 'EI') continue;
     passageVars[pm[1]] = pm[2].replace(/\\"/g, '"');
+  }
+  // Single-quoted
+  const passageRegex3 = /(?:const|let|var)\s+([A-Z][A-Z0-9_]*)\s*=\s*'([\s\S]*?)';/g;
+  while ((pm = passageRegex3.exec(script)) !== null) {
+    if (pm[1] === 'EI') continue;
+    passageVars[pm[1]] = pm[2].replace(/\\'/g, "'");
   }
 
   // Determine fullPassage — use FULL_PASSAGE or combine all P_ vars
@@ -63,44 +73,15 @@ function extractData(htmlPath) {
     }
   }
 
-  // ── Extract Q array ──
-  // This is the trickiest part — Q array may reference passage variables
-  const qMatch = script.match(/const\s+Q\s*=\s*\[([\s\S]*?)\];\s*\n/);
-  if (!qMatch) throw new Error('Q array not found');
-  let qRaw = qMatch[1];
+  // ── Extract Q array using bracket-counting ──
+  let qRaw = extractQArray(script);
 
-  // Replace variable references in passage fields
-  // Pattern: passage: FULL_PASSAGE or passage: P_GW
-  Object.keys(passageVars).forEach(varName => {
-    // Replace unquoted variable references
-    const varRegex = new RegExp(`"passage":\\s*${varName}`, 'g');
-    qRaw = qRaw.replace(varRegex, `"passage":${JSON.stringify(passageVars[varName])}`);
-    // Also handle without quotes on key
-    const varRegex2 = new RegExp(`passage:\\s*${varName}`, 'g');
-    qRaw = qRaw.replace(varRegex2, `"passage":${JSON.stringify(passageVars[varName])}`);
-  });
+  // Replace curly/smart quotes with straight quotes
+  qRaw = qRaw.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
 
-  // Fix JS object syntax → JSON
-  // Handle: unquoted keys, single quotes, trailing commas, null → "null"
-  let qJson = '[' + qRaw + ']';
-
-  // Replace unquoted keys with quoted keys
-  qJson = qJson.replace(/(\s|,|\[|\{)(\w+)\s*:/g, '$1"$2":');
-
-  // Replace single quotes with double quotes (careful with content)
-  // This is risky; better to try JSON.parse first and fall back
+  // ── Parse Q array ──
   let questions;
-  try {
-    questions = JSON.parse(qJson);
-  } catch (e) {
-    // Fall back: use a more lenient parser
-    try {
-      // Try evaluating in a sandboxed way
-      questions = evalQArray(qRaw, passageVars);
-    } catch (e2) {
-      throw new Error(`Failed to parse Q array: ${e.message}\nFallback: ${e2.message}`);
-    }
-  }
+  questions = parseQRaw(qRaw, passageVars);
 
   // ── Clean up questions ──
   questions = questions.map(q => {
@@ -144,17 +125,402 @@ function extractData(htmlPath) {
   };
 }
 
+/**
+ * Extract Q array content using naive bracket-counting.
+ * Brackets inside strings are empirically always balanced in our HTML files,
+ * so we don't need to track string boundaries (which is error-prone with
+ * mixed backtick/single/double quotes).
+ */
+function extractQArray(script) {
+  const marker = script.match(/(?:const|let|var)\s+Q\s*=\s*\[/);
+  if (!marker) throw new Error('Q array not found');
+
+  const startIdx = marker.index + marker[0].length; // right after opening [
+  let depth = 1;
+
+  for (let i = startIdx; i < script.length; i++) {
+    if (script[i] === '[') depth++;
+    else if (script[i] === ']') {
+      depth--;
+      if (depth === 0) {
+        return script.substring(startIdx, i);
+      }
+    }
+  }
+
+  throw new Error('Unmatched brackets in Q array');
+}
+
+/**
+ * Try multiple strategies to parse the Q array raw text.
+ */
+function parseQRaw(qRaw, passageVars) {
+  const strategies = [
+    // 1. Direct eval
+    () => evalQArray(qRaw, passageVars),
+    // 2. Fix single quotes → backticks, then eval
+    () => evalQArray(fixSingleQuotes(qRaw), passageVars),
+    // 3. Repair corrupted fields, then eval
+    () => evalQArray(repairCorruptedFields(qRaw), passageVars),
+    // 4. Fix single quotes + repair, then eval
+    () => evalQArray(fixSingleQuotes(repairCorruptedFields(qRaw)), passageVars),
+    // 5. Fix bare double quotes in JSON strings, then eval
+    () => evalQArray(fixBareDoubleQuotes(qRaw), passageVars),
+    // 6. Fix bare double quotes + repair, then eval
+    () => evalQArray(fixBareDoubleQuotes(repairCorruptedFields(qRaw)), passageVars),
+    // 7. JSON parse with cleanup
+    () => parseQArrayAsJson(qRaw, passageVars),
+    // 8. JSON parse on repaired text
+    () => parseQArrayAsJson(repairCorruptedFields(qRaw), passageVars),
+    // 9. Extract individual questions one-by-one
+    () => extractQuestionsIndividually(qRaw, passageVars),
+  ];
+
+  const errors = [];
+  for (let i = 0; i < strategies.length; i++) {
+    try {
+      return strategies[i]();
+    } catch (e) {
+      errors.push(`  strategy${i + 1}: ${e.message}`);
+    }
+  }
+  throw new Error(`Failed to parse Q array (${strategies.length} strategies failed).\n${errors.join('\n')}`);
+}
+
+/**
+ * Convert single-quoted strings to backtick strings to avoid unescaped
+ * apostrophe issues (e.g., "can't", "artist's" inside '...' strings).
+ *
+ * Skips backtick-quoted and double-quoted strings.
+ */
+function fixSingleQuotes(qRaw) {
+  let result = '';
+  let i = 0;
+  while (i < qRaw.length) {
+    const c = qRaw[i];
+
+    // Skip double-quoted strings
+    if (c === '"') {
+      let j = i + 1;
+      while (j < qRaw.length && qRaw[j] !== '"') {
+        if (qRaw[j] === '\\') j++;
+        j++;
+      }
+      result += qRaw.substring(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+
+    // Skip backtick strings
+    if (c === '`') {
+      let j = i + 1;
+      while (j < qRaw.length && qRaw[j] !== '`') {
+        if (qRaw[j] === '\\') j++;
+        j++;
+      }
+      result += qRaw.substring(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+
+    // Convert single-quoted strings to backtick strings
+    if (c === "'") {
+      let j = i + 1;
+      let content = '';
+      while (j < qRaw.length) {
+        if (qRaw[j] === '\\' && j + 1 < qRaw.length) {
+          content += qRaw[j] + qRaw[j + 1];
+          j += 2;
+          continue;
+        }
+        if (qRaw[j] === "'") {
+          // Is this a closing quote or an apostrophe?
+          const after = qRaw[j + 1];
+          if (!after || ',}]\n :'.includes(after)) {
+            break; // closing quote
+          } else {
+            content += "'"; // apostrophe
+            j++;
+            continue;
+          }
+        }
+        // Escape backticks inside the content
+        if (qRaw[j] === '`') {
+          content += '\\`';
+        } else {
+          content += qRaw[j];
+        }
+        j++;
+      }
+      result += '`' + content + '`';
+      i = j + 1;
+      continue;
+    }
+
+    result += c;
+    i++;
+  }
+  return result;
+}
+
+/**
+ * Fix unescaped double quotes inside double-quoted JSON string values.
+ * E.g., "no theory of "active" democracy" → "no theory of \"active\" democracy"
+ *
+ * Strategy: scan through double-quoted strings. When a " is followed by a
+ * non-structural character (not , } ] : space newline), it's an unescaped
+ * inner quote — escape it with backslash.
+ */
+function fixBareDoubleQuotes(qRaw) {
+  let result = '';
+  let i = 0;
+  while (i < qRaw.length) {
+    const c = qRaw[i];
+
+    // Skip backtick strings
+    if (c === '`') {
+      let j = i + 1;
+      while (j < qRaw.length && qRaw[j] !== '`') {
+        if (qRaw[j] === '\\') j++;
+        j++;
+      }
+      result += qRaw.substring(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+
+    // Skip single-quoted strings
+    if (c === "'") {
+      let j = i + 1;
+      while (j < qRaw.length && qRaw[j] !== "'") {
+        if (qRaw[j] === '\\') j++;
+        j++;
+      }
+      result += qRaw.substring(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+
+    // Process double-quoted strings
+    if (c === '"') {
+      result += '"';
+      let j = i + 1;
+      while (j < qRaw.length) {
+        if (qRaw[j] === '\\' && j + 1 < qRaw.length) {
+          result += qRaw[j] + qRaw[j + 1];
+          j += 2;
+          continue;
+        }
+        if (qRaw[j] === '"') {
+          // Is this the real closing quote?
+          // In valid JSON, closing " is followed by , } ] : or whitespace before structural char
+          const after = qRaw[j + 1];
+          if (!after || ',}]:'.includes(after)) {
+            result += '"'; // definitely closing quote
+            j++;
+            break;
+          }
+          // Check for whitespace followed by structural char (e.g., " , or " })
+          if (' \n\r\t'.includes(after)) {
+            // Look ahead past whitespace for structural char
+            let k = j + 1;
+            while (k < qRaw.length && ' \n\r\t'.includes(qRaw[k])) k++;
+            if (!qRaw[k] || ',}]:'.includes(qRaw[k])) {
+              result += '"'; // closing quote with trailing whitespace
+              j++;
+              break;
+            }
+          }
+          // Unescaped inner quote — escape it
+          result += '\\"';
+          j++;
+          continue;
+        }
+        result += qRaw[j];
+        j++;
+      }
+      i = j;
+      continue;
+    }
+
+    // Skip comments
+    if (c === '/' && i + 1 < qRaw.length && qRaw[i + 1] === '/') {
+      const eol = qRaw.indexOf('\n', i);
+      const end = eol === -1 ? qRaw.length : eol;
+      result += qRaw.substring(i, end);
+      i = end;
+      continue;
+    }
+
+    result += c;
+    i++;
+  }
+  return result;
+}
+
+/**
+ * Repair corrupted field boundaries in Q array text.
+ *
+ * Known corruption pattern (고2/3월 files):
+ *   ch:[...,`해당 사항 없음`]TEXTCONTENT`,
+ * Should be:
+ *   ch:[...,`해당 사항 없음`],passage:`TEXTCONTENT`,  (or stem:`)
+ *
+ * The corruption removes `,fieldname:`  (and sometimes `<`) after ch's closing `]`.
+ */
+function repairCorruptedFields(qRaw) {
+  // Pattern: backtick + ] followed by text that's not a separator
+  // `]X where X is not , } ] ; whitespace
+  return qRaw.replace(/`\]([^,}\];\s\n])/g, (match, nextChar, offset) => {
+    // Determine which field was lost by looking ahead for stem:
+    const ahead = qRaw.substring(offset, offset + 500);
+    const hasStemAhead = /,\s*\n?\s*stem\s*:/.test(ahead);
+
+    if (hasStemAhead) {
+      // stem exists later → the corrupted field is passage
+      // Check if a `<` was also lost (HTML content)
+      if ('buisBUIS'.includes(nextChar)) {
+        return '`],passage:`<' + nextChar;
+      }
+      return '`],passage:`' + nextChar;
+    } else {
+      // No stem ahead → the corrupted field is stem
+      if ('buisBUIS'.includes(nextChar)) {
+        return '`],stem:`<' + nextChar;
+      }
+      return '`],stem:`' + nextChar;
+    }
+  });
+}
+
 function evalQArray(qRaw, passageVars) {
-  // Create a simple evaluator that handles the Q array JS syntax
   // Define passage variables in scope
   let setup = '';
   Object.entries(passageVars).forEach(([k, v]) => {
     setup += `const ${k} = ${JSON.stringify(v)};\n`;
   });
 
-  // Use Function constructor (safer than eval)
-  const fn = new Function(setup + 'return [' + qRaw + '];');
+  // Also find referenced but undefined passage variables and define them as empty
+  const definedVars = new Set(Object.keys(passageVars));
+  const refPattern = /(?:passage|"passage")\s*:\s*([A-Z][A-Z0-9_]*)/g;
+  let rm;
+  while ((rm = refPattern.exec(qRaw)) !== null) {
+    if (!definedVars.has(rm[1])) {
+      setup += `const ${rm[1]} = "";\n`;
+      definedVars.add(rm[1]);
+    }
+  }
+
+  // Use Function constructor (handles backticks, single quotes, comments, undefined, etc.)
+  const code = setup + 'return [' + qRaw + '];';
+  const fn = new Function(code);
   return fn();
+}
+
+function parseQArrayAsJson(qRaw, passageVars) {
+  // Remove JS comments
+  let cleaned = qRaw
+    .replace(/\/\/[^\n]*/g, '')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+
+  // Replace variable references in passage fields
+  Object.keys(passageVars).forEach(varName => {
+    const varRegex = new RegExp(`(?:"passage"|passage):\\s*${varName}(?=[,\\s}])`, 'g');
+    cleaned = cleaned.replace(varRegex, `"passage":${JSON.stringify(passageVars[varName])}`);
+  });
+
+  // Replace undefined with null
+  cleaned = cleaned.replace(/:\s*undefined\b/g, ':null');
+
+  // Replace backtick strings with double-quoted strings
+  cleaned = cleaned.replace(/`([^`]*)`/g, (match, content) => {
+    return JSON.stringify(content);
+  });
+
+  // Replace single-quoted strings with double-quoted strings
+  // Match single-quoted strings that aren't inside double quotes
+  cleaned = cleaned.replace(/'((?:[^'\\]|\\.)*)'/g, (match, content) => {
+    return JSON.stringify(content.replace(/\\'/g, "'"));
+  });
+
+  let qJson = '[' + cleaned + ']';
+
+  // Quote unquoted keys
+  qJson = qJson.replace(/([{,]\s*)(\w+)\s*:/g, '$1"$2":');
+
+  // Remove trailing commas before } or ]
+  qJson = qJson.replace(/,\s*([\]}])/g, '$1');
+
+  return JSON.parse(qJson);
+}
+
+/**
+ * Extract questions individually by finding each {id:N,...}} block
+ * and parsing them one by one. Handles severely corrupted files.
+ */
+function extractQuestionsIndividually(qRaw, passageVars) {
+  // Build setup for passage variables
+  let setup = '';
+  const definedVars = new Set();
+  Object.entries(passageVars).forEach(([k, v]) => {
+    setup += `const ${k} = ${JSON.stringify(v)};\n`;
+    definedVars.add(k);
+  });
+  // Add undefined variable stubs
+  const refPattern = /(?:passage|"passage")\s*:\s*([A-Z][A-Z0-9_]*)/g;
+  let rm;
+  while ((rm = refPattern.exec(qRaw)) !== null) {
+    if (!definedVars.has(rm[1])) {
+      setup += `const ${rm[1]} = "";\n`;
+      definedVars.add(rm[1]);
+    }
+  }
+
+  // Find individual question objects using {id: pattern
+  const questions = [];
+  const idPattern = /\{id\s*:\s*(\d+)/g;
+  let match;
+  const idPositions = [];
+  while ((match = idPattern.exec(qRaw)) !== null) {
+    idPositions.push({ id: parseInt(match[1]), pos: match.index });
+  }
+
+  for (let idx = 0; idx < idPositions.length; idx++) {
+    const start = idPositions[idx].pos;
+    const end = idx + 1 < idPositions.length ? idPositions[idx + 1].pos : qRaw.length;
+    let objText = qRaw.substring(start, end).replace(/,\s*$/, ''); // Remove trailing comma
+
+    // Try multiple parse strategies for individual question
+    let q = null;
+    const strategies = [
+      () => new Function(setup + 'return (' + objText + ')')(),
+      () => new Function(setup + 'return (' + fixSingleQuotes(objText) + ')')(),
+      () => new Function(setup + 'return (' + fixBareDoubleQuotes(objText) + ')')(),
+      () => new Function(setup + 'return (' + repairCorruptedFields(objText) + ')')(),
+      () => new Function(setup + 'return (' + fixSingleQuotes(repairCorruptedFields(objText)) + ')')(),
+      () => new Function(setup + 'return (' + fixBareDoubleQuotes(repairCorruptedFields(objText)) + ')')(),
+    ];
+
+    for (const strat of strategies) {
+      try {
+        q = strat();
+        break;
+      } catch (e) {
+        // Try next strategy
+      }
+    }
+
+    if (q && typeof q === 'object' && q.id) {
+      questions.push(q);
+    }
+    // If all strategies fail for this question, skip it but continue
+  }
+
+  if (questions.length === 0) {
+    throw new Error('Could not extract any questions individually');
+  }
+
+  return questions;
 }
 
 function evalJsObject(str) {
@@ -175,16 +541,23 @@ function main() {
     const htmlFiles = findHtmlFiles(dir);
     console.log(`Found ${htmlFiles.length} HTML files`);
     let success = 0, fail = 0;
+    const failures = [];
     htmlFiles.forEach(f => {
       try {
         processFile(f);
         success++;
       } catch (e) {
         fail++;
-        console.error(`[FAIL] ${path.relative(ROOT, f)}: ${e.message}`);
+        const msg = `[FAIL] ${path.relative(ROOT, f)}: ${e.message}`;
+        failures.push(msg);
+        console.error(msg);
       }
     });
     console.log(`\nDone: ${success} success, ${fail} fail`);
+    if (failures.length > 0) {
+      console.log('\n--- All failures ---');
+      failures.forEach(f => console.log(f));
+    }
   } else {
     const htmlPath = path.resolve(args[0]);
     try {

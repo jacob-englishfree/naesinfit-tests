@@ -279,3 +279,10 @@ async function main() {
 }
 
 if (require.main === module) main();
+
+// === Step 5: 앱 코드 동기화 ===
+try {
+  require('./sync-app-deploy.js');
+} catch(e) {
+  console.log('[WARN] 앱 코드 동기화 실패:', e.message);
+}
