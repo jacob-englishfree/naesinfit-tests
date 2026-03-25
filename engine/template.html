@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{{TITLE}}</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+{{THEME_CSS}}
+{{COMMON_CSS}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<div id="startScreen" class="screen active">
+<div class="start-container">
+  <div class="brand-badge">{{BRAND_BADGE}}</div>
+  <h1 class="start-title">{{TEST_TITLE_HTML}}</h1>
+  <p class="start-subtitle">{{SUBTITLE}}</p>
+  <div class="info-card"><div class="info-card-header">{{INFO_HEADER}}</div><div class="info-rows">
+    {{INFO_ROWS}}
+  </div></div>
+  <div class="chip-row"><div class="chip">20문항</div><div class="chip">20분</div><div class="chip">80점 이상 통과</div><div class="chip">100점 만점</div></div>
+  <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
+  <div class="input-row">
+    <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+  </div>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <div id="historyPanel"></div>
+</div>
+</div>
+
+<div id="examScreen" class="screen">
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">{{TOPBAR_INFO}}</div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
+  <div class="ans-count" id="ansCount">0/20</div>
+  <div class="exam-scroll" id="examScroll"></div>
+  <div class="slide-wrap" id="slideWrap">
+    <div class="slide-passage" id="slidePassage"></div>
+    <div class="slide-bottom" id="slideBottom"></div>
+  </div>
+</div>
+
+<div id="resultScreen" class="screen"></div>
+
+<script>
+{{DATA_BLOCK}}
+{{ENGINE_JS}}
+updateHCount();
+</script>
+</body>
+</html>
