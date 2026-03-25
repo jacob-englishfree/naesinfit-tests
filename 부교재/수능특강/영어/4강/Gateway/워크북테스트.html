@@ -196,7 +196,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <script>
 const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"4강","lesson":"Gateway","title":"Coopetition in Sport","total":100,"time":1500,"totalQ":20,"histKey":"workbookTest_suneung_04_gw_v1"};
 const FULL_PASSAGE="A sport ecosystem exists based on the type and rate of coopetition existing. Coopetition is defined as “the simultaneous pursuit of cooperation and competition among firms to leverage strategically important resources for superior value creation purposes”. It is a useful way to understand the dynamic nature of sport businesses which need to collaborate for resource efficiency purposes but potentially compete with each other. This special relationship should be managed properly due to trust and confidence issues being paramount. It can be challenging to be collaborative and competitive in sport as they involve different forms of behaviour. This means a careful balancing act may be required in terms of the amount of emphasis placed on each activity. Often sport managers will try to be more competitive due to performance reasons and less collaborative. By necessity they may need to share information but do so in a cautious manner. This means it might be better to have plans in place about how to pursue both simultaneously. This will ensure one is not neglected at the expense of the other.";
-const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"Coopetition is __________ as “the simultaneous pursuit of cooperation and competition among firms.”","stem":"윗글의 빈칸에 들어갈 말로 어법상 가장 적절한 것은?","det":{"korean":"Coopetition is defined(수동태) as ~","analysis":"✅ defined: is + 과거분사 = 수동태\n❌ define: be동사 뒤 동사원형 불가\n❌ defining: 능동 진행이나 여기서는 수동이 적절","tip":"be + p.p. = 수동태 — is defined as (~로 정의되다)"},"ans":1,"ch":["define","defined","defining","to defining","defines"]},
+const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"Coopetition is __________ as \"the simultaneous pursuit of cooperation and competition among firms.\"","stem":"윗글의 빈칸에 들어갈 말로 어법상 가장 적절한 것은?","det":{"korean":"Coopetition is defined(수동태) as ~","analysis":"✅ defined: is + 과거분사 = 수동태\n❌ define: be동사 뒤 동사원형 불가\n❌ defining: 능동 진행이나 여기서는 수동이 적절","tip":"be + p.p. = 수동태 — is defined as (~로 정의되다)"},"ans":1,"ch":["define","defined","defining","to defining","defines"]},
 {"id":2,"type":"어법","diff":"보통","pts":5,"fmt":"mc","passage":"Sport businesses which need __________ for resource efficiency purposes.","stem":"윗글의 빈칸에 들어갈 말로 어법상 가장 적절한 것은?","det":{"korean":"need to collaborate(~할 필요가 있다)","analysis":"✅ to collaborate: need + to부정사\n❌ collaborate: need 뒤에 to 필요\n❌ collaborating: need + -ing는 다른 뜻(수동)","tip":"need + to + 동사원형 = ~할 필요가 있다"},"ans":2,"ch":["collaborate","collaborating","to collaborate","collaborated","collaboration"]},
 {"id":3,"type":"어법","diff":"보통","pts":5,"fmt":"mc","passage":"This special relationship should be __________ properly due to trust issues.","stem":"윗글의 빈칸에 들어갈 말로 어법상 가장 적절한 것은?","det":{"korean":"should be managed(수동태) = 관리되어야 한다","analysis":"✅ managed: should be + p.p. = 수동태\n❌ managing: be + -ing는 능동 진행\n❌ manage: should be + 동사원형 불가","tip":"should be + p.p. = ~되어야 한다 (수동태)"},"ans":0,"ch":["managed","managing","manage","to managing","manages"]},
 {"id":4,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","passage":"Sport businesses __________ need to collaborate for resource efficiency purposes but potentially compete with each other.","stem":"윗글의 빈칸에 들어갈 관계사로 가장 적절한 것은?","det":{"korean":"which = 주격 관계대명사 (선행사: businesses, 사물)","analysis":"✅ which: 사물 선행사의 주격 관계대명사\n❌ who: 사람 선행사\n❌ where: 장소 관계부사\n❌ when: 시간 관계부사","tip":"which = 사물 선행사 + 주격 관계대명사"},"ans":3,"ch":["who","what","where","which","when"]},
@@ -387,7 +387,6 @@ function startExam() {
   initSwipe();
 }
 
-const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','순서배열':'tag-order','글순서':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','빈칸 추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','내용일치':'tag-content','내용불일치':'tag-content','T/F':'tag-tf','(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx','어법 빈칸':'tag-grammar'};
 function showQ(idx, direction) {
   S.cur = idx;
   var oi = S.order ? S.order[idx] : idx;
@@ -439,7 +438,6 @@ function selectAns(idx, ci) {
     if (i === ci) b.classList.add('just-selected');
   });
   updateProgress();
-  setTimeout(function () { if (idx < EI.totalQ - 1) showQ(idx + 1, 1); }, 400);
 }
 
 function writeAns(idx, val) {
