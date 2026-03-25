@@ -7,179 +7,135 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-/* NaesinFit — Orange Theme (퀴즈테스트) */
-:root{
-  --p:#E8772E;--pd:#B85A1A;--pl:#F5A623;--pxl:#FFF3E8;--pxxl:#FFFAF5;
-  --bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;
-  --r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;
-  --o:#F59E0B;--ol:#FFF8E1;
-  --card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);
-  --radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;
-  --pborder:#ddd8d2;--pbg-muted:#e8e0d8;
-  --passage-bg:linear-gradient(135deg,#FFFAF8,#F5F0EB);
-  --start-grad:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);
-  --accent2:#D97706;
-  --p-rgba-08:rgba(232,119,46,.08);
-  --p-rgba-10:rgba(232,119,46,.1);
-  --p-rgba-12:rgba(232,119,46,.12);
-  --p-rgba-25:rgba(232,119,46,.25);
-  --p-rgba-30:rgba(232,119,46,.3);
-}
 
-/* NaesinFit Test Engine — Common CSS (theme-agnostic)
-   Theme-specific colors come from :root variables defined in theme-*.css:
-   --p      : primary color
-   --pd     : primary dark
-   --pl     : primary light
-   --pxl    : primary extra-light
-   --pxxl   : primary xx-light
-   --bg     : page background
-   --text   : main text
-   --tm     : text muted
-   --tl     : text light
-   --pborder: border color (theme-tinted)
-   --pbg-muted: muted bg for tracks/bars
-   --start-grad: startScreen gradient
-   --accent2: secondary gradient stop (badge/header)
-   --p-rgba-08: rgba for selected bg
-   --p-rgba-12: rgba for box-shadow
-   --p-rgba-10: rgba for focus ring
-   --p-rgba-25: rgba for button shadow
-   --p-rgba-30: rgba for selectPulse
-*/
-
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--warn:#F59E0B;--wl:#FFF8E1;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
 .screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* Start Screen */
-#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:var(--start-grad);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);}
 .start-container{max-width:460px;width:100%;z-index:1;}
-.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--p),var(--accent2));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
-.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
 .info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
-.info-card-header{background:linear-gradient(135deg,var(--p),var(--accent2));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
-.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid var(--pborder);}.info-row:last-child{border:none;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0ede8;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid var(--pborder);border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip{background:var(--card);border:1.5px solid #ddd8d2;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
-.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid var(--pborder);border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
-.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4px var(--p-rgba-10);}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0c8c2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
 .input-row{display:flex;gap:10px;}
 .btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
-.btn-primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;box-shadow:0 6px 20px var(--p-rgba-30);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
-.btn-outline{background:transparent;border:2px solid var(--pborder);color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--p);color:var(--p);}
-.history-badge{background:var(--pxl);color:var(--p);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8c0b8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
 #historyPanel{display:none;margin-top:14px;}
-.history-item{background:var(--card);border:1.5px solid var(--pborder);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item{background:var(--card);border:1.5px solid #ddd8d2;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
 .hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
-.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--p);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
-
-/* Exam Screen */
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
 .exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
-.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--p);border-radius:50%;}
-.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--p);font-weight:800;}
-.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--p);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
 @keyframes pulse{50%{opacity:.3;}}
-.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .exam-scroll{display:none;}
+/* Progress bar at top */
 .exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
-.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--accent2));transition:width .5s ease;border-radius:0 2px 2px 0;}
-
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--o),#D97706);transition:width .5s ease;border-radius:0 2px 2px 0;}
 /* Slide container */
 .slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
 .slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
-.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
 .slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
 .slide-choices{display:flex;flex-direction:column;gap:4px;}
 .slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
-.slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
-@keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.08);box-shadow:0 0 0 3px rgba(232,119,46,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(232,119,46,.3)}70%{box-shadow:0 0 0 8px rgba(232,119,46,0)}100%{box-shadow:0 0 0 0 rgba(232,119,46,0)}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
 .slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
-.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+/* Written input */
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
-.slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
+.slide-choices .written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.1);}
+/* Navigation */
 .slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
 .slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
 .slide-nav button:active{transform:scale(.95);}
-.slide-nav button.sn-next{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--p-rgba-25);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(232,119,46,.25);}
 .slide-nav button:disabled{opacity:.3;}
-.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--p);}
-.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--p);background:var(--pxl);padding:3px 10px;border-radius:12px;}
-.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--o);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--o);background:var(--oxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
 .q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
-
-/* Type tags — same across all themes */
-.tag-combo{background:#E8F5E9;color:#166534;}.tag-wrong{background:#FFF0F0;color:#D63B3B;}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:#EDF2FF;color:#3B6FD9;}.tag-ant{background:#FFF8E1;color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}.tag-insert{background:#E3F2FD;color:#1565C0;}.tag-order{background:#FFF8E1;color:#F57F17;}
-
-.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:var(--pbg-muted);padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--p);font-weight:800;}
+.tag-combo{background:var(--ol);color:#BF360C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0ede8;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
 .q-body{padding:14px 16px;}
-.q-passage{background:var(--passage-bg);border-left:3px solid var(--p);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-passage{background:linear-gradient(135deg,#FFFAF8,#F5F0EB);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
 .q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
 .choices{display:flex;flex-direction:column;gap:4px;}
-.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--pborder);border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
-.choice-btn:hover{border-color:var(--p);}.choice-btn.selected{border-color:var(--p);box-shadow:0 0 0 2px var(--p-rgba-12);background:var(--pxxl);}
-.c-num{min-width:22px;height:22px;background:var(--pbg-muted);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
-.written-input{width:100%;padding:10px 12px;border:1.5px solid var(--pborder);border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--p);}
-
-/* Result Screen */
-.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--pxl),var(--pl));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
-.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #ddd8d2;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#e8e0d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #d0c8c2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
 .r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
 .r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
 .rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
 .level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
-.level-bar{margin-top:16px;height:8px;background:var(--pbg-muted);border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--p),var(--pl));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--pxxl);border-radius:var(--rs);border:1px solid var(--pborder);}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--pxl);}.info-cell.highlight .ic-value{color:var(--p);}
-.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:var(--pbg-muted);border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--pl);color:var(--p);}.tag-item.weak{background:#FFF0F0;color:#D63B3B;}
-.plan-card{display:flex;gap:14px;padding:16px;background:var(--pxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
-.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid var(--pborder);border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--p);color:var(--p);}.act-btn.primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
-.rev-card{border:1.5px solid var(--pborder);border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--pxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--pxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
-.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--pl);color:var(--p);}.expl-tag.tip{background:var(--pxl);color:var(--pd);}
-.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--p);}.expl-box.tip-b{border-left:3px solid var(--p);background:var(--pxl);}
-
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8e0d8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #ddd8d2;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0d8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0c8c2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #ddd8d2;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
 @media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
 
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
-
 <div id="startScreen" class="screen active">
 <div class="start-container">
-  <div class="brand-badge">온라인퀴즈 TEST</div>
+  <div class="brand-badge">📝 온라인퀴즈 TEST</div>
   <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
   <p class="start-subtitle">영어1 동아(박용예) · 1과 · Becoming the Best Possible Me · 20문항</p>
-  <div class="info-card"><div class="info-card-header">시험 정보</div><div class="info-rows">
-    <div class="info-row"><span class="info-label">시험</span><span class="info-value">영어1 동아(박용예)</span></div>
-    <div class="info-row"><span class="info-label">문항</span><span class="info-value">1과 (Becoming the Best Possible Me)</span></div>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">교과서</span><span class="info-value">영어1 동아(박용예)</span></div>
+    <div class="info-row"><span class="info-label">과</span><span class="info-value">1과</span></div>
     <div class="info-row"><span class="info-label">지문</span><span class="info-value">Becoming the Best Possible Me</span></div>
   </div></div>
-  <div class="chip-row"><div class="chip">20문항</div><div class="chip">20분</div><div class="chip">80점 이상 통과</div><div class="chip">100점 만점</div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
     <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
   </div>
-  <button class="btn btn-primary" onclick="startExam()">시험 시작하기</button>
-  <button class="btn btn-outline" onclick="toggleHistory()">시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
   <div id="historyPanel"></div>
 </div>
 </div>
-
 <div id="examScreen" class="screen">
   <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">영어1 동아(박용예) · <span>1과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
@@ -190,526 +146,327 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
     <div class="slide-bottom" id="slideBottom"></div>
   </div>
 </div>
-
 <div id="resultScreen" class="screen"></div>
-
 <script>
 const EI={"subject":"영어1 동아(박용예)","pub":"1과","lesson":"Becoming the Best Possible Me","title":"Becoming the Best Possible Me","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_eng1_donga_L1_v1"};
-const FULL_PASSAGE="When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I’m a journalist and podcast host in the US. We change constantly, but we imagine ourselves staying the same. Our cells are always renewing, and our brains are always rewiring. So here is my advice. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don’t fear challenges.";
-const Q=[{"id":1,"type":"문장삽입","diff":"어려움","pts":6,"fmt":"mc","passage":"Have you ever felt anxious about your own creativity? Do you blame yourself when brilliant ideas don’t come? ① The ancient Romans had a different view of creativity. ② The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet. ③ When it reached her, she had to race to the house to grab a pencil and write it down. ④","stem":"다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>\"They believed that a “genius” was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist’s studio.\"</b>","det":{"korean":"고대 로마인들의 다른 관점을 소개한 직후, 그들이 genius를 어떻게 믿었는지 구체적으로 설명하는 문장이 와야 한다. 그 다음 Ruth Stone의 예시로 이어진다.","analysis":"✅ ②: \"had a different view\" 직후 → 그 관점의 구체적 설명 → 그리고 Stone의 예시\n❌ ①: 아직 로마인 언급 전\n❌ ③: Stone의 경험 도중 → 흐름 단절\n❌ ④: Stone의 행동 완료 후 → 맥락 불일치","tip":"일반 소개 → 구체적 설명 → 예시: \"had a different view\" → \"They believed...\" → \"Ruth Stone...\""},"ans":1,"ch":["본문에서 확인할 수 없는 내용이다.","②","지문의 일부만을 과장한 내용이다.","필자의 의도와 다른 해석이다.","세부 사항이 원문과 다르다."]},
-{"id":2,"type":"문장삽입","diff":"보통","pts":5,"fmt":"mc","passage":"We change constantly, but we imagine ourselves staying the same. ① Our cells are always renewing, and our brains are always rewiring. ② Think of the Ship of Theseus: if every piece of wood is replaced over time, is it still the same ship? ③ So here is my advice. ④","stem":"다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>\"We are living examples of this paradox.\"</b>","det":{"korean":"테세우스의 배 비유 직후, \"우리는 이 역설의 살아 있는 예시이다\"라는 연결 문장이 와야 한다. 그 다음 조언으로 이어진다.","analysis":"✅ ③: 테세우스의 배 역설 설명 직후 → \"this paradox\"의 지시대상 확보 → 조언으로 전환\n❌ ①: 아직 역설 언급 전\n❌ ②: 세포/뇌 설명과 배 비유 사이 → \"this paradox\" 지시 불명\n❌ ④: 이미 조언 시작 후","tip":"\"this paradox\" = 테세우스의 배 비유 → 반드시 그 직후에 와야 함"},"ans":2,"ch":["원문의 내용과 상반되는 주장이다.","지문의 일부만을 과장한 내용이다.","③","세부 사항이 원문과 다르다.","시간 순서가 뒤바뀐 내용이다."]},
-{"id":3,"type":"어순배열","diff":"어려움","pts":6,"fmt":"written","passage":"The writer’s own process was far less dramatic: just showing up at her desk every morning and working through boring routine. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work. The message is clear: put __________________________________________, and your genius will come.","stem":"다음 주어진 단어를 올바른 순서로 배열하시오.\n<br><br><b>heart / into / and / your / soul / work / your</b>","det":{"korean":"\"<b>your heart and soul into your work</b>\" → 일에 마음과 영혼을 쏟아라.","analysis":"put(동사) + your heart and soul(목적어) + into your work(전치사구)\nput A into B = A를 B에 쏟다","tip":"put + 목적어(your heart and soul) + into + 장소(your work)"},"wa":"your heart and soul into your work","accept":["your heart and soul into your work","Your heart and soul into your work"]},
-{"id":4,"type":"어순배열","diff":"보통","pts":5,"fmt":"written","passage":"So here is my advice. First, envision __________________________________________ and stay curious.","stem":"다음 주어진 단어를 올바른 순서로 배열하시오.\n<br><br><b>become / you / to / want / who</b>","det":{"korean":"\"<b>who you want to become</b>\" → 되고 싶은 사람을 그려봐라.","analysis":"envision(동사) + who you want to become(간접의문문 목적어)\nwho(의문사) + you(주어) + want(동사) + to become(부정사)","tip":"간접의문문: 의문사 + 주어 + 동사 순서 (who you want, not who do you want)"},"wa":"who you want to become","accept":["who you want to become","Who you want to become"]},
-{"id":5,"type":"어법","diff":"보통","pts":5,"fmt":"mc","passage":"The poet Ruth Stone ①<u>described</u> how, as a child ②<u>working</u> in the fields, she could feel a poem ③<u>coming</u> toward her like a thunderous train of air, ④<u>shaking</u> the earth under her feet. When it reached her, she had to race to the house to ⑤<u>grabbing</u> a pencil and write it down.","stem":"다음 글의 밑줄 친 ①~⑤ 중, 어법상 <b>틀린</b> 것은?","det":{"korean":"⑤ grabbing → <b>grab</b>: to부정사 뒤에서 write과 병렬을 이루는 동사원형 <b>grab</b>이 적절하다. \"to grab ... and write ...\"","analysis":"❌ ⑤ grabbing: to + 동사원형 병렬 → to grab and write\n✅ ① described: 과거형 → 올바름\n✅ ② working: 현재분사 → a child를 수식\n✅ ③ coming: 지각동사 feel + 목적어 + ~ing\n✅ ④ shaking: 동시동작 분사구문","tip":"to A and B: A와 B는 같은 형태(동사원형) → to grab and write"},"ans":4,"ch":["being","been","having","had","⑤"]},
-{"id":6,"type":"어법","diff":"보통","pts":5,"fmt":"mc","passage":"Think of the Ship of Theseus: if every piece of wood __________ over time, is it still the same ship?","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"목재가 교체<b>되는</b> 것이므로 수동태 <b>is replaced</b>가 적절하다.","analysis":"✅ ③ is replaced: 수동태 → 목재가 교체되는 대상\n❌ ① replace: 능동 원형 → 주어가 교체하는 것이 아님\n❌ ② replaced: 과거형 → if절에서 현재 시제가 자연스러움\n❌ ④ replacing: 현재분사 → if절 동사 자리에 부적절","tip":"주어가 동작을 당하는 경우 → 수동태(be + p.p.)"},"ans":2,"ch":["replace","replaced","is replaced","replacing"]},
-{"id":7,"type":"어휘","diff":"보통","pts":5,"fmt":"mc","passage":"Have you ever felt ①<u>anxious</u> about your own creativity? Do you ②<u>blame</u> yourself when brilliant ideas don’t come? The ancient Romans had a different view of creativity. They believed that a \"genius\" was not a ③<u>humble</u> person but a kind of divine assistant spirit that lived in the walls of an artist’s ④<u>studio</u>. The message is clear: put your heart and ⑤<u>soul</u> into your work.","stem":"다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?","det":{"korean":"원문은 \"not a <b>gifted</b> person but a divine spirit\"(재능 있는 사람이 아니라). ③ humble(겸손한)은 gifted의 반의어로 문맥에 부적절하다.","analysis":"❌ ③ humble(겸손한): 원문 gifted(재능 있는) → \"not a gifted person but...\"에서 대조되는 것\n✅ ① anxious(불안한): 원문 일치\n✅ ② blame(탓하다): 원문 일치\n✅ ④ studio(작업실): 원문 일치\n✅ ⑤ soul(영혼): 원문 일치","tip":"gifted(재능 있는) ↔ humble(겸손한) — not A but B 구문에서 A에 해당하는 단어"},"ans":2,"ch":["abundant","reluctant","③","sufficient","fundamental"]},
-{"id":8,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"The writer’s own process was far less dramatic: just showing up at her desk every morning and working through __________. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"필자의 과정은 극적이지 않았다: 매일 아침 책상에 앉아 <b>지루한 일상(boring routine)</b>을 거치는 것. 하지만 깊이 몰입하면 아이디어가 떠올랐다.","analysis":"✅ ④ boring routine: \"far less dramatic\" + \"just showing up\" → 단조로운 일상\n❌ ① physical training: 신체 훈련은 문맥과 무관\n❌ ② artistic talent: 재능은 과정이 아님\n❌ ③ formal education: 공식 교육은 문맥과 무관","tip":"\"far less dramatic\" + \"just showing up every morning\" → 반복적이고 단조로운 과정"},"ans":3,"ch":["physical training","artistic talent","formal education","boring routine","were"]},
-{"id":9,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I’m a journalist and podcast host in the US. We __________, but we imagine ourselves staying the same.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"축구에서 미식축구로, 인도에서 미국으로, 컴퓨터 공학에서 저널리즘으로 변화 → 우리는 <b>끊임없이 변한다(change constantly)</b>.","analysis":"✅ ② changing constantly: 구체적 변화 예시 → 끊임없는 변화\n❌ ① staying the same: \"but we imagine ourselves staying the same\"과 대조되어야 함\n❌ ③ becoming weaker: 문맥에 없음\n❌ ④ losing memories: 문맥에 없음","tip":"but 대조: 빈칸(실제) ↔ \"staying the same\"(상상) → 실제로는 변한다"},"ans":1,"ch":["staying the same","changing constantly","becoming weaker","losing memories","were"]},
-{"id":10,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"When I was 12, I was __________ (passion) about soccer. Now, I prefer American football.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"passion(명사) → <b>passionate(형용사)</b>: \"was + 형용사\" 구문. \"축구에 열정적이었다\"","analysis":"passion(명사) → passionate(형용사)\nwas + 형용사: 상태를 나타내는 2형식\nbe passionate about = ~에 열정적이다","tip":"passion → passionate / compassion → compassionate — 명사 → -ate 형용사"},"wa":"passionate","accept":["passionate","Passionate"]},
-{"id":11,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Have you ever felt anxious about your own __________ (creative)? Do you blame yourself when brilliant ideas don’t come?","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"creative(형용사) → <b>creativity(명사)</b>: 소유격 your own 뒤에 명사가 필요. \"당신 자신의 창의성\"","analysis":"creative(형용사) → creativity(명사)\nyour own + 명사: 소유격 뒤에 명사 필요\nyour own creativity = 당신 자신의 창의성","tip":"creative → creativity / active → activity — 형용사 → -ity 명사 변환"},"wa":"creativity","accept":["creativity","Creativity"]},
-{"id":12,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet. When it reached her, she had to race to the house to grab a pencil and write it down.","stem":"다음 글에서 Ruth Stone이 시가 다가왔을 때 집으로 달려가 잡아야 했던 것을 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"\"she had to race to the house to grab a <b>pencil</b> and write it down\" → 연필","analysis":"시가 다가왔을 때 집으로 달려가 잡은 것 = pencil\n1단어 답 = pencil","tip":"grab = 잡다 → 잡아야 했던 대상 = pencil(연필)"},"wa":"pencil","accept":["pencil","Pencil"]},
-{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I’m a journalist and podcast host in the US.","stem":"다음 글에서 화자가 인도에서 22살에 받은 학위의 분야를 본문에서 <b>2단어</b>로 찾아 쓰시오.","det":{"korean":"\"I graduated in India with a <b>computer science</b> degree\" → 컴퓨터 공학","analysis":"인도에서 받은 학위 분야 = computer science\n2단어 답 = computer science","tip":"graduated with a ___ degree: ~학위를 받고 졸업하다"},"wa":"computer science","accept":["computer science","Computer science","Computer Science"]},
-{"id":14,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"Have you ever felt anxious about your own creativity? Do you blame yourself when brilliant ideas don’t come? The ancient Romans had a different view of creativity. They believed that a \"genius\" was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist’s studio. The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet.","stem":"다음 글의 내용과 <b>일치하는</b> 것은?","det":{"korean":"\"feel a poem coming toward her like a thunderous train of air\" → Stone은 시가 천둥 같은 공기의 기차처럼 다가오는 것을 느꼈다.","analysis":"✅ ② Stone이 시가 천둥치는 공기의 기차처럼 다가옴을 느낌: 일치\n❌ ① genius는 \"not a gifted person\" → 재능 있는 사람이 아님\n❌ ③ \"far less dramatic\" → 극적이지 않았음\n❌ ④ \"when deeply engaged and immersed\" → 몰입할 때","tip":"비유 표현 \"like a thunderous train of air\"를 정확히 파악"},"ans":1,"ch":["고대 로마인들은 genius를 재능 있는 사람이라고 여겼다.","Ruth Stone은 시가 천둥치는 공기의 기차처럼 다가오는 것을 느꼈다.","필자의 창작 과정은 매우 극적이었다.","아이디어는 불안할 때 가장 잘 떠올랐다.","본문에서 확인할 수 없는 내용이다."]},
-{"id":15,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","passage":"When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I’m a journalist and podcast host in the US. We change constantly, but we imagine ourselves staying the same. Our cells are always renewing, and our brains are always rewiring. So here is my advice. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don’t fear challenges.","stem":"다음 글의 내용과 <b>일치하지 않는</b> 것은?","det":{"korean":"본문: \"your future self may <b>disagree</b> with your current opinions, so be <b>respectful</b>\" → 의견이 바뀔 수 있으니 존중하라는 뜻이지, \"절대 바꾸지 말라\"는 것이 아니다.","analysis":"❌ ④ 현재 의견을 절대 바꾸지 말라: 본문은 오히려 변할 수 있다고 인정하라는 조언\n✅ ① \"passionate about soccer\" → 일치\n✅ ② \"graduated in India with a CS degree\" → 일치\n✅ ③ \"cells are always renewing\" → 일치","tip":"\"may disagree\" = 동의하지 않을 수 있다 → 변화를 인정하라는 메시지"},"ans":3,"ch":["화자는 12살 때 축구를 좋아했다.","화자는 인도에서 컴퓨터 공학 학위를 받았다.","화자는 우리의 세포가 항상 새로워지고 있다고 했다.","화자는 현재 의견을 절대 바꾸지 말라고 조언했다.","원문의 내용과 상반되는 주장이다."]},
-{"id":16,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"The message is clear: put your heart and soul into your work, and your genius will come. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don’t fear challenges.","stem":"이 글 전체의 주제로 가장 적절한 것은?","det":{"korean":"일에 전력하면 천재성이 온다 + 되고 싶은 자신을 그려라 + 도전을 두려워하지 말라 → <b>자기 개선과 변화를 받아들이는 삶</b>","analysis":"✅ ③ 자기 개선과 변화: \"put heart and soul\" + \"envision\" + \"don’t fear challenges\"\n❌ ① 축구/미식축구: 예시일 뿐\n❌ ② 학문 비교: 주제 아님\n❌ ④ 로마 예술: 보조 배경","tip":"두 강연의 공통 주제: 최선의 자신이 되기(Becoming the Best Possible Me)"},"ans":2,"ch":["축구와 미식축구의 역사","컴퓨터 공학과 저널리즘의 비교","자기 개선과 변화를 받아들이는 삶","고대 로마의 예술 문화","지문의 일부만을 과장한 내용이다."]},
-{"id":17,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","passage":"The ancient Romans had a different view of creativity. They believed that a \"genius\" was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist’s studio.","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>According to the ancient Romans, a genius was a divine spirit living in the walls of an artist’s studio.</b>\"","det":{"korean":"\"a kind of divine assistant spirit that lived in the walls of an artist’s studio\" → 본문과 일치 → <b>True</b>","analysis":"✅ True: \"divine assistant spirit\" + \"lived in the walls\" → 진술과 일치","tip":"진술의 핵심 요소(divine spirit + walls + studio)를 본문과 대조"},"ans":0,"ch":["True","False"]},
-{"id":18,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"The writer’s own process was far less dramatic: just showing up at her desk every morning and working through boring routine. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work.","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>The writer’s creative process was highly dramatic and exciting.</b>\"","det":{"korean":"본문: \"far <b>less dramatic</b>: just showing up ... boring routine\" → 극적이지 않고 지루한 일상이었다. \"highly dramatic\"은 본문과 <b>반대</b>. → <b>False</b>","analysis":"❌ False: \"far less dramatic\" + \"boring routine\" ≠ \"highly dramatic and exciting\"","tip":"far less dramatic = 훨씬 덜 극적인 → highly dramatic의 반대"},"ans":1,"ch":["True","False"]},
-{"id":19,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","passage":"We change constantly, but we imagine ourselves staying the same. Our cells are always renewing, and our brains are always rewiring. Think of the Ship of Theseus: if every piece of wood is replaced over time, is it still the same ship? We are living examples of this paradox.","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>The speaker uses the Ship of Theseus as an analogy to explain that humans are constantly changing.</b>\"","det":{"korean":"세포가 새로워지고 뇌가 재배선되는 것을 테세우스의 배에 비유하여 인간의 끊임없는 변화를 설명한다. → <b>True</b>","analysis":"✅ True: Ship of Theseus(비유) → cells renewing, brains rewiring(인간의 변화) → \"We are living examples\"","tip":"analogy(비유) = 테세우스의 배를 통해 인간의 변화를 설명하는 것"},"ans":0,"ch":["True","False"]},
-{"id":20,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"So here is my advice. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don’t fear challenges.","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>The speaker advises that we should fear challenges because our future self will be weaker.</b>\"","det":{"korean":"본문: \"your future self will have <b>strengths</b> you lack now, so <b>don’t fear</b> challenges\" → 미래의 자신은 더 <b>강해질</b> 것이므로 두려워하지 <b>말라</b>. \"약해질 것이므로 두려워하라\"는 <b>반대</b>. → <b>False</b>","analysis":"❌ False: \"will have strengths\" ≠ \"will be weaker\", \"don’t fear\" ≠ \"should fear\"","tip":"두 가지 반대: strengths vs. weaker, don’t fear vs. should fear"},"ans":1,"ch":["True","False"]}];
 
-/* NaesinFit Test Engine v1.0
-   Expects these globals before this script runs:
-   - const EI = {...}          // exam info
-   - const FULL_PASSAGE = "..."  // full passage text
-   - const Q = [...]           // questions array
-*/
+const Q=[
+// ━━━ 문장삽입/어순배열 FIRST ━━━
 
-const typeTag = {
-  '문장삽입': 'tag-insert',
-  '어순배열': 'tag-order',
-  '순서배열': 'tag-order',
-  '글순서': 'tag-order',
-  '어법': 'tag-grammar',
-  '어휘': 'tag-vocab',
-  '빈칸추론': 'tag-blank',
-  '빈칸 추론': 'tag-blank',
-  '서술형': 'tag-written',
-  '내용이해': 'tag-content',
-  '내용일치': 'tag-content',
-  '내용불일치': 'tag-content',
-  'T/F': 'tag-tf',
-  '(A)(B)(C) 조합형': 'tag-combo',
-  '문맥상 부적절한 어휘': 'tag-wrong',
-  '동의어 고르기': 'tag-syn',
-  '반의어 고르기': 'tag-ant',
-  '빈칸 어휘 완성': 'tag-blank',
-  '다의어 문맥적 의미': 'tag-poly',
-  '영영풀이 매칭': 'tag-eng',
-  '어형 변환 (서술형)': 'tag-morph',
-  '빈칸 문맥 완성': 'tag-ctx',
-  '어법 빈칸': 'tag-grammar'
-};
+// Q1: 문장삽입 · 어려움 · 6pts
+{id:1,type:`문장삽입`,diff:`어려움`,pts:6,fmt:"mc",ans:1,
+ch:[`①`,`②`,`③`,`④`],
+passage:`Have you ever felt anxious about your own creativity? Do you blame yourself when brilliant ideas don't come? ① The ancient Romans had a different view of creativity. ② The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet. ③ When it reached her, she had to race to the house to grab a pencil and write it down. ④`,
+stem:`다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>"They believed that a \u201Cgenius\u201D was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist's studio."</b>`,
+det:{korean:`고대 로마인들의 다른 관점을 소개한 직후, 그들이 genius를 어떻게 믿었는지 구체적으로 설명하는 문장이 와야 한다. 그 다음 Ruth Stone의 예시로 이어진다.`,
+analysis:`✅ ②: "had a different view" 직후 → 그 관점의 구체적 설명 → 그리고 Stone의 예시\n❌ ①: 아직 로마인 언급 전\n❌ ③: Stone의 경험 도중 → 흐름 단절\n❌ ④: Stone의 행동 완료 후 → 맥락 불일치`,
+tip:`일반 소개 → 구체적 설명 → 예시: "had a different view" → "They believed..." → "Ruth Stone..."`}},
 
-let S = { ans: [], cur: 0, ti: null, left: EI.time, start: 0 };
+// Q2: 문장삽입 · 보통 · 5pts
+{id:2,type:`문장삽입`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`①`,`②`,`③`,`④`],
+passage:`We change constantly, but we imagine ourselves staying the same. ① Our cells are always renewing, and our brains are always rewiring. ② Think of the Ship of Theseus: if every piece of wood is replaced over time, is it still the same ship? ③ So here is my advice. ④`,
+stem:`다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n<br><br><b>"We are living examples of this paradox."</b>`,
+det:{korean:`테세우스의 배 비유 직후, "우리는 이 역설의 살아 있는 예시이다"라는 연결 문장이 와야 한다. 그 다음 조언으로 이어진다.`,
+analysis:`✅ ③: 테세우스의 배 역설 설명 직후 → "this paradox"의 지시대상 확보 → 조언으로 전환\n❌ ①: 아직 역설 언급 전\n❌ ②: 세포/뇌 설명과 배 비유 사이 → "this paradox" 지시 불명\n❌ ④: 이미 조언 시작 후`,
+tip:`"this paradox" = 테세우스의 배 비유 → 반드시 그 직후에 와야 함`}},
 
-function getHistory() {
-  try { return JSON.parse(localStorage.getItem(EI.histKey) || '[]'); }
-  catch (e) { return []; }
-}
+// Q3: 어순배열 · 어려움 · 6pts
+{id:3,type:`어순배열`,diff:`어려움`,pts:6,fmt:"written",wa:`your heart and soul into your work`,accept:[`your heart and soul into your work`,`Your heart and soul into your work`],
+passage:`The writer's own process was far less dramatic: just showing up at her desk every morning and working through boring routine. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work. The message is clear: put __________________________________________, and your genius will come.`,
+stem:`다음 주어진 단어를 올바른 순서로 배열하시오.\n<br><br><b>heart / into / and / your / soul / work / your</b>`,
+det:{korean:`"<b>your heart and soul into your work</b>" → 일에 마음과 영혼을 쏟아라.`,
+analysis:`put(동사) + your heart and soul(목적어) + into your work(전치사구)\nput A into B = A를 B에 쏟다`,
+tip:`put + 목적어(your heart and soul) + into + 장소(your work)`}},
 
-function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
-    name: document.getElementById('inpName').value.trim(),
-    school: document.getElementById('inpSchool').value.trim(),
-    grade: document.getElementById('inpGrade').value,
-    score: r.score, total: EI.total,
-    correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
-    level: getLevel(r.score).name,
-    answers: S.ans.slice()
-  });
-  if (h.length > 20) h.length = 20;
-  localStorage.setItem(EI.histKey, JSON.stringify(h));
-}
+// Q4: 어순배열 · 보통 · 5pts
+{id:4,type:`어순배열`,diff:`보통`,pts:5,fmt:"written",wa:`who you want to become`,accept:[`who you want to become`,`Who you want to become`],
+passage:`So here is my advice. First, envision __________________________________________ and stay curious.`,
+stem:`다음 주어진 단어를 올바른 순서로 배열하시오.\n<br><br><b>become / you / to / want / who</b>`,
+det:{korean:`"<b>who you want to become</b>" → 되고 싶은 사람을 그려봐라.`,
+analysis:`envision(동사) + who you want to become(간접의문문 목적어)\nwho(의문사) + you(주어) + want(동사) + to become(부정사)`,
+tip:`간접의문문: 의문사 + 주어 + 동사 순서 (who you want, not who do you want)`}},
 
-function updateHCount() {
-  const h = getHistory();
-  document.getElementById('hCount').textContent = h.length;
-}
+// ━━━ 어법/어휘 SECOND ━━━
 
-function toggleHistory() {
-  const p = document.getElementById('historyPanel');
-  if (p.style.display === 'block') { p.style.display = 'none'; return; }
-  const h = getHistory();
-  if (!h.length) {
-    p.innerHTML = '<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">\uc544\uc9c1 \uae30\ub85d\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</p>';
-    p.style.display = 'block'; return;
-  }
-  const mk = '\u2460\u2461\u2462\u2463\u2464';
-  p.innerHTML = h.map(function (x, idx) {
-    return '<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">' + (x.name || '\uc774\ub984\uc5c6\uc74c') + '</div><div class="hi-meta">' + new Date(x.date).toLocaleDateString('ko-KR') + ' \u00b7 ' + x.grade + ' \u00b7 ' + (x.level || '') + '</div></div><div class="hi-right"><div class="hi-score" style="color:' + (x.score >= 80 ? 'var(--p)' : 'var(--r)') + '">' + x.score + '<span style="font-size:11px;color:var(--tl)">/' + x.total + '</span></div></div>' + (x.answers ? '<button onclick="reviewHistory(' + idx + ')" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid var(--pborder);border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--p)">\ud83d\udcdd \uc815\ub2f5\u00b7\ud574\uc124 \ub2e4\uc2dc \ubcf4\uae30</button>' : '') + '</div>';
-  }).join('');
-  p.style.display = 'block';
-}
+// Q5: 어법 5지선다 · 보통 · 5pts
+{id:5,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:4,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`The poet Ruth Stone \u2460<u>described</u> how, as a child \u2461<u>working</u> in the fields, she could feel a poem \u2462<u>coming</u> toward her like a thunderous train of air, \u2463<u>shaking</u> the earth under her feet. When it reached her, she had to race to the house to \u2464<u>grabbing</u> a pencil and write it down.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 어법상 <b>틀린</b> 것은?`,
+det:{korean:`⑤ grabbing → <b>grab</b>: to부정사 뒤에서 write과 병렬을 이루는 동사원형 <b>grab</b>이 적절하다. "to grab ... and write ..."`,
+analysis:`❌ ⑤ grabbing: to + 동사원형 병렬 → to grab and write\n✅ ① described: 과거형 → 올바름\n✅ ② working: 현재분사 → a child를 수식\n✅ ③ coming: 지각동사 feel + 목적어 + ~ing\n✅ ④ shaking: 동시동작 분사구문`,
+tip:`to A and B: A와 B는 같은 형태(동사원형) → to grab and write`}},
 
-function getLevel(s) {
-  if (s >= 95) return { name: '\ub9c8\uc2a4\ud130', icon: '\ud83d\udc51', range: '95~100', msg: '\uc774 \ub2e8\uc6d0\uc740 \uc815\ubcf5\ud588\uc5b4\uc694!' };
-  if (s >= 85) return { name: '\ucc4c\ub9b0\uc800', icon: '\ud83c\udf1f', range: '85~94', msg: '\uac70\uc758 \uc644\ubcbd, \ud55c \ub057 \ucc28\uc774!' };
-  if (s >= 75) return { name: '\ud30c\uc774\ud130', icon: '\ud83d\udc8e', range: '75~84', msg: '\ud1b5\uacfc! \uc57d\uc810\ub9cc \uc7a1\uc73c\uba74 \ub9c8\uc2a4\ud130' };
-  if (s >= 50) return { name: '\ub8e8\ud0a4', icon: '\ud83d\udd25', range: '50~74', msg: '\uae30\ubcf8\uae30 OK, \uc720\ud615\ubcc4 \ud6c8\ub828 \ud544\uc694' };
-  return { name: '\uc2a4\ud0c0\ud130', icon: '\ud83d\udcd6', range: '0~49', msg: '\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130 \ub2e4\uc2dc!' };
-}
+// Q6: 어법 빈칸 · 보통 · 5pts
+{id:6,type:`어법`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`replace`,`replaced`,`is replaced`,`replacing`],
+passage:`Think of the Ship of Theseus: if every piece of wood __________ over time, is it still the same ship?`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`목재가 교체<b>되는</b> 것이므로 수동태 <b>is replaced</b>가 적절하다.`,
+analysis:`✅ ③ is replaced: 수동태 → 목재가 교체되는 대상\n❌ ① replace: 능동 원형 → 주어가 교체하는 것이 아님\n❌ ② replaced: 과거형 → if절에서 현재 시제가 자연스러움\n❌ ④ replacing: 현재분사 → if절 동사 자리에 부적절`,
+tip:`주어가 동작을 당하는 경우 → 수동태(be + p.p.)`}},
 
-function getTypeAdvice(t) {
-  var m = {
-    '(A)(B)(C) \uc870\ud569\ud615': '\ubc18\uc758\uc5b4 \ud568\uc815 \uc8fc\uc758, \uc6d0\ubb38 \ub2e8\uc5b4 \uc815\ud655\ud788 \uc554\uae30',
-    '\ubb38\ub9e5\uc0c1 \ubd80\uc801\uc808\ud55c \uc5b4\ud718': '\ubc11\uc904 \ub2e8\uc5b4\uac00 \ubc18\uc758\uc5b4\ub85c \ubc14\ub00c\uc5c8\ub294\uc9c0 \ud655\uc778',
-    '\ub3d9\uc758\uc5b4 \uace0\ub974\uae30': '\ub3d9\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
-    '\ubc18\uc758\uc5b4 \uace0\ub974\uae30': '\ubc18\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
-    '\ube48\uce78 \uc5b4\ud718 \uc644\uc131': '\ubb38\ub9e5 \ub2e8\uc11c(clue) \ucc3e\uae30 \uc5f0\uc2b5 \ud544\uc694',
-    '\ub2e4\uc758\uc5b4 \ubb38\ub9e5\uc801 \uc758\ubbf8': '\ub2e4\uc758\uc5b4\uc758 \uc5ec\ub7ec \ub73b\uc744 \ubb38\ub9e5\ubcc4\ub85c \uad6c\ubd84',
-    '\uc601\uc601\ud480\uc774 \ub9e4\uce6d': '\uc601\uc601\uc0ac\uc804 \uc815\uc758 \uc77d\uae30 \uc5f0\uc2b5',
-    '\uc5b4\ud615 \ubcc0\ud658 (\uc11c\uc220\ud615)': '\ud488\uc0ac \ubcc0\ud658 \uaddc\uce59(\uba85\u2194\ud615, \ub3d9\u2194\uba85) \uc815\ub9ac',
-    '\ube48\uce78 \ubb38\ub9e5 \uc644\uc131': '\uae00\uc758 \ud750\ub984\uacfc \ub17c\ub9ac\uc801 \uc5f0\uacb0 \ud30c\uc545',
-    '\uc5b4\ubc95': '\ud575\uc2ec \uc5b4\ubc95 \uaddc\uce59 \uc815\ub9ac \ubc0f \ubc18\ubcf5 \uc5f0\uc2b5',
-    '\ub0b4\uc6a9\uc77c\uce58': '\uc9c0\ubb38\uacfc \uc120\uc9c0\ub97c \uaf3c\uaf3c\ud788 \ub300\uc870',
-    '\ub0b4\uc6a9\ubd88\uc77c\uce58': '\ud568\uc815 \uc120\uc9c0\uc758 \ubbf8\uc138\ud55c \ucc28\uc774 \ucc3e\uae30',
-    'T/F': '\uc6d0\ubb38\uacfc \uc9c4\uc220\uc744 \uc815\ud655\ud788 \ub300\uc870',
-    '\uc11c\uc220\ud615': '\uc815\ud655\ud55c \ucca0\uc790\uc640 \uc5b4\ud615 \ubcc0\ud658 \uc8fc\uc758',
-    '\ube48\uce78\ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
-    '\ube48\uce78 \ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
-    '\ubb38\uc7a5\uc0bd\uc785': '\uae00\uc758 \ud750\ub984\uacfc \uc5f0\uacb0\uc0ac \ud30c\uc545',
-    '\uc5b4\uc21c\ubc30\uc5f4': '\ubb38\uc7a5 \uad6c\uc870(S+V+O) \uc815\ud655\ud788 \ud30c\uc545',
-    '\uc5b4\ud718': '\ubb38\ub9e5\uc5d0\uc11c \uc801\uc808\ud55c \uc5b4\ud718 \uace0\ub974\uae30 \uc5f0\uc2b5',
-    '\ub0b4\uc6a9\uc774\ud574': '\uc9c0\ubb38 \ud575\uc2ec \ub0b4\uc6a9 \uc815\ud655\ud788 \ud30c\uc545'
-  };
-  return m[t] || '\ud574\ub2f9 \uc720\ud615 \uc9d1\uc911 \ubcf5\uc2b5 \ud544\uc694';
-}
+// Q7: 부적절 어휘 · 보통 · 5pts
+{id:7,type:`어휘`,diff:`보통`,pts:5,fmt:"mc",ans:2,
+ch:[`①`,`②`,`③`,`④`,`⑤`],
+passage:`Have you ever felt \u2460<u>anxious</u> about your own creativity? Do you \u2461<u>blame</u> yourself when brilliant ideas don't come? The ancient Romans had a different view of creativity. They believed that a "genius" was not a \u2462<u>humble</u> person but a kind of divine assistant spirit that lived in the walls of an artist's \u2463<u>studio</u>. The message is clear: put your heart and \u2464<u>soul</u> into your work.`,
+stem:`다음 글의 밑줄 친 ①~⑤ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?`,
+det:{korean:`원문은 "not a <b>gifted</b> person but a divine spirit"(재능 있는 사람이 아니라). ③ humble(겸손한)은 gifted의 반의어로 문맥에 부적절하다.`,
+analysis:`❌ ③ humble(겸손한): 원문 gifted(재능 있는) → "not a gifted person but..."에서 대조되는 것\n✅ ① anxious(불안한): 원문 일치\n✅ ② blame(탓하다): 원문 일치\n✅ ④ studio(작업실): 원문 일치\n✅ ⑤ soul(영혼): 원문 일치`,
+tip:`gifted(재능 있는) ↔ humble(겸손한) — not A but B 구문에서 A에 해당하는 단어`}},
 
-function fmtTime(s) { return Math.floor(s / 60) + '\ubd84 ' + s % 60 + '\ucd08'; }
+// ━━━ 빈칸추론/서술형/내용/TF LAST ━━━
 
-function toast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function () { t.classList.remove('show'); }, 2500);
-}
+// Q8: 빈칸추론 · 어려움 · 6pts
+{id:8,type:`빈칸추론`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`physical training`,`artistic talent`,`formal education`,`boring routine`],
+passage:`The writer's own process was far less dramatic: just showing up at her desk every morning and working through __________. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`필자의 과정은 극적이지 않았다: 매일 아침 책상에 앉아 <b>지루한 일상(boring routine)</b>을 거치는 것. 하지만 깊이 몰입하면 아이디어가 떠올랐다.`,
+analysis:`✅ ④ boring routine: "far less dramatic" + "just showing up" → 단조로운 일상\n❌ ① physical training: 신체 훈련은 문맥과 무관\n❌ ② artistic talent: 재능은 과정이 아님\n❌ ③ formal education: 공식 교육은 문맥과 무관`,
+tip:`"far less dramatic" + "just showing up every morning" → 반복적이고 단조로운 과정`}},
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-}
+// Q9: 빈칸추론 · 보통 · 5pts
+{id:9,type:`빈칸추론`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`staying the same`,`changing constantly`,`becoming weaker`,`losing memories`],
+passage:`When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I'm a journalist and podcast host in the US. We __________, but we imagine ourselves staying the same.`,
+stem:`다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?`,
+det:{korean:`축구에서 미식축구로, 인도에서 미국으로, 컴퓨터 공학에서 저널리즘으로 변화 → 우리는 <b>끊임없이 변한다(change constantly)</b>.`,
+analysis:`✅ ② changing constantly: 구체적 변화 예시 → 끊임없는 변화\n❌ ① staying the same: "but we imagine ourselves staying the same"과 대조되어야 함\n❌ ③ becoming weaker: 문맥에 없음\n❌ ④ losing memories: 문맥에 없음`,
+tip:`but 대조: 빈칸(실제) ↔ "staying the same"(상상) → 실제로는 변한다`}},
 
-function shuffle(arr) {
-  for (var i = arr.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-  }
-  return arr;
-}
+// Q10: 서술형 어형변환 · 쉬움 · 4pts
+{id:10,type:`서술형`,diff:`쉬움`,pts:4,fmt:"written",wa:`passionate`,accept:[`passionate`,`Passionate`],
+passage:`When I was 12, I was __________ (passion) about soccer. Now, I prefer American football.`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`passion(명사) → <b>passionate(형용사)</b>: "was + 형용사" 구문. "축구에 열정적이었다"`,
+analysis:`passion(명사) → passionate(형용사)\nwas + 형용사: 상태를 나타내는 2형식\nbe passionate about = ~에 열정적이다`,
+tip:`passion → passionate / compassion → compassionate — 명사 → -ate 형용사`}},
 
-/* Section picker (for 부교재 with sec field) */
-function toggleAllSec(el) {
-  document.querySelectorAll('.sec-cb').forEach(function (cb) { if (cb.value !== 'all') cb.checked = el.checked; });
-}
+// Q11: 서술형 어형변환 · 보통 · 5pts
+{id:11,type:`서술형`,diff:`보통`,pts:5,fmt:"written",wa:`creativity`,accept:[`creativity`,`Creativity`],
+passage:`Have you ever felt anxious about your own __________ (creative)? Do you blame yourself when brilliant ideas don't come?`,
+stem:`다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.`,
+det:{korean:`creative(형용사) → <b>creativity(명사)</b>: 소유격 your own 뒤에 명사가 필요. "당신 자신의 창의성"`,
+analysis:`creative(형용사) → creativity(명사)\nyour own + 명사: 소유격 뒤에 명사 필요\nyour own creativity = 당신 자신의 창의성`,
+tip:`creative → creativity / active → activity — 형용사 → -ity 명사 변환`}},
 
-function getSelectedSections() {
-  var cbs = document.querySelectorAll('.sec-cb:checked');
-  var secs = [];
-  cbs.forEach(function (cb) { if (cb.value !== 'all') secs.push(cb.value); });
-  return secs;
-}
+// Q12: 서술형 본문찾기 · 쉬움 · 4pts
+{id:12,type:`서술형`,diff:`쉬움`,pts:4,fmt:"written",wa:`pencil`,accept:[`pencil`,`Pencil`],
+passage:`The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet. When it reached her, she had to race to the house to grab a pencil and write it down.`,
+stem:`다음 글에서 Ruth Stone이 시가 다가왔을 때 집으로 달려가 잡아야 했던 것을 본문에서 <b>1단어</b>로 찾아 쓰시오.`,
+det:{korean:`"she had to race to the house to grab a <b>pencil</b> and write it down" → 연필`,
+analysis:`시가 다가왔을 때 집으로 달려가 잡은 것 = pencil\n1단어 답 = pencil`,
+tip:`grab = 잡다 → 잡아야 했던 대상 = pencil(연필)`}},
 
-function startExam() {
-  var nm = document.getElementById('inpName').value.trim();
-  if (!nm) { toast('\uc774\ub984\uc744 \uc785\ub825\ud574\uc8fc\uc138\uc694!'); return; }
+// Q13: 서술형 본문찾기 · 보통 · 5pts
+{id:13,type:`서술형`,diff:`보통`,pts:5,fmt:"written",wa:`computer science`,accept:[`computer science`,`Computer science`,`Computer Science`],
+passage:`When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I'm a journalist and podcast host in the US.`,
+stem:`다음 글에서 화자가 인도에서 22살에 받은 학위의 분야를 본문에서 <b>2단어</b>로 찾아 쓰시오.`,
+det:{korean:`"I graduated in India with a <b>computer science</b> degree" → 컴퓨터 공학`,
+analysis:`인도에서 받은 학위 분야 = computer science\n2단어 답 = computer science`,
+tip:`graduated with a ___ degree: ~학위를 받고 졸업하다`}},
 
-  /* Section filtering (if sec picker exists) */
-  var secPicker = document.getElementById('secPicker');
-  var filtered;
-  if (secPicker) {
-    var secs = getSelectedSections();
-    if (secs.length === 0) { toast('\uc2dc\ud5d8 \ubc94\uc704\ub97c \ucd5c\uc18c 1\uac1c \uc120\ud0dd\ud574\uc8fc\uc138\uc694!'); return; }
-    filtered = Q.map(function (q, i) { return { q: q, i: i }; }).filter(function (f) { return secs.includes(f.q.sec); });
-    S = { ans: Array(filtered.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle([].concat(Array(filtered.length).keys ? Array.from({ length: filtered.length }, function (_, i) { return i; }) : [])), filtered: filtered.map(function (f) { return f.i; }), secs: secs };
-    EI._origTotalQ = EI.totalQ; EI._origTotal = EI.total;
-    EI.totalQ = filtered.length;
-    EI.total = filtered.reduce(function (s, f) { return s + Q[f.i].pts; }, 0);
-  } else {
-    S = { ans: Array(Q.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle(Array.from({ length: Q.length }, function (_, i) { return i; })), filtered: null, secs: null };
-  }
+// Q14: 내용이해 일치 · 쉬움 · 4pts
+{id:14,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:1,
+ch:[`고대 로마인들은 genius를 재능 있는 사람이라고 여겼다.`,`Ruth Stone은 시가 천둥치는 공기의 기차처럼 다가오는 것을 느꼈다.`,`필자의 창작 과정은 매우 극적이었다.`,`아이디어는 불안할 때 가장 잘 떠올랐다.`],
+passage:`Have you ever felt anxious about your own creativity? Do you blame yourself when brilliant ideas don't come? The ancient Romans had a different view of creativity. They believed that a "genius" was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist's studio. The poet Ruth Stone described how, as a child working in the fields, she could feel a poem coming toward her like a thunderous train of air, shaking the earth under her feet.`,
+stem:`다음 글의 내용과 <b>일치하는</b> 것은?`,
+det:{korean:`"feel a poem coming toward her like a thunderous train of air" → Stone은 시가 천둥 같은 공기의 기차처럼 다가오는 것을 느꼈다.`,
+analysis:`✅ ② Stone이 시가 천둥치는 공기의 기차처럼 다가옴을 느낌: 일치\n❌ ① genius는 "not a gifted person" → 재능 있는 사람이 아님\n❌ ③ "far less dramatic" → 극적이지 않았음\n❌ ④ "when deeply engaged and immersed" → 몰입할 때`,
+tip:`비유 표현 "like a thunderous train of air"를 정확히 파악`}},
 
+// Q15: 내용이해 불일치 · 어려움 · 6pts
+{id:15,type:`내용이해`,diff:`어려움`,pts:6,fmt:"mc",ans:3,
+ch:[`화자는 12살 때 축구를 좋아했다.`,`화자는 인도에서 컴퓨터 공학 학위를 받았다.`,`화자는 우리의 세포가 항상 새로워지고 있다고 했다.`,`화자는 현재 의견을 절대 바꾸지 말라고 조언했다.`],
+passage:`When I was 12, I was passionate about soccer. Now, I prefer American football. I graduated in India with a computer science degree at 22, and now I'm a journalist and podcast host in the US. We change constantly, but we imagine ourselves staying the same. Our cells are always renewing, and our brains are always rewiring. So here is my advice. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don't fear challenges.`,
+stem:`다음 글의 내용과 <b>일치하지 않는</b> 것은?`,
+det:{korean:`본문: "your future self may <b>disagree</b> with your current opinions, so be <b>respectful</b>" → 의견이 바뀔 수 있으니 존중하라는 뜻이지, "절대 바꾸지 말라"는 것이 아니다.`,
+analysis:`❌ ④ 현재 의견을 절대 바꾸지 말라: 본문은 오히려 변할 수 있다고 인정하라는 조언\n✅ ① "passionate about soccer" → 일치\n✅ ② "graduated in India with a CS degree" → 일치\n✅ ③ "cells are always renewing" → 일치`,
+tip:`"may disagree" = 동의하지 않을 수 있다 → 변화를 인정하라는 메시지`}},
+
+// Q16: 글의 주제 · 쉬움 · 4pts
+{id:16,type:`내용이해`,diff:`쉬움`,pts:4,fmt:"mc",ans:2,
+ch:[`축구와 미식축구의 역사`,`컴퓨터 공학과 저널리즘의 비교`,`자기 개선과 변화를 받아들이는 삶`,`고대 로마의 예술 문화`],
+passage:`The message is clear: put your heart and soul into your work, and your genius will come. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don't fear challenges.`,
+stem:`이 글 전체의 주제로 가장 적절한 것은?`,
+det:{korean:`일에 전력하면 천재성이 온다 + 되고 싶은 자신을 그려라 + 도전을 두려워하지 말라 → <b>자기 개선과 변화를 받아들이는 삶</b>`,
+analysis:`✅ ③ 자기 개선과 변화: "put heart and soul" + "envision" + "don't fear challenges"\n❌ ① 축구/미식축구: 예시일 뿐\n❌ ② 학문 비교: 주제 아님\n❌ ④ 로마 예술: 보조 배경`,
+tip:`두 강연의 공통 주제: 최선의 자신이 되기(Becoming the Best Possible Me)`}},
+
+// Q17: T/F · 쉬움 · 4pts
+{id:17,type:`T/F`,diff:`쉬움`,pts:4,fmt:"mc",ans:0,
+ch:[`True`,`False`],
+passage:`The ancient Romans had a different view of creativity. They believed that a "genius" was not a gifted person but a kind of divine assistant spirit that lived in the walls of an artist's studio.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>According to the ancient Romans, a genius was a divine spirit living in the walls of an artist's studio.</b>"`,
+det:{korean:`"a kind of divine assistant spirit that lived in the walls of an artist's studio" → 본문과 일치 → <b>True</b>`,
+analysis:`✅ True: "divine assistant spirit" + "lived in the walls" → 진술과 일치`,
+tip:`진술의 핵심 요소(divine spirit + walls + studio)를 본문과 대조`}},
+
+// Q18: T/F · 보통 · 5pts
+{id:18,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`True`,`False`],
+passage:`The writer's own process was far less dramatic: just showing up at her desk every morning and working through boring routine. But ideas would come, mysteriously, when she was deeply engaged and immersed in the work.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The writer's creative process was highly dramatic and exciting.</b>"`,
+det:{korean:`본문: "far <b>less dramatic</b>: just showing up ... boring routine" → 극적이지 않고 지루한 일상이었다. "highly dramatic"은 본문과 <b>반대</b>. → <b>False</b>`,
+analysis:`❌ False: "far less dramatic" + "boring routine" ≠ "highly dramatic and exciting"`,
+tip:`far less dramatic = 훨씬 덜 극적인 → highly dramatic의 반대`}},
+
+// Q19: T/F · 어려움 · 6pts
+{id:19,type:`T/F`,diff:`어려움`,pts:6,fmt:"mc",ans:0,
+ch:[`True`,`False`],
+passage:`We change constantly, but we imagine ourselves staying the same. Our cells are always renewing, and our brains are always rewiring. Think of the Ship of Theseus: if every piece of wood is replaced over time, is it still the same ship? We are living examples of this paradox.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The speaker uses the Ship of Theseus as an analogy to explain that humans are constantly changing.</b>"`,
+det:{korean:`세포가 새로워지고 뇌가 재배선되는 것을 테세우스의 배에 비유하여 인간의 끊임없는 변화를 설명한다. → <b>True</b>`,
+analysis:`✅ True: Ship of Theseus(비유) → cells renewing, brains rewiring(인간의 변화) → "We are living examples"`,
+tip:`analogy(비유) = 테세우스의 배를 통해 인간의 변화를 설명하는 것`}},
+
+// Q20: T/F · 보통 · 5pts
+{id:20,type:`T/F`,diff:`보통`,pts:5,fmt:"mc",ans:1,
+ch:[`True`,`False`],
+passage:`So here is my advice. First, envision who you want to become and stay curious. Second, your future self may disagree with your current opinions, so be respectful of others. Third, your future self will have strengths you lack now, so don't fear challenges.`,
+stem:`다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>"<b>The speaker advises that we should fear challenges because our future self will be weaker.</b>"`,
+det:{korean:`본문: "your future self will have <b>strengths</b> you lack now, so <b>don't fear</b> challenges" → 미래의 자신은 더 <b>강해질</b> 것이므로 두려워하지 <b>말라</b>. "약해질 것이므로 두려워하라"는 <b>반대</b>. → <b>False</b>`,
+analysis:`❌ False: "will have strengths" ≠ "will be weaker", "don't fear" ≠ "should fear"`,
+tip:`두 가지 반대: strengths vs. weaker, don't fear vs. should fear`}}
+];
+
+let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
+
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
+function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
+function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--o)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--o)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
+function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
+function getTypeAdvice(t){const m={'(A)(B)(C) 조합형':'반의어 함정 주의, 원문 단어 정확히 암기','문맥상 부적절한 어휘':'밑줄 단어가 반의어로 바뀌었는지 확인','동의어 고르기':'동의어 쌍을 세트로 묶어 암기','반의어 고르기':'반의어 쌍을 세트로 묶어 암기','빈칸 어휘 완성':'문맥 단서(clue) 찾기 연습 필요','다의어 문맥적 의미':'다의어의 여러 뜻을 문맥별로 구분','영영풀이 매칭':'영영사전 정의 읽기 연습','어형 변환 (서술형)':'품사 변환 규칙(명↔형, 동↔명) 정리','빈칸 문맥 완성':'글의 흐름과 논리적 연결 파악','어법':'핵심 어법 규칙 정리 및 반복 연습','내용일치':'지문과 선지를 꼼꼼히 대조','내용불일치':'함정 선지의 미세한 차이 찾기','T/F':'원문과 진술을 정확히 대조','서술형':'정확한 철자와 어형 변환 주의','빈칸추론':'빈칸 전후 문맥 단서 찾기','빈칸 추론':'빈칸 전후 문맥 단서 찾기','문장삽입':'글의 흐름과 연결사 파악','어순배열':'문장 구조(S+V+O) 정확히 파악','어휘':'문맥에서 적절한 어휘 고르기 연습','내용이해':'지문 핵심 내용 정확히 파악'};return m[t]||'해당 유형 집중 복습 필요';}
+function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function startExam(){
+  const nm=document.getElementById('inpName').value.trim();
+  if(!nm){toast('이름을 입력해주세요!');return;}
+  S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};
   showScreen('examScreen');
   showQ(0);
   startTimer();
   updateProgress();
   initSwipe();
 }
-
-function showQ(idx, direction) {
-  S.cur = idx;
-  var oi = S.order ? S.order[idx] : idx;
-  var qi = S.filtered ? S.filtered[oi] : oi;
-  var q = Q[qi];
-  var tc = typeTag[q.type] || '';
-  var mk = '\u2460\u2461\u2462\u2463\u2464';
-  var pp = document.getElementById('slidePassage');
-  if (direction) {
-    pp.classList.add(direction > 0 ? 'fade-out' : 'fade-in');
-    setTimeout(function () {
-      renderContent(idx, qi, q, tc, mk, pp);
-      pp.classList.remove('fade-out', 'fade-in');
-    }, 150);
+const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','순서배열':'tag-order','글순서':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','빈칸 추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','내용일치':'tag-content','내용불일치':'tag-content','T/F':'tag-tf','(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx','어법 빈칸':'tag-grammar'};
+function showQ(idx,direction){
+  S.cur=idx;
+  const qi=S.order?S.order[idx]:idx;
+  const q=Q[qi];
+  const tc=typeTag[q.type]||'';
+  const mk='①②③④⑤';
+  const pp=document.getElementById('slidePassage');
+  if(direction){
+    pp.classList.add(direction>0?'fade-out':'fade-in');
+    setTimeout(()=>{
+      renderContent(idx,qi,q,tc,mk,pp);
+      pp.classList.remove('fade-out','fade-in');
+    },150);
   } else {
-    renderContent(idx, qi, q, tc, mk, pp);
+    renderContent(idx,qi,q,tc,mk,pp);
   }
 }
-
-function renderContent(idx, qi, q, tc, mk, pp) {
-  var ph = '<div class="q-badge"><div class="q-num">' + (idx + 1) + '</div><span>' + q.type + '</span><span style="opacity:.6">' + q.diff + ' \u00b7 ' + q.pts + '\uc810</span></div>';
-  if (q.passage) ph += '<div class="q-passage">' + q.passage + '</div>';
-  else ph += '<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
-  pp.innerHTML = ph;
-  pp.scrollTop = 0;
-  var bt = document.getElementById('slideBottom');
-  var bh = '<div class="slide-stem">' + q.stem + '</div><div class="slide-choices">';
-  if (q.fmt === 'mc') {
-    q.ch.forEach(function (c, ci) {
-      var sel = S.ans[qi] === ci ? ' selected' : '';
-      bh += '<button class="choice-btn' + sel + '" onclick="selectAns(' + idx + ',' + ci + ')"><span class="c-num">' + mk[ci] + '</span><span>' + c + '</span></button>';
+function renderContent(idx,qi,q,tc,mk,pp){
+  let ph='<div class="q-badge"><div class="q-num">'+( idx+1)+'</div><span>'+q.type+'</span><span style="opacity:.6">'+q.diff+' \u00b7 '+q.pts+'\uc810</span></div>';
+  if(q.passage) ph+='<div class="q-passage">'+q.passage+'</div>';
+  else ph+='<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
+  pp.innerHTML=ph;
+  pp.scrollTop=0;
+  const bt=document.getElementById('slideBottom');
+  let bh='<div class="slide-stem">'+q.stem+'</div><div class="slide-choices">';
+  if(q.fmt==='mc'){
+    q.ch.forEach(function(c,ci){
+      var sel=S.ans[qi]===ci?' selected':'';
+      bh+='<button class="choice-btn'+sel+'" onclick="selectAns('+idx+','+ci+')"><span class="c-num">'+mk[ci]+'</span><span>'+c+'</span></button>';
     });
   }
-  if (q.fmt === 'written') {
-    var val = S.ans[qi] || '';
-    bh += '<input class="written-input" value="' + val + '" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns(' + idx + ',this.value)">';
+  if(q.fmt==='written'){
+    var val=S.ans[qi]||'';
+    bh+='<input class="written-input" value="'+val+'" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns('+idx+',this.value)">';
   }
-  bh += '</div><div class="slide-nav"><button ' + (idx === 0 ? 'disabled ' : '') + ' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">' + (idx + 1) + ' / ' + EI.totalQ + '</span><button class="sn-next" ' + (idx === EI.totalQ - 1 ? 'disabled ' : '') + ' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
-  bt.innerHTML = bh;
+  bh+='</div><div class="slide-nav"><button '+(idx===0?'disabled ':'')+' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">'+(idx+1)+' / '+EI.totalQ+'</span><button class="sn-next" '+(idx===EI.totalQ-1?'disabled ':'')+' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
+  bt.innerHTML=bh;
 }
-
-function selectAns(idx, ci) {
-  var qi = S.order ? S.order[idx] : idx;
-  if (S.filtered) qi = S.filtered[qi];
-  S.ans[qi] = ci;
-  var btns = document.querySelectorAll('.slide-choices .choice-btn');
-  btns.forEach(function (b, i) {
-    b.classList.toggle('selected', i === ci);
-    if (i === ci) b.classList.add('just-selected');
+function selectAns(idx,ci){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=ci;
+  var btns=document.querySelectorAll('.slide-choices .choice-btn');
+  btns.forEach(function(b,i){
+    b.classList.toggle('selected',i===ci);
+    if(i===ci)b.classList.add('just-selected');
   });
   updateProgress();
+  setTimeout(function(){if(idx<EI.totalQ-1)showQ(idx+1,1);},400);
 }
-
-function writeAns(idx, val) {
-  var qi = S.order ? S.order[idx] : idx;
-  if (S.filtered) qi = S.filtered[qi];
-  S.ans[qi] = val.trim() || null;
+function writeAns(idx,val){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=val.trim()||null;
   updateProgress();
 }
-
-function navQ(dir) {
-  var next = S.cur + dir;
-  if (next >= 0 && next < EI.totalQ) showQ(next, dir);
+function navQ(dir){
+  var next=S.cur+dir;
+  if(next>=0&&next<EI.totalQ)showQ(next,dir);
 }
-
-function updateProgress() {
-  var answered = S.ans.filter(function (a) { return a !== null; }).length;
-  document.getElementById('progressFill').style.width = (answered / EI.totalQ * 100) + '%';
-  document.getElementById('ansCount').textContent = answered + '/' + EI.totalQ;
+function updateProgress(){
+  var answered=S.ans.filter(function(a){return a!==null;}).length;
+  document.getElementById('progressFill').style.width=(answered/EI.totalQ*100)+'%';
+  document.getElementById('ansCount').textContent=answered+'/'+EI.totalQ;
 }
-
-function initSwipe() {
-  var startX = 0, startY = 0;
-  var el = document.getElementById('slideWrap');
-  el.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
-  el.addEventListener('touchend', function (e) {
-    var dx = e.changedTouches[0].clientX - startX;
-    var dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      if (dx < 0 && S.cur < EI.totalQ - 1) navQ(1);
-      if (dx > 0 && S.cur > 0) navQ(-1);
+function initSwipe(){
+  var startX=0,startY=0;
+  var el=document.getElementById('slideWrap');
+  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+  el.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx<0&&S.cur<EI.totalQ-1)navQ(1);
+      if(dx>0&&S.cur>0)navQ(-1);
     }
-  }, { passive: true });
+  },{passive:true});
 }
-
-/* Compatibility stubs */
-function renderSlide(i) { showQ(i); }
-function slideSel() {}
-function slideWrite() {}
-function renderQ() {}
-function renderDots() {}
-function upDots() {}
-function scrollToQ(i) { if (i >= 0 && i < EI.totalQ) showQ(i); }
-function openCard() {}
-function closeCard() {}
-function gcSel() {}
-function gcWrite() {}
-function gcNav() {}
-function sel() {}
-function sw() {}
-
-function startTimer() {
-  var el = document.getElementById('timer');
-  S.ti = setInterval(function () {
-    S.left--;
-    var m = Math.floor(S.left / 60), s = S.left % 60;
-    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-    el.classList.toggle('warn', S.left <= 300 && S.left > 60);
-    el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
-  }, 1000);
-}
-
-function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
-  clearInterval(S.ti);
-  var elapsed = Math.floor((Date.now() - S.start) / 1000);
-  var r = grade();
-  saveToHistory(r, elapsed);
-  renderResults(r, elapsed);
-  showScreen('resultScreen');
-  window.scrollTo(0, 0);
-}
-
-function grade() {
-  var score = 0, correct = 0, wrong = 0, unanswered = 0;
-  var details = [];
-  var qs = S.filtered ? S.filtered.map(function (i) { return Q[i]; }) : Q;
-  qs.forEach(function (q, i) {
-    var a = S.ans[i];
-    var ok = false;
-    if (a === null) unanswered++;
-    else if (q.fmt === 'mc') ok = a === q.ans;
-    else {
-      var u = String(a).trim().toLowerCase();
-      if (q.accept) ok = q.accept.some(function (x) { return u === x.toLowerCase(); });
-      if (!ok && q.wa) ok = u === q.wa.toLowerCase();
-    }
-    if (a !== null) { if (ok) { correct++; score += q.pts; } else wrong++; }
-    details.push({ q: q, ans: a, ok: ok });
-  });
-  return { score: score, correct: correct, wrong: wrong, unanswered: unanswered, details: details };
-}
-
-function renderResults(r, elapsed) {
-  var pass = r.score >= 80;
-  var nm = document.getElementById('inpName').value.trim();
-  var sc = document.getElementById('inpSchool').value.trim();
-  var gr = document.getElementById('inpGrade').value;
-  var lv = getLevel(r.score);
-  var pct = Math.round(r.score / EI.total * 100);
-  var typeMap = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!typeMap[t]) typeMap[t] = { total: 0, ok: 0 };
-    typeMap[t].total++;
-    if (d.ok) typeMap[t].ok++;
-  });
-
-  var h = '';
-  h += '<div class="r-hero ' + (pass ? 'pass' : 'fail') + '"><div class="r-badge ' + (pass ? 'pass' : 'fail') + '">' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + '</div><div class="r-score">' + r.score + '<sup>/' + EI.total + '</sup></div><div class="r-stats"><span class="stat-item">\u2705 \uc815\ub2f5 <strong>' + r.correct + '</strong></span><span class="stat-item">\u274c \uc624\ub2f5 <strong>' + r.wrong + '</strong></span><span class="stat-item">\u2b1c \ubbf8\uc751\ub2f5 <strong>' + r.unanswered + '</strong></span><span class="stat-item">\u23f1\ufe0f <strong>' + fmtTime(elapsed) + '</strong></span></div></div><div class="rc">';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udccb \uae30\ubcf8 \uc815\ubcf4</div><div class="info-grid"><div class="info-cell"><div class="ic-label">\uc774\ub984</div><div class="ic-value">' + nm + '</div></div><div class="info-cell"><div class="ic-label">\ud559\uad50 / \ud559\ub144</div><div class="ic-value">' + (sc || '\ubbf8\uc785\ub825') + ' \u00b7 ' + gr + '</div></div><div class="info-cell"><div class="ic-label">\uc2dc\ud5d8 \ubc94\uc704</div><div class="ic-value">' + EI.subject + ' \u00b7 ' + EI.pub + '</div></div><div class="info-cell"><div class="ic-label">\uc751\uc2dc\uc77c</div><div class="ic-value">' + new Date().toLocaleDateString('ko-KR') + '</div></div><div class="info-cell highlight"><div class="ic-label">\uc810\uc218</div><div class="ic-value">' + r.score + '\uc810 / ' + EI.total + '\uc810 (' + pct + '%)</div></div><div class="info-cell highlight"><div class="ic-label">\uc18c\uc694\uc2dc\uac04 / \ud1b5\uacfc</div><div class="ic-value">' + fmtTime(elapsed) + ' / <span style="color:' + (pass ? 'var(--p)' : 'var(--r)') + '">' + (pass ? '\ud1b5\uacfc \u2705' : '\ubbf8\ud1b5\uacfc \u274c') + '</span></div></div></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83c\udfc5 \ub808\ubca8</div><div class="level-card"><div class="level-icon">' + lv.icon + '</div><div class="level-name">' + lv.name + '</div><div class="level-range">' + lv.range + '\uc810 \uad6c\uac04</div><div class="level-bar"><div class="level-bar-fill" style="width:' + pct + '%"></div></div><div class="level-msg">' + lv.msg + '</div></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
-  Object.entries(typeMap).forEach(function (entry) {
-    var type = entry[0], d = entry[1];
-    var p = Math.round(d.ok / d.total * 100);
-    var c = p === 100 ? 'var(--p)' : p >= 50 ? 'var(--o)' : 'var(--r)';
-    var icon = p === 100 ? '\u2705' : p >= 50 ? '\u26a0\ufe0f' : '\u274c';
-    h += '<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">' + icon + '</span><span style="font-size:13px;font-weight:700;flex:1">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-size:13px;font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div class="type-track"><div class="type-fill" style="width:' + p + '%;background:' + c + '"></div></div>' + (p < 100 ? '<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">\u2192 ' + getTypeAdvice(type) + '</div>' : '') + '</div>';
-  });
-  h += '</div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \ub0b4\uc2e0\ud56b \ucc98\ubc29</div><div class="plan-card">';
-  if (pct >= 95) h += '<div class="plan-icon">\ud83d\udc51</div><div class="plan-text"><h4>\ub9c8\uc2a4\ud130 \ub2ec\uc131!</h4><p>\uc774 \ub2e8\uc6d0\uc740 \uc644\ubcbd\ud569\ub2c8\ub2e4. \ub2e4\uc74c \ub2e8\uc6d0\uc5d0 \ub3c4\uc804\ud558\uc138\uc694!</p></div>';
-  else if (pct >= 80) h += '<div class="plan-icon">\ud83c\udf1f</div><div class="plan-text"><h4>\ud1b5\uacfc! \ub9c8\uc2a4\ud130\uae4c\uc9c0 \ud55c \ub057</h4><p>\uc544\ub798 \uc57d\uc810 \uc720\ud615\ub9cc \uc9d1\uc911\ud558\uba74 \ub9c8\uc2a4\ud130 \ub2ec\uc131!</p></div>';
-  else if (pct >= 50) h += '<div class="plan-icon">\ud83d\udd25</div><div class="plan-text"><h4>\uae30\ubcf8\uae30\ub294 \uc788\uc5b4\uc694!</h4><p>\uc624\ub2f5 \ud574\uc124\uc744 \uaf3c\uaf3c\ud788 \ud655\uc778\ud558\uace0, \uc57d\uc810 \uc720\ud615\ubd80\ud130 \uacf5\ub7b5\ud558\uc138\uc694.</p></div>';
-  else h += '<div class="plan-icon">\ud83d\udcd6</div><div class="plan-text"><h4>\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130!</h4><p>\ubcf8\ubb38\uc744 \uc644\ubcbd\ud788 \uc774\ud574\ud55c \ub4a4 \uc7ac\ub3c4\uc804\ud558\uc138\uc694. \ud574\uc124\uc758 \ud55c\uae00 \ud574\uc11d\uc744 \ud65c\uc6a9!</p></div>';
-  h += '</div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\ude80 \uc561\uc158</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">\ud83d\udcf8</span><span class="act-label">\uc774\ubbf8\uc9c0 \uacf5\uc720</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">\ud83d\udccb</span><span class="act-label">\ud14d\uc2a4\ud2b8 \ubcf5\uc0ac</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">\ud83d\udd04</span><span class="act-label">\uc7ac\uc2dc\ud5d8</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">\ud83c\udfe0</span><span class="act-label">\ud648\uc73c\ub85c</span></button></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \uc815\ub2f5\uacfc \ud574\uc124 <span style="font-size:12px;color:var(--tl);margin-left:8px">\ud074\ub9ad\ud558\uc5ec \ud3bc\uce58\uae30</span></div>';
-  var mk = '\u2460\u2461\u2462\u2463\u2464';
-  r.details.forEach(function (d, i) {
-    var icon = d.ok ? '\u2705' : (d.ans === null ? '\u2b1c' : '\u274c');
-    var ua = d.q.fmt === 'mc' ? (d.ans !== null ? mk[d.ans] : '\ubbf8\uc751\ub2f5') : (d.ans || '\ubbf8\uc751\ub2f5');
-    var ca = d.q.fmt === 'mc' ? mk[d.q.ans] : (d.q.wa || '');
-    var open = !d.ok;
-    var chHtml = '';
-    if (d.q.fmt === 'mc' && d.q.ch) {
-      chHtml = '<div style="margin-top:8px">';
-      d.q.ch.forEach(function (c, ci) {
-        var isAns = ci === d.q.ans;
-        var isMy = d.ans === ci;
-        var color = isAns ? 'var(--p)' : (isMy && !d.ok ? 'var(--r)' : 'var(--tm)');
-        var bg = isAns ? 'var(--pl)' : (isMy && !d.ok ? 'var(--rl)' : 'transparent');
-        var label = isAns ? ' \u2705' : (isMy && !d.ok ? ' \u274c' : '');
-        chHtml += '<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:' + color + ';background:' + bg + '"><b>' + mk[ci] + '</b> ' + c + label + '</div>';
-      });
-      chHtml += '</div>';
-    }
-    h += '<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'.rev-icon\').style.transform=this.nextElementSibling.classList.contains(\'open\')?\'rotate(180deg)\':\'\'"><span style="font-weight:800">' + icon + ' ' + d.q.id + '\ubc88</span><span style="font-size:12px;color:var(--tm)">[' + d.q.type.slice(0, 8) + '] ' + d.q.diff + ' ' + d.q.pts + '\uc810</span><span class="rev-icon">\u25bc</span></div><div class="rev-body' + (open ? ' open' : '') + '"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;' + (d.ok ? 'background:var(--pl);color:var(--p)' : 'background:var(--rl);color:var(--r)') + '"><div style="font-size:10px;opacity:.7">\ub0b4 \ub2f5</div>' + ua + '</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--pl);color:var(--p)"><div style="font-size:10px;opacity:.7">\uc815\ub2f5</div>' + ca + '</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcdd \ubb38\uc81c</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">' + d.q.stem + '</div>' + chHtml + '</div>' + (d.q.passage ? '<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcd6 \uc6d0\ubb38</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">' + d.q.passage + '</div>' : '') + (d.q.det ? '<div class="expl-tag ans">\ud83c\uddf0\ud83c\uddf7 \ud574\uc11d</div><div class="expl-box ans-b">' + (d.q.det.korean || '') + '</div><div class="expl-tag tip">\ud83d\udccb \ud480\uc774 \u00b7 \uc120\uc9c0 \ubd84\uc11d</div><div class="expl-box" style="white-space:pre-line">' + ((d.q.det.analysis || '').replace(/\\n/g, '<br>')) + '</div><div class="expl-tag tip">\ud83d\udca1 \ud3ec\uc778\ud2b8</div><div class="expl-box tip-b">' + (d.q.det.tip || '') + '</div>' : '') + '</div></div>';
-  });
-  h += '</div></div>';
-  document.getElementById('resultScreen').innerHTML = h;
-}
-
-function getWeakTypes() {
-  var r = grade();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  return Object.entries(tm).filter(function (e) { return e[1].ok < e[1].total; }).map(function (e) { return e[0]; });
-}
-
-function getTestName() {
-  var t = document.title;
-  if (t.includes('\ub2e8\uc5b4')) return '\ub2e8\uc5b4\ud14c\uc2a4\ud2b8';
-  if (t.includes('\uc6cc\ud06c\ubd81')) return '\uc6cc\ud06c\ubd81\ud14c\uc2a4\ud2b8';
-  if (t.includes('\ud034\uc988')) return '\ud034\uc988(\uc608\uc0c1\ubb38\uc81c)\ud14c\uc2a4\ud2b8';
-  return 'TEST';
-}
-
-function copyResult() {
-  var r = grade(), lv = getLevel(r.score), pct = Math.round(r.score / EI.total * 100);
-  var nm = document.getElementById('inpName').value.trim();
-  var sc = document.getElementById('inpSchool').value.trim();
-  var gr = document.getElementById('inpGrade').value;
-  var elapsed = Math.floor((Date.now() - S.start) / 1000);
-  var pass = r.score >= 80, tn = getTestName(), wk = getWeakTypes();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  var secLabel = S.secs ? S.secs.join(', ') : '\uc804\uccb4';
-  var txt = '\ud83d\udcdd \ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc\n' + EI.subject + ' \u00b7 ' + EI.pub + ' [' + secLabel + ']\n' + nm + (sc ? ' \u00b7 ' + sc : '') + ' \u00b7 ' + gr + '\n' + new Date().toLocaleDateString('ko-KR') + '\n\n' + lv.icon + ' ' + lv.name + ' \u00b7 ' + r.score + '/' + EI.total + '\uc810 (' + pct + '%)\n' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '\n\u23f1\ufe0f ' + fmtTime(elapsed);
-  if (wk.length) {
-    txt += '\n\n\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8';
-    wk.forEach(function (w) { var d = tm[w]; txt += '\n\u2022 ' + w.replace(/\(.+?\)/g, '').trim() + ' ' + d.ok + '/' + d.total + ' \u2192 ' + getTypeAdvice(w); });
-  }
-  txt += '\n\n\ud83d\udcca \ub0b4\uc2e0\ud56b | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44';
-  navigator.clipboard.writeText(txt).then(function () { toast('\ud83d\udccb \uacb0\uacfc\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4!'); }).catch(function () { toast('\ubcf5\uc0ac \uc2e4\ud328'); });
-}
-
-function shareImage() {
-  var tn = getTestName(), wk = getWeakTypes(), r = grade(), lv = getLevel(r.score);
-  var pct = Math.round(r.score / EI.total * 100), pass = r.score >= 80;
-  var nm = document.getElementById('inpName').value.trim();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  var pc = pass ? '#16A34A' : '#D63B3B';
-  var card = '<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">';
-  card += '<div style="background:linear-gradient(135deg,' + (pass ? '#E8F5E9,#C8E6C9' : '#FFF0F0,#FFEAEA') + ');padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:' + pc + ';margin-bottom:4px">\ub0b4\uc2e0\ud56b ' + tn + '</div><div style="font-size:13px;color:#666;margin-bottom:16px">' + EI.subject + ' \u00b7 ' + EI.pub + '</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">' + r.score + '<span style="font-size:20px;color:#aaa">/' + EI.total + '</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:' + pc + ';color:#fff">' + lv.icon + ' ' + lv.name + ' \u00b7 ' + (pass ? '\ud1b5\uacfc' : '\ubbf8\ud1b5\uacfc') + '</span></div><div style="margin-top:12px;font-size:12px;color:#888">\ud83d\udc64 ' + nm + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '</div></div>';
-  if (wk.length) {
-    card += '<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
-    Object.entries(tm).forEach(function (entry) {
-      var type = entry[0], d = entry[1];
-      var p = Math.round(d.ok / d.total * 100);
-      var c = p === 100 ? '#16A34A' : p >= 50 ? '#F59E0B' : '#D63B3B';
-      card += '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:' + p + '%;background:' + c + ';border-radius:3px"></div></div></div>';
-    });
-    card += '</div>';
-  }
-  card += '<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">\ud83d\udcca <b style="color:#333">\ub0b4\uc2e0\ud56b</b> | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44</div></div>';
-  var wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;';
-  wrap.innerHTML = card;
-  document.body.appendChild(wrap);
-  html2canvas(wrap.firstChild, { scale: 2, backgroundColor: null, useCORS: true }).then(function (canvas) {
-    document.body.removeChild(wrap);
-    canvas.toBlob(function (blob) {
-      if (navigator.share && blob) {
-        var file = new File([blob], '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png', { type: 'image/png' });
-        navigator.share({ files: [file], title: '\ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc' }).catch(function () {});
-      } else {
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL('image/png');
-        a.download = '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png';
-        a.click();
-      }
-      toast('\ud83d\udcf8 \uacb0\uacfc \uc774\ubbf8\uc9c0\uac00 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4!');
-    });
-  }).catch(function () { toast('\uc774\ubbf8\uc9c0 \uc0dd\uc131 \uc2e4\ud328'); });
-}
-
-function reviewHistory(idx) {
-  var h = getHistory();
-  var rec = h[idx];
-  if (!rec || !rec.answers) return toast('\uc774\uc804 \ubc84\uc804 \uae30\ub85d\uc740 \ud574\uc124\uc744 \ubcfc \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.');
-  S.ans = rec.answers;
-  S.start = Date.now() - rec.elapsed * 1000;
-  document.getElementById('inpName').value = rec.name || '';
-  document.getElementById('inpSchool').value = rec.school || '';
-  document.getElementById('inpGrade').value = rec.grade || '\uace01';
-  var r = grade();
-  renderResults(r, rec.elapsed);
-  showScreen('resultScreen');
-  window.scrollTo(0, 0);
-}
-
-function retake() { location.reload(); }
-function goHome() { showScreen('startScreen'); updateHCount(); }
-
-window.addEventListener('beforeunload', function (e) {
-  if (S.ti) { e.preventDefault(); e.returnValue = ''; }
-});
-
+function renderSlide(i){showQ(i);}
+function slideSel(){}
+function slideWrite(){}
+function renderQ(){}
+function renderDots(){}
+function upDots(){}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
+function openCard(){}
+function closeCard(){}
+function gcSel(){}
+function gcWrite(){}
+function gcNav(){}
+function sel(){}
+function sw(){}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--o)':p>=50?'var(--o)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
+let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--o)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--ol)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
+h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--ol);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--ol);color:var(--o)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
+function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#16A34A':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#E8F5E9,#C8E6C9':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#16A34A':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
+function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
 updateHCount();
 </script>
 </body>

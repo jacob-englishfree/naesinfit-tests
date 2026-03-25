@@ -3,185 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>공통영어1 동아(이병민) 온라인퀴즈TEST</title>
+<title>공통영어1 동아(이병민) 1과 온라인퀴즈TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-/* NaesinFit — Orange Theme (퀴즈테스트) */
-:root{
-  --p:#E8772E;--pd:#B85A1A;--pl:#F5A623;--pxl:#FFF3E8;--pxxl:#FFFAF5;
-  --bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;
-  --r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;
-  --o:#F59E0B;--ol:#FFF8E1;
-  --card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);
-  --radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;
-  --pborder:#ddd8d2;--pbg-muted:#e8e0d8;
-  --passage-bg:linear-gradient(135deg,#FFFAF8,#F5F0EB);
-  --start-grad:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);
-  --accent2:#D97706;
-  --p-rgba-08:rgba(232,119,46,.08);
-  --p-rgba-10:rgba(232,119,46,.1);
-  --p-rgba-12:rgba(232,119,46,.12);
-  --p-rgba-25:rgba(232,119,46,.25);
-  --p-rgba-30:rgba(232,119,46,.3);
-}
 
-/* NaesinFit Test Engine — Common CSS (theme-agnostic)
-   Theme-specific colors come from :root variables defined in theme-*.css:
-   --p      : primary color
-   --pd     : primary dark
-   --pl     : primary light
-   --pxl    : primary extra-light
-   --pxxl   : primary xx-light
-   --bg     : page background
-   --text   : main text
-   --tm     : text muted
-   --tl     : text light
-   --pborder: border color (theme-tinted)
-   --pbg-muted: muted bg for tracks/bars
-   --start-grad: startScreen gradient
-   --accent2: secondary gradient stop (badge/header)
-   --p-rgba-08: rgba for selected bg
-   --p-rgba-12: rgba for box-shadow
-   --p-rgba-10: rgba for focus ring
-   --p-rgba-25: rgba for button shadow
-   --p-rgba-30: rgba for selectPulse
-*/
-
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
 .screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* Start Screen */
-#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:var(--start-grad);}
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);}
 .start-container{max-width:460px;width:100%;z-index:1;}
-.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--p),var(--accent2));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
-.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
 .info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
-.info-card-header{background:linear-gradient(135deg,var(--p),var(--accent2));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
-.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid var(--pborder);}.info-row:last-child{border:none;}
+.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0ede8;}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid var(--pborder);border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip{background:var(--card);border:1.5px solid #ddd8d2;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
-.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid var(--pborder);border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
-.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4px var(--p-rgba-10);}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0c8c2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
 .input-row{display:flex;gap:10px;}
 .btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
-.btn-primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;box-shadow:0 6px 20px var(--p-rgba-30);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
-.btn-outline{background:transparent;border:2px solid var(--pborder);color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--p);color:var(--p);}
-.history-badge{background:var(--pxl);color:var(--p);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid #c8c0b8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
+.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
 #historyPanel{display:none;margin-top:14px;}
-.history-item{background:var(--card);border:1.5px solid var(--pborder);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item{background:var(--card);border:1.5px solid #ddd8d2;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
 .hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
-.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--p);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
-
-/* Exam Screen */
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
 .exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
-.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--p);border-radius:50%;}
-.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--p);font-weight:800;}
-.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--p);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
 @keyframes pulse{50%{opacity:.3;}}
-.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .exam-scroll{display:none;}
+/* Progress bar at top */
 .exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
-.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--accent2));transition:width .5s ease;border-radius:0 2px 2px 0;}
-
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--o),#D97706);transition:width .5s ease;border-radius:0 2px 2px 0;}
 /* Slide container */
 .slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
+/* Passage area - full screen scrollable */
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
 .slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
-.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
+/* Question info badge at top of passage */
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
+/* Glass bottom panel */
 .slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+/* Stem */
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
+/* Choices - premium feel */
 .slide-choices{display:flex;flex-direction:column;gap:4px;}
 .slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
-.slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
-@keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.08);box-shadow:0 0 0 3px rgba(232,119,46,.12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(232,119,46,.3)}70%{box-shadow:0 0 0 8px rgba(232,119,46,0)}100%{box-shadow:0 0 0 0 rgba(232,119,46,0)}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
 .slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
-.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+/* Written input */
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
-.slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
+.slide-choices .written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.1);}
+/* Navigation */
 .slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
 .slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
 .slide-nav button:active{transform:scale(.95);}
-.slide-nav button.sn-next{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--p-rgba-25);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(232,119,46,.25);}
 .slide-nav button:disabled{opacity:.3;}
-.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--p);}
-.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--p);background:var(--pxl);padding:3px 10px;border-radius:12px;}
-.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--o);}
+/* Answer count indicator */
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--o);background:var(--oxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
 .q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
-
-/* Type tags — same across all themes */
-.tag-combo{background:#E8F5E9;color:#166534;}.tag-wrong{background:#FFF0F0;color:#D63B3B;}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:#EDF2FF;color:#3B6FD9;}.tag-ant{background:#FFF8E1;color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}.tag-insert{background:#E3F2FD;color:#1565C0;}.tag-order{background:#FFF8E1;color:#F57F17;}
-
-.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:var(--pbg-muted);padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--p);font-weight:800;}
+.tag-combo{background:var(--ol);color:#BF360C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0ede8;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
 .q-body{padding:14px 16px;}
-.q-passage{background:var(--passage-bg);border-left:3px solid var(--p);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-passage{background:linear-gradient(135deg,#FFFAF8,#F5F0EB);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
 .q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
 .choices{display:flex;flex-direction:column;gap:4px;}
-.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--pborder);border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
-.choice-btn:hover{border-color:var(--p);}.choice-btn.selected{border-color:var(--p);box-shadow:0 0 0 2px var(--p-rgba-12);background:var(--pxxl);}
-.c-num{min-width:22px;height:22px;background:var(--pbg-muted);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
-.written-input{width:100%;padding:10px 12px;border:1.5px solid var(--pborder);border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--p);}
-
-/* Result Screen */
-.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--pxl),var(--pl));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
-.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #ddd8d2;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
+.c-num{min-width:22px;height:22px;background:#e8e0d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid #d0c8c2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
 .r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
 .r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
 .rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
 .level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
-.level-bar{margin-top:16px;height:8px;background:var(--pbg-muted);border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--p),var(--pl));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--pxxl);border-radius:var(--rs);border:1px solid var(--pborder);}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--pxl);}.info-cell.highlight .ic-value{color:var(--p);}
-.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:var(--pbg-muted);border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--pl);color:var(--p);}.tag-item.weak{background:#FFF0F0;color:#D63B3B;}
-.plan-card{display:flex;gap:14px;padding:16px;background:var(--pxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
-.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid var(--pborder);border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--p);color:var(--p);}.act-btn.primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
-.rev-card{border:1.5px solid var(--pborder);border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--pxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--pxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
-.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--pl);color:var(--p);}.expl-tag.tip{background:var(--pxl);color:var(--pd);}
-.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--p);}.expl-box.tip-b{border-left:3px solid var(--p);background:var(--pxl);}
-
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:#e8e0d8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #ddd8d2;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0d8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0c8c2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid #ddd8d2;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
 @media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
 
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
-
 <div id="startScreen" class="screen active">
 <div class="start-container">
-  <div class="brand-badge">온라인퀴즈 TEST</div>
+  <div class="brand-badge">🎯 내신핏</div>
   <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
-  <p class="start-subtitle">공통영어1 · 동아(이병민) · 1과 · 20문항</p>
-  <div class="info-card"><div class="info-card-header">시험 정보</div><div class="info-rows">
-    <div class="info-row"><span class="info-label">시험</span><span class="info-value">공통영어1</span></div>
-    <div class="info-row"><span class="info-label">문항</span><span class="info-value">동아(이병민) (1과)</span></div>
-    <div class="info-row"><span class="info-label">지문</span><span class="info-value">When Were You the Bravest?</span></div>
+  <p class="start-subtitle">동아(이병민) 1과 · When Were You the Bravest?</p>
+  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">동아(이병민)</span></div>
+    <div class="info-row"><span class="info-label">단원</span><span class="info-value">1과 When Were You the Bravest?</span></div>
   </div></div>
-  <div class="chip-row"><div class="chip">20문항</div><div class="chip">20분</div><div class="chip">80점 이상 통과</div><div class="chip">100점 만점</div></div>
+  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div>
   </div>
-  <button class="btn btn-primary" onclick="startExam()">시험 시작하기</button>
-  <button class="btn btn-outline" onclick="toggleHistory()">시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
   <div id="historyPanel"></div>
 </div>
 </div>
-
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>동아(이병민)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · 동아(이병민) · <span>1과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -190,526 +146,636 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
     <div class="slide-bottom" id="slideBottom"></div>
   </div>
 </div>
-
 <div id="resultScreen" class="screen"></div>
-
 <script>
-const EI={"subject":"공통영어1","pub":"동아(이병민)","lesson":"1과","title":"When Were You the Bravest?","total":100,"time":1200,"histKey":"quizTest_quizH_donga_L1_20_v2","qCount":20,"totalQ":20};
-const FULL_PASSAGE="Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. This fear kept me behind the stage rather than on it. That's why I never entered the annual speech contest at my school. I really wanted to, but I just didn't have enough courage. Last year, however, was my final chance before graduating. I decided to sign up for the contest. To make a long story short, I did it. But my act of courage taught me a valuable lesson: ____________________.";
-const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"One evening, I went to a convenience store to buy some snacks. No one was at the counter, so I thought the clerk <u>ⓐ was working</u> in the back. The telephone started <u>ⓑ ringing</u>, but no one came to answer it. I felt something was wrong. I looked over the counter and saw the clerk <u>ⓒ lying</u> on the floor. I immediately called 911 and <u>ⓓ explaining</u> the situation. The operator asked me <u>ⓔ to perform</u> CPR on the clerk until the paramedics arrived.","stem":"다음 글의 밑줄 친 ⓐ~ⓔ 중에서 어법상 어색한 것을 고르시오.","det":{"korean":"나는 즉시 911에 전화를 걸어 상황을 설명했다. called와 explained는 and로 연결된 병렬 구조로 둘 다 과거형이어야 합니다. explaining(현재분사)은 병렬 구조에 맞지 않으므로 explained로 고쳐야 합니다.","analysis":"원문: I immediately called 911 and explained the situation.","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["being","been","having","ⓓ","were"]},
-{"id":2,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"I dreamed of being an Olympic track and field athlete. My room was full of medals and awards from races I had (A) <u>competed / competing</u> in. During the national 100-meter championship race, however, my Olympic dreams came to a sudden end. I was about to take the lead in the race (B) <u>when / which</u> I suddenly felt a pain in my knee. I fell to the ground and had to (C) <u>be carried / carry</u> off the track.","stem":"다음 글의 (A), (B), (C)에서 어법에 맞는 표현으로 가장 적절한 것을 고르시오.","det":{"korean":"내 방은 내가 출전했던 경기에서 획득한 메달과 상들로 가득했다. / 경기에서 선두를 잡으려던 순간 갑자기 무릎에 통증이 느껴졌다. / 나는 땅에 쓰러졌고 트랙 밖으로 옮겨져야 했다.","analysis":"원문: My room was full of medals and awards from races I had competed in. / I was about to take the lead in the race when I suddenly felt a pain in my knee. / I fell to the ground and had to be carried off the track.","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["(A) competed – (B) when – (C) be carried","(A) competed – (B) which – (C) carry","(A) competing – (B) when – (C) be carried","(A) competing – (B) which – (C) carry","(A) competed – (B) when – (C) carry"]},
-{"id":3,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"Ever since I was young, I have <u>ⓐ admired</u> great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I <u>ⓑ would get</u> scared. This fear kept me <u>ⓒ behind</u> the stage rather than on it. That's why I never <u>ⓓ entering</u> the annual speech contest at my school.","stem":"다음 글의 밑줄 친 ⓐ~ⓓ 중에서 어법상 어색한 것을 고르시오.","det":{"korean":"그것이 내가 학교에서 매년 열리는 웅변 대회에 한 번도 참가하지 못했던 이유이다. That's why + 주어 + 동사(과거형) 구문에서 never 뒤에는 동사 과거형 entered가 와야 합니다. entering(현재분사/동명사)은 문장의 동사 역할을 할 수 없습니다.","analysis":"원문: That's why I never entered the annual speech contest at my school.","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["being","been","having","ⓓ"]},
-{"id":4,"type":"어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"At first, I didn't think much of the injury. I thought I would get better soon. But the test results from the hospital were not (A) <u>hopeful / hopeless</u>. The doctors said my knee injury would (B) <u>prevent / encourage</u> me from running again. Every night, I had flashbacks of my injury. I could not watch sports anymore because it was just too (C) <u>painful / pleasant</u>.","stem":"다음 글의 (A), (B), (C)에서 문맥에 맞는 낱말로 가장 적절한 것을 고르시오.","det":{"korean":"하지만 병원 검사 결과는 희망적이지 않았다. / 의사는 무릎 부상이 다시 달리지 못하게 할 것이라고 했다. / 너무 괴로워서 스포츠를 볼 수 없었다.","analysis":"원문: But the test results from the hospital were not hopeful. / The doctors said my knee injury would prevent me from running again. / I could not watch sports anymore because it was just too painful.","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["(A) hopeful – (B) prevent – (C) painful","(A) hopeless – (B) prevent – (C) painful","(A) hopeful – (B) encourage – (C) pleasant","(A) hopeless – (B) encourage – (C) painful","(A) hopeful – (B) prevent – (C) pleasant"]},
-{"id":5,"type":"어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"I was scared, but I remembered ① <u>learning</u> CPR at school. I started to push down on his chest, ② <u>hoping</u> that I was doing it right. A few minutes later, the paramedics rushed in and took over the situation. ③ <u>Luckily</u>, the clerk regained consciousness. After putting the clerk in the ambulance, the paramedics said \"Thank you for being brave. You did a ④ <u>terrible</u> job.\" It felt great to help ⑤ <u>save</u> someone's life!","stem":"다음 글의 밑줄 친 ①~⑤ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.","det":{"korean":"훌륭한 일을 하셨어요. 구급대원이 Jason의 CPR 행위를 칭찬하는 맥락이므로 'terrible(끔찍한)'은 문맥에 맞지 않고, 원문의 'wonderful(훌륭한)'이 적절합니다.","analysis":"원문: You did a wonderful job.","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["abundant","reluctant","inevitable","④","fundamental"]},
-{"id":6,"type":"어휘","diff":"보통","pts":5,"fmt":"mc","passage":"Then one day, I came across an interesting university major called sports medicine. It deals with the ① <u>treatment</u> and prevention of sports injuries. A light bulb went on in my head. This was my chance to stop ② <u>running away</u> from my problems and fears. So I made up my mind and ③ <u>rejected</u> this major. Today, thanks to my ④ <u>brave</u> decision, I am studying to be a star on the ⑤ <u>sidelines</u> instead of on the playing field.","stem":"다음 글의 밑줄 친 ①~⑤ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.","det":{"korean":"그래서 마음을 먹고 이 전공에 지원했다. 마음을 먹고 전공에 '지원했다(applied)'가 문맥상 자연스러우므로, 'rejected(거부했다)'는 부적절합니다.","analysis":"원문: So I made up my mind and applied to this major.","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["abundant","reluctant","③","sufficient","fundamental"]},
-{"id":7,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"What does it mean to be brave? There is no single definition, but everyone is brave in their own way. Here are three young people sharing their bravest moments in life. Jason saved a clerk's life by performing CPR. Olivia overcame her sports injury and chose sports medicine. Yuna conquered her stage fright and delivered a speech to the entire school.","stem":"다음 글의 주제로 가장 적절한 것을 고르시오.","det":{"korean":"용감하다는 것은 무엇을 의미하는가? 단일한 정의는 없지만, 모든 사람은 자신만의 방식으로 용감하다. 세 사람의 이야기를 통해 용감함이 다양한 형태로 나타남을 보여주고 있습니다.","analysis":"원문: What does it mean to be brave? There is no single definition, but everyone is brave in their own way.","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["용감함의 다양한 형태와 개인의 용기 있는 경험","올림픽 선수들의 부상 극복 과정","응급처치 교육의 중요성과 필요성","대중 연설의 기술과 방법","젊은이들의 진로 탐색과 직업 선택"]},
-{"id":8,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. Last year, however, was my final chance before graduating from high school. I decided to sign up for the contest. To make a long story short, I did it. I delivered my speech to the entire school. But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.","stem":"다음 글의 제목으로 가장 적절한 것을 고르시오.","det":{"korean":"하지만 나의 용기 있는 행동은 값진 교훈을 주었다: 마음만 먹으면 무엇이든 할 수 있다. Yuna가 두려움을 극복하고 무대에 선 이야기이므로, 제목은 '무대 위의 용기: 두려움을 극복하고 말하다'가 적절합니다.","analysis":"원문: But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["Courage on Stage: Overcoming Fear to Speak","How to Become a Great Public Speaker","The Secret to Winning Speech Contests","Why High School Students Should Give Speeches","The History of Public Speaking in Korea"]},
-{"id":9,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. It deals with the treatment and prevention of sports injuries. A light bulb went on in my head. This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major. Today, thanks to my brave decision, I am studying to be a star on the sidelines instead of on the playing field.","stem":"다음 글이 시사하는 바로 가장 적절한 것을 고르시오.","det":{"korean":"이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. Olivia는 부상이라는 역경을 스포츠 의학이라는 새로운 길로 전환했고, 이것이 '진정한 용기'임을 시사합니다.","analysis":"원문: This was my chance to stop running away from my problems and fears.","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["역경을 새로운 기회로 전환하는 것이 진정한 용기이다.","스포츠 의학은 미래 유망 직업 분야이다.","운동선수는 부상을 예방하기 위해 훈련해야 한다.","대학 전공 선택은 고등학교 때부터 준비해야 한다.","스포츠와 관련 없는 새로운 취미를 찾아야 한다."]},
-{"id":10,"type":"일치","diff":"보통","pts":5,"fmt":"mc","passage":"One evening, I went to a convenience store to buy some snacks. No one was at the counter, so I thought the clerk was working in the back. The telephone started ringing, but no one came to answer it. I felt something was wrong. I looked over the counter and saw the clerk lying on the floor. I immediately called 911 and explained the situation. The operator asked me to perform CPR on the clerk until the paramedics arrived. I was scared, but I remembered learning CPR at school.","stem":"Jason에 관한 다음 글의 내용과 일치하는 것을 고르시오.","det":{"korean":"계산대 너머를 보니 바닥에 점원이 쓰러져 있는 것이 보였다. Jason은 편의점에서 점원이 바닥에 쓰러져 있는 것을 발견한 것이 맞습니다.","analysis":"원문: I looked over the counter and saw the clerk lying on the floor.","tip":"일치 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["Jason은 편의점에서 점원이 쓰러져 있는 것을 발견했다.","Jason은 점원과 함께 911에 전화했다.","교환원이 직접 와서 심폐소생술을 시행했다.","Jason은 병원에서 심폐소생술을 배운 적이 있었다.","점원은 Jason이 도착하기 전에 의식을 되찾았다."]},
-{"id":11,"type":"불일치","diff":"보통","pts":5,"fmt":"mc","passage":"I dreamed of being an Olympic track and field athlete. My room was full of medals and awards from races I had competed in. During the national 100-meter championship race, however, my Olympic dreams came to a sudden end. I was about to take the lead in the race when I suddenly felt a pain in my knee. I fell to the ground and had to be carried off the track. At first, I didn't think much of the injury. I thought I would get better soon. But the test results from the hospital were not hopeful. The doctors said my knee injury would prevent me from running again.","stem":"Olivia에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것을 고르시오.","det":{"korean":"처음에 나는 부상에 대해 심각하게 생각하지 않았다. 곧 회복할 거라고 생각했다. 선택지 ③은 '부상 직후에 심각하다고 생각했다'로, 원문과 반대되는 내용입니다.","analysis":"원문: At first, I didn't think much of the injury. I thought I would get better soon.","tip":"불일치 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["올림픽 육상 선수가 되는 것이 꿈이었다.","전국 100미터 선수권 대회 중 부상을 당했다.","부상 직후에 자신의 부상이 심각하다고 생각했다.","병원 검사 결과가 희망적이지 않았다.","의사들은 다시 달리지 못할 것이라고 말했다."]},
-{"id":12,"type":"빈칸","diff":"보통","pts":5,"fmt":"mc","passage":"Every night, I had flashbacks of my injury. I could not watch sports anymore because it was just too painful. So I shut out everything related to sports from my life. Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. A light bulb went on in my head. This was my chance to ____________________.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.","det":{"korean":"이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. 스포츠 의학을 발견한 Olivia가 문제와 두려움으로부터 도망치지 않겠다고 결심한 맥락입니다.","analysis":"원문: This was my chance to stop running away from my problems and fears.","tip":"빈칸 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["stop running away from my problems and fears","become a professional athlete once again","forget about sports entirely","find a new hobby unrelated to sports","win more medals in track and field"]},
-{"id":13,"type":"빈칸","diff":"보통","pts":5,"fmt":"mc","passage":"Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. This fear kept me behind the stage rather than on it. That's why I never entered the annual speech contest at my school. I really wanted to, but I just didn't have enough courage. Last year, however, was my final chance before graduating. I decided to sign up for the contest. To make a long story short, I did it. But my act of courage taught me a valuable lesson: ____________________.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.","det":{"korean":"하지만 나의 용기 있는 행동은 값진 교훈을 주었다: 마음만 먹으면 무엇이든 할 수 있다. Yuna가 용기를 내어 연설한 경험에서 얻은 교훈입니다.","analysis":"원문: But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.","tip":"빈칸 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["I can do anything that I put my mind to","public speaking is not as difficult as it seems","winning contests is the most important goal in life","fear always disappears when you face it directly","practice makes perfect in every situation"]},
-{"id":14,"type":"함축","diff":"보통","pts":5,"fmt":"mc","passage":"Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. It deals with the treatment and prevention of sports injuries. <u>A light bulb went on in my head.</u> This was my chance to stop running away from my problems and fears.","stem":"다음 글의 밑줄 친 \"A light bulb went on in my head\"가 의미하는 바로 가장 적절한 것을 고르시오.","det":{"korean":"머릿속에 번뜩 좋은 생각이 떠올랐다. 이 관용 표현은 마치 전구가 켜지듯 갑자기 영감이나 아이디어가 떠오르는 상황을 비유적으로 나타냅니다. 스포츠 의학이라는 전공을 알게 된 순간 새로운 진로의 가능성을 깨달은 것입니다.","analysis":"원문: A light bulb went on in my head.","tip":"함축 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["갑자기 좋은 아이디어가 떠올랐다.","갑작스러운 두통이 발생했다.","과거의 기억이 선명하게 떠올랐다.","자신의 미래에 대한 불안감이 커졌다.","주변 환경이 갑자기 밝아졌다."]},
-{"id":15,"type":"순서","diff":"보통","pts":5,"fmt":"mc","passage":"<b>주어진 글:</b> I was scared, but I remembered learning CPR at school.<br><br><b>(A)</b> A few minutes later, the paramedics rushed in and took over the situation. Luckily, the clerk regained consciousness.<br><b>(B)</b> I started to push down on his chest, hoping that I was doing it right.<br><b>(C)</b> After putting the clerk in the ambulance, the paramedics said \"Thank you for being brave. You did a wonderful job.\" It felt great to help save someone's life!","stem":"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.","det":{"korean":"CPR을 배웠던 기억이 난 Jason은 먼저 가슴 압박을 시작하고(B), 구급대원이 도착하여 점원이 의식을 되찾고(A), 구급대원이 감사 인사를 하며 마무리(C)됩니다.","analysis":"✅ ① (B) - (A) - (C)<br>❌ ② (A) - (B) - (C)<br>❌ ③ (A) - (C) - (B)<br>❌ ④ (B) - (C) - (A)<br>❌ ⑤ (C) - (A) - (B)","tip":"순서 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["(B) - (A) - (C)","(A) - (B) - (C)","(A) - (C) - (B)","(B) - (C) - (A)","(C) - (A) - (B)"]},
-{"id":16,"type":"무관","diff":"어려움","pts":6,"fmt":"mc","passage":"① Ever since I was young, I have admired great public speakers. ② I hoped to inspire and move audiences like them someday. ③ My favorite subject at school was always mathematics and science. ④ But every time I had a chance to speak in front of people, I would get scared. ⑤ This fear kept me behind the stage rather than on it.","stem":"다음 글에서 전체 흐름과 관계없는 문장을 고르시오.","det":{"korean":"학교에서 가장 좋아하는 과목은 늘 수학과 과학이었다. 이 문장은 Yuna의 대중 연설에 대한 동경과 두려움이라는 주제 흐름과 전혀 관련이 없는 학교 과목 이야기입니다.","analysis":"원문: ③ My favorite subject at school was always mathematics and science.","tip":"무관 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["시간 순서가 뒤바뀐 내용이다.","인물/장소가 혼동된 내용이다.","③","원인과 결과를 혼동한 내용이다.","글의 주제와 무관한 내용이다."]},
-{"id":17,"type":"지칭","diff":"어려움","pts":6,"fmt":"mc","passage":"Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like <u>them</u> someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. This fear kept me behind the stage rather than on it.","stem":"다음 글의 밑줄 친 <b>them</b>이 가리키는 대상이 나머지와 다른 것은? 같으면 T, 다르면 F를 고르시오.<br>ⓐ I hoped to inspire and move audiences like <u>them</u> someday.<br>ⓑ This fear kept me behind the stage rather than on it.","det":{"korean":"나는 뛰어난 대중 연설가들을 동경해왔다. 언젠가 그들처럼 청중을 고무하고 감동시키기를 바랐다. 여기서 'them'은 앞 문장의 'great public speakers'를 가리킵니다. ⓑ의 문장에는 밑줄 친 대명사가 없으므로 비교 대상이 없고, 문제에서 them이 같은 대상을 가리키는지 묻는 것이므로 T(같다)가 정답입니다.","analysis":"원문: I have admired great public speakers. I hoped to inspire and move audiences like them someday.","tip":"지칭 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["T (같다)","F (다르다)"]},
-{"id":18,"type":"서술형요약","diff":"어려움","pts":6,"fmt":"written","passage":"I dreamed of being an Olympic track and field athlete. During the national 100-meter championship race, my Olympic dreams came to a sudden end. Two years passed and I was still trying to get used to my ordinary high school life. Then one day, I came across sports medicine. This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major.","stem":"다음 글의 내용을 한 문장으로 요약하고자 합니다. 빈칸 (A)와 (B)에 들어갈 말을 <보기>에서 골라 쓰시오.<br><br><b>[조건]</b> 1) 보기에서 각각 한 단어를 골라 쓸 것 2) 필요 시 어형을 변환할 것<br><b>[보기]</b> brave / fear / overcome / run<br><br>→ Olivia (A)________ her injury and made a (B)________ decision to study sports medicine.","det":{"korean":"이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. 마음을 먹고 지원했다. 용기 있는 결정 덕분에. (A) overcome → overcame(과거형): 부상을 극복했다. (B) brave: 용기 있는 결정","analysis":"원문: This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major. Thanks to my brave decision.","tip":"서술형요약 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"overcame, brave","accept":["overcame, brave","overcame,brave","overcame / brave","overcame brave","Overcame, brave","overcame, Brave","Overcame, Brave"]},
-{"id":19,"type":"서술형영작","diff":"어려움","pts":6,"fmt":"written","passage":"I decided to sign up for the contest. To make a long story short, I did it. I delivered my speech to the entire school. But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.","stem":"다음 우리말과 일치하도록 주어진 단어를 활용하여 영작하시오.<br><br><b>[조건]</b> 1) 주어진 단어를 모두 사용할 것 2) 필요 시 어형을 변환할 것 3) 단어를 추가할 수 있음<br><b>[보기]</b> teach / I / a valuable lesson / my act / courage<br><br>→ \"나의 용기 있는 행동은 나에게 값진 교훈을 주었다.\"","det":{"korean":"하지만 나의 용기 있는 행동은 나에게 값진 교훈을 주었다. teach(가르치다/교훈을 주다)의 과거형 taught를 사용, 4형식 구문(S + V + IO + DO)으로 작성합니다.","analysis":"원문: But my act of courage taught me a valuable lesson.","tip":"서술형영작 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"My act of courage taught me a valuable lesson.","accept":["My act of courage taught me a valuable lesson.","My act of courage taught me a valuable lesson","my act of courage taught me a valuable lesson.","my act of courage taught me a valuable lesson","My act of courage taught me a valuable lesson!"]},
-{"id":20,"type":"서술형어형","diff":"어려움","pts":6,"fmt":"written","passage":"I immediately called 911 and explained the situation. The operator asked me to perform CPR on the clerk until the paramedics arrived. I was scared, but I remembered learning CPR at school.","stem":"다음 괄호 안의 단어를 문맥에 맞게 어형 변환하여 쓰시오.<br><br>→ The operator asked me (perform) ________ CPR on the clerk.","det":{"korean":"교환원은 나에게 점원에게 심폐소생술을 해달라고 요청했다. ask + 목적어 + to부정사 구문에서 perform은 to perform으로 변환해야 합니다.","analysis":"원문: The operator asked me to perform CPR on the clerk.","tip":"서술형어형 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"to perform","accept":["to perform","To perform","to Perform","To Perform"]}];
-
-/* NaesinFit Test Engine v1.0
-   Expects these globals before this script runs:
-   - const EI = {...}          // exam info
-   - const FULL_PASSAGE = "..."  // full passage text
-   - const Q = [...]           // questions array
-*/
-
-const typeTag = {
-  '문장삽입': 'tag-insert',
-  '어순배열': 'tag-order',
-  '순서배열': 'tag-order',
-  '글순서': 'tag-order',
-  '어법': 'tag-grammar',
-  '어휘': 'tag-vocab',
-  '빈칸추론': 'tag-blank',
-  '빈칸 추론': 'tag-blank',
-  '서술형': 'tag-written',
-  '내용이해': 'tag-content',
-  '내용일치': 'tag-content',
-  '내용불일치': 'tag-content',
-  'T/F': 'tag-tf',
-  '(A)(B)(C) 조합형': 'tag-combo',
-  '문맥상 부적절한 어휘': 'tag-wrong',
-  '동의어 고르기': 'tag-syn',
-  '반의어 고르기': 'tag-ant',
-  '빈칸 어휘 완성': 'tag-blank',
-  '다의어 문맥적 의미': 'tag-poly',
-  '영영풀이 매칭': 'tag-eng',
-  '어형 변환 (서술형)': 'tag-morph',
-  '빈칸 문맥 완성': 'tag-ctx',
-  '어법 빈칸': 'tag-grammar'
+const EI = {
+  subject: '공통영어1',
+  pub: '동아(이병민)',
+  lesson: '1과',
+  title: 'When Were You the Bravest?',
+  total: 100,
+  time: 1200,
+  histKey: 'quizH_donga_L1_20',
+  qCount: 20
 };
 
-let S = { ans: [], cur: 0, ti: null, left: EI.time, start: 0 };
-
-function getHistory() {
-  try { return JSON.parse(localStorage.getItem(EI.histKey) || '[]'); }
-  catch (e) { return []; }
-}
-
-function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
-    name: document.getElementById('inpName').value.trim(),
-    school: document.getElementById('inpSchool').value.trim(),
-    grade: document.getElementById('inpGrade').value,
-    score: r.score, total: EI.total,
-    correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
-    level: getLevel(r.score).name,
-    answers: S.ans.slice()
-  });
-  if (h.length > 20) h.length = 20;
-  localStorage.setItem(EI.histKey, JSON.stringify(h));
-}
-
-function updateHCount() {
-  const h = getHistory();
-  document.getElementById('hCount').textContent = h.length;
-}
-
-function toggleHistory() {
-  const p = document.getElementById('historyPanel');
-  if (p.style.display === 'block') { p.style.display = 'none'; return; }
-  const h = getHistory();
-  if (!h.length) {
-    p.innerHTML = '<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">\uc544\uc9c1 \uae30\ub85d\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</p>';
-    p.style.display = 'block'; return;
+const Q = [
+  {
+    "id": 1,
+    "type": "어법",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "어법 ⓐ~ⓔ",
+    "passage": "One evening, I went to a convenience store to buy some snacks. No one was at the counter, so I thought the clerk <u>ⓐ was working</u> in the back. The telephone started <u>ⓑ ringing</u>, but no one came to answer it. I felt something was wrong. I looked over the counter and saw the clerk <u>ⓒ lying</u> on the floor. I immediately called 911 and <u>ⓓ explaining</u> the situation. The operator asked me <u>ⓔ to perform</u> CPR on the clerk until the paramedics arrived.",
+    "stem": "다음 글의 밑줄 친 ⓐ~ⓔ 중에서 어법상 어색한 것을 고르시오.",
+    "ch": [
+      "ⓐ",
+      "ⓑ",
+      "ⓒ",
+      "ⓓ",
+      "ⓔ"
+    ],
+    "ans": 3,
+    "det": {
+      "ref": "[원문] I immediately called 911 and explained the situation. [해석] 나는 즉시 911에 전화를 걸어 상황을 설명했다. called와 explained는 and로 연결된 병렬 구조로 둘 다 과거형이어야 합니다. explaining(현재분사)은 병렬 구조에 맞지 않으므로 explained로 고쳐야 합니다.",
+      "correct": "ⓐ was working: 과거진행형으로 '~하고 있었다'의 의미, 문맥상 적절 ✅ ⓑ ringing: start + v-ing는 '~하기 시작하다'로 올바른 표현 ✅ ⓒ lying: 지각동사 saw + O + v-ing(현재분사)로 '~하고 있는 것을 보다' ✅ ⓓ explaining: called와 and로 연결되므로 과거형 explained가 되어야 함 ❌ ⓔ to perform: ask + O + to-v 구문으로 적절 ✅",
+      "wrongs": [],
+      "tip": "🔑 등위접속사 and 병렬 구조: called and explained (○) / called and explaining (✕). start + v-ing / to-v 둘 다 가능. 지각동사(see/watch/hear) + O + v-ing(진행) / 원형(완료)"
+    }
+  },
+  {
+    "id": 2,
+    "type": "어법",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "어법 A/B/C",
+    "passage": "I dreamed of being an Olympic track and field athlete. My room was full of medals and awards from races I had (A) <u>competed / competing</u> in. During the national 100-meter championship race, however, my Olympic dreams came to a sudden end. I was about to take the lead in the race (B) <u>when / which</u> I suddenly felt a pain in my knee. I fell to the ground and had to (C) <u>be carried / carry</u> off the track.",
+    "stem": "다음 글의 (A), (B), (C)에서 어법에 맞는 표현으로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "(A) competed – (B) when – (C) be carried",
+      "(A) competed – (B) which – (C) carry",
+      "(A) competing – (B) when – (C) be carried",
+      "(A) competing – (B) which – (C) carry",
+      "(A) competed – (B) when – (C) carry"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] My room was full of medals and awards from races I had competed in. / I was about to take the lead in the race when I suddenly felt a pain in my knee. / I fell to the ground and had to be carried off the track. [해석] 내 방은 내가 출전했던 경기에서 획득한 메달과 상들로 가득했다. / 경기에서 선두를 잡으려던 순간 갑자기 무릎에 통증이 느껴졌다. / 나는 땅에 쓰러졌고 트랙 밖으로 옮겨져야 했다.",
+      "correct": "(A) competed: 과거완료(had competed) — races (that) I had competed in에서 관계대명사 생략, 주어 I의 능동적 행위이므로 과거분사 competed ✅ / competing: 과거완료 had 뒤에는 과거분사 p.p.가 와야 함 ❌ (B) when: 'be about to ~ when ...'은 '막 ~하려던 참에 …했다'의 구문 ✅ / which: 관계대명사는 문맥상 부적절 ❌ (C) be carried: 주어 I가 옮겨지는 대상이므로 수동태 be carried ✅ / carry: 능동태는 의미 부적절 ❌",
+      "wrongs": [],
+      "tip": "🔑 be about to + 동사원형 + when ~: '막 ~하려는 참에 …했다' 구문. had + p.p.(과거완료) 형태 주의. have to + be p.p.(수동): '~되어야 한다'"
+    }
+  },
+  {
+    "id": 3,
+    "type": "어법",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "어법 ⓐ~ⓓ",
+    "passage": "Ever since I was young, I have <u>ⓐ admired</u> great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I <u>ⓑ would get</u> scared. This fear kept me <u>ⓒ behind</u> the stage rather than on it. That's why I never <u>ⓓ entering</u> the annual speech contest at my school.",
+    "stem": "다음 글의 밑줄 친 ⓐ~ⓓ 중에서 어법상 어색한 것을 고르시오.",
+    "ch": [
+      "ⓐ",
+      "ⓑ",
+      "ⓒ",
+      "ⓓ"
+    ],
+    "ans": 3,
+    "det": {
+      "ref": "[원문] That's why I never entered the annual speech contest at my school. [해석] 그것이 내가 학교에서 매년 열리는 웅변 대회에 한 번도 참가하지 못했던 이유이다. That's why + 주어 + 동사(과거형) 구문에서 never 뒤에는 동사 과거형 entered가 와야 합니다. entering(현재분사/동명사)은 문장의 동사 역할을 할 수 없습니다.",
+      "correct": "ⓐ admired: 현재완료(have admired) — ever since ~ 이래로 쭉, 현재완료와 자연스럽게 호응 ✅ ⓑ would get: 과거의 반복적 습관 'would + 동사원형' — ~하곤 했다 ✅ ⓒ behind: 전치사 'behind the stage'(무대 뒤에), rather than on it과 대조 ✅ ⓓ entering: That's why 절의 주어 I 뒤에 동사가 필요 → never entered(과거형) ❌",
+      "wrongs": [],
+      "tip": "🔑 ever since + 과거시점 → 현재완료(have p.p.)와 호응. would + 동사원형: 과거 반복 습관('~하곤 했다'). That's why + S + V(과거): 주절에 반드시 동사 필요. entering은 동명사/분사이므로 술어 동사가 될 수 없음."
+    }
+  },
+  {
+    "id": 4,
+    "type": "어휘",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "어휘 A/B/C",
+    "passage": "At first, I didn't think much of the injury. I thought I would get better soon. But the test results from the hospital were not (A) <u>hopeful / hopeless</u>. The doctors said my knee injury would (B) <u>prevent / encourage</u> me from running again. Every night, I had flashbacks of my injury. I could not watch sports anymore because it was just too (C) <u>painful / pleasant</u>.",
+    "stem": "다음 글의 (A), (B), (C)에서 문맥에 맞는 낱말로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "(A) hopeful – (B) prevent – (C) painful",
+      "(A) hopeless – (B) prevent – (C) painful",
+      "(A) hopeful – (B) encourage – (C) pleasant",
+      "(A) hopeless – (B) encourage – (C) painful",
+      "(A) hopeful – (B) prevent – (C) pleasant"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] But the test results from the hospital were not hopeful. / The doctors said my knee injury would prevent me from running again. / I could not watch sports anymore because it was just too painful. [해석] 하지만 병원 검사 결과는 희망적이지 않았다. / 의사는 무릎 부상이 다시 달리지 못하게 할 것이라고 했다. / 너무 괴로워서 스포츠를 볼 수 없었다.",
+      "correct": "(A) hopeful: 'not hopeful'(희망적이지 않은) — 부상 이후 부정적 결과를 나타내므로 적절 ✅ / hopeless: 'not hopeless'(절망적이지 않은)가 되어 긍정적 의미가 되므로 문맥 부적절 ❌ (B) prevent: prevent + O + from + v-ing(~가 …하는 것을 막다) ✅ / encourage: '격려하다'는 문맥 부적절 ❌ (C) painful: '고통스러운' — 스포츠를 볼 수 없을 정도로 괴로움 ✅ / pleasant: '즐거운'은 문맥 반대 ❌",
+      "wrongs": [],
+      "tip": "🔑 not hopeful ≠ hopeless — 이중부정 함정 주의! prevent A from v-ing: A가 ~하는 것을 막다(≈ keep A from v-ing / stop A from v-ing). painful(고통스러운) ↔ pleasant(즐거운)"
+    }
+  },
+  {
+    "id": 5,
+    "type": "어휘",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "어휘 부적절",
+    "passage": "I was scared, but I remembered ① <u>learning</u> CPR at school. I started to push down on his chest, ② <u>hoping</u> that I was doing it right. A few minutes later, the paramedics rushed in and took over the situation. ③ <u>Luckily</u>, the clerk regained consciousness. After putting the clerk in the ambulance, the paramedics said \"Thank you for being brave. You did a ④ <u>terrible</u> job.\" It felt great to help ⑤ <u>save</u> someone's life!",
+    "stem": "다음 글의 밑줄 친 ①~⑤ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.",
+    "ch": [
+      "①",
+      "②",
+      "③",
+      "④",
+      "⑤"
+    ],
+    "ans": 3,
+    "det": {
+      "ref": "[원문] You did a wonderful job. [해석] 훌륭한 일을 하셨어요. 구급대원이 Jason의 CPR 행위를 칭찬하는 맥락이므로 'terrible(끔찍한)'은 문맥에 맞지 않고, 원문의 'wonderful(훌륭한)'이 적절합니다.",
+      "correct": "① learning: remember + v-ing(~한 것을 기억하다) — 학교에서 CPR을 배운 기억, 적절 ✅ ② hoping: '바라면서'의 분사구문, 적절 ✅ ③ Luckily: '다행히도' — 점원이 의식을 되찾아 다행이라는 맥락, 적절 ✅ ④ terrible: '끔찍한' — 구급대원이 칭찬하는 상황에서 부적절 ❌ → wonderful(훌륭한)이 적절 ⑤ save: help + (to) save, '구하는 것을 돕다', 적절 ✅",
+      "wrongs": [],
+      "tip": "🔑 remember + v-ing: ~한 것을 기억하다 / remember + to-v: ~할 것을 기억하다. wonderful(훌륭한) ↔ terrible(끔찍한). help + (to) + 동사원형: to 생략 가능"
+    }
+  },
+  {
+    "id": 6,
+    "type": "어휘",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "어휘 부적절",
+    "passage": "Then one day, I came across an interesting university major called sports medicine. It deals with the ① <u>treatment</u> and prevention of sports injuries. A light bulb went on in my head. This was my chance to stop ② <u>running away</u> from my problems and fears. So I made up my mind and ③ <u>rejected</u> this major. Today, thanks to my ④ <u>brave</u> decision, I am studying to be a star on the ⑤ <u>sidelines</u> instead of on the playing field.",
+    "stem": "다음 글의 밑줄 친 ①~⑤ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.",
+    "ch": [
+      "①",
+      "②",
+      "③",
+      "④",
+      "⑤"
+    ],
+    "ans": 2,
+    "det": {
+      "ref": "[원문] So I made up my mind and applied to this major. [해석] 그래서 마음을 먹고 이 전공에 지원했다. 마음을 먹고 전공에 '지원했다(applied)'가 문맥상 자연스러우므로, 'rejected(거부했다)'는 부적절합니다.",
+      "correct": "① treatment: '치료' — 스포츠 의학은 부상의 치료와 예방을 다룸, 적절 ✅ ② running away: '도망치는 것' — stop running away from(~에서 도망치는 것을 멈추다), 적절 ✅ ③ rejected: '거부했다' — 문맥상 전공에 '지원했다(applied)'가 적절 ❌ ④ brave: '용기 있는' — 결정을 칭찬하는 맥락, 적절 ✅ ⑤ sidelines: '사이드라인(경기장 옆)' — 선수 대신 의료진이 되는 의미, 적절 ✅",
+      "wrongs": [],
+      "tip": "🔑 applied to(~에 지원하다) ↔ rejected(거부하다). make up one's mind: 결심하다(= decide). come across: 우연히 발견하다(= run into). deal with: ~을 다루다"
+    }
+  },
+  {
+    "id": 7,
+    "type": "대의",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "대의 주제",
+    "passage": "What does it mean to be brave? There is no single definition, but everyone is brave in their own way. Here are three young people sharing their bravest moments in life. Jason saved a clerk's life by performing CPR. Olivia overcame her sports injury and chose sports medicine. Yuna conquered her stage fright and delivered a speech to the entire school.",
+    "stem": "다음 글의 주제로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "용감함의 다양한 형태와 개인의 용기 있는 경험",
+      "올림픽 선수들의 부상 극복 과정",
+      "응급처치 교육의 중요성과 필요성",
+      "대중 연설의 기술과 방법",
+      "젊은이들의 진로 탐색과 직업 선택"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] What does it mean to be brave? There is no single definition, but everyone is brave in their own way. [해석] 용감하다는 것은 무엇을 의미하는가? 단일한 정의는 없지만, 모든 사람은 자신만의 방식으로 용감하다. 세 사람의 이야기를 통해 용감함이 다양한 형태로 나타남을 보여주고 있습니다.",
+      "correct": "① 용감함의 다양한 형태와 개인의 용기 있는 경험: 세 인물의 각기 다른 용기를 다루므로 주제로 가장 적절 ✅ ② 올림픽 선수들의 부상 극복: Olivia 한 명에만 해당, 부분적 ❌ ③ 응급처치 교육의 중요성: Jason 이야기의 일부일 뿐 ❌ ④ 대중 연설의 기술과 방법: Yuna에만 해당 ❌ ⑤ 진로 탐색과 직업 선택: 글의 핵심 주제가 아님 ❌",
+      "wrongs": [],
+      "tip": "🔑 주제 파악 전략: 첫 문단의 도입부(What does it mean to be brave?)가 전체 글의 주제를 암시. 세 인물의 공통 키워드 = brave/courage. 개별 인물의 소재(CPR, 부상, 연설)에 현혹되지 말 것."
+    }
+  },
+  {
+    "id": 8,
+    "type": "대의",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "대의 제목",
+    "passage": "Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. Last year, however, was my final chance before graduating from high school. I decided to sign up for the contest. To make a long story short, I did it. I delivered my speech to the entire school. But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.",
+    "stem": "다음 글의 제목으로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "Courage on Stage: Overcoming Fear to Speak",
+      "How to Become a Great Public Speaker",
+      "The Secret to Winning Speech Contests",
+      "Why High School Students Should Give Speeches",
+      "The History of Public Speaking in Korea"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] But my act of courage taught me a valuable lesson: I can do anything that I put my mind to. [해석] 하지만 나의 용기 있는 행동은 값진 교훈을 주었다: 마음만 먹으면 무엇이든 할 수 있다. Yuna가 두려움을 극복하고 무대에 선 이야기이므로, 제목은 '무대 위의 용기: 두려움을 극복하고 말하다'가 적절합니다.",
+      "correct": "① Courage on Stage: Yuna가 무대 공포를 극복한 이야기를 포괄적으로 담은 제목 ✅ ② How to Become ~: 연설 기술을 알려주는 글이 아님 ❌ ③ The Secret to Winning ~: 대회 우승 비결이 아님 ❌ ④ Why High School Students ~: 학생 연설 권장 글이 아님 ❌ ⑤ The History of ~: 역사와 무관 ❌",
+      "wrongs": [],
+      "tip": "🔑 제목 = 주제 + 흥미 요소. 글의 핵심 메시지(fear → courage → lesson)를 포괄하는 제목을 선택. make a fool of oneself: 웃음거리가 되다. put one's mind to: ~에 전념하다"
+    }
+  },
+  {
+    "id": 9,
+    "type": "대의",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "대의 시사점",
+    "passage": "Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. It deals with the treatment and prevention of sports injuries. A light bulb went on in my head. This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major. Today, thanks to my brave decision, I am studying to be a star on the sidelines instead of on the playing field.",
+    "stem": "다음 글이 시사하는 바로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "역경을 새로운 기회로 전환하는 것이 진정한 용기이다.",
+      "스포츠 의학은 미래 유망 직업 분야이다.",
+      "운동선수는 부상을 예방하기 위해 훈련해야 한다.",
+      "대학 전공 선택은 고등학교 때부터 준비해야 한다.",
+      "스포츠와 관련 없는 새로운 취미를 찾아야 한다."
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] This was my chance to stop running away from my problems and fears. [해석] 이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. Olivia는 부상이라는 역경을 스포츠 의학이라는 새로운 길로 전환했고, 이것이 '진정한 용기'임을 시사합니다.",
+      "correct": "① 역경을 새로운 기회로 전환: Olivia가 부상(역경) → 스포츠 의학(기회)으로 전환한 핵심 메시지 ✅ ② 스포츠 의학 유망: 직업 정보가 아닌 용기에 대한 글 ❌ ③ 부상 예방 훈련: 예방보다 역경 극복이 주제 ❌ ④ 전공 준비: 진로 조언이 아님 ❌ ⑤ 새로운 취미: Olivia는 스포츠와 관련된 분야를 선택 ❌",
+      "wrongs": [],
+      "tip": "🔑 시사점 = 글 전체의 교훈/메시지. 'stop running away from my problems' + 'brave decision' → 역경을 기회로 전환하는 용기. a light bulb went on: 번뜩 좋은 생각이 떠오르다. make up one's mind: 결심하다"
+    }
+  },
+  {
+    "id": 10,
+    "type": "일치",
+    "diff": "쉬움",
+    "pts": 3,
+    "fmt": "mc",
+    "note": "일치",
+    "passage": "One evening, I went to a convenience store to buy some snacks. No one was at the counter, so I thought the clerk was working in the back. The telephone started ringing, but no one came to answer it. I felt something was wrong. I looked over the counter and saw the clerk lying on the floor. I immediately called 911 and explained the situation. The operator asked me to perform CPR on the clerk until the paramedics arrived. I was scared, but I remembered learning CPR at school.",
+    "stem": "Jason에 관한 다음 글의 내용과 일치하는 것을 고르시오.",
+    "ch": [
+      "Jason은 편의점에서 점원이 쓰러져 있는 것을 발견했다.",
+      "Jason은 점원과 함께 911에 전화했다.",
+      "교환원이 직접 와서 심폐소생술을 시행했다.",
+      "Jason은 병원에서 심폐소생술을 배운 적이 있었다.",
+      "점원은 Jason이 도착하기 전에 의식을 되찾았다."
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] I looked over the counter and saw the clerk lying on the floor. [해석] 계산대 너머를 보니 바닥에 점원이 쓰러져 있는 것이 보였다. Jason은 편의점에서 점원이 바닥에 쓰러져 있는 것을 발견한 것이 맞습니다.",
+      "correct": "① Jason은 편의점에서 점원이 쓰러져 있는 것을 발견: 원문 일치 ✅ ② 점원과 함께 전화: 점원은 쓰러져 있었으므로 Jason 혼자 전화 ❌ ③ 교환원이 직접 옴: 교환원은 전화로 CPR을 지시, 직접 오지 않음 ❌ ④ 병원에서 배움: 학교(at school)에서 배움 ❌ ⑤ 도착 전 의식 회복: CPR 후에 의식을 되찾음 ❌",
+      "wrongs": [],
+      "tip": "🔑 일치 문제 전략: 선택지의 핵심 명사/동사를 원문과 대조. '학교(school) vs 병원(hospital)' 같은 세부 정보 바꿔치기에 주의!"
+    }
+  },
+  {
+    "id": 11,
+    "type": "불일치",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "불일치",
+    "passage": "I dreamed of being an Olympic track and field athlete. My room was full of medals and awards from races I had competed in. During the national 100-meter championship race, however, my Olympic dreams came to a sudden end. I was about to take the lead in the race when I suddenly felt a pain in my knee. I fell to the ground and had to be carried off the track. At first, I didn't think much of the injury. I thought I would get better soon. But the test results from the hospital were not hopeful. The doctors said my knee injury would prevent me from running again.",
+    "stem": "Olivia에 관한 다음 글의 내용과 일치하지 <b>않는</b> 것을 고르시오.",
+    "ch": [
+      "올림픽 육상 선수가 되는 것이 꿈이었다.",
+      "전국 100미터 선수권 대회 중 부상을 당했다.",
+      "부상 직후에 자신의 부상이 심각하다고 생각했다.",
+      "병원 검사 결과가 희망적이지 않았다.",
+      "의사들은 다시 달리지 못할 것이라고 말했다."
+    ],
+    "ans": 2,
+    "det": {
+      "ref": "[원문] At first, I didn't think much of the injury. I thought I would get better soon. [해석] 처음에 나는 부상에 대해 심각하게 생각하지 않았다. 곧 회복할 거라고 생각했다. 선택지 ③은 '부상 직후에 심각하다고 생각했다'로, 원문과 반대되는 내용입니다.",
+      "correct": "① 올림픽 육상 선수: 'dreamed of being an Olympic track and field athlete' 일치 ✅ ② 전국 100미터 대회 중 부상: 'During the national 100-meter championship race' 일치 ✅ ③ 부상 직후 심각하다고 생각: 'didn't think much of the injury' → 심각하게 생각하지 않음, 불일치 ❌ ④ 검사 결과 희망적이지 않음: 'were not hopeful' 일치 ✅ ⑤ 다시 달리지 못할 것: 'prevent me from running again' 일치 ✅",
+      "wrongs": [],
+      "tip": "🔑 불일치 문제: 부정 표현(didn't think much of)에 주의. think much of: ~을 대수롭게 여기다 → didn't think much of: 대수롭지 않게 여기다. 선택지가 원문의 의미를 반대로 바꾼 것을 찾기!"
+    }
+  },
+  {
+    "id": 12,
+    "type": "빈칸",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "빈칸(구)",
+    "passage": "Every night, I had flashbacks of my injury. I could not watch sports anymore because it was just too painful. So I shut out everything related to sports from my life. Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. A light bulb went on in my head. This was my chance to ____________________.",
+    "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "stop running away from my problems and fears",
+      "become a professional athlete once again",
+      "forget about sports entirely",
+      "find a new hobby unrelated to sports",
+      "win more medals in track and field"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] This was my chance to stop running away from my problems and fears. [해석] 이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. 스포츠 의학을 발견한 Olivia가 문제와 두려움으로부터 도망치지 않겠다고 결심한 맥락입니다.",
+      "correct": "① stop running away from my problems and fears: 원문 그대로, 두려움에서 도망치기를 멈추겠다는 전환점 ✅ ② become a professional athlete: 이미 달릴 수 없으므로 부적절 ❌ ③ forget about sports entirely: 스포츠 의학은 스포츠와 관련된 분야 ❌ ④ find a new hobby unrelated to sports: 스포츠 의학은 스포츠와 관련 ❌ ⑤ win more medals: 선수 생활이 끝났으므로 부적절 ❌",
+      "wrongs": [],
+      "tip": "🔑 빈칸 전략: 빈칸 전후 문맥 파악 — 'A light bulb went on'(좋은 생각이 떠오르다) + 스포츠 의학 발견 → 두려움을 극복하는 전환점. stop + v-ing: ~하는 것을 멈추다. run away from: ~에서 도망치다"
+    }
+  },
+  {
+    "id": 13,
+    "type": "빈칸",
+    "diff": "어려움",
+    "pts": 6,
+    "fmt": "mc",
+    "note": "빈칸(문장)",
+    "passage": "Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like them someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. This fear kept me behind the stage rather than on it. That's why I never entered the annual speech contest at my school. I really wanted to, but I just didn't have enough courage. Last year, however, was my final chance before graduating. I decided to sign up for the contest. To make a long story short, I did it. But my act of courage taught me a valuable lesson: ____________________.",
+    "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "I can do anything that I put my mind to",
+      "public speaking is not as difficult as it seems",
+      "winning contests is the most important goal in life",
+      "fear always disappears when you face it directly",
+      "practice makes perfect in every situation"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] But my act of courage taught me a valuable lesson: I can do anything that I put my mind to. [해석] 하지만 나의 용기 있는 행동은 값진 교훈을 주었다: 마음만 먹으면 무엇이든 할 수 있다. Yuna가 용기를 내어 연설한 경험에서 얻은 교훈입니다.",
+      "correct": "① I can do anything that I put my mind to: 원문, Yuna가 배운 교훈 — 마음먹으면 무엇이든 가능 ✅ ② public speaking is not difficult: 글의 핵심은 '연설 난이도'가 아닌 '용기' ❌ ③ winning contests: 대회 우승이 글의 핵심이 아님 ❌ ④ fear always disappears: Yuna는 여전히 긴장했으므로 두려움이 사라졌다고 볼 수 없음 ❌ ⑤ practice makes perfect: 연습에 대한 언급 없음 ❌",
+      "wrongs": [],
+      "tip": "🔑 빈칸(문장) 전략: 'a valuable lesson' 뒤에 콜론(:)이 오면 교훈의 내용이 구체적으로 나옴. put one's mind to: ~에 전념하다/마음먹다. to make a long story short: 간단히 말하면"
+    }
+  },
+  {
+    "id": 14,
+    "type": "함축",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "함축 의미",
+    "passage": "Two years passed and I was still trying to get used to my ordinary high school life without sports. Then one day, I came across an interesting university major called sports medicine. It deals with the treatment and prevention of sports injuries. <u>A light bulb went on in my head.</u> This was my chance to stop running away from my problems and fears.",
+    "stem": "다음 글의 밑줄 친 \"A light bulb went on in my head\"가 의미하는 바로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "갑자기 좋은 아이디어가 떠올랐다.",
+      "갑작스러운 두통이 발생했다.",
+      "과거의 기억이 선명하게 떠올랐다.",
+      "자신의 미래에 대한 불안감이 커졌다.",
+      "주변 환경이 갑자기 밝아졌다."
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] A light bulb went on in my head. [해석] 머릿속에 번뜩 좋은 생각이 떠올랐다. 이 관용 표현은 마치 전구가 켜지듯 갑자기 영감이나 아이디어가 떠오르는 상황을 비유적으로 나타냅니다. 스포츠 의학이라는 전공을 알게 된 순간 새로운 진로의 가능성을 깨달은 것입니다.",
+      "correct": "① 갑자기 좋은 아이디어가 떠올랐다: 관용적 의미 그대로 ✅ ② 두통 발생: 비유적 표현을 문자 그대로 해석한 것 ❌ ③ 과거 기억: flashback과 혼동 ❌ ④ 불안감: 오히려 희망적인 전환점 ❌ ⑤ 밝아졌다: 물리적 의미 아님 ❌",
+      "wrongs": [],
+      "tip": "🔑 A light bulb went on (in one's head): 번뜩 좋은 생각이 떠오르다(= have a sudden idea/inspiration). 유사 표현: It dawned on me / It hit me / It occurred to me. 관용 표현은 비유적 의미를 파악해야 함!"
+    }
+  },
+  {
+    "id": 15,
+    "type": "순서",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "mc",
+    "note": "순서 배열",
+    "passage": "<b>주어진 글:</b> I was scared, but I remembered learning CPR at school.<br><br><b>(A)</b> A few minutes later, the paramedics rushed in and took over the situation. Luckily, the clerk regained consciousness.<br><b>(B)</b> I started to push down on his chest, hoping that I was doing it right.<br><b>(C)</b> After putting the clerk in the ambulance, the paramedics said \"Thank you for being brave. You did a wonderful job.\" It felt great to help save someone's life!",
+    "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+    "ch": [
+      "(B) - (A) - (C)",
+      "(A) - (B) - (C)",
+      "(A) - (C) - (B)",
+      "(B) - (C) - (A)",
+      "(C) - (A) - (B)"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문 순서] CPR을 기억 → (B) 가슴 압박 시작 → (A) 구급대원 도착, 의식 회복 → (C) 감사 인사, 뿌듯함. [해석] CPR을 배웠던 기억이 난 Jason은 먼저 가슴 압박을 시작하고(B), 구급대원이 도착하여 점원이 의식을 되찾고(A), 구급대원이 감사 인사를 하며 마무리(C)됩니다.",
+      "correct": "① (B)-(A)-(C): 시간순 — CPR 시행(B) → 구급대원 도착·의식 회복(A) → 감사·소감(C) ✅ ② (A)-(B)-(C): CPR 전에 구급대원이 오는 것은 시간순 어긋남 ❌ ③ (A)-(C)-(B): 순서 논리 부적절 ❌ ④ (B)-(C)-(A): 감사가 의식 회복보다 먼저 올 수 없음 ❌ ⑤ (C)-(A)-(B): 역순 ❌",
+      "wrongs": [],
+      "tip": "🔑 순서 배열 전략: 시간 흐름 단서(started → a few minutes later → after)를 추적. 지시어·접속사 연결 관계 파악. rush in: 급히 뛰어들다. take over: 넘겨받다, 인수하다"
+    }
+  },
+  {
+    "id": 16,
+    "type": "무관",
+    "diff": "쉬움",
+    "pts": 3,
+    "fmt": "mc",
+    "note": "무관 문장",
+    "passage": "① Ever since I was young, I have admired great public speakers. ② I hoped to inspire and move audiences like them someday. ③ My favorite subject at school was always mathematics and science. ④ But every time I had a chance to speak in front of people, I would get scared. ⑤ This fear kept me behind the stage rather than on it.",
+    "stem": "다음 글에서 전체 흐름과 관계없는 문장을 고르시오.",
+    "ch": [
+      "①",
+      "②",
+      "③",
+      "④",
+      "⑤"
+    ],
+    "ans": 2,
+    "det": {
+      "ref": "[원문] ③ My favorite subject at school was always mathematics and science. [해석] 학교에서 가장 좋아하는 과목은 늘 수학과 과학이었다. 이 문장은 Yuna의 대중 연설에 대한 동경과 두려움이라는 주제 흐름과 전혀 관련이 없는 학교 과목 이야기입니다.",
+      "correct": "① 어릴 때부터 연설가 동경: 주제 도입 ✅ ② 청중에게 감동을 주고 싶음: 주제 전개 ✅ ③ 수학과 과학이 좋아했다: 연설·용기 주제와 무관 ❌ ④ 사람들 앞에서 겁남: 주제 전개(두려움) ✅ ⑤ 두려움이 무대 뒤에 머물게 함: 주제 전개 ✅",
+      "wrongs": [],
+      "tip": "🔑 무관 문장 전략: 글의 중심 소재(public speaking, fear, courage)와 무관한 소재(mathematics, science)가 등장하면 무관 문장. 전후 문장의 논리적 연결이 자연스러운지 확인!"
+    }
+  },
+  {
+    "id": 17,
+    "type": "지칭",
+    "diff": "쉬움",
+    "pts": 3,
+    "fmt": "mc",
+    "note": "지칭 T/F",
+    "passage": "Ever since I was young, I have admired great public speakers. I hoped to inspire and move audiences like <u>them</u> someday. But every time I had a chance to speak in front of people, I would get scared. I didn't want to make a fool of myself. This fear kept me behind the stage rather than on it.",
+    "stem": "다음 글의 밑줄 친 <b>them</b>이 가리키는 대상이 나머지와 다른 것은? 같으면 T, 다르면 F를 고르시오.<br>ⓐ I hoped to inspire and move audiences like <u>them</u> someday.<br>ⓑ This fear kept me behind the stage rather than on it.",
+    "ch": [
+      "T (같다)",
+      "F (다르다)"
+    ],
+    "ans": 0,
+    "det": {
+      "ref": "[원문] I have admired great public speakers. I hoped to inspire and move audiences like them someday. [해석] 나는 뛰어난 대중 연설가들을 동경해왔다. 언젠가 그들처럼 청중을 고무하고 감동시키기를 바랐다. 여기서 'them'은 앞 문장의 'great public speakers'를 가리킵니다. ⓑ의 문장에는 밑줄 친 대명사가 없으므로 비교 대상이 없고, 문제에서 them이 같은 대상을 가리키는지 묻는 것이므로 T(같다)가 정답입니다.",
+      "correct": "ⓐ them = great public speakers(위대한 대중 연설가들) ✅ ⓑ 문장은 지칭 비교 대상 없음, 문맥상 같은 흐름 → T ✅",
+      "wrongs": [],
+      "tip": "🔑 지칭 문제: 대명사가 가리키는 대상은 보통 바로 앞 문장의 명사. them → great public speakers. 대명사(he, she, it, they, them)의 선행사를 항상 확인!"
+    }
+  },
+  {
+    "id": 18,
+    "type": "서술형요약",
+    "diff": "보통",
+    "pts": 5,
+    "fmt": "written",
+    "note": "서술형 요약",
+    "passage": "I dreamed of being an Olympic track and field athlete. During the national 100-meter championship race, my Olympic dreams came to a sudden end. Two years passed and I was still trying to get used to my ordinary high school life. Then one day, I came across sports medicine. This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major.",
+    "stem": "다음 글의 내용을 한 문장으로 요약하고자 합니다. 빈칸 (A)와 (B)에 들어갈 말을 <보기>에서 골라 쓰시오.<br><br><b>[조건]</b> 1) 보기에서 각각 한 단어를 골라 쓸 것 2) 필요 시 어형을 변환할 것<br><b>[보기]</b> brave / fear / overcome / run<br><br>→ Olivia (A)________ her injury and made a (B)________ decision to study sports medicine.",
+    "wa": "overcame, brave",
+    "accept": [
+      "overcame, brave",
+      "overcame,brave",
+      "overcame / brave",
+      "overcame brave",
+      "Overcame, brave",
+      "overcame, Brave",
+      "Overcame, Brave"
+    ],
+    "det": {
+      "ref": "[원문] This was my chance to stop running away from my problems and fears. So I made up my mind and applied to this major. Thanks to my brave decision. [해석] 이것은 나의 고민과 두려움에서 도망치는 것을 멈출 기회였다. 마음을 먹고 지원했다. 용기 있는 결정 덕분에. (A) overcome → overcame(과거형): 부상을 극복했다. (B) brave: 용기 있는 결정",
+      "correct": "(A) overcame: overcome(극복하다)의 과거형, Olivia가 부상을 극복한 행위 ✅ (B) brave: 원문 'brave decision'과 일치 ✅ fear/run은 문맥에 맞지 않음 ❌",
+      "wrongs": [],
+      "tip": "🔑 overcome - overcame - overcome (불규칙 동사 변화 암기). brave(형용사): 용기 있는. make up one's mind: 결심하다 = decide"
+    }
+  },
+  {
+    "id": 19,
+    "type": "서술형영작",
+    "diff": "어려움",
+    "pts": 7,
+    "fmt": "written",
+    "note": "서술형 영작",
+    "passage": "I decided to sign up for the contest. To make a long story short, I did it. I delivered my speech to the entire school. But my act of courage taught me a valuable lesson: I can do anything that I put my mind to.",
+    "stem": "다음 우리말과 일치하도록 주어진 단어를 활용하여 영작하시오.<br><br><b>[조건]</b> 1) 주어진 단어를 모두 사용할 것 2) 필요 시 어형을 변환할 것 3) 단어를 추가할 수 있음<br><b>[보기]</b> teach / I / a valuable lesson / my act / courage<br><br>→ \"나의 용기 있는 행동은 나에게 값진 교훈을 주었다.\"",
+    "wa": "My act of courage taught me a valuable lesson.",
+    "accept": [
+      "My act of courage taught me a valuable lesson.",
+      "My act of courage taught me a valuable lesson",
+      "my act of courage taught me a valuable lesson.",
+      "my act of courage taught me a valuable lesson",
+      "My act of courage taught me a valuable lesson!"
+    ],
+    "det": {
+      "ref": "[원문] But my act of courage taught me a valuable lesson. [해석] 하지만 나의 용기 있는 행동은 나에게 값진 교훈을 주었다. teach(가르치다/교훈을 주다)의 과거형 taught를 사용, 4형식 구문(S + V + IO + DO)으로 작성합니다.",
+      "correct": "My act of courage = 주어(나의 용기 있는 행동) / taught = 동사(teach의 과거형) / me = 간접목적어(나에게) / a valuable lesson = 직접목적어(값진 교훈). teach-taught-taught 불규칙 동사 변화 필수.",
+      "wrongs": [],
+      "tip": "🔑 teach - taught - taught (불규칙 변화). 4형식: S + V + IO + DO (teach + 사람 + 사물). act of courage: 용기 있는 행동. valuable: 값진, 소중한(≈ precious, invaluable)"
+    }
+  },
+  {
+    "id": 20,
+    "type": "서술형어형",
+    "diff": "쉬움",
+    "pts": 3,
+    "fmt": "written",
+    "note": "서술형 어형",
+    "passage": "I immediately called 911 and explained the situation. The operator asked me to perform CPR on the clerk until the paramedics arrived. I was scared, but I remembered learning CPR at school.",
+    "stem": "다음 괄호 안의 단어를 문맥에 맞게 어형 변환하여 쓰시오.<br><br>→ The operator asked me (perform) ________ CPR on the clerk.",
+    "wa": "to perform",
+    "accept": [
+      "to perform",
+      "To perform",
+      "to Perform",
+      "To Perform"
+    ],
+    "det": {
+      "ref": "[원문] The operator asked me to perform CPR on the clerk. [해석] 교환원은 나에게 점원에게 심폐소생술을 해달라고 요청했다. ask + 목적어 + to부정사 구문에서 perform은 to perform으로 변환해야 합니다.",
+      "correct": "ask + O + to-v: '~에게 …하도록 요청하다' 구문. perform → to perform이 정답. asking은 동명사이므로 부적절 ❌ performed는 과거형이므로 부적절 ❌",
+      "wrongs": [],
+      "tip": "🔑 ask + O + to-v(5형식): ~에게 …하라고 요청하다. 유사 구문: tell/want/expect/advise/allow + O + to-v. 비교: make/let/have + O + 동사원형(사역동사)"
+    }
   }
-  const mk = '\u2460\u2461\u2462\u2463\u2464';
-  p.innerHTML = h.map(function (x, idx) {
-    return '<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">' + (x.name || '\uc774\ub984\uc5c6\uc74c') + '</div><div class="hi-meta">' + new Date(x.date).toLocaleDateString('ko-KR') + ' \u00b7 ' + x.grade + ' \u00b7 ' + (x.level || '') + '</div></div><div class="hi-right"><div class="hi-score" style="color:' + (x.score >= 80 ? 'var(--p)' : 'var(--r)') + '">' + x.score + '<span style="font-size:11px;color:var(--tl)">/' + x.total + '</span></div></div>' + (x.answers ? '<button onclick="reviewHistory(' + idx + ')" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid var(--pborder);border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--p)">\ud83d\udcdd \uc815\ub2f5\u00b7\ud574\uc124 \ub2e4\uc2dc \ubcf4\uae30</button>' : '') + '</div>';
-  }).join('');
-  p.style.display = 'block';
-}
+];
 
-function getLevel(s) {
-  if (s >= 95) return { name: '\ub9c8\uc2a4\ud130', icon: '\ud83d\udc51', range: '95~100', msg: '\uc774 \ub2e8\uc6d0\uc740 \uc815\ubcf5\ud588\uc5b4\uc694!' };
-  if (s >= 85) return { name: '\ucc4c\ub9b0\uc800', icon: '\ud83c\udf1f', range: '85~94', msg: '\uac70\uc758 \uc644\ubcbd, \ud55c \ub057 \ucc28\uc774!' };
-  if (s >= 75) return { name: '\ud30c\uc774\ud130', icon: '\ud83d\udc8e', range: '75~84', msg: '\ud1b5\uacfc! \uc57d\uc810\ub9cc \uc7a1\uc73c\uba74 \ub9c8\uc2a4\ud130' };
-  if (s >= 50) return { name: '\ub8e8\ud0a4', icon: '\ud83d\udd25', range: '50~74', msg: '\uae30\ubcf8\uae30 OK, \uc720\ud615\ubcc4 \ud6c8\ub828 \ud544\uc694' };
-  return { name: '\uc2a4\ud0c0\ud130', icon: '\ud83d\udcd6', range: '0~49', msg: '\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130 \ub2e4\uc2dc!' };
-}
+const QCOUNT=Q.length;
 
-function getTypeAdvice(t) {
-  var m = {
-    '(A)(B)(C) \uc870\ud569\ud615': '\ubc18\uc758\uc5b4 \ud568\uc815 \uc8fc\uc758, \uc6d0\ubb38 \ub2e8\uc5b4 \uc815\ud655\ud788 \uc554\uae30',
-    '\ubb38\ub9e5\uc0c1 \ubd80\uc801\uc808\ud55c \uc5b4\ud718': '\ubc11\uc904 \ub2e8\uc5b4\uac00 \ubc18\uc758\uc5b4\ub85c \ubc14\ub00c\uc5c8\ub294\uc9c0 \ud655\uc778',
-    '\ub3d9\uc758\uc5b4 \uace0\ub974\uae30': '\ub3d9\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
-    '\ubc18\uc758\uc5b4 \uace0\ub974\uae30': '\ubc18\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
-    '\ube48\uce78 \uc5b4\ud718 \uc644\uc131': '\ubb38\ub9e5 \ub2e8\uc11c(clue) \ucc3e\uae30 \uc5f0\uc2b5 \ud544\uc694',
-    '\ub2e4\uc758\uc5b4 \ubb38\ub9e5\uc801 \uc758\ubbf8': '\ub2e4\uc758\uc5b4\uc758 \uc5ec\ub7ec \ub73b\uc744 \ubb38\ub9e5\ubcc4\ub85c \uad6c\ubd84',
-    '\uc601\uc601\ud480\uc774 \ub9e4\uce6d': '\uc601\uc601\uc0ac\uc804 \uc815\uc758 \uc77d\uae30 \uc5f0\uc2b5',
-    '\uc5b4\ud615 \ubcc0\ud658 (\uc11c\uc220\ud615)': '\ud488\uc0ac \ubcc0\ud658 \uaddc\uce59(\uba85\u2194\ud615, \ub3d9\u2194\uba85) \uc815\ub9ac',
-    '\ube48\uce78 \ubb38\ub9e5 \uc644\uc131': '\uae00\uc758 \ud750\ub984\uacfc \ub17c\ub9ac\uc801 \uc5f0\uacb0 \ud30c\uc545',
-    '\uc5b4\ubc95': '\ud575\uc2ec \uc5b4\ubc95 \uaddc\uce59 \uc815\ub9ac \ubc0f \ubc18\ubcf5 \uc5f0\uc2b5',
-    '\ub0b4\uc6a9\uc77c\uce58': '\uc9c0\ubb38\uacfc \uc120\uc9c0\ub97c \uaf3c\uaf3c\ud788 \ub300\uc870',
-    '\ub0b4\uc6a9\ubd88\uc77c\uce58': '\ud568\uc815 \uc120\uc9c0\uc758 \ubbf8\uc138\ud55c \ucc28\uc774 \ucc3e\uae30',
-    'T/F': '\uc6d0\ubb38\uacfc \uc9c4\uc220\uc744 \uc815\ud655\ud788 \ub300\uc870',
-    '\uc11c\uc220\ud615': '\uc815\ud655\ud55c \ucca0\uc790\uc640 \uc5b4\ud615 \ubcc0\ud658 \uc8fc\uc758',
-    '\ube48\uce78\ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
-    '\ube48\uce78 \ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
-    '\ubb38\uc7a5\uc0bd\uc785': '\uae00\uc758 \ud750\ub984\uacfc \uc5f0\uacb0\uc0ac \ud30c\uc545',
-    '\uc5b4\uc21c\ubc30\uc5f4': '\ubb38\uc7a5 \uad6c\uc870(S+V+O) \uc815\ud655\ud788 \ud30c\uc545',
-    '\uc5b4\ud718': '\ubb38\ub9e5\uc5d0\uc11c \uc801\uc808\ud55c \uc5b4\ud718 \uace0\ub974\uae30 \uc5f0\uc2b5',
-    '\ub0b4\uc6a9\uc774\ud574': '\uc9c0\ubb38 \ud575\uc2ec \ub0b4\uc6a9 \uc815\ud655\ud788 \ud30c\uc545'
-  };
-  return m[t] || '\ud574\ub2f9 \uc720\ud615 \uc9d1\uc911 \ubcf5\uc2b5 \ud544\uc694';
-}
+let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
 
-function fmtTime(s) { return Math.floor(s / 60) + '\ubd84 ' + s % 60 + '\ucd08'; }
+function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
+function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
+function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
+function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--o)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--o)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
+function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
+function getTypeAdvice(t){const m={'(A)(B)(C) 조합형':'반의어 함정 주의, 원문 단어 정확히 암기','문맥상 부적절한 어휘':'밑줄 단어가 반의어로 바뀌었는지 확인','동의어 고르기':'동의어 쌍을 세트로 묶어 암기','반의어 고르기':'반의어 쌍을 세트로 묶어 암기','빈칸 어휘 완성':'문맥 단서(clue) 찾기 연습 필요','다의어 문맥적 의미':'다의어의 여러 뜻을 문맥별로 구분','영영풀이 매칭':'영영사전 정의 읽기 연습','어형 변환 (서술형)':'품사 변환 규칙(명↔형, 동↔명) 정리','빈칸 문맥 완성':'글의 흐름과 논리적 연결 파악','어법':'핵심 어법 규칙 정리 및 반복 연습','내용일치':'지문과 선지를 꼼꼼히 대조','내용불일치':'함정 선지의 미세한 차이 찾기','T/F':'원문과 진술을 정확히 대조','서술형':'정확한 철자와 어형 변환 주의','빈칸추론':'빈칸 전후 문맥 단서 찾기','빈칸 추론':'빈칸 전후 문맥 단서 찾기','문장삽입':'글의 흐름과 연결사 파악','어순배열':'문장 구조(S+V+O) 정확히 파악','어휘':'문맥에서 적절한 어휘 고르기 연습','내용이해':'지문 핵심 내용 정확히 파악'};return m[t]||'해당 유형 집중 복습 필요';}
+function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
 
-function toast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function () { t.classList.remove('show'); }, 2500);
-}
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-}
-
-function shuffle(arr) {
-  for (var i = arr.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
-  }
-  return arr;
-}
-
-/* Section picker (for 부교재 with sec field) */
-function toggleAllSec(el) {
-  document.querySelectorAll('.sec-cb').forEach(function (cb) { if (cb.value !== 'all') cb.checked = el.checked; });
-}
-
-function getSelectedSections() {
-  var cbs = document.querySelectorAll('.sec-cb:checked');
-  var secs = [];
-  cbs.forEach(function (cb) { if (cb.value !== 'all') secs.push(cb.value); });
-  return secs;
-}
-
-function startExam() {
-  var nm = document.getElementById('inpName').value.trim();
-  if (!nm) { toast('\uc774\ub984\uc744 \uc785\ub825\ud574\uc8fc\uc138\uc694!'); return; }
-
-  /* Section filtering (if sec picker exists) */
-  var secPicker = document.getElementById('secPicker');
-  var filtered;
-  if (secPicker) {
-    var secs = getSelectedSections();
-    if (secs.length === 0) { toast('\uc2dc\ud5d8 \ubc94\uc704\ub97c \ucd5c\uc18c 1\uac1c \uc120\ud0dd\ud574\uc8fc\uc138\uc694!'); return; }
-    filtered = Q.map(function (q, i) { return { q: q, i: i }; }).filter(function (f) { return secs.includes(f.q.sec); });
-    S = { ans: Array(filtered.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle([].concat(Array(filtered.length).keys ? Array.from({ length: filtered.length }, function (_, i) { return i; }) : [])), filtered: filtered.map(function (f) { return f.i; }), secs: secs };
-    EI._origTotalQ = EI.totalQ; EI._origTotal = EI.total;
-    EI.totalQ = filtered.length;
-    EI.total = filtered.reduce(function (s, f) { return s + Q[f.i].pts; }, 0);
-  } else {
-    S = { ans: Array(Q.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle(Array.from({ length: Q.length }, function (_, i) { return i; })), filtered: null, secs: null };
-  }
-
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function startExam(){
+  const nm=document.getElementById('inpName').value.trim();
+  if(!nm){toast('이름을 입력해주세요!');return;}
+  S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};
   showScreen('examScreen');
   showQ(0);
   startTimer();
   updateProgress();
   initSwipe();
 }
-
-function showQ(idx, direction) {
-  S.cur = idx;
-  var oi = S.order ? S.order[idx] : idx;
-  var qi = S.filtered ? S.filtered[oi] : oi;
-  var q = Q[qi];
-  var tc = typeTag[q.type] || '';
-  var mk = '\u2460\u2461\u2462\u2463\u2464';
-  var pp = document.getElementById('slidePassage');
-  if (direction) {
-    pp.classList.add(direction > 0 ? 'fade-out' : 'fade-in');
-    setTimeout(function () {
-      renderContent(idx, qi, q, tc, mk, pp);
-      pp.classList.remove('fade-out', 'fade-in');
-    }, 150);
+const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','순서배열':'tag-order','글순서':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','빈칸 추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','내용일치':'tag-content','내용불일치':'tag-content','T/F':'tag-tf','(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx','어법 빈칸':'tag-grammar'};
+function showQ(idx,direction){
+  S.cur=idx;
+  const qi=S.order?S.order[idx]:idx;
+  const q=Q[qi];
+  const tc=typeTag[q.type]||'';
+  const mk='①②③④⑤';
+  const pp=document.getElementById('slidePassage');
+  if(direction){
+    pp.classList.add(direction>0?'fade-out':'fade-in');
+    setTimeout(()=>{
+      renderContent(idx,qi,q,tc,mk,pp);
+      pp.classList.remove('fade-out','fade-in');
+    },150);
   } else {
-    renderContent(idx, qi, q, tc, mk, pp);
+    renderContent(idx,qi,q,tc,mk,pp);
   }
 }
-
-function renderContent(idx, qi, q, tc, mk, pp) {
-  var ph = '<div class="q-badge"><div class="q-num">' + (idx + 1) + '</div><span>' + q.type + '</span><span style="opacity:.6">' + q.diff + ' \u00b7 ' + q.pts + '\uc810</span></div>';
-  if (q.passage) ph += '<div class="q-passage">' + q.passage + '</div>';
-  else ph += '<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
-  pp.innerHTML = ph;
-  pp.scrollTop = 0;
-  var bt = document.getElementById('slideBottom');
-  var bh = '<div class="slide-stem">' + q.stem + '</div><div class="slide-choices">';
-  if (q.fmt === 'mc') {
-    q.ch.forEach(function (c, ci) {
-      var sel = S.ans[qi] === ci ? ' selected' : '';
-      bh += '<button class="choice-btn' + sel + '" onclick="selectAns(' + idx + ',' + ci + ')"><span class="c-num">' + mk[ci] + '</span><span>' + c + '</span></button>';
+function renderContent(idx,qi,q,tc,mk,pp){
+  let ph='<div class="q-badge"><div class="q-num">'+( idx+1)+'</div><span>'+q.type+'</span><span style="opacity:.6">'+q.diff+' \u00b7 '+q.pts+'\uc810</span></div>';
+  if(q.passage) ph+='<div class="q-passage">'+q.passage+'</div>';
+  else ph+='<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
+  pp.innerHTML=ph;
+  pp.scrollTop=0;
+  const bt=document.getElementById('slideBottom');
+  let bh='<div class="slide-stem">'+q.stem+'</div><div class="slide-choices">';
+  if(q.fmt==='mc'){
+    q.ch.forEach(function(c,ci){
+      var sel=S.ans[qi]===ci?' selected':'';
+      bh+='<button class="choice-btn'+sel+'" onclick="selectAns('+idx+','+ci+')"><span class="c-num">'+mk[ci]+'</span><span>'+c+'</span></button>';
     });
   }
-  if (q.fmt === 'written') {
-    var val = S.ans[qi] || '';
-    bh += '<input class="written-input" value="' + val + '" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns(' + idx + ',this.value)">';
+  if(q.fmt==='written'){
+    var val=S.ans[qi]||'';
+    bh+='<input class="written-input" value="'+val+'" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns('+idx+',this.value)">';
   }
-  bh += '</div><div class="slide-nav"><button ' + (idx === 0 ? 'disabled ' : '') + ' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">' + (idx + 1) + ' / ' + EI.totalQ + '</span><button class="sn-next" ' + (idx === EI.totalQ - 1 ? 'disabled ' : '') + ' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
-  bt.innerHTML = bh;
+  bh+='</div><div class="slide-nav"><button '+(idx===0?'disabled ':'')+' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">'+(idx+1)+' / '+EI.totalQ+'</span><button class="sn-next" '+(idx===EI.totalQ-1?'disabled ':'')+' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
+  bt.innerHTML=bh;
 }
-
-function selectAns(idx, ci) {
-  var qi = S.order ? S.order[idx] : idx;
-  if (S.filtered) qi = S.filtered[qi];
-  S.ans[qi] = ci;
-  var btns = document.querySelectorAll('.slide-choices .choice-btn');
-  btns.forEach(function (b, i) {
-    b.classList.toggle('selected', i === ci);
-    if (i === ci) b.classList.add('just-selected');
+function selectAns(idx,ci){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=ci;
+  var btns=document.querySelectorAll('.slide-choices .choice-btn');
+  btns.forEach(function(b,i){
+    b.classList.toggle('selected',i===ci);
+    if(i===ci)b.classList.add('just-selected');
   });
   updateProgress();
+  setTimeout(function(){if(idx<EI.totalQ-1)showQ(idx+1,1);},400);
 }
-
-function writeAns(idx, val) {
-  var qi = S.order ? S.order[idx] : idx;
-  if (S.filtered) qi = S.filtered[qi];
-  S.ans[qi] = val.trim() || null;
+function writeAns(idx,val){
+  var qi=S.order?S.order[idx]:idx;
+  S.ans[qi]=val.trim()||null;
   updateProgress();
 }
-
-function navQ(dir) {
-  var next = S.cur + dir;
-  if (next >= 0 && next < EI.totalQ) showQ(next, dir);
+function navQ(dir){
+  var next=S.cur+dir;
+  if(next>=0&&next<EI.totalQ)showQ(next,dir);
 }
-
-function updateProgress() {
-  var answered = S.ans.filter(function (a) { return a !== null; }).length;
-  document.getElementById('progressFill').style.width = (answered / EI.totalQ * 100) + '%';
-  document.getElementById('ansCount').textContent = answered + '/' + EI.totalQ;
+function updateProgress(){
+  var answered=S.ans.filter(function(a){return a!==null;}).length;
+  document.getElementById('progressFill').style.width=(answered/EI.totalQ*100)+'%';
+  document.getElementById('ansCount').textContent=answered+'/'+EI.totalQ;
 }
-
-function initSwipe() {
-  var startX = 0, startY = 0;
-  var el = document.getElementById('slideWrap');
-  el.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
-  el.addEventListener('touchend', function (e) {
-    var dx = e.changedTouches[0].clientX - startX;
-    var dy = e.changedTouches[0].clientY - startY;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-      if (dx < 0 && S.cur < EI.totalQ - 1) navQ(1);
-      if (dx > 0 && S.cur > 0) navQ(-1);
+function initSwipe(){
+  var startX=0,startY=0;
+  var el=document.getElementById('slideWrap');
+  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
+  el.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-startX;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
+      if(dx<0&&S.cur<EI.totalQ-1)navQ(1);
+      if(dx>0&&S.cur>0)navQ(-1);
     }
-  }, { passive: true });
+  },{passive:true});
 }
-
-/* Compatibility stubs */
-function renderSlide(i) { showQ(i); }
-function slideSel() {}
-function slideWrite() {}
-function renderQ() {}
-function renderDots() {}
-function upDots() {}
-function scrollToQ(i) { if (i >= 0 && i < EI.totalQ) showQ(i); }
-function openCard() {}
-function closeCard() {}
-function gcSel() {}
-function gcWrite() {}
-function gcNav() {}
-function sel() {}
-function sw() {}
-
-function startTimer() {
-  var el = document.getElementById('timer');
-  S.ti = setInterval(function () {
-    S.left--;
-    var m = Math.floor(S.left / 60), s = S.left % 60;
-    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-    el.classList.toggle('warn', S.left <= 300 && S.left > 60);
-    el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
-  }, 1000);
-}
-
-function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
-  clearInterval(S.ti);
-  var elapsed = Math.floor((Date.now() - S.start) / 1000);
-  var r = grade();
-  saveToHistory(r, elapsed);
-  renderResults(r, elapsed);
-  showScreen('resultScreen');
-  window.scrollTo(0, 0);
-}
-
-function grade() {
-  var score = 0, correct = 0, wrong = 0, unanswered = 0;
-  var details = [];
-  var qs = S.filtered ? S.filtered.map(function (i) { return Q[i]; }) : Q;
-  qs.forEach(function (q, i) {
-    var a = S.ans[i];
-    var ok = false;
-    if (a === null) unanswered++;
-    else if (q.fmt === 'mc') ok = a === q.ans;
-    else {
-      var u = String(a).trim().toLowerCase();
-      if (q.accept) ok = q.accept.some(function (x) { return u === x.toLowerCase(); });
-      if (!ok && q.wa) ok = u === q.wa.toLowerCase();
-    }
-    if (a !== null) { if (ok) { correct++; score += q.pts; } else wrong++; }
-    details.push({ q: q, ans: a, ok: ok });
-  });
-  return { score: score, correct: correct, wrong: wrong, unanswered: unanswered, details: details };
-}
-
-function renderResults(r, elapsed) {
-  var pass = r.score >= 80;
-  var nm = document.getElementById('inpName').value.trim();
-  var sc = document.getElementById('inpSchool').value.trim();
-  var gr = document.getElementById('inpGrade').value;
-  var lv = getLevel(r.score);
-  var pct = Math.round(r.score / EI.total * 100);
-  var typeMap = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!typeMap[t]) typeMap[t] = { total: 0, ok: 0 };
-    typeMap[t].total++;
-    if (d.ok) typeMap[t].ok++;
-  });
-
-  var h = '';
-  h += '<div class="r-hero ' + (pass ? 'pass' : 'fail') + '"><div class="r-badge ' + (pass ? 'pass' : 'fail') + '">' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + '</div><div class="r-score">' + r.score + '<sup>/' + EI.total + '</sup></div><div class="r-stats"><span class="stat-item">\u2705 \uc815\ub2f5 <strong>' + r.correct + '</strong></span><span class="stat-item">\u274c \uc624\ub2f5 <strong>' + r.wrong + '</strong></span><span class="stat-item">\u2b1c \ubbf8\uc751\ub2f5 <strong>' + r.unanswered + '</strong></span><span class="stat-item">\u23f1\ufe0f <strong>' + fmtTime(elapsed) + '</strong></span></div></div><div class="rc">';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udccb \uae30\ubcf8 \uc815\ubcf4</div><div class="info-grid"><div class="info-cell"><div class="ic-label">\uc774\ub984</div><div class="ic-value">' + nm + '</div></div><div class="info-cell"><div class="ic-label">\ud559\uad50 / \ud559\ub144</div><div class="ic-value">' + (sc || '\ubbf8\uc785\ub825') + ' \u00b7 ' + gr + '</div></div><div class="info-cell"><div class="ic-label">\uc2dc\ud5d8 \ubc94\uc704</div><div class="ic-value">' + EI.subject + ' \u00b7 ' + EI.pub + '</div></div><div class="info-cell"><div class="ic-label">\uc751\uc2dc\uc77c</div><div class="ic-value">' + new Date().toLocaleDateString('ko-KR') + '</div></div><div class="info-cell highlight"><div class="ic-label">\uc810\uc218</div><div class="ic-value">' + r.score + '\uc810 / ' + EI.total + '\uc810 (' + pct + '%)</div></div><div class="info-cell highlight"><div class="ic-label">\uc18c\uc694\uc2dc\uac04 / \ud1b5\uacfc</div><div class="ic-value">' + fmtTime(elapsed) + ' / <span style="color:' + (pass ? 'var(--p)' : 'var(--r)') + '">' + (pass ? '\ud1b5\uacfc \u2705' : '\ubbf8\ud1b5\uacfc \u274c') + '</span></div></div></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83c\udfc5 \ub808\ubca8</div><div class="level-card"><div class="level-icon">' + lv.icon + '</div><div class="level-name">' + lv.name + '</div><div class="level-range">' + lv.range + '\uc810 \uad6c\uac04</div><div class="level-bar"><div class="level-bar-fill" style="width:' + pct + '%"></div></div><div class="level-msg">' + lv.msg + '</div></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
-  Object.entries(typeMap).forEach(function (entry) {
-    var type = entry[0], d = entry[1];
-    var p = Math.round(d.ok / d.total * 100);
-    var c = p === 100 ? 'var(--p)' : p >= 50 ? 'var(--o)' : 'var(--r)';
-    var icon = p === 100 ? '\u2705' : p >= 50 ? '\u26a0\ufe0f' : '\u274c';
-    h += '<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">' + icon + '</span><span style="font-size:13px;font-weight:700;flex:1">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-size:13px;font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div class="type-track"><div class="type-fill" style="width:' + p + '%;background:' + c + '"></div></div>' + (p < 100 ? '<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">\u2192 ' + getTypeAdvice(type) + '</div>' : '') + '</div>';
-  });
-  h += '</div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \ub0b4\uc2e0\ud56b \ucc98\ubc29</div><div class="plan-card">';
-  if (pct >= 95) h += '<div class="plan-icon">\ud83d\udc51</div><div class="plan-text"><h4>\ub9c8\uc2a4\ud130 \ub2ec\uc131!</h4><p>\uc774 \ub2e8\uc6d0\uc740 \uc644\ubcbd\ud569\ub2c8\ub2e4. \ub2e4\uc74c \ub2e8\uc6d0\uc5d0 \ub3c4\uc804\ud558\uc138\uc694!</p></div>';
-  else if (pct >= 80) h += '<div class="plan-icon">\ud83c\udf1f</div><div class="plan-text"><h4>\ud1b5\uacfc! \ub9c8\uc2a4\ud130\uae4c\uc9c0 \ud55c \ub057</h4><p>\uc544\ub798 \uc57d\uc810 \uc720\ud615\ub9cc \uc9d1\uc911\ud558\uba74 \ub9c8\uc2a4\ud130 \ub2ec\uc131!</p></div>';
-  else if (pct >= 50) h += '<div class="plan-icon">\ud83d\udd25</div><div class="plan-text"><h4>\uae30\ubcf8\uae30\ub294 \uc788\uc5b4\uc694!</h4><p>\uc624\ub2f5 \ud574\uc124\uc744 \uaf3c\uaf3c\ud788 \ud655\uc778\ud558\uace0, \uc57d\uc810 \uc720\ud615\ubd80\ud130 \uacf5\ub7b5\ud558\uc138\uc694.</p></div>';
-  else h += '<div class="plan-icon">\ud83d\udcd6</div><div class="plan-text"><h4>\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130!</h4><p>\ubcf8\ubb38\uc744 \uc644\ubcbd\ud788 \uc774\ud574\ud55c \ub4a4 \uc7ac\ub3c4\uc804\ud558\uc138\uc694. \ud574\uc124\uc758 \ud55c\uae00 \ud574\uc11d\uc744 \ud65c\uc6a9!</p></div>';
-  h += '</div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\ude80 \uc561\uc158</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">\ud83d\udcf8</span><span class="act-label">\uc774\ubbf8\uc9c0 \uacf5\uc720</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">\ud83d\udccb</span><span class="act-label">\ud14d\uc2a4\ud2b8 \ubcf5\uc0ac</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">\ud83d\udd04</span><span class="act-label">\uc7ac\uc2dc\ud5d8</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">\ud83c\udfe0</span><span class="act-label">\ud648\uc73c\ub85c</span></button></div></div>';
-
-  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \uc815\ub2f5\uacfc \ud574\uc124 <span style="font-size:12px;color:var(--tl);margin-left:8px">\ud074\ub9ad\ud558\uc5ec \ud3bc\uce58\uae30</span></div>';
-  var mk = '\u2460\u2461\u2462\u2463\u2464';
-  r.details.forEach(function (d, i) {
-    var icon = d.ok ? '\u2705' : (d.ans === null ? '\u2b1c' : '\u274c');
-    var ua = d.q.fmt === 'mc' ? (d.ans !== null ? mk[d.ans] : '\ubbf8\uc751\ub2f5') : (d.ans || '\ubbf8\uc751\ub2f5');
-    var ca = d.q.fmt === 'mc' ? mk[d.q.ans] : (d.q.wa || '');
-    var open = !d.ok;
-    var chHtml = '';
-    if (d.q.fmt === 'mc' && d.q.ch) {
-      chHtml = '<div style="margin-top:8px">';
-      d.q.ch.forEach(function (c, ci) {
-        var isAns = ci === d.q.ans;
-        var isMy = d.ans === ci;
-        var color = isAns ? 'var(--p)' : (isMy && !d.ok ? 'var(--r)' : 'var(--tm)');
-        var bg = isAns ? 'var(--pl)' : (isMy && !d.ok ? 'var(--rl)' : 'transparent');
-        var label = isAns ? ' \u2705' : (isMy && !d.ok ? ' \u274c' : '');
-        chHtml += '<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:' + color + ';background:' + bg + '"><b>' + mk[ci] + '</b> ' + c + label + '</div>';
-      });
-      chHtml += '</div>';
-    }
-    h += '<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'.rev-icon\').style.transform=this.nextElementSibling.classList.contains(\'open\')?\'rotate(180deg)\':\'\'"><span style="font-weight:800">' + icon + ' ' + d.q.id + '\ubc88</span><span style="font-size:12px;color:var(--tm)">[' + d.q.type.slice(0, 8) + '] ' + d.q.diff + ' ' + d.q.pts + '\uc810</span><span class="rev-icon">\u25bc</span></div><div class="rev-body' + (open ? ' open' : '') + '"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;' + (d.ok ? 'background:var(--pl);color:var(--p)' : 'background:var(--rl);color:var(--r)') + '"><div style="font-size:10px;opacity:.7">\ub0b4 \ub2f5</div>' + ua + '</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--pl);color:var(--p)"><div style="font-size:10px;opacity:.7">\uc815\ub2f5</div>' + ca + '</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcdd \ubb38\uc81c</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">' + d.q.stem + '</div>' + chHtml + '</div>' + (d.q.passage ? '<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcd6 \uc6d0\ubb38</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">' + d.q.passage + '</div>' : '') + (d.q.det ? '<div class="expl-tag ans">\ud83c\uddf0\ud83c\uddf7 \ud574\uc11d</div><div class="expl-box ans-b">' + (d.q.det.korean || '') + '</div><div class="expl-tag tip">\ud83d\udccb \ud480\uc774 \u00b7 \uc120\uc9c0 \ubd84\uc11d</div><div class="expl-box" style="white-space:pre-line">' + ((d.q.det.analysis || '').replace(/\\n/g, '<br>')) + '</div><div class="expl-tag tip">\ud83d\udca1 \ud3ec\uc778\ud2b8</div><div class="expl-box tip-b">' + (d.q.det.tip || '') + '</div>' : '') + '</div></div>';
-  });
-  h += '</div></div>';
-  document.getElementById('resultScreen').innerHTML = h;
-}
-
-function getWeakTypes() {
-  var r = grade();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  return Object.entries(tm).filter(function (e) { return e[1].ok < e[1].total; }).map(function (e) { return e[0]; });
-}
-
-function getTestName() {
-  var t = document.title;
-  if (t.includes('\ub2e8\uc5b4')) return '\ub2e8\uc5b4\ud14c\uc2a4\ud2b8';
-  if (t.includes('\uc6cc\ud06c\ubd81')) return '\uc6cc\ud06c\ubd81\ud14c\uc2a4\ud2b8';
-  if (t.includes('\ud034\uc988')) return '\ud034\uc988(\uc608\uc0c1\ubb38\uc81c)\ud14c\uc2a4\ud2b8';
-  return 'TEST';
-}
-
-function copyResult() {
-  var r = grade(), lv = getLevel(r.score), pct = Math.round(r.score / EI.total * 100);
-  var nm = document.getElementById('inpName').value.trim();
-  var sc = document.getElementById('inpSchool').value.trim();
-  var gr = document.getElementById('inpGrade').value;
-  var elapsed = Math.floor((Date.now() - S.start) / 1000);
-  var pass = r.score >= 80, tn = getTestName(), wk = getWeakTypes();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  var secLabel = S.secs ? S.secs.join(', ') : '\uc804\uccb4';
-  var txt = '\ud83d\udcdd \ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc\n' + EI.subject + ' \u00b7 ' + EI.pub + ' [' + secLabel + ']\n' + nm + (sc ? ' \u00b7 ' + sc : '') + ' \u00b7 ' + gr + '\n' + new Date().toLocaleDateString('ko-KR') + '\n\n' + lv.icon + ' ' + lv.name + ' \u00b7 ' + r.score + '/' + EI.total + '\uc810 (' + pct + '%)\n' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '\n\u23f1\ufe0f ' + fmtTime(elapsed);
-  if (wk.length) {
-    txt += '\n\n\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8';
-    wk.forEach(function (w) { var d = tm[w]; txt += '\n\u2022 ' + w.replace(/\(.+?\)/g, '').trim() + ' ' + d.ok + '/' + d.total + ' \u2192 ' + getTypeAdvice(w); });
-  }
-  txt += '\n\n\ud83d\udcca \ub0b4\uc2e0\ud56b | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44';
-  navigator.clipboard.writeText(txt).then(function () { toast('\ud83d\udccb \uacb0\uacfc\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4!'); }).catch(function () { toast('\ubcf5\uc0ac \uc2e4\ud328'); });
-}
-
-function shareImage() {
-  var tn = getTestName(), wk = getWeakTypes(), r = grade(), lv = getLevel(r.score);
-  var pct = Math.round(r.score / EI.total * 100), pass = r.score >= 80;
-  var nm = document.getElementById('inpName').value.trim();
-  var tm = {};
-  r.details.forEach(function (d) {
-    var t = d.q.type;
-    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
-    tm[t].total++;
-    if (d.ok) tm[t].ok++;
-  });
-  var pc = pass ? '#16A34A' : '#D63B3B';
-  var card = '<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">';
-  card += '<div style="background:linear-gradient(135deg,' + (pass ? '#E8F5E9,#C8E6C9' : '#FFF0F0,#FFEAEA') + ');padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:' + pc + ';margin-bottom:4px">\ub0b4\uc2e0\ud56b ' + tn + '</div><div style="font-size:13px;color:#666;margin-bottom:16px">' + EI.subject + ' \u00b7 ' + EI.pub + '</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">' + r.score + '<span style="font-size:20px;color:#aaa">/' + EI.total + '</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:' + pc + ';color:#fff">' + lv.icon + ' ' + lv.name + ' \u00b7 ' + (pass ? '\ud1b5\uacfc' : '\ubbf8\ud1b5\uacfc') + '</span></div><div style="margin-top:12px;font-size:12px;color:#888">\ud83d\udc64 ' + nm + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '</div></div>';
-  if (wk.length) {
-    card += '<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
-    Object.entries(tm).forEach(function (entry) {
-      var type = entry[0], d = entry[1];
-      var p = Math.round(d.ok / d.total * 100);
-      var c = p === 100 ? '#16A34A' : p >= 50 ? '#F59E0B' : '#D63B3B';
-      card += '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:' + p + '%;background:' + c + ';border-radius:3px"></div></div></div>';
-    });
-    card += '</div>';
-  }
-  card += '<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">\ud83d\udcca <b style="color:#333">\ub0b4\uc2e0\ud56b</b> | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44</div></div>';
-  var wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;';
-  wrap.innerHTML = card;
-  document.body.appendChild(wrap);
-  html2canvas(wrap.firstChild, { scale: 2, backgroundColor: null, useCORS: true }).then(function (canvas) {
-    document.body.removeChild(wrap);
-    canvas.toBlob(function (blob) {
-      if (navigator.share && blob) {
-        var file = new File([blob], '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png', { type: 'image/png' });
-        navigator.share({ files: [file], title: '\ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc' }).catch(function () {});
-      } else {
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL('image/png');
-        a.download = '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png';
-        a.click();
-      }
-      toast('\ud83d\udcf8 \uacb0\uacfc \uc774\ubbf8\uc9c0\uac00 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4!');
-    });
-  }).catch(function () { toast('\uc774\ubbf8\uc9c0 \uc0dd\uc131 \uc2e4\ud328'); });
-}
-
-function reviewHistory(idx) {
-  var h = getHistory();
-  var rec = h[idx];
-  if (!rec || !rec.answers) return toast('\uc774\uc804 \ubc84\uc804 \uae30\ub85d\uc740 \ud574\uc124\uc744 \ubcfc \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.');
-  S.ans = rec.answers;
-  S.start = Date.now() - rec.elapsed * 1000;
-  document.getElementById('inpName').value = rec.name || '';
-  document.getElementById('inpSchool').value = rec.school || '';
-  document.getElementById('inpGrade').value = rec.grade || '\uace01';
-  var r = grade();
-  renderResults(r, rec.elapsed);
-  showScreen('resultScreen');
-  window.scrollTo(0, 0);
-}
-
-function retake() { location.reload(); }
-function goHome() { showScreen('startScreen'); updateHCount(); }
-
-window.addEventListener('beforeunload', function (e) {
-  if (S.ti) { e.preventDefault(); e.returnValue = ''; }
-});
-
+function renderSlide(i){showQ(i);}
+function slideSel(){}
+function slideWrite(){}
+function renderQ(){}
+function renderDots(){}
+function upDots(){}
+function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
+function openCard(){}
+function closeCard(){}
+function gcSel(){}
+function gcWrite(){}
+function gcNav(){}
+function sel(){}
+function sw(){}
+function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
+function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
+function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
+h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
+h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
+h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--o)':p>=50?'var(--o)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
+h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
+h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
+h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
+let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--o)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--ol)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
+h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--ol);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--ol);color:var(--o)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
+function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
+function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
+function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
+function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#16A34A':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#E8F5E9,#C8E6C9':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#16A34A':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
+function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
+function retake(){startExam();}
+function goHome(){showScreen('startScreen');updateHCount();}
+window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
 updateHCount();
 </script>
 </body>
