@@ -148,48 +148,101 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 <div id="resultScreen" class="screen"></div>
 <script>
-const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson":"2번","title":"AI Idea Generator","total":18,"time":1800,"totalQ":4,"histKey":"quizTest_suneung_13_ex2_v1"};
+const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson":"2번","title":"AI Idea Generator","total":100,"time":1800,"totalQ":20,"histKey":"quizTest_suneung_13_ex2_v1"};
 
 const P_EX02=`AI is a prolific idea generator. Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity. As Linus Pauling put it, "The best way to have a good idea is to have lots of ideas." Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created. Many studies have confirmed that creative quality comes from quantity of ideas (what Bob Sutton at a design and innovation consulting company called "idea ratio"), and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand. This is why design thinking and innovation are so focused on the processes (what Utley and Klebahn call "idea flow") of ____________________.<br><br>* prolific: 많이 만들어 내는, 다작의  ** peg: 못박다`;
-
 const Q=[
-{id:1,type:'어순배열',diff:'보통',pts:5,fmt:'mc',ans:2,
-ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
+{id:1,type:'문장삽입',diff:'보통',pts:5,fmt:'mc',ans:1,ch:['①','②','③','④'],
+passage:`AI is a prolific idea generator. <b>①</b> Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions. <b>②</b> Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created. <b>③</b> Many studies have confirmed that creative quality comes from quantity of ideas. <b>④</b> This is why design thinking and innovation are so focused on the processes of creating possibilities without judgment.`,
+stem:'주어진 문장이 들어가기에 가장 적절한 곳은?\n\n<b>"But good ideas are more likely when groups focus first on quantity."</b>',
+det:{korean:'질에 초점(①) 뒤에 But으로 전환하여 양의 중요성 제시',analysis:'② 앞: 질에 초점\n② 뒤: equal odds rule\nBut = 전환 신호',tip:'But이 앞의 quality 초점과 대비하여 quantity 강조'}},
+{id:2,type:'문장삽입',diff:'어려움',pts:6,fmt:'mc',ans:2,ch:['①','②','③','④'],
+passage:`AI is a prolific idea generator. <b>①</b> Good ideas are more likely when groups focus first on quantity. <b>②</b> Simonton called this the "equal odds rule." <b>③</b> Many studies have confirmed that creative quality comes from quantity. <b>④</b> One Stanford study pegged the number at more than two thousand.`,
+stem:'주어진 문장이 들어가기에 가장 적절한 곳은?\n\n<b>"As Linus Pauling put it, 'The best way to have a good idea is to have lots of ideas.'"</b>',
+det:{korean:'양 우선(②) 뒤에 Pauling 인용으로 뒷받침',analysis:'③ 앞: 양 우선 원칙\n③ 뒤: equal odds rule로 구체화',tip:'As ~ put it: 인용으로 앞 내용 뒷받침'}},
+{id:3,type:'어순배열',diff:'보통',pts:5,fmt:'mc',ans:2,ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
 passage:`AI is a prolific idea generator.
 
 (A) Psychologist Dean Keith Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created.
-(B) Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity.
-(C) Many studies have confirmed that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand.`,
+(B) Human brainstorming groups tend to focus on the quality of creative ideas, but good ideas are more likely when groups focus first on quantity.
+(C) Many studies have confirmed that creative quality comes from quantity, and one Stanford study pegged the number at more than two thousand.`,
 stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
-det:{korean:'첫 문장(AI는 다작의 아이디어 생성기) → (B) 인간 그룹은 질에 초점, 하지만 양이 중요 → (A) Simonton의 "equal odds rule" → (C) 많은 연구가 확인, Stanford 연구',analysis:'(B): AI와 대비되는 인간의 경향 + 양의 중요성 제시
-(A): "this"가 (B)의 양 우선 원칙을 지칭
-(C): 연구 결과로 (A)의 주장 뒷받침',tip:'지시어 this(A)가 (B)의 내용을 받으므로 B→A 순서 확정'}},
+det:{korean:'AI 소개 → (B) 인간 그룹 vs 양 → (A) Simonton의 법칙 → (C) 연구 결과',analysis:'(B): AI와 대비, 양 중요성\n(A): "this"가 (B)의 양 원칙 지칭\n(C): 연구로 뒷받침',tip:'"this"(A)가 (B)를 받으므로 B→A 확정'}},
+{id:4,type:'어순배열',diff:'어려움',pts:6,fmt:'mc',ans:3,ch:['(A)-(B)-(C)','(A)-(C)-(B)','(B)-(A)-(C)','(B)-(C)-(A)','(C)-(A)-(B)'],
+passage:`Many studies have confirmed that creative quality comes from quantity of ideas.
 
-{id:2,type:'어법 5지선다',diff:'보통',pts:5,fmt:'mc',ans:4,
-ch:['① prolific','② likely','③ correlated','④ confirmed','⑤ distinguish'],
-passage:`AI is a ①<u>prolific</u> idea generator. Good ideas are more ②<u>likely</u> when groups focus first on quantity. Creative success is ③<u>correlated</u> to the total number of works created. Many studies have ④<u>confirmed</u> that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that ⑤<u>distinguish</u> a successful product from a failure at more than two thousand.`,
+(A) This is why design thinking and innovation are so focused on the processes of creating possibilities without judgment.
+(B) Bob Sutton at a design and innovation consulting company called this "idea ratio."
+(C) One Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand.`,
+stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?',
+det:{korean:'연구 확인 → (B) Bob Sutton의 idea ratio → (C) Stanford 구체 수치 → (A) 따라서 디자인 사고',analysis:'(B): 양-질 관계에 이름 부여\n(C): 구체적 수치\n(A): "This is why"로 결론',tip:'"This is why"(A)가 전체를 받으므로 마지막'}},
+{id:5,type:'어법 5지선다',diff:'쉬움',pts:4,fmt:'mc',ans:4,ch:['① prolific','② likely','③ correlated','④ confirmed','⑤ distinguish'],
+passage:`AI is a ①<u>prolific</u> idea generator. Good ideas are more ②<u>likely</u> when groups focus first on quantity. Creative success is ③<u>correlated</u> to the total number. Studies have ④<u>confirmed</u> that quality comes from quantity. Ideas that ⑤<u>distinguish</u> a successful product.`,
+stem:'밑줄 친 부분 중, 어법상 모두 올바른 경우 가장 혼동 가능한 것은?',
+det:{korean:'모두 올바릅니다. ⑤ distinguish가 가장 혼동 가능(ideas 복수 → 복수동사)',analysis:'① prolific: 형용사\n② likely: 형용사 보어\n③ correlated: is correlated to\n④ confirmed: have confirmed\n⑤ distinguish: 복수주어+복수동사',tip:'ideas that distinguish: 선행사 ideas(복수) → 복수동사'}},
+{id:6,type:'어법 5지선다',diff:'보통',pts:5,fmt:'mc',ans:1,ch:['① immediately','② lean','③ arguing','④ confirmed','⑤ focused'],
+passage:`Groups ①<u>immediately</u> ②<u>lean</u> into variations. Simonton called this the rule, ③<u>arguing</u> that success is correlated. Studies have ④<u>confirmed</u> that quality comes from quantity. Design thinking is so ⑤<u>focused</u> on the processes.`,
 stem:'밑줄 친 부분 중, 어법상 틀린 것은?',
-det:{korean:'⑤ distinguish → <b>distinguished</b> 또는 그대로 올바름. 사실 관계대명사 that의 선행사가 ideas(복수)이므로 distinguish는 올바른 복수 동사입니다. 하지만 the number of ideas가 선행사이고 ideas를 수식하는 관계절이라면 ideas(복수)에 distinguish(복수)가 맞습니다.',analysis:'① prolific: 형용사 (올바름)
-② likely: 형용사 보어 (올바름)
-③ correlated: is correlated to 수동태 (올바름)
-④ confirmed: have confirmed 현재완료 (올바름)
-⑤ distinguish: ideas that distinguish... 복수주어+복수동사 (올바름)
-→ 모두 올바르므로 함정 문제. 가장 혼동 가능: ⑤',tip:'the number of ideas that distinguish: that의 선행사는 ideas(복수)이므로 복수동사 distinguish가 올바릅니다.'}},
-
-{id:3,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'creating possibilities without judgment',accept:['creating possibilities without judgment','Creating possibilities without judgment'],
-passage:`design thinking and innovation are so focused on the processes (what Utley and Klebahn call "idea flow") of ____________________.`,
-stem:'EX02 지문의 빈칸에 들어갈 표현을 영어로 쓰시오.',
-det:{korean:'<b>판단 없이 가능성을 만들어 내는(creating possibilities without judgment)</b>',analysis:'idea flow = creating possibilities without judgment',tip:'핵심: without judgment(판단 없이)'}},
-
-{id:4,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:0,
-ch:['T','F'],
+det:{korean:'모두 올바릅니다. ② lean이 가장 혼동 가능(Groups + 복수동사)',analysis:'① immediately: 부사\n② lean: Groups(복수) + 복수동사\n③ arguing: 분사구문\n④ confirmed: have confirmed\n⑤ focused: is focused on',tip:'Groups(복수) → lean(복수동사) 올바름'}},
+{id:7,type:'어법 5지선다',diff:'어려움',pts:6,fmt:'mc',ans:2,ch:['① quality','② quantity','③ create','④ distinguish','⑤ innovation'],
+passage:`Groups focus on the ①<u>quality</u> of ideas. Focus first on ②<u>quantity</u>. Design thinking is focused on the processes of ③<u>create</u> possibilities. Ideas that ④<u>distinguish</u> a product. Design thinking and ⑤<u>innovation</u> are focused.`,
+stem:'밑줄 친 부분 중, 어법상 틀린 것은?',
+det:{korean:'③ create → <b>creating</b>: 전치사 of 뒤에 동명사 필요',analysis:'① quality: 명사 (올바름)\n② quantity: 명사 (올바름)\n③ create → creating: of + 동명사\n④ distinguish: 복수동사 (올바름)\n⑤ innovation: 명사 (올바름)',tip:'전치사 of + V-ing: of creating'}},
+{id:8,type:'부적절어휘',diff:'쉬움',pts:4,fmt:'mc',ans:3,ch:['① prolific','② quantity','③ correlated','④ hamper','⑤ distinguish'],
+passage:`AI is a ①<u>prolific</u> idea generator. Focus first on ②<u>quantity</u>. Success is ③<u>correlated</u> to the total number. Processes that ④<u>hamper</u> the flow of ideas. Ideas that ⑤<u>distinguish</u> a successful product.`,
+stem:'밑줄 친 단어 중, 문맥상 적절하지 않은 것은?',
+det:{korean:'④ hamper(방해) → facilitate(촉진)',analysis:'✅ ①②③⑤ 원문 그대로\n❌ ④ hamper → facilitate/create',tip:'hamper ↔ facilitate'}},
+{id:9,type:'부적절어휘',diff:'보통',pts:5,fmt:'mc',ans:2,ch:['① prolific','② immediately','③ rare','④ confirmed','⑤ focused'],
+passage:`AI is a ①<u>prolific</u> generator. Groups ②<u>immediately</u> lean into variations. Good ideas are ③<u>rare</u> when focusing on quantity. Studies ④<u>confirmed</u> quality comes from quantity. Design thinking is ⑤<u>focused</u> on the processes.`,
+stem:'밑줄 친 단어 중, 문맥상 적절하지 않은 것은?',
+det:{korean:'③ rare → more likely: 양 초점시 좋은 아이디어가 더 나옴',analysis:'✅ ①②④⑤ 원문 그대로\n❌ ③ rare → more likely',tip:'rare ↔ more likely'}},
+{id:10,type:'빈칸 추론',diff:'보통',pts:5,fmt:'mc',ans:3,ch:['selecting the best idea of all','drawing immediate outcomes','filtering options through analysis','creating possibilities without judgment','judging creativity during brainstorming'],
 passage:P_EX02,
-stem:'다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.
-
-<b>"Dean Keith Simonton은 창의적 성공이 만들어진 작품의 총 수와 상관관계가 있다고 주장했다."</b>',
-det:{korean:'원문: Simonton called this the "equal odds rule" arguing that creative success is correlated to the total number of works created → <b>일치(T)</b>',analysis:'T: 원문에 명시적으로 기술됨
-correlated to the total number of works created',tip:'equal odds rule = 동등한 확률 법칙: 작품 수 ↔ 창의적 성공 상관관계'}}
+stem:'다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'양 우선 → 판단 없이 가능성 만들기',analysis:'✅ ④ creating possibilities without judgment',tip:'idea flow = without judgment'}},
+{id:11,type:'빈칸 추론',diff:'쉬움',pts:4,fmt:'mc',ans:1,ch:['quality','quantity','innovation','judgment','design'],
+passage:'good ideas are more likely when groups focus first on __________.',
+stem:'빈칸에 들어갈 말로 가장 적절한 것은?',
+det:{korean:'양(quantity)에 먼저 초점',analysis:'✅ ② quantity',tip:'quantity first'}},
+{id:12,type:'빈칸 추론',diff:'어려움',pts:6,fmt:'mc',ans:0,ch:['아이디어의 양이 질을 결정하므로 판단 없이 많은 아이디어를 생성해야 한다','소수의 핵심 아이디어에 집중하는 것이 효과적이다','AI는 인간의 창의성을 완전히 대체할 수 있다','브레인스토밍에서 첫 제안이 가장 중요하다','Stanford 연구는 아이디어 수의 중요성을 부정했다'],
+passage:P_EX02,
+stem:'이 글의 요지로 가장 적절한 것은?',
+det:{korean:'양 → 질: 판단 없이 많은 아이디어 생성이 핵심',analysis:'✅ ① 양이 질을 결정, 판단 없이 생성',tip:'quantity → quality → without judgment'}},
+{id:13,type:'서술형',diff:'쉬움',pts:4,fmt:'written',wa:'creating possibilities without judgment',accept:['creating possibilities without judgment','Creating possibilities without judgment'],
+passage:'design thinking and innovation are focused on the processes of ____________________.',
+stem:'빈칸에 들어갈 표현을 영어로 쓰시오.',
+det:{korean:'판단 없이 가능성을 만들어 내는',analysis:'creating possibilities without judgment',tip:'without judgment = 판단 없이'}},
+{id:14,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'quantity',accept:['quantity','Quantity','QUANTITY'],
+passage:'good ideas are more likely when groups focus first on __________.',
+stem:'빈칸에 들어갈 명사를 영어로 쓰시오.',
+det:{korean:'양(quantity)',analysis:'focus first on quantity',tip:'quantity = 양'}},
+{id:15,type:'서술형',diff:'보통',pts:5,fmt:'written',wa:'prolific',accept:['prolific','Prolific','PROLIFIC'],
+passage:'AI is a __________ idea generator.',
+stem:'빈칸에 들어갈 형용사를 영어로 쓰시오.',
+det:{korean:'다작의(prolific)',analysis:'prolific = 다작의',tip:'prolific = productive'}},
+{id:16,type:'서술형',diff:'어려움',pts:6,fmt:'written',wa:'correlated',accept:['correlated','Correlated','CORRELATED'],
+passage:'creative success is __________ to the total number of works created.',
+stem:'빈칸에 들어갈 단어를 영어로 쓰시오.',
+det:{korean:'상관관계가 있는(correlated)',analysis:'is correlated to = ~와 상관관계',tip:'correlated = having mutual relationship'}},
+{id:17,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:1,ch:['아이디어의 질이 양보다 중요하다','아이디어의 양이 창의적 성공의 핵심이다','AI는 인간보다 덜 창의적이다','브레인스토밍은 비효율적이다','디자인 사고는 판단을 먼저 해야 한다'],
+passage:P_EX02,
+stem:'이 글의 주제로 가장 적절한 것은?',
+det:{korean:'양(quantity)이 창의적 성공의 핵심',analysis:'✅ ② 양이 핵심\n❌ ①③④⑤ 불일치',tip:'quantity → quality'}},
+{id:18,type:'내용이해',diff:'보통',pts:5,fmt:'mc',ans:3,ch:['AI의 아이디어 생성 능력의 한계','인간 브레인스토밍의 우월성','소수 정예 아이디어 전략의 효과','양적 아이디어 생산이 질적 성공으로 이어지는 원리','Stanford 연구 방법론의 문제점'],
+passage:P_EX02,
+stem:'이 글의 요지로 가장 적절한 것은?',
+det:{korean:'양적 생산 → 질적 성공',analysis:'✅ ④ 양적 생산 → 질적 성공\n❌ ①②③⑤ 불일치',tip:'quantity of ideas → creative quality'}},
+{id:19,type:'T/F',diff:'쉬움',pts:4,fmt:'mc',ans:0,ch:['T','F'],
+passage:P_EX02,
+stem:'본문과 일치하면 T, 불일치하면 F\n\n<b>"AI는 다작의 아이디어 생성기이다."</b>',
+det:{korean:'원문: AI is a prolific idea generator → T',analysis:'T: 원문 일치',tip:'prolific = 다작의'}},
+{id:20,type:'T/F',diff:'보통',pts:5,fmt:'mc',ans:1,ch:['T','F'],
+passage:P_EX02,
+stem:'본문과 일치하면 T, 불일치하면 F\n\n<b>"인간 브레인스토밍 그룹은 처음부터 아이디어의 양에 초점을 맞춘다."</b>',
+det:{korean:'원문: focus on the quality → 질에 초점 → F',analysis:'F: quality(질)에 초점, 양이 아님',tip:'quality(질) ≠ quantity(양)'}}
 ];
+
+const typeTag={'문장삽입':'tag-combo','어순배열':'tag-morph','어법 5지선다':'tag-grammar','부적절어휘':'tag-wrong','부적절 어휘':'tag-wrong','빈칸추론':'tag-blank','빈칸 추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','T/F':'tag-tf','어법':'tag-grammar'};
 
 let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
 
