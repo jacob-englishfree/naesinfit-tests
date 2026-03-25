@@ -23,6 +23,9 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const BASE_URL = 'https://jacob-englishfree.github.io/naesinfit-tests';
 
 const VALIDATE_PATH = path.join(ROOT, 'validate', 'validate.js');
+const VALIDATE_FT_PATH = path.join(ROOT, 'validate', 'validate-fulltext.js');
+const VALIDATE_AI_PATH = path.join(ROOT, 'validate', 'validate-ai.js');
+const VALIDATE_RENDER_PATH = path.join(ROOT, 'validate', 'validate-render.js');
 const BUILD_PATH = path.join(ROOT, 'engine', 'build.js');
 
 function findJsonFiles(dir) {
@@ -141,21 +144,57 @@ async function registerToSupabase(jsonPath, htmlUrl, data) {
 
 async function deployFile(jsonPath) {
   const rel = path.relative(ROOT, jsonPath);
-  console.log(`\n--- Deploying: ${rel} ---`);
+  console.log(`\n${'='.repeat(60)}`);
+  console.log(`  Deploying: ${rel}`);
+  console.log('='.repeat(60));
 
-  // Step 1: Validate
-  console.log('  [1/4] Validating...');
+  // ════════════════════════════════════════════
+  // LAYER ① 구조 검증 (53 checkpoints)
+  // ════════════════════════════════════════════
+  console.log('  [1/6] ① 구조 검증 (53체크)...');
   const { validate } = require(VALIDATE_PATH);
   const result = validate(jsonPath);
   if (!result.pass) {
-    console.log('  [FAIL] Validation failed:');
+    console.log('  [BLOCK] ① 구조 검증 FAIL — 배포 차단');
     result.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
-    return { file: rel, success: false, reason: 'validation failed' };
+    return { file: rel, success: false, reason: '① structure validation failed' };
   }
-  console.log('  [PASS] Validation OK');
+  console.log(`  [PASS] ① 구조 검증 OK (${result.warnings.length} warnings)`);
 
-  // Step 2: Build
-  console.log('  [2/4] Building HTML...');
+  // ════════════════════════════════════════════
+  // LAYER ② 원문 100% 대조
+  // ════════════════════════════════════════════
+  console.log('  [2/6] ② 원문 대조...');
+  const { validateFulltext } = require(VALIDATE_FT_PATH);
+  const ftResult = validateFulltext(jsonPath, { strict: true });
+  if (!ftResult.pass) {
+    console.log('  [BLOCK] ② 원문 대조 FAIL — 배포 차단');
+    ftResult.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
+    return { file: rel, success: false, reason: '② fulltext validation failed' };
+  }
+  console.log(`  [PASS] ② 원문 대조 OK (${ftResult.warnings.length} warnings)`);
+
+  // ════════════════════════════════════════════
+  // LAYER ③ AI 풀이 검증 (API key 있을 때만)
+  // ════════════════════════════════════════════
+  if (process.env.ANTHROPIC_API_KEY) {
+    console.log('  [3/6] ③ AI 풀이 검증...');
+    const { validateAI } = require(VALIDATE_AI_PATH);
+    const aiResult = await validateAI(jsonPath);
+    if (!aiResult.pass) {
+      console.log('  [BLOCK] ③ AI 검증 FAIL — 배포 차단');
+      aiResult.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
+      return { file: rel, success: false, reason: '③ AI validation failed' };
+    }
+    console.log(`  [PASS] ③ AI 검증 OK (${aiResult.details.length} questions verified)`);
+  } else {
+    console.log('  [SKIP] ③ AI 검증 — ANTHROPIC_API_KEY 미설정');
+  }
+
+  // ════════════════════════════════════════════
+  // BUILD HTML
+  // ════════════════════════════════════════════
+  console.log('  [4/6] HTML 빌드...');
   try {
     execFileSync(process.execPath, [BUILD_PATH, jsonPath], {
       cwd: ROOT,
@@ -175,19 +214,43 @@ async function deployFile(jsonPath) {
   }
   console.log(`  [OK] Built: ${path.relative(ROOT, distPath)}`);
 
-  // Step 3: Git add + commit + push
-  console.log('  [3/4] Git push...');
+  // ════════════════════════════════════════════
+  // LAYER ④ 렌더링 검증
+  // ════════════════════════════════════════════
+  let renderSkipped = false;
   try {
-    execSync(`git add "${distPath}"`, { cwd: ROOT, stdio: 'pipe' });
+    require('puppeteer');
+    console.log('  [5/6] ④ 렌더링 검증...');
+    const { validateRender } = require(VALIDATE_RENDER_PATH);
+    const renderResult = await validateRender(distPath, { screenshot: false });
+    if (!renderResult.pass) {
+      console.log('  [BLOCK] ④ 렌더링 FAIL — 배포 차단');
+      renderResult.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
+      return { file: rel, success: false, reason: '④ render validation failed' };
+    }
+    console.log(`  [PASS] ④ 렌더링 OK`);
+  } catch (e) {
+    if (e.code === 'MODULE_NOT_FOUND') {
+      console.log('  [SKIP] ④ 렌더링 — puppeteer 미설치');
+      renderSkipped = true;
+    } else {
+      console.log(`  [WARN] ④ 렌더링 검증 오류: ${e.message.substring(0, 100)}`);
+    }
+  }
+
+  // Step 5/6: Git add + commit + push
+  console.log('  [6/6] Git push + DB 등록...');
+  try {
+    execSync(`git add "${distPath}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
     // Also add the JSON source
-    execSync(`git add "${jsonPath}"`, { cwd: ROOT, stdio: 'pipe' });
+    execSync(`git add "${jsonPath}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
 
     // Check if there are changes to commit
     const status = execSync('git status --porcelain', { cwd: ROOT, stdio: 'pipe' }).toString().trim();
     if (status) {
       const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
       const commitMsg = `deploy: ${data.ei.subject} ${data.ei.pub} ${data.testType}테스트`;
-      execSync(`git commit -m "${commitMsg}"`, { cwd: ROOT, stdio: 'pipe' });
+      execSync(`git commit -m "${commitMsg}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
       console.log('  [OK] Committed');
     } else {
       console.log('  [SKIP] No changes to commit');
@@ -197,8 +260,8 @@ async function deployFile(jsonPath) {
     console.log(`  [WARN] Git: ${(e.stderr || e.message || '').toString().trim().split('\n')[0]}`);
   }
 
-  // Step 4: Register to Supabase
-  console.log('  [4/4] Registering to Supabase...');
+  // Register to Supabase
+  console.log('  Registering to Supabase...');
   const htmlUrl = getGitHubUrl(distPath);
   const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 

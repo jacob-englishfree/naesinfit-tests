@@ -16,8 +16,22 @@ function extractData(htmlPath) {
   const html = fs.readFileSync(htmlPath, 'utf8');
 
   // ── Extract <script> block ──
-  const scriptMatch = html.match(/<script>([\s\S]*?)<\/script>\s*<\/body>/);
-  if (!scriptMatch) throw new Error('No <script> block found before </body>');
+  // Try strict match first, then fallback to last <script> block
+  let scriptMatch = html.match(/<script>([\s\S]*?)<\/script>\s*<\/body>/);
+  if (!scriptMatch) {
+    // Fallback: find the last <script>...</script> block
+    const allScripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+    if (allScripts.length > 0) scriptMatch = allScripts[allScripts.length - 1];
+  }
+  if (!scriptMatch) {
+    // Last resort: find <script> without closing tag (broken HTML)
+    const lastScript = html.lastIndexOf('<script>');
+    if (lastScript !== -1) {
+      const content = html.substring(lastScript + 8);
+      scriptMatch = [null, content];
+    }
+  }
+  if (!scriptMatch) throw new Error('No <script> block found');
   const script = scriptMatch[1];
 
   // ── Determine testType from filename ──
@@ -38,6 +52,10 @@ function extractData(htmlPath) {
     // Try evaluating as JS object (single quotes etc)
     ei = evalJsObject(eiMatch[1]);
   }
+  // Normalize EI defaults
+  if (!ei.totalQ) ei.totalQ = 20;
+  if (!ei.total) ei.total = 100;
+  if (!ei.time) ei.time = 1200;
 
   // ── Extract passage variables ──
   // Extract ALL uppercase const/let/var string declarations before Q array.
@@ -67,7 +85,7 @@ function extractData(htmlPath) {
   let fullPassage = passageVars['FULL_PASSAGE'] || '';
   if (!fullPassage) {
     // For 부교재 with multiple passage vars (P_GW, P_EX01, etc.), combine them
-    const sortedKeys = Object.keys(passageVars).sort();
+    const sortedKeys = Object.keys(passageVars).filter(k => k !== 'EI').sort();
     if (sortedKeys.length > 0) {
       fullPassage = sortedKeys.map(k => passageVars[k]).join('\n\n');
     }
@@ -79,12 +97,39 @@ function extractData(htmlPath) {
   // Replace curly/smart quotes with straight quotes
   qRaw = qRaw.replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'");
 
+  // Fix literal newlines inside JSON double-quoted string values (should be \\n)
+  // Only apply to files that use JSON-style double-quoted strings (not backtick JS)
+  if (!qRaw.includes('`')) {
+    qRaw = fixLiteralNewlines(qRaw);
+  }
+
   // ── Parse Q array ──
   let questions;
   questions = parseQRaw(qRaw, passageVars);
 
   // ── Clean up questions ──
   questions = questions.map(q => {
+    // Normalize det object
+    let det = { korean: '', analysis: '', tip: '' };
+    if (q.det) {
+      if (q.det.korean) {
+        // New format — use as-is
+        det = {
+          korean: q.det.korean || '',
+          analysis: q.det.analysis || '',
+          tip: q.det.tip || ''
+        };
+      } else if (q.det.ref) {
+        // Old format (det:{ref:"[원문]...[해석]..."}) — convert
+        const refText = q.det.ref || '';
+        const koreanMatch = refText.match(/\[해석\]\s*(.*?)(?:\s*\[|$)/s);
+        const sourceMatch = refText.match(/\[원문\]\s*(.*?)(?:\s*\[|$)/s);
+        det.korean = koreanMatch ? koreanMatch[1].trim() : refText;
+        det.analysis = sourceMatch ? `원문: ${sourceMatch[1].trim()}` : '';
+        det.tip = '';
+      }
+    }
+
     const clean = {
       id: q.id,
       type: q.type,
@@ -93,7 +138,7 @@ function extractData(htmlPath) {
       fmt: q.fmt,
       passage: q.passage || '',
       stem: q.stem || '',
-      det: q.det || { korean: '', analysis: '', tip: '' }
+      det
     };
 
     // Check if passage matches a known full passage — use __FULL__ marker
@@ -115,6 +160,16 @@ function extractData(htmlPath) {
 
     return clean;
   });
+
+  // ── Fallback fullPassage: derive from question passages if still empty ──
+  if (!fullPassage || fullPassage.length < 10) {
+    // Find the longest passage among all questions
+    const passages = questions.map(q => q.passage || '').filter(p => p.length > 50);
+    if (passages.length > 0) {
+      // Use the longest passage as fullPassage
+      fullPassage = passages.reduce((a, b) => a.length >= b.length ? a : b, '');
+    }
+  }
 
   return {
     version: 1,
@@ -521,6 +576,62 @@ function extractQuestionsIndividually(qRaw, passageVars) {
   }
 
   return questions;
+}
+
+/**
+ * Fix literal newlines inside JSON double-quoted string values.
+ * Scans through double-quoted strings and replaces actual \n with \\n.
+ */
+function fixLiteralNewlines(text) {
+  let result = '';
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    // Skip backtick strings
+    if (c === '`') {
+      let j = i + 1;
+      while (j < text.length && text[j] !== '`') {
+        if (text[j] === '\\') j++;
+        j++;
+      }
+      result += text.substring(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+    // Process double-quoted strings
+    if (c === '"') {
+      result += '"';
+      let j = i + 1;
+      while (j < text.length) {
+        if (text[j] === '\\' && j + 1 < text.length) {
+          result += text[j] + text[j + 1];
+          j += 2;
+          continue;
+        }
+        if (text[j] === '"') {
+          result += '"';
+          j++;
+          break;
+        }
+        if (text[j] === '\n') {
+          result += '\\n';
+          j++;
+          continue;
+        }
+        if (text[j] === '\r') {
+          j++;
+          continue;
+        }
+        result += text[j];
+        j++;
+      }
+      i = j;
+      continue;
+    }
+    result += c;
+    i++;
+  }
+  return result;
 }
 
 function evalJsObject(str) {

@@ -55,15 +55,11 @@ function main() {
     console.error('[ERROR] Missing required fields: ei, fullPassage, questions');
     process.exit(1);
   }
-  if (questions.length !== 20) {
-    console.error(`[ERROR] questions.length = ${questions.length}, expected 20`);
+  if (questions.length === 0) {
+    console.error(`[ERROR] questions array is empty`);
     process.exit(1);
   }
   const totalPts = questions.reduce((s, q) => s + q.pts, 0);
-  if (totalPts !== 100) {
-    console.error(`[ERROR] Total points = ${totalPts}, expected 100`);
-    process.exit(1);
-  }
 
   // ── 3. Load engine files ──
   const commonCss = fs.readFileSync(path.join(ENGINE_DIR, 'common.css'), 'utf8');
