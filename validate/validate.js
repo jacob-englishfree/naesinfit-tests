@@ -365,6 +365,72 @@ function validate(jsonPath) {
     result.add('TT', SEV.S, `testType="${testType}" invalid`);
   }
 
+  // ── P1~P4: Passage excerpt validation (신규) ──
+  const fullTextTypes = [
+    '빈칸 어휘 완성', '빈칸 문맥 완성', '빈칸추론', '빈칸 추론',
+    '문맥상 부적절한 어휘', '(A)(B)(C) 조합형',
+    '어형 변환 (서술형)', '내용일치', '내용불일치', '내용이해',
+    'T/F', '어법', '어법 빈칸', '문장삽입'
+  ];
+
+  const fpPlainLen = fullPassage ? fullPassage.replace(/<[^>]+>/g, '').length : 0;
+
+  questions.forEach((q, i) => {
+    const qid = q.id || (i + 1);
+    const typeNorm = (q.type || '').trim();
+    const passage = q.passage || '';
+
+    // P1: passage length >= fullPassage * 0.5 for full-text-required types
+    if (fullTextTypes.includes(typeNorm) && passage !== '__FULL__') {
+      const passagePlainLen = passage.replace(/<[^>]+>/g, '').length;
+      if (fpPlainLen > 0 && passagePlainLen < fpPlainLen * 0.5) {
+        result.add('P1', SEV.A, `Q${qid}: passage too short for "${typeNorm}" (${passagePlainLen}/${fpPlainLen} chars, < 50%)`);
+      }
+    }
+
+    // P2: passage contains fullPassage text (not random text)
+    // For non-__FULL__ passages, check that major phrases from passage exist in fullPassage
+    if (passage && passage !== '__FULL__' && fullPassage && passage.length > 50) {
+      const passagePlain = passage.replace(/<[^>]+>/g, '')
+        .replace(/__________/g, '')
+        .replace(/<b>\([ABC]\)<\/b>/g, '')
+        .replace(/[①②③④⑤]/g, '');
+      // Extract 3 random 20-char chunks and verify they exist in fullPassage
+      const cleanFP = fullPassage.replace(/<[^>]+>/g, '');
+      const chunks = [];
+      for (let ci = 0; ci < 3 && ci * 40 + 20 < passagePlain.length; ci++) {
+        const start = ci * 40 + 10;
+        chunks.push(passagePlain.substring(start, start + 20).trim());
+      }
+      const matchCount = chunks.filter(c => c.length > 5 && cleanFP.includes(c)).length;
+      if (chunks.length >= 2 && matchCount === 0) {
+        result.add('P2', SEV.A, `Q${qid}: passage text doesn't match fullPassage — possible wrong excerpt`);
+      }
+    }
+
+    // P3: No literal \\u unicode escapes in any string field
+    const allFields = [passage, q.stem || '', JSON.stringify(q.det || {}), JSON.stringify(q.ch || [])].join(' ');
+    if (/\\u[0-9a-fA-F]{4}/.test(allFields)) {
+      result.add('P3', SEV.A, `Q${qid}: contains literal \\u escape sequence (should be decoded)`);
+    }
+
+    // P4: No placeholder text in choices
+    if (Array.isArray(q.ch)) {
+      q.ch.forEach((c, ci) => {
+        if (/^보기[0-9]$/.test((c || '').trim()) || /^선택지[0-9]$/.test((c || '').trim())) {
+          result.add('P4', SEV.S, `Q${qid}: ch[${ci}] = "${c}" is placeholder text`);
+        }
+        if (/^placeholder$/i.test((c || '').trim()) || /^option\s*[0-9]$/i.test((c || '').trim())) {
+          result.add('P4', SEV.S, `Q${qid}: ch[${ci}] = "${c}" is placeholder text`);
+        }
+      });
+    }
+    // Also check stem for placeholder
+    if (q.stem && /^발문$|^문제$|^stem$/i.test(q.stem.trim())) {
+      result.add('P4', SEV.S, `Q${qid}: stem = "${q.stem}" is placeholder text`);
+    }
+  });
+
   return result;
 }
 
