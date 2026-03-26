@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,12 +210,12 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Familiarity (or recognition) is when you __________ someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["encounter","forget","avoid","imagine"],"wa":null,"accept":null,"det":{"korean":"친숙함은 누군가를 <b>마주칠(encounter)</b> 때 이전에 만난 적이 있다고 느끼는 것이다.","analysis":"✅ ① encounter(마주치다): 이전 경험이 있는 사람/사물을 만났을 때\n❌ ② forget(잊다): 반의어\n❌ ③ avoid(피하다): 문맥과 반대\n❌ ④ imagine(상상하다): 실제 만남이 아님","tip":"encounter = come across = meet = run into = 마주치다"}},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"The brain <u>differentiates</u> between familiarity and recall.","stem":"밑줄 친 <b>differentiates</b>의 문맥적 의미로 가장 적절한 것은?","ans":1,"ch":["(비유) 떠오르다","구별하다, 구분하다","(수학) 미분하다","차이를 만들다"],"wa":null,"accept":null,"det":{"korean":"differentiates between = <b>구별하다, 구분하다</b>","analysis":"✅ ② 구별하다, 구분하다: differentiate between A and B = A와 B를 구별하다\n❌ ① 떠오르다: 다른 동사\n❌ ③ 미분하다: 수학 용어\n❌ ④ 차이를 만들다: 다른 용법","tip":"differentiate between = distinguish between = tell apart = 구별하다"}},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"Recall is when you can <u>access</u> the original memory.","stem":"밑줄 친 <b>access</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["접근, 입장","이용권, 접속","접근하다, 열람하다","출입구"],"wa":null,"accept":null,"det":{"korean":"access the original memory = 원래 기억에 <b>접근하다</b>","analysis":"✅ ③ 접근하다, 열람하다: access + 목적어 = ~에 접근하다 (동사)\n❌ ① 접근, 입장: 명사적 의미\n❌ ② 이용권: 명사적 의미\n❌ ④ 출입구: 명사적 의미","tip":"access(동사): ~에 접근하다 | access(명사): 접근, 입장 | have access to = ~에 접근하다"}},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"the state of knowing someone or something well, through experience or close association\"</b>","ans":2,"ch":["recall","recognition","familiarity","memory"],"wa":null,"accept":null,"det":{"korean":"'경험이나 밀접한 관계를 통해 누군가나 무언가를 잘 아는 상태' → <b>familiarity(친숙함)</b>","analysis":"✅ ③ familiarity: 영영 정의와 정확히 일치\n❌ ① recall: 회상 (더 구체적인 기억 접근)\n❌ ② recognition: 인식 (familiarity의 하위 개념)\n❌ ④ memory: 기억 (더 넓은 개념)","tip":"familiarity = knowing something well through experience → 친숙함"}},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"extremely annoying; making one feel very angry\"</b>","ans":0,"ch":["infuriating","familiar","memorable","forgetful"],"wa":null,"accept":null,"det":{"korean":"'극도로 짜증나는; 매우 화나게 하는' → <b>infuriating(몹시 짜증나는)</b>","analysis":"✅ ① infuriating: 영영 정의와 일치\n❌ ② familiar: 친숙한\n❌ ③ memorable: 기억에 남는\n❌ ④ forgetful: 잘 잊는","tip":"infuriating = extremely annoying = exasperating → 몹시 짜증나는"}},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"This happens because the brain differentiates between __________ (familiar) and recall.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"familiarity","accept":["familiarity","Familiarity"],"det":{"korean":"familiar(형용사) → <b>familiarity(명사)</b>: between + 명사 + and + 명사 구조","analysis":"familiar(형용사) → familiarity(명사)\nbetween familiarity and recall → 전치사 뒤에 명사","tip":"familiar → familiarity / popular → popularity — 형용사 → -ity 명사화"}},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"To clarify, familiarity (or __________ (recognize)) is when you encounter someone or something and you know you’ve done so before.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"recognition","accept":["recognition","Recognition"],"det":{"korean":"recognize(동사) → <b>recognition(명사)</b>: or 뒤에 familiarity와 동격인 명사 필요","analysis":"recognize(동사) → recognition(명사)\nfamiliarity (or recognition) → 동격 관계로 명사","tip":"recognize → recognition / organize → organization — -ize → -ition/-ization 명사화"}},
-{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists.","stem":"다음 글의 주제로 가장 적절한 것은?","ans":3,"ch":["process of recalling details from partial memories","impact of emotional responses on memory retrieval patterns","dangers of memory loss regarding face and name recognition","distinction between recall and familiarity in the memory system"],"wa":null,"accept":null,"det":{"korean":"기억 체계에서 <b>회상(recall)과 친숙함(familiarity)의 구별</b>이 핵심 주제.","analysis":"✅ ⑤ distinction between recall and familiarity in the memory system: 글 전체가 이 구별을 설명\n❌ ① partial memories: 부분 기억이 아닌 전체 시스템\n❌ ② emotional responses: 감정 반응이 주제가 아님\n❌ ③ memory loss: 기억 상실이 아닌 기억 구분\n❌ ④ managing difficulty: 관리 방법이 아님","tip":"주제: familiarity vs recall = 친숙함 vs 회상 — 2단계 기억 시스템의 핵심 구별"}},
-{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists.","stem":"다음 글의 핵심 내용으로 가장 적절한 것은?","ans":1,"ch":["뇌는 얼굴과 이름을 항상 동시에 기억한다.","뇌는 친숙함(인식)과 회상을 구별하며, 인식은 기억의 존재만 알려주고 회상은 구체적 기억에 접근하는 것이다.","기억력이 좋은 사람은 친숙함과 회상을 동시에 사용할 수 있다.","이름을 기억하지 못하는 것은 뇌의 결함 때문이다."],"wa":null,"accept":null,"det":{"korean":"뇌는 <b>친숙함(인식)</b>과 <b>회상</b>을 구별하며, 인식은 기억의 존재를 알려주고 회상은 구체적 기억에 접근하는 것이다.","analysis":"✅ ② 뇌는 친숙함과 회상을 구별: \"differentiates between familiarity and recall\"이 핵심\n❌ ① 동시에 기억: 그렇지 않다고 설명\n❌ ③ 동시 사용: 2단계가 분리되어 작동\n❌ ④ 뇌의 결함: 정상적 시스템의 특성\n❌ ⑤ 더 정확: 친숙함은 덜 구체적","tip":"핵심: familiarity = flagging up(존재 표시) vs recall = access(구체적 접근)"}}];
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"the state of knowing someone or something well, through experience or close association\"</b>","ans":2,"ch":["recall","recognition","familiarity","memory"],"wa":null,"accept":null,"det":{"korean":"'경험이나 밀접한 관계를 통해 누군가나 무언가를 잘 아는 상태' → <b>familiarity(친숙함)</b>","analysis":"✅ ③ familiarity: 영영 정의와 정확히 일치\n❌ ① recall: 회상 (더 구체적인 기억 접근)\n❌ ② recognition: 인식 (familiarity의 하위 개념)\n❌ ④ memory: 기억 (더 넓은 개념)","tip":"familiarity = knowing something well through experience → 친숙함"}},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"extremely annoying; making one feel very angry\"</b>","ans":0,"ch":["infuriating","familiar","memorable","forgetful"],"wa":null,"accept":null,"det":{"korean":"'극도로 짜증나는; 매우 화나게 하는' → <b>infuriating(몹시 짜증나는)</b>","analysis":"✅ ① infuriating: 영영 정의와 일치\n❌ ② familiar: 친숙한\n❌ ③ memorable: 기억에 남는\n❌ ④ forgetful: 잘 잊는","tip":"infuriating = extremely annoying = exasperating → 몹시 짜증나는"}},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"This happens because the brain differentiates between __________ (familiar) and recall.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"familiarity","accept":["familiarity","Familiarity","familiarity."],"det":{"korean":"familiar(형용사) → <b>familiarity(명사)</b>: between + 명사 + and + 명사 구조","analysis":"familiar(형용사) → familiarity(명사)\nbetween familiarity and recall → 전치사 뒤에 명사","tip":"familiar → familiarity / popular → popularity — 형용사 → -ity 명사화"}},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"To clarify, familiarity (or __________ (recognize)) is when you encounter someone or something and you know you’ve done so before.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"recognition","accept":["recognition","Recognition","recognition."],"det":{"korean":"recognize(동사) → <b>recognition(명사)</b>: or 뒤에 familiarity와 동격인 명사 필요","analysis":"recognize(동사) → recognition(명사)\nfamiliarity (or recognition) → 동격 관계로 명사","tip":"recognize → recognition / organize → organization — -ize → -ition/-ization 명사화"}},
+{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists. __________","stem":"다음 글의 주제로 가장 적절한 것은?","ans":3,"ch":["process of recalling details from partial memories","impact of emotional responses on memory retrieval patterns","dangers of memory loss regarding face and name recognition","distinction between recall and familiarity in the memory system"],"wa":null,"accept":null,"det":{"korean":"기억 체계에서 <b>회상(recall)과 친숙함(familiarity)의 구별</b>이 핵심 주제.","analysis":"✅ ⑤ distinction between recall and familiarity in the memory system: 글 전체가 이 구별을 설명\n❌ ① partial memories: 부분 기억이 아닌 전체 시스템\n❌ ② emotional responses: 감정 반응이 주제가 아님\n❌ ③ memory loss: 기억 상실이 아닌 기억 구분\n❌ ④ managing difficulty: 관리 방법이 아님","tip":"주제: familiarity vs recall = 친숙함 vs 회상 — 2단계 기억 시스템의 핵심 구별"}},
+{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"If the brain has already stored someone’s face and name, why do we still end up remembering one and not the other? This is because the brain has something of a two-tier memory system at work when it comes to retrieving memories, and this gives rise to a common yet infuriating sensation: recognising someone, but not being able to remember how or why, or what their name is. This happens because the brain differentiates between familiarity and recall. To clarify, familiarity (or recognition) is when you encounter someone or something and you know you’ve done so before. But beyond that, you’ve got nothing; all you can say is this person/thing is already in your memories. Recall is when you can access the original memory of how and why you know this person; recognition is just flagging up the fact that the memory exists. __________","stem":"다음 글의 핵심 내용으로 가장 적절한 것은?","ans":1,"ch":["뇌는 얼굴과 이름을 항상 동시에 기억한다.","뇌는 친숙함(인식)과 회상을 구별하며, 인식은 기억의 존재만 알려주고 회상은 구체적 기억에 접근하는 것이다.","기억력이 좋은 사람은 친숙함과 회상을 동시에 사용할 수 있다.","이름을 기억하지 못하는 것은 뇌의 결함 때문이다."],"wa":null,"accept":null,"det":{"korean":"뇌는 <b>친숙함(인식)</b>과 <b>회상</b>을 구별하며, 인식은 기억의 존재를 알려주고 회상은 구체적 기억에 접근하는 것이다.","analysis":"✅ ② 뇌는 친숙함과 회상을 구별: \"differentiates between familiarity and recall\"이 핵심\n❌ ① 동시에 기억: 그렇지 않다고 설명\n❌ ③ 동시 사용: 2단계가 분리되어 작동\n❌ ④ 뇌의 결함: 정상적 시스템의 특성\n❌ ⑤ 더 정확: 친숙함은 덜 구체적","tip":"핵심: familiarity = flagging up(존재 표시) vs recall = access(구체적 접근)"}}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

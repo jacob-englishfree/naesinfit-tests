@@ -199,7 +199,7 @@ const FULL_PASSAGE="In the Physics, Aristotle asks whether nature acts for the s
 const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"보통","pts":5,"fmt":"mc","passage":"He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with <b>(A)</b> and that <b>(A)</b> is linked to <b>(B)</b>. The sharpness of front teeth allows them to tear while the bluntness of those in the back enables them to <b>(C)</b> food.","stem":"다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?","det":{"korean":"아리스토텔레스는 앞니의 날카로움과 어금니의 뭉툭함이 우연의 일치인지 의문을 제기하고, 이러한 배열이 <b>규칙성(regularity)</b>을 가지고 발생하며 그 규칙성이 <b>목적성(purposefulness)</b>과 연결되어 있기 때문에 그 가능성을 거부합니다. 앞니의 날카로움은 음식을 찢을 수 있게 하고, 뒤쪽 이의 뭉툭함은 음식을 <b>부수는(crush)</b> 것을 가능하게 합니다.","analysis":"✅ ① regularity — purposefulness — crush: 원문과 일치\n❌ ② irregularity는 regularity의 반의어\n❌ ③ randomness는 purposefulness의 반의어\n❌ ④ polish(닦다)는 crush(부수다)와 무관\n❌ ⑤ 세 단어 모두 원문과 불일치","tip":"regularity(규칙성), purposefulness(목적성), crush(부수다) — 아리스토텔레스 목적론 관련 어휘"},"ans":0,"ch":["regularity — purposefulness — crush","irregularity — purposefulness — crush","regularity — randomness — crush","regularity — purposefulness — polish"]},
 {"passage":FULL_PASSAGE,"id":2,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"아리스토텔레스는 모든 자연 현상이 우연이 아닌 일정한 규칙과 목적성을 바탕으로 발생한다고 보았으므로, 빈칸에는 <b>목적성(purposefulness)</b>이 가장 적절합니다.","analysis":"✅ ④ purposefulness(목적성): 규칙적 배열이 목적과 연결\n❌ ① swiftness(신속성)\n❌ ② creativity(창의성)\n❌ ③ originality(독창성)\n❌ ⑤ beauty(아름다움)","tip":"아리스토텔레스의 목적론(teleology): 자연의 모든 일은 '무엇을 위해' 발생한다는 최종 원인(final cause)"},"ans":3,"ch":["swiftness","creativity","originality","purposefulness"]},
 {"id":3,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"He offers an <b>account</b> of rain as water that rises when heated by the Sun, then cools, condenses, and falls to Earth.","stem":"밑줄 친 <b>account</b>가 이 문맥에서 의미하는 바로 가장 적절한 것은?","det":{"korean":"account는 다의어로, 이 문맥에서는 비의 과정에 대한 '설명, 해명'이라는 의미로 사용되었습니다.","analysis":"✅ ② 설명하다, 해명하다: 비의 원리를 '설명'하는 문맥\n❌ ① 고치다\n❌ ③ 계정, 계좌\n❌ ④ 이야기 (서사적 맥락이 아님)\n❌ ⑤ 고려하다 (account for와 다름)","tip":"account of = explanation/description of: 학술적 맥락에서 '설명'의 의미"},"ans":1,"ch":["고치다, 수리하다","설명하다, 해명하다","계정, 계좌","이야기, 묘사"]},
-{"id":4,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with __________.","stem":"다음 문장에서 <b>regular</b>의 명사형을 쓰시오.","det":{"korean":"regular(규칙적인, 형용사) → <b>regularity(규칙성, 명사)</b>","analysis":"regular(형용사) → regularity(명사)\n형용사 + -ity 접미사 → 명사 변환","tip":"regular → regularity / irregular → irregularity: -ity 명사화 패턴"},"wa":"regularity","accept":["regularity","Regularity","REGULARITY"]}];
+{"id":4,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"He queries whether the sharpness of front teeth and the bluntness of molars is coincidental and rejects that possibility, because this arrangement occurs with __________.","stem":"다음 문장에서 <b>regular</b>의 명사형을 쓰시오.","det":{"korean":"regular(규칙적인, 형용사) → <b>regularity(규칙성, 명사)</b>","analysis":"regular(형용사) → regularity(명사)\n형용사 + -ity 접미사 → 명사 변환","tip":"regular → regularity / irregular → irregularity: -ity 명사화 패턴"},"wa":"regularity","accept":["regularity","Regularity","REGULARITY","regularity."]}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -242,19 +242,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

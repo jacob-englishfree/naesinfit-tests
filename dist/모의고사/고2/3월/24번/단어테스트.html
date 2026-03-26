@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,12 +210,12 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Each of these issues has been addressed through humour in a way that has helped to make more __________ values more acceptable than previously.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["progressive","traditional","radical","outdated"],"wa":null,"accept":null,"det":{"korean":"유머를 통해 더 <b>진보적인(progressive)</b> 가치를 수용 가능하게 만들었다.","analysis":"✅ ① progressive(진보적인): 시민권, 여성 인권 등을 장려하는 맥락\n❌ ② traditional(전통적인): 반의어\n❌ ③ radical(급진적인): 뉘앙스 다름\n❌ ④ outdated(구식의): 문맥과 반대","tip":"progressive values = 진보적 가치 (시민권, 다문화주의 등)"}},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"Each of these issues has been <u>addressed</u> through humour.","stem":"밑줄 친 <b>addressed</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["연설하다","편지를 보내다","다루다","주소를 쓰다"],"wa":null,"accept":null,"det":{"korean":"address = 여기서는 (문제를) <b>다루다</b>","analysis":"✅ ③ 다루다: address + issue/problem = 문제를 다루다\n❌ ① 연설하다: address the audience\n❌ ② 편지를 보내다: address a letter\n❌ ④ 주소를 쓰다: address an envelope","tip":"address: 다루다(문제) | 연설하다(청중에게) | 주소를 쓰다(편지에)"}},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"The humour of sitcoms acted as a cost-effective <u>means</u> to encourage acceptance.","stem":"밑줄 친 <b>means</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["수단, 방법","의미하다","평균","비열한"],"wa":null,"accept":null,"det":{"korean":"이 문맥에서의 의미는 <b>평균</b>이다. 다의어는 문맥에 따라 뜻이 달라진다.","analysis":"❌ ① 수단, 방법: 다른 문맥에서의 의미<br>❌ ② 의미하다: 다른 문맥에서의 의미<br>✅ ③ 평균: 이 문맥에서의 적절한 의미<br>❌ ④ 비열한: 다른 문맥에서의 의미<br>❌ ⑤ 인과관계가 잘못된 내용이다.: 다른 문맥에서의 의미","tip":"다의어 — 같은 단어도 문맥에 따라 뜻이 달라집니다. 앞뒤 문맥을 꼼꼼히 읽으세요."}},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"Since their start in the early 1950s U.S. television sitcoms have charted many of the social conflicts in U.S. society: civil rights, women's rights in the home and in the workplace, children's rights, immigration and multiculturalism, as well as evolving conceptions of the family. Each of these issues has been addressed through humour in a way that has helped to make more progressive values more acceptable than previously. Often a character, usually someone marked as a bigot, resisted one or more of these developments and was then made to appear ridiculous. They were cut down either through their own stupidity, a brief scolding from others, or both. In this way, the humour of sitcoms acted as a cost-effective means to encourage acceptance of a more pluralistic and tolerant society.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"to record or follow the progress or development of something over time\"</b>","ans":2,"ch":["resisted","addressed","charted","evolved"],"wa":null,"accept":null,"det":{"korean":"'무언가의 진행이나 발전을 시간에 걸쳐 기록하다' → <b>charted(기록하다)</b>","analysis":"✅ ③ charted: 영영 정의와 정확히 일치\n❌ ① resisted: 저항하다\n❌ ② addressed: 다루다\n❌ ④ evolved: 진화하다","tip":"chart = record/follow progress over time → 기록하다, 추적하다"}},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"Since their start in the early 1950s U.S. television sitcoms have charted many of the social conflicts in U.S. society: civil rights, women's rights in the home and in the workplace, children's rights, immigration and multiculturalism, as well as evolving conceptions of the family. Each of these issues has been addressed through humour in a way that has helped to make more progressive values more acceptable than previously. Often a character, usually someone marked as a bigot, resisted one or more of these developments and was then made to appear ridiculous. They were cut down either through their own stupidity, a brief scolding from others, or both. In this way, the humour of sitcoms acted as a cost-effective means to encourage acceptance of a more pluralistic and tolerant society.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"relating to a society in which members of diverse groups maintain their own traditions while coexisting peacefully\"</b>","ans":3,"ch":["progressive","evolving","acceptable","pluralistic"],"wa":null,"accept":null,"det":{"korean":"'다양한 집단의 구성원들이 고유 전통을 유지하며 평화롭게 공존하는 사회' → <b>pluralistic(다원적인)</b>","analysis":"✅ ④ pluralistic: 영영 정의와 일치\n❌ ① progressive: 진보적인\n❌ ② evolving: 진화하는\n❌ ③ acceptable: 수용 가능한","tip":"pluralistic = 다원적인, 다양한 가치가 공존하는"}},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"Each of these issues has been addressed through humour in a way that has helped to make more progressive values more __________ (accept) than previously.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"acceptable","accept":["acceptable","Acceptable"],"det":{"korean":"accept(동사) → <b>acceptable(형용사)</b>: make + O + C(형용사) 구조에서 보어로 형용사 필요","analysis":"accept(동사) → acceptable(형용사)\nmake values more acceptable — 5형식 구조에서 보어 자리에 형용사","tip":"accept → acceptable / access → accessible — 동사 → -able 형용사 변환"}},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"In this way, the humour of sitcoms acted as a cost-effective means to encourage __________ (accept) of a more pluralistic and tolerant society.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"acceptance","accept":["acceptance","Acceptance"],"det":{"korean":"accept(동사) → <b>acceptance(명사)</b>: encourage + 목적어(명사) 구조에서 명사 필요","analysis":"accept(동사) → acceptance(명사)\nencourage + 명사 → \"수용을 장려하다\"","tip":"accept → acceptance / resist → resistance — 동사 → -ance 명사 변환"}},
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"to record or follow the progress or development of something over time\"</b>","ans":2,"ch":["resisted","addressed","charted","evolved"],"wa":null,"accept":null,"det":{"korean":"'무언가의 진행이나 발전을 시간에 걸쳐 기록하다' → <b>charted(기록하다)</b>","analysis":"✅ ③ charted: 영영 정의와 정확히 일치\n❌ ① resisted: 저항하다\n❌ ② addressed: 다루다\n❌ ④ evolved: 진화하다","tip":"chart = record/follow progress over time → 기록하다, 추적하다"}},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"relating to a society in which members of diverse groups maintain their own traditions while coexisting peacefully\"</b>","ans":3,"ch":["progressive","evolving","acceptable","pluralistic"],"wa":null,"accept":null,"det":{"korean":"'다양한 집단의 구성원들이 고유 전통을 유지하며 평화롭게 공존하는 사회' → <b>pluralistic(다원적인)</b>","analysis":"✅ ④ pluralistic: 영영 정의와 일치\n❌ ① progressive: 진보적인\n❌ ② evolving: 진화하는\n❌ ③ acceptable: 수용 가능한","tip":"pluralistic = 다원적인, 다양한 가치가 공존하는"}},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"Each of these issues has been addressed through humour in a way that has helped to make more progressive values more __________ (accept) than previously.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"acceptable","accept":["acceptable","Acceptable","acceptable."],"det":{"korean":"accept(동사) → <b>acceptable(형용사)</b>: make + O + C(형용사) 구조에서 보어로 형용사 필요","analysis":"accept(동사) → acceptable(형용사)\nmake values more acceptable — 5형식 구조에서 보어 자리에 형용사","tip":"accept → acceptable / access → accessible — 동사 → -able 형용사 변환"}},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"In this way, the humour of sitcoms acted as a cost-effective means to encourage __________ (accept) of a more pluralistic and tolerant society.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"acceptance","accept":["acceptance","Acceptance","acceptance."],"det":{"korean":"accept(동사) → <b>acceptance(명사)</b>: encourage + 목적어(명사) 구조에서 명사 필요","analysis":"accept(동사) → acceptance(명사)\nencourage + 명사 → \"수용을 장려하다\"","tip":"accept → acceptance / resist → resistance — 동사 → -ance 명사 변환"}},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Since their start in the early 1950s U.S. television sitcoms have charted many of the social conflicts in U.S. society: civil rights, women's rights in the home and in the workplace, children's rights, immigration and multiculturalism, as well as evolving conceptions of the family. Each of these issues has been addressed through humour in a way that has helped to make more progressive values more acceptable than previously. Often a character, usually someone marked as a bigot, resisted one or more of these developments and was then made to appear ridiculous. They were cut down either through their own stupidity, a brief scolding from others, or both. In this way, the humour of sitcoms acted as a cost-effective means to __________ acceptance of a more pluralistic and tolerant society.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":2,"ch":["support","celebrate","encourage","prevent"],"wa":null,"accept":null,"det":{"korean":"시트콤의 유머는 다원적 사회의 수용을 <b>장려하는(encourage)</b> 수단이었다.","analysis":"✅ ③ encourage(장려하다): 편견을 가진 인물을 우스꽝스럽게 만들어 수용을 촉진\n❌ ① support(지지하다): 가능하나 encourage가 더 적절\n❌ ② celebrate(축하하다): 문맥에 부적합\n❌ ④ prevent(막다): 반의어\n❌ ⑤ question(의문시하다): 문맥에 부적합","tip":"encourage acceptance = 수용을 장려하다 — 시트콤의 사회적 기능"}},
-{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Since their start in the early 1950s U.S. television sitcoms have charted many of the social conflicts in U.S. society: civil rights, women's rights in the home and in the workplace, children's rights, immigration and multiculturalism, as well as evolving conceptions of the family. Each of these issues has been addressed through humour in a way that has helped to make more progressive values more acceptable than previously. Often a character, usually someone marked as a bigot, resisted one or more of these developments and was then made to appear ridiculous. They were cut down either through their own stupidity, a brief scolding from others, or both. In this way, the humour of sitcoms acted as a cost-effective means to encourage acceptance of a more pluralistic and tolerant society.","stem":"다음 글의 제목으로 가장 적절한 것은?","ans":3,"ch":["Why Do Sitcoms Criticize Progressive Ideas?","Acceptability of Humour in Multicultural Society","The Decline of U.S. Sitcoms along with Social Change","Humour in Sitcoms Helps Acceptance of Progressive Values"],"wa":null,"accept":null,"det":{"korean":"시트콤은 유머를 통해 편견을 가진 인물을 우스꽝스럽게 만들어 <b>진보적 가치의 수용을 장려</b>했다.","analysis":"✅ ⑤ Humour in Sitcoms Helps Acceptance of Progressive Values: 글의 핵심 내용 일치\n❌ ① Criticize Progressive Ideas: 진보적 가치를 비판하지 않음\n❌ ② Acceptability of Humour: 유머의 수용성이 주제가 아님\n❌ ③ Decline of Sitcoms: 시트콤의 쇠퇴는 언급 없음\n❌ ④ Production Costs: 제작비는 주제가 아님","tip":"제목 파악: 시트콤의 유머 → 진보적 가치 수용 장려 → ⑤가 핵심 요약"}}];
+{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Since their start in the early 1950s U.S. television sitcoms have charted many of the social conflicts in U.S. society: civil rights, women's rights in the home and in the workplace, children's rights, immigration and multiculturalism, as well as evolving conceptions of the family. Each of these issues has been addressed through humour in a way that has helped to make more progressive values more acceptable than previously. Often a character, usually someone marked as a bigot, resisted one or more of these developments and was then made to appear ridiculous. They were cut down either through their own stupidity, a brief scolding from others, or both. In this way, the humour of sitcoms acted as a cost-effective means to encourage acceptance of a more pluralistic and tolerant society. __________","stem":"다음 글의 제목으로 가장 적절한 것은?","ans":3,"ch":["Why Do Sitcoms Criticize Progressive Ideas?","Acceptability of Humour in Multicultural Society","The Decline of U.S. Sitcoms along with Social Change","Humour in Sitcoms Helps Acceptance of Progressive Values"],"wa":null,"accept":null,"det":{"korean":"시트콤은 유머를 통해 편견을 가진 인물을 우스꽝스럽게 만들어 <b>진보적 가치의 수용을 장려</b>했다.","analysis":"✅ ⑤ Humour in Sitcoms Helps Acceptance of Progressive Values: 글의 핵심 내용 일치\n❌ ① Criticize Progressive Ideas: 진보적 가치를 비판하지 않음\n❌ ② Acceptability of Humour: 유머의 수용성이 주제가 아님\n❌ ③ Decline of Sitcoms: 시트콤의 쇠퇴는 언급 없음\n❌ ④ Production Costs: 제작비는 주제가 아님","tip":"제목 파악: 시트콤의 유머 → 진보적 가치 수용 장려 → ⑤가 핵심 요약"}}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

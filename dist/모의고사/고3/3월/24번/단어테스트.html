@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,11 +210,11 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"It would seem actually to be a considerable __________: imagine the classic war movie scene.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"상당한 <b>장애물(obstacle)</b>처럼 보임","analysis":"✅ ① obstacle\n❌ 나머지: 문맥과 다름","tip":"obstacle = 장애물"},"ans":0,"ch":["obstacle","advantage","mystery","coincidence"]},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"Chimpanzees, gorillas, and bonobos — our <u>nearest</u> cousins.","stem":"밑줄 친 <b>nearest</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"nearest cousins = <b>가장 가까운(관계)</b> 친척","analysis":"✅ ② 가장 가까운 (관계)\n❌ ① 거리적 의미","tip":"nearest: 가장 가까운(관계/거리)"},"ans":2,"ch":["가장 가까운 (거리)","가장 가까운 (관계)","사촌","이웃"]},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"His noticeably white sclera, <u>beaming</u> bright against the jungle.","stem":"밑줄 친 <b>beaming</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"beaming bright = <b>밝게 빛나는</b>","analysis":"✅ ① 밝게 빛나는\n❌ 나머지: 다른 의미","tip":"beaming: 빛나는 | 미소 짓는"},"ans":2,"ch":["밝게 빛나는","광선, 빔","미소 짓다","대들보"]},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"In fact, humans are known to have the largest and most visible sclera — the “whites” of the eyes — of any species. This fact intrigues scientists, because it would seem actually to be a considerable obstacle: imagine, for example, the classic war movie scene where the soldier dresses in camouflage and paints his face with green and brown color — but can do nothing about his noticeably white sclera, beaming bright against the jungle. There must be some reason humans developed it, despite its obvious costs. In fact, the advantage of visible sclera — so goes the “cooperative eye hypothesis” — is precisely that it enables humans to see clearly, and from a distance, which direction other humans are looking. Michael Tomasello showed in a 2007 study that chimpanzees, gorillas, and bonobos — our nearest cousins — follow the direction of each other’s heads, whereas human infants follow the direction of each other’s eyes. So the value of looking someone in the eye may in fact be something uniquely human.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the white outer layer of the eyeball; the ‘whites’ of the eyes\"</b>","det":{"korean":"영영 정의에 해당하는 단어는 <b>sclera</b>이다.","analysis":"❌ ① pupil: 정의와 의미가 다름<br>❌ ② iris: 정의와 의미가 다름<br>✅ ③ sclera: 제시된 영영 정의에 부합<br>❌ ④ cornea: 정의와 의미가 다름<br>❌ ⑤ eliminate: 정의와 의미가 다름","tip":"영영풀이 — 영영사전 정의의 핵심 키워드를 파악하고, 각 선택지의 뜻과 대조하세요."},"ans":2,"ch":["pupil","iris","sclera","cornea"]},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"In fact, humans are known to have the largest and most visible sclera — the “whites” of the eyes — of any species. This fact intrigues scientists, because it would seem actually to be a considerable obstacle: imagine, for example, the classic war movie scene where the soldier dresses in camouflage and paints his face with green and brown color — but can do nothing about his noticeably white sclera, beaming bright against the jungle. There must be some reason humans developed it, despite its obvious costs. In fact, the advantage of visible sclera — so goes the “cooperative eye hypothesis” — is precisely that it enables humans to see clearly, and from a distance, which direction other humans are looking. Michael Tomasello showed in a 2007 study that chimpanzees, gorillas, and bonobos — our nearest cousins — follow the direction of each other’s heads, whereas human infants follow the direction of each other’s eyes. So the value of looking someone in the eye may in fact be something uniquely human.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"something that blocks one’s way or prevents progress\"</b>","det":{"korean":"진행을 방해하는 것 → <b>obstacle</b>","analysis":"✅ ④ obstacle\n❌ 나머지: 다른 뉘앙스","tip":"obstacle = barrier = hindrance"},"ans":3,"ch":["disadvantage","weakness","difficulty","obstacle"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"It would seem actually to be a __________ (consider) obstacle.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"consider → <b>considerable</b>: obstacle을 수식하는 형용사","analysis":"consider(동사) → considerable(형용사)","tip":"consider → considerable"},"wa":"considerable","accept":["considerable","Considerable"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"The advantage of visible sclera is __________ (precise) that it enables humans to see clearly.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"precise → <b>precisely</b>: 부사 필요","analysis":"precise(형용사) → precisely(부사)","tip":"precise → precisely"},"wa":"precisely","accept":["precisely","Precisely"]},
-{"passage":FULL_PASSAGE,"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 제목으로 가장 적절한 것은?","det":{"korean":"인간 공막의 독특함 → <b>The Uniqueness of Human's Visible Sclera</b>","analysis":"✅ ② 인간 공막의 독특함\n❌ 나머지: 부분적이거나 문맥과 다름","tip":"제목: visible sclera + uniquely human"},"ans":1,"ch":["Adaptive Strategies for Animals with Poor Vision","The Uniqueness of Human’s Visible Sclera","The Human Eye: A Window to Our Soul","Why Human Eyes Evolved Various Colors"]},
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the white outer layer of the eyeball; the ‘whites’ of the eyes\"</b>","det":{"korean":"영영 정의에 해당하는 단어는 <b>sclera</b>이다.","analysis":"❌ ① pupil: 정의와 의미가 다름<br>❌ ② iris: 정의와 의미가 다름<br>✅ ③ sclera: 제시된 영영 정의에 부합<br>❌ ④ cornea: 정의와 의미가 다름<br>❌ ⑤ eliminate: 정의와 의미가 다름","tip":"영영풀이 — 영영사전 정의의 핵심 키워드를 파악하고, 각 선택지의 뜻과 대조하세요."},"ans":2,"ch":["pupil","iris","sclera","cornea"]},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"something that blocks one’s way or prevents progress\"</b>","det":{"korean":"진행을 방해하는 것 → <b>obstacle</b>","analysis":"✅ ④ obstacle\n❌ 나머지: 다른 뉘앙스","tip":"obstacle = barrier = hindrance"},"ans":3,"ch":["disadvantage","weakness","difficulty","obstacle"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"It would seem actually to be a __________ (consider) obstacle.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"consider → <b>considerable</b>: obstacle을 수식하는 형용사","analysis":"consider(동사) → considerable(형용사)","tip":"consider → considerable"},"wa":"considerable","accept":["considerable","Considerable","considerable."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"The advantage of visible sclera is __________ (precise) that it enables humans to see clearly.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"precise → <b>precisely</b>: 부사 필요","analysis":"precise(형용사) → precisely(부사)","tip":"precise → precisely"},"wa":"precisely","accept":["precisely","Precisely","precisely."]},
+{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"__FULL__ __________","stem":"다음 글의 제목으로 가장 적절한 것은?","det":{"korean":"인간 공막의 독특함 → <b>The Uniqueness of Human's Visible Sclera</b>","analysis":"✅ ② 인간 공막의 독특함\n❌ 나머지: 부분적이거나 문맥과 다름","tip":"제목: visible sclera + uniquely human"},"ans":1,"ch":["Adaptive Strategies for Animals with Poor Vision","The Uniqueness of Human’s Visible Sclera","The Human Eye: A Window to Our Soul","Why Human Eyes Evolved Various Colors"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"In fact, humans are known to have the largest and most visible sclera — the “whites” of the __________ — of any species. This fact intrigues scientists, because it would seem actually to be a considerable obstacle: imagine, for example, the classic war movie scene where the soldier dresses in camouflage and paints his face with green and brown color — but can do nothing about his noticeably white sclera, beaming bright against the jungle. There must be some reason humans developed it, despite its obvious costs. In fact, the advantage of visible sclera — so goes the “cooperative eye hypothesis” — is precisely that it enables humans to see clearly, and from a distance, which direction other humans are looking. Michael Tomasello showed in a 2007 study that chimpanzees, gorillas, and bonobos — our nearest cousins — follow the direction of each other’s heads, whereas human infants follow the direction of each other’s eyes. So the value of looking someone in the eye may in fact be something uniquely human.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?<br><br>Human infants follow the direction of each other’s __________, whereas chimpanzees follow heads.","det":{"korean":"인간 유아는 서로의 <b>눈(eyes)</b> 방향을 따른다.","analysis":"✅ ② eyes\n❌ ① heads: 유인원이 따르는 것\n❌ ③④: 무관","tip":"human infants → eyes, chimpanzees → heads"},"ans":1,"ch":["heads","eyes","hands","bodies"]}];
 
 /* NaesinFit Test Engine v1.0
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

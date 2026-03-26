@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a shop or department that sells sewing supplies, buttons, ribbons, and similar items\"</b>","det":{"korean":"<b>haberdashery(잡화점)</b>: 바느질 용품, 단추, 리본 등을 파는 상점.","analysis":"✅③ haberdashery: 잡화점\n❌① employment: 고용\n❌④ partnership: 동업","tip":"haberdashery = 잡화점 (영국식: 바느질 용품 상점)"},"ans":2,"ch":["employment","enterprise","haberdashery","partnership"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a painting, drawing, or photograph of a person, especially of the face\"</b>","det":{"korean":"<b>portrait(초상화)</b>: 특히 얼굴을 그린 그림이나 사진.","analysis":"✅① portrait: 초상화\n❌② landscape: 풍경화\n❌③ sculpture: 조각","tip":"portrait = 초상화"},"ans":0,"ch":["portrait","landscape","sculpture","photograph"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"extremely poor; living in poverty\"</b>","det":{"korean":"<b>impoverished(빈곤한)</b>: 극도로 가난한.","analysis":"✅② impoverished: 빈곤한\n❌① abandoned: 버려진\n❌③ educated: 교육받은","tip":"impoverished = destitute = extremely poor (빈곤한)"},"ans":1,"ch":["abandoned","impoverished","educated","distinguished"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"He persuaded his mother to allow him to move to London to gain __________ (employ) at Swan & Edgar.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"employ(동사) → employment(명사). gain employment = 취업하다.","analysis":"employ → employment: 동사 → 명사. gain + 명사 구조.","tip":"employment = 고용, 취업"},"wa":"employment","accept":["employment","Employment"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Perhaps equally important were his __________ (frequent) visits to the new National Gallery.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"frequent(형용사)가 원문. 하지만 여기서는 빈칸이 visits를 수식하는 부사 자리? 아닙니다. his frequent visits에서 frequent는 형용사.","analysis":"frequent는 이미 형용사. 빈칸 구조상 부사 → frequently로 visits를 수식.","tip":"frequent(형) → frequently(부) = 자주"},"wa":"frequently","accept":["frequently","Frequently"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"He persuaded his mother to allow him to move to London to gain __________ (employ) at Swan & Edgar.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"employ(동사) → employment(명사). gain employment = 취업하다.","analysis":"employ → employment: 동사 → 명사. gain + 명사 구조.","tip":"employment = 고용, 취업"},"wa":"employment","accept":["employment","Employment","employment."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Perhaps equally important were his __________ (frequent) visits to the new National Gallery.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"frequent(형용사)가 원문. 하지만 여기서는 빈칸이 visits를 수식하는 부사 자리? 아닙니다. his frequent visits에서 frequent는 형용사.","analysis":"frequent는 이미 형용사. 빈칸 구조상 부사 → frequently로 visits를 수식.","tip":"frequent(형) → frequently(부) = 자주"},"wa":"frequently","accept":["frequently","Frequently","frequently."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Worth's knowledge of costume history, gained from observing __________ in the National Gallery, was very helpful to his career.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"미술관에서 <b>초상화(portraits)</b>를 관찰.","analysis":"✅④ portraits\n❌① experiments: 실험\n❌② compositions: 작곡","tip":"portraits in the National Gallery"},"ans":3,"ch":["experiments","compositions","inventions","portraits"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"His mother was left with little choice but to find an __________ for him at a printer's shop, but the young boy hated the work.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"인쇄소에서의 <b>수습직(apprenticeship)</b>.","analysis":"✅② apprenticeship: 수습직\n❌① scholarship: 장학금\n❌⑤ internship: 인턴","tip":"apprenticeship = 도제/수습 과정"},"ans":1,"ch":["scholarship","apprenticeship","fellowship","partnership"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

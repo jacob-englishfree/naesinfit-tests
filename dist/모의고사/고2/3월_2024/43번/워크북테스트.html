@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -209,9 +209,9 @@ const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"C
 {"id":11,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"The waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently __________ him. The vet said, “I think Leo has a minor infection.”","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"수의사가 Leo를 부드럽게 <b>진찰했다(examined)</b>.","analysis":"✅ ② examined(진찰했다): \"gently\" + 수의사가 진단을 내리기 전 진찰하는 맥락\n❌ ① ignored(무시했다): 반대\n❌ ③ released(풀어주었다): 시점 부적절\n❌ ④ adopted(입양했다): 무관","tip":"examined = 진찰하다 — 수의사(vet) + gently + 진단(minor infection)과 자연스러운 연결"},"ans":1,"ch":["ignored","examined","released","adopted"]},
 {"id":12,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"“The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” __________ to hear the news, Christine rushed back to the animal hospital to pick up Leo.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"곧 회복될 거라는 좋은 소식을 듣고 <b>안도하여(Relieved)</b> 달려갔다.","analysis":"✅ ③ Relieved(안도한): \"back to his playful self soon\" → 좋은 소식 → 안도\n❌ ① Disappointed(실망한): 좋은 소식에 어울리지 않음\n❌ ② Confused(혼란스러운): 맥락과 무관\n❌ ④ Frustrated(좌절한): 맥락과 반대","tip":"Relieved to hear = ~을 듣고 안도한 — 긍정적 소식 + rushed to pick up"},"ans":2,"ch":["Disappointed","Confused","Relieved","Frustrated"]},
 {"id":13,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"The vet provided detailed instructions on how to administer the medication and shared tips for a speedy __________. Back at home, Christine created a comfortable space for Leo to rest and heal.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빠른 <b>회복(recovery)</b>을 위한 팁을 공유했다.","analysis":"✅ ① recovery(회복): \"administer medication\" + \"rest and heal\"과 자연스러운 연결\n❌ ② surgery(수술): 언급 없음\n❌ ③ adoption(입양): 무관\n❌ ④ separation(분리): 무관","tip":"speedy recovery = 빠른 회복 — medication + rest and heal 맥락"},"ans":0,"ch":["recovery","surgery","adoption","separation"]},
-{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Back at home, Christine created a __________ (comfort) space for Leo to rest and heal.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"comfort(명사) → <b>comfortable(형용사)</b>: 명사 space를 수식하는 형용사 필요","analysis":"comfort(명사) → comfortable(형용사)\na + 형용사 + space → a comfortable space = 편안한 공간","tip":"comfort → comfortable(형용사) / comfortably(부사) — 명사 수식 = 형용사"},"wa":"comfortable","accept":["comfortable","Comfortable"]},
-{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The vet said, “I think Leo has a minor __________. (infect)”","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"infect(동사) → <b>infection(명사)</b>: a minor 뒤에 명사가 필요","analysis":"infect(동사) → infection(명사)\n관사 a + 형용사 minor + 명사 → a minor infection","tip":"infect → infection(명사) / infected(형용사) — 관사+형용사 뒤 = 명사"},"wa":"infection","accept":["infection","Infection"]},
-{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글에서 Christine이 Leo를 데려간 장소를 본문에서 <b>2단어</b>로 찾아 쓰시오.","det":{"korean":"\"Christine decided to take him to the <b>animal hospital</b>\" → 동물병원","analysis":"take him to the animal hospital → Leo를 데려간 장소 = animal hospital","tip":"본문에서 찾아쓰기: 장소를 묻는 질문 → 전치사 to 뒤의 명사구 확인"},"wa":"animal hospital","accept":["animal hospital","Animal hospital","the animal hospital"]},
+{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Back at home, Christine created a __________ (comfort) space for Leo to rest and heal.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"comfort(명사) → <b>comfortable(형용사)</b>: 명사 space를 수식하는 형용사 필요","analysis":"comfort(명사) → comfortable(형용사)\na + 형용사 + space → a comfortable space = 편안한 공간","tip":"comfort → comfortable(형용사) / comfortably(부사) — 명사 수식 = 형용사"},"wa":"comfortable","accept":["comfortable","Comfortable","comfortable."]},
+{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The vet said, “I think Leo has a minor __________. (infect)”","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"infect(동사) → <b>infection(명사)</b>: a minor 뒤에 명사가 필요","analysis":"infect(동사) → infection(명사)\n관사 a + 형용사 minor + 명사 → a minor infection","tip":"infect → infection(명사) / infected(형용사) — 관사+형용사 뒤 = 명사"},"wa":"infection","accept":["infection","Infection","infection."]},
+{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글에서 Christine이 Leo를 데려간 장소를 본문에서 <b>2단어</b>로 찾아 쓰시오.","det":{"korean":"\"Christine decided to take him to the <b>animal hospital</b>\" → 동물병원","analysis":"take him to the animal hospital → Leo를 데려간 장소 = animal hospital","tip":"본문에서 찾아쓰기: 장소를 묻는 질문 → 전치사 to 뒤의 명사구 확인"},"wa":"animal hospital","accept":["animal hospital","Animal hospital","the animal hospital","animal hospital."]},
 {"passage":FULL_PASSAGE,"id":17,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","stem":"다음 글에서 Christine이 Leo를 병원에 남겨두는 것을 받아들인 이유를 나타내는 <b>3단어</b> 표현을 본문에서 찾아 쓰시오.","det":{"korean":"\"she had to accept it was <b>for the best</b>\" → 최선이라서 받아들였다","analysis":"accept it was for the best → \"최선을 위해서\"라는 의미\nfor the best = 결국 가장 좋은 것을 위해","tip":"for the best = 최선을 위해 — \"accept + it was for the best\" 구문"},"wa":"for the best","accept":["for the best","For the best","for the best."]},
 {"passage":FULL_PASSAGE,"id":18,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>Christine always brought Leo to the same animal hospital.</b>\"","det":{"korean":"\"As she always brought Leo to this hospital\" → Christine은 항상 같은 동물병원에 Leo를 데려갔다. → <b>True</b>","analysis":"✅ True: 원문 \"she always brought Leo to this hospital\"과 일치","tip":"T/F: \"always\"와 \"same\"을 본문의 \"always\" + \"this hospital\"과 대조"},"ans":0,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
 {"passage":FULL_PASSAGE,"id":19,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>The vet immediately called Christine with the test results the same morning.</b>\"","det":{"korean":"본문: \"Throughout the day, Christine anxiously awaited\" + \"Later that day, the phone rang\" → <b>같은 날 오후</b>에 전화가 왔지, 같은 날 아침에 바로 전화한 것이 아니다. → <b>False</b>","analysis":"❌ False: \"Later that day\"이지 \"the same morning\"이 아님. \"Throughout the day\"는 하루 종일 기다렸다는 뜻","tip":"시간 표현 주의: immediately + the same morning ≠ Later that day(그날 나중에)"},"ans":1,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

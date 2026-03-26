@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,12 +210,12 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"The suppliers' intensive marketing programs also __________ the adoption of the new technology.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["sped","slowed","prevented","complicated"],"wa":null,"accept":null,"det":{"korean":"공급업체의 집중 마케팅이 새 기술의 도입을 <b>촉진했다(sped)</b>.","analysis":"✅ ① sped: \"intensive marketing\" + \"adoption\" → 촉진\n❌ ② slowed: 반대\n❌ ③ prevented: 반대\n❌ ④ complicated: 무관","tip":"sped = accelerated = 촉진했다"}},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"There were already 50,000 private electric <u>plants</u> in operation.","stem":"밑줄 친 <b>plants</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["식물, 나무","공장","발전소","심다"],"wa":null,"accept":null,"det":{"korean":"electric plants = 전기 <b>발전소</b>","analysis":"✅ ③ 발전소: electric plant = power plant\n❌ ① 식물: plant(생물학)\n❌ ② 공장: factory(유사하나 발전소가 더 정확)\n❌ ④ 심다: plant(동사)","tip":"plant: 식물 | 공장 | 발전소(power plant) | 심다(동사)"}},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"Further accelerating the <u>shift</u> was the rapid expansion in the number of skilled electrical engineers.","stem":"밑줄 친 <b>shift</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["전환, 교대","옮기다","변화","근무 시간"],"wa":null,"accept":null,"det":{"korean":"the shift = (기존 방식에서 전기로의) <b>변화, 전환</b>","analysis":"✅ ③ 변화: shift = 기술적 변화/전환\n❌ ① 교대: work shift\n❌ ② 옮기다: shift(동사)\n❌ ④ 근무 시간: night shift","tip":"shift: 변화, 전환 | 교대(근무) | 옮기다"}},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"In 1900, at the close of the first decade in which electric systems had become a practical alternative for manufacturers, less than 5 percent of the power used in factories came from electricity. But the technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also sped the adoption of the new technology. Further accelerating the shift was the rapid expansion in the number of skilled electrical engineers, who provided the expertise needed to install and run the new systems. In short order, electric power had gone from exotic to commonplace. But one thing didn't change. Factories continued to build their own power-supply systems on their own premises. Few manufacturers considered buying electricity from the small central stations. Designed to supply lighting to local homes and shops, the central stations had neither the size nor the skill to serve the needs of big factories. And the factory owners, having always supplied their own power, were willing to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a halt — and that a lot of glitches might well mean bankruptcy. As the new century began, a survey found that there were already 50,000 private electric plants in operation, far surpassing the 3,600 central stations.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"specialized knowledge or skill in a particular field\"</b>","ans":2,"ch":["halt","glitch","expertise","premises"],"wa":null,"accept":null,"det":{"korean":"'특정 분야의 전문 지식이나 기술' → <b>expertise(전문 지식/기술)</b>","analysis":"✅ ③ expertise: 영영 정의와 일치\n❌ ① halt: 중단\n❌ ② glitch: 결함\n❌ ④ premises: 부지","tip":"expertise = specialized knowledge/skill = 전문 지식"}},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"In 1900, at the close of the first decade in which electric systems had become a practical alternative for manufacturers, less than 5 percent of the power used in factories came from electricity. But the technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also sped the adoption of the new technology. Further accelerating the shift was the rapid expansion in the number of skilled electrical engineers, who provided the expertise needed to install and run the new systems. In short order, electric power had gone from exotic to commonplace. But one thing didn't change. Factories continued to build their own power-supply systems on their own premises. Few manufacturers considered buying electricity from the small central stations. Designed to supply lighting to local homes and shops, the central stations had neither the size nor the skill to serve the needs of big factories. And the factory owners, having always supplied their own power, were willing to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a halt — and that a lot of glitches might well mean bankruptcy. As the new century began, a survey found that there were already 50,000 private electric plants in operation, far surpassing the 3,600 central stations.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"the land and buildings owned by a business or organization\"</b>","ans":3,"ch":["expertise","expansion","adoption","premises"],"wa":null,"accept":null,"det":{"korean":"'사업체나 조직이 소유한 토지와 건물' → <b>premises(부지, 구내)</b>","analysis":"✅ ④ premises: 영영 정의와 일치\n❌ ① expertise: 전문 지식\n❌ ② expansion: 확장\n❌ ③ adoption: 채택","tip":"premises = land and buildings = 부지, 구내"}},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"The technological advances made electric systems ever more __________ (afford) and reliable.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"affordable","accept":["affordable","Affordable"],"det":{"korean":"afford(동사) → <b>affordable(형용사)</b>: reliable과 병렬로 형용사 필요","analysis":"afford(동사) → affordable(형용사)\nand reliable(형용사) 병렬 → 형용사","tip":"afford → affordable — 형용사화 (-able 접미사)"}},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"Further accelerating the shift was the rapid expansion in the number of __________ (skill) electrical engineers.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"skilled","accept":["skilled","Skilled"],"det":{"korean":"skill(명사) → <b>skilled(형용사)</b>: engineers를 수식하는 형용사 필요","analysis":"skill(명사) → skilled(형용사)\n명사 engineers 수식 → 형용사","tip":"skill → skilled — 형용사화 (-ed 접미사)"}},
-{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"In 1900, at the close of the first decade in which electric systems had become a practical alternative for manufacturers, less than 5 percent of the power used in factories came from electricity. But the technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also sped the adoption of the new technology. Further accelerating the shift was the rapid expansion in the number of skilled electrical engineers, who provided the expertise needed to install and run the new systems. In short order, electric power had gone from exotic to commonplace. But one thing didn't change. Factories continued to build their own power-supply systems on their own premises. Few manufacturers considered buying electricity from the small central stations. Designed to supply lighting to local homes and shops, the central stations had neither the size nor the skill to serve the needs of big factories. And the factory owners, having always supplied their own power, were willing to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a halt — and that a lot of glitches might well mean bankruptcy. As the new century began, a survey found that there were already 50,000 private electric plants in operation, far surpassing the 3,600 central stations.","stem":"다음 글의 제목으로 가장 적절한 것은? (41번)","ans":3,"ch":["공장에서 전기 사용을 피한 방법","중앙 발전소의 기술적 우월성","전기 엔지니어의 부족 문제","민간 발전소에서 중앙 발전소로의 전환 과정"],"wa":null,"accept":null,"det":{"korean":"전기가 공장에 도입되어 50,000개 민간 발전소가 생기기까지의 과정, 중앙 발전소가 아닌 자체 전력 공급을 선호한 이유.","analysis":"✅ ⑤ 민간→중앙 전환 과정: 글 전체가 전기 도입과 민간 발전소 확산 과정\n❌ ①②③④ 부분적이거나 부정확","tip":"제목: 전기 도입 → 민간 발전소 확산 → (향후) 중앙 발전소로의 전환"}},
-{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"The technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also (a)<u>sped</u> the adoption of the new technology. Further accelerating the shift was the rapid (b)<u>expansion</u> in the number of skilled electrical engineers. (c)<u>Few</u> manufacturers considered buying electricity from the small central stations. And the factory owners, having always supplied their own power, were (d)<u>willing</u> to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a (e)<u>halt</u>.","stem":"다음 글의 밑줄 친 (a)~(e) 중에서 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은? (42번)","ans":3,"ch":["(a)","(b)","(c)","(d)"],"wa":null,"accept":null,"det":{"korean":"공장주들은 항상 자체 전력을 공급해왔기 때문에 외부인에게 핵심 기능을 맡기는 것을 <b>꺼렸다(unwilling)</b>. (d) willing(기꺼이 ~하는)은 unwilling의 반의어로 부적절.","analysis":"❌ (d) willing(기꺼이 하는): 원문 문맥상 unwilling(꺼리는)이 맞음 → 자체 전력 공급 고수\n✅ (a) sped: 촉진 → 일치\n✅ (b) expansion: 확장 → 일치\n✅ (c) Few: 거의 없는 → 일치\n✅ (e) halt: 중단 → 일치","tip":"willing(기꺼이)↔unwilling(꺼리는) — 공장주들은 외부에 맡기기를 꺼림"}}];
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"specialized knowledge or skill in a particular field\"</b>","ans":2,"ch":["halt","glitch","expertise","premises"],"wa":null,"accept":null,"det":{"korean":"'특정 분야의 전문 지식이나 기술' → <b>expertise(전문 지식/기술)</b>","analysis":"✅ ③ expertise: 영영 정의와 일치\n❌ ① halt: 중단\n❌ ② glitch: 결함\n❌ ④ premises: 부지","tip":"expertise = specialized knowledge/skill = 전문 지식"}},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"the land and buildings owned by a business or organization\"</b>","ans":3,"ch":["expertise","expansion","adoption","premises"],"wa":null,"accept":null,"det":{"korean":"'사업체나 조직이 소유한 토지와 건물' → <b>premises(부지, 구내)</b>","analysis":"✅ ④ premises: 영영 정의와 일치\n❌ ① expertise: 전문 지식\n❌ ② expansion: 확장\n❌ ③ adoption: 채택","tip":"premises = land and buildings = 부지, 구내"}},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"The technological advances made electric systems ever more __________ (afford) and reliable.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"affordable","accept":["affordable","Affordable","affordable."],"det":{"korean":"afford(동사) → <b>affordable(형용사)</b>: reliable과 병렬로 형용사 필요","analysis":"afford(동사) → affordable(형용사)\nand reliable(형용사) 병렬 → 형용사","tip":"afford → affordable — 형용사화 (-able 접미사)"}},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"Further accelerating the shift was the rapid expansion in the number of __________ (skill) electrical engineers.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"skilled","accept":["skilled","Skilled","skilled."],"det":{"korean":"skill(명사) → <b>skilled(형용사)</b>: engineers를 수식하는 형용사 필요","analysis":"skill(명사) → skilled(형용사)\n명사 engineers 수식 → 형용사","tip":"skill → skilled — 형용사화 (-ed 접미사)"}},
+{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"In 1900, at the close of the first decade in which electric systems had become a practical alternative for manufacturers, less than 5 percent of the power used in factories came from electricity. But the technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also sped the adoption of the new technology. Further accelerating the shift was the rapid expansion in the number of skilled electrical engineers, who provided the expertise needed to install and run the new systems. In short order, electric power had gone from exotic to commonplace. But one thing didn't change. Factories continued to build their own power-supply systems on their own premises. Few manufacturers considered buying electricity from the small central stations. Designed to supply lighting to local homes and shops, the central stations had neither the size nor the skill to serve the needs of big factories. And the factory owners, having always supplied their own power, were willing to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a halt — and that a lot of glitches might well mean bankruptcy. As the new century began, a survey found that there were already 50,000 private electric plants in operation, far surpassing the 3,600 central stations. __________","stem":"다음 글의 제목으로 가장 적절한 것은? (41번)","ans":3,"ch":["공장에서 전기 사용을 피한 방법","중앙 발전소의 기술적 우월성","전기 엔지니어의 부족 문제","민간 발전소에서 중앙 발전소로의 전환 과정"],"wa":null,"accept":null,"det":{"korean":"전기가 공장에 도입되어 50,000개 민간 발전소가 생기기까지의 과정, 중앙 발전소가 아닌 자체 전력 공급을 선호한 이유.","analysis":"✅ ⑤ 민간→중앙 전환 과정: 글 전체가 전기 도입과 민간 발전소 확산 과정\n❌ ①②③④ 부분적이거나 부정확","tip":"제목: 전기 도입 → 민간 발전소 확산 → (향후) 중앙 발전소로의 전환"}},
+{"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"The technological advances of suppliers made electric systems and electric motors ever more affordable and reliable, and the suppliers' intensive marketing programs also (a)<u>sped</u> the adoption of the new technology. Further accelerating the shift was the rapid (b)<u>expansion</u> in the number of skilled electrical engineers. (c)<u>Few</u> manufacturers considered buying electricity from the small central stations. And the factory owners, having always supplied their own power, were __________<u>willing</u> to assign such a critical function to an outsider. They knew that a glitch in power supply would bring their operations to a (e)<u>halt</u>.","stem":"다음 글의 밑줄 친 (a)~(e) 중에서 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은? (42번)","ans":3,"ch":["(a)","(b)","(c)","(d)"],"wa":null,"accept":null,"det":{"korean":"공장주들은 항상 자체 전력을 공급해왔기 때문에 외부인에게 핵심 기능을 맡기는 것을 <b>꺼렸다(unwilling)</b>. (d) willing(기꺼이 ~하는)은 unwilling의 반의어로 부적절.","analysis":"❌ (d) willing(기꺼이 하는): 원문 문맥상 unwilling(꺼리는)이 맞음 → 자체 전력 공급 고수\n✅ (a) sped: 촉진 → 일치\n✅ (b) expansion: 확장 → 일치\n✅ (c) Few: 거의 없는 → 일치\n✅ (e) halt: 중단 → 일치","tip":"willing(기꺼이)↔unwilling(꺼리는) — 공장주들은 외부에 맡기기를 꺼림"}}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

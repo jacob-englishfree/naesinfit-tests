@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,11 +210,11 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"To reserve your space, please visit our website and complete a __________ form by April 20. The rental fee is $50.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"공간 예약을 위해 <b>등록(registration)</b> 양식을 작성하라.","analysis":"✅ ① registration(등록): 등록 양식 작성 → 원문 일치\n❌ ② resignation(사직): 완전히 다른 의미\n❌ ③ reservation(예약): reservation form도 가능하나 원문은 registration\n❌ ④ recommendation(추천): 문맥과 무관\n❌ ⑤ regulation(규정): 문맥과 무관","tip":"registration form = 등록 양식 | resignation = 사직 | reservation = 예약"},"ans":0,"ch":["registration","resignation","reservation","recommendation"]},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"We hope to see you at the <u>fair</u>.","stem":"밑줄 친 <b>fair</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"Crafts Fair = 공예 <b>박람회</b> → fair = 박람회","analysis":"✅ ③ 박람회: Crafts Fair 문맥에서 박람회\n❌ ① 양탄자: 무관\n❌ ② 공정한: 형용사 의미\n❌ ④ 시장: market의 의미\n❌ ⑤ 요금: fare와 혼동 주의","tip":"fair: 박람회(명사) | 공정한(형용사) | 금발의(형용사)"},"ans":2,"ch":["양탄자","공정한","박람회","시장"]},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"The Greenville Community Center is providing booth <u>spaces</u> to rent.","stem":"밑줄 친 <b>spaces</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"booth spaces = 부스 <b>장소/공간</b>","analysis":"✅ ③ 장소, 공간: 부스를 설치할 물리적 공간\n❌ ① 공간, 우주: outer space\n❌ ② 여유: space to breathe\n❌ ④ 간격: spacing\n❌ ⑤ 빈칸: blank space","tip":"space: 장소/공간(구체적) | 우주(추상적) | 여유 | 간격"},"ans":2,"ch":["공간, 우주","여유","장소, 공간","간격"]},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to support upcoming activities throughout the year. We expect all available spaces to be fully booked soon, so don’t get left out. We hope to see you at the fair.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"occurring once every year\"</b>","det":{"korean":"'매년 한 번 일어나는' → <b>annual(연례의)</b>","analysis":"✅ ③ annual: 영영 정의와 정확히 일치\n❌ ① complete: 완성하다\n❌ ② upcoming: 다가오는\n❌ ④ previous: 이전의\n❌ ⑤ rental: 대여의","tip":"annual = occurring once every year = 연례의, 매년의"},"ans":2,"ch":["complete","upcoming","annual","previous"]},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to support upcoming activities throughout the year. We expect all available spaces to be fully booked soon, so don’t get left out. We hope to see you at the fair.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"happening or appearing soon; forthcoming\"</b>","det":{"korean":"'곧 일어나는; 다가오는' → <b>upcoming(다가오는)</b>","analysis":"✅ ④ upcoming: 영영 정의와 일치\n❌ ① annual: 연례의\n❌ ② registration: 등록\n❌ ③ rental: 대여의\n❌ ⑤ previous: 이전의","tip":"upcoming = forthcoming = approaching = 다가오는, 곧 있을"},"ans":3,"ch":["annual","registration","rental","upcoming"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"To reserve your space, please visit our website and complete a __________ (register) form by April 20.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"register(동사) → <b>registration(명사)</b>: form을 수식하는 명사 필요 (명사+명사 복합어)","analysis":"register(동사) → registration(명사)\na registration form = 등록 양식 → 명사+명사 복합어","tip":"register → registration / celebrate → celebration — -er → -ration 명사화"},"wa":"registration","accept":["registration","Registration"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"We expect all __________ (avail) spaces to be fully booked soon, so don’t get left out.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"avail(동사/명사) → <b>available(형용사)</b>: spaces를 수식하는 형용사 필요","analysis":"avail(동사/명사) → available(형용사)\nall available spaces = 모든 이용 가능한 공간","tip":"avail → available / rely → reliable — 형용사화"},"wa":"available","accept":["available","Available"]},
-{"passage":FULL_PASSAGE,"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 목적으로 가장 적절한 것은?","det":{"korean":"Greenville 커뮤니티 센터가 공예 박람회 <b>부스 공간 대여 예약을 안내</b>하는 글이다.","analysis":"✅ ② 공예품 박람회의 부스 예약을 안내하려고: booth spaces to rent, reserve, registration form 등의 표현\n❌ ① 후원 요청: 대여료가 활동 지원에 쓰이지만, 후원 요청이 목적은 아님\n❌ ③ 반환 방법: 언급 없음\n❌ ④ 물품 홍보: 물품 홍보가 아닌 공간 대여 안내\n❌ ⑤ 일정 변경: 변경이 아닌 새 안내","tip":"글의 목적: providing booth spaces to rent + reserve your space + registration form → 부스 예약 안내"},"ans":1,"ch":["지역 예술가를 위한 정기 후원을 요청하려고","공예품 박람회의 부스 예약을 안내하려고","대여 물품의 반환 방법을 설명하려고","지역 예술가가 만든 물품을 홍보하려고"]},
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"occurring once every year\"</b>","det":{"korean":"'매년 한 번 일어나는' → <b>annual(연례의)</b>","analysis":"✅ ③ annual: 영영 정의와 정확히 일치\n❌ ① complete: 완성하다\n❌ ② upcoming: 다가오는\n❌ ④ previous: 이전의\n❌ ⑤ rental: 대여의","tip":"annual = occurring once every year = 연례의, 매년의"},"ans":2,"ch":["complete","upcoming","annual","previous"]},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"happening or appearing soon; forthcoming\"</b>","det":{"korean":"'곧 일어나는; 다가오는' → <b>upcoming(다가오는)</b>","analysis":"✅ ④ upcoming: 영영 정의와 일치\n❌ ① annual: 연례의\n❌ ② registration: 등록\n❌ ③ rental: 대여의\n❌ ⑤ previous: 이전의","tip":"upcoming = forthcoming = approaching = 다가오는, 곧 있을"},"ans":3,"ch":["annual","registration","rental","upcoming"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"To reserve your space, please visit our website and complete a __________ (register) form by April 20.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"register(동사) → <b>registration(명사)</b>: form을 수식하는 명사 필요 (명사+명사 복합어)","analysis":"register(동사) → registration(명사)\na registration form = 등록 양식 → 명사+명사 복합어","tip":"register → registration / celebrate → celebration — -er → -ration 명사화"},"wa":"registration","accept":["registration","Registration","registration."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"We expect all __________ (avail) spaces to be fully booked soon, so don’t get left out.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"avail(동사/명사) → <b>available(형용사)</b>: spaces를 수식하는 형용사 필요","analysis":"avail(동사/명사) → available(형용사)\nall available spaces = 모든 이용 가능한 공간","tip":"avail → available / rely → reliable — 형용사화"},"wa":"available","accept":["available","Available","available."]},
+{"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"__FULL__ __________","stem":"다음 글의 목적으로 가장 적절한 것은?","det":{"korean":"Greenville 커뮤니티 센터가 공예 박람회 <b>부스 공간 대여 예약을 안내</b>하는 글이다.","analysis":"✅ ② 공예품 박람회의 부스 예약을 안내하려고: booth spaces to rent, reserve, registration form 등의 표현\n❌ ① 후원 요청: 대여료가 활동 지원에 쓰이지만, 후원 요청이 목적은 아님\n❌ ③ 반환 방법: 언급 없음\n❌ ④ 물품 홍보: 물품 홍보가 아닌 공간 대여 안내\n❌ ⑤ 일정 변경: 변경이 아닌 새 안내","tip":"글의 목적: providing booth spaces to rent + reserve your space + registration form → 부스 예약 안내"},"ans":1,"ch":["지역 예술가를 위한 정기 후원을 요청하려고","공예품 박람회의 부스 예약을 안내하려고","대여 물품의 반환 방법을 설명하려고","지역 예술가가 만든 물품을 홍보하려고"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to __________ upcoming activities throughout the year. We expect all available spaces to be fully booked soon, so don’t get left out. We hope to see you at the fair.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"대여료는 연중 다가오는 활동을 <b>지원(support)</b>하는 데 사용된다.","analysis":"✅ ② support(지원하다): 대여료 → 활동 지원 → 자연스러운 연결\n❌ ① replace(대체하다): 문맥과 무관\n❌ ③ reduce(줄이다): 문맥과 반대\n❌ ④ eliminate(제거하다): 문맥과 반대\n❌ ⑤ delay(지연시키다): 문맥과 반대","tip":"goes to support = ~을 지원하는 데 사용되다 → 대여료의 사용 목적"},"ans":1,"ch":["replace","support","reduce","eliminate"]}];
 
 /* NaesinFit Test Engine v1.0
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

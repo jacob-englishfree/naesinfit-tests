@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"어순배열","diff":"쉬움","pts":4,"fmt":"mc","passa
 {"id":14,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"As in nearly every other area of human life, whatever special rights fans may possess are __________ by a corresponding set of obligations, and fans who never think about how they can be better fans even as they confidently opine about what athletes owe them are hardly fulfilling their end of the bargain.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["limited","expanded","eliminated","guaranteed"],"wa":null,"accept":null,"det":{"korean":"팬이 가진 특별한 권리는 상응하는 의무에 의해 <b>제한된다(limited)</b>.","analysis":"✅ ① limited(제한된): 권리가 의무에 의해 제한된다는 핵심 논지\n❌ ② expanded(확장된): 반의어\n❌ ③ eliminated(제거된): 너무 극단적\n❌ ④ guaranteed(보장된): 문맥과 반대","tip":"rights are limited by obligations = 권리는 의무에 의해 제한된다"}},
 {"id":15,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","passage":"Fans should think about what they <u>owe</u> to athletes.","stem":"밑줄 친 <b>owe</b>의 문맥적 의미로 가장 적절한 것은?","ans":0,"ch":["빚지다, ~해야 하다","소유하다","감사하다","원인이다"],"wa":null,"accept":null,"det":{"korean":"owe to athletes = 선수에게 <b>빚지다/해야 할 것이 있다</b>","analysis":"✅ ① 빚지다, ~해야 하다: owe + to + 사람 = ~에게 해야 할 것이 있다\n❌ ② 소유하다: own과 혼동\n❌ ③ 감사하다: owe thanks의 축약이나 여기서는 의무\n❌ ④ 원인이다: owe ~ to ~의 다른 용법","tip":"owe + 의무/빚 + to 사람 = ~에게 ~을 빚지다/해야 하다 | owe ~ to ~ = ~의 덕분이다"}},
 {"id":16,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","passage":"Fans are hardly fulfilling their end of the <u>bargain</u>.","stem":"밑줄 친 <b>bargain</b>의 문맥적 의미로 가장 적절한 것은?","ans":2,"ch":["거래, 할인","협상하다","합의, 약속","싸게 산 물건"],"wa":null,"accept":null,"det":{"korean":"end of the bargain = <b>합의/약속</b>에서의 자기 몫","analysis":"✅ ③ 합의, 약속: \"one's end of the bargain\" = 합의에서 자기 몫\n❌ ① 거래, 할인: 쇼핑 맥락\n❌ ② 협상하다: 동사적 의미\n❌ ④ 싸게 산 물건: 쇼핑 맥락","tip":"bargain: 합의/약속(one's end of the bargain) | 할인(a real bargain) | 협상하다(bargain with)"}},
-{"id":17,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Fans who are inclined to spend a lot of time thinking about what athletes owe them as fans should also think about the corresponding __________ (oblige) that fans might have as fans.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"obligations","accept":["obligations","Obligations"],"det":{"korean":"oblige(동사) → <b>obligations(명사, 복수)</b>: the corresponding + 명사 구조, 복수형 의무","analysis":"oblige(동사) → obligation(명사) → obligations(복수)\n\"corresponding obligations\" = 상응하는 의무들","tip":"oblige → obligation(s) / regulate → regulation(s) — 동사 → 명사화 + 복수"}},
-{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the __________ (credible) of commitments.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"credibility","accept":["credibility","Credibility"],"det":{"korean":"credible(형용사) → <b>credibility(명사)</b>: the + 명사 + of 구조에서 명사가 필요","analysis":"credible(형용사) → credibility(명사)\nthe ______ of commitments → 관사 the 뒤에 명사 필요","tip":"credible → credibility / visible → visibility — -ible → -ibility 명사화 패턴"}},
+{"id":17,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Fans who are inclined to spend a lot of time thinking about what athletes owe them as fans should also think about the corresponding __________ (oblige) that fans might have as fans.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"obligations","accept":["obligations","Obligations","obligations."],"det":{"korean":"oblige(동사) → <b>obligations(명사, 복수)</b>: the corresponding + 명사 구조, 복수형 의무","analysis":"oblige(동사) → obligation(명사) → obligations(복수)\n\"corresponding obligations\" = 상응하는 의무들","tip":"oblige → obligation(s) / regulate → regulation(s) — 동사 → 명사화 + 복수"}},
+{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the __________ (credible) of commitments.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"credibility","accept":["credibility","Credibility","credibility."],"det":{"korean":"credible(형용사) → <b>credibility(명사)</b>: the + 명사 + of 구조에서 명사가 필요","analysis":"credible(형용사) → credibility(명사)\nthe ______ of commitments → 관사 the 뒤에 명사 필요","tip":"credible → credibility / visible → visibility — -ible → -ibility 명사화 패턴"}},
 {"id":19,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","passage":"Fans who are inclined to spend a lot of time thinking about what athletes owe them as fans should also think about the corresponding obligations that fans might have as fans. One who thinks only about what they are entitled to receive from their friends without ever giving a moment’s thought to what they owe their friends is, to put it mildly, not a very good friend. Similarly, fans who only think about what athletes owe them without ever thinking about what they owe to athletes have failed to take the fan/athlete relationship all that seriously. As in nearly every other area of human life, whatever special rights fans may possess are limited by a corresponding set of obligations, and fans who never think about how they can be better fans even as they confidently opine about what athletes owe them are hardly fulfilling their end of the bargain.","stem":"다음 글에서 필자가 주장하는 바로 가장 적절한 것은?","ans":2,"ch":["팬과 선수는 승리를 위해 동반자 관계를 유지해야 한다.","팬은 팀의 경기 결과보다 자기의 삶에 더 집중해야 한다.","팬은 선수에게 요구하는 만큼 자신의 의무도 고민해야 한다.","선수는 팬의 기대를 충족시키기 위해 경기력을 향상해야 한다."],"wa":null,"accept":null,"det":{"korean":"선수에게 요구만 하지 말고, 팬으로서 <b>자신의 의무도 고민해야 한다</b>는 것이 핵심 주장.","analysis":"✅ ③ 팬은 선수에게 요구하는 만큼 자신의 의무도 고민해야 한다: \"corresponding obligations\" + \"fulfilling their end of the bargain\"\n❌ ① 동반자 관계: 언급 없음\n❌ ② 삶에 집중: 주제와 다름\n❌ ④ 경기력 향상: 선수 관점이 아님\n❌ ⑤ 적극적 소통: 언급 없음","tip":"핵심 주장: 권리에는 상응하는 의무가 따른다 → 팬도 자신의 의무를 다해야 한다"}},
 {"id":20,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","passage":"Fans who are inclined to spend a lot of time thinking about what athletes owe them as fans should also think about the corresponding obligations that fans might have as fans. One who thinks only about what they are entitled to receive from their friends without ever giving a moment’s thought to what they owe their friends is, to put it mildly, not a very good friend. Similarly, fans who only think about what athletes owe them without ever thinking about what they owe to athletes have failed to take the fan/athlete relationship all that seriously. As in nearly every other area of human life, whatever special rights fans may possess are limited by a corresponding set of obligations, and fans who never think about how they can be better fans even as they confidently opine about what athletes owe them are hardly fulfilling their end of the bargain.","stem":"다음 글의 요지로 가장 적절한 것은?","ans":1,"ch":["팬의 권리는 무제한적이므로 선수에게 많은 것을 요구할 수 있다.","팬의 권리에는 상응하는 의무가 따르므로 팬도 자신의 몫을 다해야 한다.","선수는 팬의 기대에 항상 부응해야 할 의무가 있다.","팬과 선수의 관계는 친구 관계와 본질적으로 다르다."],"wa":null,"accept":null,"det":{"korean":"팬의 특별한 권리는 상응하는 의무에 의해 제한되며, 팬도 <b>자신의 몫을 다해야 한다</b>.","analysis":"✅ ② 팬의 권리에는 상응하는 의무가 따르므로 팬도 자신의 몫을 다해야 한다: 글 전체 논지\n❌ ① 무제한적 권리: \"limited by obligations\"와 반대\n❌ ③ 선수 의무: 글은 팬의 의무를 강조\n❌ ④ 본질적으로 다름: 친구 관계와 비교하여 유사성 강조\n❌ ⑤ 경기에서 최선: 선수 관점이 아님","tip":"요지 = 주장의 핵심: rights are limited by obligations + fulfilling their end of the bargain"}}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

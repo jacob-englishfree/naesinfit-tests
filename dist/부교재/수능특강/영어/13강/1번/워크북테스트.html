@@ -199,7 +199,7 @@ const FULL_PASSAGE="In the Physics, Aristotle asks whether nature acts for the s
 const Q=[{"id":1,"type":"어법","diff":"보통","pts":5,"fmt":"mc","passage":"He rejects that possibility, because this arrangement occurs with regularity and that regularity is <b>________</b> to purposefulness.","stem":"다음 글의 빈칸에 들어갈 어법상 가장 적절한 것은?","det":{"korean":"'is linked to'의 수동태 구문으로, 과거분사 <b>linked</b>가 적절합니다.","analysis":"✅ ① linked: be + p.p. 수동태\n❌ ② linking: 능동 진행\n❌ ③ link: 원형\n❌ ④ to link: to부정사\n❌ ⑤ links: 3인칭 단수 현재","tip":"be linked to = ~와 연결되다 (수동태 표현)"},"ans":0,"ch":["linked","linking","link","to link"]},
 {"passage":FULL_PASSAGE,"id":2,"type":"내용일치","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 내용과 일치하는 것은?","det":{"korean":"아리스토텔레스의 관점에서 모든 자연적인 것은 일정한 방식으로 발생하며, 무엇인가를 위해(for the sake of something) 일어난다고 합니다.","analysis":"✅ ④ 모든 자연적 것은 목적을 위해 발생: 원문 마지막 문장 일치\n❌ ① 비 설명에 관심 없음(not particularly concerned)\n❌ ② 우연을 거부(rejects that possibility)\n❌ ③ 규칙적으로 발생(with regularity)\n❌ ⑤ 규칙성을 인정","tip":"final cause(최종 원인) = 아리스토텔레스 목적론의 핵심 개념"},"ans":3,"ch":["아리스토텔레스는 비가 내리는 현상을 설명하는 데 주로 관심이 있었다.","앞니의 날카로움과 어금니의 뭉툭함은 우연의 일치이다.","자연의 모든 것은 무작위로 발생한다.","아리스토텔레스의 관점에서 모든 자연적인 것은 무엇인가를 위해 발생한다."]},
 {"id":3,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"__FULL__ __________","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"앞니와 어금니의 배열이 규칙적이며, 그 규칙성이 목적성과 연결된다는 내용입니다. 정답: ④ purposefulness","analysis":"✅ ④ purposefulness(목적성)\n❌ ① swiftness(신속성)\n❌ ② creativity(창의성)\n❌ ③ originality(독창성)\n❌ ⑤ beauty(아름다움)","tip":"regularity → purposefulness → final cause: 아리스토텔레스 논증 흐름"},"ans":3,"ch":["swiftness","creativity","originality","purposefulness"]},
-{"id":4,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"this arrangement occurs with regularity and that regularity is linked to ____________________.","stem":"EX01 지문의 빈칸에 들어갈 단어를 영어로 쓰시오.","det":{"korean":"이러한 배열은 규칙성을 가지고 발생하며, 그 규칙성은 <b>목적성(purposefulness)</b>과 연결됩니다.","analysis":"regularity → linked to → 목적성(purposefulness)\n아리스토텔레스: 자연의 규칙성 = 목적이 있음","tip":"purposefulness: purpose(목적) + -ful + -ness 파생어"},"wa":"purposefulness","accept":["purposefulness","Purposefulness","PURPOSEFULNESS"]}];
+{"id":4,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"this arrangement occurs with regularity and that regularity is linked to ____________________.","stem":"EX01 지문의 빈칸에 들어갈 단어를 영어로 쓰시오.","det":{"korean":"이러한 배열은 규칙성을 가지고 발생하며, 그 규칙성은 <b>목적성(purposefulness)</b>과 연결됩니다.","analysis":"regularity → linked to → 목적성(purposefulness)\n아리스토텔레스: 자연의 규칙성 = 목적이 있음","tip":"purposefulness: purpose(목적) + -ful + -ness 파생어"},"wa":"purposefulness","accept":["purposefulness","Purposefulness","PURPOSEFULNESS","purposefulness."]}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -242,19 +242,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

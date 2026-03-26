@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the chemical processes in a living organism by which food is used for energy and growth\"</b>","det":{"korean":"<b>metabolism(신진대사)</b>: 음식이 에너지와 성장에 사용되는 화학적 과정.","analysis":"✅③ metabolism: 신진대사\n❌① nutrition: 영양\n❌④ digestion: 소화","tip":"metabolism = 신진대사"},"ans":2,"ch":["nutrition","evolution","metabolism","digestion"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a person who is among the first to explore or develop a new area of knowledge or activity\"</b>","det":{"korean":"<b>pioneer(선구자)</b>: 새로운 지식이나 활동 분야를 처음 개척하는 사람.","analysis":"✅② pioneer: 선구자\n❌① follower: 추종자\n❌③ successor: 후임자","tip":"pioneer = 선구자, 개척자"},"ans":1,"ch":["follower","pioneer","successor","imitator"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"after a particular thing has happened; afterwards\"</b>","det":{"korean":"<b>subsequently(이후에)</b>: 특정 일이 발생한 후에.","analysis":"✅① subsequently: 이후에\n❌② previously: 이전에\n❌③ initially: 처음에","tip":"subsequently = afterwards = later (이후에)"},"ans":0,"ch":["subsequently","previously","initially","simultaneously"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Kleiber's book, The Fire of Life, was published in 1961 and __________ (subsequent) translated into German, Polish, Spanish, and Japanese.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"subsequent(형용사) → subsequently(부사). translated를 수식.","analysis":"subsequent → subsequently: 형용사 → 부사. 동사 translated를 수식하려면 부사가 필요.","tip":"subsequently = 이후에, 나중에 (부사)"},"wa":"subsequently","accept":["subsequently","Subsequently"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Kleiber was an outstanding teacher __________ (______(______ity)ity) with undergraduates and graduate students alike.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"popularity(명사) → popular(형용사). teacher를 후치 수식.","analysis":"popularity → popular: 명사 → 형용사. teacher popular with = ~에게 인기 있는 교수.","tip":"popular with = ~에게 인기 있는 (형용사)"},"wa":"popular","accept":["popular","Popular"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Kleiber's book, The Fire of Life, was published in 1961 and __________ (subsequent) translated into German, Polish, Spanish, and Japanese.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"subsequent(형용사) → subsequently(부사). translated를 수식.","analysis":"subsequent → subsequently: 형용사 → 부사. 동사 translated를 수식하려면 부사가 필요.","tip":"subsequently = 이후에, 나중에 (부사)"},"wa":"subsequently","accept":["subsequently","Subsequently","subsequently."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Kleiber was an outstanding teacher __________ (______(______ity)ity) with undergraduates and graduate students alike.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"popularity(명사) → popular(형용사). teacher를 후치 수식.","analysis":"popularity → popular: 명사 → 형용사. teacher popular with = ~에게 인기 있는 교수.","tip":"popular with = ~에게 인기 있는 (형용사)"},"wa":"popular","accept":["popular","Popular","popular."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Max Kleiber was best known for his research on animal nutrition and __________. He came to UC Davis in 1929 to conduct research on energy __________ in animals.","stem":"다음 빈칸에 공통으로 들어갈 말로 가장 적절한 것은?","det":{"korean":"동물 영양과 신진대사(metabolism). 에너지 신진대사 연구.","analysis":"✅④ metabolism: animal nutrition and metabolism / energy metabolism\n❌① physics: 물리학\n❌② chemistry: 화학","tip":"metabolism = 신진대사"},"ans":3,"ch":["physics","chemistry","biology","metabolism"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Before his death, a new classroom building at UC Davis was named Kleiber Hall in his __________. He was truly __________ by the academic community.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"그의 명예를 기려(in his honor). 학계에서 존경(honored)받았다.","analysis":"✅③ honored: in his honor + honored by 모두 적합\n❌① disliked: 존경 문맥과 반대\n❌④ forgotten: 건물 명명과 모순","tip":"in one's honor = ~의 명예를 기려"},"ans":2,"ch":["disliked","feared","honored","forgotten"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

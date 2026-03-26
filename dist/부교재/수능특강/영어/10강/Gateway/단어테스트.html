@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"something submitted for a competition or contest\"</b>","det":{"korean":"<b>entry(출품작)</b>: 대회에 제출하는 것.","analysis":"✅② entry: 출품작\n❌① deadline: 마감일","tip":"entry = 출품작, 참가작"},"ans":1,"ch":["deadline","entry","suitability","description"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the quality of being right or appropriate for a particular purpose or situation\"</b>","det":{"korean":"영영 정의에 해당하는 단어는 <b>suitability</b>이다.","analysis":"❌ ① deadline: 정의와 의미가 다름<br>❌ ② entry: 정의와 의미가 다름<br>✅ ③ suitability: 제시된 영영 정의에 부합<br>❌ ④ description: 정의와 의미가 다름<br>❌ ⑤ creativity: 정의와 의미가 다름","tip":"영영풀이 — 영영사전 정의의 핵심 키워드를 파악하고, 각 선택지의 뜻과 대조하세요."},"ans":2,"ch":["deadline","entry","suitability","description"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"using radio waves or other signals rather than wires to transmit information\"</b>","det":{"korean":"<b>wireless(무선의)</b>: 전선 대신 전파를 이용하는.","analysis":"✅① wireless: 무선의\n❌② wired: 유선의(반의어)","tip":"wireless = 무선의"},"ans":0,"ch":["wireless","wired","digital","analog"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Three school bell sounds will be selected by student vote, based on __________ (creative) and suitability.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"creative(형용사) → creativity(명사).","analysis":"creative → creativity: 형용사 → 명사. based on + 명사.","tip":"creative(형) → creativity(명) = 창의성"},"wa":"creativity","accept":["creativity","Creativity"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Include the __________ (describe) of the sound creation process.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"describe(동사) → description(명사). the + 명사.","analysis":"describe → description: 동사 → 명사.","tip":"describe(동) → description(명) = 설명"},"wa":"description","accept":["description","Description"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Three school bell sounds will be selected by student vote, based on __________ (creative) and suitability.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"creative(형용사) → creativity(명사).","analysis":"creative → creativity: 형용사 → 명사. based on + 명사.","tip":"creative(형) → creativity(명) = 창의성"},"wa":"creativity","accept":["creativity","Creativity","creativity."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Include the __________ (describe) of the sound creation process.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"describe(동사) → description(명사). the + 명사.","analysis":"describe → description: 동사 → 명사.","tip":"describe(동) → description(명) = 설명"},"wa":"description","accept":["description","Description","description."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Three school bell sounds will be selected by student vote, based on __________ and suitability.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"<b>창의성(creativity)</b>과 적합성.","analysis":"✅② creativity\n❌① popularity: 인기\n❌③ difficulty: 난이도","tip":"creativity = 창의성"},"ans":1,"ch":["popularity","creativity","difficulty","length"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Wakeville High School is holding a school bell sound __________. The theme is Happy School Life.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>contest</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"✅ ① contest: 문맥의 흐름과 논리에 부합<br>❌ ② concert: 문맥의 흐름에 맞지 않음<br>❌ ③ conference: 문맥의 흐름에 맞지 않음<br>❌ ④ ceremony: 문맥의 흐름에 맞지 않음<br>❌ ⑤ celebration: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":0,"ch":["contest","concert","conference","ceremony"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

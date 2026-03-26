@@ -198,7 +198,7 @@ const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson
 const FULL_PASSAGE="AI is a prolific idea generator. Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity. As Linus Pauling put it, \"The best way to have a good idea is to have lots of ideas.\" Psychologist Dean Keith Simonton called this the \"equal odds rule\" arguing that creative success is correlated to the total number of works created. Many studies have confirmed that creative quality comes from quantity of ideas (what Bob Sutton at a design and innovation consulting company called \"idea ratio\"), and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand. This is why design thinking and innovation are so focused on the processes (what Utley and Klebahn call \"idea flow\") of ____________________.<br><br>* prolific: 많이 만들어 내는, 다작의  ** peg: 못박다";
 const Q=[{"id":1,"type":"어순배열","diff":"보통","pts":5,"fmt":"mc","passage":"AI is a prolific idea generator.\n\n(A) Psychologist Dean Keith Simonton called this the \"equal odds rule\" arguing that creative success is correlated to the total number of works created.\n(B) Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity.\n(C) Many studies have confirmed that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand.","stem":"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?","det":{"korean":"첫 문장(AI는 다작의 아이디어 생성기) → (B) 인간 그룹은 질에 초점, 하지만 양이 중요 → (A) Simonton의 \"equal odds rule\" → (C) 많은 연구가 확인, Stanford 연구","analysis":"(B): AI와 대비되는 인간의 경향 + 양의 중요성 제시\n(A): \"this\"가 (B)의 양 우선 원칙을 지칭\n(C): 연구 결과로 (A)의 주장 뒷받침","tip":"지시어 this(A)가 (B)의 내용을 받으므로 B→A 순서 확정"},"ans":2,"ch":["(A)-(B)-(C)","(A)-(C)-(B)","(B)-(A)-(C)","(B)-(C)-(A)"]},
 {"id":2,"type":"어법 5지선다","diff":"보통","pts":5,"fmt":"mc","passage":"AI is a ①<u>prolific</u> idea generator. Good ideas are more ②<u>likely</u> when groups focus first on quantity. Creative success is ③<u>correlated</u> to the total number of works created. Many studies have ④<u>confirmed</u> that creative quality comes from quantity of ideas, and one Stanford study pegged the number of ideas that ⑤<u>distinguish</u> a successful product from a failure at more than two thousand.","stem":"밑줄 친 부분 중, 어법상 틀린 것은?","det":{"korean":"⑤ distinguish → <b>distinguished</b> 또는 그대로 올바름. 사실 관계대명사 that의 선행사가 ideas(복수)이므로 distinguish는 올바른 복수 동사입니다. 하지만 the number of ideas가 선행사이고 ideas를 수식하는 관계절이라면 ideas(복수)에 distinguish(복수)가 맞습니다.","analysis":"① prolific: 형용사 (올바름)\n② likely: 형용사 보어 (올바름)\n③ correlated: is correlated to 수동태 (올바름)\n④ confirmed: have confirmed 현재완료 (올바름)\n⑤ distinguish: ideas that distinguish... 복수주어+복수동사 (올바름)\n→ 모두 올바르므로 함정 문제. 가장 혼동 가능: ⑤","tip":"the number of ideas that distinguish: that의 선행사는 ideas(복수)이므로 복수동사 distinguish가 올바릅니다."},"ans":3,"ch":["① prolific","② likely","③ correlated","⑤ distinguish"]},
-{"id":3,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"design thinking and innovation are so focused on the processes (what Utley and Klebahn call \"idea flow\") of ____________________.","stem":"EX02 지문의 빈칸에 들어갈 표현을 영어로 쓰시오.","det":{"korean":"<b>판단 없이 가능성을 만들어 내는(creating possibilities without judgment)</b>","analysis":"idea flow = creating possibilities without judgment","tip":"핵심: without judgment(판단 없이)"},"wa":"creating possibilities without judgment","accept":["creating possibilities without judgment","Creating possibilities without judgment"]},
+{"id":3,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"design thinking and innovation are so focused on the processes (what Utley and Klebahn call \"idea flow\") of ____________________.","stem":"EX02 지문의 빈칸에 들어갈 표현을 영어로 쓰시오.","det":{"korean":"<b>판단 없이 가능성을 만들어 내는(creating possibilities without judgment)</b>","analysis":"idea flow = creating possibilities without judgment","tip":"핵심: without judgment(판단 없이)"},"wa":"creating possibilities without judgment","accept":["creating possibilities without judgment","Creating possibilities without judgment","creating possibilities without judgment."]},
 {"passage":FULL_PASSAGE,"id":4,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n<b>\"Dean Keith Simonton은 창의적 성공이 만들어진 작품의 총 수와 상관관계가 있다고 주장했다.\"</b>","det":{"korean":"원문: Simonton called this the \"equal odds rule\" arguing that creative success is correlated to the total number of works created → <b>일치(T)</b>","analysis":"T: 원문에 명시적으로 기술됨\ncorrelated to the total number of works created","tip":"equal odds rule = 동등한 확률 법칙: 작품 수 ↔ 창의적 성공 상관관계"},"ans":0,"ch":["T","False","③ 해당 없음","④ 위 모두 해당"]}];
 
 /* NaesinFit Test Engine v1.0
@@ -242,19 +242,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

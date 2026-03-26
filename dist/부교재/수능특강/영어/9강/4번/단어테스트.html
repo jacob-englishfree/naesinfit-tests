@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a person who carries messages, documents, or packages\"</b>","det":{"korean":"<b>courier(전령)</b>: 메시지, 문서, 소포를 운반하는 사람.","analysis":"✅① courier: 전령\n❌② soldier: 군인\n❌④ merchant: 상인","tip":"courier = 전령, 배달원"},"ans":0,"ch":["courier","soldier","diplomat","merchant"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a strong feeling of sympathy and sadness for the suffering of others and a wish to help them\"</b>","det":{"korean":"<b>compassion(연민)</b>: 다른 사람의 고통에 대한 강한 동정과 도움 의지.","analysis":"✅③ compassion: 연민\n❌① justice: 정의\n❌⑤ bravery: 용기","tip":"compassion = 연민, 동정심"},"ans":2,"ch":["justice","freedom","compassion","equality"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"something left behind by a person after their death, especially positive achievements or qualities\"</b>","det":{"korean":"<b>legacy(유산)</b>: 사망 후 남겨진 것, 특히 긍정적 업적이나 덕목.","analysis":"✅② legacy: 유산\n❌① heritage: 문화유산\n❌④ inheritance: 상속재산","tip":"legacy = 유산 (업적/덕목의 유산)"},"ans":1,"ch":["heritage","legacy","tradition","inheritance"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"particularly influenced by the __________ (discriminate) faced by his Jewish friends.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"discriminate(동사) → discrimination(명사). the + 명사 자리.","analysis":"discriminate → discrimination: 동사 → 명사","tip":"discrimination = 차별"},"wa":"discrimination","accept":["discrimination","Discrimination"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"he dedicated himself to improving healthcare access in __________ (underserve) communities.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"underserve → underserved(형용사). communities를 수식.","analysis":"underserve → underserved: 과거분사 형용사. 소외된 지역사회.","tip":"underserved = 충분한 서비스를 받지 못하는 (소외된)"},"wa":"underserved","accept":["underserved","Underserved"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"particularly influenced by the __________ (discriminate) faced by his Jewish friends.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"discriminate(동사) → discrimination(명사). the + 명사 자리.","analysis":"discriminate → discrimination: 동사 → 명사","tip":"discrimination = 차별"},"wa":"discrimination","accept":["discrimination","Discrimination","discrimination."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"he dedicated himself to improving healthcare access in __________ (underserve) communities.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"underserve → underserved(형용사). communities를 수식.","analysis":"underserve → underserved: 과거분사 형용사. 소외된 지역사회.","tip":"underserved = 충분한 서비스를 받지 못하는 (소외된)"},"wa":"underserved","accept":["underserved","Underserved","underserved."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Raised in a Catholic environment, he grew up valuing __________ and justice, particularly influenced by the discrimination faced by his Jewish friends.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"<b>연민(compassion)</b>과 정의를 소중히 여기며 자랐다.","analysis":"✅② compassion: 연민\n❌① curiosity: 호기심\n❌③ ambition: 야망","tip":"compassion = 연민, 동정심"},"ans":1,"ch":["curiosity","compassion","ambition","discipline"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"He also risked his life by __________ Jewish individuals in his home.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"유대인을 자신의 집에서 <b>보호(sheltering)</b>하며 목숨을 걸었다.","analysis":"✅③ sheltering: 보호하다\n❌④ exposing: 노출하다(반의어)\n❌⑤ reporting: 신고하다(반의어)","tip":"sheltering = 보호하다, 피난처를 제공하다"},"ans":2,"ch":["abandoning","opposing","sheltering","exposing"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

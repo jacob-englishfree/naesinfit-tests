@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"반의어 고르기","diff":"어려움","pts":6,"fmt":"mc","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But <u>suddenly</u>, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"밑줄 친 <b>suddenly</b>의 의미와 가장 <b>먼</b> 것은?","ans":0,"ch":["gradually","abruptly","unexpectedly","instantly"],"det":{"korean":"<b>suddenly(갑자기)</b> ↔ gradually(서서히).","analysis":"✅ ① gradually: suddenly 반의어\n❌ ② abruptly: 동의어\n❌ ③ unexpectedly: 유사\n❌ ④ instantly: 유사","tip":"suddenly ≈ abruptly ≈ unexpectedly ↔ gradually"}},
 {"id":15,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his <u>tricks</u> and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 중 밑줄 친 <b>tricks</b>가 나머지 셋과 <b>다른 의미</b>로 쓰인 것은?","ans":2,"ch":["The magician performed amazing tricks on stage.","She learned some card tricks from her uncle.","He played a mean trick on his little brother.","The circus clown showed several funny tricks."],"det":{"korean":"본문 tricks = 마술/묘기. ③의 trick = 장난/속임수.","analysis":"❌ ③ played a trick on: '장난을 치다'\n✅ ①②④ 모두 '마술/묘기' 의미","tip":"trick: ① 마술/묘기 ② 장난/속임수 ③ 요령/비결"}},
 {"id":16,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to <u>beat</u> fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 중 밑줄 친 <b>beat</b>가 나머지 셋과 <b>다른 의미</b>로 쓰인 것은?","ans":3,"ch":["Her heart began to beat faster during the race.","I could feel my pulse beating rapidly.","The drums beat loudly in the background.","Our team beat the opponents in the final match."],"det":{"korean":"본문 beat = (심장이) 뛰다. ④의 beat = 이기다.","analysis":"❌ ④ beat the opponents: '상대를 이기다'\n✅ ①②③ 모두 '(심장/맥박/북이) 뛰다/치다' 의미","tip":"beat: ① 뛰다/치다(심장, 북) ② 이기다 ③ 때리다"}},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining __________ (color) balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"colorful","accept":["colorful","Colorful"],"det":{"korean":"__(color) balloons → 명사 수식 형용사 필요: color(명사) → colorful(형용사).","analysis":"명사 balloons를 수식 → 형용사 필요. color(명사) → colorful(형용사: 화려한)","tip":"명사 수식 → 형용사: color → colorful (-ful 접미사)"}},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She __________ (quick) hid behind her mother.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"quickly","accept":["quickly","Quickly"],"det":{"korean":"__(quick) hid → 동사 수식 부사 필요: quick(형용사) → quickly(부사).","analysis":"동사 hid를 수식 → 부사 필요. quick(형용사) → quickly(부사: 빠르게)","tip":"동사 수식 → 부사: quick → quickly (-ly 접미사)"}},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining __________ (color) balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"colorful","accept":["colorful","Colorful","colorful."],"det":{"korean":"__(color) balloons → 명사 수식 형용사 필요: color(명사) → colorful(형용사).","analysis":"명사 balloons를 수식 → 형용사 필요. color(명사) → colorful(형용사: 화려한)","tip":"명사 수식 → 형용사: color → colorful (-ful 접미사)"}},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She __________ (quick) hid behind her mother.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"quickly","accept":["quickly","Quickly","quickly."],"det":{"korean":"__(quick) hid → 동사 수식 부사 필요: quick(형용사) → quickly(부사).","analysis":"동사 hid를 수식 → 부사 필요. quick(형용사) → quickly(부사: 빠르게)","tip":"동사 수식 → 부사: quick → quickly (-ly 접미사)"}},
 {"id":19,"type":"빈칸 문맥 완성","diff":"보통","pts":5,"fmt":"mc","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like __________. Her heart began to beat fast from fear. Cassie froze and dropped her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":1,"ch":["toys","monsters","flowers","clouds"],"det":{"korean":"거대한 풍선을 <b>괴물(monsters)</b>처럼 느낌 → 두려움+얼어붙음이 근거.","analysis":"✅ ② monsters: 두려움/얼어붙음/숨음의 원인\n❌ ① toys(장난감): 무섭지 않음\n❌ ③ flowers(꽃): 무섭지 않음\n❌ ④ clouds(구름): 무섭지 않음","tip":"like monsters = 괴물처럼 (비유, 공포의 원인)"}},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"It was the first carnival for the four-year-old girl, Cassie. She had only heard about it from her mother. She had been imagining colorful balloons and delicious candies for a long time. When she finally arrived at the carnival, the twinkling lights and music made her jump with joy. The magician showed his tricks and she cheered with her family. But suddenly, she saw a lot of huge balloons in the parade coming towards her. She thought they were too big, like monsters. Her heart began to beat fast from fear. Cassie froze and __________ her cotton candy on the ground. She quickly hid behind her mother.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":3,"ch":["devoured","collected","displayed","dropped"],"det":{"korean":"공포에 얼어붙어 솜사탕을 바닥에 <b>떨어뜨렸다(dropped)</b>.","analysis":"✅ ④ dropped: 공포로 손에서 놓침, hid가 이어지는 근거\n❌ ① devoured(게걸스럽게 먹었다): 공포 상황에 부적절\n❌ ② collected(모았다): 문맥 부적합\n❌ ③ displayed(전시했다): 문맥 부적합","tip":"drop = 떨어뜨리다 (공포/놀람에 물건을 놓치는 상황)"}}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"help or support given to someone\"</b>","det":{"korean":"<b>assistance(도움)</b>: 누군가에게 주어지는 도움이나 지원.","analysis":"✅① assistance: 도움","tip":"assistance = help = support (도움)"},"ans":0,"ch":["assistance","instruction","entertainment","competition"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the employees of an organization, considered as a group\"</b>","det":{"korean":"<b>staff(직원)</b>: 조직의 직원들을 총칭.","analysis":"✅② staff: 직원","tip":"staff = 직원, 스태프"},"ans":1,"ch":["instructor","staff","volunteer","participant"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the latest time or date by which something should be completed\"</b>","det":{"korean":"<b>deadline(마감일)</b>: 무언가를 완료해야 하는 최종 시간이나 날짜.","analysis":"✅③ deadline: 마감일","tip":"deadline = 마감일, 기한"},"ans":2,"ch":["fee","cost","deadline","payment"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"The program is supervised by trained, __________ (experience) staff.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"experience(명사/동사) → experienced(형용사).","analysis":"experience → experienced: 과거분사 형용사.","tip":"experienced = 경험 있는"},"wa":"experienced","accept":["experienced","Experienced"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Visit mapleelemschool.com and complete the online __________ (register) form.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"register(동사) → registration(명사).","analysis":"register → registration: 동사 → 명사.","tip":"register(동) → registration(명) = 등록"},"wa":"registration","accept":["registration","Registration"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"The program is supervised by trained, __________ (experience) staff.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"experience(명사/동사) → experienced(형용사).","analysis":"experience → experienced: 과거분사 형용사.","tip":"experienced = 경험 있는"},"wa":"experienced","accept":["experienced","Experienced","experienced."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Visit mapleelemschool.com and complete the online __________ (register) form.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"register(동사) → registration(명사).","analysis":"register → registration: 동사 → 명사.","tip":"register(동) → registration(명) = 등록"},"wa":"registration","accept":["registration","Registration","registration."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Registration cannot be completed over the __________.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"<b>전화(phone)</b>로는 등록을 완료할 수 없습니다.","analysis":"✅③ phone: over the phone = 전화로","tip":"over the phone = 전화로"},"ans":2,"ch":["email","letter","phone","fax"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Keep your kids learning, active, and __________ after school!","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"아이들이 배우고, 활동적이고, <b>참여하게(engaged)</b> 하세요!","analysis":"✅② engaged: 참여하는\n❌① inactive: 비활동적(반의어)","tip":"engaged = 참여하는, 관심을 가진"},"ans":1,"ch":["inactive","engaged","tired","distracted"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

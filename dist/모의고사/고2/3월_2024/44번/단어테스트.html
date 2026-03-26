@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -210,10 +210,10 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":12,"type":"빈칸 어휘 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"The vet provided detailed instructions on how to __________ the medication and shared tips for a speedy recovery.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"수의사가 약을 <b>투여하는(administer)</b> 방법에 대해 자세한 지침을 제공했다.","analysis":"✅ ④ administer(투여하다): \"the medication\"과 자연스럽게 결합 → 약을 투여하다\n❌ ① ignore(무시하다): 약을 무시하는 것은 부적절\n❌ ② refuse(거부하다): 약을 거부하는 것은 부적절\n❌ ③ delay(지연하다): \"speedy recovery\"와 모순","tip":"administer medication = give medication = 약을 투여하다 — 의료 맥락에서 자주 사용"},"ans":3,"ch":["ignore","refuse","delay","administer"]},
 {"id":13,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"The vet said, “I think Leo has a <u>minor</u> infection.”","stem":"밑줄 친 <b>minor</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"minor infection = <b>가벼운(경미한)</b> 감염","analysis":"✅ ① 가벼운, 경미한: minor infection = 경미한 감염\n❌ ② 미성년의: a minor(미성년자)\n❌ ③ 부전공의: minor in (부전공)\n❌ ④ 단조의: minor key(단조)","tip":"minor: 경미한(가장 흔한 의미) | 미성년자(명사) | 부전공(학업) | 단조(음악)"},"ans":0,"ch":["가벼운, 경미한","미성년의","부전공의","단조의"]},
 {"id":14,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"As the days <u>passed</u>, Leo gradually regained his strength and playful spirit.","stem":"밑줄 친 <b>passed</b>의 문맥적 의미로 가장 적절한 것은?","det":{"korean":"As the days passed = 날이 <b>흐르면서(경과하면서)</b>","analysis":"✅ ③ 경과하다, 흐르다: As the days passed = 시간이 흐르면서\n❌ ① 지나다, 통과하다: 물리적 이동\n❌ ② 합격하다: pass an exam\n❌ ④ 건네다: pass me the salt","tip":"pass: 경과하다(시간) | 통과하다(장소) | 합격하다(시험) | 건네다(물건)"},"ans":2,"ch":["지나다, 통과하다","합격하다","건네다","경과하다, 흐르다"]},
-{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"Christine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. She desperately hoped Leo got the necessary care as soon as possible. The waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but she had to accept it was for the best. “I’ll call you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo. The vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"to manage or give (a drug, treatment, etc.) to someone\"</b>","det":{"korean":"'누군가에게 약이나 치료를 관리하거나 주다' → <b>administer(투여하다)</b>","analysis":"✅ ② administer: 영영 정의와 정확히 일치\n❌ ① medication: 약 자체(명사)\n❌ ③ infection: 감염(명사)\n❌ ④ recovery: 회복(명사)","tip":"administer = manage or give (treatment/drug) → 투여하다, 관리하다"},"ans":1,"ch":["medication","administer","infection","recovery"]},
-{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"Christine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. She desperately hoped Leo got the necessary care as soon as possible. The waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but she had to accept it was for the best. “I’ll call you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo. The vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"causing overwhelming distress; extremely sad\"</b>","det":{"korean":"'극도의 고통을 야기하는; 매우 슬픈' → <b>heartbreaking(가슴 아픈)</b>","analysis":"✅ ① heartbreaking: 영영 정의와 일치\n❌ ② relieved: 안도한 → 반대 감정\n❌ ③ anxious: 불안한 → 다른 감정\n❌ ④ comfortable: 편안한 → 다른 감정","tip":"heartbreaking = causing overwhelming distress = 가슴이 찢어지는, 매우 슬픈"},"ans":0,"ch":["heartbreaking","relieved","anxious","comfortable"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"The vet provided detailed instructions on how to administer the medication and shared tips for a speedy __________ (recover).","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"recover(동사) → <b>recovery(명사)</b>: 형용사 speedy 뒤에 명사가 필요하다.","analysis":"recover(동사) → recovery(명사)\na speedy _______ → 관사 a + 형용사 speedy 뒤에 명사 필요","tip":"recover → recovery / discover → discovery — -er → -ery 명사화 패턴"},"wa":"recovery","accept":["recovery","Recovery"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"Back at home, Christine created a __________ (comfort) space for Leo to rest and heal.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"comfort(명사/동사) → <b>comfortable(형용사)</b>: 명사 space를 수식하는 형용사 필요.","analysis":"comfort(명사) → comfortable(형용사)\na _______ space → 관사 a와 명사 space 사이에 형용사 필요","tip":"comfort → comfortable / reason → reasonable — 명사 → -able 형용사 변환 패턴"},"wa":"comfortable","accept":["comfortable","Comfortable"]},
+{"id":15,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"to manage or give (a drug, treatment, etc.) to someone\"</b>","det":{"korean":"'누군가에게 약이나 치료를 관리하거나 주다' → <b>administer(투여하다)</b>","analysis":"✅ ② administer: 영영 정의와 정확히 일치\n❌ ① medication: 약 자체(명사)\n❌ ③ infection: 감염(명사)\n❌ ④ recovery: 회복(명사)","tip":"administer = manage or give (treatment/drug) → 투여하다, 관리하다"},"ans":1,"ch":["medication","administer","infection","recovery"]},
+{"id":16,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n<br><b>\"causing overwhelming distress; extremely sad\"</b>","det":{"korean":"'극도의 고통을 야기하는; 매우 슬픈' → <b>heartbreaking(가슴 아픈)</b>","analysis":"✅ ① heartbreaking: 영영 정의와 일치\n❌ ② relieved: 안도한 → 반대 감정\n❌ ③ anxious: 불안한 → 다른 감정\n❌ ④ comfortable: 편안한 → 다른 감정","tip":"heartbreaking = causing overwhelming distress = 가슴이 찢어지는, 매우 슬픈"},"ans":0,"ch":["heartbreaking","relieved","anxious","comfortable"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"The vet provided detailed instructions on how to administer the medication and shared tips for a speedy __________ (recover).","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"recover(동사) → <b>recovery(명사)</b>: 형용사 speedy 뒤에 명사가 필요하다.","analysis":"recover(동사) → recovery(명사)\na speedy _______ → 관사 a + 형용사 speedy 뒤에 명사 필요","tip":"recover → recovery / discover → discovery — -er → -ery 명사화 패턴"},"wa":"recovery","accept":["recovery","Recovery","recovery."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"보통","pts":5,"fmt":"written","passage":"Back at home, Christine created a __________ (comfort) space for Leo to rest and heal.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"comfort(명사/동사) → <b>comfortable(형용사)</b>: 명사 space를 수식하는 형용사 필요.","analysis":"comfort(명사) → comfortable(형용사)\na _______ space → 관사 a와 명사 space 사이에 형용사 필요","tip":"comfort → comfortable / reason → reasonable — 명사 → -able 형용사 변환 패턴"},"wa":"comfortable","accept":["comfortable","Comfortable","comfortable."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Christine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. She desperately hoped Leo got the necessary care as soon as possible. The waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but she had to accept it was for the best. “I’ll call you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo. The vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually __________ his strength and playful spirit.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"Leo는 서서히 건강과 활발한 기질을 <b>되찾았다(regained)</b>.","analysis":"✅ ② regained(되찾다): \"gradually\"와 자연스럽게 결합 → 서서히 회복\n❌ ① declined(쇠퇴하다): 회복 상황과 반대\n❌ ③ lost(잃다): 반의어\n❌ ④ maintained(유지하다): 잃었다가 되찾은 것이므로 부적절\n❌ ⑤ ignored(무시하다): 문맥과 무관","tip":"regain = get back = recover = 되찾다 — regain strength = 체력을 되찾다"},"ans":1,"ch":["declined","regained","lost","maintained"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Christine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. (a)<u>She</u> desperately hoped Leo got the necessary care as soon as possible. The waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “__________<u>I</u> think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but (e)<u>she</u> had to accept it was for the best. “I’ll call (b)<u>you</u> with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo. The vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. (c)<u>She</u> patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.","stem":"밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 <b>다른</b> 것은?","det":{"korean":"(a) She = Christine, (b) you = Christine (수의사가 Christine에게 말함), (c) She = Christine, (d) I = <b>수의사(vet)</b>, (e) she = Christine. 따라서 (d)만 수의사를 가리킨다.","analysis":"❌ ④ (d) I: 수의사가 말하는 “I think Leo has a minor infection”에서 I = 수의사\n✅ (a) She: Christine이 간절히 바랐다\n✅ (b) you: 수의사가 Christine에게 “I’ll call you”\n✅ (c) She: Christine이 Leo를 쓰다듬었다\n✅ (e) she: Christine이 받아들여야 했다","tip":"지칭 문제: 대화 속 인칭대명사의 화자/청자를 파악하는 것이 핵심. 수의사의 직접 발화 속 \"I\"는 수의사 자신."},"ans":3,"ch":["(a)","(b)","(c)","(d)"]}];
 
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

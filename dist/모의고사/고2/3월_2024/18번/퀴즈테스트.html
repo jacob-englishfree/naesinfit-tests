@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -208,10 +208,10 @@ const Q=[{"id":1,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","passage"
 {"id":10,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to support __________ activities throughout the year. We expect all available spaces to be fully booked soon, so don't get left out. We hope to see you at the fair.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"친애하는 Greenville의 공예품 제작자 여러분,<br>대여료로 받는 모든 돈은 일 년 내내 __________ 활동들을 지원하는 데 사용됩니다.","analysis":"❌ ① canceled(취소된): 취소된 활동을 지원한다는 것은 문맥상 부적절<br>❌ ② extended(연장된): 연장된 활동이라는 표현은 어색함<br>❌ ③ postponed(연기된): 연기된 활동을 지원한다는 것은 부자연스러움<br>❌ ④ relocated(이전된): 이전된 활동이라는 표현은 문맥에 맞지 않음<br>✅ ⑤ upcoming(다가오는): 대여료 수입으로 \"다가오는\" 활동들을 지원한다는 것이 자연스러움","tip":"throughout the year(일 년 내내)와 함께 쓰이며, 대여료 수입의 용도로 \"앞으로 다가올\" 활동들을 지원한다는 문맥입니다."},"ans":3,"ch":["canceled","extended","postponed","upcoming"]},
 {"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to __________ as in previous years. To reserve your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to support upcoming activities throughout the year. We expect all available spaces to be fully booked soon, so don't get left out. We hope to see you at the fair.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"Greenville 커뮤니티 센터는 이전과 마찬가지로 부스 공간을 __________해 드리고 있습니다.","analysis":"❌ ① sell(팔다): 부스 공간을 판매하는 것이 아니라 대여하는 것<br>✅ ② rent(대여하다): rental fee(대여료)라는 뒤 문맥과 일치하며, 부스 공간을 빌려주는 것이므로 적절<br>❌ ③ donate(기부하다): 대여료를 받으므로 기부가 아님<br>❌ ④ display(전시하다): booth spaces를 전시한다는 것은 어색함<br>❌ ⑤ manufacture(제조하다): 공간을 제조한다는 것은 부적절","tip":"뒤에 나오는 \"rental fee is $50\"이라는 표현이 핵심 단서입니다. 대여료가 있으므로 rent(대여하다)가 정답입니다."},"ans":1,"ch":["sell","rent","donate","display"]},
 {"id":12,"type":"빈칸추론","diff":"쉬움","pts":4,"fmt":"mc","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To __________ your space, please visit our website and complete a registration form by April 20. The rental fee is $50. All the money we receive from rental fees goes to support upcoming activities throughout the year. We expect all available spaces to be fully booked soon, so don't get left out. We hope to see you at the fair.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"공간을 __________하시려면, 저희 웹사이트를 방문하여 4월 20일까지 등록 양식을 작성해 주세요.","analysis":"❌ ① rejected(거부하다): 공간을 거부한다는 것은 문맥에 맞지 않음<br>❌ ② prohibited(금지하다): 공간을 금지한다는 것은 부적절<br>✅ ③ reserve(예약하다): 웹사이트를 방문하여 등록 양식을 작성하라는 안내이므로 \"예약하다\"가 적절<br>❌ ④ abandon(포기하다): 공간을 포기한다는 것은 문맥과 반대<br>❌ ⑤ withdraw(철수하다): 공간에서 철수한다는 것은 부적절","tip":"\"please visit our website and complete a registration form\"이라는 뒤 내용이 예약 절차를 안내하고 있으므로 reserve(예약하다)가 자연스럽습니다."},"ans":2,"ch":["rejected","prohibited","reserve","abandon"]},
-{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is __________ booth spaces to rent as in previous years.","stem":"다음 글의 빈칸에 들어갈 단어를 본문에서 찾아 쓰시오. (provide의 알맞은 형태)","det":{"korean":"Greenville 커뮤니티 센터는 이전과 마찬가지로 부스 공간을 대여해 드리고 있습니다.","analysis":"is + _____ 구조이므로 현재진행형 is providing이 되어야 합니다. provide → providing","tip":"\"is + 동사ing\"는 현재진행형입니다. be동사 뒤에 현재분사가 옵니다."},"wa":"providing","accept":["providing","Providing"]},
-{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a __________ form by April 20.","stem":"다음 글의 빈칸에 들어갈 단어를 본문에서 찾아 쓰시오. (register의 알맞은 형태)","det":{"korean":"공간을 예약하시려면, 저희 웹사이트를 방문하여 4월 20일까지 등록 양식을 작성해 주세요.","analysis":"a _____ form에서 빈칸에는 form을 수식하는 명사가 필요합니다. register → registration (등록)","tip":"register(동사: 등록하다) → registration(명사: 등록). \"등록 양식\"이므로 명사형이 필요합니다."},"wa":"registration","accept":["registration","Registration"]},
-{"passage":FULL_PASSAGE,"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 질문에 본문의 내용을 바탕으로 <b>2단어</b>로 답하시오.<br><br><b>Q: What is the Greenville Community Center providing for the Crafts Fair?</b>","det":{"korean":"Q: Greenville 커뮤니티 센터가 공예품 박람회를 위해 제공하는 것은?<br>A: booth spaces (부스 공간)","analysis":"본문에 \"the Greenville Community Center is providing booth spaces to rent\"라고 되어 있으므로, 제공하는 것은 booth spaces입니다.","tip":"What 의문문에 대한 답은 본문에서 providing의 목적어를 찾으면 됩니다."},"wa":"booth spaces","accept":["booth spaces","Booth spaces","booth space","Booth space"]},
-{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 질문에 본문의 내용을 바탕으로 답하시오.<br><br><b>Q: How much is the rental fee?</b>","det":{"korean":"Q: 대여료는 얼마인가?<br>A: $50 (50달러)","analysis":"본문에 \"The rental fee is $50.\"이라고 명시되어 있습니다.","tip":"금액을 묻는 질문이므로 본문에서 직접 언급된 숫자를 찾습니다."},"wa":"$50","accept":["$50","50","50 dollars","50달러"]},
+{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is __________ booth spaces to rent as in previous years.","stem":"다음 글의 빈칸에 들어갈 단어를 본문에서 찾아 쓰시오. (provide의 알맞은 형태)","det":{"korean":"Greenville 커뮤니티 센터는 이전과 마찬가지로 부스 공간을 대여해 드리고 있습니다.","analysis":"is + _____ 구조이므로 현재진행형 is providing이 되어야 합니다. provide → providing","tip":"\"is + 동사ing\"는 현재진행형입니다. be동사 뒤에 현재분사가 옵니다."},"wa":"providing","accept":["providing","Providing","providing."]},
+{"id":14,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Dear Art Crafts People of Greenville,\nFor the annual Crafts Fair on May 25 from 1 p.m. to 6 p.m., the Greenville Community Center is providing booth spaces to rent as in previous years. To reserve your space, please visit our website and complete a __________ form by April 20.","stem":"다음 글의 빈칸에 들어갈 단어를 본문에서 찾아 쓰시오. (register의 알맞은 형태)","det":{"korean":"공간을 예약하시려면, 저희 웹사이트를 방문하여 4월 20일까지 등록 양식을 작성해 주세요.","analysis":"a _____ form에서 빈칸에는 form을 수식하는 명사가 필요합니다. register → registration (등록)","tip":"register(동사: 등록하다) → registration(명사: 등록). \"등록 양식\"이므로 명사형이 필요합니다."},"wa":"registration","accept":["registration","Registration","registration."]},
+{"passage":FULL_PASSAGE,"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 질문에 본문의 내용을 바탕으로 <b>2단어</b>로 답하시오.<br><br><b>Q: What is the Greenville Community Center providing for the Crafts Fair?</b>","det":{"korean":"Q: Greenville 커뮤니티 센터가 공예품 박람회를 위해 제공하는 것은?<br>A: booth spaces (부스 공간)","analysis":"본문에 \"the Greenville Community Center is providing booth spaces to rent\"라고 되어 있으므로, 제공하는 것은 booth spaces입니다.","tip":"What 의문문에 대한 답은 본문에서 providing의 목적어를 찾으면 됩니다."},"wa":"booth spaces","accept":["booth spaces","Booth spaces","booth space","Booth space","booth spaces."]},
+{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 질문에 본문의 내용을 바탕으로 답하시오.<br><br><b>Q: How much is the rental fee?</b>","det":{"korean":"Q: 대여료는 얼마인가?<br>A: $50 (50달러)","analysis":"본문에 \"The rental fee is $50.\"이라고 명시되어 있습니다.","tip":"금액을 묻는 질문이므로 본문에서 직접 언급된 숫자를 찾습니다."},"wa":"$50","accept":["$50","50","50 dollars","50달러","$50."]},
 {"passage":FULL_PASSAGE,"id":17,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 내용과 <b>일치하지 않는</b> 것은?","det":{"korean":"친애하는 Greenville의 공예품 제작자 여러분,<br>5월 25일 오후 1시부터 6시까지 열리는 연례 공예품 박람회를 위해, Greenville 커뮤니티 센터는 이전과 마찬가지로 부스 공간을 대여해 드리고 있습니다.","analysis":"✅ ① 공예품 박람회가 5월 25일 오후 1시~6시에 열린다 → 본문과 일치<br>✅ ② 등록 양식을 4월 20일까지 작성해야 한다 → 본문과 일치<br>✅ ③ Greenville 커뮤니티 센터가 부스 공간을 제공한다 → 본문과 일치<br>❌ ④ 대여료가 참가 예술가들에게 직접 간다 → 본문에서는 대여료가 \"upcoming activities를 지원하는 데\" 사용된다고 했으므로 불일치<br>✅ ⑤ 모든 이용 가능한 공간이 곧 예약 완료될 것으로 예상된다 → 본문과 일치","tip":"대여료의 용도를 정확히 파악해야 합니다. 본문에서는 upcoming activities 지원이라고 했지, 참가 예술가들에게 간다고 하지 않았습니다."},"ans":3,"ch":["The Crafts Fair will be held on May 25 from 1 p.m. to 6 p.m.","The registration form must be completed by April 20.","The Greenville Community Center is providing booth spaces.","The rental fee goes directly to the participating artists."]},
 {"passage":FULL_PASSAGE,"id":18,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","stem":"다음 글의 내용과 <b>일치하는</b> 것은?","det":{"korean":"친애하는 Greenville의 공예품 제작자 여러분,<br>5월 25일 오후 1시부터 6시까지 열리는 연례 공예품 박람회를 위해, Greenville 커뮤니티 센터는 이전과 마찬가지로 부스 공간을 대여해 드리고 있습니다.","analysis":"❌ ① 올해 새로운 행사다 → \"annual\"과 \"as in previous years\"로 보아 매년 하는 행사임. 불일치<br>❌ ② 부스 공간이 무료다 → rental fee가 $50이므로 불일치<br>✅ ③ 대여료가 50달러다 → \"The rental fee is $50\"과 정확히 일치<br>❌ ④ 등록 마감일이 5월 25일이다 → 등록 마감은 April 20, 5월 25일은 행사 날짜. 불일치<br>❌ ⑤ 박람회가 오전 9시~오후 5시다 → 1 p.m. to 6 p.m.이므로 불일치","tip":"선택지의 구체적인 숫자, 날짜, 금액을 본문과 하나씩 대조하세요."},"ans":2,"ch":["The Crafts Fair is a new event this year.","The booth spaces are free of charge.","The rental fee is $50.","The registration deadline is May 25."]},
 {"passage":FULL_PASSAGE,"id":19,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","stem":"다음 진술이 본문과 일치하면 True, 아니면 False를 고르시오.<br><br><b>\"The registration deadline for the Crafts Fair is May 25.\"</b><br>(공예품 박람회의 등록 마감일은 5월 25일이다.)","det":{"korean":"친애하는 Greenville의 공예품 제작자 여러분,<br>공간을 예약하시려면, 저희 웹사이트를 방문하여 <b>4월 20일</b>까지 등록 양식을 작성해 주세요.","analysis":"✅ True: 해당 없음<br>❌ False: 등록 마감일은 April 20이지 May 25가 아님. May 25는 박람회 날짜임<br>✅ \"True와 False 모두 해당\": 해당 없음<br>✅ \"지문에서 확인 불가\": 해당 없음 - 지문에서 명확히 April 20이라고 확인 가능<br>✅ \"해당 내용 없음\": 해당 없음 - 등록 마감일이 언급되어 있음","tip":"날짜를 혼동하지 마세요. April 20은 등록 마감일이고, May 25는 박람회 개최일입니다."},"ans":1,"ch":["True","False","True와 False 모두 해당","지문에서 확인 불가"]},
@@ -258,19 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
-  h.unshift({
+  var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
-  });
+  };
+  // localStorage 저장 (기존)
+  var h = getHistory();
+  h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
+  saveToSupabase(record);
+}
+
+function saveToSupabase(record) {
+  var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {
