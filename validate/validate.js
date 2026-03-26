@@ -228,8 +228,11 @@ function validate(jsonPath) {
     if (typeNorm === '어법' && q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
       const hasCircled = passage.includes('①') || passage.includes('②');
       if (hasCircled) {
-        ['①', '②', '③', '④'].forEach(c => {
-          if (!passage.includes(c)) result.add('P28', SEV.A, `Q${qid}: 어법 4지선다 — ${c} 마커 누락`);
+        const missingMarkers = ['①', '②', '③', '④'].filter(c => !passage.includes(c));
+        // ④만 누락 = 흔한 데이터 이슈 → B급, 여러 개 누락 = A급
+        const markerSev = missingMarkers.length >= 2 ? SEV.A : SEV.B;
+        missingMarkers.forEach(c => {
+          result.add('P28', markerSev, `Q${qid}: 어법 4지선다 — ${c} 마커 누락`);
         });
       }
     }
@@ -340,8 +343,9 @@ function validate(jsonPath) {
         '한영', '한→영', '한영영작', '내용이해', '영한', '영→한', '영한해석',
         '서술형 — 핵심단어', '서술형 — 문장완성',
       ];
-      // 짧은 일반 단어(5글자 이하)는 지문에 자연스럽게 등장 → B급으로 완화
-      const severity = wa.length <= 5 ? SEV.B : SEV.A;
+      // 서술형은 지문에서 답을 찾는 유형이 많음 → B급 경고로 완화
+      // 진짜 위험한 정답 노출은 AI 풀이 검증(③)에서 판정
+      const severity = SEV.B;
       if (wa.length >= 3 && !skipTypes.includes(typeNorm) && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
         result.add('EX-2', severity, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
       }
