@@ -13,6 +13,15 @@ const path = require('path');
 const { execSync, execFileSync } = require('child_process');
 const https = require('https');
 
+// .env 로드 (dotenv 없이 직접)
+const envPath = path.resolve(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8').split('\n').forEach(line => {
+    const m = line.match(/^([^#=]+)=(.*)$/);
+    if (m && !process.env[m[1].trim()]) process.env[m[1].trim()] = m[2].trim();
+  });
+}
+
 const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const DIST_DIR = path.join(ROOT, 'dist');
@@ -203,7 +212,9 @@ async function deployFile(jsonPath) {
     }
     console.log(`  [PASS] ③ AI 검증 OK (${aiResult.details.length} questions verified)`);
   } else {
-    console.log('  [SKIP] ③ AI 검증 — ANTHROPIC_API_KEY 미설정');
+    console.log('  [⚠️ WARN] ③ AI 검증 SKIP — ANTHROPIC_API_KEY 미설정');
+    console.log('         → AI 풀이 검증 없이 배포합니다. 정답 정확도 미보장.');
+    console.log('         → 설정: export ANTHROPIC_API_KEY=sk-ant-...');
   }
 
   // ════════════════════════════════════════════
