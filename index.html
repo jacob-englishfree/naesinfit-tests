@@ -426,6 +426,66 @@ input,select{font-family:inherit}
 
 /* Responsive */
 @media(max-width:380px){.act-grid{flex-wrap:wrap}.info-grid{grid-template-columns:1fr}.score-num{font-size:56px}}
+
+/* ━━ Character & Level Grade System ━━ */
+.char-card{position:relative;margin:16px 20px 0;border-radius:var(--r-xl);padding:28px 24px;overflow:hidden;transition:background .5s}
+.char-card-normal{background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%)}
+.char-card-warn{background:linear-gradient(135deg,#F59E0B 0%,#D97706 50%,#B45309 100%)}
+.char-card-danger{background:linear-gradient(135deg,#EF4444 0%,#DC2626 50%,#B91C1C 100%)}
+.char-card-cram{background:linear-gradient(135deg,#EF4444 0%,#DC2626 100%);animation:cramPulse 2s ease-in-out infinite}
+@keyframes cramPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)}50%{box-shadow:0 0 20px 4px rgba(239,68,68,.3)}}
+.char-card::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:rgba(255,255,255,.07);border-radius:50%}
+.char-card::after{content:'';position:absolute;bottom:-20px;left:-20px;width:100px;height:100px;background:rgba(255,255,255,.04);border-radius:50%}
+
+/* Avatar ring grades */
+.avatar-ring{position:relative;width:72px;height:72px;flex-shrink:0}
+.avatar-ring img{width:64px;height:64px;border-radius:50%;position:absolute;top:4px;left:4px;background:#f0f0f0}
+.avatar-ring::before{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid transparent}
+.avatar-ring.grade-bronze::before{border-color:#CD7F32}
+.avatar-ring.grade-silver::before{border-color:#C0C0C0}
+.avatar-ring.grade-gold::before{border-color:#FFD700;box-shadow:0 0 8px rgba(255,215,0,.3)}
+.avatar-ring.grade-diamond::before{border-color:#00BFFF;box-shadow:0 0 12px rgba(0,191,255,.4)}
+.avatar-ring.grade-master::before{border-color:#8B5CF6;box-shadow:0 0 16px rgba(139,92,246,.5);animation:masterGlow 2s ease-in-out infinite}
+@keyframes masterGlow{0%,100%{box-shadow:0 0 12px rgba(139,92,246,.4)}50%{box-shadow:0 0 24px rgba(139,92,246,.7)}}
+
+/* Speech bubble */
+.speech-bubble{position:relative;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:16px;padding:12px 16px;margin-top:14px;color:white;font-size:13px;font-weight:600;line-height:1.5;animation:bubbleFade .5s var(--ease-out)}
+.speech-bubble::before{content:'';position:absolute;top:-6px;left:24px;width:12px;height:12px;background:rgba(255,255,255,.18);transform:rotate(45deg);border-radius:2px}
+@keyframes bubbleFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* D-day urgency badge */
+.dday-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:10px;font-size:11px;font-weight:800;animation:ddayPop .3s var(--ease-spring)}
+.dday-safe{background:rgba(255,255,255,.2);color:white}
+.dday-warn{background:rgba(245,158,11,.3);color:#FDE68A}
+.dday-danger{background:rgba(239,68,68,.3);color:#FCA5A5;animation:ddayPop .3s var(--ease-spring),ddayBlink 1.5s ease-in-out infinite}
+@keyframes ddayPop{from{transform:scale(.8)}to{transform:scale(1)}}
+@keyframes ddayBlink{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* Mission card */
+.mission-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--divider);transition:background .15s}
+.mission-item:last-child{border-bottom:none}
+.mission-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--g300);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;transition:all .2s}
+.mission-check.done{background:var(--green);border-color:var(--green);color:white}
+.mission-xp{font-size:11px;font-weight:800;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;white-space:nowrap}
+
+/* Weakness recommendation */
+.weak-card{background:linear-gradient(135deg,var(--red-l),var(--yellow-l));border:1px solid var(--red);border-radius:var(--r-lg);margin:0 20px 10px;padding:16px 20px;position:relative;overflow:hidden}
+[data-theme="dark"] .weak-card{background:linear-gradient(135deg,#3D1A1E,#2E2510);border-color:rgba(240,68,82,.3)}
+.weak-card::after{content:'🎯';position:absolute;top:-5px;right:10px;font-size:40px;opacity:.1}
+
+/* Level up celebration overlay */
+.levelup-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:overlayIn .3s var(--ease-out)}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+.levelup-modal{background:var(--card);border-radius:24px;padding:40px 32px;text-align:center;max-width:320px;width:90%;position:relative;overflow:hidden;animation:modalPop .5s var(--ease-spring)}
+@keyframes modalPop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.levelup-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.levelup-particle{position:absolute;width:8px;height:8px;border-radius:50%;animation:particleFall 1.5s ease-out forwards}
+@keyframes particleFall{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(120px) scale(0)}}
+
+/* Unseen test warning */
+.unseen-warn{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--red-l);border-radius:var(--r-md);margin-top:10px;animation:warnSlide .4s var(--ease-out)}
+[data-theme="dark"] .unseen-warn{background:rgba(240,68,82,.15)}
+@keyframes warnSlide{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
 </style>
 </head>
 <body>
@@ -1352,7 +1412,7 @@ function getDailyVocabQuestions(){
 function getXP(){try{return JSON.parse(localStorage.getItem('nf_xp'))||{xp:0,lv:1};}catch(e){return{xp:0,lv:1};}}
 function saveXP(d){try{localStorage.setItem('nf_xp',JSON.stringify(d));}catch(e){}}
 function xpForLevel(lv){return lv*100;}
-function addXP(amount){
+function _baseAddXP(amount){
   const d=getXP();d.xp+=amount;
   while(d.xp>=xpForLevel(d.lv)){d.xp-=xpForLevel(d.lv);d.lv++;}
   saveXP(d);return d;
@@ -1360,6 +1420,165 @@ function addXP(amount){
 function xpFromScore(score,qCount){return Math.round(score/100*qCount*5);}
 const LV_NAMES=['','신입생','초보','학습자','도전자','노력가','실력자','우등생','모범생','장학생','수석','전교1등','영어왕','내신핏마스터'];
 function lvName(lv){return LV_NAMES[Math.min(lv,LV_NAMES.length-1)]||'Lv.'+lv;}
+
+// ━━ Grade System (등급) ━━
+function getGrade(lv){
+  if(lv>=13)return{name:'마스터',cls:'grade-master',color:'#8B5CF6',bg:'#f5e6ff'};
+  if(lv>=10)return{name:'다이아',cls:'grade-diamond',color:'#00BFFF',bg:'#e0f0ff'};
+  if(lv>=7)return{name:'골드',cls:'grade-gold',color:'#FFD700',bg:'#fff3d0'};
+  if(lv>=4)return{name:'실버',cls:'grade-silver',color:'#C0C0C0',bg:'#f0f0f0'};
+  return{name:'브론즈',cls:'grade-bronze',color:'#CD7F32',bg:'#fdf0e0'};
+}
+function avatarURL(name,bg){
+  const bgHex=(bg||'b6e3f4').replace('#','');
+  return `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(name)}&backgroundColor=${bgHex}`;
+}
+
+// ━━ Data-driven Speech Bubble ━━
+function getCharMessage(){
+  const hist=gH();const xd=getXP();const streak=checkStreak();const wrongs=getWrong();
+  const active=getActiveExam();const cumType=getCumType();
+  const daily=getDailyState();const today=localDate();
+  const msgs=[];
+  // D-day based
+  if(active&&active.date){
+    const dd=Math.ceil((new Date(active.date)-new Date())/86400000);
+    if(dd<=0)msgs.push({p:100,t:`오늘이 ${active.name}이야! 지금까지 한 거 믿고 가자. 할 수 있어! 💪`});
+    else if(dd<=3)msgs.push({p:95,t:`${active.name}까지 D-${dd}! 지금 30분만 투자하면 점수 올릴 수 있어!`});
+    else if(dd<=7){
+      const scope=active.scope||[];
+      const untested=scope.filter(s=>!hist.some(h=>h.scopes&&h.scopes.includes(s)));
+      if(untested.length)msgs.push({p:90,t:`시험까지 D-${dd}인데 아직 안 본 범위가 ${untested.length}개! 오늘 하나만 끝내자`});
+      else msgs.push({p:85,t:`D-${dd}! 범위는 다 봤으니 약점 복습에 집중하자 🔥`});
+    }
+  }
+  // Accuracy based
+  if(hist.length>=3){
+    const recent=hist.slice(-5);
+    const avg=Math.round(recent.reduce((a,r)=>a+r.score,0)/recent.length);
+    if(avg>=90)msgs.push({p:70,t:`최근 평균 ${avg}점! 이 페이스 유지하면 시험 A급 확정이야 🌟`});
+    else if(avg>=70)msgs.push({p:65,t:`최근 평균 ${avg}점, 좋아! 약점 유형만 잡으면 90점 넘길 수 있어`});
+    else msgs.push({p:60,t:`최근 평균 ${avg}점... 기본기부터 다시! 단어 테스트 먼저 해볼까?`});
+  }
+  // Weakness type
+  const typeArr=Object.entries(cumType).filter(([,v])=>v.total>=3).map(([t,v])=>({t,pct:Math.round(v.ok/v.total*100)})).sort((a,b)=>a.pct-b.pct);
+  if(typeArr.length&&typeArr[0].pct<60)msgs.push({p:75,t:`'${typeArr[0].t}' 유형 정답률 ${typeArr[0].pct}%... 이거 집중 공략하면 확 오를 거야!`});
+  // Streak
+  if(streak.count>=7)msgs.push({p:55,t:`${streak.count}일 연속 학습! 대단해 🔥 이 습관이면 1등급도 가능해`});
+  else if(streak.count>=3)msgs.push({p:50,t:`${streak.count}일 연속! 좋은 흐름이야, 끊지 말고 가자 💪`});
+  // Wrong count
+  if(wrongs.length>=10)msgs.push({p:65,t:`틀린 문제 ${wrongs.length}개 쌓였어! 오답 복습하면 XP 2배야`});
+  // Daily
+  if(daily.date!==today)msgs.push({p:40,t:`오늘의 단어퀴즈 아직 안 했지? 10분이면 돼!`});
+  else msgs.push({p:30,t:`오늘의 퀴즈 완료! ${daily.score}점이었어. 내일도 도전하자!`});
+  // Level milestone
+  const toNext=xpForLevel(xd.lv)-xd.xp;
+  if(toNext<=20)msgs.push({p:80,t:`레벨업까지 ${toNext}XP만 남았어! 테스트 하나만 더 풀면 돼!`});
+  // First time
+  if(hist.length===0)msgs.push({p:100,t:`반가워! 첫 테스트를 풀어볼까? 시험 범위에 맞춰 준비했어 📚`});
+  // Sort by priority and pick highest
+  msgs.sort((a,b)=>b.p-a.p);
+  return msgs.length?msgs[0].t:'오늘도 화이팅! 테스트 하나 풀어볼까? 💪';
+}
+
+// ━━ Daily Mission System ━━
+function getDailyMissions(){
+  const today=localDate();let ms;
+  try{ms=JSON.parse(localStorage.getItem('nf_missions'));}catch(e){ms=null;}
+  if(ms&&ms.date===today)return ms;
+  // Generate new missions for today
+  ms={date:today,missions:[
+    {id:'daily_vocab',name:'오늘의 단어퀴즈',desc:'매일 10문제 도전',xp:20,done:false},
+    {id:'test_one',name:'테스트 1회 응시',desc:'아무 테스트 1회 완료',xp:30,done:false},
+    {id:'review_wrong',name:'오답 3개 복습',desc:'틀린 문제 복습하기',xp:25,done:false}
+  ]};
+  try{localStorage.setItem('nf_missions',JSON.stringify(ms));}catch(e){}
+  return ms;
+}
+function checkMissions(){
+  const ms=getDailyMissions();const today=localDate();
+  const daily=getDailyState();
+  const hist=gH();const todayTests=hist.filter(h=>{const d=h.date||'';return d.includes&&d.includes(new Date().toLocaleDateString('ko-KR'));});
+  // Check daily vocab
+  if(!ms.missions[0].done&&daily.date===today&&daily.completed){ms.missions[0].done=true;addXP(ms.missions[0].xp);}
+  // Check test count
+  if(!ms.missions[1].done&&todayTests.length>=1){ms.missions[1].done=true;addXP(ms.missions[1].xp);}
+  // Check wrong review (simple: if wrong count decreased today)
+  const reviewDone=getReviewDue().length===0&&getWrong().length>0;
+  if(!ms.missions[2].done&&reviewDone){ms.missions[2].done=true;addXP(ms.missions[2].xp);}
+  // All missions complete bonus
+  if(!ms.bonusClaimed&&ms.missions.every(m=>m.done)){ms.bonusClaimed=true;addXP(50);}
+  try{localStorage.setItem('nf_missions',JSON.stringify(ms));}catch(e){}
+  return ms;
+}
+
+// ━━ Weakness Auto-Recommend ━━
+function getWeakRecommend(){
+  const cumType=getCumType();const typeArr=Object.entries(cumType).filter(([,v])=>v.total>=3).map(([t,v])=>({t,pct:Math.round(v.ok/v.total*100),total:v.total})).sort((a,b)=>a.pct-b.pct);
+  if(!typeArr.length||typeArr[0].pct>=80)return null;
+  const weak=typeArr[0];
+  const gain=Math.min(20,80-weak.pct);
+  return{type:weak.t,pct:weak.pct,gain,msg:`${weak.t} 정답률 ${weak.pct}% → 집중 훈련하면 +${gain}% 가능`};
+}
+
+// ━━ Level Up Celebration ━━
+function showLevelUp(newLv){
+  const grade=getGrade(newLv);
+  const colors=['#8B5CF6','#EC4899','#F59E0B','#00C072','#00BFFF','#FF6B6B'];
+  let particles='';
+  for(let i=0;i<30;i++){
+    const c=colors[i%colors.length];
+    const x=Math.random()*100;
+    const delay=Math.random()*0.8;
+    const size=4+Math.random()*6;
+    particles+=`<div class="levelup-particle" style="left:${x}%;top:${10+Math.random()*20}%;width:${size}px;height:${size}px;background:${c};animation-delay:${delay}s"></div>`;
+  }
+  const overlay=document.createElement('div');
+  overlay.className='levelup-overlay';
+  overlay.innerHTML=`
+    <div class="levelup-modal">
+      <div class="levelup-particles">${particles}</div>
+      <div style="position:relative;z-index:1">
+        <div style="font-size:48px;margin-bottom:8px">🎉</div>
+        <div style="font-size:12px;font-weight:700;color:${grade.color};letter-spacing:2px;text-transform:uppercase">${grade.name} 등급</div>
+        <div style="font-size:28px;font-weight:900;margin:8px 0;color:var(--text)">Level ${newLv}!</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text)">${lvName(newLv)}</div>
+        <div style="font-size:13px;color:var(--sub);margin-top:8px">축하해요! 계속 이 페이스로 가면<br>다음 등급도 금방이야 🔥</div>
+        <div style="margin-top:12px">
+          <div class="avatar-ring ${grade.cls}" style="width:80px;height:80px;margin:0 auto">
+            <img src="${avatarURL(profile.name,grade.bg)}" style="width:72px;height:72px;top:4px;left:4px">
+          </div>
+        </div>
+        <button onclick="this.closest('.levelup-overlay').remove()" style="margin-top:20px;padding:12px 40px;background:${grade.color};color:white;border:none;border-radius:var(--r-md);font-size:15px;font-weight:700;cursor:pointer">확인</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  haptic('submit');
+}
+
+// ━━ Cram Mode (벼락치기) ━━
+function startCramMode(){
+  const active=getActiveExam();
+  if(!active||!active.scope||!active.scope.length){toast('시험 범위를 먼저 설정해주세요');return;}
+  // Use the first scope item to navigate to test
+  S.sel=active.scope;
+  // Find weak test type
+  const cumType=getCumType();
+  const typeArr=Object.entries(cumType).filter(([,v])=>v.total>=1).map(([t,v])=>({t,pct:Math.round(v.ok/v.total*100)})).sort((a,b)=>a.pct-b.pct);
+  // Default to 워크북테스트 (most comprehensive), or weakest type area
+  S.tt='워크북테스트';
+  S.qc=20;S.scr='exam';S.dir='fwd';
+  toast('🔥 벼락치기 모드! 약점 집중 20문제');
+  R();
+}
+
+// addXP with level up detection
+function addXP(amount){
+  const before=getXP();const oldLv=before.lv;
+  const d=_baseAddXP(amount);
+  if(d.lv>oldLv)setTimeout(()=>showLevelUp(d.lv),300);
+  return d;
+}
 
 // ━━ Achievement Badges ━━
 const BADGE_DEFS=[
@@ -1774,110 +1993,121 @@ function doPreview(){
   S.scr='home';R();
 }
 
-// ━━ HOME (핵심 액션만) ━━
+// ━━ HOME (압도적 리디자인) ━━
 function rHome(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
+  const xd=getXP();const grade=getGrade(xd.lv);const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));
+  const toNext=xpForLevel(xd.lv)-xd.xp;
+  const sk=checkStreak();
+  initExamPlan();const plan=getExamPlan();const active=getActiveExam();
+  const charMsg=getCharMessage();
+  const missions=checkMissions();
+  const weakRec=getWeakRecommend();
+  const wrongs=getWrong();
+  const hist=gH();
+  // D-day urgency
+  let ddNum=null,ddClass='char-card-normal',ddBadgeClass='dday-safe';
+  if(active&&active.date){
+    ddNum=Math.ceil((new Date(active.date)-new Date())/86400000);
+    if(ddNum<=3){ddClass='char-card-cram';ddBadgeClass='dday-danger';}
+    else if(ddNum<=7){ddClass='char-card-warn';ddBadgeClass='dday-warn';}
+  }
+  // Unseen tests count
+  const scope=active&&active.scope?active.scope:[];
+  const unseenScopes=scope.filter(s=>!hist.some(h=>h.scopes&&h.scopes.includes(s)));
 
   app.innerHTML=`<div class="page">
-    <!-- Greeting Header -->
+    <!-- ① Greeting Header -->
     <div style="padding:24px 20px 0">
       <div style="display:flex;align-items:center;justify-content:space-between">
         <div>
           <div style="font-size:14px;color:var(--sub);font-weight:500">안녕하세요 👋</div>
           <div class="t-heading" style="margin-top:2px">${esc(profile.name)}님</div>
         </div>
-        <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${sk.count>0?`<div style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--card);border-radius:20px;box-shadow:var(--sh-sm)"><span style="font-size:14px">🔥</span><span style="font-size:12px;font-weight:800;color:var(--text)">${sk.count}일</span></div>`:''}
+          <button onclick="toggleTheme();R()" style="width:40px;height:40px;border:1.5px solid var(--border);border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px">${localStorage.getItem('nf_theme')==='dark'?'☀️':'🌙'}</button>
+        </div>
       </div>
     </div>
 
-    ${!localStorage.getItem('nf_mock2024_seen_v1')?`
-    <div style="margin:16px 20px 0;background:linear-gradient(135deg,#8B5CF6,#6D28D9);border-radius:16px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer" onclick="goMode('모의고사');localStorage.setItem('nf_mock2024_seen_v1','1')">
-      <div style="position:absolute;top:-20px;right:-10px;font-size:80px;opacity:.12">📝</div>
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:10px;font-weight:800;color:#fff;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:8px">NEW</span></div>
-      <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.4">2024 고1 3월 모의고사 검수본 업데이트!</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px">전 문항 고품질 단어/워크북/퀴즈 테스트 →</div>
-      <button onclick="localStorage.setItem('nf_mock2024_seen_v1','1');this.parentElement.remove();event.stopPropagation()" style="position:absolute;top:10px;right:12px;background:none;border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer">✕</button>
-    </div>`:''}
-
-    ${!localStorage.getItem('nf_ebs_seen_v1')?`
-    <div style="margin:16px 20px 0;background:linear-gradient(135deg,#E8772E,#F5A623);border-radius:16px;padding:16px 18px;position:relative;overflow:hidden;cursor:pointer" onclick="goMode('부교재');localStorage.setItem('nf_ebs_seen_v1','1')">
-      <div style="position:absolute;top:-20px;right:-10px;font-size:80px;opacity:.12">📖</div>
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:10px;font-weight:800;color:#fff;background:rgba(255,255,255,.25);padding:2px 8px;border-radius:8px">NEW</span></div>
-      <div style="font-size:15px;font-weight:800;color:#fff;line-height:1.4">2027 수능특강 테스트 오픈!</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px">수능특강 영어 단어/워크북/퀴즈 테스트 →</div>
-      <button onclick="localStorage.setItem('nf_ebs_seen_v1','1');this.parentElement.remove();event.stopPropagation()" style="position:absolute;top:10px;right:12px;background:none;border:none;color:rgba(255,255,255,.6);font-size:16px;cursor:pointer">✕</button>
-    </div>`:''}
-
-    ${(()=>{const sk=checkStreak();return sk.count>0?`
-    <div style="margin:12px 20px 0;padding:10px 16px;background:var(--card);border-radius:var(--r-md);display:flex;align-items:center;gap:10px;box-shadow:var(--sh-sm)">
-      <span style="font-size:20px">🔥</span>
-      <span style="font-size:14px;font-weight:700;color:var(--text)">${sk.count}일 연속 학습 중</span>
-      ${sk.count>=7?'<span style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);padding:2px 8px;border-radius:8px;margin-left:auto">대단해요!</span>':sk.count>=3?'<span style="font-size:11px;font-weight:600;color:var(--green);background:var(--green-l);padding:2px 8px;border-radius:8px;margin-left:auto">좋아요!</span>':''}
-    </div>`:'';})()}
-
-    ${(()=>{initExamPlan();const plan=getExamPlan();const active=getActiveExam();
-      return `
-    <div class="card" style="padding:0;overflow:hidden;margin-top:12px">
-      ${plan.exams.map(ex=>{
-        const isActive=plan.activeId===ex.id;
-        const hasDate=!!ex.date;
-        const hasScope=ex.scope&&ex.scope.length>0;
-        const d=hasDate?new Date(ex.date):null;
-        const dStr=d?`${d.getMonth()+1}.${d.getDate()}`:'날짜 미설정';
-        const dd=d?ddayStr(d):'';
-        const scopeLabel=hasScope?examScopeLabel(ex.scope):'범위 미설정';
-        return `<div style="border-bottom:1px solid var(--divider)">
-          <button onclick="selectActiveExam('${ex.id}')" style="width:100%;padding:14px 20px;border:none;background:${isActive?'var(--blue-l)':'none'};display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s">
-            <div style="width:40px;height:40px;background:${isActive?'var(--blue)':'var(--g100)'};border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:background .2s">${ex.icon}</div>
-            <div style="flex:1;min-width:0">
-              <div style="display:flex;align-items:center;gap:6px">
-                <span style="font-size:14px;font-weight:700;color:var(--text)">${ex.name}</span>
-                ${isActive?'<span style="font-size:10px;font-weight:700;color:var(--blue);background:var(--blue-l);border:1px solid var(--blue);padding:1px 8px;border-radius:8px">이번 시험</span>':''}
-              </div>
-              <div style="font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${hasDate?dStr+' '+dd:dStr}${hasScope?' · '+scopeLabel:''}</div>
+    <!-- ② 나만의 1:1 맞춤 내신 테스트 (캐릭터 카드) -->
+    <div class="char-card ${ddClass}">
+      <div style="position:relative;z-index:1">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div class="avatar-ring ${grade.cls}">
+            <img src="${avatarURL(profile.name,grade.bg)}" alt="avatar">
+          </div>
+          <div style="flex:1;color:white">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font-size:11px;font-weight:700;opacity:.7;letter-spacing:1.5px">Lv.${xd.lv} ${lvName(xd.lv)}</span>
+              <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:8px">${grade.name}</span>
+              ${ddNum!==null?`<span class="dday-badge ${ddBadgeClass}">${active.name} D${ddNum<=0?ddNum===0?'-DAY':'+'+Math.abs(ddNum):'-'+ddNum}</span>`:''}
             </div>
-            <span style="color:var(--hint);font-size:14px">›</span>
-          </button>
-        </div>`;
-      }).join('')}
+            <div style="font-size:20px;font-weight:900;margin-top:6px;line-height:1.3">나만의 1:1 맞춤<br>내신 테스트</div>
+          </div>
+        </div>
+        <!-- XP Bar -->
+        <div style="margin-top:14px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.7;margin-bottom:4px;color:white">
+            <span>EXP ${xd.xp}/${xpForLevel(xd.lv)}</span>
+            <span>다음 레벨까지 ${toNext}XP</span>
+          </div>
+          <div style="height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden">
+            <div style="height:100%;width:${pct}%;background:rgba(255,255,255,.85);border-radius:3px;transition:width .5s var(--ease)"></div>
+          </div>
+        </div>
+        <!-- Speech Bubble -->
+        <div class="speech-bubble">${charMsg}</div>
+        <!-- Unseen Warning -->
+        ${ddNum!==null&&ddNum<=7&&unseenScopes.length?`
+        <div class="unseen-warn">
+          <span style="font-size:14px">⚠️</span>
+          <span style="font-size:12px;font-weight:700;color:var(--red)">아직 안 본 범위 ${unseenScopes.length}개!</span>
+          <span style="font-size:11px;color:var(--sub);margin-left:auto">지금 시작 →</span>
+        </div>`:''}
+        <!-- Cram Mode Button (D-3 이하) -->
+        ${ddNum!==null&&ddNum<=3&&ddNum>=0&&scope.length?`
+        <button onclick="startCramMode()" style="margin-top:12px;width:100%;padding:14px;border:2px solid rgba(255,255,255,.4);border-radius:var(--r-lg);background:rgba(255,255,255,.15);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);color:white;font-size:15px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s">
+          <span style="font-size:18px">⚡</span> 벼락치기 모드 — 약점 20문제 집중!
+        </button>`:''}
+      </div>
     </div>
-    ${active&&active.scope&&active.scope.length?`
-    <div class="card" style="padding:0;overflow:hidden;margin-top:4px">
-      <button onclick="S.scr='dashboard';S.dir='fwd';R()" style="width:100%;padding:14px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
-        <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+
+    <!-- ③ 오늘의 미션 -->
+    <div class="sec-label">오늘의 미션</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      ${missions.missions.map(m=>`
+      <div class="mission-item">
+        <div class="mission-check ${m.done?'done':''}">${m.done?'✓':''}</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:700;color:var(--text);${m.done?'text-decoration:line-through;opacity:.5':''}">${m.name}</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:1px">${m.desc}</div>
+        </div>
+        <span class="mission-xp">${m.done?'완료':'+'+(m.xp)+'XP'}</span>
+      </div>`).join('')}
+      <div style="padding:12px 20px;background:var(--g50);display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;color:var(--sub)">전체 완료 보너스</span>
+        <span style="font-size:12px;font-weight:800;color:${missions.missions.every(m=>m.done)?'var(--green)':'var(--hint)'}">+50 XP ${missions.missions.every(m=>m.done)?'✅':'🔒'}</span>
+      </div>
+    </div>
+
+    <!-- ④ 약점 자동 추천 -->
+    ${weakRec?`
+    <div class="weak-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:40px;height:40px;background:var(--red);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <span style="font-size:18px">🎯</span>
         </div>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:var(--text)">시험 준비 대시보드</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px">약점 분석 · 히트맵 · 레이더 차트</div>
-        </div>
-        <span style="color:var(--blue);font-size:13px;font-weight:700">분석 →</span>
-      </button>
-    </div>`:''}`;
-    })()}
-
-    ${(()=>{const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));return `
-    <div class="card" style="margin-top:4px;background:linear-gradient(135deg,#8B5CF6 0%,#7C3AED 50%,#6D28D9 100%);color:white;padding:24px;border-radius:var(--r-xl);position:relative;overflow:hidden">
-      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%"></div>
-      <div style="position:relative">
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div>
-            <div style="font-size:11px;font-weight:700;opacity:.6;letter-spacing:2px">Lv.${xd.lv} ${lvName(xd.lv)}</div>
-            <div style="font-size:22px;font-weight:800;margin-top:6px;line-height:1.3">나만의 1:1 맞춤<br>내신 테스트</div>
-          </div>
-          <div style="text-align:center;min-width:56px">
-            <div style="font-size:28px;font-weight:900">${xd.lv}</div>
-            <div style="font-size:10px;opacity:.7;font-weight:600">LEVEL</div>
-          </div>
-        </div>
-        <div style="margin-top:14px">
-          <div style="display:flex;justify-content:space-between;font-size:11px;opacity:.7;margin-bottom:4px"><span>EXP ${xd.xp}/${xpForLevel(xd.lv)}</span><span>${pct}%</span></div>
-          <div style="height:6px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:rgba(255,255,255,.85);border-radius:3px;transition:width .5s var(--ease)"></div></div>
+          <div style="font-size:13px;font-weight:800;color:var(--red)">약점 발견!</div>
+          <div style="font-size:12px;color:var(--text);margin-top:2px;font-weight:600">${weakRec.msg}</div>
         </div>
       </div>
-    </div>`;})()}
+      <button onclick="goMode('교과서')" style="margin-top:10px;width:100%;padding:10px;background:var(--red);color:white;border:none;border-radius:var(--r-md);font-size:13px;font-weight:700;cursor:pointer">약점 집중 훈련 시작 →</button>
+    </div>`:''}
 
-    <!-- Test Start -->
+    <!-- ⑤ 시험 보기 -->
     <div class="sec-label">시험 보기</div>
     <div class="card" style="padding:0;overflow:hidden">
       <button onclick="goMode('교과서')" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
@@ -1908,24 +2138,60 @@ function rHome(){setBottom(null);
       </button>
     </div>
 
-    <div class="sec-label">제공 테스트 유형</div>
-    <div style="padding:0 20px;display:flex;gap:8px">
-      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
-        <div style="font-size:28px;margin-bottom:6px">📝</div>
-        <div style="font-size:13px;font-weight:700">단어</div>
-        <div style="font-size:11px;color:var(--sub);margin-top:2px">어휘·문맥</div>
-      </div>
-      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
-        <div style="font-size:28px;margin-bottom:6px">📘</div>
-        <div style="font-size:13px;font-weight:700">워크북</div>
-        <div style="font-size:11px;color:var(--sub);margin-top:2px">문법·구문</div>
-      </div>
-      <div style="flex:1;background:var(--white);border-radius:var(--r-lg);padding:18px 14px;text-align:center;box-shadow:var(--sh-sm)">
-        <div style="font-size:28px;margin-bottom:6px">🎯</div>
-        <div style="font-size:13px;font-weight:700">퀴즈</div>
-        <div style="font-size:11px;color:var(--sub);margin-top:2px">빠른복습</div>
-      </div>
+    <!-- ⑥ 시험 준비 대시보드 -->
+    ${active&&active.scope&&active.scope.length?`
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="S.scr='dashboard';S.dir='fwd';R()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:700;color:var(--text)">시험 준비 대시보드</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">약점 분석 · 히트맵 · 레이더 차트</div>
+        </div>
+        <span style="color:var(--blue);font-size:13px;font-weight:700">분석 →</span>
+      </button>
+    </div>`:''}
+
+    <!-- ⑦ 시험 관리 (중간/기말/수능) -->
+    <div class="sec-label">시험 일정</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      ${plan.exams.map(ex=>{
+        const isActive=plan.activeId===ex.id;
+        const hasDate=!!ex.date;
+        const hasScope=ex.scope&&ex.scope.length>0;
+        const d=hasDate?new Date(ex.date):null;
+        const dStr=d?`${d.getMonth()+1}.${d.getDate()}`:'날짜 미설정';
+        const dd=d?ddayStr(d):'';
+        const scopeLabel=hasScope?examScopeLabel(ex.scope):'범위 미설정';
+        return `<div style="border-bottom:1px solid var(--divider)">
+          <button onclick="selectActiveExam('${ex.id}')" style="width:100%;padding:14px 20px;border:none;background:${isActive?'var(--blue-l)':'none'};display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s">
+            <div style="width:40px;height:40px;background:${isActive?'var(--blue)':'var(--g100)'};border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:background .2s">${ex.icon}</div>
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:14px;font-weight:700;color:var(--text)">${ex.name}</span>
+                ${isActive?'<span style="font-size:10px;font-weight:700;color:var(--blue);background:var(--blue-l);border:1px solid var(--blue);padding:1px 8px;border-radius:8px">이번 시험</span>':''}
+              </div>
+              <div style="font-size:12px;color:var(--sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${hasDate?dStr+' '+dd:dStr}${hasScope?' · '+scopeLabel:''}</div>
+            </div>
+            <span style="color:var(--hint);font-size:14px">›</span>
+          </button>
+        </div>`;
+      }).join('')}
     </div>
+
+    <!-- ⑧ 오답 현황 -->
+    ${wrongs.length?`
+    <div class="card" style="padding:0;overflow:hidden">
+      <button onclick="S.scr='learn';S.dir='fwd';R()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
+        <div style="width:44px;height:44px;background:var(--red-l);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px">📕</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:700;color:var(--text)">틀린 문제 ${wrongs.length}개</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px">복습하면 XP 2배!</div>
+        </div>
+        <span style="color:var(--red);font-size:13px;font-weight:700">복습 →</span>
+      </button>
+    </div>`:''}
 
     <div style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
     <div class="tab-spacer"></div>
@@ -2641,6 +2907,7 @@ function rRecord(){setBottom(null);
 function rMy(){setBottom(null);
   if(!profile.name.trim()){S.scr='login';R();return;}
   const xd=getXP();const pct=Math.min(100,Math.round(xd.xp/xpForLevel(xd.lv)*100));
+  const grade=getGrade(xd.lv);
   const earned=getEarnedBadges();
   const badges=BADGE_DEFS.filter(b=>earned.includes(b.id));
 
@@ -2649,10 +2916,12 @@ function rMy(){setBottom(null);
       <div class="t-heading">마이</div>
     </div>
 
-    <!-- Profile Card -->
+    <!-- Profile Card with Avatar -->
     <div class="card" style="margin-top:16px;padding:0;overflow:hidden">
       <button onclick="openP()" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
-        <div style="width:52px;height:52px;background:linear-gradient(135deg,var(--blue),var(--blue-d));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:800">${esc(profile.name).charAt(0)}</div>
+        <div class="avatar-ring ${grade.cls}" style="width:56px;height:56px">
+          <img src="${avatarURL(profile.name,grade.bg)}" style="width:48px;height:48px;top:4px;left:4px" alt="avatar">
+        </div>
         <div style="flex:1">
           <div class="t-title">${esc(profile.name)}</div>
           <div class="t-caption c-sub" style="margin-top:2px">${esc(profile.school)} · ${esc(profile.grade)}</div>
@@ -2661,17 +2930,22 @@ function rMy(){setBottom(null);
       </button>
     </div>
 
-    <!-- XP / Level -->
+    <!-- XP / Level with Grade -->
     <div class="sec-label">레벨</div>
     <div class="card" style="padding:20px">
       <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">
-        <div style="width:48px;height:48px;background:var(--blue-l);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--blue)">${xd.lv}</div>
+        <div class="avatar-ring ${grade.cls}" style="width:56px;height:56px">
+          <img src="${avatarURL(profile.name,grade.bg)}" style="width:48px;height:48px;top:4px;left:4px" alt="avatar">
+        </div>
         <div style="flex:1">
-          <div style="font-size:16px;font-weight:800;color:var(--text)">Lv.${xd.lv} ${lvName(xd.lv)}</div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:16px;font-weight:800;color:var(--text)">Lv.${xd.lv} ${lvName(xd.lv)}</span>
+            <span style="font-size:10px;font-weight:800;color:${grade.color};background:${grade.bg};padding:2px 8px;border-radius:8px">${grade.name}</span>
+          </div>
           <div style="font-size:12px;color:var(--sub);margin-top:2px">다음 레벨까지 ${xpForLevel(xd.lv)-xd.xp} XP</div>
         </div>
       </div>
-      <div style="height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--blue);border-radius:4px;transition:width .5s var(--ease)"></div></div>
+      <div style="height:8px;background:var(--g100);border-radius:4px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${grade.color};border-radius:4px;transition:width .5s var(--ease)"></div></div>
       <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--sub)"><span>${xd.xp} XP</span><span>${xpForLevel(xd.lv)} XP</span></div>
     </div>
 
@@ -3184,13 +3458,63 @@ function rResult(){setBottom(null);
   if(wT.length)h+=`<div class="tags">${wT.map(t=>`<span class="tag r">${t.slice(0,8)}</span>`).join('')}</div>`;
   h+=`</div>`;
 
-  // 학습 플랜
-  h+=`<div class="r-sec r-anim" style="${d(400)}"><div class="r-sec-h">학습 플랜</div><div class="plan">`;
-  if(r.score>=95)h+=`<div class="plan-i">${l.i}</div><div><h4>완벽!</h4><p>다른 단원도 도전하세요.</p></div>`;
-  else if(r.score>=80)h+=`<div class="plan-i">${l.i}</div><div><h4>통과! 더 올릴 수 있어요</h4><p>틀린 유형만 집중 복습하면 만점!</p></div>`;
-  else if(r.score>=60)h+=`<div class="plan-i">${l.i}</div><div><h4>조금만 더!</h4><p>오답 해설을 꼼꼼히 확인하세요.</p></div>`;
-  else h+=`<div class="plan-i">${l.i}</div><div><h4>기본기부터!</h4><p>지문 해석을 완벽히 이해한 뒤 재도전!</p></div>`;
-  h+=`</div></div>`;
+  // AI 분석 리포트
+  h+=`<div class="r-sec r-anim" style="${d(400)}"><div class="r-sec-h">📊 AI 분석 리포트</div>`;
+  const xdR=getXP();const gradeR=getGrade(xdR.lv);
+  // Strongest & weakest types
+  const sortedTypes=Object.entries(r.tM).map(([t,v])=>({t,pct:v.total>0?Math.round(v.ok/v.total*100):0,ok:v.ok,total:v.total})).sort((a,b)=>a.pct-b.pct);
+  const weakTypes=sortedTypes.filter(t=>t.pct<80);
+  const strongTypes=sortedTypes.filter(t=>t.pct>=80);
+  // Generate natural language analysis
+  let analysis=`<div style="padding:16px;background:var(--card);border-radius:var(--r-lg);border:1px solid var(--divider)">`;
+  // Avatar + grade
+  analysis+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+    <div class="avatar-ring ${gradeR.cls}" style="width:44px;height:44px"><img src="${avatarURL(profile.name,gradeR.bg)}" style="width:36px;height:36px;top:4px;left:4px" alt=""></div>
+    <div><div style="font-size:14px;font-weight:800;color:var(--text)">${esc(profile.name)}님의 분석</div><div style="font-size:11px;color:var(--sub)">Lv.${xdR.lv} ${lvName(xdR.lv)} · ${gradeR.name}</div></div></div>`;
+  // Score summary
+  if(r.score>=95)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px">🌟 완벽에 가까운 점수! 이 범위는 마스터했어요.</div>`;
+  else if(r.score>=80)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px">👍 통과! 약점만 잡으면 만점도 가능해요.</div>`;
+  else if(r.score>=60)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--yellow);margin-bottom:10px">💪 조금만 더! 핵심 유형에 집중하면 빠르게 올라가요.</div>`;
+  else analysis+=`<div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">📚 기본기 강화가 필요해요. 해설을 꼼꼼히 확인하세요.</div>`;
+  // Weak type analysis
+  if(weakTypes.length){
+    analysis+=`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:6px">⚠️ 약점 유형</div>`;
+    weakTypes.forEach(w=>{
+      let advice='';
+      const tl=w.t.toLowerCase();
+      if(tl.includes('어법')||tl.includes('문법'))advice='문법 규칙을 정리하고, 틀린 문장을 다시 분석해보세요.';
+      else if(tl.includes('어휘')||tl.includes('단어')||tl.includes('동의어')||tl.includes('반의어'))advice='단어장을 다시 보고, 문맥 속에서 뜻을 추론하는 연습을 하세요.';
+      else if(tl.includes('빈칸'))advice='지문의 흐름과 논리적 연결어에 집중하세요.';
+      else if(tl.includes('순서')||tl.includes('삽입'))advice='문장 간 연결어(however, therefore 등)와 지시어(this, these)를 찾아보세요.';
+      else if(tl.includes('내용')||tl.includes('t/f'))advice='지문을 꼼꼼히 읽고 선택지와 비교하세요. 함정이 있는 부분을 체크!';
+      else if(tl.includes('서술'))advice='핵심 구문을 정확히 해석하는 연습이 필요해요.';
+      else advice='이 유형을 집중적으로 반복 풀이하세요.';
+      analysis+=`<div style="padding:8px 12px;background:var(--red-l);border-radius:var(--r-sm);margin-bottom:4px;font-size:12px">
+        <span style="font-weight:700;color:var(--text)">${w.t}</span> <span style="color:var(--red);font-weight:800">${w.pct}%</span> (${w.ok}/${w.total})
+        <div style="color:var(--sub);margin-top:2px;font-size:11px">💡 ${advice}</div>
+      </div>`;
+    });
+    analysis+=`</div>`;
+  }
+  // Strong types
+  if(strongTypes.length){
+    analysis+=`<div><div style="font-size:12px;font-weight:800;color:var(--green);margin-bottom:6px">✅ 강점 유형</div>`;
+    strongTypes.forEach(s=>{
+      analysis+=`<div style="padding:6px 12px;background:var(--green-l);border-radius:var(--r-sm);margin-bottom:4px;font-size:12px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-weight:700;color:var(--text)">${s.t}</span>
+        <span style="color:var(--green);font-weight:800">${s.pct}%</span>
+      </div>`;
+    });
+    analysis+=`</div>`;
+  }
+  // Next action
+  analysis+=`<div style="margin-top:12px;padding:10px 14px;background:var(--blue-l);border-radius:var(--r-sm);font-size:12px;color:var(--blue);font-weight:700">`;
+  if(weakTypes.length>=2)analysis+=`🎯 추천: "${weakTypes[0].t}" 유형 집중 훈련 → 예상 +${Math.min(20,80-weakTypes[0].pct)}점 상승 가능`;
+  else if(weakTypes.length===1)analysis+=`🎯 추천: "${weakTypes[0].t}" 유형만 잡으면 ${Math.min(r.score+15,100)}점 달성 가능!`;
+  else analysis+=`🎯 추천: 다른 범위도 도전해서 전 범위 마스터하세요!`;
+  analysis+=`</div>`;
+  analysis+=`</div>`;
+  h+=analysis+`</div>`;
 
   // 액션
   // Challenge comparison
@@ -3206,7 +3530,14 @@ function rResult(){setBottom(null);
     </div>`;
   }
 
-  h+=`<div class="r-sec r-anim" style="${d(500)}"><div class="r-sec-h">액션</div><div class="act-grid">${fromH?'':`<button class="act" onclick="shareChallenge()"><span class="ai">🤝</span><span class="al">같이 풀기</span></button>`}<button class="act" onclick="svImg()"><span class="ai">🖼️</span><span class="al">이미지 저장</span></button><button class="act" onclick="cpRes()"><span class="ai">📋</span><span class="al">결과 복사</span></button>${fromH?'':`<button class="act" onclick="startE()"><span class="ai">🔄</span><span class="al">재시험</span></button>`}<button class="act primary" onclick="goHome()"><span class="ai">🏠</span><span class="al">홈으로</span></button></div></div>`;
+  // Share card CTA
+  h+=`<div class="r-sec r-anim" style="${d(480)}">
+    <button onclick="previewShareCard()" style="width:100%;padding:18px;border:none;border-radius:var(--r-xl);background:linear-gradient(135deg,#8B5CF6,#EC4899);color:white;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 16px rgba(139,92,246,.3)">
+      <span style="font-size:20px">📸</span> 결과 카드 공유하기
+    </button>
+  </div>`;
+
+  h+=`<div class="r-sec r-anim" style="${d(550)}"><div class="r-sec-h">액션</div><div class="act-grid">${fromH?'':`<button class="act" onclick="shareChallenge()"><span class="ai">🤝</span><span class="al">같이 풀기</span></button>`}<button class="act" onclick="svImg()"><span class="ai">🖼️</span><span class="al">상세 이미지</span></button><button class="act" onclick="cpRes()"><span class="ai">📋</span><span class="al">결과 복사</span></button>${fromH?'':`<button class="act" onclick="startE()"><span class="ai">🔄</span><span class="al">재시험</span></button>`}<button class="act primary" onclick="goHome()"><span class="ai">🏠</span><span class="al">홈으로</span></button></div></div>`;
 
   // 정답과 해설
   h+=`<div class="r-sec r-anim" style="${d(600)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 펼치기</span></div>`;
@@ -3226,15 +3557,16 @@ function rResult(){setBottom(null);
     setTimeout(()=>{
       if($('nudgeModal'))return;
       const label=challengeLabel();
-      const msg=r.score>=90?`${label} ${r.score}점! 이길 수 있는 친구 있어? 😏`:r.score>=70?`${label} ${r.score}점! 넌 몇 점일까? ㅋㅋ`:`${label} 같이 풀면 더 재밌어!`;
+      const msg=r.score>=90?`${r.score}점! 자랑 안 할 수 없지 😏`:r.score>=70?`${r.score}점! 친구한테 공유해볼까?`:`결과 카드 공유하고 친구랑 같이 풀어봐!`;
       const d=document.createElement('div');d.className='modal-overlay';d.id='nudgeModal';
       d.onclick=e=>{if(e.target===d)d.remove();};
       d.innerHTML=`<div class="modal-box" style="padding:28px 24px 20px">
-        <div style="font-size:40px;margin-bottom:8px">🤝</div>
+        <div style="font-size:40px;margin-bottom:8px">📸</div>
         <div style="font-size:17px;font-weight:800;color:var(--text)">${msg}</div>
-        <div style="font-size:13px;color:var(--sub);margin-top:6px;margin-bottom:20px">친구에게 같은 시험을 공유해보세요</div>
-        <button onclick="document.getElementById('nudgeModal').remove();shareChallenge()" style="width:100%;padding:14px;border:none;border-radius:var(--r-lg);background:var(--blue);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px">친구에게 공유하기</button>
-        <button onclick="document.getElementById('nudgeModal').remove()" style="width:100%;padding:12px;border:none;background:none;color:var(--sub);font-size:14px;cursor:pointer">다음에 할게요</button>
+        <div style="font-size:13px;color:var(--sub);margin-top:6px;margin-bottom:20px">내 결과 카드를 인스타·카톡에 공유해보세요</div>
+        <button onclick="document.getElementById('nudgeModal').remove();previewShareCard()" style="width:100%;padding:14px;border:none;border-radius:var(--r-lg);background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px">📸 결과 카드 보기</button>
+        <button onclick="document.getElementById('nudgeModal').remove();shareChallenge()" style="width:100%;padding:12px;border:none;background:var(--g50);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;border-radius:var(--r-md);margin-bottom:4px">🤝 같이 풀기 공유</button>
+        <button onclick="document.getElementById('nudgeModal').remove()" style="width:100%;padding:10px;border:none;background:none;color:var(--sub);font-size:13px;cursor:pointer">다음에 할게요</button>
       </div>`;
       document.body.appendChild(d);
     },1500);
@@ -3359,6 +3691,157 @@ function svImg(){
       toast('🖼️ 이미지를 저장했어요');
     }
     setTimeout(()=>URL.revokeObjectURL(url),60000);
+  });
+}
+
+// ━━ Share Card (SNS 공유 카드) ━━
+function generateShareCard(callback){
+  const r=S.res,p=profile,l=r.lv,pass=r.score>=80;
+  const xd=getXP();const grade=getGrade(xd.lv);
+  const W=600,H=600,sc=2;
+  const cv=document.createElement('canvas');cv.width=W*sc;cv.height=H*sc;
+  const c=cv.getContext('2d');c.scale(sc,sc);
+
+  // Helpers
+  function fillRR(x,y,w,h,rad,color){c.beginPath();c.moveTo(x+rad,y);c.lineTo(x+w-rad,y);c.quadraticCurveTo(x+w,y,x+w,y+rad);c.lineTo(x+w,y+h-rad);c.quadraticCurveTo(x+w,y+h,x+w-rad,y+h);c.lineTo(x+rad,y+h);c.quadraticCurveTo(x,y+h,x,y+h-rad);c.lineTo(x,y+rad);c.quadraticCurveTo(x,y,x+rad,y);c.closePath();c.fillStyle=color;c.fill();}
+  function txt(text,x,y,size,weight,color,align){c.font=weight+' '+size+'px "Noto Sans KR",sans-serif';c.fillStyle=color;c.textAlign=align||'left';c.textBaseline='middle';c.fillText(text,x,y);}
+  function bar(x,y,w,h,pct,bg,fg){fillRR(x,y,w,h,h/2,bg);if(pct>0)fillRR(x,y,Math.max(w*Math.min(pct/100,1),h),h,h/2,fg);}
+
+  // Background gradient
+  const grd=c.createLinearGradient(0,0,W,H);
+  grd.addColorStop(0,'#8B5CF6');grd.addColorStop(0.5,'#7C3AED');grd.addColorStop(1,'#6D28D9');
+  c.fillStyle=grd;c.fillRect(0,0,W,H);
+
+  // Decorative circles
+  c.globalAlpha=0.06;c.fillStyle='#FFF';
+  c.beginPath();c.arc(500,80,80,0,Math.PI*2);c.fill();
+  c.beginPath();c.arc(100,520,60,0,Math.PI*2);c.fill();
+  c.beginPath();c.arc(520,450,40,0,Math.PI*2);c.fill();
+  c.globalAlpha=1;
+
+  // Top: NAESINFIT branding
+  txt('NAESINFIT',40,40,12,'700','rgba(255,255,255,.5)');
+  txt('나만의 1:1 맞춤 내신 테스트',40,65,14,'600','rgba(255,255,255,.7)');
+
+  // Avatar circle with grade ring
+  const avatarImg=new Image();avatarImg.crossOrigin='anonymous';
+  avatarImg.onload=function(){
+    // Grade ring
+    c.beginPath();c.arc(W/2,180,58,0,Math.PI*2);c.fillStyle='rgba(255,255,255,.15)';c.fill();
+    c.beginPath();c.arc(W/2,180,54,0,Math.PI*2);c.strokeStyle=grade.color;c.lineWidth=4;c.stroke();
+    // Clip avatar
+    c.save();c.beginPath();c.arc(W/2,180,50,0,Math.PI*2);c.clip();
+    c.drawImage(avatarImg,W/2-50,130,100,100);
+    c.restore();
+
+    // Grade badge
+    fillRR(W/2-30,232,60,22,11,grade.color);
+    txt(grade.name,W/2,243,11,'800','#FFFFFF','center');
+
+    // Score
+    txt(String(r.score),W/2,310,72,'900','#FFFFFF','center');
+    txt('/ 100',W/2,348,16,'600','rgba(255,255,255,.6)','center');
+
+    // Pass badge
+    const bBg=pass?'rgba(255,255,255,.2)':'rgba(240,68,82,.3)';
+    const bTxt=pass?'PASS':'RETRY';
+    fillRR(W/2-36,365,72,28,14,bBg);
+    txt(bTxt,W/2,379,13,'800','#FFFFFF','center');
+
+    // Level info
+    txt('Lv.'+xd.lv+' '+lvName(xd.lv),W/2,420,14,'700','rgba(255,255,255,.8)','center');
+
+    // XP bar
+    bar(W/2-100,440,200,6,Math.round(xd.xp/xpForLevel(xd.lv)*100),'rgba(255,255,255,.2)','rgba(255,255,255,.8)');
+
+    // Stats row
+    const stats=[{v:r.ok,l:'정답'},{v:r.no,l:'오답'},{v:ftk(S.te),l:'시간'}];
+    stats.forEach((s,i)=>{
+      const sx=W/2-120+i*120;
+      txt(String(s.v),sx,484,22,'800','#FFFFFF','center');
+      txt(s.l,sx,506,11,'500','rgba(255,255,255,.5)','center');
+    });
+
+    // Test info
+    txt(challengeLabel(),W/2,540,13,'600','rgba(255,255,255,.6)','center');
+    txt(p.name+' · '+new Date().toLocaleDateString('ko-KR'),W/2,560,11,'500','rgba(255,255,255,.4)','center');
+
+    // Bottom branding
+    txt('naesinfit.vercel.app',W/2,588,10,'500','rgba(255,255,255,.3)','center');
+
+    cv.toBlob(blob=>callback(blob));
+  };
+  avatarImg.onerror=function(){
+    // Fallback: draw initial instead of avatar
+    c.beginPath();c.arc(W/2,180,54,0,Math.PI*2);c.fillStyle='rgba(255,255,255,.2)';c.fill();
+    c.beginPath();c.arc(W/2,180,54,0,Math.PI*2);c.strokeStyle=grade.color;c.lineWidth=4;c.stroke();
+    txt(p.name.charAt(0),W/2,180,36,'900','#FFFFFF','center');
+
+    fillRR(W/2-30,232,60,22,11,grade.color);
+    txt(grade.name,W/2,243,11,'800','#FFFFFF','center');
+    txt(String(r.score),W/2,310,72,'900','#FFFFFF','center');
+    txt('/ 100',W/2,348,16,'600','rgba(255,255,255,.6)','center');
+    const bBg=pass?'rgba(255,255,255,.2)':'rgba(240,68,82,.3)';
+    fillRR(W/2-36,365,72,28,14,bBg);
+    txt(pass?'PASS':'RETRY',W/2,379,13,'800','#FFFFFF','center');
+    txt('Lv.'+xd.lv+' '+lvName(xd.lv),W/2,420,14,'700','rgba(255,255,255,.8)','center');
+    bar(W/2-100,440,200,6,Math.round(xd.xp/xpForLevel(xd.lv)*100),'rgba(255,255,255,.2)','rgba(255,255,255,.8)');
+    const stats=[{v:r.ok,l:'정답'},{v:r.no,l:'오답'},{v:ftk(S.te),l:'시간'}];
+    stats.forEach((s,i)=>{const sx=W/2-120+i*120;txt(String(s.v),sx,484,22,'800','#FFFFFF','center');txt(s.l,sx,506,11,'500','rgba(255,255,255,.5)','center');});
+    txt(challengeLabel(),W/2,540,13,'600','rgba(255,255,255,.6)','center');
+    txt(p.name+' · '+new Date().toLocaleDateString('ko-KR'),W/2,560,11,'500','rgba(255,255,255,.4)','center');
+    txt('naesinfit.vercel.app',W/2,588,10,'500','rgba(255,255,255,.3)','center');
+    cv.toBlob(blob=>callback(blob));
+  };
+  avatarImg.src=avatarURL(p.name,grade.bg.replace('#',''));
+}
+
+function shareCardToSNS(){
+  generateShareCard(blob=>{
+    if(!blob)return toast('카드 생성 실패');
+    const file=new File([blob],'naesinfit-result.png',{type:'image/png'});
+    if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+      navigator.share({title:'내신핏 시험 결과',text:challengeLabel()+' '+S.res.score+'점! 나한테 도전해봐 💪',files:[file]}).catch(()=>{});
+    }else{
+      // Fallback: download
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');a.href=url;a.download='내신핏_'+profile.name+'_'+localDate()+'.png';a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),60000);
+      toast('🖼️ 카드를 저장했어요! 인스타·카톡에 공유하세요');
+    }
+  });
+}
+
+function shareCardKakao(){
+  generateShareCard(blob=>{
+    if(!blob)return toast('카드 생성 실패');
+    const url=URL.createObjectURL(blob);
+    // Use Web Share API with kakao text
+    const text=`🎯 내신핏 ${challengeLabel()} 결과\n📊 ${S.res.score}점 | Lv.${getXP().lv} ${lvName(getXP().lv)}\n\n나도 도전해봐! 👉 ${generateChallengeURL()}`;
+    if(navigator.share){
+      navigator.share({title:'내신핏 시험 결과',text}).catch(()=>{});
+    }else{
+      navigator.clipboard.writeText(text).then(()=>toast('📋 공유 메시지를 복사했어요! 카톡에 붙여넣기하세요')).catch(()=>toast('복사 실패'));
+    }
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  });
+}
+
+function previewShareCard(){
+  generateShareCard(blob=>{
+    if(!blob)return;
+    const url=URL.createObjectURL(blob);
+    const d=document.createElement('div');d.className='modal-overlay';d.id='sharePreview';
+    d.onclick=e=>{if(e.target===d)d.remove();};
+    d.innerHTML=`<div class="modal-box" style="padding:20px;max-width:360px">
+      <img src="${url}" style="width:100%;border-radius:16px;margin-bottom:16px">
+      <div style="display:flex;gap:8px">
+        <button onclick="document.getElementById('sharePreview').remove();shareCardToSNS()" style="flex:1;padding:14px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,#E1306C,#F77737);color:white;font-size:14px;font-weight:700;cursor:pointer">📸 공유하기</button>
+        <button onclick="document.getElementById('sharePreview').remove();shareCardKakao()" style="flex:1;padding:14px;border:none;border-radius:var(--r-md);background:#FEE500;color:#391B1B;font-size:14px;font-weight:700;cursor:pointer">💬 카카오톡</button>
+      </div>
+      <button onclick="document.getElementById('sharePreview').remove()" style="width:100%;margin-top:8px;padding:10px;border:none;background:none;color:var(--sub);font-size:13px;cursor:pointer">닫기</button>
+    </div>`;
+    document.body.appendChild(d);
   });
 }
 
