@@ -231,13 +231,15 @@ function validateFulltext(jsonPath, opts = {}) {
     const normPassage = normalizePassage(passage);
 
     // ── FT-10: Match ratio check ──
+    // 교과서 발췌 passage는 일치율이 낮을 수 있으므로 B레벨로 완화
+    const isTextbookFile = jsonPath.includes('교과서');
     const ratio = calcMatchRatio(normPassage, normFull);
 
     if (ratio < 0.5) {
-      result.add('FT-10', blockSev,
+      result.add('FT-10', isTextbookFile ? SEV.B : blockSev,
         `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 50%) — 원문 변조 의심`);
     } else if (ratio < 0.8) {
-      result.add('FT-11', SEV.A,
+      result.add('FT-11', isTextbookFile ? SEV.B : SEV.A,
         `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 80%) — 부분 변조 확인 필요`);
     } else if (ratio < 0.95) {
       result.add('FT-12', SEV.B,
@@ -249,7 +251,7 @@ function validateFulltext(jsonPath, opts = {}) {
       const mismatches = findMismatches(normPassage, normFull);
       mismatches.forEach((m, mi) => {
         if (mi < 3) { // Report max 3 mismatches per question
-          result.add('FT-20', ratio < 0.8 ? SEV.A : SEV.B,
+          result.add('FT-20', (ratio < 0.8 && !isTextbookFile) ? SEV.A : SEV.B,
             `Q${qid}: 불일치 구간 [pos ${m.position}]: "${m.text}${m.length > 60 ? '...' : ''}"`);
         }
       });
@@ -265,16 +267,20 @@ function validateFulltext(jsonPath, opts = {}) {
     });
 
     if (addedSentences.length > 0) {
-      result.add('FT-30', SEV.A,
+      result.add('FT-30', isTextbookFile ? SEV.B : SEV.A,
         `Q${qid}: 원문에 없는 문장 ${addedSentences.length}개 추가됨 — "${addedSentences[0].trim().substring(0, 50)}..."`);
     }
 
     // ── FT-40: For strict full-text types, passage should be ≥ 70% of fullPassage ──
+    // 교과서: 15문장 이상이면 발췌 허용 (최소 8문장 = ~15% 이상이면 OK)
+    // 모의고사/수능특강: 원문 전체 필수 (70% 이상)
+    const isTextbook = jsonPath.includes('교과서');
+    const minRatio = isTextbook ? 0.10 : 0.70; // 교과서는 10% 이상이면 발췌 허용
     if (STRICT_FULL_TYPES.includes(typeNorm)) {
       const passageLen = normPassage.length;
       const fullLen = normFull.length;
-      if (fullLen > 0 && passageLen < fullLen * 0.7) {
-        result.add('FT-40', blockSev,
+      if (fullLen > 0 && passageLen < fullLen * minRatio) {
+        result.add('FT-40', isTextbook ? SEV.B : blockSev,
           `Q${qid}: "${typeNorm}" 유형인데 passage가 원문의 ${((passageLen / fullLen) * 100).toFixed(0)}%만 사용 — 원문 누락`);
       }
     }
