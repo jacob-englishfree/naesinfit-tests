@@ -149,13 +149,18 @@ function validate(jsonPath) {
     const passage = q.passage || '';
     const typeNorm = (q.type || '').trim();
 
+    // ── passage 비어있으면 S급 에러 ──
+    if (!passage || passage.trim().length === 0) {
+      result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
+    }
+    // 교과서: 15문장 이상이면 최소 8문장 발췌 허용 (정답 근거 포함 필수)
+    // 모의고사/수능특강: 원문 전체 필수 (별도 체크)
+
     // ── C15~C18: mc consistency ──
     if (q.fmt === 'mc' && Array.isArray(q.ch)) {
-      // C16: ch.length check — 5 for standard, 2 for T/F, 3~4 for 어법 빈칸
-      const allowedLengths = ['T/F', 'TF', 'TF 판별'].includes(typeNorm) ? [2, 4, 5] :
-        ['어법 빈칸', '어법', '어휘', '어휘 문맥', '지칭추론', '지칭', '연결사', '종합'].includes(typeNorm) ? [2, 3, 4, 5] : [4, 5];
-      if (!allowedLengths.includes(q.ch.length)) {
-        result.add('C16', SEV.S, `Q${qid}: ch.length = ${q.ch.length}, expected ${allowedLengths.join(' or ')}`);
+      // C16: 모든 MC 문항 4지선다 필수 (서술형 제외)
+      if (q.ch.length !== 4) {
+        result.add('C16', SEV.S, `Q${qid}: ch.length = ${q.ch.length}, 모든 문항 4지선다 필수`);
       }
 
       // C15: ans in bounds
@@ -175,24 +180,49 @@ function validate(jsonPath) {
 
     // ── P22~P29: passage-type cross checks ──
 
-    // P22: blank check removed — many legacy files use stem-inline blanks
+    // P22: 빈칸형 문항은 passage 또는 stem에 빈칸(____) 필요
+    if (['빈칸 어휘 완성', '빈칸 문맥 완성', '빈칸추론', '빈칸 추론'].includes(typeNorm) && q.fmt === 'mc') {
+      const combined = passage + ' ' + (q.stem || '');
+      if (!combined.includes('____') && !combined.includes('(     )') && !combined.includes('______')) {
+        result.add('P22', SEV.A, `Q${qid}: 빈칸형(${typeNorm})인데 빈칸 마커 없음`);
+      }
+    }
 
-    // P23: <u> tag count check removed — legacy files have 1-4 tags legitimately
+    // P23: 밑줄형 유형은 passage에 <u> 태그 4개 필요 (①~④)
+    if (['문맥상 부적절한 어휘', '부적절한 어휘'].includes(typeNorm) && q.fmt === 'mc') {
+      const uCount = (passage.match(/<u>/g) || []).length;
+      if (uCount > 0 && uCount < 4) {
+        result.add('P23', SEV.A, `Q${qid}: 밑줄형(${typeNorm})에 <u> ${uCount}개 — 4개 필요`);
+      }
+    }
 
-    // P24: (A)(B)(C) marker check removed — legacy files have diverse formats
+    // P24: (A)(B)(C) 조합형은 passage 또는 stem에 (A)(B)(C) 마커 필요
+    if (typeNorm === '(A)(B)(C) 조합형') {
+      const combined = passage + ' ' + (q.stem || '');
+      if (!combined.includes('(A)') || !combined.includes('(B)') || !combined.includes('(C)')) {
+        result.add('P24', SEV.B, `Q${qid}: (A)(B)(C) 조합형인데 마커 누락 — passage 또는 stem 확인`);
+      }
+    }
 
-    // P25: 어형변환 check removed — legacy files have diverse formats
+    // P25: 어형 변환은 passage에 변환 대상 표시 필요
+    if (['어형 변환 (서술형)', '어형 변환'].includes(typeNorm)) {
+      if (!passage.includes('<') && !passage.includes('(') && !passage.includes('[')) {
+        result.add('P25', SEV.B, `Q${qid}: 어형 변환인데 변환 대상 표시 없음`);
+      }
+    }
 
-    // P26: 동의어/반의어 passage length check removed — some use full passage legitimately
+    // P26: 동의어/반의어 passage 체크 — 현재 원문 전체 passage 필수 규칙에 따라 비활성화
 
-    // P27: 영영풀이 passage check removed — some legacy files include passage
+    // P27: 영영풀이 passage 체크 — 현재 원문 전체 passage 필수 규칙에 따라 비활성화
 
-    // P28: 어법 5지선다 (not 어법 빈칸) → <u> + ①②③④⑤ markers
-    // Only check if passage already contains circled markers (5지선다 밑줄형)
-    // Skip if passage is blank-fill style (__________ or empty)
-    if (typeNorm === '어법' && q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 5) {
+    // P28: 어법 4지선다 — ①②③④ 마커 일관성
+    if (typeNorm === '어법' && q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
       const hasCircled = passage.includes('①') || passage.includes('②');
-      // P28: marker count check removed — legacy files have partial markers
+      if (hasCircled) {
+        ['①', '②', '③', '④'].forEach(c => {
+          if (!passage.includes(c)) result.add('P28', SEV.A, `Q${qid}: 어법 4지선다 — ${c} 마커 누락`);
+        });
+      }
     }
 
     // P29: 문장삽입 → ①②③④ markers (only if passage has any markers)
@@ -266,11 +296,8 @@ function validate(jsonPath) {
       result.add('W50', SEV.A, `Q${qid}: blanks should be __________ not (    )`);
     }
 
-    // ── EX: 정답 노출 checks removed from validation ──
-    // These are informational only — handled during manual review
-    // Keeping passagePlain for potential future use
+    // ── EX: 정답 노출 checks ──
     const passagePlain = passage.replace(/<[^>]+>/g, '');
-    if (false) { // disabled
 
     // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출
     if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
@@ -341,7 +368,7 @@ function validate(jsonPath) {
         }
       }
     }
-    } // end disabled EX block
+    // end EX block
   });
 
   // ── C19: id 1~N continuous, no dups ──
@@ -376,8 +403,7 @@ function validate(jsonPath) {
     });
   }
 
-  // ── R51~R53: 모의고사 문항번호 적합성 — 참고용이므로 비활성화 ──
-  if (false) { // disabled — informational only
+  // ── R51~R53: 모의고사 문항번호 적합성 ──
   if (ei.subject && ei.subject.includes('모의고사')) {
     const pubNum = parseInt(ei.pub);
     if (!isNaN(pubNum)) {
@@ -403,7 +429,7 @@ function validate(jsonPath) {
         });
       }
     }
-  } } // end disabled R51-R53
+  }
 
   // ── Fullpassage check ──
   if (!fullPassage || fullPassage.trim().length === 0) {
@@ -502,10 +528,27 @@ function validate(jsonPath) {
     const typeNorm = (q.type || '').trim();
     const passage = q.passage || '';
 
-    // P1/P2: passage length & fullPassage match checks removed
-    // — 원본 데이터의 다양한 발췌 형식을 허용 (단문 발췌, 변형 passage 등 정상)
+    // P1: passage가 있는 문항은 최소 길이 확인
+    if (fullTextTypes.includes(typeNorm) && passage) {
+      const pLen = passage.replace(/<[^>]+>/g, '').length;
+      if (pLen > 0 && pLen < 20) {
+        result.add('P1', SEV.B, `Q${qid}: passage가 너무 짧음 (${pLen}자)`);
+      }
+    }
 
-    // P3: \\u escape check removed — auto-fixed by fix-warnings.js
+    // P2: fullPassage가 있을 때 passage가 원문의 일부인지 확인
+    if (fullPassage && passage && passage.replace(/<[^>]+>/g, '').length > 50) {
+      const passClean = passage.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 50);
+      const fullClean = fullPassage.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+      if (passClean.length > 30 && !fullClean.includes(passClean)) {
+        result.add('P2', SEV.B, `Q${qid}: passage 앞부분이 fullPassage에 없음 — 원문 확인 필요`);
+      }
+    }
+
+    // P3: \\u escape 잔존 확인
+    if (passage && /\\u[0-9a-fA-F]{4}/.test(passage)) {
+      result.add('P3', SEV.B, `Q${qid}: passage에 \\u escape 잔존`);
+    }
 
     // P4: No placeholder text in choices
     if (Array.isArray(q.ch)) {
