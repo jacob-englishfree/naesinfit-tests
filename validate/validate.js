@@ -163,9 +163,12 @@ function validate(jsonPath) {
 
     // ── C15~C18: mc consistency ──
     if (q.fmt === 'mc' && Array.isArray(q.ch)) {
-      // C16: 모든 MC 문항 4지선다 필수 (서술형 제외)
-      if (q.ch.length !== 4) {
-        result.add('C16', SEV.S, `Q${qid}: ch.length = ${q.ch.length}, 모든 문항 4지선다 필수`);
+      // C16: 모든 MC 문항 4지선다 필수 (T/F는 2지선다 허용)
+      const isTF = ['T/F', 'TF', 'TF 판별', '내용이해 T/F'].includes(typeNorm);
+      if (isTF && q.ch.length !== 2) {
+        result.add('C16', SEV.S, `Q${qid}: T/F인데 ch.length = ${q.ch.length}, 2지선다 필수`);
+      } else if (!isTF && q.ch.length !== 4) {
+        result.add('C16', SEV.S, `Q${qid}: ch.length = ${q.ch.length}, 4지선다 필수`);
       }
 
       // C15: ans in bounds
