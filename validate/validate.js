@@ -154,6 +154,7 @@ function validate(jsonPath) {
       '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
       '한영', '한→영', '한영영작',
       '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
+      '서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)',
     ];
     if ((!passage || passage.trim().length === 0) && !noPassageTypes.includes(typeNorm)) {
       result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
