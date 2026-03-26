@@ -251,6 +251,57 @@ function validate(jsonPath) {
       }
     }
 
+    // ── V60~V69: jacob 검수 기반 화면 레벨 체크 (2026-03-27) ──
+    const stem = q.stem || '';
+    const passagePlainLen = passage.replace(/<[^>]+>/g, '').trim().length;
+    const passageSentences = passage.replace(/<[^>]+>/g, '').split(/[.!?]+/).filter(s => s.trim()).length;
+
+    // V60: 어순배열 — 빈칸이 passage 안에 있어야 함 (stem에 있으면 안 됨)
+    if (typeNorm === '어순배열') {
+      if (!passage.includes('____')) {
+        result.add('V60', SEV.S, `Q${qid}: 어순배열인데 passage에 빈칸(____) 없음 — 빈칸은 반드시 passage 안에`);
+      }
+    }
+
+    // V61: 영작 서술형 — passage가 비어있어야 함
+    if (q.fmt === 'written' && (stem.includes('우리말') || stem.includes('한→영') || stem.includes('영작') || stem.includes('일치하도록'))) {
+      if (passage.trim().length > 0) {
+        result.add('V61', SEV.S, `Q${qid}: 영작 서술형인데 passage가 있음 — 영작은 passage 비워야 함 (정답 노출 방지)`);
+      }
+    }
+
+    // V62: "위 글의 빈칸" / "위 빈칸" stem인데 passage에 빈칸 없음
+    if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸')) && !passage.includes('____')) {
+      result.add('V62', SEV.S, `Q${qid}: stem에 "위 빈칸"이라고 했는데 passage에 빈칸(____) 없음`);
+    }
+
+    // V63: passage 2문장 이하 빈 화면 (서술형 영작/영영풀이 제외)
+    const noPassageOK = ['서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)', '영영풀이 매칭', '동의어 고르기', '반의어 고르기', '한영', '한→영'].includes(typeNorm);
+    if (!noPassageOK && passageSentences > 0 && passageSentences <= 2 && passagePlainLen < 150) {
+      result.add('V63', SEV.A, `Q${qid}: passage가 ${passageSentences}문장(${passagePlainLen}자) — 너무 짧아서 빈 화면`);
+    }
+
+    // V64: 서술형/어순배열 — 정답이 passage에 그대로 노출
+    if (typeNorm === '어순배열' && q.wa) {
+      const waLower = q.wa.toLowerCase().trim();
+      const passLower = passage.replace(/<[^>]+>/g, '').replace(/_{5,}/g, '').toLowerCase();
+      if (waLower.length > 10 && passLower.includes(waLower)) {
+        result.add('V64', SEV.S, `Q${qid}: 어순배열 정답이 passage에 그대로 노출됨`);
+      }
+    }
+
+    // V65: 핵심단어 서술형 — stem에 "위 글의 빈칸"이면 안 됨 ("본문에서 찾아 쓰시오"여야 함)
+    if (q.fmt === 'written' && stem.includes('본문에서 찾아') && stem.includes('위 글의 빈칸')) {
+      result.add('V65', SEV.A, `Q${qid}: "본문에서 찾아 쓰시오"인데 "위 글의 빈칸"도 있음 — 모순`);
+    }
+
+    // V66: 빈칸형 passage가 너무 짧음 (암기용 방지) — 5문장 미만
+    if (['빈칸 어휘 완성', '빈칸 문맥 완성', '빈칸추론', '빈칸 추론'].includes(typeNorm)) {
+      if (passageSentences > 0 && passageSentences < 4) {
+        result.add('V66', SEV.A, `Q${qid}: 빈칸형 passage가 ${passageSentences}문장 — 최소 5문장 권장 (암기용 방지)`);
+      }
+    }
+
     // ── X30~X34: content pollution ──
     const allText = [passage, q.stem || '', JSON.stringify(q.det || {})].join(' ');
 
