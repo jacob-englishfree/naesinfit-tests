@@ -240,22 +240,22 @@ input,select{font-family:inherit}
 .qd.cur{background:var(--blue);color:white;transform:scale(1.1)}
 .qd.done{background:var(--blue-l);color:var(--blue)}
 
-.q-card{background:var(--card);margin:0 20px 12px;border-radius:var(--r-xl);padding:24px;box-shadow:var(--sh-md)}
+.q-card{background:var(--card);margin:0 16px 10px;border-radius:var(--r-xl);padding:18px;box-shadow:var(--sh-md)}
 .q-meta{display:flex;align-items:center;gap:6px;margin-bottom:16px;flex-wrap:wrap}
 .q-no{background:var(--g900);color:white;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
 .q-diff{font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px}
 .q-diff.e{background:var(--green-l);color:var(--green)}.q-diff.m{background:var(--yellow-l);color:#D97706}.q-diff.h{background:var(--red-l);color:var(--red)}
 .q-pts{font-size:12px;color:var(--sub);font-weight:600}
 .q-type{font-size:11px;color:var(--sub);background:var(--g100);padding:4px 8px;border-radius:var(--r-sm);font-weight:600}
-.q-stem{font-size:16px;font-weight:700;line-height:1.75;margin-bottom:16px;word-break:keep-all}
-.q-passage{font-size:14.5px;line-height:2;padding:18px 20px;background:var(--blue-xl);border-radius:var(--r-md);margin-bottom:16px;border-left:3px solid var(--blue);color:var(--g700);text-align:justify}
+.q-stem{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;word-break:keep-all}
+.q-passage{font-size:13px;line-height:1.8;padding:14px 16px;background:var(--blue-xl);border-radius:var(--r-md);margin-bottom:12px;border-left:3px solid var(--blue);color:var(--g700);text-align:justify}
 .q-passage b{color:var(--blue);font-weight:700}
 .q-passage u{text-decoration-color:var(--red);text-underline-offset:3px}
 .q-passage i{color:var(--sub)}
 
 /* Choice buttons with ripple */
-.choices{display:flex;flex-direction:column;gap:5px}
-.c-btn{width:100%;text-align:left;padding:14px 16px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--white);font-size:14px;line-height:1.65;cursor:pointer;transition:all .1s var(--ease-snap);color:var(--text);display:flex;align-items:baseline;gap:10px;position:relative;overflow:hidden;will-change:transform}
+.choices{display:flex;flex-direction:column;gap:4px}
+.c-btn{width:100%;text-align:left;padding:10px 14px;border-radius:var(--r-md);border:1.5px solid var(--border);background:var(--white);font-size:13px;line-height:1.5;cursor:pointer;transition:all .1s var(--ease-snap);color:var(--text);display:flex;align-items:baseline;gap:8px;position:relative;overflow:hidden;will-change:transform}
 .c-btn:active{transform:scale(.97)}
 .c-btn .c-n{font-weight:700;color:var(--hint);flex-shrink:0;min-width:16px;transition:color .15s}
 .c-btn.on{border-color:var(--blue);background:var(--blue-l);animation:selectPop .25s var(--ease-spring)}
@@ -3546,7 +3546,13 @@ function updateExAc(){const ac=Object.keys(S.ans).length,tot=S.qs.length;const e
 
 function goQ(di){if(di<0||di>=S.qs.length)return;document.activeElement?.blur();S.ci=di;renderExQ();scrollTo(0,0);}
 
-function confirmExit(){const ex=$('cexit');if(ex)return;const d=document.createElement('div');d.className='modal-overlay';d.id='cexit';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">🚪</div><div class="t-title">시험을 그만둘까요?</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">진행 중인 시험은 저장되지 않아요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cexit').remove()">계속 풀게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cexit').remove();goHome()">나갈게요</button></div></div>`;document.body.appendChild(d);}
+function goBackFromExam(){
+  cleanupTimers();
+  if(S.ti)clearInterval(S.ti);
+  S.qs=[];S.ans={};S.res=null;S.ci=0;S.te=0;S.ti=null;
+  S.scr='select';S.dir='back';R();
+}
+function confirmExit(){const ex=$('cexit');if(ex)return;const d=document.createElement('div');d.className='modal-overlay';d.id='cexit';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">🚪</div><div class="t-title">시험을 그만둘까요?</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">진행 중인 시험은 저장되지 않아요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cexit').remove()">계속 풀게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cexit').remove();goBackFromExam()">나갈게요</button></div></div>`;document.body.appendChild(d);}
 
 // ━━ SUBMIT ━━
 function doSub(auto){
