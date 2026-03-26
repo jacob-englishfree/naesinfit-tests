@@ -302,6 +302,35 @@ function validate(jsonPath) {
       }
     }
 
+    // V67: stem에 "밑줄 친"이 있으면 passage에 <u> 태그 필수 (유형 무관 통합)
+    if (stem.includes('밑줄 친') || stem.includes('밑줄친')) {
+      if (!passage.includes('<u>')) {
+        result.add('V67', SEV.S, `Q${qid}: stem에 "밑줄 친"이 있는데 passage에 <u> 밑줄 없음`);
+      }
+    }
+
+    // V68: 지칭추론 — passage 최소 5문장 + <u>대명사</u> 밑줄 필수
+    if (typeNorm === '지칭추론' || typeNorm === '지칭') {
+      if (passageSentences > 0 && passageSentences < 5) {
+        result.add('V68', SEV.S, `Q${qid}: 지칭추론 passage가 ${passageSentences}문장 — 최소 5문장 필수 (너무 짧으면 답이 바로 보임)`);
+      }
+      if (!passage.includes('<u>')) {
+        result.add('V68-U', SEV.S, `Q${qid}: 지칭추론인데 passage에 <u>대명사</u> 밑줄 없음`);
+      }
+    }
+
+    // V69: 서술형 — 정답(wa)이 passage에 문장 단위로 그대로 노출 (어형변환 제외)
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string') {
+      const waLower = q.wa.toLowerCase().trim();
+      const skipTypes = ['어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형'];
+      if (!skipTypes.includes(typeNorm) && waLower.length > 15) {
+        const passLower = passage.replace(/<[^>]+>/g, '').replace(/_{5,}/g, '').toLowerCase();
+        if (passLower.includes(waLower)) {
+          result.add('V69', SEV.S, `Q${qid}: 서술형 정답("${q.wa.substring(0,30)}...")이 passage에 문장 단위로 그대로 노출`);
+        }
+      }
+    }
+
     // ── X30~X34: content pollution ──
     const allText = [passage, q.stem || '', JSON.stringify(q.det || {})].join(' ');
 
