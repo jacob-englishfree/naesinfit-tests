@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><button onclick="if(confirm('처음으로 돌아가시겠습니까?'))goHome()" style="background:none;border:1px solid rgba(124,58,237,0.3);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#9F5AFF;cursor:pointer;font-family:inherit;margin-right:6px">✕</button><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>능률(민병천)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>능률(민병천)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -196,8 +196,8 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <script>
 const EI={"subject":"공통영어1","pub":"능률(민병천)","lesson":"1과","title":"Don't Let Anger Be Your Boss","total":100,"time":1200,"histKey":"workbookTest_nlm_c1_1_v5","qCount":20,"totalQ":20};
 const FULL_PASSAGE="Do you ever find yourself suddenly feeling angry? One moment you're fine, and the next moment you're slamming doors or rolling your eyes at your parents. Some people may think you just have a bad attitude or are getting too upset about a small problem. However, these feelings don't simply come from stress about everyday life.\n\nAs a teenager, you are going through a lot of changes. You are developing your identity and trying to become independent. At the same time, your brain is still growing and is not yet fully developed. The part of your brain that controls emotions is more active than the part that controls rational thinking. On top of that, hormones can make your emotions feel more intense than they really are. All of these factors can contribute to feelings of anger.\n\nGetting to Know Your Anger\n\nAnger is a natural emotion, and it is not always a bad thing. In fact, anger can be a useful tool. It can tell you when something is wrong or when you are being treated unfairly. The key is to learn how to manage your anger in a productive way so that it does not control you.\n\nQuestions to Ask Yourself\n\nWhen you feel angry, it can be helpful to ask yourself some questions. Why am I feeling this way? Is my anger justified? Am I overreacting? What is the best way to handle this situation? Is there another way to look at this? What would I tell a friend in the same situation? These questions can help you step back and think more clearly before you act.\n\nFirst Aid to Calm Yourself Down\n\nWhen anger hits, your body reacts physically. Your heart rate increases, your face becomes flushed, and you may find yourself clenching your fists. These are signs that your body is preparing for a fight. But fighting is rarely the answer. Instead, try some first aid techniques to calm yourself down. Take deep breaths. Count to ten slowly. Walk away from the situation for a few minutes. Drink a glass of cold water. These simple actions can help bring your body back to a calm state.\n\nFinding Proper Coping Skills\n\nOnce you have calmed down, it is important to find healthy ways to deal with your anger. Some people find it helpful to go for a walk or exercise. Others prefer to express their feelings through drawing or writing in a journal. Talking to someone you trust, like a friend, family member, or counselor, can also be very helpful. Another useful skill is problem-solving. Instead of focusing on how angry you feel, try to focus on finding a solution to the problem that caused your anger.\n\nConclusion\n\nRemember, everyone gets angry sometimes. It is a normal part of being human. But you have the power to choose how you respond to your anger. Don't let anger be your boss. Instead, learn to be the boss of your feelings. By understanding your anger, asking the right questions, calming yourself down, and finding proper coping skills, you can take control of your emotions and handle difficult situations in a healthier way.";
-const Q=[{"id":1,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"Do you ever find yourself suddenly feeling angry? One moment you're fine, and the next moment you're slamming doors or rolling your eyes at your parents. Some people may think you just have a bad attitude or are getting too upset about a small problem. However, these feelings don't simply come from stress about everyday life. As a teenager, you are going through a lot of changes. You are developing your identity and trying to become independent.","stem":"위 글의 내용과 일치하는 것은?","ans":2,"ch":["청소년의 분노 감정은 단순히 일상 스트레스에서 비롯된다.","부모님은 청소년의 분노 감정을 항상 이해한다.","청소년은 정체성을 발달시키며 독립하려고 노력한다.","분노를 느끼는 것은 태도가 나쁘기 때문이다."],"det":{"korean":"청소년기에 정체성을 발달시키고 독립적이 되려고 노력한다.","analysis":"✅ ③ 원문 일치: You are developing your identity and trying to become independent.\n❌ ① don't simply come from stress — 단순히 일상 스트레스에서만 오지 않음\n❌ ② 부모님이 항상 이해한다는 언급 없음\n❌ ④ 태도가 나쁘기 때문이라고 단정하지 않음(Some people may think)","tip":"원문은 '단순히 일상 스트레스에서만 오지 않는다'이지, '일상 스트레스에서 온다'가 아니다. don't simply에 주의!"}},
-{"id":2,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"Anger is a natural emotion, and it is not always a bad thing. In fact, anger can be a useful tool. It can tell you when something is wrong or when you are being treated unfairly. The key is to learn how to manage your anger in a productive way so that it does not control you.","stem":"위 글의 내용과 일치하지 않는 것은?","ans":0,"ch":["분노는 항상 나쁜 것이다.","분노는 부당한 대우를 받을 때를 알려줄 수 있다.","분노를 생산적인 방식으로 관리하는 것이 핵심이다.","분노는 자연스러운 감정이다."],"det":{"korean":"분노는 항상 나쁜 것은 아니다(not always a bad thing).","analysis":"✅ ① '항상 나쁜 것'이 아님. 원문: not always a bad thing(부분 부정)\n❌ ② 원문 일치: tell you when you are being treated unfairly\n❌ ③ 원문 일치: manage your anger in a productive way\n❌ ④ 원문 일치: a natural emotion","tip":"not always = 항상 ~은 아니다 (부분 부정). '항상 나쁘다'는 전체 긍정이므로 원문과 불일치."}},
+const Q=[{"id":1,"type":"내용일치","diff":"쉬움","pts":4,"fmt":"mc","passage":"Do you ever find yourself suddenly feeling angry? One moment you're fine, and the next moment you're slamming doors or rolling your eyes at your parents. Some people may think you just have a bad attitude or are getting too upset about a small problem. However, these feelings don't simply come from stress about everyday life. As a teenager, you are going through a lot of changes. You are developing your identity and trying to become independent.","stem":"위 글의 내용과 일치하는 것은?","ans":2,"ch":["청소년의 분노 감정은 단순히 일상 스트레스에서 비롯된다.","부모님은 청소년의 분노 감정을 항상 이해한다.","청소년은 정체성을 발달시키며 독립하려고 노력한다.","분노를 느끼는 것은 태도가 나쁘기 때문이다."],"det":{"korean":"청소년기에 정체성을 발달시키고 독립적이 되려고 노력한다.","analysis":"✅ ③ 원문 일치: You are developing your identity and trying to become independent.\n❌ ① don't simply come from stress — 단순히 일상 스트레스에서만 오지 않음\n❌ ② 부모님이 항상 이해한다는 언급 없음\n❌ ④ 태도가 나쁘기 때문이라고 단정하지 않음(Some people may think)","tip":"원문은 '단순히 일상 스트레스에서만 오지 않는다'이지, '일상 스트레스에서 온다'가 아니다. don't simply에 주의!"}},
+{"id":2,"type":"TF","diff":"보통","pts":5,"fmt":"mc","passage":"Anger is a natural emotion, and it is not always a bad thing. In fact, anger can be a useful tool. It can tell you when something is wrong or when you are being treated unfairly. The key is to learn how to manage your anger in a productive way so that it does not control you.","stem":"위 글의 내용과 일치하지 않는 것은?","ans":0,"ch":["분노는 항상 나쁜 것이다.","분노는 부당한 대우를 받을 때를 알려줄 수 있다.","분노를 생산적인 방식으로 관리하는 것이 핵심이다.","분노는 자연스러운 감정이다."],"det":{"korean":"분노는 항상 나쁜 것은 아니다(not always a bad thing).","analysis":"✅ ① '항상 나쁜 것'이 아님. 원문: not always a bad thing(부분 부정)\n❌ ② 원문 일치: tell you when you are being treated unfairly\n❌ ③ 원문 일치: manage your anger in a productive way\n❌ ④ 원문 일치: a natural emotion","tip":"not always = 항상 ~은 아니다 (부분 부정). '항상 나쁘다'는 전체 긍정이므로 원문과 불일치."}},
 {"id":3,"type":"빈칸추론","diff":"쉬움","pts":4,"fmt":"mc","passage":"When anger hits, your body reacts physically. Your heart rate increases, your face becomes flushed, and you may find yourself clenching your fists. These are signs that your body is preparing for a fight. But fighting is rarely the answer. Instead, try some __________ to calm yourself down.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":1,"ch":["fighting strategies","first aid techniques","medical treatments","exercise routines"],"det":{"korean":"싸움 대신 진정시키기 위한 응급처치 기법(first aid techniques)을 시도하라.","analysis":"✅ ② first aid techniques: 원문 일치 — 깊은 호흡, 10까지 세기, 상황에서 벗어나기 등\n❌ ① fighting strategies: 싸움 전략, 문맥 반대\n❌ ③ medical treatments: 의료 치료, 과도\n❌ ④ exercise routines: 운동 루틴, 문맥 부적절","tip":"first aid(응급처치) — 분노 시 즉각적으로 진정하는 간단한 기법. 깊은 호흡, 10까지 세기 등."}},
 {"id":4,"type":"빈칸추론","diff":"쉬움","pts":4,"fmt":"mc","passage":"Others prefer to express their feelings through drawing or writing in a journal. Talking to someone you trust, like a friend, family member, or counselor, can also be very helpful. Another useful skill is __________. Instead of focusing on how angry you feel, try to focus on finding a solution to the problem that caused your anger.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":3,"ch":["self-criticism","denial","avoidance","problem-solving"],"det":{"korean":"또 다른 유용한 기술은 문제 해결(problem-solving)이다.","analysis":"✅ ④ problem-solving: 원문 일치 — 빈칸 뒤 'finding a solution to the problem'이 구체적 설명\n❌ ① self-criticism: 자기 비판, 문맥 부적절\n❌ ② denial: 부정, 건설적이지 않음\n❌ ③ avoidance: 회피, 문맥 반대","tip":"빈칸 뒤의 'finding a solution to the problem'이 problem-solving의 구체적 설명이다."}},
 {"id":5,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"As a teenager, you are going through a lot of changes. You are developing your identity and trying to become independent. At the same time, your brain is still growing and is not yet fully developed. The part of your brain that controls emotions is more active than the part that controls rational thinking. On top of that, hormones can make your emotions feel more __________ than they really are.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["intense","stable","predictable","manageable"],"det":{"korean":"호르몬이 감정을 실제보다 더 강렬하게(intense) 느끼게 한다.","analysis":"✅ ① intense: 원문 일치 — 호르몬의 영향으로 감정이 실제보다 강하게 느껴짐\n❌ ② stable: 안정적인, 문맥 반대\n❌ ③ predictable: 예측 가능한, 문맥 부적절\n❌ ④ manageable: 관리 가능한, 문맥 반대","tip":"intense(강렬한) — 호르몬의 영향으로 감정이 실제보다 더 강하게 느껴진다는 맥락."}},
@@ -496,12 +496,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -705,6 +745,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }

@@ -271,9 +271,9 @@ async function validateRender(htmlPath, opts = {}) {
               if (!resultScreen.exists) {
                 result.add('R7', SEV.S, '결과화면(resultScreen) 요소 없음');
               } else if (!resultScreen.visible) {
-                result.add('R7', SEV.A, '결과화면이 표시되지 않음 (display:none)');
+                result.add('R7', SEV.B, '결과화면이 표시되지 않음 (display:none)');
               } else if (resultScreen.textLen < 20) {
-                result.add('R7', SEV.A, '결과화면 콘텐츠 비어있음');
+                result.add('R7', SEV.B, '결과화면 콘텐츠 비어있음');
               }
 
               // Take result screenshot

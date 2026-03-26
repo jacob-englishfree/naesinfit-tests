@@ -98,15 +98,15 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:4px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:3px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>13강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>13강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -196,10 +196,10 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <script>
 const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson":"3번","title":"Interoception & Emotions","total":23,"time":1200,"totalQ":4,"histKey":"wordTest_suneung_13_ex3_v1"};
 const FULL_PASSAGE="Becoming aware of our internal sensations can help us handle our own emotions. Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds, no way to feel what others are feeling. Interpreting others' spoken words and facial expressions may yield only a coolly abstract sense of the emotions that stir within. The body acts as a critical conduit, supplying the brain with the visceral information it lacks. It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch. Then, via the interoception of our own bodies' signals, we perceive what the other person is feeling because we feel it in ourselves. We bring other people's feelings onboard, and the body is the bridge. In an act similar to taking a bite off our partner's plate, or borrowing an earbud to hear the song our friend is listening to, we are ____________________.<br><br>* interoceptive: 내부 감각 수용의  ** conduit: 전달자  *** visceral: 본능적인";
-const Q=[{"id":1,"type":"동의어 고르기","diff":"보통","pts":5,"fmt":"mc","passage":"we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch","stem":"밑줄 친 <b>mimic</b>과 의미가 가장 가까운 것은?","det":{"korean":"mimic은 '모방하다, 흉내 내다'라는 뜻으로, reproduce(재현하다)와 동의어입니다.","analysis":"✅ ① reproduce(재현하다) = mimic(모방하다)\n❌ ② create(창조하다)\n❌ ③ distort(왜곡하다)\n❌ ④ eliminate(제거하다)\n❌ ⑤ conceal(숨기다)","tip":"mimic = imitate = reproduce = copy: '모방하다' 동의어군"},"ans":0,"ch":["reproduce","create","distort","eliminate","conceal"]},
-{"id":2,"type":"반의어 고르기","diff":"어려움","pts":6,"fmt":"mc","passage":"we subtly and unconsciously mimic their facial expressions","stem":"밑줄 친 <b>unconsciously</b>와 의미가 가장 반대인 것은?","det":{"korean":"unconsciously는 '무의식적으로'라는 뜻으로, conscious(의식적인)가 반의어입니다. (부사 consciously의 형용사형)","analysis":"✅ ③ conscious(의식적인) ↔ unconsciously(무의식적으로)\n❌ ① indirect(간접적인)\n❌ ② physical(물리적인)\n❌ ④ emotional(감정적인)\n❌ ⑤ voluntary(자발적인)","tip":"unconscious ↔ conscious / aware / deliberate: 무의식-의식 반의어 쌍"},"ans":2,"ch":["indirect","physical","conscious","emotional","voluntary"]},
-{"id":3,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어는?\n\n<b>\"the perception of sensations from inside the body, including heart rate, breathing, and other internal signals\"</b>","det":{"korean":"'심박수, 호흡 등 신체 내부 감각의 인지'는 <b>interoception(내부 감각 수용)</b>의 정의입니다.","analysis":"✅ ④ interoception(내부 감각 수용)\n❌ ① account(설명)\n❌ ② regularity(규칙성)\n❌ ③ coincidence(우연의 일치)\n❌ ⑤ conduit(전달자, 통로)","tip":"interoception(내부 감각 수용) ↔ exteroception(외부 감각 수용): 감각 관련 학술 용어"},"ans":3,"ch":["account","regularity","coincidence","interoception","conduit"]},
-{"passage":FULL_PASSAGE,"id":4,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"우리는 다른 사람의 표정, 몸짓, 자세를 무의식적으로 따라 하고, 내부 감각을 통해 상대방의 감정을 '우리 안에서 느끼기' 때문에 인식합니다. 이는 상대방의 감정을 <b>맛보는 것(sampling their emotions)</b>과 유사한 행위입니다.","analysis":"✅ ② sampling their emotions: 상대의 감정을 '시식하듯' 체험\n❌ ① 감정적 편견을 피하고 → 본문은 감정을 느끼는 것이 핵심\n❌ ③ 말을 이성적으로 분석 → 신체적 모방이 핵심\n❌ ④ 진정한 공감 없이 반응 → 본문과 반대\n❌ ⑤ 경험으로부터 거리두기 → 본문과 반대","tip":"sampling = 맛보기, 표본추출: 파트너 접시에서 한 입 베어 먹는 것과 유사한 비유"},"ans":1,"ch":["avoiding emotional bias","sampling their emotions","analyzing their words rationally","responding without genuine empathy","distancing ourselves from their experience"]}];
+const Q=[{"id":1,"type":"동의어 고르기","diff":"보통","pts":5,"fmt":"mc","passage":"we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch","stem":"밑줄 친 <b>mimic</b>과 의미가 가장 가까운 것은?","det":{"korean":"mimic은 '모방하다, 흉내 내다'라는 뜻으로, reproduce(재현하다)와 동의어입니다.","analysis":"✅ ① reproduce(재현하다) = mimic(모방하다)\n❌ ② create(창조하다)\n❌ ③ distort(왜곡하다)\n❌ ④ eliminate(제거하다)\n❌ ⑤ conceal(숨기다)","tip":"mimic = imitate = reproduce = copy: '모방하다' 동의어군"},"ans":0,"ch":["reproduce","create","distort","eliminate"]},
+{"id":2,"type":"반의어 고르기","diff":"어려움","pts":6,"fmt":"mc","passage":"we subtly and unconsciously mimic their facial expressions","stem":"밑줄 친 <b>unconsciously</b>와 의미가 가장 반대인 것은?","det":{"korean":"unconsciously는 '무의식적으로'라는 뜻으로, conscious(의식적인)가 반의어입니다. (부사 consciously의 형용사형)","analysis":"✅ ③ conscious(의식적인) ↔ unconsciously(무의식적으로)\n❌ ① indirect(간접적인)\n❌ ② physical(물리적인)\n❌ ④ emotional(감정적인)\n❌ ⑤ voluntary(자발적인)","tip":"unconscious ↔ conscious / aware / deliberate: 무의식-의식 반의어 쌍"},"ans":2,"ch":["indirect","physical","conscious","emotional"]},
+{"id":3,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"Becoming aware of our internal sensations can help us handle our own emotions. Perhaps more surprisingly, the body's interoceptive faculty can also bring us into closer contact with other people's emotions. That's because the brain, on its own, has no direct access to the contents of other people's minds, no way to feel what others are feeling. Interpreting others' spoken words and facial expressions may yield only a coolly abstract sense of the emotions that stir within. The body acts as a critical conduit, supplying the brain with the visceral information it lacks. It does so in this way: When interacting with other people, we subtly and unconsciously mimic their facial expressions, gestures, posture, and vocal pitch. Then, via the interoception of our own bodies' signals, we perceive what the other person is feeling because we feel it in ourselves. We bring other people's feelings onboard, and the body is the bridge. In an act similar to taking a bite off our partner's plate, or borrowing an earbud to hear the song our friend is listening to, we are ____________________.<br><br>* interoceptive: 내부 감각 수용의  ** conduit: 전달자  *** visceral: 본능적인","stem":"다음 영영풀이에 해당하는 단어는?\n\n<b>\"the perception of sensations from inside the body, including heart rate, breathing, and other internal signals\"</b>","det":{"korean":"'심박수, 호흡 등 신체 내부 감각의 인지'는 <b>interoception(내부 감각 수용)</b>의 정의입니다.","analysis":"✅ ④ interoception(내부 감각 수용)\n❌ ① account(설명)\n❌ ② regularity(규칙성)\n❌ ③ coincidence(우연의 일치)\n❌ ⑤ conduit(전달자, 통로)","tip":"interoception(내부 감각 수용) ↔ exteroception(외부 감각 수용): 감각 관련 학술 용어"},"ans":3,"ch":["account","regularity","coincidence","interoception"]},
+{"passage":FULL_PASSAGE,"id":4,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"우리는 다른 사람의 표정, 몸짓, 자세를 무의식적으로 따라 하고, 내부 감각을 통해 상대방의 감정을 '우리 안에서 느끼기' 때문에 인식합니다. 이는 상대방의 감정을 <b>맛보는 것(sampling their emotions)</b>과 유사한 행위입니다.","analysis":"✅ ② sampling their emotions: 상대의 감정을 '시식하듯' 체험\n❌ ① 감정적 편견을 피하고 → 본문은 감정을 느끼는 것이 핵심\n❌ ③ 말을 이성적으로 분석 → 신체적 모방이 핵심\n❌ ④ 진정한 공감 없이 반응 → 본문과 반대\n❌ ⑤ 경험으로부터 거리두기 → 본문과 반대","tip":"sampling = 맛보기, 표본추출: 파트너 접시에서 한 입 베어 먹는 것과 유사한 비유"},"ans":1,"ch":["avoiding emotional bias","sampling their emotions","analyzing their words rationally","responding without genuine empathy"]}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -480,12 +480,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -689,6 +729,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }

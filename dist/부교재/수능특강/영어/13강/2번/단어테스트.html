@@ -98,15 +98,15 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:4px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:3px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>13강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>13강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -196,9 +196,9 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 <script>
 const EI={"subject":"2027학년도 EBS수능특강 영어","pub":"13강","lesson":"2번","title":"AI Idea Generator","total":16,"time":1200,"totalQ":3,"histKey":"wordTest_suneung_13_ex2_v1"};
 const FULL_PASSAGE="AI is a prolific idea generator. Human brainstorming groups tend to focus on the quality of creative ideas and almost immediately lean into variations of first suggestions, but good ideas are more likely when groups focus first on quantity. As Linus Pauling put it, \"The best way to have a good idea is to have lots of ideas.\" Psychologist Dean Keith Simonton called this the \"equal odds rule\" arguing that creative success is correlated to the total number of works created. Many studies have confirmed that creative quality comes from quantity of ideas (what Bob Sutton at a design and innovation consulting company called \"idea ratio\"), and one Stanford study pegged the number of ideas that distinguish a successful product from a failure at more than two thousand. This is why design thinking and innovation are so focused on the processes (what Utley and Klebahn call \"idea flow\") of ____________________.<br><br>* prolific: 많이 만들어 내는, 다작의  ** peg: 못박다";
-const Q=[{"id":1,"type":"문맥상 부적절한 어휘","diff":"보통","pts":5,"fmt":"mc","passage":"AI is a ①<u>prolific</u> idea generator. Good ideas are more likely when groups focus first on ②<u>quantity</u>. Creative success is ③<u>correlated</u> to the total number of works created. Design thinking and innovation are so focused on processes that ④<u>hamper</u> the flow of ideas. One Stanford study pegged the number of ideas that ⑤<u>distinguish</u> a successful product from a failure at more than two thousand.","stem":"밑줄 친 단어 중, 문맥상 원문의 의미와 일치하지 않는 것은?","det":{"korean":"①prolific(다작의), ②quantity(양), ③correlated(상관관계가 있는), ⑤distinguish(구별하다)는 모두 원문과 일치합니다. ④hamper(방해하다)는 원문의 문맥과 반대입니다. 원문에서는 아이디어 흐름을 '만들어 내는(creating)' 과정에 초점을 맞춘다고 합니다.","analysis":"✅ ① prolific: 원문 그대로\n✅ ② quantity: 원문 그대로\n✅ ③ correlated: 원문 그대로\n❌ ④ hamper: 원문은 아이디어 흐름의 과정에 초점 → 방해가 아닌 촉진\n✅ ⑤ distinguish: 원문 그대로","tip":"hamper(방해하다) ↔ facilitate(촉진하다): 문맥상 아이디어 흐름을 촉진하는 것이 핵심"},"ans":3,"ch":["① prolific","② quantity","③ correlated","④ hamper","⑤ distinguish"]},
-{"id":2,"type":"동의어 고르기","diff":"보통","pts":5,"fmt":"mc","passage":"Many studies have confirmed that creative quality comes from quantity of ideas","stem":"밑줄 친 <b>confirmed</b>와 의미가 가장 가까운 것은?","det":{"korean":"confirmed는 '확인하다, 입증하다'라는 뜻으로, verify(검증하다)와 동의어입니다.","analysis":"✅ ③ verify(검증하다) = confirmed(확인하다)\n❌ ① reject(거부하다)\n❌ ② ignore(무시하다)\n❌ ④ deny(부인하다)\n❌ ⑤ question(의문을 제기하다)","tip":"confirm = verify = validate = substantiate: '확인·입증하다' 동의어군"},"ans":2,"ch":["reject","ignore","verify","deny","question"]},
-{"passage":FULL_PASSAGE,"id":3,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"AI는 많은 아이디어를 생성하며, 좋은 아이디어를 얻는 최선의 방법은 많은 아이디어를 갖는 것입니다. 창의적 성공은 작품의 총 수와 상관관계가 있으므로, 빈칸에는 <b>판단 없이 가능성을 만들어 내는 것(creating possibilities without judgment)</b>이 가장 적절합니다.","analysis":"✅ ④ creating possibilities without judgment: 판단하지 않고 많은 아이디어를 생성\n❌ ① 최고의 아이디어를 선택 → 양보다 질에 초점\n❌ ② 즉각적 결과 도출 → 본문 내용과 무관\n❌ ③ 분석을 통한 선별 → 아이디어 양 강조와 반대\n❌ ⑤ 브레인스토밍 중 창의성 판단 → 본문과 반대","tip":"idea flow = 아이디어 흐름: 양(quantity)을 먼저 확보하고, 판단(judgment)은 나중에"},"ans":3,"ch":["selecting the best idea of all","drawing immediate outcomes","filtering options through analysis","creating possibilities without judgment","judging creativity during brainstorming"]}];
+const Q=[{"id":1,"type":"문맥상 부적절한 어휘","diff":"보통","pts":5,"fmt":"mc","passage":"AI is a ①<u>prolific</u> idea generator. Good ideas are more likely when groups focus first on ②<u>quantity</u>. Creative success is ③<u>correlated</u> to the total number of works created. Design thinking and innovation are so focused on processes that ④<u>hamper</u> the flow of ideas. One Stanford study pegged the number of ideas that ⑤<u>distinguish</u> a successful product from a failure at more than two thousand.","stem":"밑줄 친 단어 중, 문맥상 원문의 의미와 일치하지 않는 것은?","det":{"korean":"①prolific(다작의), ②quantity(양), ③correlated(상관관계가 있는), ⑤distinguish(구별하다)는 모두 원문과 일치합니다. ④hamper(방해하다)는 원문의 문맥과 반대입니다. 원문에서는 아이디어 흐름을 '만들어 내는(creating)' 과정에 초점을 맞춘다고 합니다.","analysis":"✅ ① prolific: 원문 그대로\n✅ ② quantity: 원문 그대로\n✅ ③ correlated: 원문 그대로\n❌ ④ hamper: 원문은 아이디어 흐름의 과정에 초점 → 방해가 아닌 촉진\n✅ ⑤ distinguish: 원문 그대로","tip":"hamper(방해하다) ↔ facilitate(촉진하다): 문맥상 아이디어 흐름을 촉진하는 것이 핵심"},"ans":3,"ch":["① prolific","② quantity","③ correlated","④ hamper"]},
+{"id":2,"type":"동의어 고르기","diff":"보통","pts":5,"fmt":"mc","passage":"Many studies have confirmed that creative quality comes from quantity of ideas","stem":"밑줄 친 <b>confirmed</b>와 의미가 가장 가까운 것은?","det":{"korean":"confirmed는 '확인하다, 입증하다'라는 뜻으로, verify(검증하다)와 동의어입니다.","analysis":"✅ ③ verify(검증하다) = confirmed(확인하다)\n❌ ① reject(거부하다)\n❌ ② ignore(무시하다)\n❌ ④ deny(부인하다)\n❌ ⑤ question(의문을 제기하다)","tip":"confirm = verify = validate = substantiate: '확인·입증하다' 동의어군"},"ans":2,"ch":["reject","ignore","verify","deny"]},
+{"passage":FULL_PASSAGE,"id":3,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"AI는 많은 아이디어를 생성하며, 좋은 아이디어를 얻는 최선의 방법은 많은 아이디어를 갖는 것입니다. 창의적 성공은 작품의 총 수와 상관관계가 있으므로, 빈칸에는 <b>판단 없이 가능성을 만들어 내는 것(creating possibilities without judgment)</b>이 가장 적절합니다.","analysis":"✅ ④ creating possibilities without judgment: 판단하지 않고 많은 아이디어를 생성\n❌ ① 최고의 아이디어를 선택 → 양보다 질에 초점\n❌ ② 즉각적 결과 도출 → 본문 내용과 무관\n❌ ③ 분석을 통한 선별 → 아이디어 양 강조와 반대\n❌ ⑤ 브레인스토밍 중 창의성 판단 → 본문과 반대","tip":"idea flow = 아이디어 흐름: 양(quantity)을 먼저 확보하고, 판단(judgment)은 나중에"},"ans":3,"ch":["selecting the best idea of all","drawing immediate outcomes","filtering options through analysis","creating possibilities without judgment"]}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -479,12 +479,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -688,6 +728,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }
