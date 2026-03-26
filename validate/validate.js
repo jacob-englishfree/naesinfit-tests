@@ -168,9 +168,13 @@ function validate(jsonPath) {
         result.add('C15', SEV.S, `Q${qid}: ans=${q.ans} out of bounds [0,${q.ch.length - 1}]`);
       }
 
-      // C17: no empty choices
+      // C17: no empty choices AND no dummy choices (-, —, etc.)
       q.ch.forEach((c, ci) => {
         if (!c || c.trim() === '') result.add('C17', SEV.S, `Q${qid}: ch[${ci}] is empty`);
+        const trimmed = (c || '').trim();
+        if (/^[-—–]$/.test(trimmed) || /^[-—–]\s*\(/.test(trimmed) || trimmed === '- (변형)') {
+          result.add('C17-DUMMY', SEV.S, `Q${qid}: ch[${ci}] = "${trimmed}" — 더미 선지 금지. 유효한 4지선다 필수`);
+        }
       });
 
       // C18: no duplicate choices
@@ -188,11 +192,11 @@ function validate(jsonPath) {
       }
     }
 
-    // P23: 밑줄형 유형은 passage에 <u> 태그 4개 필요 (①~④)
+    // P23: 밑줄형 유형은 passage에 <u> 태그 4개 필요 (①~④) — S급 차단
     if (['문맥상 부적절한 어휘', '부적절한 어휘'].includes(typeNorm) && q.fmt === 'mc') {
       const uCount = (passage.match(/<u>/g) || []).length;
       if (uCount > 0 && uCount < 4) {
-        result.add('P23', SEV.B, `Q${qid}: 밑줄형(${typeNorm})에 <u> ${uCount}개 — 4개 필요`);
+        result.add('P23', SEV.S, `Q${qid}: 밑줄형(${typeNorm})에 <u> ${uCount}개 — 4개 필수 (①~④)`);
       }
     }
 
@@ -290,6 +294,16 @@ function validate(jsonPath) {
       if (passage.includes(q.wa)) {
         result.add('W49', SEV.S, `Q${qid}: 어순배열 answer "${q.wa}" visible in passage`);
       }
+      // W49-ORDER: stem의 단어 순서가 wa와 동일하면 문제 불성립
+      const stemPlain = (q.stem || '').replace(/<[^>]+>/g, '');
+      const boldMatch = (q.stem || '').match(/<b>([^<]+)<\/b>/);
+      if (boldMatch) {
+        const givenWords = boldMatch[1].replace(/[,/]/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+        const ansWords = q.wa.replace(/[,/]/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+        if (givenWords === ansWords) {
+          result.add('W49-ORDER', SEV.S, `Q${qid}: 어순배열 — stem의 단어가 이미 정답 순서. 순서를 섞어야 함`);
+        }
+      }
     }
     // W50: blank format
     if (passage.includes('(     )') || passage.includes('(      )')) {
@@ -299,33 +313,38 @@ function validate(jsonPath) {
     // ── EX: 정답 노출 checks ──
     const passagePlain = passage.replace(/<[^>]+>/g, '');
 
-    // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출
-    if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
+    // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출 — A급 차단
+    if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸 어휘 완성', '연결사'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
       const answer = (q.ch[q.ans] || '').trim();
-      // 최소 6글자 이상인 정답만 체크 (짧은 단어는 우연 매칭 가능)
-      if (answer.length >= 6) {
+      if (answer.length >= 3) {
         const passageNoBlanks = passagePlain.replace(/_{5,}/g, '').toLowerCase();
         const ansLower = answer.toLowerCase();
         if (passageNoBlanks.includes(ansLower)) {
-          result.add('EX-1', SEV.B, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨`);
+          result.add('EX-1', SEV.A, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
         }
       }
     }
 
-    // EX-2: 서술형 — 정답(wa)이 passage에 그대로 노출
-    // 제외: 어순배열(W49), 어형변환(원형 노출 정상), 내용이해/일치/TF(지문 기반 답변 정상)
+    // EX-2: 서술형 — 정답(wa)이 passage에 그대로 노출 — A급 차단
+    // 제외: 어순배열(W49), 어형변환(원형 노출 정상)
     if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && typeNorm !== '어순배열') {
       const wa = q.wa.trim();
       const skipTypes = [
-        '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형', '서술형어형',
-        '내용이해', '내용일치', '내용불일치', 'T/F', 'TF',
-        '빈칸 어휘 완성', '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
-        '한영', '한→영', '영한', '지칭추론', '지칭',
-        '서술형', '서술', '서술형요약', '서술형영작', '서술형(요약)', '서술형(영작)',
-        '영작문 (서술형)', '요약', '요약문', '주제빈칸'
+        '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형', '서술형어형', '서술형 — 어형변환'
       ];
-      if (wa.length >= 6 && !skipTypes.includes(typeNorm) && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
-        result.add('EX-2', SEV.B, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨`);
+      if (wa.length >= 3 && !skipTypes.includes(typeNorm) && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
+        result.add('EX-2', SEV.A, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
+      }
+    }
+
+    // EX-5: 서술형 "원문에서 찾아" stem인데 passage에 정답 단어가 없으면 풀 수 없음
+    if (q.fmt === 'written' && q.wa && (q.stem || '').includes('원문에서 찾아')) {
+      const wa = q.wa.trim().toLowerCase();
+      const passLower = passagePlain.toLowerCase();
+      // 빈칸으로 대체된 경우(정답 노출 방지 정상) vs 아예 passage에 해당 단어/근거가 없는 경우 구분
+      // stem에 "원문에서 찾아"라고 했으면 passage에서 추론 가능해야 함
+      if (wa.length >= 3 && !passLower.includes(wa) && !passLower.includes('__________')) {
+        result.add('EX-5', SEV.A, `Q${qid}: "원문에서 찾아 쓰시오"인데 passage에 정답 "${q.wa}"도 빈칸도 없음 — 학생이 풀 수 없음`);
       }
     }
 
