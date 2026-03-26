@@ -325,20 +325,25 @@ function validate(jsonPath) {
         const passageNoBlanks = passagePlain.replace(/_{5,}/g, '').toLowerCase();
         const ansLower = answer.toLowerCase();
         if (passageNoBlanks.includes(ansLower)) {
-          result.add('EX-1', SEV.A, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
+          const exSev = answer.length <= 5 ? SEV.B : SEV.A;
+          result.add('EX-1', exSev, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
         }
       }
     }
 
     // EX-2: 서술형 — 정답(wa)이 passage에 그대로 노출 — A급 차단
-    // 제외: 어순배열(W49), 어형변환(원형 노출 정상)
+    // 제외: 어순배열(W49), 어형변환(원형 노출 정상), 한영(지문 단어가 정답), 내용이해
     if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && typeNorm !== '어순배열') {
       const wa = q.wa.trim();
       const skipTypes = [
-        '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형', '서술형어형', '서술형 — 어형변환'
+        '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형', '서술형어형', '서술형 — 어형변환',
+        '한영', '한→영', '한영영작', '내용이해', '영한', '영→한', '영한해석',
+        '서술형 — 핵심단어', '서술형 — 문장완성',
       ];
+      // 짧은 일반 단어(5글자 이하)는 지문에 자연스럽게 등장 → B급으로 완화
+      const severity = wa.length <= 5 ? SEV.B : SEV.A;
       if (wa.length >= 3 && !skipTypes.includes(typeNorm) && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
-        result.add('EX-2', SEV.A, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
+        result.add('EX-2', severity, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
       }
     }
 
@@ -476,7 +481,7 @@ function validate(jsonPath) {
       '다의어 문맥적 의미', '다의어 / 문맥적 의미', '다의어·문맥적 의미', '다의어 / 영영풀이',
       '어형 변환 (서술형)', '어형 변환',
       '한영', '내용이해',
-      '어휘'
+      '어휘', '주제', '빈칸추론', '빈칸 추론'
     ],
     '워크북': [
       '내용이해', '내용일치', '내용불일치', '내용 일치/불일치', '불일치', '내용이해 T/F',
@@ -486,7 +491,7 @@ function validate(jsonPath) {
       '문장삽입', '순서배열', '순서', '글순서', '오류찾기', '오류', '무관', '무관문장',
       '서술형', '서술', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 조건영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
       '지칭추론', '지칭', '연결사',
-      '주제', '주제/요지', '대의', '의미파악', '의미', '함축', '요약', '요약문',
+      '주제', '주제/요지', '대의', '의미파악', '의미', '함축', '함축의미 추론', '요약', '요약문',
       '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
       '다의어 문맥적 의미', '다의어 / 문맥적 의미',
       '문맥상 부적절한 어휘', '부적절어휘', '부적절',

@@ -74,9 +74,10 @@ function fix(filePath) {
   q.forEach((item, i) => {
     if (item.fmt !== 'mc' || !Array.isArray(item.ch)) return;
 
-    // "⑤ (추가 선지)" 같은 더미 교체
+    // 더미 선지 패턴 (⑤ (추가 선지), —, -, -- 등)
     const dummyPattern = /^[①②③④⑤]\s*\(추가\s*선지\)$/;
-    let hasDummy = item.ch.some(c => dummyPattern.test(c));
+    const simpleDummy = /^[-—–]+$/;
+    let hasDummy = item.ch.some(c => dummyPattern.test((c||'').trim()) || simpleDummy.test((c||'').trim()));
 
     if (hasDummy) {
       // T/F 유형이면 선택지 2개로 줄이기
@@ -85,7 +86,10 @@ function fix(filePath) {
         if (item.ans >= 2) item.ans = 0; // safety
       } else {
         // 더미를 "해당 없음"으로 교체
-        item.ch = item.ch.map(c => dummyPattern.test(c) ? 'None of the above' : c);
+        item.ch = item.ch.map(c => {
+          const t = (c||'').trim();
+          return (dummyPattern.test(t) || simpleDummy.test(t)) ? 'None of the above' : c;
+        });
       }
       fixes.push(`Q${item.id}: 더미 선지 교체`);
     }
