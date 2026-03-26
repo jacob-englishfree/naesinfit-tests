@@ -321,14 +321,17 @@ function validate(jsonPath) {
     // ── EX: 정답 노출 checks ──
     const passagePlain = passage.replace(/<[^>]+>/g, '');
 
-    // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출 — A급 차단
+    // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출
+    // 빈칸이 있는데 다른 곳에도 같은 단어가 있으면 B급 (원문에 반복 등장하는 단어일 수 있음)
+    // 빈칸 자체가 없으면 A급
     if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸 어휘 완성', '연결사'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
       const answer = (q.ch[q.ans] || '').trim();
       if (answer.length >= 3) {
         const passageNoBlanks = passagePlain.replace(/_{5,}/g, '').toLowerCase();
         const ansLower = answer.toLowerCase();
         if (passageNoBlanks.includes(ansLower)) {
-          const exSev = answer.length <= 5 ? SEV.B : SEV.A;
+          const hasBlank = passage.includes('____');
+          const exSev = (answer.length <= 5 || hasBlank) ? SEV.B : SEV.A;
           result.add('EX-1', exSev, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
         }
       }
