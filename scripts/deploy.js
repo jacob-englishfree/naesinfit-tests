@@ -214,6 +214,14 @@ async function deployFile(jsonPath) {
   }
   console.log(`  [OK] Built: ${path.relative(ROOT, distPath)}`);
 
+  // dist → 서빙 폴더 복사 (GitHub Pages용)
+  const relFromDist = path.relative(DIST_DIR, distPath);
+  const servePath = path.join(ROOT, relFromDist);
+  const serveDir = path.dirname(servePath);
+  if (!fs.existsSync(serveDir)) fs.mkdirSync(serveDir, { recursive: true });
+  fs.copyFileSync(distPath, servePath);
+  console.log(`  [OK] Copied to: ${relFromDist}`);
+
   // ════════════════════════════════════════════
   // LAYER ④ 렌더링 검증
   // ════════════════════════════════════════════
@@ -242,7 +250,10 @@ async function deployFile(jsonPath) {
   console.log('  [6/6] Git push + DB 등록...');
   try {
     execSync(`git add "${distPath}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
-    // Also add the JSON source
+    // Also add the serving copy and JSON source
+    const relFromDist = path.relative(DIST_DIR, distPath);
+    const servePath = path.join(ROOT, relFromDist);
+    execSync(`git add "${servePath}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
     execSync(`git add "${jsonPath}"`, { cwd: ROOT, stdio: 'pipe', env: { ...process.env, NAESINFIT_DEPLOY: '1' } });
 
     // Check if there are changes to commit
