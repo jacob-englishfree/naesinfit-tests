@@ -3,141 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>공통영어1 천재(강상구) 4과 온라인퀴즈TEST</title>
+<title>공통영어1 천재(강상구) 온라인퀴즈TEST</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+/* NaesinFit — Orange Theme (퀴즈테스트) */
+:root{
+  --p:#E8772E;--pd:#B85A1A;--pl:#F5A623;--pxl:#FFF3E8;--pxxl:#FFFAF5;
+  --bg:#F6F2EE;--text:#1A1A2E;--tm:#7A6A5E;--tl:#A89A8E;
+  --r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;
+  --o:#F59E0B;--ol:#FFF8E1;
+  --card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);
+  --radius:16px;--rs:10px;--rxs:6px;--tr:all .2s ease;
+  --pborder:#ddd8d2;--pbg-muted:#e8e0d8;
+  --passage-bg:linear-gradient(135deg,#FFFAF8,#F5F0EB);
+  --start-grad:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);
+  --accent2:#D97706;
+  --p-rgba-08:rgba(232,119,46,.08);
+  --p-rgba-10:rgba(232,119,46,.1);
+  --p-rgba-12:rgba(232,119,46,.12);
+  --p-rgba-25:rgba(232,119,46,.25);
+  --p-rgba-30:rgba(232,119,46,.3);
+}
 
-:root{--o:#E8772E;--od:#B85A1A;--ol:#F5A623;--oxl:#FFF3E8;--oxxl:#FFFAF5;--bg:#F6F2EE;--text:#1E1B18;--tm:#6B6560;--tl:#A09890;--g:#1A9960;--gl:#E6F9F0;--r:#D63B3B;--rl:#FFF0F0;--b:#3B6FD9;--bl:#EDF2FF;--p:#7C4DFF;--pl:#F3EEFF;--sky:#0EA5E9;--skyl:#E8F6FF;--card:#FFF;--shadow:0 4px 20px rgba(0,0,0,.06);--radius:16px;--rs:10px;--rxs:6px;--tr:all .2s cubic-bezier(.4,0,.2,1);}
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+/* NaesinFit Test Engine — Common CSS (theme-agnostic)
+   Theme-specific colors come from :root variables defined in theme-*.css:
+   --p      : primary color
+   --pd     : primary dark
+   --pl     : primary light
+   --pxl    : primary extra-light
+   --pxxl   : primary xx-light
+   --bg     : page background
+   --text   : main text
+   --tm     : text muted
+   --tl     : text light
+   --pborder: border color (theme-tinted)
+   --pbg-muted: muted bg for tracks/bars
+   --start-grad: startScreen gradient
+   --accent2: secondary gradient stop (badge/header)
+   --p-rgba-08: rgba for selected bg
+   --p-rgba-12: rgba for box-shadow
+   --p-rgba-10: rgba for focus ring
+   --p-rgba-25: rgba for button shadow
+   --p-rgba-30: rgba for selectPulse
+*/
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
 .screen{display:none;min-height:100vh;}.screen.active{display:flex;flex-direction:column;}
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:#fff;padding:12px 24px;border-radius:var(--rs);font-size:14px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;}.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#FFF3E8,#FFE8D6 40%,#FFDDC8);}
+
+/* Start Screen */
+#startScreen{align-items:center;justify-content:center;padding:40px 20px;background:var(--start-grad);}
 .start-container{max-width:460px;width:100%;z-index:1;}
-.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--o),#D97706);color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
-.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.brand-badge{display:inline-block;background:linear-gradient(135deg,var(--p),var(--accent2));color:#fff;font-size:12px;font-weight:800;padding:7px 16px;border-radius:24px;margin-bottom:20px;}
+.start-title{font-size:36px;font-weight:900;margin-bottom:4px;}.start-title span{background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .start-subtitle{font-size:14px;color:var(--tm);margin-bottom:30px;}
 .info-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden;}
-.info-card-header{background:linear-gradient(135deg,var(--o),#D97706);padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
-.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid #f0ede8;}.info-row:last-child{border:none;}
+.info-card-header{background:linear-gradient(135deg,var(--p),var(--accent2));padding:14px 20px;color:#fff;font-size:13px;font-weight:700;}
+.info-rows{padding:4px 0;}.info-row{display:flex;justify-content:space-between;padding:11px 20px;font-size:14px;border-bottom:1px solid var(--pborder);}.info-row:last-child{border:none;}
 .info-label{color:var(--tm);}.info-value{font-weight:700;}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
-.chip{background:var(--card);border:1.5px solid #ddd8d2;border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
+.chip{background:var(--card);border:1.5px solid var(--pborder);border-radius:24px;padding:7px 15px;font-size:12px;font-weight:600;color:var(--tm);}
 .input-group{margin-bottom:14px;}.input-group label{display:block;font-size:12px;font-weight:700;color:var(--tm);margin-bottom:6px;}
-.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid #d0c8c2;border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
-.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 4px rgba(232,119,46,.1);}
+.input-group input,.input-group select{width:100%;padding:13px 16px;border:2px solid var(--pborder);border-radius:var(--rs);font-size:15px;font-family:inherit;background:#fff;transition:var(--tr);}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 4px var(--p-rgba-10);}
 .input-row{display:flex;gap:10px;}
 .btn{padding:16px;border:none;border-radius:var(--rs);font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);width:100%;}
-.btn-primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;box-shadow:0 6px 20px rgba(232,119,46,.3);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
-.btn-outline{background:transparent;border:2px solid #c8c0b8;color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--o);color:var(--o);}
-.history-badge{background:var(--oxl);color:var(--o);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
+.btn-primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;box-shadow:0 6px 20px var(--p-rgba-30);margin-top:12px;}.btn-primary:hover{transform:translateY(-1px);}
+.btn-outline{background:transparent;border:2px solid var(--pborder);color:var(--tm);margin-top:8px;font-size:14px;padding:12px;}.btn-outline:hover{border-color:var(--p);color:var(--p);}
+.history-badge{background:var(--pxl);color:var(--p);font-weight:800;padding:2px 8px;border-radius:10px;font-size:11px;margin-left:6px;}
 #historyPanel{display:none;margin-top:14px;}
-.history-item{background:var(--card);border:1.5px solid #ddd8d2;border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.history-item{background:var(--card);border:1.5px solid var(--pborder);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
 .hi-left .hi-name{font-weight:700;font-size:13px;}.hi-left .hi-meta{font-size:11px;color:var(--tl);}
-.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--o);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+.hi-right .hi-score{font-size:20px;font-weight:900;color:var(--p);}.hi-right .hi-level{font-size:10px;color:var(--tm);text-align:right;}
+
+/* Exam Screen */
 .exam-topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;}
-.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--o);border-radius:50%;}
-.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--o);font-weight:800;}
-.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--o);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
+.topbar-left{display:flex;align-items:center;gap:10px;}.topbar-dot{width:8px;height:8px;background:var(--p);border-radius:50%;}
+.topbar-info{font-size:13px;color:var(--tm);font-weight:600;}.topbar-info span{color:var(--p);font-weight:800;}
+.timer{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums;}.timer.warn{color:var(--p);}.timer.danger{color:var(--r);animation:pulse .6s infinite;}
 @keyframes pulse{50%{opacity:.3;}}
-.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
+.btn-submit{padding:9px 22px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border:none;border-radius:var(--rxs);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;}
 .exam-scroll{display:none;}
-/* Progress bar at top */
 .exam-progress{position:fixed;top:52px;left:0;right:0;height:3px;background:rgba(0,0,0,.06);z-index:99;}
-.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--o),#D97706);transition:width .5s ease;border-radius:0 2px 2px 0;}
+.exam-progress-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--accent2));transition:width .5s ease;border-radius:0 2px 2px 0;}
+
 /* Slide container */
 .slide-wrap{height:calc(100vh - 55px);position:relative;overflow:hidden;}
-/* Passage area - full screen scrollable */
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
 .slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
-/* Question info badge at top of passage */
-.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--oxl),var(--ol));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--od);}
+.q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-/* Glass bottom panel */
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:12px 16px 16px;max-height:48vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
-/* Stem */
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-/* Choices - premium feel */
-.slide-choices{display:flex;flex-direction:column;gap:4px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;font-size:13px;line-height:1.4;border:1.5px solid rgba(0,0,0,.06);border-radius:12px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:3px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
-.slide-choices .choice-btn.selected{border-color:var(--o);background:rgba(232,119,46,.08);box-shadow:0 0 0 3px rgba(232,119,46,.12);transform:scale(1.01);}
-@keyframes selectPulse{0%{box-shadow:0 0 0 0 rgba(232,119,46,.3)}70%{box-shadow:0 0 0 8px rgba(232,119,46,0)}100%{box-shadow:0 0 0 0 rgba(232,119,46,0)}}
+.slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
+@keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:24px;height:24px;font-size:11px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
-.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
-/* Written input */
+.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
-.slide-choices .written-input:focus{outline:none;border-color:var(--o);box-shadow:0 0 0 3px rgba(232,119,46,.1);}
-/* Navigation */
+.slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
 .slide-nav{display:flex;align-items:center;justify-content:space-between;margin-top:8px;padding-top:8px;}
 .slide-nav button{padding:8px 18px;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
 .slide-nav button:active{transform:scale(.95);}
-.slide-nav button.sn-next{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(232,119,46,.25);}
+.slide-nav button.sn-next{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--p-rgba-25);}
 .slide-nav button:disabled{opacity:.3;}
-.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--o);}
-/* Answer count indicator */
-.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--o);background:var(--oxl);padding:3px 10px;border-radius:12px;}
-.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
+.slide-nav .nav-cur{font-size:12px;font-weight:800;color:var(--p);}
+.ans-count{position:fixed;top:58px;right:16px;z-index:99;font-size:11px;font-weight:700;color:var(--p);background:var(--pxl);padding:3px 10px;border-radius:12px;}
+.q-num{width:28px;height:28px;background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;}
 .q-type-tag{font-size:11px;font-weight:800;padding:4px 12px;border-radius:14px;}
-.tag-combo{background:var(--ol);color:#BF360C;}.tag-wrong{background:var(--rl);color:var(--r);}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:var(--bl);color:var(--b);}.tag-ant{background:var(--ol);color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}
-.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:#f0ede8;padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--o);font-weight:800;}
+
+/* Type tags — same across all themes */
+.tag-combo{background:#E8F5E9;color:#166534;}.tag-wrong{background:#FFF0F0;color:#D63B3B;}.tag-blank{background:#E0F7FA;color:#00838F;}.tag-syn{background:#EDF2FF;color:#3B6FD9;}.tag-ant{background:#FFF8E1;color:#B45309;}.tag-poly{background:#FCE4EC;color:#C2185B;}.tag-eng{background:#E8F6FF;color:#0277BD;}.tag-morph{background:#FFF3E0;color:#E65100;}.tag-ctx{background:#EDE7F6;color:#5E35B1;}.tag-grammar{background:#E8EAF6;color:#283593;}.tag-vocab{background:#FFF3E0;color:#E65100;}.tag-tf{background:#F3E5F5;color:#7B1FA2;}.tag-content{background:#E0F2F1;color:#00695C;}.tag-written{background:#FBE9E7;color:#BF360C;}.tag-summary{background:#F1F8E9;color:#33691E;}.tag-insert{background:#E3F2FD;color:#1565C0;}.tag-order{background:#FFF8E1;color:#F57F17;}
+
+.q-meta{display:flex;align-items:center;gap:8px;margin-left:auto;}.q-diff{font-size:11px;color:var(--tl);font-weight:600;background:var(--pbg-muted);padding:3px 10px;border-radius:10px;}.q-pts{font-size:12px;color:var(--p);font-weight:800;}
 .q-body{padding:14px 16px;}
-.q-passage{background:linear-gradient(135deg,#FFFAF8,#F5F0EB);border-left:3px solid var(--o);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
+.q-passage{background:var(--passage-bg);border-left:3px solid var(--p);padding:12px 14px;margin-bottom:12px;border-radius:0 8px 8px 0;line-height:1.85;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13px,3.2vw,15px);}
 .q-stem{font-size:13px;font-weight:700;margin-bottom:10px;overflow-wrap:break-word;}
 .choices{display:flex;flex-direction:column;gap:4px;}
-.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #ddd8d2;border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
-.choice-btn:hover{border-color:var(--o);}.choice-btn.selected{border-color:var(--o);box-shadow:0 0 0 2px rgba(232,119,46,.12);background:var(--oxxl);}
-.c-num{min-width:22px;height:22px;background:#e8e0d8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}
-.written-input{width:100%;padding:10px 12px;border:1.5px solid #d0c8c2;border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--o);}
-.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--oxl),var(--ol));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
-.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
+.choice-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--pborder);border-radius:8px;cursor:pointer;transition:var(--tr);background:#fff;text-align:left;font-family:inherit;font-size:13px;line-height:1.4;}
+.choice-btn:hover{border-color:var(--p);}.choice-btn.selected{border-color:var(--p);box-shadow:0 0 0 2px var(--p-rgba-12);background:var(--pxxl);}
+.c-num{min-width:22px;height:22px;background:var(--pbg-muted);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--tm);flex-shrink:0;}.choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
+.written-input{width:100%;padding:10px 12px;border:1.5px solid var(--pborder);border-radius:8px;font-size:14px;font-family:inherit;}.written-input:focus{outline:none;border-color:var(--p);}
+
+/* Result Screen */
+.r-hero{padding:48px 20px 36px;text-align:center;}.r-hero.pass{background:linear-gradient(160deg,var(--pxl),var(--pl));}.r-hero.fail{background:linear-gradient(160deg,#FFF3E8,#FFEAEA);}
+.r-badge{display:inline-block;padding:8px 20px;border-radius:24px;font-size:14px;font-weight:800;margin-bottom:16px;}.r-badge.pass{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}.r-badge.fail{background:linear-gradient(135deg,var(--r),#C42A2A);color:#fff;}
 .r-score{font-size:72px;font-weight:900;}.r-score sup{font-size:24px;color:var(--tl);}
 .r-stats{display:flex;justify-content:center;gap:14px;margin-top:16px;font-size:13px;color:var(--tm);flex-wrap:wrap;}.r-stats strong{color:var(--text);font-weight:800;}.stat-item{background:rgba(255,255,255,.6);padding:6px 14px;border-radius:20px;}
 .rc{max-width:740px;margin:0 auto;padding:0 20px 50px;}.rs{background:var(--card);border-radius:var(--radius);padding:24px;margin-bottom:18px;box-shadow:var(--shadow);}.rs-title{font-size:17px;font-weight:800;margin-bottom:18px;}
 .level-card{text-align:center;padding:30px 20px;}.level-icon{font-size:64px;margin-bottom:8px;animation:floatY 3s ease-in-out infinite;}@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--od),var(--o));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
-.level-bar{margin-top:16px;height:8px;background:#e8e0d8;border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--o),var(--ol));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--oxxl);border-radius:var(--rs);border:1px solid #ddd8d2;}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--oxl);}.info-cell.highlight .ic-value{color:var(--o);}
-.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:#e8e0d8;border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--ol);color:var(--o);}.tag-item.weak{background:var(--rl);color:var(--r);}
-.plan-card{display:flex;gap:14px;padding:16px;background:var(--oxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
-.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid #d0c8c2;border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--o);color:var(--o);}.act-btn.primary{background:linear-gradient(135deg,var(--od),var(--o));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
-.rev-card{border:1.5px solid #ddd8d2;border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--oxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--oxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
-.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--ol);color:var(--o);}.expl-tag.tip{background:var(--oxl);color:var(--od);}
-.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--o);}.expl-box.tip-b{border-left:3px solid var(--o);background:var(--oxl);}
+.level-name{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--pd),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.level-range{font-size:13px;color:var(--tm);margin-top:4px;}
+.level-bar{margin-top:16px;height:8px;background:var(--pbg-muted);border-radius:4px;overflow:hidden;}.level-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--p),var(--pl));transition:width 1.5s ease;}.level-msg{margin-top:12px;font-size:14px;color:var(--tm);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}.info-cell{padding:12px;background:var(--pxxl);border-radius:var(--rs);border:1px solid var(--pborder);}.info-cell .ic-label{font-size:11px;color:var(--tl);font-weight:700;margin-bottom:2px;}.info-cell .ic-value{font-size:15px;font-weight:800;}.info-cell.highlight{background:var(--pxl);}.info-cell.highlight .ic-value{color:var(--p);}
+.type-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}.type-label{min-width:60px;font-size:12px;font-weight:700;color:var(--tm);text-align:right;}.type-track{flex:1;height:10px;background:var(--pbg-muted);border-radius:5px;overflow:hidden;}.type-fill{height:100%;border-radius:5px;transition:width 1s ease;}.type-pct{min-width:36px;font-size:12px;font-weight:800;}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}.tag-item{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:700;}.tag-item.good{background:var(--pl);color:var(--p);}.tag-item.weak{background:#FFF0F0;color:#D63B3B;}
+.plan-card{display:flex;gap:14px;padding:16px;background:var(--pxl);border-radius:var(--rs);}.plan-icon{font-size:32px;flex-shrink:0;}.plan-text h4{font-size:15px;font-weight:800;margin-bottom:4px;}.plan-text p{font-size:13px;color:var(--tm);line-height:1.7;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.act-btn{padding:14px;border:2px solid var(--pborder);border-radius:var(--rs);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:var(--tr);display:flex;flex-direction:column;align-items:center;gap:4px;}.act-btn:hover{border-color:var(--p);color:var(--p);}.act-btn.primary{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;border-color:transparent;}.act-btn .act-icon{font-size:20px;}.act-btn .act-label{font-size:12px;}
+.rev-card{border:1.5px solid var(--pborder);border-radius:var(--rs);margin-bottom:14px;overflow:hidden;}.rev-header{padding:14px 18px;background:var(--pxxl);display:flex;align-items:center;gap:12px;cursor:pointer;}.rev-header:hover{background:var(--pxl);}.rev-icon{font-size:18px;margin-left:auto;transition:transform .2s;}.rev-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 18px;}.rev-body.open{max-height:3000px;padding:20px 18px;}
+.expl-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;margin-bottom:6px;}.expl-tag.ans{background:var(--pl);color:var(--p);}.expl-tag.tip{background:var(--pxl);color:var(--pd);}
+.expl-box{font-size:12px;line-height:1.75;text-align:justify;padding:14px 16px;background:#FAFAF8;border-radius:var(--rxs);margin-bottom:10px;}.expl-box.ans-b{border-left:3px solid var(--p);}.expl-box.tip-b{border-left:3px solid var(--p);background:var(--pxl);}
+
 @media(max-width:640px){.start-title{font-size:28px;}.r-score{font-size:52px;}.action-grid{grid-template-columns:1fr;}.info-grid{grid-template-columns:1fr;}.q-body{padding:16px;}}
 
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
+
 <div id="startScreen" class="screen active">
 <div class="start-container">
-  <div class="brand-badge">🎯 내신핏</div>
+  <div class="brand-badge">온라인퀴즈 TEST</div>
   <h1 class="start-title">온라인퀴즈 <span>TEST</span></h1>
-  <p class="start-subtitle">천재(강상구) 4과 · Art & Our Environment</p>
-  <div class="info-card"><div class="info-card-header">📚 시험 정보</div><div class="info-rows">
-    <div class="info-row"><span class="info-label">과목</span><span class="info-value">공통영어1</span></div>
-    <div class="info-row"><span class="info-label">출판사</span><span class="info-value">천재(강상구)</span></div>
-    <div class="info-row"><span class="info-label">단원</span><span class="info-value">4과 Art & Our Environment</span></div>
+  <p class="start-subtitle">공통영어1 · 천재(강상구) · 4과 · 20문항</p>
+  <div class="info-card"><div class="info-card-header">시험 정보</div><div class="info-rows">
+    <div class="info-row"><span class="info-label">시험</span><span class="info-value">공통영어1</span></div>
+    <div class="info-row"><span class="info-label">문항</span><span class="info-value">천재(강상구) (4과)</span></div>
+    <div class="info-row"><span class="info-label">지문</span><span class="info-value">Art & Our Environment</span></div>
   </div></div>
-  <div class="chip-row"><div class="chip">📝 20문항</div><div class="chip">⏱️ 20분</div><div class="chip">✅ 80점 이상 통과</div><div class="chip">📊 100점 만점</div></div>
+  <div class="chip-row"><div class="chip">20문항</div><div class="chip">20분</div><div class="chip">80점 이상 통과</div><div class="chip">100점 만점</div></div>
   <div class="input-group"><label>이름 *</label><input type="text" id="inpName" placeholder="이름을 입력하세요"></div>
   <div class="input-row">
     <div class="input-group" style="flex:1"><label>학교</label><input type="text" id="inpSchool" placeholder="선택"></div>
-    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option></select></div>
+    <div class="input-group" style="flex:.6"><label>학년</label><select id="inpGrade"><option>고1</option><option>고2</option><option>고3</option><option>중3</option></select></div>
   </div>
-  <button class="btn btn-primary" onclick="startExam()">시험 시작하기 →</button>
-  <button class="btn btn-outline" onclick="toggleHistory()">📋 시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
+  <button class="btn btn-primary" onclick="startExam()">시험 시작하기</button>
+  <button class="btn btn-outline" onclick="toggleHistory()">시험 기록 보기 <span class="history-badge" id="hCount">0</span></button>
   <div id="historyPanel"></div>
 </div>
 </div>
+
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · 천재(강상구) · <span>4과</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>천재(강상구)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -146,439 +190,526 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
     <div class="slide-bottom" id="slideBottom"></div>
   </div>
 </div>
+
 <div id="resultScreen" class="screen"></div>
+
 <script>
-const EI = {
-  subject: '공통영어1',
-  pub: '천재(강상구)',
-  lesson: '4과',
-  title: 'Art & Our Environment',
-  total: 100,
-  time: 1200,
-  histKey: 'quizH_천재강_4과_20',
-  qCount: 20
+const EI={"subject":"공통영어1","pub":"천재(강상구)","lesson":"4과","title":"Art & Our Environment","total":100,"time":1200,"histKey":"quizTest_quizH_천재강_4과_20_v2","qCount":20,"totalQ":20};
+const FULL_PASSAGE="While art can stir up a sense of beauty in us, it can also draw a spirited reaction from the public. An excellent artistic piece can communicate a message to us and even change our ways of looking at our surroundings. That is why art <u>ⓐ has played</u> an essential role in <u>ⓑ addressing</u> social and global issues throughout history. His artworks rally people around environmental actions. In the photo on the left, titled <i>Turn Off the Plastic Tap</i>, he tries <u>ⓒ highlighting</u> the fact that a huge amount of plastic <u>ⓓ enters</u> the ocean every minute. She covered an old boom box with various shells, <u>ⓔ which</u> took her a year to collect.";
+const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"While art can stir up a sense of beauty in us, it can also draw a spirited reaction from the public. An excellent artistic piece can communicate a message to us and even change our ways of looking at our surroundings. That is why art <u>ⓐ has played</u> an essential role in <u>ⓑ addressing</u> social and global issues throughout history. His artworks rally people around environmental actions. In the photo on the left, titled <i>Turn Off the Plastic Tap</i>, he tries <u>ⓒ highlighting</u> the fact that a huge amount of plastic <u>ⓓ enters</u> the ocean every minute. She covered an old boom box with various shells, <u>ⓔ which</u> took her a year to collect.","stem":"밑줄 친 ⓐ~ⓔ 중 어법상 어색한 것을 고르시오.","det":{"korean":"그는 ...라는 사실을 강조하려고 노력한다. try + to-v = '~하려고 노력하다(attempt)'. try + v-ing = '시험 삼아 ~해보다'. 문맥상 '강조하려고 노력하다'이므로 to highlight가 맞습니다.","analysis":"원문: he tries highlighting the fact that ...","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["ⓐ has played","ⓑ addressing","ⓒ highlighting","ⓓ enters"]},
+{"id":2,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. She covered an old boom box with various shells, which took her a year to collect. The boom box plays (A) <b>[what / that]</b> you may regard as calming ocean sounds. They are actually what she recorded as she had one of her baby teeth (B) <b>[dissolve / dissolved]</b> in acid. She wanted us to think of what sea creatures might go through one day if we (C) <b>[continue / continued]</b> burning fossil fuels carelessly.","stem":"(A), (B), (C)에서 어법에 맞는 표현으로 가장 적절한 것을 고르시오.","det":{"korean":"붐박스는 잔잔한 바다 소리로 여길 만한 것을 재생한다 / 그녀는 젖니를 산에 녹게 했다 / 화석연료를 계속 태운다면","analysis":"원문: The boom box plays what you may regard as calming ocean sounds. / she had one of her baby teeth dissolve in acid / if we continue burning fossil fuels","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["what – dissolve – continue","what – dissolved – continue","that – dissolve – continued","what – dissolve – continued"]},
+{"id":3,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"Kendler says, \"I wanted to inspire people to raise their own awareness about <u>ⓐ what</u> they can actually do as individuals, but at the same time, I hoped to encourage collective action and collective responsibility. One thing <u>ⓑ that</u> art can do really well is to help us imagine <u>ⓒ how</u> the world might be otherwise. Certainly, we can't get to a different place if we can't <u>ⓓ imagining</u> it.\"","stem":"밑줄 친 ⓐ~ⓓ 중 어법상 어색한 것을 고르시오.","det":{"korean":"만약 상상할 수 없다면, 다른 곳에 도달할 수 없다. 조동사 can't 뒤에는 동사원형이 와야 하므로 imagining → imagine으로 고쳐야 합니다.","analysis":"원문: we can't get to a different place if we can't imagining it.","tip":"어법 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["ⓐ what","ⓑ that","ⓒ how","ⓓ imagining"]},
+{"id":4,"type":"어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"You can't order a product online without having it delivered in plastic packaging. Dependence on plastic is built into the supply chain, so the individual consumer finds it harder and harder to (A) <b>[opt out / participate]</b>. Of course, you can choose not to purchase products containing plastic, but that only goes so far. I think it is important for you to (B) <b>[inform / conceal]</b> your friends and family of the issue because at the end of the day, companies and governments can't (C) <b>[ignore / enhance]</b> the interest of the consumers.","stem":"(A), (B), (C)에 들어갈 말로 가장 적절한 것을 고르시오.","det":{"korean":"(A) 공급망에 플라스틱 의존이 내재 → 소비자가 빠져나오기(opt out) 어렵다 / (B) 친구와 가족에게 문제를 알리는 것(inform)이 중요 / (C) 기업과 정부가 소비자 관심을 무시할 수 없다(ignore)","analysis":"✅ ① opt out – inform – ignore<br>❌ ② participate – inform – ignore<br>❌ ③ opt out – conceal – ignore<br>❌ ④ opt out – inform – enhance<br>❌ ⑤ participate – conceal – enhance","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["opt out – inform – ignore","participate – inform – ignore","opt out – conceal – ignore","opt out – inform – enhance"]},
+{"id":5,"type":"어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"The piece below, titled <i>Homestead</i>, is a painting by Jon Ching. Most of his work, including this painting, is a ① <u>celebration</u> of nature and a quiet appeal to humans to appreciate the world around them. \"I believe we've ② <u>separated</u> ourselves from nature and no longer see how we fit in. Instead of helping nature ③ <u>thrive</u>, we are simply consuming it,\" says Ching. One cannot help but smile at his paintings, which are rich in color and ④ <u>harshness</u>. \"I want to show that everything is connected and that ⑤ <u>protecting</u> nature is actually protecting us.\"","stem":"밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.","det":{"korean":"색채와 부드러움이 풍부한. 원문 tenderness(부드러움)가 harshness(거침)로 바뀜 — 미소 짓게 하는 그림에 harshness는 부적절.","analysis":"원문: which are rich in color and tenderness","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["① celebration","② separated","③ thrive","④ harshness"]},
+{"id":6,"type":"어휘","diff":"보통","pts":5,"fmt":"mc","passage":"Secretive street artist Banksy designed another interesting piece of art. It shows a child catching snowflakes with his mouth. Children are particularly ① <u>defenseless</u> against air pollution. Since they have faster breathing rates than adults, they breathe in ② <u>fewer</u> pollutants. According to the WHO, about 93% of the world's children under 15 breathe in ③ <u>toxic</u> air every day. In 2016, the WHO even ④ <u>estimated</u> that about 600,000 children died from ⑤ <u>exposure</u> to polluted air.","stem":"밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.","det":{"korean":"오염물질을 더 많이 흡입한다. 원문 more가 fewer로 바뀜 — 호흡 속도가 빠르면 더 많이 흡입하므로 fewer는 반대.","analysis":"원문: they breathe in more pollutants","tip":"어휘 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["① defenseless","② fewer","③ toxic","④ estimated"]},
+{"id":7,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"While art can stir up a sense of beauty in us, it can also draw a spirited reaction from the public. An excellent artistic piece can communicate a message to us and even change our ways of looking at our surroundings. That is why art has played an essential role in addressing social and global issues throughout history. Let us take a look at a few modern artworks that address environmental issues. ... Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action.","stem":"다음 글의 주제로 가장 적절한 것을 고르시오.","det":{"korean":"예술은 사회적·세계적 문제를 다루는 데 필수적인 역할 / 환경 대화를 촉발하고 행동을 유도","analysis":"원문: art has played an essential role in addressing social and global issues / Art can strike up conversations about the environment ... inspiring us to take action","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["the history of environmental pollution worldwide","the role of art in raising awareness of environmental issues","the economic value of modern artworks addressing nature","the difference between traditional and modern art styles"]},
+{"id":8,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"The first art piece is a photograph by Benjamin Von Wong. His artworks rally people around environmental actions. ... The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. ... The piece below, titled <i>Homestead</i>, is a painting by Jon Ching. Most of his work is a celebration of nature and a quiet appeal to humans to appreciate the world around them.","stem":"다음 글의 제목으로 가장 적절한 것을 고르시오.","det":{"korean":"세 예술가(Von Wong, Kendler, Ching)가 각기 다른 방식으로 환경 메시지를 전달. 공통 미션은 환경을 위한 예술.","analysis":"✅ ① Three Artists, One Mission: Art for the Planet<br>❌ ② The Science Behind Ocean Pollution<br>❌ ③ Why Modern Art Fails to Impress Critics<br>❌ ④ Painting vs. Photography: Which Is More Effective?<br>❌ ⑤ How Governments Use Art for Political Messages","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":0,"ch":["Three Artists, One Mission: Art for the Planet","The Science Behind Ocean Pollution","Why Modern Art Fails to Impress Critics","Painting vs. Photography: Which Is More Effective?"]},
+{"id":9,"type":"대의","diff":"보통","pts":5,"fmt":"mc","passage":"Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action. The following words from Andy Warhol, an American pop artist, ring especially true in this context. \"They always say time changes things, but you actually have to change them yourself.\"","stem":"다음 글이 시사하는 바로 가장 적절한 것을 고르시오.","det":{"korean":"\"시간이 바꾼다고들 하지만, 실제로는 당신이 직접 바꿔야 한다.\"","analysis":"원문: \"They always say time changes things, but you actually have to change them yourself.\"","tip":"대의 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["Environmental problems will naturally resolve over time.","Art alone is sufficient to solve all environmental crises.","We must actively take initiative rather than passively wait for change.","Only professional artists can contribute to environmental protection."]},
+{"id":10,"type":"일치","diff":"보통","pts":5,"fmt":"mc","passage":"The first art piece is a photograph by Benjamin Von Wong. His artworks rally people around environmental actions. In the photo on the left, titled <i>Turn Off the Plastic Tap</i>, he tries to highlight the fact that a huge amount of plastic enters the ocean every minute. ... The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. She covered an old boom box with various shells, which took her a year to collect.","stem":"위 글의 내용과 일치하는 것을 고르시오.","det":{"korean":"<b>Kendler는 조개를 모으는 데 1년이 걸렸다.</b>가 본문의 내용과 일치한다. 나머지 선택지는 본문과 다른 내용을 담고 있다.","analysis":"❌ ① Von Wong의 작품은 조각(sculpture)이다.: 본문과 다른 내용<br>❌ ② Turn Off the Plastic Tap은 Kendler의 작품이다.: 본문과 다른 내용<br>✅ ③ Kendler는 조개를 모으는 데 1년이 걸렸다.: 본문의 내용과 일치<br>❌ ④ Forget Me Not은 Von Wong의 사진이다.: 본문과 다른 내용<br>❌ ⑤ Kendler는 새 붐박스를 사용했다.: 본문과 다른 내용","tip":"내용 이해 — 지문의 핵심 주제와 세부 내용을 꼼꼼히 읽으세요."},"ans":2,"ch":["Von Wong의 작품은 조각(sculpture)이다.","Turn Off the Plastic Tap은 Kendler의 작품이다.","Kendler는 조개를 모으는 데 1년이 걸렸다.","Forget Me Not은 Von Wong의 사진이다."]},
+{"id":11,"type":"불일치","diff":"보통","pts":5,"fmt":"mc","passage":"Secretive street artist Banksy designed another interesting piece of art, which appears on a concrete block garage in Port Talbot, Wales. It shows a child catching snowflakes with his mouth. When you look around the corner, however, you realize that the child's mouth is open to ash coming from a dumpster fire. Banksy was asked by Gary Owen, a Port Talbot resident, to create art that would highlight Port Talbot's dust problem. ... Banksy's art has included environmental messages before. For example, his 2010 artwork was created at the remains of a plant in Detroit.","stem":"Banksy에 관한 글의 내용과 일치하지 않는 것을 고르시오.","det":{"korean":"Banksy는 Gary Owen에 의해 요청을 받았다 = Owen이 Banksy에게 요청한 것.","analysis":"원문: Banksy was asked BY Gary Owen to create art","tip":"불일치 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["Banksy는 비밀스러운 거리 예술가이다.","작품은 웨일스 포트 탈봇의 콘크리트 차고에 나타났다.","작품은 아이가 눈송이를 잡는 모습을 보여준다.","Banksy가 Gary Owen에게 작품 제작을 요청했다."]},
+{"id":12,"type":"빈칸","diff":"보통","pts":5,"fmt":"mc","passage":"Kendler says, \"I wanted to inspire people to raise their own awareness about what they can actually do as individuals, but at the same time, I hoped to encourage collective action and collective responsibility. One thing that art can do really well is to help us imagine how the world might be otherwise. Certainly, we can't get to a different place if we can't imagine it.\" According to Kendler, art helps us __________________ for a better world.","stem":"빈칸에 들어갈 말로 가장 적절한 것을 고르시오.","det":{"korean":"세상이 달라질 수 있는 방법을 상상하도록 돕다 = 대안적 가능성을 구상하다.","analysis":"원문: help us imagine how the world might be otherwise","tip":"빈칸 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["avoid taking any responsibility","envision alternative possibilities","ignore collective action entirely","separate ourselves from nature"]},
+{"id":13,"type":"빈칸","diff":"보통","pts":5,"fmt":"mc","passage":"\"I've been using my work as a means of commenting on issues and problems I'm heavily interested in. I find it necessary to express a silver lining rather than just reflect on what's wrong. I want to show that everything is connected and that protecting nature is actually protecting us. My call to action is to remember the magic and wonder of this planet.\" Jon Ching believes his art should __________________ rather than merely point out problems.","stem":"빈칸에 들어갈 말로 가장 적절한 것을 고르시오.","det":{"korean":"희망적인 면 표현 / 모든 것이 연결 / 자연 보호 = 우리 보호","analysis":"원문: express a silver lining / everything is connected / protecting nature is actually protecting us","tip":"빈칸 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["make viewers feel guilty about their lifestyle choices","present hope and interconnectedness in the natural world","focus exclusively on the negative aspects of human behavior","promote specific political parties and their policies"]},
+{"id":14,"type":"함축","diff":"보통","pts":5,"fmt":"mc","passage":"Dependence on plastic is built into the supply chain, so the individual consumer finds it harder and harder to opt out. Of course, you can choose not to purchase products containing plastic, but <u><b>that only goes so far</b></u>. I think it is important for you to inform your friends and family of the issue because at the end of the day, companies and governments can't ignore the interest of the consumers.","stem":"밑줄 친 \"that only goes so far\"가 의미하는 바로 가장 적절한 것을 고르시오.","det":{"korean":"구매하지 않을 수 있지만, 그것은 거기까지가 한계이다. = 개인 불매만으로는 한계가 있다.","analysis":"원문: you can choose not to purchase ... but that only goes so far","tip":"함축 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["플라스틱 제품 불매 운동은 큰 효과를 거두고 있다","개인의 구매 거부만으로는 한계가 있다","플라스틱 사용을 완전히 중단하는 것은 쉽다","소비자의 관심이 기업에 아무런 영향을 미치지 않는다"]},
+{"id":15,"type":"순서","diff":"보통","pts":5,"fmt":"mc","passage":"<b>주어진 글:</b> She wanted us to think of what sea creatures might go through one day if we continue burning fossil fuels carelessly.<br><br><b>(A)</b> Under this condition, the hard shells of many marine species will dissolve.<br><b>(B)</b> As the ocean absorbs more and more carbon dioxide, it becomes more and more acidic.<br><b>(C)</b> The boom box plays what you may regard as calming ocean sounds. They are actually what she recorded as she had one of her baby teeth dissolve in acid.","stem":"주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.","det":{"korean":"[논리] 주어진 글(화석연료→해양생물) → (C) 붐박스의 실체(산에 녹인 젖니 소리) → (B) CO₂ → 바다 산성화 → (A) this condition(산성화) → 껍데기 용해","analysis":"❌ ① (A)-(B)-(C)<br>❌ ② (B)-(A)-(C)<br>❌ ③ (C)-(A)-(B)<br>✅ ④ (C)-(B)-(A)<br>❌ ⑤ (B)-(C)-(A)","tip":"순서 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":3,"ch":["(A)-(B)-(C)","(B)-(A)-(C)","(C)-(A)-(B)","(C)-(B)-(A)"]},
+{"id":16,"type":"무관","diff":"어려움","pts":6,"fmt":"mc","passage":"① Children are particularly defenseless against air pollution. ② Since they have faster breathing rates than adults, they breathe in more pollutants. ③ Many children enjoy playing outdoor sports with their friends after school. ④ According to the WHO, about 93% of the world's children under 15 breathe in toxic air every day. ⑤ In 2016, the WHO even estimated that about 600,000 children died from exposure to polluted air.","stem":"다음 글에서 전체 흐름과 관계 없는 문장을 고르시오.","det":{"korean":"[흐름] ①②④⑤ = 아이들의 대기오염 취약성 + 통계. ③ 방과 후 야외 스포츠는 대기오염 주제와 무관.","analysis":"❌ ① ①<br>❌ ② ②<br>✅ ③ ③<br>❌ ④ ④<br>❌ ⑤ ⑤","tip":"무관 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":2,"ch":["시간 순서가 뒤바뀐 내용이다.","인물/장소가 혼동된 내용이다.","③","원인과 결과를 혼동한 내용이다."]},
+{"id":17,"type":"TF","diff":"어려움","pts":6,"fmt":"mc","passage":"Banksy's art has included environmental messages before. For example, his 2010 artwork was created at the remains of a plant in Detroit. It showed a child with a can of <b>red</b> paint and the words, \"I remember when all this was trees.\"","stem":"\"Banksy's 2010 artwork in Detroit showed a child with a can of <b>blue</b> paint.\" — 참(T)이면 T, 거짓(F)이면 F를 고르시오.","det":{"korean":"빨간색 페인트 통. 문장에서 blue라고 했으므로 거짓(F).","analysis":"원문: a can of red paint","tip":"TF 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"ans":1,"ch":["True","F","③ 해당 없음","④ 위 모두 해당"]},
+{"id":18,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"\"I want to show that everything is connected and that protecting nature is actually protecting us. My call to action is to remember the magic and wonder of this planet.\"","stem":"다음 글을 읽고 빈칸에 들어갈 말을 주어진 조건에 맞게 쓰시오.<br><br><b>[조건]</b><br>• 주어진 보기의 단어를 활용하여 완성할 것<br>• 필요 시 어형을 변환할 것<br><br><b>[보기]</b> protect / nature / actually / us<br><br>Jon Ching wants to show that <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>.","det":{"korean":"자연을 보호하는 것이 실제로 우리를 보호하는 것이다.","analysis":"원문: protecting nature is actually protecting us","tip":"서술형 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"protecting nature is actually protecting us","accept":["protecting nature is actually protecting us","Protecting nature is actually protecting us","protecting nature actually protects us","Protecting nature actually protects us"]},
+{"id":19,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action.","stem":"다음 글의 내용을 바탕으로 영작하시오.<br><br><b>[조건]</b><br>• 보기의 단어를 모두 활용하여 한 문장으로 영작<br>• 필요 시 어형 변환<br>• 주어 Art can으로 시작<br><br><b>[보기]</b> inspire / take / action / environment / difference<br><br>Art can <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>.","det":{"korean":"행동을 취하도록 영감을 줌으로써 큰 변화를 만들다.","analysis":"원문: make a great difference by inspiring us to take action","tip":"서술형 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"make a great difference by inspiring us to take action for the environment","accept":["make a great difference by inspiring us to take action for the environment","make a difference by inspiring us to take action for the environment","inspire us to take action for the environment and make a great difference","inspire us to take action and make a difference for the environment","make a great difference by inspiring people to take action for the environment"]},
+{"id":20,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"As the ocean absorbs more and more carbon dioxide, it becomes more and more acidic. Under this condition, the hard shells of many marine species will dissolve.","stem":"다음 괄호 안에서 어법에 맞는 형태를 쓰시오.<br><br>Under this condition, the hard shells of many marine species will (dissolve / dissolving / dissolved).","det":{"korean":"녹을 것이다. 조동사 will + 동사원형.","analysis":"정답: dissolve<br>허용 답안: dissolve, Dissolve","tip":"서술형 유형 — 지문을 꼼꼼히 읽고 정답을 찾으세요."},"wa":"dissolve","accept":["dissolve","Dissolve"]}];
+
+/* NaesinFit Test Engine v1.0
+   Expects these globals before this script runs:
+   - const EI = {...}          // exam info
+   - const FULL_PASSAGE = "..."  // full passage text
+   - const Q = [...]           // questions array
+*/
+
+const typeTag = {
+  '문장삽입': 'tag-insert',
+  '어순배열': 'tag-order',
+  '순서배열': 'tag-order',
+  '글순서': 'tag-order',
+  '어법': 'tag-grammar',
+  '어휘': 'tag-vocab',
+  '빈칸추론': 'tag-blank',
+  '빈칸 추론': 'tag-blank',
+  '서술형': 'tag-written',
+  '내용이해': 'tag-content',
+  '내용일치': 'tag-content',
+  '내용불일치': 'tag-content',
+  'T/F': 'tag-tf',
+  '(A)(B)(C) 조합형': 'tag-combo',
+  '문맥상 부적절한 어휘': 'tag-wrong',
+  '동의어 고르기': 'tag-syn',
+  '반의어 고르기': 'tag-ant',
+  '빈칸 어휘 완성': 'tag-blank',
+  '다의어 문맥적 의미': 'tag-poly',
+  '영영풀이 매칭': 'tag-eng',
+  '어형 변환 (서술형)': 'tag-morph',
+  '빈칸 문맥 완성': 'tag-ctx',
+  '어법 빈칸': 'tag-grammar'
 };
 
-const Q = [
-  {
-    id:1, type:'어법', diff:'보통', pts:5, fmt:'mc',
-    note:'어법 ⓐ~ⓔ',
-    passage:`While art can stir up a sense of beauty in us, it can also draw a spirited reaction from the public. An excellent artistic piece can communicate a message to us and even change our ways of looking at our surroundings. That is why art <u>ⓐ has played</u> an essential role in <u>ⓑ addressing</u> social and global issues throughout history. His artworks rally people around environmental actions. In the photo on the left, titled <i>Turn Off the Plastic Tap</i>, he tries <u>ⓒ highlighting</u> the fact that a huge amount of plastic <u>ⓓ enters</u> the ocean every minute. She covered an old boom box with various shells, <u>ⓔ which</u> took her a year to collect.`,
-    stem:'밑줄 친 ⓐ~ⓔ 중 어법상 어색한 것을 고르시오.',
-    ch:['ⓐ has played','ⓑ addressing','ⓒ highlighting','ⓓ enters','ⓔ which'],
-    ans:2,
-    det:{
-      ref:`[원문] he tries highlighting the fact that ... [해석] 그는 ...라는 사실을 강조하려고 노력한다. try + to-v = \'~하려고 노력하다(attempt)\'. try + v-ing = \'시험 삼아 ~해보다\'. 문맥상 \'강조하려고 노력하다\'이므로 to highlight가 맞습니다.`,
-      correct:`ⓐ has played: 현재완료 시제 + throughout history(과거~현재 계속) ✅ / ⓑ addressing: 전치사 in + 동명사(v-ing) ✅ / ⓒ highlighting: try + to-v(노력) vs try + v-ing(시험삼아). 문맥은 \'노력\'이므로 to highlight가 맞음 ❌ → 정답 / ⓓ enters: a huge amount of + 불가산 → 단수동사 ✅ / ⓔ which: 계속적 용법 관계대명사, 앞 절 전체가 선행사 ✅`,
-      wrongs:[],
-      tip:`🔑 try + to-v = attempt(노력) / try + v-ing = experiment(시험삼아). 비교: remember + to-v(미래) vs v-ing(과거). a huge amount of + 불가산 → 단수동사.`
-    }
-  },
-  {
-    id:2, type:'어법', diff:'어려움', pts:6, fmt:'mc',
-    note:'어법 A/B/C',
-    passage:`The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. She covered an old boom box with various shells, which took her a year to collect. The boom box plays (A) <b>[what / that]</b> you may regard as calming ocean sounds. They are actually what she recorded as she had one of her baby teeth (B) <b>[dissolve / dissolved]</b> in acid. She wanted us to think of what sea creatures might go through one day if we (C) <b>[continue / continued]</b> burning fossil fuels carelessly.`,
-    stem:'(A), (B), (C)에서 어법에 맞는 표현으로 가장 적절한 것을 고르시오.',
-    ch:['what – dissolve – continue','what – dissolved – continue','that – dissolve – continued','what – dissolve – continued','that – dissolved – continue'],
-    ans:0,
-    det:{
-      ref:`[원문] The boom box plays what you may regard as calming ocean sounds. / she had one of her baby teeth dissolve in acid / if we continue burning fossil fuels [해석] 붐박스는 잔잔한 바다 소리로 여길 만한 것을 재생한다 / 그녀는 젖니를 산에 녹게 했다 / 화석연료를 계속 태운다면`,
-      correct:`(A) what: plays의 목적어절 필요. regard A as B에서 A 역할 = 선행사 포함 관계대명사 what ✅ / that은 선행사 필요 ❌ / (B) dissolve: 사역동사 had + O + 동사원형(능동). teeth가 dissolve의 주체 ✅ / dissolved(수동) ❌ / (C) continue: if + 현재(1차 조건문, 현실적 가능성) ✅ / continued(가정법 과거, 비현실적) ❌`,
-      wrongs:[],
-      tip:`🔑 what = the thing which(선행사 포함). 사역동사 have + O + 원형(능동) vs p.p.(수동). if + 현재(1차) vs if + 과거(2차·가정법).`
-    }
-  },
-  {
-    id:3, type:'어법', diff:'어려움', pts:6, fmt:'mc',
-    note:'어법 ⓐ~ⓓ',
-    passage:`Kendler says, "I wanted to inspire people to raise their own awareness about <u>ⓐ what</u> they can actually do as individuals, but at the same time, I hoped to encourage collective action and collective responsibility. One thing <u>ⓑ that</u> art can do really well is to help us imagine <u>ⓒ how</u> the world might be otherwise. Certainly, we can't get to a different place if we can't <u>ⓓ imagining</u> it."`,
-    stem:'밑줄 친 ⓐ~ⓓ 중 어법상 어색한 것을 고르시오.',
-    ch:['ⓐ what','ⓑ that','ⓒ how','ⓓ imagining'],
-    ans:3,
-    det:{
-      ref:`[원문] we can't get to a different place if we can't imagining it. [해석] 만약 상상할 수 없다면, 다른 곳에 도달할 수 없다. 조동사 can't 뒤에는 동사원형이 와야 하므로 imagining → imagine으로 고쳐야 합니다.`,
-      correct:`ⓐ what: 전치사 about의 목적어절을 이끄는 선행사 포함 관계대명사 ✅ / ⓑ that: One thing을 선행사로 하는 주격 관계대명사 ✅ / ⓒ how: imagine의 목적어인 간접의문문(의문부사) ✅ / ⓓ imagining: 조동사 can't + 동사원형 필수 → imagining ❌ → imagine ✅`,
-      wrongs:[],
-      tip:`🔑 조동사 + 동사원형: can't imagine (○) / can't imagining (✕). what(선행사 포함) vs that(선행사 필요). how + S + V = 간접의문문.`
-    }
-  },
-  {
-    id:4, type:'어휘', diff:'보통', pts:5, fmt:'mc',
-    note:'어휘 A/B/C',
-    passage:`You can't order a product online without having it delivered in plastic packaging. Dependence on plastic is built into the supply chain, so the individual consumer finds it harder and harder to (A) <b>[opt out / participate]</b>. Of course, you can choose not to purchase products containing plastic, but that only goes so far. I think it is important for you to (B) <b>[inform / conceal]</b> your friends and family of the issue because at the end of the day, companies and governments can't (C) <b>[ignore / enhance]</b> the interest of the consumers.`,
-    stem:'(A), (B), (C)에 들어갈 말로 가장 적절한 것을 고르시오.',
-    ch:['opt out – inform – ignore','participate – inform – ignore','opt out – conceal – ignore','opt out – inform – enhance','participate – conceal – enhance'],
-    ans:0,
-    det:{
-      ref:`[해석] (A) 공급망에 플라스틱 의존이 내재 → 소비자가 빠져나오기(opt out) 어렵다 / (B) 친구와 가족에게 문제를 알리는 것(inform)이 중요 / (C) 기업과 정부가 소비자 관심을 무시할 수 없다(ignore)`,
-      correct:`① opt out – inform – ignore: 세 단어 모두 문맥에 적합 ✅ / ② participate: 참여 → 문맥과 반대 ❌ / ③ conceal: 숨기다 → 반대 ❌ / ④ enhance: 강화 → 불일치 ❌ / ⑤ 모두 부적절 ❌`,
-      wrongs:[],
-      tip:`🔑 opt out(of) = 빠져나오다 ↔ opt in = 참여하다. inform A of B = A에게 B를 알리다(≈ notify). ignore ≈ disregard ↔ enhance = 향상시키다.`
-    }
-  },
-  {
-    id:5, type:'어휘', diff:'어려움', pts:6, fmt:'mc',
-    note:'어휘 부적절',
-    passage:`The piece below, titled <i>Homestead</i>, is a painting by Jon Ching. Most of his work, including this painting, is a ① <u>celebration</u> of nature and a quiet appeal to humans to appreciate the world around them. "I believe we've ② <u>separated</u> ourselves from nature and no longer see how we fit in. Instead of helping nature ③ <u>thrive</u>, we are simply consuming it," says Ching. One cannot help but smile at his paintings, which are rich in color and ④ <u>harshness</u>. "I want to show that everything is connected and that ⑤ <u>protecting</u> nature is actually protecting us."`,
-    stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.',
-    ch:['① celebration','② separated','③ thrive','④ harshness','⑤ protecting'],
-    ans:3,
-    det:{
-      ref:`[원문] which are rich in color and tenderness [해석] 색채와 부드러움이 풍부한. 원문 tenderness(부드러움)가 harshness(거침)로 바뀜 — 미소 짓게 하는 그림에 harshness는 부적절.`,
-      correct:`① celebration: 자연의 찬양 — 적절 ✅ / ② separated: 자연에서 분리 — 적절 ✅ / ③ thrive: 번성하다 — 적절 ✅ / ④ harshness: 거침/가혹함 — 미소 짓게 하는 그림과 모순 ❌ 원문은 tenderness / ⑤ protecting: 보호하다 — 적절 ✅`,
-      wrongs:[],
-      tip:`🔑 tenderness(부드러움) ↔ harshness(거침). rich in = ~이 풍부한. cannot help but + 동사원형 = ~하지 않을 수 없다. thrive ≈ flourish ↔ decline.`
-    }
-  },
-  {
-    id:6, type:'어휘', diff:'보통', pts:5, fmt:'mc',
-    note:'어휘 부적절',
-    passage:`Secretive street artist Banksy designed another interesting piece of art. It shows a child catching snowflakes with his mouth. Children are particularly ① <u>defenseless</u> against air pollution. Since they have faster breathing rates than adults, they breathe in ② <u>fewer</u> pollutants. According to the WHO, about 93% of the world's children under 15 breathe in ③ <u>toxic</u> air every day. In 2016, the WHO even ④ <u>estimated</u> that about 600,000 children died from ⑤ <u>exposure</u> to polluted air.`,
-    stem:'밑줄 친 ①~⑤ 중 문맥상 낱말의 쓰임이 적절하지 않은 것을 고르시오.',
-    ch:['① defenseless','② fewer','③ toxic','④ estimated','⑤ exposure'],
-    ans:1,
-    det:{
-      ref:`[원문] they breathe in more pollutants [해석] 오염물질을 더 많이 흡입한다. 원문 more가 fewer로 바뀜 — 호흡 속도가 빠르면 더 많이 흡입하므로 fewer는 반대.`,
-      correct:`① defenseless: 무방비의 — 대기오염에 취약 ✅ / ② fewer: 더 적은 — 빠른 호흡 → 더 많이 흡입해야 하므로 fewer 부적절 ❌ 원문은 more / ③ toxic: 유독한 — 적절 ✅ / ④ estimated: 추정했다 — 적절 ✅ / ⑤ exposure: 노출 — 적절 ✅`,
-      wrongs:[],
-      tip:`🔑 more ↔ fewer(가산) / less(불가산). defenseless ≈ vulnerable ↔ protected. exposure to = ~에 대한 노출. toxic ≈ poisonous.`
-    }
-  },
-  {
-    id:7, type:'대의', diff:'보통', pts:5, fmt:'mc',
-    note:'대의-주제',
-    passage:`While art can stir up a sense of beauty in us, it can also draw a spirited reaction from the public. An excellent artistic piece can communicate a message to us and even change our ways of looking at our surroundings. That is why art has played an essential role in addressing social and global issues throughout history. Let us take a look at a few modern artworks that address environmental issues. ... Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action.`,
-    stem:'다음 글의 주제로 가장 적절한 것을 고르시오.',
-    ch:['the history of environmental pollution worldwide','the role of art in raising awareness of environmental issues','the economic value of modern artworks addressing nature','the difference between traditional and modern art styles','the importance of government policies for environmental protection'],
-    ans:1,
-    det:{
-      ref:`[원문] art has played an essential role in addressing social and global issues / Art can strike up conversations about the environment ... inspiring us to take action [해석] 예술은 사회적·세계적 문제를 다루는 데 필수적인 역할 / 환경 대화를 촉발하고 행동을 유도`,
-      correct:`① 환경오염의 역사: 예술이 아닌 환경오염 자체 ❌ / ② 환경 문제 인식에서 예술의 역할: 핵심 주제 ✅ / ③ 경제적 가치: 언급 없음 ❌ / ④ 전통·현대 미술 차이: 언급 없음 ❌ / ⑤ 정부 정책: 주제 아님 ❌`,
-      wrongs:[],
-      tip:`🔑 주제 찾기: 도입부+결론부의 반복 키워드(art + environmental issues + action). stir up ≈ arouse. strike up = 시작하다.`
-    }
-  },
-  {
-    id:8, type:'대의', diff:'보통', pts:5, fmt:'mc',
-    note:'대의-제목',
-    passage:`The first art piece is a photograph by Benjamin Von Wong. His artworks rally people around environmental actions. ... The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. ... The piece below, titled <i>Homestead</i>, is a painting by Jon Ching. Most of his work is a celebration of nature and a quiet appeal to humans to appreciate the world around them.`,
-    stem:'다음 글의 제목으로 가장 적절한 것을 고르시오.',
-    ch:['Three Artists, One Mission: Art for the Planet','The Science Behind Ocean Pollution','Why Modern Art Fails to Impress Critics','Painting vs. Photography: Which Is More Effective?','How Governments Use Art for Political Messages'],
-    ans:0,
-    det:{
-      ref:`[해석] 세 예술가(Von Wong, Kendler, Ching)가 각기 다른 방식으로 환경 메시지를 전달. 공통 미션은 환경을 위한 예술.`,
-      correct:`① Three Artists, One Mission: 세 작가 + 환경이라는 공통 목표 포괄 ✅ / ② 해양 오염의 과학: 과학 설명이 아님 ❌ / ③ 현대 미술 비판: 실패가 아닌 성공적 전달 ❌ / ④ 매체 비교: 비교가 아닌 공통 목적 ❌ / ⑤ 정부의 예술 활용: 정부가 아닌 작가 개인 ❌`,
-      wrongs:[],
-      tip:`🔑 제목: 소재(art) + 주제(environment) + 특징(3명의 작가) 포괄. rally = 결집시키다. appeal = 호소.`
-    }
-  },
-  {
-    id:9, type:'대의', diff:'어려움', pts:6, fmt:'mc',
-    note:'대의-시사점',
-    passage:`Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action. The following words from Andy Warhol, an American pop artist, ring especially true in this context. "They always say time changes things, but you actually have to change them yourself."`,
-    stem:'다음 글이 시사하는 바로 가장 적절한 것을 고르시오.',
-    ch:['Environmental problems will naturally resolve over time.','Art alone is sufficient to solve all environmental crises.','We must actively take initiative rather than passively wait for change.','Only professional artists can contribute to environmental protection.','Government regulations are more effective than individual actions.'],
-    ans:2,
-    det:{
-      ref:`[원문] "They always say time changes things, but you actually have to change them yourself." [해석] "시간이 바꾼다고들 하지만, 실제로는 당신이 직접 바꿔야 한다."`,
-      correct:`① 시간이 해결: Warhol의 말과 정반대 ❌ / ② 예술만으로 충분: 충분하다고 하지 않음 ❌ / ③ 수동적 대기 대신 적극적 주도: "you have to change them yourself" 일치 ✅ / ④ 전문 예술가만: 누구나 행동 가능 ❌ / ⑤ 정부 규제가 효과적: 개인 행동 강조 ❌`,
-      wrongs:[],
-      tip:`🔑 ring true = 와닿다, 진실로 울리다. take initiative ≈ take action. passively ↔ actively.`
-    }
-  },
-  {
-    id:10, type:'일치', diff:'쉬움', pts:3, fmt:'mc',
-    note:'내용 일치',
-    passage:`The first art piece is a photograph by Benjamin Von Wong. His artworks rally people around environmental actions. In the photo on the left, titled <i>Turn Off the Plastic Tap</i>, he tries to highlight the fact that a huge amount of plastic enters the ocean every minute. ... The next piece, titled <i>Forget Me Not</i>, is Jenny Kendler's personal love letter to the sea. She covered an old boom box with various shells, which took her a year to collect.`,
-    stem:'위 글의 내용과 일치하는 것을 고르시오.',
-    ch:['Von Wong의 작품은 조각(sculpture)이다.','Turn Off the Plastic Tap은 Kendler의 작품이다.','Kendler는 조개를 모으는 데 1년이 걸렸다.','Forget Me Not은 Von Wong의 사진이다.','Kendler는 새 붐박스를 사용했다.'],
-    ans:2,
-    det:{
-      ref:`[원문] which took her a year to collect [해석] 조개를 모으는 데 1년이 걸렸다.`,
-      correct:`① 조각: photograph(사진) ❌ / ② Kendler 작품: Von Wong 작품 ❌ / ③ 조개 모으기 1년: 일치 ✅ / ④ Von Wong 사진: Kendler 작품 ❌ / ⑤ 새 붐박스: old boom box ❌`,
-      wrongs:[],
-      tip:`🔑 일치 문제: 인물·작품명·수치·형용사를 지문과 하나씩 대조. old ↔ new, photograph ↔ sculpture.`
-    }
-  },
-  {
-    id:11, type:'불일치', diff:'보통', pts:5, fmt:'mc',
-    note:'내용 불일치',
-    passage:`Secretive street artist Banksy designed another interesting piece of art, which appears on a concrete block garage in Port Talbot, Wales. It shows a child catching snowflakes with his mouth. When you look around the corner, however, you realize that the child's mouth is open to ash coming from a dumpster fire. Banksy was asked by Gary Owen, a Port Talbot resident, to create art that would highlight Port Talbot's dust problem. ... Banksy's art has included environmental messages before. For example, his 2010 artwork was created at the remains of a plant in Detroit.`,
-    stem:'Banksy에 관한 글의 내용과 일치하지 않는 것을 고르시오.',
-    ch:['Banksy는 비밀스러운 거리 예술가이다.','작품은 웨일스 포트 탈봇의 콘크리트 차고에 나타났다.','작품은 아이가 눈송이를 잡는 모습을 보여준다.','Banksy가 Gary Owen에게 작품 제작을 요청했다.','2010년 작품은 디트로이트의 공장 잔해에 제작되었다.'],
-    ans:3,
-    det:{
-      ref:`[원문] Banksy was asked BY Gary Owen to create art [해석] Banksy는 Gary Owen에 의해 요청을 받았다 = Owen이 Banksy에게 요청한 것.`,
-      correct:`① 비밀스러운: Secretive street artist ✅ / ② 콘크리트 차고: concrete block garage in Port Talbot ✅ / ③ 눈송이: a child catching snowflakes ✅ / ④ Banksy가 Owen에게 요청: 수동태 was asked by → Owen이 Banksy에게 요청 ❌ 불일치 / ⑤ 디트로이트 공장 잔해: remains of a plant in Detroit ✅`,
-      wrongs:[],
-      tip:`🔑 수동태 주어/행위자 뒤바꾸기 = 출제 단골 패턴. A was asked by B = B가 A에게 요청. secretive ≈ mysterious.`
-    }
-  },
-  {
-    id:12, type:'빈칸', diff:'어려움', pts:6, fmt:'mc',
-    note:'빈칸(구)',
-    passage:`Kendler says, "I wanted to inspire people to raise their own awareness about what they can actually do as individuals, but at the same time, I hoped to encourage collective action and collective responsibility. One thing that art can do really well is to help us imagine how the world might be otherwise. Certainly, we can't get to a different place if we can't imagine it." According to Kendler, art helps us __________________ for a better world.`,
-    stem:'빈칸에 들어갈 말로 가장 적절한 것을 고르시오.',
-    ch:['avoid taking any responsibility','envision alternative possibilities','ignore collective action entirely','separate ourselves from nature','rely solely on government policies'],
-    ans:1,
-    det:{
-      ref:`[원문] help us imagine how the world might be otherwise [해석] 세상이 달라질 수 있는 방법을 상상하도록 돕다 = 대안적 가능성을 구상하다.`,
-      correct:`① 책임 회피: collective responsibility 강조와 반대 ❌ / ② 대안적 가능성 구상: imagine how ... otherwise = envision alternative possibilities ✅ / ③ 집단 행동 무시: collective action 장려 ❌ / ④ 자연에서 분리: Ching의 비판 대상 ❌ / ⑤ 정부에만 의존: 개인+집단 행동 강조 ❌`,
-      wrongs:[],
-      tip:`🔑 imagine ≈ envision ≈ visualize. otherwise = differently. alternative = 대안적. envision alternative possibilities = 대안적 가능성을 구상하다.`
-    }
-  },
-  {
-    id:13, type:'빈칸', diff:'어려움', pts:6, fmt:'mc',
-    note:'빈칸(문장)',
-    passage:`"I've been using my work as a means of commenting on issues and problems I'm heavily interested in. I find it necessary to express a silver lining rather than just reflect on what's wrong. I want to show that everything is connected and that protecting nature is actually protecting us. My call to action is to remember the magic and wonder of this planet." Jon Ching believes his art should __________________ rather than merely point out problems.`,
-    stem:'빈칸에 들어갈 말로 가장 적절한 것을 고르시오.',
-    ch:['make viewers feel guilty about their lifestyle choices','present hope and interconnectedness in the natural world','focus exclusively on the negative aspects of human behavior','promote specific political parties and their policies','discourage individual efforts for environmental change'],
-    ans:1,
-    det:{
-      ref:`[원문] express a silver lining / everything is connected / protecting nature is actually protecting us [해석] 희망적인 면 표현 / 모든 것이 연결 / 자연 보호 = 우리 보호`,
-      correct:`① 죄책감: silver lining(희망) 강조와 반대 ❌ / ② 희망과 상호연결성 제시: silver lining + everything is connected 일치 ✅ / ③ 부정적 측면 집중: rather than reflect on what's wrong과 반대 ❌ / ④ 정당 홍보: 무관 ❌ / ⑤ 개인 노력 억제: call to action과 반대 ❌`,
-      wrongs:[],
-      tip:`🔑 silver lining = 희망적인 면. interconnectedness = 상호연결성. reflect on = 숙고하다. rather than = ~대신에.`
-    }
-  },
-  {
-    id:14, type:'함축', diff:'보통', pts:5, fmt:'mc',
-    note:'함축 의미',
-    passage:`Dependence on plastic is built into the supply chain, so the individual consumer finds it harder and harder to opt out. Of course, you can choose not to purchase products containing plastic, but <u><b>that only goes so far</b></u>. I think it is important for you to inform your friends and family of the issue because at the end of the day, companies and governments can't ignore the interest of the consumers.`,
-    stem:'밑줄 친 "that only goes so far"가 의미하는 바로 가장 적절한 것을 고르시오.',
-    ch:['플라스틱 제품 불매 운동은 큰 효과를 거두고 있다','개인의 구매 거부만으로는 한계가 있다','플라스틱 사용을 완전히 중단하는 것은 쉽다','소비자의 관심이 기업에 아무런 영향을 미치지 않는다','정부의 규제가 전혀 필요하지 않다'],
-    ans:1,
-    det:{
-      ref:`[원문] you can choose not to purchase ... but that only goes so far [해석] 구매하지 않을 수 있지만, 그것은 거기까지가 한계이다. = 개인 불매만으로는 한계가 있다.`,
-      correct:`① 큰 효과: goes so far는 한계를 뜻함 ❌ / ② 한계가 있다: that(개인의 불매) only goes so far(한계) ✅ / ③ 쉽다: harder and harder ❌ / ④ 무영향: can't ignore에서 영향 있음 ❌ / ⑤ 규제 불필요: pressure governments에서 필요성 언급 ❌`,
-      wrongs:[],
-      tip:`🔑 go(es) so far = 한계가 있다(= have limited effect). opt out = 빠져나오다. at the end of the day = 결국.`
-    }
-  },
-  {
-    id:15, type:'순서', diff:'보통', pts:5, fmt:'mc',
-    note:'순서배열',
-    passage:`<b>주어진 글:</b> She wanted us to think of what sea creatures might go through one day if we continue burning fossil fuels carelessly.<br><br><b>(A)</b> Under this condition, the hard shells of many marine species will dissolve.<br><b>(B)</b> As the ocean absorbs more and more carbon dioxide, it becomes more and more acidic.<br><b>(C)</b> The boom box plays what you may regard as calming ocean sounds. They are actually what she recorded as she had one of her baby teeth dissolve in acid.`,
-    stem:'주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.',
-    ch:['(A)-(B)-(C)','(B)-(A)-(C)','(C)-(A)-(B)','(C)-(B)-(A)','(B)-(C)-(A)'],
-    ans:3,
-    det:{
-      ref:`[논리] 주어진 글(화석연료→해양생물) → (C) 붐박스의 실체(산에 녹인 젖니 소리) → (B) CO₂ → 바다 산성화 → (A) this condition(산성화) → 껍데기 용해`,
-      correct:`① (A)-(B)-(C): this condition 선행 맥락 없음 ❌ / ② (B)-(A)-(C): 붐박스 설명이 마지막에 흐름 단절 ❌ / ③ (C)-(A)-(B): this condition 지시 대상 불명확 ❌ / ④ (C)-(B)-(A): 논리적 인과 흐름 ✅ / ⑤ (B)-(C)-(A): (B) 뒤 (C) 맥락 단절 ❌`,
-      wrongs:[],
-      tip:`🔑 순서배열: 지시어(this condition)의 지시 대상 파악. this condition → 바로 앞에 산성화 언급 필수. absorb = 흡수하다. acidic ↔ alkaline.`
-    }
-  },
-  {
-    id:16, type:'무관', diff:'쉬움', pts:3, fmt:'mc',
-    note:'무관문장',
-    passage:`① Children are particularly defenseless against air pollution. ② Since they have faster breathing rates than adults, they breathe in more pollutants. ③ Many children enjoy playing outdoor sports with their friends after school. ④ According to the WHO, about 93% of the world's children under 15 breathe in toxic air every day. ⑤ In 2016, the WHO even estimated that about 600,000 children died from exposure to polluted air.`,
-    stem:'다음 글에서 전체 흐름과 관계 없는 문장을 고르시오.',
-    ch:['①','②','③','④','⑤'],
-    ans:2,
-    det:{
-      ref:`[흐름] ①②④⑤ = 아이들의 대기오염 취약성 + 통계. ③ 방과 후 야외 스포츠는 대기오염 주제와 무관.`,
-      correct:`① 대기오염에 무방비: 주제문 ✅ / ② 빠른 호흡 → 오염물질 흡입: 근거 ✅ / ③ 방과 후 야외 스포츠: 무관 ❌ / ④ WHO 93% 통계: 근거 ✅ / ⑤ WHO 60만 명 사망: 근거 ✅`,
-      wrongs:[],
-      tip:`🔑 무관문장: 주제(대기오염 취약성)에서 벗어나는 문장. defenseless ≈ vulnerable. pollutants = 오염물질.`
-    }
-  },
-  {
-    id:17, type:'TF', diff:'쉬움', pts:3, fmt:'mc',
-    note:'지칭 T/F',
-    passage:`Banksy's art has included environmental messages before. For example, his 2010 artwork was created at the remains of a plant in Detroit. It showed a child with a can of <b>red</b> paint and the words, "I remember when all this was trees."`,
-    stem:`"Banksy's 2010 artwork in Detroit showed a child with a can of <b>blue</b> paint." — 참(T)이면 T, 거짓(F)이면 F를 고르시오.`,
-    ch:['T','F'],
-    ans:1,
-    det:{
-      ref:`[원문] a can of red paint [해석] 빨간색 페인트 통. 문장에서 blue라고 했으므로 거짓(F).`,
-      correct:`T: red ≠ blue ❌ / F: red paint가 맞으므로 blue paint는 거짓 ✅`,
-      wrongs:[],
-      tip:`🔑 T/F: 색상·숫자·고유명사를 정확히 대조. red ↔ blue. remains = 잔해.`
-    }
-  },
-  {
-    id:18, type:'서술형', diff:'보통', pts:5, fmt:'written',
-    note:'서술형-요약',
-    passage:`"I want to show that everything is connected and that protecting nature is actually protecting us. My call to action is to remember the magic and wonder of this planet."`,
-    stem:`다음 글을 읽고 빈칸에 들어갈 말을 주어진 조건에 맞게 쓰시오.<br><br><b>[조건]</b><br>• 주어진 보기의 단어를 활용하여 완성할 것<br>• 필요 시 어형을 변환할 것<br><br><b>[보기]</b> protect / nature / actually / us<br><br>Jon Ching wants to show that <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>.`,
-    wa:'protecting nature is actually protecting us',
-    accept:['protecting nature is actually protecting us','Protecting nature is actually protecting us','protecting nature actually protects us','Protecting nature actually protects us'],
-    det:{
-      ref:`[원문] protecting nature is actually protecting us [해석] 자연을 보호하는 것이 실제로 우리를 보호하는 것이다.`,
-      correct:`모범답안: protecting nature is actually protecting us. 동명사구(protecting nature) + be동사(is) + 부사(actually) + 동명사구(protecting us). 변형: protecting nature actually protects us도 허용 ✅`,
-      wrongs:[],
-      tip:`🔑 동명사 주어 → 단수 취급(is). protect → protecting(어형 변환). actually ≈ in fact.`
-    }
-  },
-  {
-    id:19, type:'서술형', diff:'어려움', pts:7, fmt:'written',
-    note:'서술형-영작',
-    passage:`Art can strike up conversations about the environment, but more importantly, it can also make a great difference by inspiring us to take action.`,
-    stem:`다음 글의 내용을 바탕으로 영작하시오.<br><br><b>[조건]</b><br>• 보기의 단어를 모두 활용하여 한 문장으로 영작<br>• 필요 시 어형 변환<br>• 주어 Art can으로 시작<br><br><b>[보기]</b> inspire / take / action / environment / difference<br><br>Art can <u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>.`,
-    wa:'make a great difference by inspiring us to take action for the environment',
-    accept:['make a great difference by inspiring us to take action for the environment','make a difference by inspiring us to take action for the environment','inspire us to take action for the environment and make a great difference','inspire us to take action and make a difference for the environment','make a great difference by inspiring people to take action for the environment'],
-    det:{
-      ref:`[원문] make a great difference by inspiring us to take action [해석] 행동을 취하도록 영감을 줌으로써 큰 변화를 만들다.`,
-      correct:`모범답안: make a great difference by inspiring us to take action for the environment. 핵심: make a difference + by v-ing + inspire + O + to-v. 보기 전부 활용 ✅`,
-      wrongs:[],
-      tip:`🔑 make a difference = 변화를 만들다. inspire + O + to-v. take action = 행동을 취하다. by v-ing = ~함으로써.`
-    }
-  },
-  {
-    id:20, type:'서술형', diff:'쉬움', pts:3, fmt:'written',
-    note:'서술형-어형',
-    passage:`As the ocean absorbs more and more carbon dioxide, it becomes more and more acidic. Under this condition, the hard shells of many marine species will dissolve.`,
-    stem:`다음 괄호 안에서 어법에 맞는 형태를 쓰시오.<br><br>Under this condition, the hard shells of many marine species will (dissolve / dissolving / dissolved).`,
-    wa:'dissolve',
-    accept:['dissolve','Dissolve'],
-    det:{
-      ref:`[원문] will dissolve [해석] 녹을 것이다. 조동사 will + 동사원형.`,
-      correct:`dissolve: 조동사 will + 동사원형 ✅ / dissolving: v-ing → 조동사 뒤 불가 ❌ / dissolved: p.p. → 조동사 뒤 불가 ❌`,
-      wrongs:[],
-      tip:`🔑 조동사 + 동사원형: will dissolve (○). dissolve = 녹다. acidic = 산성의 ↔ alkaline.`
-    }
+let S = { ans: [], cur: 0, ti: null, left: EI.time, start: 0 };
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(EI.histKey) || '[]'); }
+  catch (e) { return []; }
+}
+
+function saveToHistory(r, elapsed) {
+  const h = getHistory();
+  h.unshift({
+    name: document.getElementById('inpName').value.trim(),
+    school: document.getElementById('inpSchool').value.trim(),
+    grade: document.getElementById('inpGrade').value,
+    score: r.score, total: EI.total,
+    correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
+    elapsed, date: new Date().toISOString(),
+    level: getLevel(r.score).name,
+    answers: S.ans.slice()
+  });
+  if (h.length > 20) h.length = 20;
+  localStorage.setItem(EI.histKey, JSON.stringify(h));
+}
+
+function updateHCount() {
+  const h = getHistory();
+  document.getElementById('hCount').textContent = h.length;
+}
+
+function toggleHistory() {
+  const p = document.getElementById('historyPanel');
+  if (p.style.display === 'block') { p.style.display = 'none'; return; }
+  const h = getHistory();
+  if (!h.length) {
+    p.innerHTML = '<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">\uc544\uc9c1 \uae30\ub85d\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</p>';
+    p.style.display = 'block'; return;
   }
-];
+  const mk = '\u2460\u2461\u2462\u2463\u2464';
+  p.innerHTML = h.map(function (x, idx) {
+    return '<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">' + (x.name || '\uc774\ub984\uc5c6\uc74c') + '</div><div class="hi-meta">' + new Date(x.date).toLocaleDateString('ko-KR') + ' \u00b7 ' + x.grade + ' \u00b7 ' + (x.level || '') + '</div></div><div class="hi-right"><div class="hi-score" style="color:' + (x.score >= 80 ? 'var(--p)' : 'var(--r)') + '">' + x.score + '<span style="font-size:11px;color:var(--tl)">/' + x.total + '</span></div></div>' + (x.answers ? '<button onclick="reviewHistory(' + idx + ')" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid var(--pborder);border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--p)">\ud83d\udcdd \uc815\ub2f5\u00b7\ud574\uc124 \ub2e4\uc2dc \ubcf4\uae30</button>' : '') + '</div>';
+  }).join('');
+  p.style.display = 'block';
+}
 
-const QCOUNT=Q.length;
+function getLevel(s) {
+  if (s >= 95) return { name: '\ub9c8\uc2a4\ud130', icon: '\ud83d\udc51', range: '95~100', msg: '\uc774 \ub2e8\uc6d0\uc740 \uc815\ubcf5\ud588\uc5b4\uc694!' };
+  if (s >= 85) return { name: '\ucc4c\ub9b0\uc800', icon: '\ud83c\udf1f', range: '85~94', msg: '\uac70\uc758 \uc644\ubcbd, \ud55c \ub057 \ucc28\uc774!' };
+  if (s >= 75) return { name: '\ud30c\uc774\ud130', icon: '\ud83d\udc8e', range: '75~84', msg: '\ud1b5\uacfc! \uc57d\uc810\ub9cc \uc7a1\uc73c\uba74 \ub9c8\uc2a4\ud130' };
+  if (s >= 50) return { name: '\ub8e8\ud0a4', icon: '\ud83d\udd25', range: '50~74', msg: '\uae30\ubcf8\uae30 OK, \uc720\ud615\ubcc4 \ud6c8\ub828 \ud544\uc694' };
+  return { name: '\uc2a4\ud0c0\ud130', icon: '\ud83d\udcd6', range: '0~49', msg: '\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130 \ub2e4\uc2dc!' };
+}
 
-let S={ans:[],cur:0,ti:null,left:EI.time,start:0};
+function getTypeAdvice(t) {
+  var m = {
+    '(A)(B)(C) \uc870\ud569\ud615': '\ubc18\uc758\uc5b4 \ud568\uc815 \uc8fc\uc758, \uc6d0\ubb38 \ub2e8\uc5b4 \uc815\ud655\ud788 \uc554\uae30',
+    '\ubb38\ub9e5\uc0c1 \ubd80\uc801\uc808\ud55c \uc5b4\ud718': '\ubc11\uc904 \ub2e8\uc5b4\uac00 \ubc18\uc758\uc5b4\ub85c \ubc14\ub00c\uc5c8\ub294\uc9c0 \ud655\uc778',
+    '\ub3d9\uc758\uc5b4 \uace0\ub974\uae30': '\ub3d9\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
+    '\ubc18\uc758\uc5b4 \uace0\ub974\uae30': '\ubc18\uc758\uc5b4 \uc30d\uc744 \uc138\ud2b8\ub85c \ubb36\uc5b4 \uc554\uae30',
+    '\ube48\uce78 \uc5b4\ud718 \uc644\uc131': '\ubb38\ub9e5 \ub2e8\uc11c(clue) \ucc3e\uae30 \uc5f0\uc2b5 \ud544\uc694',
+    '\ub2e4\uc758\uc5b4 \ubb38\ub9e5\uc801 \uc758\ubbf8': '\ub2e4\uc758\uc5b4\uc758 \uc5ec\ub7ec \ub73b\uc744 \ubb38\ub9e5\ubcc4\ub85c \uad6c\ubd84',
+    '\uc601\uc601\ud480\uc774 \ub9e4\uce6d': '\uc601\uc601\uc0ac\uc804 \uc815\uc758 \uc77d\uae30 \uc5f0\uc2b5',
+    '\uc5b4\ud615 \ubcc0\ud658 (\uc11c\uc220\ud615)': '\ud488\uc0ac \ubcc0\ud658 \uaddc\uce59(\uba85\u2194\ud615, \ub3d9\u2194\uba85) \uc815\ub9ac',
+    '\ube48\uce78 \ubb38\ub9e5 \uc644\uc131': '\uae00\uc758 \ud750\ub984\uacfc \ub17c\ub9ac\uc801 \uc5f0\uacb0 \ud30c\uc545',
+    '\uc5b4\ubc95': '\ud575\uc2ec \uc5b4\ubc95 \uaddc\uce59 \uc815\ub9ac \ubc0f \ubc18\ubcf5 \uc5f0\uc2b5',
+    '\ub0b4\uc6a9\uc77c\uce58': '\uc9c0\ubb38\uacfc \uc120\uc9c0\ub97c \uaf3c\uaf3c\ud788 \ub300\uc870',
+    '\ub0b4\uc6a9\ubd88\uc77c\uce58': '\ud568\uc815 \uc120\uc9c0\uc758 \ubbf8\uc138\ud55c \ucc28\uc774 \ucc3e\uae30',
+    'T/F': '\uc6d0\ubb38\uacfc \uc9c4\uc220\uc744 \uc815\ud655\ud788 \ub300\uc870',
+    '\uc11c\uc220\ud615': '\uc815\ud655\ud55c \ucca0\uc790\uc640 \uc5b4\ud615 \ubcc0\ud658 \uc8fc\uc758',
+    '\ube48\uce78\ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
+    '\ube48\uce78 \ucd94\ub860': '\ube48\uce78 \uc804\ud6c4 \ubb38\ub9e5 \ub2e8\uc11c \ucc3e\uae30',
+    '\ubb38\uc7a5\uc0bd\uc785': '\uae00\uc758 \ud750\ub984\uacfc \uc5f0\uacb0\uc0ac \ud30c\uc545',
+    '\uc5b4\uc21c\ubc30\uc5f4': '\ubb38\uc7a5 \uad6c\uc870(S+V+O) \uc815\ud655\ud788 \ud30c\uc545',
+    '\uc5b4\ud718': '\ubb38\ub9e5\uc5d0\uc11c \uc801\uc808\ud55c \uc5b4\ud718 \uace0\ub974\uae30 \uc5f0\uc2b5',
+    '\ub0b4\uc6a9\uc774\ud574': '\uc9c0\ubb38 \ud575\uc2ec \ub0b4\uc6a9 \uc815\ud655\ud788 \ud30c\uc545'
+  };
+  return m[t] || '\ud574\ub2f9 \uc720\ud615 \uc9d1\uc911 \ubcf5\uc2b5 \ud544\uc694';
+}
 
-function getHistory(){try{return JSON.parse(localStorage.getItem(EI.histKey)||'[]');}catch(e){return[];}}
-function saveToHistory(r,elapsed){const h=getHistory();h.unshift({name:document.getElementById('inpName').value.trim(),school:document.getElementById('inpSchool').value.trim(),grade:document.getElementById('inpGrade').value,score:r.score,total:EI.total,correct:r.correct,wrong:r.wrong,unanswered:r.unanswered,elapsed,date:new Date().toISOString(),level:getLevel(r.score).name,answers:S.ans.slice()});if(h.length>20)h.length=20;localStorage.setItem(EI.histKey,JSON.stringify(h));}
-function updateHCount(){const h=getHistory();document.getElementById('hCount').textContent=h.length;}
-function toggleHistory(){const p=document.getElementById('historyPanel');if(p.style.display==='block'){p.style.display='none';return;}const h=getHistory();if(!h.length){p.innerHTML='<p style="text-align:center;color:var(--tl);font-size:13px;padding:20px">아직 기록이 없습니다.</p>';p.style.display='block';return;}p.innerHTML=h.map((x,idx)=>`<div class="history-item" style="flex-wrap:wrap"><div class="hi-left"><div class="hi-name">${x.name||'이름없음'}</div><div class="hi-meta">${new Date(x.date).toLocaleDateString('ko-KR')} · ${x.grade} · ${x.level||''}</div></div><div class="hi-right"><div class="hi-score" style="color:${x.score>=80?'var(--o)':'var(--r)'}">${x.score}<span style="font-size:11px;color:var(--tl)">/${x.total}</span></div></div>${x.answers?`<button onclick="reviewHistory(${idx})" style="width:100%;margin-top:8px;padding:8px;border:1.5px solid #dde8df;border-radius:8px;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--o)">📝 정답·해설 다시 보기</button>`:''}</div>`).join('');p.style.display='block';}
-function getLevel(s){if(s>=95)return{name:'마스터',icon:'👑',range:'95~100',msg:'이 단원은 정복했어요!'};if(s>=85)return{name:'챌린저',icon:'🌟',range:'85~94',msg:'거의 완벽, 한 끗 차이!'};if(s>=75)return{name:'파이터',icon:'💎',range:'75~84',msg:'통과! 약점만 잡으면 마스터'};if(s>=50)return{name:'루키',icon:'🔥',range:'50~74',msg:'기본기 OK, 유형별 훈련 필요'};return{name:'스타터',icon:'📖',range:'0~49',msg:'지문 해석부터 다시!'};}
-function getTypeAdvice(t){const m={'(A)(B)(C) 조합형':'반의어 함정 주의, 원문 단어 정확히 암기','문맥상 부적절한 어휘':'밑줄 단어가 반의어로 바뀌었는지 확인','동의어 고르기':'동의어 쌍을 세트로 묶어 암기','반의어 고르기':'반의어 쌍을 세트로 묶어 암기','빈칸 어휘 완성':'문맥 단서(clue) 찾기 연습 필요','다의어 문맥적 의미':'다의어의 여러 뜻을 문맥별로 구분','영영풀이 매칭':'영영사전 정의 읽기 연습','어형 변환 (서술형)':'품사 변환 규칙(명↔형, 동↔명) 정리','빈칸 문맥 완성':'글의 흐름과 논리적 연결 파악','어법':'핵심 어법 규칙 정리 및 반복 연습','내용일치':'지문과 선지를 꼼꼼히 대조','내용불일치':'함정 선지의 미세한 차이 찾기','T/F':'원문과 진술을 정확히 대조','서술형':'정확한 철자와 어형 변환 주의','빈칸추론':'빈칸 전후 문맥 단서 찾기','빈칸 추론':'빈칸 전후 문맥 단서 찾기','문장삽입':'글의 흐름과 연결사 파악','어순배열':'문장 구조(S+V+O) 정확히 파악','어휘':'문맥에서 적절한 어휘 고르기 연습','내용이해':'지문 핵심 내용 정확히 파악'};return m[t]||'해당 유형 집중 복습 필요';}
-function fmtTime(s){return Math.floor(s/60)+'분 '+s%60+'초';}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function fmtTime(s) { return Math.floor(s / 60) + '\ubd84 ' + s % 60 + '\ucd08'; }
 
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-function startExam(){
-  const nm=document.getElementById('inpName').value.trim();
-  if(!nm){toast('이름을 입력해주세요!');return;}
-  S={ans:Array(EI.totalQ).fill(null),cur:0,ti:null,left:EI.time,start:Date.now(),order:shuffle([...Array(EI.totalQ).keys()])};
+function toast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function () { t.classList.remove('show'); }, 2500);
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+function shuffle(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+/* Section picker (for 부교재 with sec field) */
+function toggleAllSec(el) {
+  document.querySelectorAll('.sec-cb').forEach(function (cb) { if (cb.value !== 'all') cb.checked = el.checked; });
+}
+
+function getSelectedSections() {
+  var cbs = document.querySelectorAll('.sec-cb:checked');
+  var secs = [];
+  cbs.forEach(function (cb) { if (cb.value !== 'all') secs.push(cb.value); });
+  return secs;
+}
+
+function startExam() {
+  var nm = document.getElementById('inpName').value.trim();
+  if (!nm) { toast('\uc774\ub984\uc744 \uc785\ub825\ud574\uc8fc\uc138\uc694!'); return; }
+
+  /* Section filtering (if sec picker exists) */
+  var secPicker = document.getElementById('secPicker');
+  var filtered;
+  if (secPicker) {
+    var secs = getSelectedSections();
+    if (secs.length === 0) { toast('\uc2dc\ud5d8 \ubc94\uc704\ub97c \ucd5c\uc18c 1\uac1c \uc120\ud0dd\ud574\uc8fc\uc138\uc694!'); return; }
+    filtered = Q.map(function (q, i) { return { q: q, i: i }; }).filter(function (f) { return secs.includes(f.q.sec); });
+    S = { ans: Array(filtered.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle([].concat(Array(filtered.length).keys ? Array.from({ length: filtered.length }, function (_, i) { return i; }) : [])), filtered: filtered.map(function (f) { return f.i; }), secs: secs };
+    EI._origTotalQ = EI.totalQ; EI._origTotal = EI.total;
+    EI.totalQ = filtered.length;
+    EI.total = filtered.reduce(function (s, f) { return s + Q[f.i].pts; }, 0);
+  } else {
+    S = { ans: Array(Q.length).fill(null), cur: 0, ti: null, left: EI.time, start: Date.now(), order: shuffle(Array.from({ length: Q.length }, function (_, i) { return i; })), filtered: null, secs: null };
+  }
+
   showScreen('examScreen');
   showQ(0);
   startTimer();
   updateProgress();
   initSwipe();
 }
-const typeTag={'문장삽입':'tag-insert','어순배열':'tag-order','순서배열':'tag-order','글순서':'tag-order','어법':'tag-grammar','어휘':'tag-vocab','빈칸추론':'tag-blank','빈칸 추론':'tag-blank','서술형':'tag-written','내용이해':'tag-content','내용일치':'tag-content','내용불일치':'tag-content','T/F':'tag-tf','(A)(B)(C) 조합형':'tag-combo','문맥상 부적절한 어휘':'tag-wrong','동의어 고르기':'tag-syn','반의어 고르기':'tag-ant','빈칸 어휘 완성':'tag-blank','다의어 문맥적 의미':'tag-poly','영영풀이 매칭':'tag-eng','어형 변환 (서술형)':'tag-morph','빈칸 문맥 완성':'tag-ctx','어법 빈칸':'tag-grammar'};
-function showQ(idx,direction){
-  S.cur=idx;
-  const qi=S.order?S.order[idx]:idx;
-  const q=Q[qi];
-  const tc=typeTag[q.type]||'';
-  const mk='①②③④⑤';
-  const pp=document.getElementById('slidePassage');
-  if(direction){
-    pp.classList.add(direction>0?'fade-out':'fade-in');
-    setTimeout(()=>{
-      renderContent(idx,qi,q,tc,mk,pp);
-      pp.classList.remove('fade-out','fade-in');
-    },150);
+
+function showQ(idx, direction) {
+  S.cur = idx;
+  var oi = S.order ? S.order[idx] : idx;
+  var qi = S.filtered ? S.filtered[oi] : oi;
+  var q = Q[qi];
+  var tc = typeTag[q.type] || '';
+  var mk = '\u2460\u2461\u2462\u2463\u2464';
+  var pp = document.getElementById('slidePassage');
+  if (direction) {
+    pp.classList.add(direction > 0 ? 'fade-out' : 'fade-in');
+    setTimeout(function () {
+      renderContent(idx, qi, q, tc, mk, pp);
+      pp.classList.remove('fade-out', 'fade-in');
+    }, 150);
   } else {
-    renderContent(idx,qi,q,tc,mk,pp);
+    renderContent(idx, qi, q, tc, mk, pp);
   }
 }
-function renderContent(idx,qi,q,tc,mk,pp){
-  let ph='<div class="q-badge"><div class="q-num">'+( idx+1)+'</div><span>'+q.type+'</span><span style="opacity:.6">'+q.diff+' \u00b7 '+q.pts+'\uc810</span></div>';
-  if(q.passage) ph+='<div class="q-passage">'+q.passage+'</div>';
-  else ph+='<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
-  pp.innerHTML=ph;
-  pp.scrollTop=0;
-  const bt=document.getElementById('slideBottom');
-  let bh='<div class="slide-stem">'+q.stem+'</div><div class="slide-choices">';
-  if(q.fmt==='mc'){
-    q.ch.forEach(function(c,ci){
-      var sel=S.ans[qi]===ci?' selected':'';
-      bh+='<button class="choice-btn'+sel+'" onclick="selectAns('+idx+','+ci+')"><span class="c-num">'+mk[ci]+'</span><span>'+c+'</span></button>';
+
+function renderContent(idx, qi, q, tc, mk, pp) {
+  var ph = '<div class="q-badge"><div class="q-num">' + (idx + 1) + '</div><span>' + q.type + '</span><span style="opacity:.6">' + q.diff + ' \u00b7 ' + q.pts + '\uc810</span></div>';
+  if (q.passage) ph += '<div class="q-passage">' + q.passage + '</div>';
+  else ph += '<div style="padding:30px;text-align:center;color:var(--tl)">\uc774 \ubb38\ud56d\uc740 \uc9c0\ubb38\uc774 \uc5c6\uc2b5\ub2c8\ub2e4.</div>';
+  pp.innerHTML = ph;
+  pp.scrollTop = 0;
+  var bt = document.getElementById('slideBottom');
+  var bh = '<div class="slide-stem">' + q.stem + '</div><div class="slide-choices">';
+  if (q.fmt === 'mc') {
+    q.ch.forEach(function (c, ci) {
+      var sel = S.ans[qi] === ci ? ' selected' : '';
+      bh += '<button class="choice-btn' + sel + '" onclick="selectAns(' + idx + ',' + ci + ')"><span class="c-num">' + mk[ci] + '</span><span>' + c + '</span></button>';
     });
   }
-  if(q.fmt==='written'){
-    var val=S.ans[qi]||'';
-    bh+='<input class="written-input" value="'+val+'" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns('+idx+',this.value)">';
+  if (q.fmt === 'written') {
+    var val = S.ans[qi] || '';
+    bh += '<input class="written-input" value="' + val + '" placeholder="\ub2f5\uc548\uc744 \uc785\ub825\ud558\uc138\uc694..." oninput="writeAns(' + idx + ',this.value)">';
   }
-  bh+='</div><div class="slide-nav"><button '+(idx===0?'disabled ':'')+' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">'+(idx+1)+' / '+EI.totalQ+'</span><button class="sn-next" '+(idx===EI.totalQ-1?'disabled ':'')+' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
-  bt.innerHTML=bh;
+  bh += '</div><div class="slide-nav"><button ' + (idx === 0 ? 'disabled ' : '') + ' onclick="navQ(-1)">\u2190 \uc774\uc804</button><span class="nav-cur">' + (idx + 1) + ' / ' + EI.totalQ + '</span><button class="sn-next" ' + (idx === EI.totalQ - 1 ? 'disabled ' : '') + ' onclick="navQ(1)">\ub2e4\uc74c \u2192</button></div>';
+  bt.innerHTML = bh;
 }
-function selectAns(idx,ci){
-  var qi=S.order?S.order[idx]:idx;
-  S.ans[qi]=ci;
-  var btns=document.querySelectorAll('.slide-choices .choice-btn');
-  btns.forEach(function(b,i){
-    b.classList.toggle('selected',i===ci);
-    if(i===ci)b.classList.add('just-selected');
+
+function selectAns(idx, ci) {
+  var qi = S.order ? S.order[idx] : idx;
+  if (S.filtered) qi = S.filtered[qi];
+  S.ans[qi] = ci;
+  var btns = document.querySelectorAll('.slide-choices .choice-btn');
+  btns.forEach(function (b, i) {
+    b.classList.toggle('selected', i === ci);
+    if (i === ci) b.classList.add('just-selected');
   });
   updateProgress();
-  setTimeout(function(){if(idx<EI.totalQ-1)showQ(idx+1,1);},400);
 }
-function writeAns(idx,val){
-  var qi=S.order?S.order[idx]:idx;
-  S.ans[qi]=val.trim()||null;
+
+function writeAns(idx, val) {
+  var qi = S.order ? S.order[idx] : idx;
+  if (S.filtered) qi = S.filtered[qi];
+  S.ans[qi] = val.trim() || null;
   updateProgress();
 }
-function navQ(dir){
-  var next=S.cur+dir;
-  if(next>=0&&next<EI.totalQ)showQ(next,dir);
+
+function navQ(dir) {
+  var next = S.cur + dir;
+  if (next >= 0 && next < EI.totalQ) showQ(next, dir);
 }
-function updateProgress(){
-  var answered=S.ans.filter(function(a){return a!==null;}).length;
-  document.getElementById('progressFill').style.width=(answered/EI.totalQ*100)+'%';
-  document.getElementById('ansCount').textContent=answered+'/'+EI.totalQ;
+
+function updateProgress() {
+  var answered = S.ans.filter(function (a) { return a !== null; }).length;
+  document.getElementById('progressFill').style.width = (answered / EI.totalQ * 100) + '%';
+  document.getElementById('ansCount').textContent = answered + '/' + EI.totalQ;
 }
-function initSwipe(){
-  var startX=0,startY=0;
-  var el=document.getElementById('slideWrap');
-  el.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;},{passive:true});
-  el.addEventListener('touchend',function(e){
-    var dx=e.changedTouches[0].clientX-startX;
-    var dy=e.changedTouches[0].clientY-startY;
-    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){
-      if(dx<0&&S.cur<EI.totalQ-1)navQ(1);
-      if(dx>0&&S.cur>0)navQ(-1);
+
+function initSwipe() {
+  var startX = 0, startY = 0;
+  var el = document.getElementById('slideWrap');
+  el.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+  el.addEventListener('touchend', function (e) {
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      if (dx < 0 && S.cur < EI.totalQ - 1) navQ(1);
+      if (dx > 0 && S.cur > 0) navQ(-1);
     }
-  },{passive:true});
+  }, { passive: true });
 }
-function renderSlide(i){showQ(i);}
-function slideSel(){}
-function slideWrite(){}
-function renderQ(){}
-function renderDots(){}
-function upDots(){}
-function scrollToQ(i){if(i>=0&&i<EI.totalQ)showQ(i);}
-function openCard(){}
-function closeCard(){}
-function gcSel(){}
-function gcWrite(){}
-function gcNav(){}
-function sel(){}
-function sw(){}
-function startTimer(){const el=document.getElementById('timer');S.ti=setInterval(()=>{S.left--;const m=Math.floor(S.left/60),s=S.left%60;el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');el.classList.toggle('warn',S.left<=300&&S.left>60);el.classList.toggle('danger',S.left<=60);if(S.left<=0){clearInterval(S.ti);submitExam();}},1000);}
-function submitExam(){if(!confirm('제출하시겠습니까?'))return;clearInterval(S.ti);const elapsed=Math.floor((Date.now()-S.start)/1000);const r=grade();saveToHistory(r,elapsed);renderResults(r,elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
-function grade(){let score=0,correct=0,wrong=0,unanswered=0;const details=[];Q.forEach((q,i)=>{const a=S.ans[i];let ok=false;if(a===null)unanswered++;else if(q.fmt==='mc')ok=a===q.ans;else{const u=String(a).trim().toLowerCase();if(q.accept)ok=q.accept.some(x=>u===x.toLowerCase());if(!ok&&q.wa)ok=u===q.wa.toLowerCase();}if(a!==null){if(ok){correct++;score+=q.pts;}else wrong++;}details.push({q,ans:a,ok});});return{score,correct,wrong,unanswered,details};}
-function renderResults(r,elapsed){const pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100);const typeMap={};r.details.forEach(d=>{const t=d.q.type;if(!typeMap[t])typeMap[t]={total:0,ok:0};typeMap[t].total++;if(d.ok)typeMap[t].ok++;});const perfectTypes=Object.entries(typeMap).filter(([,v])=>v.ok===v.total).map(([k])=>k);const weakTypes=Object.entries(typeMap).filter(([,v])=>v.ok<v.total).map(([k])=>k);let h='';
-h+=`<div class="r-hero ${pass?'pass':'fail'}"><div class="r-badge ${pass?'pass':'fail'}">${pass?'🎉 통과!':'📚 미통과'}</div><div class="r-score">${r.score}<sup>/${EI.total}</sup></div><div class="r-stats"><span class="stat-item">✅ 정답 <strong>${r.correct}</strong></span><span class="stat-item">❌ 오답 <strong>${r.wrong}</strong></span><span class="stat-item">⬜ 미응답 <strong>${r.unanswered}</strong></span><span class="stat-item">⏱️ <strong>${fmtTime(elapsed)}</strong></span></div></div><div class="rc">`;
-h+=`<div class="rs"><div class="rs-title">📋 기본 정보</div><div class="info-grid"><div class="info-cell"><div class="ic-label">이름</div><div class="ic-value">${nm}</div></div><div class="info-cell"><div class="ic-label">학교 / 학년</div><div class="ic-value">${sc||'미입력'} · ${gr}</div></div><div class="info-cell"><div class="ic-label">시험 범위</div><div class="ic-value">${EI.subject} · ${EI.pub}</div></div><div class="info-cell"><div class="ic-label">응시일</div><div class="ic-value">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell highlight"><div class="ic-label">점수</div><div class="ic-value">${r.score}점 / ${EI.total}점 (${pct}%)</div></div><div class="info-cell highlight"><div class="ic-label">소요시간 / 통과</div><div class="ic-value">${fmtTime(elapsed)} / <span style="color:${pass?'var(--o)':'var(--r)'}">${pass?'통과 ✅':'미통과 ❌'}</span></div></div></div></div>`;
-h+=`<div class="rs"><div class="rs-title">🏅 레벨</div><div class="level-card"><div class="level-icon">${lv.icon}</div><div class="level-name">${lv.name}</div><div class="level-range">${lv.range}점 구간</div><div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div><div class="level-msg">${lv.msg}</div></div></div>`;
-h+=`<div class="rs"><div class="rs-title">🔍 내신핏 약점 진단</div>`;Object.entries(typeMap).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'var(--o)':p>=50?'var(--o)':'var(--r)';const icon=p===100?'✅':p>=50?'⚠️':'❌';h+=`<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">${icon}</span><span style="font-size:13px;font-weight:700;flex:1">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-size:13px;font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div class="type-track"><div class="type-fill" style="width:${p}%;background:${c}"></div></div>${p<100?`<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">→ ${getTypeAdvice(type)}</div>`:''}</div>`;});h+=`</div>`;
-h+=`<div class="rs"><div class="rs-title">📝 내신핏 처방</div><div class="plan-card">`;if(pct>=95)h+=`<div class="plan-icon">👑</div><div class="plan-text"><h4>마스터 달성!</h4><p>이 단원은 완벽합니다. 다음 단원에 도전하세요!</p></div>`;else if(pct>=80)h+=`<div class="plan-icon">🌟</div><div class="plan-text"><h4>통과! 마스터까지 한 끗</h4><p>아래 약점 유형만 집중하면 마스터 달성!</p></div>`;else if(pct>=50)h+=`<div class="plan-icon">🔥</div><div class="plan-text"><h4>기본기는 있어요!</h4><p>오답 해설을 꼼꼼히 확인하고, 약점 유형부터 공략하세요.</p></div>`;else h+=`<div class="plan-icon">📖</div><div class="plan-text"><h4>지문 해석부터!</h4><p>본문을 완벽히 이해한 뒤 재도전하세요. 해설의 한글 해석을 활용!</p></div>`;h+=`</div></div>`;
-h+=`<div class="rs"><div class="rs-title">🚀 액션</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">📸</span><span class="act-label">이미지 공유</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">📋</span><span class="act-label">텍스트 복사</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">🔄</span><span class="act-label">재시험</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">🏠</span><span class="act-label">홈으로</span></button></div></div>`;
-h+=`<div class="rs"><div class="rs-title">📝 정답과 해설 <span style="font-size:12px;color:var(--tl);margin-left:8px">클릭하여 펼치기</span></div>`;r.details.forEach((d,i)=>{const icon=d.ok?'✅':(d.ans===null?'⬜':'❌');const mk=d.q.ch&&d.q.ch.length===5?'①②③④⑤':'①②③④';const ua=d.q.fmt==='mc'?(d.ans!==null?mk[d.ans]:'미응답'):(d.ans||'미응답');const ca=d.q.fmt==='mc'?mk[d.q.ans]:(d.q.wa||'');const open=!d.ok;
-let chHtml='';if(d.q.fmt==='mc'&&d.q.ch){chHtml=`<div style="margin-top:8px">`;d.q.ch.forEach((c,ci)=>{const isAns=ci===d.q.ans;const isMy=d.ans===ci;const color=isAns?'var(--o)':(isMy&&!d.ok?'var(--r)':'var(--tm)');const bg=isAns?'var(--ol)':(isMy&&!d.ok?'var(--rl)':'transparent');const label=isAns?' ✅':(isMy&&!d.ok?' ❌':'');chHtml+=`<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:${color};background:${bg}"><b>${mk[ci]}</b> ${c}${label}</div>`;});chHtml+=`</div>`;}
-h+=`<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.rev-icon').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span style="font-weight:800">${icon} ${d.q.id}번</span><span style="font-size:12px;color:var(--tm)">[${d.q.type.slice(0,8)}] ${d.q.diff} ${d.q.pts}점</span><span class="rev-icon">▼</span></div><div class="rev-body${open?' open':''}"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;${d.ok?'background:var(--ol);color:var(--o)':'background:var(--rl);color:var(--r)'}"><div style="font-size:10px;opacity:.7">내 답</div>${ua}</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--ol);color:var(--o)"><div style="font-size:10px;opacity:.7">정답</div>${ca}</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📝 문제</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">${d.q.stem}</div>${chHtml}</div>${d.q.passage?`<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">📖 원문</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">${d.q.passage}</div>`:''}${d.q.det?`<div class="expl-tag ans">🇰🇷 해석</div><div class="expl-box ans-b">${d.q.det.korean||''}</div><div class="expl-tag tip">📋 풀이 · 선지 분석</div><div class="expl-box" style="white-space:pre-line">${(d.q.det.analysis||'').replace(/\\n/g,'<br>')}</div><div class="expl-tag tip">💡 포인트</div><div class="expl-box tip-b">${d.q.det.tip||''}</div>`:''}</div></div>`;}); h+=`</div></div>`;document.getElementById('resultScreen').innerHTML=h;}
-function getWeakTypes(){const r=grade();const tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});return Object.entries(tm).filter(([,v])=>v.ok<v.total).map(([k])=>k);}
-function getTestName(){const t=document.title;if(t.includes('단어'))return '단어테스트';if(t.includes('워크북'))return '워크북테스트';if(t.includes('퀴즈'))return '퀴즈(예상문제)테스트';return 'TEST';}
-function copyResult(){const r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),nm=document.getElementById('inpName').value.trim(),sc=document.getElementById('inpSchool').value.trim(),gr=document.getElementById('inpGrade').value,elapsed=Math.floor((Date.now()-S.start)/1000),pass=r.score>=80,tn=getTestName(),wk=getWeakTypes(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});let txt=`📝 내신핏 ${tn} 결과\n${EI.subject} · ${EI.pub}\n${nm}${sc?' · '+sc:''} · ${gr}\n${new Date().toLocaleDateString('ko-KR')}\n\n${lv.icon} ${lv.name} · ${r.score}/${EI.total}점 (${pct}%)\n${pass?'🎉 통과!':'📚 미통과'} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}\n⏱️ ${fmtTime(elapsed)}`;if(wk.length){txt+=`\n\n🔍 내신핏 약점 진단`;wk.forEach(w=>{const d=tm[w];txt+=`\n• ${w.replace(/\(.+?\)/g,'').trim()} ${d.ok}/${d.total} → ${getTypeAdvice(w)}`;});}txt+=`\n\n📊 내신핏 | 내신 영어 완벽 대비`;navigator.clipboard.writeText(txt).then(()=>toast('📋 결과가 복사되었습니다!')).catch(()=>{toast('복사 실패');});}
-function shareImage(){const tn=getTestName(),wk=getWeakTypes(),r=grade(),lv=getLevel(r.score),pct=Math.round(r.score/EI.total*100),pass=r.score>=80,nm=document.getElementById('inpName').value.trim(),tm={};r.details.forEach(d=>{const t=d.q.type;if(!tm[t])tm[t]={total:0,ok:0};tm[t].total++;if(d.ok)tm[t].ok++;});const pc=pass?'#16A34A':'#D63B3B';let card=`<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">`;card+=`<div style="background:linear-gradient(135deg,${pass?'#E8F5E9,#C8E6C9':'#FFF0F0,#FFEAEA'});padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:${pc};margin-bottom:4px">내신핏 ${tn}</div><div style="font-size:13px;color:#666;margin-bottom:16px">${EI.subject} · ${EI.pub}</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">${r.score}<span style="font-size:20px;color:#aaa">/${EI.total}</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:${pc};color:#fff">${lv.icon} ${lv.name} · ${pass?'통과':'미통과'}</span></div><div style="margin-top:12px;font-size:12px;color:#888">👤 ${nm} · ✅${r.correct} ❌${r.wrong} ⬜${r.unanswered}</div></div>`;if(wk.length){card+=`<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">🔍 내신핏 약점 진단</div>`;Object.entries(tm).forEach(([type,d])=>{const p=Math.round(d.ok/d.total*100);const c=p===100?'#16A34A':p>=50?'#F59E0B':'#D63B3B';card+=`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">${type.replace(/\(.+?\)/g,'').trim()}</span><span style="font-weight:800;color:${c}">${d.ok}/${d.total}</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div></div></div>`;});card+=`</div>`;}card+=`<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">📊 <b style="color:#333">내신핏</b> | 내신 영어 완벽 대비</div></div>`;const wrap=document.createElement('div');wrap.style.cssText='position:fixed;left:-9999px;top:0;';wrap.innerHTML=card;document.body.appendChild(wrap);html2canvas(wrap.firstChild,{scale:2,backgroundColor:null,useCORS:true}).then(canvas=>{document.body.removeChild(wrap);canvas.toBlob(blob=>{if(navigator.share&&blob){const file=new File([blob],'내신핏_'+tn+'_결과.png',{type:'image/png'});navigator.share({files:[file],title:'내신핏 '+tn+' 결과'}).catch(()=>{});}else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='내신핏_'+tn+'_결과.png';a.click();}toast('📸 결과 이미지가 저장되었습니다!');});}).catch(()=>toast('이미지 생성 실패'));}
-function reviewHistory(idx){const h=getHistory();const rec=h[idx];if(!rec||!rec.answers)return toast('이전 버전 기록은 해설을 볼 수 없습니다.');S.ans=rec.answers;S.start=Date.now()-rec.elapsed*1000;document.getElementById('inpName').value=rec.name||'';document.getElementById('inpSchool').value=rec.school||'';document.getElementById('inpGrade').value=rec.grade||'고1';const r=grade();renderResults(r,rec.elapsed);showScreen('resultScreen');window.scrollTo(0,0);}
-function retake(){startExam();}
-function goHome(){showScreen('startScreen');updateHCount();}
-window.addEventListener('beforeunload',e=>{if(S.ti){e.preventDefault();e.returnValue='';}});
+
+/* Compatibility stubs */
+function renderSlide(i) { showQ(i); }
+function slideSel() {}
+function slideWrite() {}
+function renderQ() {}
+function renderDots() {}
+function upDots() {}
+function scrollToQ(i) { if (i >= 0 && i < EI.totalQ) showQ(i); }
+function openCard() {}
+function closeCard() {}
+function gcSel() {}
+function gcWrite() {}
+function gcNav() {}
+function sel() {}
+function sw() {}
+
+function startTimer() {
+  var el = document.getElementById('timer');
+  S.ti = setInterval(function () {
+    S.left--;
+    var m = Math.floor(S.left / 60), s = S.left % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    el.classList.toggle('warn', S.left <= 300 && S.left > 60);
+    el.classList.toggle('danger', S.left <= 60);
+    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+  }, 1000);
+}
+
+function submitExam() {
+  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  clearInterval(S.ti);
+  var elapsed = Math.floor((Date.now() - S.start) / 1000);
+  var r = grade();
+  saveToHistory(r, elapsed);
+  renderResults(r, elapsed);
+  showScreen('resultScreen');
+  window.scrollTo(0, 0);
+}
+
+function grade() {
+  var score = 0, correct = 0, wrong = 0, unanswered = 0;
+  var details = [];
+  var qs = S.filtered ? S.filtered.map(function (i) { return Q[i]; }) : Q;
+  qs.forEach(function (q, i) {
+    var a = S.ans[i];
+    var ok = false;
+    if (a === null) unanswered++;
+    else if (q.fmt === 'mc') ok = a === q.ans;
+    else {
+      var u = String(a).trim().toLowerCase();
+      if (q.accept) ok = q.accept.some(function (x) { return u === x.toLowerCase(); });
+      if (!ok && q.wa) ok = u === q.wa.toLowerCase();
+    }
+    if (a !== null) { if (ok) { correct++; score += q.pts; } else wrong++; }
+    details.push({ q: q, ans: a, ok: ok });
+  });
+  return { score: score, correct: correct, wrong: wrong, unanswered: unanswered, details: details };
+}
+
+function renderResults(r, elapsed) {
+  var pass = r.score >= 80;
+  var nm = document.getElementById('inpName').value.trim();
+  var sc = document.getElementById('inpSchool').value.trim();
+  var gr = document.getElementById('inpGrade').value;
+  var lv = getLevel(r.score);
+  var pct = Math.round(r.score / EI.total * 100);
+  var typeMap = {};
+  r.details.forEach(function (d) {
+    var t = d.q.type;
+    if (!typeMap[t]) typeMap[t] = { total: 0, ok: 0 };
+    typeMap[t].total++;
+    if (d.ok) typeMap[t].ok++;
+  });
+
+  var h = '';
+  h += '<div class="r-hero ' + (pass ? 'pass' : 'fail') + '"><div class="r-badge ' + (pass ? 'pass' : 'fail') + '">' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + '</div><div class="r-score">' + r.score + '<sup>/' + EI.total + '</sup></div><div class="r-stats"><span class="stat-item">\u2705 \uc815\ub2f5 <strong>' + r.correct + '</strong></span><span class="stat-item">\u274c \uc624\ub2f5 <strong>' + r.wrong + '</strong></span><span class="stat-item">\u2b1c \ubbf8\uc751\ub2f5 <strong>' + r.unanswered + '</strong></span><span class="stat-item">\u23f1\ufe0f <strong>' + fmtTime(elapsed) + '</strong></span></div></div><div class="rc">';
+
+  h += '<div class="rs"><div class="rs-title">\ud83d\udccb \uae30\ubcf8 \uc815\ubcf4</div><div class="info-grid"><div class="info-cell"><div class="ic-label">\uc774\ub984</div><div class="ic-value">' + nm + '</div></div><div class="info-cell"><div class="ic-label">\ud559\uad50 / \ud559\ub144</div><div class="ic-value">' + (sc || '\ubbf8\uc785\ub825') + ' \u00b7 ' + gr + '</div></div><div class="info-cell"><div class="ic-label">\uc2dc\ud5d8 \ubc94\uc704</div><div class="ic-value">' + EI.subject + ' \u00b7 ' + EI.pub + '</div></div><div class="info-cell"><div class="ic-label">\uc751\uc2dc\uc77c</div><div class="ic-value">' + new Date().toLocaleDateString('ko-KR') + '</div></div><div class="info-cell highlight"><div class="ic-label">\uc810\uc218</div><div class="ic-value">' + r.score + '\uc810 / ' + EI.total + '\uc810 (' + pct + '%)</div></div><div class="info-cell highlight"><div class="ic-label">\uc18c\uc694\uc2dc\uac04 / \ud1b5\uacfc</div><div class="ic-value">' + fmtTime(elapsed) + ' / <span style="color:' + (pass ? 'var(--p)' : 'var(--r)') + '">' + (pass ? '\ud1b5\uacfc \u2705' : '\ubbf8\ud1b5\uacfc \u274c') + '</span></div></div></div></div>';
+
+  h += '<div class="rs"><div class="rs-title">\ud83c\udfc5 \ub808\ubca8</div><div class="level-card"><div class="level-icon">' + lv.icon + '</div><div class="level-name">' + lv.name + '</div><div class="level-range">' + lv.range + '\uc810 \uad6c\uac04</div><div class="level-bar"><div class="level-bar-fill" style="width:' + pct + '%"></div></div><div class="level-msg">' + lv.msg + '</div></div></div>';
+
+  h += '<div class="rs"><div class="rs-title">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
+  Object.entries(typeMap).forEach(function (entry) {
+    var type = entry[0], d = entry[1];
+    var p = Math.round(d.ok / d.total * 100);
+    var c = p === 100 ? 'var(--p)' : p >= 50 ? 'var(--o)' : 'var(--r)';
+    var icon = p === 100 ? '\u2705' : p >= 50 ? '\u26a0\ufe0f' : '\u274c';
+    h += '<div style="margin-bottom:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:13px">' + icon + '</span><span style="font-size:13px;font-weight:700;flex:1">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-size:13px;font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div class="type-track"><div class="type-fill" style="width:' + p + '%;background:' + c + '"></div></div>' + (p < 100 ? '<div style="font-size:11px;color:var(--tm);margin-top:3px;padding-left:21px">\u2192 ' + getTypeAdvice(type) + '</div>' : '') + '</div>';
+  });
+  h += '</div>';
+
+  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \ub0b4\uc2e0\ud56b \ucc98\ubc29</div><div class="plan-card">';
+  if (pct >= 95) h += '<div class="plan-icon">\ud83d\udc51</div><div class="plan-text"><h4>\ub9c8\uc2a4\ud130 \ub2ec\uc131!</h4><p>\uc774 \ub2e8\uc6d0\uc740 \uc644\ubcbd\ud569\ub2c8\ub2e4. \ub2e4\uc74c \ub2e8\uc6d0\uc5d0 \ub3c4\uc804\ud558\uc138\uc694!</p></div>';
+  else if (pct >= 80) h += '<div class="plan-icon">\ud83c\udf1f</div><div class="plan-text"><h4>\ud1b5\uacfc! \ub9c8\uc2a4\ud130\uae4c\uc9c0 \ud55c \ub057</h4><p>\uc544\ub798 \uc57d\uc810 \uc720\ud615\ub9cc \uc9d1\uc911\ud558\uba74 \ub9c8\uc2a4\ud130 \ub2ec\uc131!</p></div>';
+  else if (pct >= 50) h += '<div class="plan-icon">\ud83d\udd25</div><div class="plan-text"><h4>\uae30\ubcf8\uae30\ub294 \uc788\uc5b4\uc694!</h4><p>\uc624\ub2f5 \ud574\uc124\uc744 \uaf3c\uaf3c\ud788 \ud655\uc778\ud558\uace0, \uc57d\uc810 \uc720\ud615\ubd80\ud130 \uacf5\ub7b5\ud558\uc138\uc694.</p></div>';
+  else h += '<div class="plan-icon">\ud83d\udcd6</div><div class="plan-text"><h4>\uc9c0\ubb38 \ud574\uc11d\ubd80\ud130!</h4><p>\ubcf8\ubb38\uc744 \uc644\ubcbd\ud788 \uc774\ud574\ud55c \ub4a4 \uc7ac\ub3c4\uc804\ud558\uc138\uc694. \ud574\uc124\uc758 \ud55c\uae00 \ud574\uc11d\uc744 \ud65c\uc6a9!</p></div>';
+  h += '</div></div>';
+
+  h += '<div class="rs"><div class="rs-title">\ud83d\ude80 \uc561\uc158</div><div class="action-grid" style="grid-template-columns:1fr 1fr"><button class="act-btn" onclick="shareImage()"><span class="act-icon">\ud83d\udcf8</span><span class="act-label">\uc774\ubbf8\uc9c0 \uacf5\uc720</span></button><button class="act-btn" onclick="copyResult()"><span class="act-icon">\ud83d\udccb</span><span class="act-label">\ud14d\uc2a4\ud2b8 \ubcf5\uc0ac</span></button><button class="act-btn" onclick="retake()"><span class="act-icon">\ud83d\udd04</span><span class="act-label">\uc7ac\uc2dc\ud5d8</span></button><button class="act-btn primary" onclick="goHome()"><span class="act-icon">\ud83c\udfe0</span><span class="act-label">\ud648\uc73c\ub85c</span></button></div></div>';
+
+  h += '<div class="rs"><div class="rs-title">\ud83d\udcdd \uc815\ub2f5\uacfc \ud574\uc124 <span style="font-size:12px;color:var(--tl);margin-left:8px">\ud074\ub9ad\ud558\uc5ec \ud3bc\uce58\uae30</span></div>';
+  var mk = '\u2460\u2461\u2462\u2463\u2464';
+  r.details.forEach(function (d, i) {
+    var icon = d.ok ? '\u2705' : (d.ans === null ? '\u2b1c' : '\u274c');
+    var ua = d.q.fmt === 'mc' ? (d.ans !== null ? mk[d.ans] : '\ubbf8\uc751\ub2f5') : (d.ans || '\ubbf8\uc751\ub2f5');
+    var ca = d.q.fmt === 'mc' ? mk[d.q.ans] : (d.q.wa || '');
+    var open = !d.ok;
+    var chHtml = '';
+    if (d.q.fmt === 'mc' && d.q.ch) {
+      chHtml = '<div style="margin-top:8px">';
+      d.q.ch.forEach(function (c, ci) {
+        var isAns = ci === d.q.ans;
+        var isMy = d.ans === ci;
+        var color = isAns ? 'var(--p)' : (isMy && !d.ok ? 'var(--r)' : 'var(--tm)');
+        var bg = isAns ? 'var(--pl)' : (isMy && !d.ok ? 'var(--rl)' : 'transparent');
+        var label = isAns ? ' \u2705' : (isMy && !d.ok ? ' \u274c' : '');
+        chHtml += '<div style="padding:4px 8px;margin-bottom:2px;border-radius:6px;font-size:12px;color:' + color + ';background:' + bg + '"><b>' + mk[ci] + '</b> ' + c + label + '</div>';
+      });
+      chHtml += '</div>';
+    }
+    h += '<div class="rev-card"><div class="rev-header" onclick="this.nextElementSibling.classList.toggle(\'open\');this.querySelector(\'.rev-icon\').style.transform=this.nextElementSibling.classList.contains(\'open\')?\'rotate(180deg)\':\'\'"><span style="font-weight:800">' + icon + ' ' + d.q.id + '\ubc88</span><span style="font-size:12px;color:var(--tm)">[' + d.q.type.slice(0, 8) + '] ' + d.q.diff + ' ' + d.q.pts + '\uc810</span><span class="rev-icon">\u25bc</span></div><div class="rev-body' + (open ? ' open' : '') + '"><div style="display:flex;gap:10px;margin-bottom:10px"><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;' + (d.ok ? 'background:var(--pl);color:var(--p)' : 'background:var(--rl);color:var(--r)') + '"><div style="font-size:10px;opacity:.7">\ub0b4 \ub2f5</div>' + ua + '</div><div style="flex:1;padding:8px;border-radius:var(--rxs);text-align:center;font-weight:700;background:var(--pl);color:var(--p)"><div style="font-size:10px;opacity:.7">\uc815\ub2f5</div>' + ca + '</div></div><div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcdd \ubb38\uc81c</div><div class="expl-box" style="font-size:12.5px;line-height:1.6;border-left:3px solid var(--b);margin-bottom:10px"><div style="font-weight:700;margin-bottom:6px">' + d.q.stem + '</div>' + chHtml + '</div>' + (d.q.passage ? '<div style="font-size:11px;font-weight:800;color:var(--tm);margin-bottom:4px">\ud83d\udcd6 \uc6d0\ubb38</div><div class="expl-box" style="font-size:12px;line-height:1.75;border-left:3px solid #ddd;margin-bottom:10px">' + d.q.passage + '</div>' : '') + (d.q.det ? '<div class="expl-tag ans">\ud83c\uddf0\ud83c\uddf7 \ud574\uc11d</div><div class="expl-box ans-b">' + (d.q.det.korean || '') + '</div><div class="expl-tag tip">\ud83d\udccb \ud480\uc774 \u00b7 \uc120\uc9c0 \ubd84\uc11d</div><div class="expl-box" style="white-space:pre-line">' + ((d.q.det.analysis || '').replace(/\\n/g, '<br>')) + '</div><div class="expl-tag tip">\ud83d\udca1 \ud3ec\uc778\ud2b8</div><div class="expl-box tip-b">' + (d.q.det.tip || '') + '</div>' : '') + '</div></div>';
+  });
+  h += '</div></div>';
+  document.getElementById('resultScreen').innerHTML = h;
+}
+
+function getWeakTypes() {
+  var r = grade();
+  var tm = {};
+  r.details.forEach(function (d) {
+    var t = d.q.type;
+    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
+    tm[t].total++;
+    if (d.ok) tm[t].ok++;
+  });
+  return Object.entries(tm).filter(function (e) { return e[1].ok < e[1].total; }).map(function (e) { return e[0]; });
+}
+
+function getTestName() {
+  var t = document.title;
+  if (t.includes('\ub2e8\uc5b4')) return '\ub2e8\uc5b4\ud14c\uc2a4\ud2b8';
+  if (t.includes('\uc6cc\ud06c\ubd81')) return '\uc6cc\ud06c\ubd81\ud14c\uc2a4\ud2b8';
+  if (t.includes('\ud034\uc988')) return '\ud034\uc988(\uc608\uc0c1\ubb38\uc81c)\ud14c\uc2a4\ud2b8';
+  return 'TEST';
+}
+
+function copyResult() {
+  var r = grade(), lv = getLevel(r.score), pct = Math.round(r.score / EI.total * 100);
+  var nm = document.getElementById('inpName').value.trim();
+  var sc = document.getElementById('inpSchool').value.trim();
+  var gr = document.getElementById('inpGrade').value;
+  var elapsed = Math.floor((Date.now() - S.start) / 1000);
+  var pass = r.score >= 80, tn = getTestName(), wk = getWeakTypes();
+  var tm = {};
+  r.details.forEach(function (d) {
+    var t = d.q.type;
+    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
+    tm[t].total++;
+    if (d.ok) tm[t].ok++;
+  });
+  var secLabel = S.secs ? S.secs.join(', ') : '\uc804\uccb4';
+  var txt = '\ud83d\udcdd \ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc\n' + EI.subject + ' \u00b7 ' + EI.pub + ' [' + secLabel + ']\n' + nm + (sc ? ' \u00b7 ' + sc : '') + ' \u00b7 ' + gr + '\n' + new Date().toLocaleDateString('ko-KR') + '\n\n' + lv.icon + ' ' + lv.name + ' \u00b7 ' + r.score + '/' + EI.total + '\uc810 (' + pct + '%)\n' + (pass ? '\ud83c\udf89 \ud1b5\uacfc!' : '\ud83d\udcda \ubbf8\ud1b5\uacfc') + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '\n\u23f1\ufe0f ' + fmtTime(elapsed);
+  if (wk.length) {
+    txt += '\n\n\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8';
+    wk.forEach(function (w) { var d = tm[w]; txt += '\n\u2022 ' + w.replace(/\(.+?\)/g, '').trim() + ' ' + d.ok + '/' + d.total + ' \u2192 ' + getTypeAdvice(w); });
+  }
+  txt += '\n\n\ud83d\udcca \ub0b4\uc2e0\ud56b | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44';
+  navigator.clipboard.writeText(txt).then(function () { toast('\ud83d\udccb \uacb0\uacfc\uac00 \ubcf5\uc0ac\ub418\uc5c8\uc2b5\ub2c8\ub2e4!'); }).catch(function () { toast('\ubcf5\uc0ac \uc2e4\ud328'); });
+}
+
+function shareImage() {
+  var tn = getTestName(), wk = getWeakTypes(), r = grade(), lv = getLevel(r.score);
+  var pct = Math.round(r.score / EI.total * 100), pass = r.score >= 80;
+  var nm = document.getElementById('inpName').value.trim();
+  var tm = {};
+  r.details.forEach(function (d) {
+    var t = d.q.type;
+    if (!tm[t]) tm[t] = { total: 0, ok: 0 };
+    tm[t].total++;
+    if (d.ok) tm[t].ok++;
+  });
+  var pc = pass ? '#16A34A' : '#D63B3B';
+  var card = '<div style="width:400px;font-family:-apple-system,sans-serif;background:#fff;border-radius:16px;overflow:hidden">';
+  card += '<div style="background:linear-gradient(135deg,' + (pass ? '#E8F5E9,#C8E6C9' : '#FFF0F0,#FFEAEA') + ');padding:28px 24px;text-align:center"><div style="font-size:12px;font-weight:800;color:' + pc + ';margin-bottom:4px">\ub0b4\uc2e0\ud56b ' + tn + '</div><div style="font-size:13px;color:#666;margin-bottom:16px">' + EI.subject + ' \u00b7 ' + EI.pub + '</div><div style="font-size:56px;font-weight:900;color:#1A1A2E">' + r.score + '<span style="font-size:20px;color:#aaa">/' + EI.total + '</span></div><div style="margin-top:8px"><span style="display:inline-block;padding:6px 16px;border-radius:20px;font-size:14px;font-weight:800;background:' + pc + ';color:#fff">' + lv.icon + ' ' + lv.name + ' \u00b7 ' + (pass ? '\ud1b5\uacfc' : '\ubbf8\ud1b5\uacfc') + '</span></div><div style="margin-top:12px;font-size:12px;color:#888">\ud83d\udc64 ' + nm + ' \u00b7 \u2705' + r.correct + ' \u274c' + r.wrong + ' \u2b1c' + r.unanswered + '</div></div>';
+  if (wk.length) {
+    card += '<div style="padding:16px 20px;border-top:1px solid #eee"><div style="font-size:13px;font-weight:800;margin-bottom:10px">\ud83d\udd0d \ub0b4\uc2e0\ud56b \uc57d\uc810 \uc9c4\ub2e8</div>';
+    Object.entries(tm).forEach(function (entry) {
+      var type = entry[0], d = entry[1];
+      var p = Math.round(d.ok / d.total * 100);
+      var c = p === 100 ? '#16A34A' : p >= 50 ? '#F59E0B' : '#D63B3B';
+      card += '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px"><span style="font-weight:600">' + type.replace(/\(.+?\)/g, '').trim() + '</span><span style="font-weight:800;color:' + c + '">' + d.ok + '/' + d.total + '</span></div><div style="height:6px;background:#eee;border-radius:3px"><div style="height:100%;width:' + p + '%;background:' + c + ';border-radius:3px"></div></div></div>';
+    });
+    card += '</div>';
+  }
+  card += '<div style="padding:12px 20px;background:#f8f8f8;text-align:center;font-size:11px;color:#999">\ud83d\udcca <b style="color:#333">\ub0b4\uc2e0\ud56b</b> | \ub0b4\uc2e0 \uc601\uc5b4 \uc644\ubcbd \ub300\ube44</div></div>';
+  var wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;';
+  wrap.innerHTML = card;
+  document.body.appendChild(wrap);
+  html2canvas(wrap.firstChild, { scale: 2, backgroundColor: null, useCORS: true }).then(function (canvas) {
+    document.body.removeChild(wrap);
+    canvas.toBlob(function (blob) {
+      if (navigator.share && blob) {
+        var file = new File([blob], '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png', { type: 'image/png' });
+        navigator.share({ files: [file], title: '\ub0b4\uc2e0\ud56b ' + tn + ' \uacb0\uacfc' }).catch(function () {});
+      } else {
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = '\ub0b4\uc2e0\ud56b_' + tn + '_\uacb0\uacfc.png';
+        a.click();
+      }
+      toast('\ud83d\udcf8 \uacb0\uacfc \uc774\ubbf8\uc9c0\uac00 \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4!');
+    });
+  }).catch(function () { toast('\uc774\ubbf8\uc9c0 \uc0dd\uc131 \uc2e4\ud328'); });
+}
+
+function reviewHistory(idx) {
+  var h = getHistory();
+  var rec = h[idx];
+  if (!rec || !rec.answers) return toast('\uc774\uc804 \ubc84\uc804 \uae30\ub85d\uc740 \ud574\uc124\uc744 \ubcfc \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.');
+  S.ans = rec.answers;
+  S.start = Date.now() - rec.elapsed * 1000;
+  document.getElementById('inpName').value = rec.name || '';
+  document.getElementById('inpSchool').value = rec.school || '';
+  document.getElementById('inpGrade').value = rec.grade || '\uace01';
+  var r = grade();
+  renderResults(r, rec.elapsed);
+  showScreen('resultScreen');
+  window.scrollTo(0, 0);
+}
+
+function retake() { location.reload(); }
+function goHome() { showScreen('startScreen'); updateHCount(); }
+
+window.addEventListener('beforeunload', function (e) {
+  if (S.ti) { e.preventDefault(); e.returnValue = ''; }
+});
+
 updateHCount();
 </script>
 </body>
