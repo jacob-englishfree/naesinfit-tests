@@ -245,6 +245,25 @@ function fix(filePath) {
     }
   });
 
+  // ── Fix 12: 서술형 accept 배열 보강 (대소문자/마침표 변형) ──
+  q.forEach(item => {
+    if (item.fmt !== 'written' || !item.wa) return;
+    const wa = item.wa.trim();
+    if (wa.length < 2) return;
+    const existing = (item.accept || []).map(a => a.toLowerCase().trim());
+    const variants = [
+      wa,
+      wa.toLowerCase(),
+      wa.charAt(0).toUpperCase() + wa.slice(1).toLowerCase(),
+      wa.replace(/\.$/, ''),
+      wa.replace(/\.$/, '') + '.',
+    ].filter(v => v && !existing.includes(v.toLowerCase().trim()));
+    if (variants.length > 0) {
+      item.accept = [...new Set([...(item.accept || []), ...variants])];
+      fixes.push(`Q${item.id}: accept 배열 보강 (+${variants.length}개 변형)`);
+    }
+  });
+
   // ── Fix: 4지선다 필수 (mc인데 ch.length !== 4) ──
   q.forEach(item => {
     if (item.fmt !== 'mc' || !Array.isArray(item.ch)) return;

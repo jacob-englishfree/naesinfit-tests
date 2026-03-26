@@ -35,6 +35,7 @@ const VALIDATE_PATH = path.join(ROOT, 'validate', 'validate.js');
 const VALIDATE_FT_PATH = path.join(ROOT, 'validate', 'validate-fulltext.js');
 const VALIDATE_AI_PATH = path.join(ROOT, 'validate', 'validate-ai.js');
 const VALIDATE_RENDER_PATH = path.join(ROOT, 'validate', 'validate-render.js');
+const VALIDATE_SCORING_PATH = path.join(ROOT, 'validate', 'validate-scoring.js');
 const BUILD_PATH = path.join(ROOT, 'engine', 'build.js');
 
 function findJsonFiles(dir) {
@@ -197,6 +198,19 @@ async function deployFile(jsonPath) {
     return { file: rel, success: false, reason: '② fulltext validation failed' };
   }
   console.log(`  [PASS] ② 원문 대조 OK (${ftResult.warnings.length} warnings)`);
+
+  // ════════════════════════════════════════════
+  // LAYER ②-b 채점 정확도 + 난이도 검증
+  // ════════════════════════════════════════════
+  console.log('  [2.5/6] ②-b 채점·난이도 검증...');
+  const { validateScoring } = require(VALIDATE_SCORING_PATH);
+  const scResult = validateScoring(jsonPath);
+  if (!scResult.pass) {
+    console.log('  [BLOCK] ②-b 채점 검증 FAIL — 배포 차단');
+    scResult.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
+    return { file: rel, success: false, reason: '②-b scoring validation failed' };
+  }
+  console.log(`  [PASS] ②-b 채점·난이도 OK (${scResult.warnings.length} warnings)`);
 
   // ════════════════════════════════════════════
   // LAYER ③ AI 풀이 검증 (API key 있을 때만)
