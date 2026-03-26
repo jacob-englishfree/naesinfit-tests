@@ -314,7 +314,7 @@ function validate(jsonPath) {
 
     // EX-2: 서술형 — 정답(wa)이 passage에 그대로 노출
     // 제외: 어순배열(W49), 어형변환(원형 노출 정상), 내용이해/일치/TF(지문 기반 답변 정상)
-    if (q.fmt === 'written' && q.wa && typeNorm !== '어순배열') {
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && typeNorm !== '어순배열') {
       const wa = q.wa.trim();
       const skipTypes = [
         '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형', '서술형어형',
