@@ -482,6 +482,16 @@ input,select{font-family:inherit}
 .levelup-particle{position:absolute;width:8px;height:8px;border-radius:50%;animation:particleFall 1.5s ease-out forwards}
 @keyframes particleFall{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(120px) scale(0)}}
 
+/* Ranking widget */
+.rank-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--divider)}
+.rank-row:last-child{border-bottom:none}
+.rank-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0}
+.rank-1{background:linear-gradient(135deg,#FFD700,#FFA500);color:white}
+.rank-2{background:linear-gradient(135deg,#C0C0C0,#A0A0A0);color:white}
+.rank-3{background:linear-gradient(135deg,#CD7F32,#A0522D);color:white}
+.rank-n{background:var(--g100);color:var(--sub)}
+.rank-me{background:var(--blue-l);border-radius:var(--r-md);margin:0 -20px;padding:12px 20px}
+
 /* Unseen test warning */
 .unseen-warn{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--red-l);border-radius:var(--r-md);margin-top:10px;animation:warnSlide .4s var(--ease-out)}
 [data-theme="dark"] .unseen-warn{background:rgba(240,68,82,.15)}
@@ -500,6 +510,54 @@ input,select{font-family:inherit}
 <div id="toast"></div>
 <canvas id="confetti"></canvas>
 <script>
+// ━━ Supabase REST API (랭킹) ━━
+const SB_URL='https://enkewpvhaugcmyglifkc.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+async function sbInsert(table,row){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/${table}`,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)});
+    return r.ok;
+  }catch(e){console.warn('DB insert fail:',e);return false;}
+}
+async function sbSelect(table,query){
+  try{
+    const r=await fetch(`${SB_URL}/rest/v1/${table}?${query}`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    if(!r.ok)return[];return await r.json();
+  }catch(e){console.warn('DB select fail:',e);return[];}
+}
+
+// Save test score to DB
+async function saveScoreToDB(score,ok,no,timeSec){
+  const p=profile;const xd=getXP();
+  const scopeStr=(S.sel&&S.sel.length)?S.sel.join(','):'';
+  if(!p.name||!scopeStr)return;
+  await sbInsert('test_scores',{
+    student_name:p.name,
+    school:p.school||'',
+    grade:p.grade||'',
+    scope:scopeStr,
+    test_type:S.tt||'',
+    score,ok,no,time_sec:timeSec,
+    level:xd.lv,
+    level_name:lvName(xd.lv)
+  });
+}
+
+// Fetch weekly ranking for a scope
+async function fetchWeeklyRanking(scope){
+  const weekAgo=new Date(Date.now()-7*86400000).toISOString();
+  // Get best score per student for this scope this week
+  const rows=await sbSelect('test_scores',
+    `scope=eq.${encodeURIComponent(scope)}&created_at=gte.${weekAgo}&order=score.desc&limit=50`
+  );
+  // Dedupe by student_name, keep best score
+  const best={};
+  rows.forEach(r=>{
+    if(!best[r.student_name]||r.score>best[r.student_name].score)best[r.student_name]=r;
+  });
+  return Object.values(best).sort((a,b)=>b.score-a.score);
+}
+
 const FALLBACK_FULL_PASSAGE=`Be Proud of Who You Are
 Laura Thompson
 Hello, my name is Laura Thompson, and I'm a guidance counselor at the local college. I also have a social media channel where I give advice to young students like you. Today I'd like to talk to you about two things that I hope will inspire you.
@@ -2107,7 +2165,10 @@ function rHome(){setBottom(null);
       <button onclick="goMode('교과서')" style="margin-top:10px;width:100%;padding:10px;background:var(--red);color:white;border:none;border-radius:var(--r-md);font-size:13px;font-weight:700;cursor:pointer">약점 집중 훈련 시작 →</button>
     </div>`:''}
 
-    <!-- ⑤ 시험 보기 -->
+    <!-- ⑤ 주간 랭킹 -->
+    <div id="rankingWidget"></div>
+
+    <!-- ⑥ 시험 보기 -->
     <div class="sec-label">시험 보기</div>
     <div class="card" style="padding:0;overflow:hidden">
       <button onclick="goMode('교과서')" style="width:100%;padding:20px;border:none;background:none;display:flex;align-items:center;gap:16px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
@@ -2138,7 +2199,7 @@ function rHome(){setBottom(null);
       </button>
     </div>
 
-    <!-- ⑥ 시험 준비 대시보드 -->
+    <!-- ⑦ 시험 준비 대시보드 -->
     ${active&&active.scope&&active.scope.length?`
     <div class="card" style="padding:0;overflow:hidden">
       <button onclick="S.scr='dashboard';S.dir='fwd';R()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
@@ -2153,7 +2214,7 @@ function rHome(){setBottom(null);
       </button>
     </div>`:''}
 
-    <!-- ⑦ 시험 관리 (중간/기말/수능) -->
+    <!-- ⑧ 시험 관리 (중간/기말/수능) -->
     <div class="sec-label">시험 일정</div>
     <div class="card" style="padding:0;overflow:hidden">
       ${plan.exams.map(ex=>{
@@ -2180,7 +2241,7 @@ function rHome(){setBottom(null);
       }).join('')}
     </div>
 
-    <!-- ⑧ 오답 현황 -->
+    <!-- ⑨ 오답 현황 -->
     ${wrongs.length?`
     <div class="card" style="padding:0;overflow:hidden">
       <button onclick="S.scr='learn';S.dir='fwd';R()" style="width:100%;padding:16px 20px;border:none;background:none;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;transition:background .15s" ontouchstart="this.style.background='var(--g50)'" ontouchend="this.style.background=''">
@@ -2196,6 +2257,72 @@ function rHome(){setBottom(null);
     <div style="text-align:center;padding:24px 20px 12px;font-size:11px;color:var(--hint)">© 내신핏 · 온라인 영어학원</div>
     <div class="tab-spacer"></div>
   </div>`;
+  // Async: load ranking widget
+  loadRankingWidget();
+}
+
+async function loadRankingWidget(){
+  const el=document.getElementById('rankingWidget');
+  if(!el)return;
+  const active=getActiveExam();
+  const scope=active&&active.scope&&active.scope.length?active.scope:[];
+  if(!scope.length){el.innerHTML='';return;}
+  // Use first scope for ranking
+  const scopeStr=scope[0];
+  const ranking=await fetchWeeklyRanking(scopeStr);
+  if(!ranking.length){el.innerHTML='';return;}
+  const parts=scopeStr.split('/');
+  const label=parts.length>=3?parts[1]+' '+parts[2]:scopeStr;
+  const myName=profile.name;
+  const myRank=ranking.findIndex(r=>r.student_name===myName)+1;
+  const top3=ranking.slice(0,3);
+
+  let h=`<div class="sec-label" style="display:flex;align-items:center;justify-content:space-between">
+    <span>🏆 이번 주 랭킹</span>
+    <span style="font-size:11px;color:var(--hint);font-weight:500">${label}</span>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">`;
+  top3.forEach((r,i)=>{
+    const isMe=r.student_name===myName;
+    const rankCls=i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+    const gr=getGrade(r.level||1);
+    h+=`<div class="rank-row ${isMe?'rank-me':''}">
+      <div class="rank-num ${rankCls}">${i+1}</div>
+      <div class="avatar-ring ${gr.cls}" style="width:36px;height:36px">
+        <img src="${avatarURL(r.student_name,gr.bg)}" style="width:28px;height:28px;top:4px;left:4px" alt="">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--text)">${r.student_name}${isMe?' <span style="font-size:10px;color:var(--blue);font-weight:800">나</span>':''}</div>
+        <div style="font-size:11px;color:var(--sub)">Lv.${r.level||1} ${r.level_name||''}</div>
+      </div>
+      <div style="font-size:16px;font-weight:900;color:${i===0?'var(--blue)':'var(--text)'}">${r.score}점</div>
+    </div>`;
+  });
+  // If my rank is beyond top 3, show it
+  if(myRank>3){
+    const myData=ranking[myRank-1];
+    const gr=getGrade(myData.level||1);
+    h+=`<div style="padding:6px 20px;text-align:center;font-size:11px;color:var(--hint)">···</div>
+    <div class="rank-row rank-me">
+      <div class="rank-num rank-n">${myRank}</div>
+      <div class="avatar-ring ${gr.cls}" style="width:36px;height:36px">
+        <img src="${avatarURL(myData.student_name,gr.bg)}" style="width:28px;height:28px;top:4px;left:4px" alt="">
+      </div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--text)">${myData.student_name} <span style="font-size:10px;color:var(--blue);font-weight:800">나</span></div>
+        <div style="font-size:11px;color:var(--sub)">Lv.${myData.level||1} ${myData.level_name||''}</div>
+      </div>
+      <div style="font-size:16px;font-weight:900;color:var(--text)">${myData.score}점</div>
+    </div>`;
+  }
+  // If not ranked yet
+  if(myRank===0&&ranking.length>0){
+    h+=`<div style="padding:14px 20px;text-align:center;font-size:12px;color:var(--sub)">
+      아직 이 범위 기록이 없어요! 테스트 풀면 랭킹에 올라가요 💪
+    </div>`;
+  }
+  h+=`</div>`;
+  el.innerHTML=h;
 }
 
 // ━━ LEARN (학습 탭) ━━
@@ -2209,10 +2336,19 @@ function rLearn(){setBottom(null);
   const reviewByScope={};
   reviewDueAll.forEach(r=>{const ss=r.scopes&&r.scopes.length?r.scopes:[r.scope||'기타'];ss.forEach(s=>{if(!reviewByScope[s])reviewByScope[s]=0;reviewByScope[s]++;});});
 
+  const xdL=getXP();const gradeL=getGrade(xdL.lv);const skL=checkStreak();
   app.innerHTML=`<div class="page">
     <div style="padding:24px 20px 0">
-      <div class="t-heading">학습</div>
-      <div class="t-caption c-sub" style="margin-top:2px">매일 꾸준히 실력을 키워요</div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="avatar-ring ${gradeL.cls}" style="width:48px;height:48px">
+          <img src="${avatarURL(profile.name,gradeL.bg)}" style="width:40px;height:40px;top:4px;left:4px" alt="">
+        </div>
+        <div style="flex:1">
+          <div class="t-heading">학습</div>
+          <div class="t-caption c-sub" style="margin-top:2px">매일 꾸준히 실력을 키워요</div>
+        </div>
+        ${skL.count>0?`<div style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--card);border-radius:20px;box-shadow:var(--sh-sm)"><span style="font-size:14px">🔥</span><span style="font-size:12px;font-weight:800">${skL.count}</span></div>`:''}
+      </div>
     </div>
 
     <!-- Daily Vocab Quiz -->
@@ -2776,10 +2912,22 @@ function rRecord(){setBottom(null);
   const avgScore=totalTests?Math.round(hist.reduce((a,r)=>a+r.score,0)/totalTests):0;
   const bestScore=totalTests?Math.max(...hist.map(r=>r.score)):0;
 
+  const xdRc=getXP();const gradeRc=getGrade(xdRc.lv);
   app.innerHTML=`<div class="page">
     <div style="padding:24px 20px 0">
-      <div class="t-heading">기록</div>
-      <div class="t-caption c-sub" style="margin-top:2px">나의 성장을 확인해요</div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div class="avatar-ring ${gradeRc.cls}" style="width:48px;height:48px">
+          <img src="${avatarURL(profile.name,gradeRc.bg)}" style="width:40px;height:40px;top:4px;left:4px" alt="">
+        </div>
+        <div style="flex:1">
+          <div class="t-heading">기록</div>
+          <div class="t-caption c-sub" style="margin-top:2px">나의 성장을 확인해요</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:700;color:${gradeRc.color}">${gradeRc.name}</div>
+          <div style="font-size:16px;font-weight:900;color:var(--text)">Lv.${xdRc.lv}</div>
+        </div>
+      </div>
     </div>
 
     ${totalTests?`
@@ -3423,6 +3571,8 @@ function doSub(auto){
   S.res.xpGain=xpGain;S.res.xpResult=xpResult;
   haptic('submit');
   R();
+  // Save to DB for ranking (async, non-blocking)
+  saveScoreToDB(score,ok,no,S.te).catch(()=>{});
   // Animations
   setTimeout(()=>animateScore(score),100);
   if(score>=80)setTimeout(confetti,400);
