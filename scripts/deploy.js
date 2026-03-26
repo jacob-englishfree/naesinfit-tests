@@ -149,13 +149,28 @@ async function deployFile(jsonPath) {
   console.log('='.repeat(60));
 
   // ════════════════════════════════════════════
-  // LAYER ① 구조 검증 (53 checkpoints)
+  // LAYER ① 구조 검증 + auto-fix 루프 (최대 3회)
   // ════════════════════════════════════════════
-  console.log('  [1/6] ① 구조 검증 (53체크)...');
   const { validate } = require(VALIDATE_PATH);
-  const result = validate(jsonPath);
+  const { fix: autoFix } = require(path.join(ROOT, 'scripts', 'auto-fix.js'));
+  let result;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    console.log(`  [1/6] ① 구조 검증 (53체크)... ${attempt > 1 ? `(재시도 ${attempt}/3)` : ''}`);
+    result = validate(jsonPath);
+    if (result.pass) break;
+    if (attempt < 3) {
+      console.log(`  [AUTO-FIX] ${result.errors.length}건 에러 — 자동 수정 시도...`);
+      try {
+        const { fixes, data } = autoFix(jsonPath);
+        if (fixes.length > 0) {
+          fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), 'utf8');
+          fixes.forEach(f => console.log(`    → ${f}`));
+        }
+      } catch (e) { console.log(`    [WARN] auto-fix 실패: ${e.message}`); }
+    }
+  }
   if (!result.pass) {
-    console.log('  [BLOCK] ① 구조 검증 FAIL — 배포 차단');
+    console.log('  [BLOCK] ① 구조 검증 FAIL (auto-fix 3회 후에도 미해결) — 배포 차단');
     result.errors.forEach(e => console.log(`    [${e.sev}] ${e.id}: ${e.msg}`));
     return { file: rel, success: false, reason: '① structure validation failed' };
   }

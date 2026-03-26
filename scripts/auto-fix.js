@@ -167,36 +167,89 @@ function fix(filePath) {
     }
   }
 
-  // ── Fix 6: 빈칸 유형에 __________ 없음 ──
+  // ── Fix 6: 빈칸 유형에 __________ 없음 → 정답 단어를 찾아 빈칸으로 교체 ──
   q.forEach(item => {
     const blankTypes = ['빈칸 어휘 완성', '빈칸 문맥 완성', '빈칸추론', '빈칸 추론'];
-    if (blankTypes.includes(item.type) && item.passage && item.passage.length > 10) {
-      if (!item.passage.includes('__________')) {
-        // stem에 빈칸 정보가 있으면 passage에 추가하지 않음 — 원본 그대로
-        // 이 경우 validate 체크를 통과하도록 원본이 이런 형식
+    if (!blankTypes.includes(item.type)) return;
+    const combined = (item.passage || '') + ' ' + (item.stem || '');
+    if (combined.includes('____')) return; // 이미 있으면 skip
+
+    // MC: 정답 선지를 passage에서 찾아 __________로 교체
+    if (item.fmt === 'mc' && Array.isArray(item.ch) && typeof item.ans === 'number') {
+      const answer = (item.ch[item.ans] || '').trim();
+      if (answer.length >= 2 && item.passage && item.passage.includes(answer)) {
+        item.passage = item.passage.replace(answer, '__________');
+        fixes.push(`Q${item.id}: 빈칸 마커 삽입 ("${answer}" → ____)`);
+      } else if (answer.length >= 2 && item.passage) {
+        // 정답이 passage에 없으면 — passage 끝에 빈칸 추가
+        item.passage = item.passage.trimEnd() + ' __________';
+        fixes.push(`Q${item.id}: 빈칸 마커 추가 (passage 끝)`);
+      }
+    }
+    // Written: wa를 passage에서 찾아 교체
+    if (item.fmt === 'written' && item.wa) {
+      const wa = item.wa.trim();
+      if (wa.length >= 2 && item.passage && item.passage.includes(wa)) {
+        item.passage = item.passage.replace(wa, '__________');
+        fixes.push(`Q${item.id}: 빈칸 마커 삽입 (서술형 "${wa}" → ____)`);
       }
     }
   });
 
-  // ── Fix 7: <u> 태그 개수 ──
+  // ── Fix 7: 어법 4지선다 ①②③④ 마커 보정 ──
   q.forEach(item => {
-    if (['문맥상 부적절한 어휘', '어휘'].includes(item.type)) {
-      const uCount = (item.passage || '').match(/<u>/g) || [];
-      if (uCount.length > 0 && uCount.length < 5) {
-        // 태그가 있지만 5개 미만 — 원본 문제, 수동 확인 필요
-        // 자동 수정 불가
+    if (item.type !== '어법' || item.fmt !== 'mc') return;
+    if (!item.passage || !Array.isArray(item.ch) || item.ch.length !== 4) return;
+    const markers = ['①', '②', '③', '④'];
+    const hasAny = markers.some(m => item.passage.includes(m));
+    if (!hasAny) return; // 마커가 아예 없으면 다른 형식 — skip
+    const missing = markers.filter(m => !item.passage.includes(m));
+    if (missing.length === 0) return; // 전부 있으면 OK
+    // 누락된 마커가 있으면 — 선지 텍스트를 passage에서 찾아 마커 삽입
+    missing.forEach(marker => {
+      const idx = markers.indexOf(marker);
+      const choiceText = (item.ch[idx] || '').trim();
+      if (choiceText.length >= 2) {
+        // passage에서 선지 텍스트 앞에 마커 삽입
+        const pos = item.passage.indexOf(choiceText);
+        if (pos >= 0) {
+          item.passage = item.passage.slice(0, pos) + marker + ' ' + item.passage.slice(pos);
+          fixes.push(`Q${item.id}: 어법 ${marker} 마커 삽입`);
+        }
       }
+    });
+  });
+
+  // ── Fix 11: 유형명 정규화 (비표준 → 표준) ──
+  const TYPE_NORMALIZE = {
+    '제목': '주제', '제목 파악': '주제', '제목파악': '주제',
+    '한영 (서술형)': '한영', '한→영 (서술형)': '한영',
+    '빈칸': '빈칸추론', '빈칸(구)': '빈칸추론', '빈칸(문장)': '빈칸 문맥 완성',
+    '부적절': '문맥상 부적절한 어휘', '부적절어휘': '문맥상 부적절한 어휘',
+    '서술': '서술형', '어법빈칸': '어법 빈칸',
+    '어형변화': '어형 변환 (서술형)', '어형변형': '어형 변환 (서술형)',
+    '불일치': '내용불일치', '일치': '내용일치',
+    '무관': '무관문장', '순서': '순서배열', '지칭': '지칭추론',
+    '어순': '어순배열', '함축': '함축의미 추론',
+  };
+  q.forEach(item => {
+    const t = (item.type || '').trim();
+    if (TYPE_NORMALIZE[t]) {
+      const newType = TYPE_NORMALIZE[t];
+      fixes.push(`Q${item.id}: 유형 "${t}" → "${newType}"`);
+      item.type = newType;
     }
   });
 
-  // ── Fix 9: 동의어 passage 길이 ──
+  // ── Fix: 4지선다 필수 (mc인데 ch.length !== 4) ──
   q.forEach(item => {
-    if (['동의어 고르기', '반의어 고르기'].includes(item.type)) {
-      const plainText = (item.passage || '').replace(/<[^>]+>/g, '');
-      const sentences = plainText.split(/[.!?]+/).filter(s => s.trim());
-      if (sentences.length > 5) {
-        // 긴 passage에서 해당 단어가 포함된 문장만 추출
-        // 원본 유지가 안전 — A급이므로 빌드에는 영향 없음
+    if (item.fmt !== 'mc' || !Array.isArray(item.ch)) return;
+    if (['T/F', 'TF', 'TF 판별'].includes(item.type)) return;
+    if (item.ch.length === 5) {
+      // 5지선다 → 4지선다: 정답이 아닌 마지막 선지 제거
+      if (item.ans < 4) {
+        item.ch = item.ch.slice(0, 4);
+        fixes.push(`Q${item.id}: 5지선다 → 4지선다 (마지막 제거)`);
       }
     }
   });
@@ -234,4 +287,7 @@ function main() {
   console.log(`\nDone: ${fixedFiles} files fixed, ${totalFixes} total fixes`);
 }
 
-main();
+// CLI 실행 시에만 main() 호출
+if (require.main === module) main();
+
+module.exports = { fix };

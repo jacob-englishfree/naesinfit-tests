@@ -149,8 +149,13 @@ function validate(jsonPath) {
     const passage = q.passage || '';
     const typeNorm = (q.type || '').trim();
 
-    // ── passage 비어있으면 S급 에러 ──
-    if (!passage || passage.trim().length === 0) {
+    // ── passage 비어있으면 S급 에러 (passage 없이 출제되는 유형은 면제) ──
+    const noPassageTypes = [
+      '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
+      '한영', '한→영', '한영영작',
+      '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
+    ];
+    if ((!passage || passage.trim().length === 0) && !noPassageTypes.includes(typeNorm)) {
       result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
     }
     // 교과서: 15문장 이상이면 최소 8문장 발췌 허용 (정답 근거 포함 필수)
