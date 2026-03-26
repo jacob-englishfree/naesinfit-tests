@@ -29,7 +29,7 @@ const DIST_DIR = path.join(ROOT, 'dist');
 // Supabase config
 const SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-const BASE_URL = 'https://jacob-englishfree.github.io/naesinfit-tests';
+const BASE_URL = 'https://naesinfit-tests.vercel.app';
 
 const VALIDATE_PATH = path.join(ROOT, 'validate', 'validate.js');
 const VALIDATE_FT_PATH = path.join(ROOT, 'validate', 'validate-fulltext.js');
