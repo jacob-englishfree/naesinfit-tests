@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><button onclick="if(confirm('처음으로 돌아가시겠습니까?'))goHome()" style="background:none;border:1px solid rgba(124,58,237,0.3);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#9F5AFF;cursor:pointer;font-family:inherit;margin-right:6px">✕</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>2강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>2강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -206,7 +206,7 @@ const Q=[{"id":1,"type":"순서배열","diff":"보통","pts":5,"fmt":"mc","passa
 {"id":8,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going smoothly, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a word. I felt as if a heavy rock was pressing down on my mind. I didn't expect to hear her words of rejection. I felt dizzy, and my eyes were full of tears. I couldn't see anything at that moment.","stem":"(A),(B),(C)에 들어갈 어법상 적절한 것은?\n\nI heard my name (A) [<b>called / calling</b>] ... (B) [<b>Believing / Believed</b>] things were going smoothly ... a heavy rock was (C) [<b>pressing / pressed</b>] down on my mind","ans":0,"ch":["(A) called — (B) Believing — (C) pressing","(A) calling — (B) Believing — (C) pressing","(A) called — (B) Believed — (C) pressing","(A) called — (B) Believing — (C) pressed"],"det":{"ref":"전체 지문","correct":"① (A) called(수동: 이름이 불린) (B) Believing(능동분사) (C) pressing(진행: 짓누르는 중)","wrongs":["① ✅","② ❌ calling: 이름이 능동적으로 부르지 않음","③ ❌ Believed: I가 믿는 주체→능동","④ ❌ pressed: was pressing 진행형"],"tip":"(A) name=수동→called (B) I=능동→Believing (C) was+V-ing=진행형"}},
 {"id":9,"type":"문맥상 부적절한 어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"It was the day I had been <u>① preparing</u> for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going <u>② smoothly</u>, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned <u>③ cheerful</u>. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a <u>④ word</u>.","stem":"밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?","ans":2,"ch":["① preparing","② smoothly","③ cheerful","④ word"],"det":{"korean":"③ 원문은 '심각해졌다(serious)'인데 '쾌활해졌다(cheerful)'로 바뀌었다. 거절하는 맥락에서 serious가 적절.","analysis":"✅ ① preparing: 준비하는, 원문 일치\n✅ ② smoothly: 순조롭게, 원문 일치\n❌ ③ cheerful(쾌활한) → serious(심각한): 반의어\n✅ ④ word: 말, 원문 일치","tip":"serious(심각한) ↔ cheerful(쾌활한). 거절 직전 직원의 태도 변화."}},
 {"id":10,"type":"문맥상 부적절한 어휘","diff":"보통","pts":5,"fmt":"mc","passage":"Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She <u>① carefully reviewed</u> my papers and put a red stamp on my application. I didn't have a <u>② chance</u> to say a word. I felt as if a heavy rock was pressing down on my mind. I didn't <u>③ expect</u> to hear her words of rejection. I felt dizzy, and my eyes were full of <u>④ tears</u>.","stem":"밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?","ans":0,"ch":["① carefully reviewed","② chance","③ expect","④ tears"],"det":{"korean":"① 원문은 '무시했다(ignored)'인데 '꼼꼼히 검토했다(carefully reviewed)'로 바뀌었다.","analysis":"❌ ① carefully reviewed(꼼꼼히 검토) → ignored(무시): 반의어적 표현\n✅ ② chance: 기회, 원문 일치\n✅ ③ expect: 예상하다, 원문 일치\n✅ ④ tears: 눈물, 원문 일치","tip":"ignored(무시했다) ↔ carefully reviewed(꼼꼼히 검토했다). 서류를 무시한 것이 핵심."}},
-{"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going smoothly, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a word. I felt as if __________. I didn't expect to hear her words of rejection.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":3,"ch":["a cool breeze was refreshing my thoughts","all my worries had simply vanished","the sun was shining warmly on my face","an immense weight was bearing down on my soul"],"det":{"korean":"무거운 바위가 마음을 짓누르는 것 같았다(a heavy rock was pressing down on my mind). 동의 표현.","analysis":"✅ ④ 거대한 무게가 영혼을 짓누르는: pressing down의 동의 비유\n❌ ① 시원한 바람: 긍정적, 절망과 모순\n❌ ② 걱정이 사라짐: 거절과 모순\n❌ ③ 햇살이 따뜻하게: 긍정적, 절망과 모순","tip":"a heavy rock pressing down = an immense weight bearing down. 무거운 짐의 비유."}},
+{"id":11,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going smoothly, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a word. I felt as if __________. I didn't expect to hear her words of rejection.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":3,"ch":["a cool breeze was refreshing my thoughts","all my worries had simply vanished","the sun was shining warmly on my face","an immense weight was bearing down on my soul"],"det":{"korean":"무거운 바위가 마음을 짓누르는 것 같았다(a heavy rock was pressing down on my mind). 동의 표현.","analysis":"✅ ④ 거대한 무게가 영혼을 짓누르는: pressing down의 동의 비유\n❌ ① 시원한 바람: 긍정적, 절망과 모순\n❌ ② 걱정이 사라짐: 거절과 모순\n❌ ③ 햇살이 따뜻하게: 긍정적, 절망과 모순","tip":"a heavy rock pressing down = an immense weight bearing down. 무거운 짐의 비유."}},
 {"id":12,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. __________ to get their visas. Then I heard my name called.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["Two of them were fortunate enough","All of them were unfortunately unable","None of them had the chance","Three of them struggled"],"det":{"korean":"그중 두 명이 운 좋게 비자를 받았다(Two of them were lucky to get). 동의 표현: fortunate enough.","analysis":"✅ ① 그중 두 명이 충분히 운이 좋았다: lucky의 동의어 fortunate\n❌ ② 전원 불가: Two만 성공\n❌ ③ 아무도 기회 없었다: 사실과 반대\n❌ ④ 셋이 고전: 두 명이 성공","tip":"lucky = fortunate: 운이 좋은. Two of them were lucky = Two of them were fortunate enough"}},
 {"id":13,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going smoothly, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a word. I felt as if a heavy rock was pressing down on my mind. I didn't expect to hear her words of rejection. I felt dizzy, and my eyes were full of tears. I couldn't see anything at that moment.","stem":"윗글에서 화자가 비자를 신청한 목적으로 가장 적절한 것은?","ans":2,"ch":["To find a permanent job abroad.","To study at a foreign university.","To visit his/her children.","To attend an immigration seminar."],"det":{"korean":"아이들을 방문하기 위해(visiting my children) 비자를 신청했다.","analysis":"✅ ③ 아이들 방문: 원문 after visiting my children\n❌ ① 해외 취업: 귀국 증명 맥락\n❌ ② 유학: 언급 없음\n❌ ④ 세미나: 언급 없음","tip":"return home after visiting my children: 아이 방문 후 귀국"}},
 {"id":14,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"It was the day I had been preparing for. I drove for an hour and a half to apply for a visa. My heart was racing, but I felt ready. That same day, I helped three people who didn't know English by translating for the immigration officer. Two of them were lucky to get their visas. Then I heard my name called. Believing things were going smoothly, I made my way to the counter. I showed my documents and property papers to prove that I would return home after visiting my children. Unfortunately, the officer, who had smiled when I was helping her, suddenly turned serious. She ignored my papers and put a red stamp on my application. I didn't have a chance to say a word. I felt as if a heavy rock was pressing down on my mind. I didn't expect to hear her words of rejection. I felt dizzy, and my eyes were full of tears. I couldn't see anything at that moment.","stem":"다음 중 윗글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n(a) The narrator helped others before his/her own turn.\n(b) The officer was serious from the very beginning.\n(c) The narrator was able to argue his/her case.","ans":0,"ch":["T — F — F","T — T — F","F — F — T","T — F — T"],"det":{"korean":"(a) T: 자신의 차례 전 세 명을 도움 (b) F: 처음에는 미소(smiled), 나중에 심각(serious) (c) F: 말할 기회가 없었다(didn't have a chance)","analysis":"(a) T: helped before hearing own name\n(b) F: smiled → serious (변화)\n(c) F: didn't have a chance to say a word","tip":"직원 태도: smiled(처음) → serious(나중). 화자: 말할 기회 없었음."}},
@@ -496,12 +496,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -705,6 +745,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }

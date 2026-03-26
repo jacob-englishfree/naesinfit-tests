@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><button onclick="if(confirm('처음으로 돌아가시겠습니까?'))goHome()" style="background:none;border:1px solid rgba(124,58,237,0.3);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#9F5AFF;cursor:pointer;font-family:inherit;margin-right:6px">✕</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>3강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>3강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -214,7 +214,7 @@ const Q=[{"id":1,"type":"순서배열","diff":"보통","pts":5,"fmt":"mc","passa
 {"id":16,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"이 글의 내용과 <b>일치하는</b> 것은?","det":{"korean":"디지털 플랫폼이 일을 장소에 덜 고착시킨다","analysis":"✅ ③ 디지털 플랫폼은 일을 장소에 덜 고착되게 만든다\n❌ ① 외주화는 2000년대에 등장했다 → 1990s\n❌ ② 클라우드워크는 대기업만 이용한다 → small business도 가능\n❌ ④ 현지 세금이 항상 납부된다 → most cases에서 미납","tip":"Digital platforms have made work less sticky"},"ans":2,"ch":["외주화는 2000년대에 등장했다.","클라우드워크는 대기업만 이용할 수 있다.","디지털 플랫폼은 일을 장소에 덜 고착되게 만든다.","현지 세금이 항상 납부된다."]},
 {"id":17,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"다음 중 이 글의 내용과 <b>일치하면 T</b>, <b>일치하지 않으면 F</b>를 고르시오.<br><br>\"외주화는 소규모 사업체가 글로벌 예비 노동력을 활용할 수 있게 해주었다.\"","det":{"korean":"large companies(대기업) ≠ 소규모 사업체","analysis":"✅ F — 원문은 'large companies'이며 소규모 사업체가 아님\n❌ T — 원문과 불일치하므로 T는 오답","tip":"allowed large companies(대기업) ≠ 소규모 사업체"},"ans":1,"ch":["T","F","판단 불가","T와 F 모두 해당"]},
 {"id":18,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"다음 중 이 글의 내용과 <b>일치하면 T</b>, <b>일치하지 않으면 F</b>를 고르시오.<br><br>\"생산 네트워크의 전환은 이메일이나 버튼 클릭으로 일어난다.\"","det":{"korean":"The switch happens by simply sending some emails or clicking some buttons → T","analysis":"✅ T — 원문에서 정확히 언급됨\n❌ F — 원문과 일치하므로 F는 오답","tip":"by simply sending emails or clicking buttons"},"ans":0,"ch":["T","F","판단 불가","T와 F 모두 해당"]},
-{"id":19,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"디지털 작업 시장이 만들어지면서 단절될 수 있는 것이 무엇인지 영어로 쓰시오.","det":{"korean":"ties between service work and particular places","analysis":"서비스 일과 특정 장소 간의 유대가 단절될 수 있다","tip":"ties between service work and particular places"},"wa":"ties between service work and particular places","accept":["ties between service work and particular places","ties between service work and places"]},
+{"id":19,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"디지털 작업 시장이 만들어지면서 단절될 수 있는 것이 무엇인지 영어로 쓰시오.","det":{"korean":"ties between service work and particular places","analysis":"서비스 일과 특정 장소 간의 유대가 단절될 수 있다","tip":"ties between service work and particular places"},"wa":"ties between service work and particular places","accept":["ties between service work and particular places","ties between service work and places"]},
 {"id":20,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Digital platforms have made a lot of work less sticky. As work becomes ever more modularised, commoditised and standardised, and as markets for digital work are created, ties between service work and particular places can be disconnected. While the business process of outsourcing that emerged in the 1990s allowed large companies to take advantage of a 'global reserve army' by moving their call centres to cheap and distant labour markets, cloudwork changes the volume and granularity at which geographically non-proximate work can take place. A small business in New York can hire a freelance transcriber in Nairobi one day and New Delhi the next. No offices or factories need to be built, no local regulations are observed, and — in most cases — no local taxes are paid. The switch in the production network of work happens by simply sending some emails or clicking some buttons on a digital work platform. And, in this way, the employer leaves behind no material traces in the places where it was once an employer.","stem":"클라우드워크에서 건설할 필요가 없는 두 가지를 영어로 쓰시오.","det":{"korean":"offices or factories = 사무실이나 공장","analysis":"No offices or factories need to be built","tip":"offices and factories = 사무실과 공장"},"wa":"offices and factories","accept":["offices or factories","offices and factories","offices, factories"]}];
 
 /* NaesinFit Test Engine v1.0
@@ -496,12 +496,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -705,6 +745,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }

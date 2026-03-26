@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><button onclick="if(confirm('처음으로 돌아가시겠습니까?'))goHome()" style="background:none;border:1px solid rgba(124,58,237,0.3);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#9F5AFF;cursor:pointer;font-family:inherit;margin-right:6px">✕</button><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>능률(민병천)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">공통영어1 · <span>능률(민병천)</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -209,8 +209,8 @@ const Q=[{"id":1,"type":"순서배열","diff":"쉬움","pts":4,"fmt":"mc","passa
 {"id":11,"type":"문맥상 부적절한 어휘","diff":"어려움","pts":6,"fmt":"mc","passage":"Some people find it helpful to go for a walk or exercise. Others prefer to express their feelings through drawing or writing in a journal. Talking to someone you ①<u>trust</u>, like a friend, family member, or counselor, can also be very helpful. Another useful skill is problem-solving. Instead of focusing on how angry you feel, try to focus on ②<u>ignoring</u> a solution to the problem that caused your anger. By understanding your anger and finding proper coping skills, you can take ③<u>control</u> of your emotions and handle difficult situations in a ④<u>healthier</u> way.","stem":"밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?","ans":1,"ch":["① trust","② ignoring","③ control","④ healthier"],"det":{"korean":"② 원문은 focus on finding(찾는 데)인데, ignoring(무시하는)으로 바뀌었다.","analysis":"✅ ① trust: 신뢰하다, 원문 일치\n❌ ② ignoring(무시하는) → finding(찾는): 반의어로 교체\n✅ ③ control: 통제, 원문 일치\n✅ ④ healthier: 더 건강한, 원문 일치","tip":"finding(찾는) ↔ ignoring(무시하는). problem-solving은 해결책을 찾는 것이다."}},
 {"id":12,"type":"빈칸추론","diff":"쉬움","pts":4,"fmt":"mc","passage":"Do you ever find yourself suddenly feeling angry? One moment you're fine, and the next moment you're slamming doors or rolling your eyes at your parents. Some people may think you just have a bad attitude or are getting too upset about a small problem. However, these feelings don't simply come from stress about __________.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":2,"ch":["school exams","social media","everyday life","family issues"],"det":{"korean":"이 감정들은 단순히 일상적 삶(everyday life)의 스트레스에서만 오는 것이 아니다.","analysis":"✅ ③ everyday life: 원문 일치\n❌ ① school exams: 학교 시험, 원문에 없음\n❌ ② social media: 소셜 미디어, 원문에 없음\n❌ ④ family issues: 가족 문제, 원문에 없음","tip":"everyday life(일상 생활) — 청소년 분노의 원인이 단순한 일상 스트레스가 아님을 강조."}},
 {"id":13,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"Anger is a natural emotion, and it is not always a bad thing. In fact, anger can be a useful tool. It can tell you when something is wrong or when you are being treated unfairly. The key is to learn how to __________ your anger in a productive way so that it does not control you.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":1,"ch":["ignore","manage","eliminate","suppress"],"det":{"korean":"분노를 생산적으로 '관리(manage)'하는 것이 핵심이다.","analysis":"✅ ② manage: 원문 일치 — 분노를 없애거나 억누르는 것이 아니라 관리\n❌ ① ignore: 무시하다, 부적절\n❌ ③ eliminate: 제거하다, 문맥 반대\n❌ ④ suppress: 억누르다, 부적절","tip":"manage(관리하다) — 분노를 없애는 것이 아니라 생산적으로 관리하는 것이 핵심."}},
-{"id":14,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"When anger hits, your body reacts physically. Your heart rate increases, your face becomes flushed, and you may find yourself clenching your fists. These are signs that your body is preparing for a fight. But fighting is rarely the answer. Instead, try some first aid techniques to calm yourself down. Take deep breaths. Count to ten slowly. Walk away from the situation for a few minutes. Drink a glass of cold water. These simple actions can help bring your body back to a calm state.","stem":"위 글의 내용과 일치하는 것은?","ans":3,"ch":["분노 시 심박수가 감소한다.","싸우는 것이 항상 정답이다.","분노를 느끼면 상황에 더 가까이 가야 한다.","깊은 호흡과 10까지 세기는 진정에 도움이 된다."],"det":{"korean":"깊은 호흡(Take deep breaths)과 10까지 세기(Count to ten slowly)는 진정 방법이다.","analysis":"✅ ④ 원문 일치: Take deep breaths. Count to ten slowly.\n❌ ① increases(증가) ≠ 감소\n❌ ② rarely(거의 ~않다) ≠ 항상\n❌ ③ Walk away from(벗어나라) ≠ 가까이","tip":"원문의 핵심 반전 어구 주의: rarely, away from."}},
-{"id":15,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"Once you have calmed down, it is important to find healthy ways to deal with your anger. Some people find it helpful to go for a walk or exercise. Others prefer to express their feelings through drawing or writing in a journal. Talking to someone you trust, like a friend, family member, or counselor, can also be very helpful. Another useful skill is problem-solving. Instead of focusing on how angry you feel, try to focus on finding a solution to the problem that caused your anger.","stem":"위 글의 내용과 일치하지 않는 것은?","ans":2,"ch":["진정된 후 분노를 다루는 건강한 방법을 찾는 것이 중요하다.","일기 쓰기나 그림 그리기로 감정을 표현할 수 있다.","모르는 사람에게 이야기하는 것이 도움이 된다.","분노의 원인이 된 문제의 해결책을 찾는 데 집중해야 한다."],"det":{"korean":"원문은 someone you trust(신뢰하는 사람)이지, '모르는 사람'이 아니다.","analysis":"✅ ③ '모르는 사람'이 아닌 '신뢰하는 사람(someone you trust)'\n❌ ① 원문 일치: find healthy ways\n❌ ② 원문 일치: drawing or writing in a journal\n❌ ④ 원문 일치: finding a solution to the problem","tip":"someone you trust = 신뢰하는 사람. 친구, 가족, 상담사 등."}},
+{"id":14,"type":"내용일치","diff":"쉬움","pts":4,"fmt":"mc","passage":"When anger hits, your body reacts physically. Your heart rate increases, your face becomes flushed, and you may find yourself clenching your fists. These are signs that your body is preparing for a fight. But fighting is rarely the answer. Instead, try some first aid techniques to calm yourself down. Take deep breaths. Count to ten slowly. Walk away from the situation for a few minutes. Drink a glass of cold water. These simple actions can help bring your body back to a calm state.","stem":"위 글의 내용과 일치하는 것은?","ans":3,"ch":["분노 시 심박수가 감소한다.","싸우는 것이 항상 정답이다.","분노를 느끼면 상황에 더 가까이 가야 한다.","깊은 호흡과 10까지 세기는 진정에 도움이 된다."],"det":{"korean":"깊은 호흡(Take deep breaths)과 10까지 세기(Count to ten slowly)는 진정 방법이다.","analysis":"✅ ④ 원문 일치: Take deep breaths. Count to ten slowly.\n❌ ① increases(증가) ≠ 감소\n❌ ② rarely(거의 ~않다) ≠ 항상\n❌ ③ Walk away from(벗어나라) ≠ 가까이","tip":"원문의 핵심 반전 어구 주의: rarely, away from."}},
+{"id":15,"type":"TF","diff":"보통","pts":5,"fmt":"mc","passage":"Once you have calmed down, it is important to find healthy ways to deal with your anger. Some people find it helpful to go for a walk or exercise. Others prefer to express their feelings through drawing or writing in a journal. Talking to someone you trust, like a friend, family member, or counselor, can also be very helpful. Another useful skill is problem-solving. Instead of focusing on how angry you feel, try to focus on finding a solution to the problem that caused your anger.","stem":"위 글의 내용과 일치하지 않는 것은?","ans":2,"ch":["진정된 후 분노를 다루는 건강한 방법을 찾는 것이 중요하다.","일기 쓰기나 그림 그리기로 감정을 표현할 수 있다.","모르는 사람에게 이야기하는 것이 도움이 된다.","분노의 원인이 된 문제의 해결책을 찾는 데 집중해야 한다."],"det":{"korean":"원문은 someone you trust(신뢰하는 사람)이지, '모르는 사람'이 아니다.","analysis":"✅ ③ '모르는 사람'이 아닌 '신뢰하는 사람(someone you trust)'\n❌ ① 원문 일치: find healthy ways\n❌ ② 원문 일치: drawing or writing in a journal\n❌ ④ 원문 일치: finding a solution to the problem","tip":"someone you trust = 신뢰하는 사람. 친구, 가족, 상담사 등."}},
 {"id":16,"type":"주제/요지","diff":"보통","pts":5,"fmt":"mc","passage":"Remember, everyone gets angry sometimes. It is a normal part of being human. But you have the power to choose how you respond to your anger. Don't let anger be your boss. Instead, learn to be the boss of your feelings. By understanding your anger, asking the right questions, calming yourself down, and finding proper coping skills, you can take control of your emotions and handle difficult situations in a healthier way.","stem":"위 글의 요지로 가장 적절한 것은?","ans":1,"ch":["분노를 절대로 느끼지 않도록 노력해야 한다.","분노를 이해하고 적절한 대처 기술을 배워 감정을 통제해야 한다.","화가 나면 즉시 감정을 표출하는 것이 가장 좋다.","분노는 항상 부정적이므로 피해야 한다."],"det":{"korean":"분노가 보스가 되게 하지 말고, 감정의 보스가 되라는 것이 핵심.","analysis":"✅ ② 분노를 이해하고 대처 기술로 감정 통제 — 본문 결론의 핵심\n❌ ① 분노를 느끼지 않도록: 원문은 normal part라고 함\n❌ ③ 즉시 표출: 원문은 calm down 먼저\n❌ ④ 항상 부정적: not always a bad thing","tip":"핵심: Don't let anger be your boss → be the boss of your feelings."}},
 {"id":17,"type":"무관","diff":"쉬움","pts":4,"fmt":"mc","passage":"Once you have calmed down, it is important to find healthy ways to deal with your anger. ① Some people find it helpful to go for a walk or exercise. ② Others prefer to express their feelings through drawing or writing in a journal. ③ Eating a balanced diet is essential for maintaining good physical health. ④ Talking to someone you trust, like a friend, family member, or counselor, can also be very helpful.","stem":"글의 흐름과 관계없는 문장은?","ans":2,"ch":["①","②","③","④"],"det":{"korean":"③은 균형 잡힌 식단/신체 건강 이야기로, 분노 대처법과 무관하다.","analysis":"✅ ③: 분노의 건강한 대처법을 나열하는 흐름에서 식단/신체 건강은 이탈\n❌ ①: 산책/운동 — 대처법 맥락 적절\n❌ ②: 그림/글쓰기 — 대처법 맥락 적절\n❌ ④: 신뢰하는 사람과 대화 — 대처법 맥락 적절","tip":"주제 흐름: 분노 대처법(산책→그림/글쓰기→대화). ③만 신체 건강으로 이탈."}},
 {"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The key is to learn how to manage your anger in a __________ way so that it does not control you.","stem":"다음 글의 빈칸에 들어갈 적절한 단어 한 개를 원문에서 찾아 쓰시오.","wa":"productive","accept":["productive","Productive"],"det":{"korean":"분노를 '생산적인(productive)' 방식으로 관리하는 것이 핵심이다.","analysis":"✅ productive: 원문 일치 — manage your anger in a productive way\n❌ positive: 유사하지만 원문 불일치\n❌ effective: 유사하지만 원문 불일치","tip":"productive(생산적인) — 분노가 당신을 통제하지 못하게 생산적으로 관리."}},
@@ -496,12 +496,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -705,6 +745,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }

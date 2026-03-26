@@ -181,7 +181,7 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 </div>
 
 <div id="examScreen" class="screen">
-  <div class="exam-topbar"><div class="topbar-left"><button onclick="if(confirm('처음으로 돌아가시겠습니까?'))goHome()" style="background:none;border:1px solid rgba(124,58,237,0.3);border-radius:6px;padding:4px 8px;font-size:11px;font-weight:700;color:#9F5AFF;cursor:pointer;font-family:inherit;margin-right:6px">✕</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>2강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
+  <div class="exam-topbar"><div class="topbar-left"><button onclick="showHomeModal()" style="background:rgba(124,58,237,0.15);border:2px solid #9F5AFF;border-radius:8px;padding:6px 12px;font-size:13px;font-weight:900;color:#fff;cursor:pointer;font-family:inherit;margin-right:8px">← 처음</button><div class="topbar-dot"></div><div class="topbar-info">2027학년도 EBS수능특강 영어 · <span>2강</span></div></div><div class="timer" id="timer">20:00</div><button class="btn-submit" onclick="submitExam()">제출하기</button></div>
   <div class="exam-progress"><div class="exam-progress-fill" id="progressFill"></div></div>
   <div class="ans-count" id="ansCount">0/20</div>
   <div class="exam-scroll" id="examScroll"></div>
@@ -206,7 +206,7 @@ const Q=[{"id":1,"type":"순서배열","diff":"보통","pts":5,"fmt":"mc","passa
 {"id":8,"type":"어법","diff":"어려움","pts":6,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found the house she had grown up in.","stem":"(A),(B),(C)에 들어갈 어법상 적절한 것은?\n\nIt had been more than ten years (A) [<b>since / for</b>] she had last visited ... In front of her (B) [<b>was / were</b>] a wall ... the same ones she (C) [<b>had painted / has painted</b>]","ans":0,"ch":["(A) since — (B) was — (C) had painted","(A) for — (B) was — (C) had painted","(A) since — (B) were — (C) had painted","(A) since — (B) was — (C) has painted"],"det":{"ref":"전체 지문","correct":"① (A) since(~한 이래로) (B) was(도치: a wall 단수주어) (C) had painted(대과거)","wrongs":["① ✅","② ❌ for: It had been + 시간 + since 구문","③ ❌ were: a wall 단수 → was","④ ❌ has painted: 과거 서술 → had painted"],"tip":"(A) It had been + since (B) 도치: 장소 + was + 단수S (C) 대과거 had p.p."}},
 {"id":9,"type":"문맥상 부적절한 어휘","diff":"쉬움","pts":4,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the <u>① narrow</u> streets of the village, unsure about which way to go. Suddenly, Sophie saw a <u>② familiar</u> sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled <u>③ sadly</u>, and walked toward the <u>④ gate</u>.","stem":"밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?","ans":2,"ch":["① narrow","② familiar","③ sadly","④ gate"],"det":{"korean":"③ 원문은 '밝게(brightly)'인데 '슬프게(sadly)'로 바뀌었다. 집을 찾아 기쁜 상황이므로 brightly가 적절.","analysis":"✅ ① narrow: 좁은, 원문 일치\n✅ ② familiar: 익숙한, 원문 일치\n❌ ③ sadly(슬프게) → brightly(밝게): 반의어\n✅ ④ gate: 대문, 원문 일치","tip":"brightly(밝게) ↔ sadly(슬프게). 집을 찾은 기쁜 순간에 '밝게' 미소."}},
 {"id":10,"type":"문맥상 부적절한 어휘","diff":"보통","pts":5,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, <u>① unsure</u> about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the <u>② familiar</u> shapes on the wall were the <u>③ different</u> ones she had painted with her father as a child. Sophie <u>④ nodded</u>, smiled brightly, and walked toward the gate.","stem":"밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?","ans":2,"ch":["① unsure","② familiar","③ different","④ nodded"],"det":{"korean":"③ 원문은 '같은(same)'인데 '다른(different)'으로 바뀌었다. 아버지와 그린 것과 같은 모양이어야 집을 확인할 수 있다.","analysis":"✅ ① unsure: 확신 없는, 원문 일치\n✅ ② familiar: 익숙한, 원문 일치\n❌ ③ different(다른) → same(같은): 반의어\n✅ ④ nodded: 고개를 끄덕이다, 원문 일치","tip":"same(같은) ↔ different(다른). 벽화가 어린 시절 그린 것과 '같은' 모양이어야 함."}},
-{"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found __________.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":2,"ch":["a way back to the city","her father waiting at the gate","her childhood home","a new place to live"],"det":{"korean":"자란 집(the house she had grown up in)을 마침내 찾았다. 동의 표현: her childhood home.","analysis":"✅ ③ her childhood home: the house she had grown up in의 동의 표현\n❌ ① 도시로 가는 길: 집을 찾는 맥락과 무관\n❌ ② 아버지가 기다리는: 언급 없음\n❌ ④ 새 집: 어린 시절 집을 찾는 맥락","tip":"the house she had grown up in = her childhood home = 어린 시절 집"}},
+{"id":11,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found __________.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":2,"ch":["a way back to the city","her father waiting at the gate","her childhood home","a new place to live"],"det":{"korean":"자란 집(the house she had grown up in)을 마침내 찾았다. 동의 표현: her childhood home.","analysis":"✅ ③ her childhood home: the house she had grown up in의 동의 표현\n❌ ① 도시로 가는 길: 집을 찾는 맥락과 무관\n❌ ② 아버지가 기다리는: 언급 없음\n❌ ④ 새 집: 어린 시절 집을 찾는 맥락","tip":"the house she had grown up in = her childhood home = 어린 시절 집"}},
 {"id":12,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although __________, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":1,"ch":["the shapes had completely disappeared","their hues had lost their original brightness","the wall had been rebuilt recently","someone had added new paintings"],"det":{"korean":"색이 바랬다(the colors were now faded). 동의 표현: their hues had lost their original brightness(색상이 원래의 밝기를 잃었다).","analysis":"✅ ② 색상이 밝기를 잃었다: faded의 동의 표현\n❌ ① 모양이 완전히 사라졌다: shapes were the same과 모순\n❌ ③ 벽이 최근 다시 지어졌다: faded와 모순\n❌ ④ 새 그림이 추가됐다: 원문에 없음","tip":"the colors were now faded = their hues had lost their original brightness"}},
 {"id":13,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found the house she had grown up in.","stem":"윗글의 Sophie에 대한 설명으로 가장 적절한 것은?","ans":1,"ch":["She visits the village regularly every year.","She found her childhood home by recognizing a wall painting.","She painted the wall alone without any help.","She was disappointed when she found the house."],"det":{"korean":"벽화를 알아보고 어린 시절 집을 찾았다.","analysis":"✅ ② 벽화를 인식하여 집을 찾았다: 원문 일치\n❌ ① 매년 정기 방문: 10년 넘게 방문하지 않음\n❌ ③ 혼자 그림: with her father(아버지와 함께)\n❌ ④ 실망: smiled brightly(밝게 미소)","tip":"핵심: 벽화 인식 → 집 확인 → 기쁨의 미소"}},
 {"id":14,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","passage":"\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found the house she had grown up in.","stem":"다음 중 윗글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n(a) Sophie painted the wall with her mother.\n(b) The shapes on the wall had not changed.\n(c) Sophie felt sad when she found the house.","ans":1,"ch":["T — T — F","F — T — F","F — F — T","T — F — T"],"det":{"korean":"(a) F: 아버지와(with her father) 함께 그림 (b) T: 모양은 같았다(the same ones) (c) F: 밝게 미소 지었다(smiled brightly)","analysis":"(a) F: mother ❌ → father ✅\n(b) T: shapes were the same ones\n(c) F: smiled brightly ≠ sad","tip":"세부 사항: father(아버지), same(같은 모양), brightly(밝게 미소)"}},
@@ -496,12 +496,52 @@ function startTimer() {
     el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     el.classList.toggle('warn', S.left <= 300 && S.left > 60);
     el.classList.toggle('danger', S.left <= 60);
-    if (S.left <= 0) { clearInterval(S.ti); submitExam(); }
+    if (S.left <= 0) { clearInterval(S.ti); doSubmit(); }
   }, 1000);
 }
 
 function submitExam() {
-  if (!confirm('\uc81c\ucd9c\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?')) return;
+  // 미응답 문항 찾기
+  var unanswered = [];
+  var total = S.filtered ? S.filtered.length : Q.length;
+  for (var i = 0; i < total; i++) {
+    if (S.ans[i] === null) unanswered.push(i);
+  }
+
+  // 커스텀 모달 생성
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:340px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+
+  var title = unanswered.length > 0
+    ? '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">미응답 ' + unanswered.length + '문항</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">풀지 않은 문항이 있습니다. 제출하시겠습니까?</div>'
+    : '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">제출하시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">전 문항 응답 완료</div>';
+
+  var btnsHtml = '';
+
+  // 미응답 문항 번호 버튼
+  if (unanswered.length > 0) {
+    btnsHtml += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">';
+    unanswered.forEach(function (idx) {
+      btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));showQ(' + idx + ')" style="padding:6px 12px;border-radius:8px;border:2px solid #7C3AED;background:#F3EEFF;color:#7C3AED;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit">Q' + (idx + 1) + '</button>';
+    });
+    btnsHtml += '</div>';
+  }
+
+  // 제출/취소 버튼
+  btnsHtml += '<div style="display:flex;gap:8px">';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button>';
+  btnsHtml += '<button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));doSubmit()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">제출</button>';
+  btnsHtml += '</div>';
+
+  modal.innerHTML = title + btnsHtml;
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function doSubmit() {
   clearInterval(S.ti);
   var elapsed = Math.floor((Date.now() - S.start) / 1000);
   var r = grade();
@@ -705,6 +745,15 @@ function reviewHistory(idx) {
 
 function retake() { location.reload(); }
 function goHome() { showScreen('startScreen'); updateHCount(); }
+function showHomeModal() {
+  var overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  var modal = document.createElement('div');
+  modal.style.cssText = 'background:#fff;border-radius:16px;padding:24px;max-width:300px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+  modal.innerHTML = '<div style="font-size:18px;font-weight:900;margin-bottom:8px;color:#191F28">처음으로 돌아가시겠습니까?</div><div style="font-size:13px;color:#6B7684;margin-bottom:16px">진행 중인 시험이 초기화됩니다.</div><div style="display:flex;gap:8px"><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'))" style="flex:1;padding:12px;border-radius:10px;border:2px solid #E5E8EB;background:#fff;color:#4E5968;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">취소</button><button onclick="document.body.removeChild(this.closest(\'div[style*=fixed]\'));goHome()" style="flex:1;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">처음으로</button></div>';
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
 
 window.addEventListener('beforeunload', function (e) {
   if (S.ti) { e.preventDefault(); e.returnValue = ''; }
