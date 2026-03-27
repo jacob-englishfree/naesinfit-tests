@@ -232,7 +232,9 @@ function main() {
     process.exit(1);
   }
 
-  const target = args[0] === '--all' ? DATA_DIR : path.resolve(args[0]);
+  const checkOnly = args.includes('--check-only');
+  const targetArg = args.find(a => a !== '--check-only');
+  const target = targetArg === '--all' ? DATA_DIR : path.resolve(targetArg);
 
   console.log('\n🔍 NaesinFit 테스트 JSON 배포 검증\n');
 
@@ -260,9 +262,9 @@ function main() {
 
   console.log('\n✅ 전체 PASS');
 
-  // --all 모드에서는 자동 push 안 함
-  if (args[0] === '--all') {
-    console.log('(--all 모드: 검증만 수행, push 안 함)');
+  // --all 또는 --check-only 모드에서는 자동 push 안 함
+  if (targetArg === '--all' || checkOnly) {
+    if (!checkOnly) console.log('(--all 모드: 검증만 수행, push 안 함)');
     process.exit(0);
   }
 
