@@ -214,9 +214,9 @@ input,select{font-family:inherit}
 .acc-content{padding:0 20px 16px}
 
 /* Smooth accordion slide — grid technique (no max-height hack) */
-.acc-slide{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease-snap);overflow:hidden}
-.acc-slide.open{grid-template-rows:1fr}
-.acc-slide>div{overflow:hidden}
+.acc-slide{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s var(--ease-snap);overflow:hidden;visibility:hidden;height:0}
+.acc-slide.open{grid-template-rows:1fr;visibility:visible;height:auto}
+.acc-slide>div{overflow:hidden;min-height:0}
 .sub-section{padding:14px 0;border-top:1px solid var(--divider)}
 .sub-trigger{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:2px 0}
 .sub-trigger span:first-child{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
@@ -3874,7 +3874,7 @@ function rResult(){setBottom(null);
   // 정답과 해설
   h+=`<div class="r-sec r-anim" style="${d(600)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 펼치기</span></div>`;
   r.det.forEach((dd,i)=>{const ic=dd.ok?'<span class="spring-check">✅</span>':(dd.ua===undefined||dd.ua===''?'⬜':'<span class="shake">❌</span>');const ua=dd.q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');const ca=dd.q.fmt==='mc'?(NM[dd.q.ans]||''):(dd.q.wa||'');const so=!dd.ok;const dt=dd.q.det||{};
-    h+=`<div class="rev"><div class="rev-h" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ra').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span class="ri">${ic}</span><span class="rt">${dd.q.id||i+1}번 [${(dd.q.type||'').slice(0,8)}]</span><span class="rp">${dd.q.pts||0}점</span><span class="ra" style="${so?'transform:rotate(180deg)':''}">▼</span></div><div class="rev-b${so?' open':''}"><div class="ans-cmp"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
+    h+=`<div class="rev"><div class="rev-h" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ra').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span class="ri">${ic}</span><span class="rt">${i+1}번 [${(dd.q.type||'').slice(0,8)}]</span><span class="rp">${dd.q.pts||0}점</span><span class="ra" style="${so?'transform:rotate(180deg)':''}">▼</span></div><div class="rev-b${so?' open':''}"><div class="ans-cmp"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
     if(dt.korean)h+=`<div class="det-tag b">해석</div><div class="det-box hl">${dt.korean}</div>`;
     if(dt.analysis)h+=`<div class="det-tag g">분석</div><div class="det-box">${dt.analysis}</div>`;
     if(dt.ref)h+=`<div class="det-tag b">원문</div><div class="det-box hl">${String(dt.ref).replace(/\n/g,'<br>')}</div>`;
