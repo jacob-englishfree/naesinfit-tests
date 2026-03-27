@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"어순배열","diff":"쉬움","pts":4,"fmt":"mc","passa
 {"id":14,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the __________ of commitments.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","ans":0,"ch":["credibility","flexibility","complexity","simplicity"],"wa":null,"accept":null,"det":{"korean":"사회 제도는 약속의 <b>신뢰성(credibility)</b>에 의존한다.","analysis":"✅ ① credibility(신뢰성): \"credible commitment\" 앞 문장과 연결, 약속이 신뢰받아야 사회가 작동\n❌ ② flexibility(유연성): 핵심이 아님\n❌ ③ complexity(복잡성): 무관\n❌ ④ simplicity(단순성): 무관","tip":"credibility of commitments = 약속의 신뢰성 — 사회 제도의 근간"}},
 {"id":15,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","passage":"Commitments make behavior predictable in the <u>face</u> of fluctuations.","stem":"밑줄 친 <b>face</b>의 문맥적 의미로 가장 적절한 것은? (\"in the face of\"의 의미 기준)","ans":0,"ch":["직면하여, ~앞에서","얼굴","정면, 전면","대면하다"],"wa":null,"accept":null,"det":{"korean":"in the face of = ~에 직면하여, ~앞에서","analysis":"✅ ① 직면하여, ~앞에서: in the face of = ~에 직면하여\n❌ ② 얼굴: 기본 의미\n❌ ③ 정면: the face of the building\n❌ ④ 대면하다: face the truth","tip":"in the face of = ~에 직면하여 = despite = in spite of"}},
 {"id":16,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","passage":"A network of other agents is committed to sustain the <u>currency</u> in question.","stem":"밑줄 친 <b>currency</b>의 문맥적 의미로 가장 적절한 것은?","ans":1,"ch":["돈, 화폐","통화, 화폐 체계","유통, 통용","현재의"],"wa":null,"accept":null,"det":{"korean":"중앙은행이 유지하는 것 = <b>통화, 화폐 체계</b>","analysis":"✅ ② 통화, 화폐 체계: 중앙은행이 관리하는 대상\n❌ ① 돈: 구체적 물질이 아닌 체계\n❌ ③ 유통: currency of ideas 등\n❌ ④ 현재의: current와 혼동","tip":"currency: 통화(중앙은행이 관리) | gain currency = 널리 퍼지다 | current(현재의)와 구별"}},
-{"id":17,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Commitments make individuals’ behavior __________ (predict) in the face of fluctuations in their desires and interests.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"predictable","accept":["predictable","Predictable"],"det":{"korean":"predict(동사) → <b>predictable(형용사)</b>: make + 목적어 + 형용사(보어) 구조","analysis":"predict(동사) → predictable(형용사)\nmake behavior predictable → 5형식: make + O + OC(형용사)","tip":"predict → predictable / rely → reliable — 동사 → -able 형용사화"}},
-{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Social objects and institutions depend for their origin and __________ (stable) upon the credibility of commitments.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"stability","accept":["stability","Stability"],"det":{"korean":"stable(형용사) → <b>stability(명사)</b>: origin and ________ → and 병렬로 명사 필요","analysis":"stable(형용사) → stability(명사)\norigin(명사) and ________(명사) → and 병렬 구조로 명사","tip":"stable → stability / able → ability — 형용사 → -ity 명사화 패턴"}},
+{"id":17,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","passage":"Commitments make individuals’ behavior __________ (predict) in the face of fluctuations in their desires and interests.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"predictable","accept":["predictable","Predictable","predictable."],"det":{"korean":"predict(동사) → <b>predictable(형용사)</b>: make + 목적어 + 형용사(보어) 구조","analysis":"predict(동사) → predictable(형용사)\nmake behavior predictable → 5형식: make + O + OC(형용사)","tip":"predict → predictable / rely → reliable — 동사 → -able 형용사화"}},
+{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"Social objects and institutions depend for their origin and __________ (stable) upon the credibility of commitments.","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","wa":"stability","accept":["stability","Stability","stability."],"det":{"korean":"stable(형용사) → <b>stability(명사)</b>: origin and ________ → and 병렬로 명사 필요","analysis":"stable(형용사) → stability(명사)\norigin(명사) and ________(명사) → and 병렬 구조로 명사","tip":"stable → stability / able → ability — 형용사 → -ity 명사화 패턴"}},
 {"id":19,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","passage":"Commitment is the glue holding together characteristically human forms of social life. Commitments make individuals’ behavior predictable in the face of fluctuations in their desires and interests, thereby facilitating the planning and coordination of joint actions involving multiple agents. Moreover, commitments make people willing to perform actions that they would not otherwise perform. For example, a taxi driver picks up his clients and transports them to their desired destination because they are committed to paying him afterwards for the service, and a construction worker performs her job every day because her employer has made a credible commitment to pay her at the end of the month. Indeed, the taxi driver and the construction worker are willing to accept money as payment only because a network of other agents (notably the central bank) is committed to taking various measures to sustain the currency in question. Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the credibility of commitments.","stem":"다음 글의 요지로 가장 적절한 것은?","ans":0,"ch":["약속에 대한 신뢰가 사회 체계를 형성하고 지탱한다.","사회적 압력이 개인의 비자발적인 행동을 유도한다.","사회가 발전함에 따라 사회 제도가 더 복잡해진다.","사회 구성원들 간의 결속은 인위적으로 유지될 수 없다."],"wa":null,"accept":null,"det":{"korean":"직업, 돈, 정부 등 사회 제도는 <b>약속의 신뢰성에 의존</b>한다 → 약속에 대한 신뢰가 사회를 지탱.","analysis":"✅ ① 약속에 대한 신뢰가 사회 체계를 형성하고 지탱한다: \"depend ... upon the credibility of commitments\"\n❌ ② 사회적 압력: 압력이 아닌 자발적 약속\n❌ ③ 복잡해진다: 복잡성이 주제가 아님\n❌ ④ 인위적 불가: 약속으로 가능\n❌ ⑤ 차등적 보상: 핵심이 아님","tip":"요지: commitment = glue of social life + credibility → 약속의 신뢰성이 사회의 근간"}},
 {"id":20,"type":"내용이해","diff":"어려움","pts":6,"fmt":"mc","passage":"Commitment is the glue holding together characteristically human forms of social life. Commitments make individuals’ behavior predictable in the face of fluctuations in their desires and interests, thereby facilitating the planning and coordination of joint actions involving multiple agents. Moreover, commitments make people willing to perform actions that they would not otherwise perform. For example, a taxi driver picks up his clients and transports them to their desired destination because they are committed to paying him afterwards for the service, and a construction worker performs her job every day because her employer has made a credible commitment to pay her at the end of the month. Indeed, the taxi driver and the construction worker are willing to accept money as payment only because a network of other agents (notably the central bank) is committed to taking various measures to sustain the currency in question. Thus, social objects and institutions such as jobs, money, government, scientific collaborations and marriage depend for their origin and stability upon the credibility of commitments.","stem":"다음 글의 핵심 내용으로 가장 적절한 것은?","ans":1,"ch":["사회 제도는 개인의 이익 추구와 무관하게 존재한다.","약속과 헌신이 없으면 직업, 돈, 정부 같은 사회 제도가 유지될 수 없다.","화폐 가치는 오직 중앙은행의 결정에 의해서만 결정된다.","택시 기사와 건설 노동자는 약속 없이도 일할 동기가 있다."],"wa":null,"accept":null,"det":{"korean":"<b>약속과 헌신이 없으면</b> 직업, 돈, 정부 같은 사회 제도가 <b>유지될 수 없다</b>.","analysis":"✅ ② 약속 없이는 사회 제도 유지 불가: \"commitment is the glue\" + \"depend upon the credibility\"\n❌ ① 이익 추구와 무관: 이익과 연결됨 (택시비, 월급)\n❌ ③ 오직 중앙은행: 하나의 예시일 뿐\n❌ ④ 동기가 있다: 약속 없이는 \"would not otherwise perform\"\n❌ ⑤ 도덕성: 약속/신뢰성이 핵심, 도덕성 아님","tip":"commitment is the glue → 약속 없으면 사회가 해체 = 핵심 내용"}}];
 
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

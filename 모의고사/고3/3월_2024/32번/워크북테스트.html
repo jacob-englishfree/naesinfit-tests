@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -207,11 +207,11 @@ const Q=[{"id":1,"type":"어법","diff":"쉬움","pts":4,"fmt":"mc","passage":"T
 {"id":9,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"The commonsense understanding of the moral status of __________ acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the righ...","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에는 <b>altruistic(이타적인)</b>이 적절하다.","analysis":"✅ ③ altruistic: 문맥과 일치\n❌ ① selfish: 반의어\n❌ ② offended: 무관\n❌ ④ recipient: 무관\n❌ ⑤ acknowledge: 오답 — 문맥과 맞지 않음","tip":"altruistic(이타적인) ↔ selfish"},"ans":2,"ch":["selfish","offended","altruistic","recipient"]},
 {"id":10,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the largest __________s—and bringing about the greatest benefits to their recipients—assert just the opposite. They insist that they __________. Organ donors, and everyday citizens who risk their own lives to save others in mortal danger are remarkably consistent in their explicit denials that they have done anything deserving of high praise as well as in their assurance that anyone in their shoes should have done exactly the same thing. To be sure, it seems that the more altruistic someone is, the more they are likely to insist that they have done no more than all of us would be expected to do, lest we shirk our basic moral obligation to humanity.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에는 <b>sacrifice(희생)</b>이 적절하다.","analysis":"✅ ③ sacrifice: 문맥과 일치\n❌ ① gain: 반의어\n❌ ② assert: 무관\n❌ ④ assurance: 무관\n❌ ⑤ acknowledge: 오답 — 문맥과 맞지 않음","tip":"sacrifice(희생) ↔ gain"},"ans":2,"ch":["gain","assert","sacrifice","assurance"]},
 {"id":11,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the largest sacrifices—and bringing about the greatest benefits to their recipients—assert just the opposite. They insist that they __________. Organ donors, and everyday citizens who risk their own lives to save others in mortal danger are remarkably consistent in their explicit __________s that they have done anything deserving of high praise as well as in their assurance that anyone in their shoes should have done exactly the same thing. To be sure, it seems that the more altruistic someone is, the more they are likely to insist that they have done no more than all of us would be expected to do, lest we shirk our basic moral obligation to humanity.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에는 <b>denial(부인, 부정)</b>이 적절하다.","analysis":"✅ ③ denial: 문맥과 일치\n❌ ① admission: 반의어\n❌ ② obligation: 무관\n❌ ④ altruistic: 무관\n❌ ⑤ acknowledge: 오답 — 문맥과 맞지 않음","tip":"denial(부인, 부정) ↔ admission"},"ans":2,"ch":["admission","obligation","denial","altruistic"]},
-{"id":12,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society det...","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"altruism → <b>altruistic</b>","analysis":"altruism(이타주의) → altruistic","tip":"altruism(이타주의) → altruistic"},"wa":"altruistic","accept":["altruistic","Altruistic"]},
-{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society det...","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>offended</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: offended<br>허용 답안: offended, Offended<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"offended","accept":["offended","Offended"]},
-{"id":14,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 '수혜자'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>recipient</b>이다. 다음 글에서 '수혜자'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","analysis":"정답: recipient<br>허용 답안: recipient, Recipient<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"recipient","accept":["recipient","Recipient"]},
-{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 '부인, 부정'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>denial</b>이다. 다음 글에서 '부인, 부정'에 해당하는 영어 단어를 본문에서 찾아 쓰시오","analysis":"정답: denial<br>허용 답안: denial, Denial<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"denial","accept":["denial","Denial"]},
-{"id":16,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 'something you must do'에 해당하는 단어를 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"'something you must do' → <b>obligation</b>","analysis":"obligation = 의무: something you must do","tip":"obligation: something you must do"},"wa":"obligation","accept":["obligation","Obligation"]},
+{"id":12,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society det...","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"altruism → <b>altruistic</b>","analysis":"altruism(이타주의) → altruistic","tip":"altruism(이타주의) → altruistic"},"wa":"altruistic","accept":["altruistic","Altruistic","altruistic."]},
+{"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society det...","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>offended</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: offended<br>허용 답안: offended, Offended<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"offended","accept":["offended","Offended","offended."]},
+{"id":14,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 '수혜자'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>recipient</b>이다. 다음 글에서 '수혜자'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","analysis":"정답: recipient<br>허용 답안: recipient, Recipient<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"recipient","accept":["recipient","Recipient","recipient."]},
+{"id":15,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 '부인, 부정'에 해당하는 영어 단어를 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>denial</b>이다. 다음 글에서 '부인, 부정'에 해당하는 영어 단어를 본문에서 찾아 쓰시오","analysis":"정답: denial<br>허용 답안: denial, Denial<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"denial","accept":["denial","Denial","denial."]},
+{"id":16,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the right to make such decisions for ourselves. Yet, when interviewed, altruists known for making the larges...","stem":"다음 글에서 'something you must do'에 해당하는 단어를 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"'something you must do' → <b>obligation</b>","analysis":"obligation = 의무: something you must do","tip":"obligation: something you must do"},"wa":"obligation","accept":["obligation","Obligation","obligation."]},
 {"id":17,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the righ...","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>\"<b>Altruistic means 이타적인.</b>\"","det":{"korean":"진술 \"<b>Altruistic means 이타적인.</b>\"은 본문의 내용과 <b>일치</b>한다.","analysis":"✅ True: 본문에서 해당 내용을 직접 확인할 수 있다.<br>❌ False: 본문과 일치하므로 False는 오답.","tip":"T/F 문제 — 진술의 핵심 키워드를 본문에서 찾아 정확히 대조하세요. 작은 차이가 정답을 바꿉니다."},"ans":0,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
 {"id":18,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the righ...","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>\"<b>Offended means pleased.</b>\"","det":{"korean":"진술 \"<b>Offended means pleased.</b>\"은 본문의 내용과 <b>불일치</b>한다.","analysis":"✅ False: 본문의 내용과 다르거나 언급되지 않은 내용이다.<br>❌ True: 본문과 불일치하므로 True는 오답.","tip":"T/F 문제 — 진술의 핵심 키워드를 본문에서 찾아 정확히 대조하세요. 작은 차이가 정답을 바꿉니다."},"ans":1,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
 {"id":19,"type":"T/F","diff":"어려움","pts":6,"fmt":"mc","passage":"The commonsense understanding of the moral status of altruistic acts conforms to how most of us think about our responsibilities toward others. We tend to get offended when someone else or society determines for us how much of what we have should be given away; we are adults and should have the righ...","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.<br><br><br>\"<b>Recipient means 수혜자.</b>\"","det":{"korean":"진술 \"<b>Recipient means 수혜자.</b>\"은 본문의 내용과 <b>일치</b>한다.","analysis":"✅ True: 본문에서 해당 내용을 직접 확인할 수 있다.<br>❌ False: 본문과 일치하므로 False는 오답.","tip":"T/F 문제 — 진술의 핵심 키워드를 본문에서 찾아 정확히 대조하세요. 작은 차이가 정답을 바꿉니다."},"ans":0,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

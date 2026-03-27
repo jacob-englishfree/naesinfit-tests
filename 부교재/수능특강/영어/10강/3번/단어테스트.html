@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a period of time devoted to a particular activity\"</b>","det":{"korean":"<b>session(세션)</b>: 특정 활동에 할애된 시간.","analysis":"✅① session","tip":"session = 세션, 시간 단위"},"ans":0,"ch":["session","lesson","meeting","conference"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"relating to the natural world and the impact of human activities on it\"</b>","det":{"korean":"<b>environmental(환경의)</b>: 자연 세계와 인간 활동의 영향에 관한.","analysis":"✅② environmental","tip":"environmental = 환경의"},"ans":1,"ch":["seasonal","environmental","recreational","educational"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"going somewhere with someone as a companion or helper\"</b>","det":{"korean":"<b>accompanying(동반하는)</b>: 동반자나 도우미로서 함께 가는.","analysis":"✅① accompanying","tip":"accompanying = 동반하는"},"ans":0,"ch":["accompanying","participating","observing","volunteering"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"enjoy seasonal, __________ (environment)-themed activities!","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"environment(명사) → environmentally(부사).","analysis":"environment → environmentally: -themed를 수식하는 부사.","tip":"environmentally = 환경적으로"},"wa":"environmentally","accept":["environmentally","Environmentally"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Aimed __________ (primary) at 3–11 year olds, this event is enjoyable for the whole family!","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"primary(형용사) → primarily(부사).","analysis":"primary → primarily: aimed를 수식하는 부사.","tip":"primary(형) → primarily(부) = 주로"},"wa":"primarily","accept":["primarily","Primarily"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"enjoy seasonal, __________ (environment)-themed activities!","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"environment(명사) → environmentally(부사).","analysis":"environment → environmentally: -themed를 수식하는 부사.","tip":"environmentally = 환경적으로"},"wa":"environmentally","accept":["environmentally","Environmentally","environmentally."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Aimed __________ (primary) at 3–11 year olds, this event is enjoyable for the whole family!","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"primary(형용사) → primarily(부사).","analysis":"primary → primarily: aimed를 수식하는 부사.","tip":"primary(형) → primarily(부) = 주로"},"wa":"primarily","accept":["primarily","Primarily","primarily."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Do accompanying adults need tickets?<br>– No! Adults can enter __________ with the purchase of a child's ticket.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"성인은 아동 티켓 구매 시 <b>무료(free)</b>로 입장.","analysis":"✅② free: Adults can enter free","tip":"enter free = 무료로 입장하다"},"ans":1,"ch":["compulsory","free","paid","required"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"enjoy __________, environmentally-themed activities!","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"<b>계절(seasonal)</b>에 맞는 환경 테마 활동.","analysis":"✅① seasonal","tip":"seasonal = 계절의"},"ans":0,"ch":["seasonal","annual","daily","weekly"]}];
 
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

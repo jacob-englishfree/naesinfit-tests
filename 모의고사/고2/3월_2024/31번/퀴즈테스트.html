@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -197,17 +197,17 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 const EI={"subject":"2024 고2 3월 모의고사","pub":"31번","lesson":"빈칸","title":"Dancers and Physical Limits","total":100,"time":1200,"totalQ":20,"histKey":"quizTest_2024_g2_mar_31_v1"};
 const FULL_PASSAGE="Dancers often push themselves to the limits of their physical capabilities. But that push is misguided if it is directed toward accomplishing something physically impossible. For instance, a tall dancer with long feet may wish to perform repetitive vertical jumps to fast music, pointing his feet while in the air and lowering his heels to the floor between jumps. That may be impossible no matter how strong the dancer is. But a short-footed dancer may have no trouble! Another dancer may be struggling to complete a half-turn in the air. Understanding the connection between a rapid turn rate and the alignment of the body close to the rotation axis tells her how to accomplish her turn successfully. In both of these cases, understanding and working within the constraints imposed by nature and described by physical laws allows dancers to work efficiently, minimizing potential risk of injury.";
 const Q=[{"passage":FULL_PASSAGE,"id":1,"type":"문장삽입","diff":"어려움","pts":6,"fmt":"mc","stem":"다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?","det":{"korean":"주어진 문장은 <b>③</b> 위치에 삽입하는 것이 가장 적절하다.","analysis":"❌ ① 본문에서 확인할 수 없는 내용이다.: 논리적 흐름이 끊김<br>❌ ② 원문의 내용과 상반되는 주장이다.: 논리적 흐름이 끊김<br>✅ ③ ③: 앞뒤 문맥과 자연스럽게 연결<br>❌ ④ 필자의 의도와 다른 해석이다.: 논리적 흐름이 끊김<br>❌ ⑤ 세부 사항이 원문과 다르다.: 논리적 흐름이 끊김","tip":"문장삽입 — 삽입할 문장의 지시어(this, these, such)와 연결어를 단서로 위치를 파악하세요."},"ans":2,"ch":["본문에서 확인할 수 없는 내용이다.","원문의 내용과 상반되는 주장이다.","③","필자의 의도와 다른 해석이다."]},
-{"passage":FULL_PASSAGE,"id":2,"type":"어순배열","diff":"어려움","pts":6,"fmt":"written","stem":"다음 주어진 단어를 올바른 순서로 배열하시오.","det":{"korean":"올바른 어순은 \"<b>efficiently</b>\"이다.","analysis":"정답: efficiently<br>문장 구조(S+V+O)에 맞게 배열해야 한다.<br>허용: efficiently, Efficiently","tip":"어순배열 — 주어(S), 동사(V), 목적어(O) 순서를 먼저 잡고, 수식어를 배치하세요."},"wa":"efficiently","accept":["efficiently","Efficiently"]},
+{"passage":FULL_PASSAGE,"id":2,"type":"어순배열","diff":"어려움","pts":6,"fmt":"written","stem":"다음 주어진 단어를 올바른 순서로 배열하시오.","det":{"korean":"올바른 어순은 \"<b>efficiently</b>\"이다.","analysis":"정답: efficiently<br>문장 구조(S+V+O)에 맞게 배열해야 한다.<br>허용: efficiently, Efficiently","tip":"어순배열 — 주어(S), 동사(V), 목적어(O) 순서를 먼저 잡고, 수식어를 배치하세요."},"wa":"efficiently","accept":["efficiently","Efficiently","efficiently."]},
 {"passage":FULL_PASSAGE,"id":3,"type":"어법","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 밑줄 친 ①~⑤ 중 어법상 <b>틀린</b> 것은?\n①<u>limits</u> ②<u>misguided</u> ③<u>accomplish</u> ④<u>constraints</u> ⑤<u>wastefully</u>","det":{"korean":"<b>⑤</b>가 적절하다. 문맥에 적합한 어법 형태 선택.","analysis":"❌ ① being: 동명사/분사형 — 이 문맥에서 부적절<br>❌ ② been: 문법 규칙에 맞지 않음<br>❌ ③ having: 동명사/분사형 — 이 문맥에서 부적절<br>❌ ④ had: 문법 규칙에 맞지 않음<br>✅ ⑤ ⑤: 문법적으로 올바른 형태","tip":"문맥에 적합한 어법 형태 선택. 빈칸 앞뒤 구조를 정확히 파악하세요."},"ans":3,"ch":["being","been","having","⑤"]},
 {"passage":FULL_PASSAGE,"id":4,"type":"어법","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 빈칸에 어법상 적절한 것은?","det":{"korean":"<b>struggling</b>가 적절하다. 동명사/현재분사(-ing) 형태가 필요한 문맥.","analysis":"❌ ① succeeding: 문법 규칙에 맞지 않음<br>✅ ② struggling: 문법적으로 올바른 형태<br>❌ ③ striving: 문법 규칙에 맞지 않음<br>❌ ④ removed: 과거분사형 — 이 문맥에서 부적절","tip":"동명사/현재분사(-ing) 형태가 필요한 문맥. 빈칸 앞뒤 구조를 정확히 파악하세요."},"ans":1,"ch":["succeeding","struggling","striving","removed"]},
 {"passage":FULL_PASSAGE,"id":5,"type":"어법","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 빈칸에 어법상 적절한 것은?","det":{"korean":"<b>imposed</b>가 적절하다. 과거형/과거분사(-ed) 형태가 필요한 문맥.","analysis":"❌ ① removed: 문법 규칙에 맞지 않음<br>✅ ② imposed: 문법적으로 올바른 형태<br>❌ ③ enforced: 문법 규칙에 맞지 않음<br>❌ ④ increasing: 동명사/분사형 — 이 문맥에서 부적절","tip":"과거형/과거분사(-ed) 형태가 필요한 문맥. 빈칸 앞뒤 구조를 정확히 파악하세요."},"ans":1,"ch":["removed","imposed","enforced","increasing"]},
 {"id":6,"type":"어휘","diff":"보통","pts":5,"fmt":"mc","passage":"①<u>Dancers</u> often push themselves to the limits of their physical capabilities. But that push is misguided if it is directed toward accomplishing something physically impossible. For ②<u>stance</u>, a tall ③<u>dancer</u> with long feet may wish to perform repetitive vertical jumps to fast music, pointing his feet while in the air and lowering his heels to the ④<u>floor</u> between jumps. That may be impossible no matter how strong the dancer is. But a short-footed dancer may have no trouble! Another dancer may be struggling to complete a half-turn in the air. Understanding the ⑤<u>connection</u> between a rapid turn rate and the alignment of the body close to the rotation axis tells her how to accomplish her turn successfully. In both of these cases, understanding and working within the constraints imposed by nature and described by physical laws allows dancers to work efficiently, minimizing potential risk of injury.","stem":"다음 글의 밑줄 친 ①~⑤ 중 문맥상 부적절한 것은?\n①<u>limits</u> ②<u>misguided</u> ③<u>accomplish</u> ④<u>freedoms</u> ⑤<u>efficiently</u>","det":{"korean":"④ freedoms → 원문 constraints","analysis":"❌ ② stance: 원문은 instance\n✅ 나머지: 원문 일치","tip":"instance ↔ stance"},"ans":1,"ch":["abundant","②","inevitable","sufficient"]},
 {"id":7,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"Dancers often push themselves to the limits of their physical capabilities. But that push is misguided if it is directed toward accomplishing something physically impossible. For instance, a tall dancer with long feet may wish to perform repetitive vertical jumps to fast music, pointing his feet while in the air and lowering his heels to the floor between jumps. That may be impossible no matter how strong the dancer is. But a short-footed dancer may have no trouble! Another dancer may be struggling to complete a half-turn in the air. Understanding the connection between a rapid turn rate and the alignment of the body close to the rotation axis tells her how to accomplish her turn successfully. In both of these cases, understanding and working within the constraints imposed by nature and described by physical laws allows dancers to work efficiently, __________ potential risk of injury.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>minimizing</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① increasing: 문맥의 흐름에 맞지 않음<br>❌ ② centers: 문맥의 흐름에 맞지 않음<br>✅ ③ minimizing: 문맥의 흐름과 논리에 부합<br>❌ ④ freedoms: 문맥의 흐름에 맞지 않음<br>❌ ⑤ succeeding: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":2,"ch":["increasing","centers","minimizing","freedoms"]},
 {"id":8,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"Dancers often push themselves to the limits of their physical capabilities. But that push is __________ if it is directed toward accomplishing something physically impossible. For instance, a tall dancer with long feet may wish to perform repetitive vertical jumps to fast music, pointing his feet while in the air and lowering his heels to the floor between jumps. That may be impossible no matter how strong the dancer is. But a short-footed dancer may have no trouble! Another dancer may be struggling to complete a half-turn in the air. Understanding the connection between a rapid turn rate and the alignment of the body close to the rotation axis tells her how to accomplish her turn successfully. In both of these cases, understanding and working within the constraints imposed by nature and described by physical laws allows dancers to work efficiently, minimizing potential risk of injury.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>misguided</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① correct: 문맥의 흐름에 맞지 않음<br>❌ ② fail: 문맥의 흐름에 맞지 않음<br>❌ ③ wastefully: 문맥의 흐름에 맞지 않음<br>✅ ④ misguided: 문맥의 흐름과 논리에 부합<br>❌ ⑤ removed: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":3,"ch":["correct","fail","wastefully","misguided"]},
-{"passage":FULL_PASSAGE,"id":9,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>accomplish</b>이다. 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: accomplish<br>허용 답안: accomplish, Accomplish<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"accomplish","accept":["accomplish","Accomplish"]},
-{"passage":FULL_PASSAGE,"id":10,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>struggling</b>이다. 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: struggling<br>허용 답안: struggling, Struggling<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"struggling","accept":["struggling","Struggling"]},
-{"passage":FULL_PASSAGE,"id":11,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"본문에서 핵심 단어를 <b>1단어</b>로 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>efficiently</b>이다. 본문에서 핵심 단어를 1단어로 쓰시오.","analysis":"정답: efficiently<br>허용 답안: efficiently, Efficiently<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"efficiently","accept":["efficiently","Efficiently"]},
-{"passage":FULL_PASSAGE,"id":12,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"본문에서 핵심 표현을 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>imposed</b>이다. 본문에서 핵심 표현을 쓰시오.","analysis":"정답: imposed<br>허용 답안: imposed, Imposed<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"imposed","accept":["imposed","Imposed"]},
+{"passage":FULL_PASSAGE,"id":9,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>accomplish</b>이다. 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: accomplish<br>허용 답안: accomplish, Accomplish<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"accomplish","accept":["accomplish","Accomplish","accomplish."]},
+{"passage":FULL_PASSAGE,"id":10,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>struggling</b>이다. 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: struggling<br>허용 답안: struggling, Struggling<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"struggling","accept":["struggling","Struggling","struggling."]},
+{"passage":FULL_PASSAGE,"id":11,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"본문에서 핵심 단어를 <b>1단어</b>로 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>efficiently</b>이다. 본문에서 핵심 단어를 1단어로 쓰시오.","analysis":"정답: efficiently<br>허용 답안: efficiently, Efficiently<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"efficiently","accept":["efficiently","Efficiently","efficiently."]},
+{"passage":FULL_PASSAGE,"id":12,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"본문에서 핵심 표현을 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>imposed</b>이다. 본문에서 핵심 표현을 쓰시오.","analysis":"정답: imposed<br>허용 답안: imposed, Imposed<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"imposed","accept":["imposed","Imposed","imposed."]},
 {"passage":FULL_PASSAGE,"id":13,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 주제/주장으로 가장 적절한 것은?","det":{"korean":"본문의 내용을 종합하면 <b>적절</b>가 가장 적절하다. 각 선택지를 지문과 하나씩 대조하여 정답을 도출한다.","analysis":"❌ ① 부적절: 지문의 내용과 불일치하거나 근거 부족<br>✅ ② 적절: 지문의 내용에 부합하는 정답<br>❌ ③ 부적절 (variant): 지문의 내용과 불일치하거나 근거 부족<br>❌ ④ 부적절 (variant) (variant): 지문의 내용과 불일치하거나 근거 부족<br>❌ ⑤ 부적절 (variant) (variant) (variant): 지문의 내용과 불일치하거나 근거 부족","tip":"내용 이해 — 지문의 핵심 주제와 세부 내용을 꼼꼼히 읽으세요."},"ans":1,"ch":["부적절","적절","부적절 (variant)","부적절 (variant) (variant)"]},
 {"passage":FULL_PASSAGE,"id":14,"type":"내용이해","diff":"쉬움","pts":4,"fmt":"mc","stem":"다음 글의 내용과 <b>일치하는</b> 것은?","det":{"korean":"본문의 내용을 종합하면 <b>일치</b>가 가장 적절하다. 각 선택지를 지문과 하나씩 대조하여 정답을 도출한다.","analysis":"❌ ① 불일치: 지문의 내용과 불일치하거나 근거 부족<br>✅ ② 일치: 지문의 내용에 부합하는 정답<br>❌ ③ 불일치 (variant): 지문의 내용과 불일치하거나 근거 부족<br>❌ ④ 불일치 (variant) (variant): 지문의 내용과 불일치하거나 근거 부족<br>❌ ⑤ 본문에서 확인할 수 없는 내용이다.: 지문의 내용과 불일치하거나 근거 부족","tip":"내용 이해 — 지문의 핵심 주제와 세부 내용을 꼼꼼히 읽으세요."},"ans":1,"ch":["불일치","일치","불일치 (variant)","불일치 (variant) (variant)"]},
 {"passage":FULL_PASSAGE,"id":15,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 내용과 <b>일치하지 않는</b> 것은?","det":{"korean":"본문의 내용을 종합하면 <b>불일치</b>가 가장 적절하다. 각 선택지를 지문과 하나씩 대조하여 정답을 도출한다.","analysis":"❌ ① 일치: 지문의 내용과 불일치하거나 근거 부족<br>❌ ② 일치 (variant): 지문의 내용과 불일치하거나 근거 부족<br>❌ ③ 일치 (variant) (variant): 지문의 내용과 불일치하거나 근거 부족<br>✅ ④ 불일치: 지문의 내용에 부합하는 정답<br>❌ ⑤ 원문의 내용과 상반되는 주장이다.: 지문의 내용과 불일치하거나 근거 부족","tip":"내용 이해 — 지문의 핵심 주제와 세부 내용을 꼼꼼히 읽으세요."},"ans":3,"ch":["일치","일치 (variant)","일치 (variant) (variant)","불일치"]},
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

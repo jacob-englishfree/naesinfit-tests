@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -213,9 +213,9 @@ const Q=[{"id":1,"type":"내용일치","diff":"쉬움","pts":4,"fmt":"mc","passa
 {"id":15,"type":"지칭추론","diff":"보통","pts":5,"fmt":"mc","passage":"I went to a convenience store to buy some snacks. No one was at the counter, so I thought the clerk was working in the back. The telephone started ringing, but no one came to answer it. I felt something was wrong. I looked over the counter and saw the clerk lying on the floor. I immediately called 911 and explained the situation. The operator asked me to perform CPR on the clerk until the paramedics arrived. I was scared, but I remembered learning CPR at school. I started to push down on his chest, hoping that I was doing it right.","stem":"밑줄 친 his가 가리키는 대상은?","ans":1,"ch":["Jason","the clerk","the operator","the paramedic"],"det":{"korean":"his = 점원(the clerk). Jason이 점원의 가슴을 눌러 CPR을 수행했다.","analysis":"✅ ② the clerk: Jason이 CPR을 수행한 대상은 바닥에 쓰러진 점원\n❌ ① Jason: 화자(I) 본인, his로 지칭하지 않음\n❌ ③ the operator: 전화 교환원, 현장에 없음\n❌ ④ the paramedic: 아직 도착하지 않은 상태","tip":"대명사 추적: I(Jason)가 push down on his(the clerk's) chest — CPR 대상은 점원."}},
 {"id":16,"type":"지칭추론","diff":"보통","pts":5,"fmt":"mc","passage":"Then one day, I came across an interesting university major called sports medicine. It deals with the treatment and prevention of sports injuries. A light bulb went on in my head. This was my chance to stop running away from my problems and fears.","stem":"밑줄 친 This가 가리키는 것은?","ans":3,"ch":["올림픽에 출전하는 것","무릎 부상을 치료하는 것","스포츠를 차단한 2년간의 생활","스포츠 의학 전공을 발견한 것"],"det":{"korean":"This = 스포츠 의학이라는 전공을 발견한 것. 문제와 두려움에서 도망치지 않을 기회.","analysis":"✅ ④ 스포츠 의학을 발견한 것이 도피를 멈출 기회\n❌ ① 올림픽은 이미 포기한 꿈\n❌ ② 치료가 아닌 전공 선택이 핵심\n❌ ③ 차단한 생활은 도피의 일부이지 기회가 아님","tip":"This(이것) = 바로 앞 문장의 핵심 내용. 스포츠 의학 전공 발견이 전환점."}},
 {"id":17,"type":"주제/요지","diff":"쉬움","pts":4,"fmt":"mc","passage":"What does it mean to be brave? There is no single definition, but everyone is brave in their own way. Here are three young people sharing their bravest moments in life.","stem":"세 사람의 이야기를 통해 글 전체가 전달하고자 하는 주제로 가장 적절한 것은?","ans":0,"ch":["용기는 다양한 형태로 나타나며, 누구나 자기만의 방식으로 용감할 수 있다.","위기 상황에서 응급처치 기술을 배우는 것이 중요하다.","스포츠 부상을 극복하려면 의학적 도움이 필요하다.","대중 앞에서 연설하는 것은 누구에게나 어렵다."],"det":{"korean":"용기는 하나의 정의가 없고, 각자의 방식으로 용감하다.","analysis":"✅ ① 글의 도입부 주제 + 세 사람의 다양한 용기 사례를 통합\n❌ ② Jason의 이야기만 해당\n❌ ③ Olivia의 이야기만 해당\n❌ ④ Yuna의 이야기만 해당","tip":"글 전체 주제는 도입부에 제시: no single definition + brave in their own way."}},
-{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"I could not watch sports anymore because it was just too painful. So I shut out everything related to sports from my life. Two years passed and I was still trying to get used to my __________ high school life without sports.","stem":"다음 빈칸에 들어갈 적절한 단어 한 개를 원문에서 찾아 쓰시오.","wa":"ordinary","accept":["ordinary","Ordinary"],"det":{"korean":"스포츠 없는 평범한(ordinary) 고등학교 생활에 적응하려 했다.","analysis":"✅ ordinary: 원문 일치 — my ordinary high school life without sports\n❌ normal: 유사하지만 원문 불일치\n❌ regular: 유사하지만 원문 불일치","tip":"ordinary(평범한) — 스포츠라는 특별한 요소가 빠진 '보통의' 고등학교 생활."}},
+{"id":18,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"I could not watch sports anymore because it was just too painful. So I shut out everything related to sports from my life. Two years passed and I was still trying to get used to my __________ high school life without sports.","stem":"다음 빈칸에 들어갈 적절한 단어 한 개를 원문에서 찾아 쓰시오.","wa":"ordinary","accept":["ordinary","Ordinary","ordinary."],"det":{"korean":"스포츠 없는 평범한(ordinary) 고등학교 생활에 적응하려 했다.","analysis":"✅ ordinary: 원문 일치 — my ordinary high school life without sports\n❌ normal: 유사하지만 원문 불일치\n❌ regular: 유사하지만 원문 불일치","tip":"ordinary(평범한) — 스포츠라는 특별한 요소가 빠진 '보통의' 고등학교 생활."}},
 {"id":19,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","passage":"But my act of courage taught me a valuable lesson.","stem":"다음 주어진 단어를 올바른 순서로 배열하여 문장을 완성하시오.<br><br><b>I / can / do / anything / that / I / put / my mind / to</b><br><br>→ __________","wa":"I can do anything that I put my mind to","accept":["I can do anything that I put my mind to","I can do anything that I put my mind to."],"det":{"korean":"마음만 먹으면 무엇이든 할 수 있다.","analysis":"✅ I can do anything that I put my mind to: 원문 일치\n❌ 다른 어순은 문법적으로 부적절","tip":"put one's mind to = ~에 마음을 쏟다/결심하다. 관계대명사 that이 anything을 수식."}},
-{"id":20,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"This fear kept me behind the stage rather than on it. That's why I never entered the annual speech __________ at my school.","stem":"다음 빈칸에 들어갈 단어 한 개를 원문에서 찾아 쓰시오.<br><br>조건: '대회'라는 뜻의 명사 1개","wa":"contest","accept":["contest","Contest"],"det":{"korean":"두려움 때문에 매년 열리는 학교 연설 대회(contest)에 참가하지 않았다.","analysis":"✅ contest: 원문 일치 — the annual speech contest\n❌ competition: 유사하지만 원문 불일치\n❌ tournament: 유사하지만 원문 불일치","tip":"contest(대회) — annual speech contest = 매년 열리는 연설 대회."}}];
+{"id":20,"type":"서술형","diff":"보통","pts":5,"fmt":"written","passage":"This fear kept me behind the stage rather than on it. That's why I never entered the annual speech __________ at my school.","stem":"다음 빈칸에 들어갈 단어 한 개를 원문에서 찾아 쓰시오.<br><br>조건: '대회'라는 뜻의 명사 1개","wa":"contest","accept":["contest","Contest","contest."],"det":{"korean":"두려움 때문에 매년 열리는 학교 연설 대회(contest)에 참가하지 않았다.","analysis":"✅ contest: 원문 일치 — the annual speech contest\n❌ competition: 유사하지만 원문 불일치\n❌ tournament: 유사하지만 원문 불일치","tip":"contest(대회) — annual speech contest = 매년 열리는 연설 대회."}}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

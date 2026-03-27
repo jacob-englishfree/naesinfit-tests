@@ -204,7 +204,7 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"passage":FULL_PASSAGE,"id":6,"type":"내용이해","diff":"보통","pts":5,"fmt":"mc","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"초기 곡물 무역 회사들은 잉여 생산 지역과 식량 부족 지역 양쪽에서 활동했으며, 이 정보가 곧 수익성의 핵심이었습니다. 따라서 빈칸에는 <b>수익성(profitability)</b>이 가장 적절합니다.","analysis":"✅ ① profitability(수익성): 정보가 사업 성과의 핵심 → 수익성\n❌ ② unification(통합)\n❌ ③ innovation(혁신)\n❌ ④ reputation(평판)\n❌ ⑤ morality(도덕성)","tip":"Gateway 지문 빈칸 정답: profitability(수익성) — 정보 우위가 곧 재정적 성공의 열쇠"},"ans":0,"ch":["profitability","unification","innovation","reputation"]},
 {"id":7,"type":"다의어 문맥적 의미","diff":"보통","pts":5,"fmt":"mc","passage":"Their access to information in multiple markets enabled them to easily <b>cover</b> the risks associated with agricultural commodity trade.","stem":"밑줄 친 <b>cover</b>가 이 문맥에서 의미하는 바로 가장 적절한 것은?","det":{"korean":"cover는 다의어로, 이 문맥에서는 위험을 '상쇄하다, 충당하다'라는 의미로 사용되었습니다.","analysis":"✅ ③ 상쇄하다, 충당하다: 위험(risks)과 결합하여 '위험을 커버하다'\n❌ ① 물리적으로 덮다\n❌ ② 뉴스 보도하다\n❌ ④ 포함하다\n❌ ⑤ 거리를 여행하다","tip":"cover the risks = offset/compensate for the risks: 금융·무역에서 '위험을 상쇄하다'"},"ans":2,"ch":["덮다 (물리적으로)","보도하다 (뉴스)","상쇄하다, 충당하다","포함하다"]},
 {"id":8,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영풀이에 해당하는 단어는?\n\n<b>\"a raw material or agricultural product that can be bought and sold\"</b>","det":{"korean":"'사고 팔 수 있는 원자재 또는 농산물'은 <b>commodity(상품, 원자재)</b>의 정의입니다.","analysis":"✅ ③ commodity: 원자재, 상품\n❌ ① deficit(부족, 적자)\n❌ ② surplus(잉여)\n❌ ④ loyalty(충성심)\n❌ ⑤ secrecy(비밀)","tip":"commodity exchange = 상품 거래소, commodity trade = 상품 무역"},"ans":2,"ch":["deficit","surplus","commodity","loyalty"]},
-{"id":9,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"Because this information was the key to their profitability, these firms worked in relative secrecy.","stem":"다음 문장의 <b>profitability</b>를 형용사로 바꿔 쓰시오.","det":{"korean":"profitability(수익성, 명사) → <b>profitable(수익성 있는, 형용사)</b>","analysis":"profitability(명사) → profitable(형용사)\n어근 profit + 접미사 -able → profitable\n명사형은 profitable + -ity → profitability","tip":"profit(이윤) → profitable(수익성 있는) → profitability(수익성): 파생어 변환 패턴"},"wa":"profitable","accept":["profitable","Profitable","PROFITABLE"]}];
+{"id":9,"type":"어형 변환 (서술형)","diff":"쉬움","pts":4,"fmt":"written","passage":"Because this information was the key to their profitability, these firms worked in relative secrecy.","stem":"다음 문장의 <b>profitability</b>를 형용사로 바꿔 쓰시오.","det":{"korean":"profitability(수익성, 명사) → <b>profitable(수익성 있는, 형용사)</b>","analysis":"profitability(명사) → profitable(형용사)\n어근 profit + 접미사 -able → profitable\n명사형은 profitable + -ity → profitability","tip":"profit(이윤) → profitable(수익성 있는) → profitability(수익성): 파생어 변환 패턴"},"wa":"profitable","accept":["profitable","Profitable","PROFITABLE","profitable."]}];
 
 /* NaesinFit Test Engine v1.0
    Expects these globals before this script runs:
@@ -247,28 +247,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

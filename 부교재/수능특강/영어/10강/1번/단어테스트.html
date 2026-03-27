@@ -212,8 +212,8 @@ const Q=[{"id":1,"type":"(A)(B)(C) 조합형","diff":"쉬움","pts":4,"fmt":"mc"
 {"id":14,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"a person who teaches a particular activity or skill\"</b>","det":{"korean":"<b>instructor(강사)</b>: 특정 활동이나 기술을 가르치는 사람.","analysis":"✅② instructor: 강사\n❌① participant: 참가자","tip":"instructor = 강사, 교관"},"ans":1,"ch":["participant","instructor","coordinator","volunteer"]},
 {"id":15,"type":"영영풀이 매칭","diff":"보통","pts":5,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the preserved remains of an animal or plant from long ago, typically found in rock\"</b>","det":{"korean":"<b>fossil(화석)</b>: 오래 전 동식물의 보존된 유해.","analysis":"✅① fossil: 화석\n❌② artifact: 유물","tip":"fossil = 화석"},"ans":0,"ch":["fossil","artifact","relic","monument"]},
 {"id":16,"type":"영영풀이 매칭","diff":"어려움","pts":6,"fmt":"mc","passage":"","stem":"다음 영영 풀이에 해당하는 단어로 가장 적절한 것은?<br><br><b>\"the action or process of officially signing up for something\"</b>","det":{"korean":"<b>registration(등록)</b>: 공식적으로 무언가에 가입하는 과정.","analysis":"✅③ registration: 등록\n❌① fee: 요금","tip":"registration = 등록, 신청"},"ans":2,"ch":["fee","cost","registration","payment"]},
-{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Participants will be required to sign a __________ (participate) agreement.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"participate(동사) → participation(명사).","analysis":"participate → participation: 동사 → 명사. 명사+명사 합성어.","tip":"participate(동) → participation(명) = 참가"},"wa":"participation","accept":["participation","Participation"]},
-{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Please bring your yoga mat and water as they are not __________ (provide).","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"provide(동사) → provided(과거분사). 수동태.","analysis":"provide → provided: are not provided = 제공되지 않는다.","tip":"are not provided = 제공되지 않는다 (수동태)"},"wa":"provided","accept":["provided","Provided"]},
+{"id":17,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Participants will be required to sign a __________ (participate) agreement.","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"participate(동사) → participation(명사).","analysis":"participate → participation: 동사 → 명사. 명사+명사 합성어.","tip":"participate(동) → participation(명) = 참가"},"wa":"participation","accept":["participation","Participation","participation."]},
+{"id":18,"type":"어형 변환 (서술형)","diff":"어려움","pts":6,"fmt":"written","passage":"Please bring your yoga mat and water as they are not __________ (provide).","stem":"주어진 단어를 문맥에 맞게 어형을 변환하여 빈칸에 쓰시오.","det":{"korean":"provide(동사) → provided(과거분사). 수동태.","analysis":"provide → provided: are not provided = 제공되지 않는다.","tip":"are not provided = 제공되지 않는다 (수동태)"},"wa":"provided","accept":["provided","Provided","provided."]},
 {"id":19,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"Participants must be 18 years or older and will be required to sign a participation __________.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"참가 <b>동의서(agreement)</b>에 서명해야 합니다.","analysis":"✅② agreement: sign a participation agreement\n❌⑤ registration: 등록(sign과 부자연스러움)","tip":"participation agreement = 참가 동의서"},"ans":1,"ch":["competition","agreement","invitation","certificate"]},
 {"id":20,"type":"빈칸 문맥 완성","diff":"어려움","pts":6,"fmt":"mc","passage":"The beginner class will include __________ for those who need them.","stem":"다음 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>chairs</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① tickets: 문맥의 흐름에 맞지 않음<br>❌ ② equipment: 문맥의 흐름에 맞지 않음<br>✅ ③ chairs: 문맥의 흐름과 논리에 부합<br>❌ ④ mats: 문맥의 흐름에 맞지 않음<br>❌ ⑤ water: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":2,"ch":["tickets","equipment","chairs","mats"]}];
 
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {

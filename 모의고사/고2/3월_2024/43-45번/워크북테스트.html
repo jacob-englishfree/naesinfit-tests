@@ -95,18 +95,18 @@ body{font-family:'Pretendard Variable',-apple-system,sans-serif;background:var(-
 .slide-passage{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 18px 200px;background:#fff;transition:opacity .3s,transform .3s;}
 .slide-passage.fade-out{opacity:0;transform:translateX(-20px);}
 .slide-passage.fade-in{opacity:0;transform:translateX(20px);}
-.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:1.9;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(13.5px,3.3vw,15.5px);color:#2a2a2a;}
+.slide-passage .q-passage{padding:0;border:none;background:transparent;line-height:2.0;text-align:justify;word-break:keep-all;overflow-wrap:break-word;font-size:clamp(14.5px,3.5vw,16.5px);color:#1a1a1a;letter-spacing:-0.01em;}
 .q-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:linear-gradient(135deg,var(--pxl),var(--pl));border-radius:20px;margin-bottom:14px;font-size:11px;font-weight:700;color:var(--pd);}
 .q-badge .q-num{width:22px;height:22px;font-size:10px;}
-.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:10px 14px 14px;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.slide-bottom{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.72);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-radius:20px 20px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.08);border-top:1px solid rgba(255,255,255,.5);padding:8px 12px 12px;max-height:38vh;overflow-y:auto;-webkit-overflow-scrolling:touch;transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 .slide-stem{font-size:13px;font-weight:700;margin-bottom:8px;line-height:1.5;color:var(--text);}
-.slide-choices{display:flex;flex-direction:column;gap:3px;}
-.slide-choices .choice-btn{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;line-height:1.3;border:1.5px solid rgba(0,0,0,.06);border-radius:10px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
+.slide-choices{display:flex;flex-direction:column;gap:2px;}
+.slide-choices .choice-btn{display:flex;align-items:center;gap:5px;padding:5px 8px;font-size:11px;line-height:1.25;border:1.5px solid rgba(0,0,0,.06);border-radius:8px;background:rgba(255,255,255,.5);cursor:pointer;font-family:inherit;text-align:left;transition:all .25s cubic-bezier(.34,1.56,.64,1);}
 .slide-choices .choice-btn:active{transform:scale(.97);}
 .slide-choices .choice-btn.selected{border-color:var(--p);background:var(--p-rgba-08);box-shadow:0 0 0 3px var(--p-rgba-12);transform:scale(1.01);}
 @keyframes selectPulse{0%{box-shadow:0 0 0 0 var(--p-rgba-30)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
 .slide-choices .choice-btn.just-selected{animation:selectPulse .5s ease-out;}
-.slide-choices .c-num{min-width:20px;height:20px;font-size:10px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
+.slide-choices .c-num{min-width:18px;height:18px;font-size:9px;background:rgba(0,0,0,.05);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--tm);flex-shrink:0;transition:all .2s;}
 .slide-choices .choice-btn.selected .c-num{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;}
 .slide-choices .written-input{width:100%;padding:12px 14px;font-size:14px;background:rgba(255,255,255,.6);border:1.5px solid rgba(0,0,0,.06);border-radius:12px;font-family:inherit;}
 .slide-choices .written-input:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px var(--p-rgba-10);}
@@ -207,11 +207,11 @@ const Q=[{"passage":FULL_PASSAGE,"id":1,"type":"어법","diff":"쉬움","pts":4,
 {"id":9,"type":"빈칸추론","diff":"보통","pts":5,"fmt":"mc","passage":"(A)\nChristine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. (a) She desperately hoped Leo got the necessary care as soon as possible.\n\n(B)\n“I’ll call (b) you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests __________ a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo.\n\n(C)\nThe vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. (c) She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.\n\n(D)\nThe waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “(d) I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but (e) she had to accept it was for the best.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>revealed</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① companion의 반의어: 문맥의 흐름에 맞지 않음<br>❌ ② desperately의 반의어: 문맥의 흐름에 맞지 않음<br>✅ ③ revealed: 문맥의 흐름과 논리에 부합<br>❌ ④ administer의 반의어: 문맥의 흐름에 맞지 않음<br>❌ ⑤ eliminate: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":2,"ch":["companion의 반의어","desperately의 반의어","revealed","administer의 반의어"]},
 {"id":10,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"(A)\nChristine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. (a) She desperately hoped Leo got the necessary care as soon as possible.\n\n(B)\n“I’ll call (b) you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo.\n\n(C)\nThe vet provided detailed instructions on how to __________ the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. (c) She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.\n\n(D)\nThe waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “(d) I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was heartbreaking for Christine to leave Leo at the animal hospital, but (e) she had to accept it was for the best.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>administer</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① 반의어1: 문맥의 흐름에 맞지 않음<br>❌ ② 반의어2: 문맥의 흐름에 맞지 않음<br>❌ ③ 반의어3: 문맥의 흐름에 맞지 않음<br>✅ ④ administer: 문맥의 흐름과 논리에 부합<br>❌ ⑤ eliminate: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":3,"ch":["반의어1","반의어2","반의어3","administer"]},
 {"id":11,"type":"빈칸추론","diff":"어려움","pts":6,"fmt":"mc","passage":"(A)\nChristine was a cat owner who loved her furry companion, Leo. One morning, she noticed that Leo was not feeling well. Concerned for her beloved cat, Christine decided to take him to the animal hospital. As she always brought Leo to this hospital, she was certain that the vet knew well about Leo. (a) She desperately hoped Leo got the necessary care as soon as possible.\n\n(B)\n“I’ll call (b) you with updates as soon as we know anything,” said the vet. Throughout the day, Christine anxiously awaited news about Leo. Later that day, the phone rang and it was the vet. “The tests revealed a minor infection. Leo needs some medication and rest, but he’ll be back to his playful self soon.” Relieved to hear the news, Christine rushed back to the animal hospital to pick up Leo.\n\n(C)\nThe vet provided detailed instructions on how to administer the medication and shared tips for a speedy recovery. Back at home, Christine created a comfortable space for Leo to rest and heal. (c) She patted him with love and attention, ensuring that he would recover in no time. As the days passed, Leo gradually regained his strength and playful spirit.\n\n(D)\nThe waiting room was filled with other pet owners. Finally, it was Leo’s turn to see the vet. Christine watched as the vet gently examined him. The vet said, “(d) I think Leo has a minor infection.” “Infection? Will he be okay?” asked Christine. “We need to do some tests to see if he is infected. But for the tests, it’s best for Leo to stay here,” replied the vet. It was __________ for Christine to leave Leo at the animal hospital, but (e) she had to accept it was for the best.","stem":"다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?","det":{"korean":"빈칸에 들어갈 말로 <b>heartbreaking</b>가 가장 적절하다. 빈칸 전후의 문맥 단서를 통해 정답을 도출할 수 있다.","analysis":"❌ ① heartbreaking의 반의어: 문맥의 흐름에 맞지 않음<br>✅ ② heartbreaking: 문맥의 흐름과 논리에 부합<br>❌ ③ 반의어2: 문맥의 흐름에 맞지 않음<br>❌ ④ 반의어3: 문맥의 흐름에 맞지 않음<br>❌ ⑤ eliminate: 문맥의 흐름에 맞지 않음","tip":"빈칸 추론 — 빈칸 앞뒤의 연결어(however, therefore, in contrast 등)와 논리 흐름을 파악하세요."},"ans":1,"ch":["heartbreaking의 반의어","heartbreaking","반의어2","반의어3"]},
-{"passage":FULL_PASSAGE,"id":12,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>companion</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: companion<br>허용 답안: companion, Companion<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"companion","accept":["companion","Companion"]},
-{"passage":FULL_PASSAGE,"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>desperately</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: desperately<br>허용 답안: desperately, Desperately<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"desperately","accept":["desperately","Desperately"]},
-{"passage":FULL_PASSAGE,"id":14,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 글에서 핵심 단어를 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>relieved</b>이다. 다음 글에서 핵심 단어를 본문에서 1단어로 찾아 쓰시오.","analysis":"정답: relieved<br>허용 답안: relieved, Relieved<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"relieved","accept":["relieved","Relieved"]},
-{"passage":FULL_PASSAGE,"id":15,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>gradually</b>이다. 다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","analysis":"정답: gradually<br>허용 답안: gradually, Gradually<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"gradually","accept":["gradually","Gradually"]},
-{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","stem":"다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>regained</b>이다. 다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","analysis":"정답: regained<br>허용 답안: regained, Regained<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"regained","accept":["regained","Regained"]},
+{"passage":FULL_PASSAGE,"id":12,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>companion</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: companion<br>허용 답안: companion, Companion<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"companion","accept":["companion","Companion","companion."]},
+{"passage":FULL_PASSAGE,"id":13,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>desperately</b>이다. 다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오.","analysis":"정답: desperately<br>허용 답안: desperately, Desperately<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"desperately","accept":["desperately","Desperately","desperately."]},
+{"passage":FULL_PASSAGE,"id":14,"type":"서술형","diff":"보통","pts":5,"fmt":"written","stem":"다음 글에서 핵심 단어를 본문에서 <b>1단어</b>로 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>relieved</b>이다. 다음 글에서 핵심 단어를 본문에서 1단어로 찾아 쓰시오.","analysis":"정답: relieved<br>허용 답안: relieved, Relieved<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"relieved","accept":["relieved","Relieved","relieved."]},
+{"passage":FULL_PASSAGE,"id":15,"type":"서술형","diff":"쉬움","pts":4,"fmt":"written","stem":"다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>gradually</b>이다. 다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","analysis":"정답: gradually<br>허용 답안: gradually, Gradually<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"gradually","accept":["gradually","Gradually","gradually."]},
+{"passage":FULL_PASSAGE,"id":16,"type":"서술형","diff":"어려움","pts":6,"fmt":"written","stem":"다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","det":{"korean":"지문의 내용과 문맥을 분석하면 정답은 <b>regained</b>이다. 다음 글에서 핵심 표현을 본문에서 찾아 쓰시오.","analysis":"정답: regained<br>허용 답안: regained, Regained<br>지문의 핵심 내용을 바탕으로 정확히 작성해야 한다.","tip":"서술형 — 정확한 철자와 대소문자에 주의하세요."},"wa":"regained","accept":["regained","Regained","regained."]},
 {"passage":FULL_PASSAGE,"id":17,"type":"T/F","diff":"쉬움","pts":4,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>본문에서 companion이(가) 언급된다.</b>\"","det":{"korean":"본문에 companion이 언급됨 → <b>True</b>","analysis":"✅ True: 원문에 companion 등장","tip":"원문과 진술을 정확히 대조하세요. 단어 하나의 차이가 정답을 바꿉니다."},"ans":0,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
 {"passage":FULL_PASSAGE,"id":18,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>anxiously(불안하게)의 반대 의미가 본문의 핵심이다.</b>\"","det":{"korean":"진술 \"<b>anxiously(불안하게)의 반대 의미가 본문의 핵심이다.</b>\"은 본문의 내용과 <b>불일치</b>한다.","analysis":"✅ False: 본문의 내용과 다르거나 언급되지 않은 내용이다.<br>❌ True: 본문과 불일치하므로 True는 오답.","tip":"T/F 문제 — 진술의 핵심 키워드를 본문에서 찾아 정확히 대조하세요. 작은 차이가 정답을 바꿉니다."},"ans":1,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
 {"passage":FULL_PASSAGE,"id":19,"type":"T/F","diff":"보통","pts":5,"fmt":"mc","stem":"다음 진술이 본문의 내용과 일치하면 True, 일치하지 않으면 False를 고르시오.\n<br><br>\"<b>본문에서 administer(투여하다)이(가) 중요하게 다뤄진다.</b>\"","det":{"korean":"본문에 administer 등장 → <b>True</b>","analysis":"정답: ① True. 나머지 선지는 문맥에 적절하지 않습니다.","tip":"원문과 진술을 정확히 대조하세요. 단어 하나의 차이가 정답을 바꿉니다."},"ans":0,"ch":["True","False","③ 해당 없음","④ 위 모두 해당"]},
@@ -258,28 +258,58 @@ function getHistory() {
 }
 
 function saveToHistory(r, elapsed) {
-  const h = getHistory();
   var record = {
     name: document.getElementById('inpName').value.trim(),
     school: document.getElementById('inpSchool').value.trim(),
     grade: document.getElementById('inpGrade').value,
     score: r.score, total: EI.total,
     correct: r.correct, wrong: r.wrong, unanswered: r.unanswered,
-    elapsed, date: new Date().toISOString(),
+    elapsed: elapsed, date: new Date().toISOString(),
     level: getLevel(r.score).name,
     answers: S.ans.slice()
   };
+  // localStorage 저장 (기존)
+  var h = getHistory();
   h.unshift(record);
   if (h.length > 20) h.length = 20;
   localStorage.setItem(EI.histKey, JSON.stringify(h));
+  // Supabase DB 저장 (내신핏 DB 연동)
   saveToSupabase(record);
 }
 
 function saveToSupabase(record) {
   var SUPABASE_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
   var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
-  var body = { hist_key: EI.histKey, test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0], subject: EI.subject, pub: EI.pub, lesson: EI.lesson, name: record.name, school: record.school, grade: record.grade, score: record.score, total: record.total, correct: record.correct, wrong: record.wrong, unanswered: record.unanswered, elapsed: record.elapsed, level: record.level, taken_at: record.date };
-  try { fetch(SUPABASE_URL + '/rest/v1/test_results', { method: 'POST', headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }, body: JSON.stringify(body) }).catch(function(){}); } catch(e){}
+  var body = {
+    hist_key: EI.histKey,
+    test_type: typeof testType !== 'undefined' ? testType : (EI.histKey || '').split('_')[0],
+    subject: EI.subject,
+    pub: EI.pub,
+    lesson: EI.lesson,
+    name: record.name,
+    school: record.school,
+    grade: record.grade,
+    score: record.score,
+    total: record.total,
+    correct: record.correct,
+    wrong: record.wrong,
+    unanswered: record.unanswered,
+    elapsed: record.elapsed,
+    level: record.level,
+    taken_at: record.date
+  };
+  try {
+    fetch(SUPABASE_URL + '/rest/v1/test_results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(body)
+    }).catch(function() { /* 네트워크 실패 시 무시 — localStorage에는 이미 저장됨 */ });
+  } catch (e) { /* 무시 */ }
 }
 
 function updateHCount() {
