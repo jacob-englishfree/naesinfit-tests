@@ -1358,12 +1358,57 @@ function hasScopeData(path){
   return false;
 }
 
-// Try to load manifest.json from server (overrides default if available)
-(async function loadManifest(){
+// ━━ test-catalog.json에서 MANIFEST + SCOPE_CATALOG 동적 빌드 ━━
+(async function loadCatalog(){
   try {
-    const resp = await fetch('manifest.json');
-    if (resp.ok) { const m = await resp.json(); if (m && m['교과서']) MANIFEST = m; }
-  } catch(e) {}
+    const resp = await fetch('test-catalog.json');
+    if (!resp.ok) return;
+    const catalog = await resp.json();
+
+    // 1) MANIFEST 빌드 (교과서 목록 — 범위 선택 UI용)
+    if (catalog['교과서']) {
+      const m = {};
+      for (const [id, info] of Object.entries(catalog['교과서'])) {
+        const cat = info.cat || '기타';
+        const pathParts = info.path.split('/');
+        const pubAuthor = pathParts[pathParts.length - 1] || id;
+        if (!m[cat]) m[cat] = {};
+        const lessons = (info.units || []).map(u => parseInt(u) || u);
+        const entry = { lessons, dn: info.dn || pubAuthor };
+        if (info.sections) entry.subs = info.sections;
+        m[cat][pubAuthor] = entry;
+      }
+      MANIFEST = { '교과서': m };
+    }
+
+    // 2) SCOPE_CATALOG 모의고사/부교재 업데이트
+    if (catalog['모의고사']) {
+      const mock = {};
+      for (const [id, info] of Object.entries(catalog['모의고사'])) {
+        // id: "고1-2025-3월" → grade="고1", month="3월"
+        const parts = id.split('-');
+        const grade = parts[0];
+        const month = parts.length >= 3 ? parts.slice(2).join('-') : parts[1];
+        if (!mock[grade]) mock[grade] = {};
+        mock[grade][month] = { dn: info.dn || id, lessons: info.items || [], isNew: true };
+      }
+      SCOPE_CATALOG['모의고사'].items = mock;
+    }
+
+    if (catalog['부교재']) {
+      const sup = {};
+      for (const [id, info] of Object.entries(catalog['부교재'])) {
+        // id: "수능특강영어2027" → path: "수능특강/영어"
+        const pathParts = info.path.split('/');
+        const series = pathParts[0] || id;
+        const book = pathParts[1] || '기타';
+        if (!sup[series]) sup[series] = {};
+        sup[series][book] = { dn: info.dn || id, lessons: info.units || [], isNew: true };
+        if (info.sections) sup[series][book].subs = info.sections;
+      }
+      SCOPE_CATALOG['부교재'].items = sup;
+    }
+  } catch(e) { console.warn('catalog 로드 실패, 기본값 사용:', e); }
 })();
 
 let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,ti:null,tl:1200,tlf:1200,res:null,acc:{},rv:{},dir:'fwd'};
