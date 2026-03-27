@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# ⛔ HTML 테스트 파일 커밋 차단 (index.html만 허용)
+HTML_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.html$' | grep -v 'index.html' | grep -v 'node_modules')
+if [ -n "$HTML_FILES" ]; then
+  echo "⛔ HTML 파일 커밋 금지. 테스트는 JSON만 만드세요."
+  echo "$HTML_FILES"
+  exit 1
+fi
+
+# ⛔ dist/ 폴더 커밋 차단
+DIST_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '^dist/')
+if [ -n "$DIST_FILES" ]; then
+  echo "⛔ dist/ 폴더 커밋 금지."
+  exit 1
+fi
+
+# ⛔ engine.js / engine.css 커밋 차단
+ENGINE_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E 'engine\.(js|css)')
+if [ -n "$ENGINE_FILES" ]; then
+  echo "⛔ engine.js/css 커밋 금지."
+  exit 1
+fi
