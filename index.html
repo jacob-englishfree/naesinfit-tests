@@ -526,6 +526,37 @@ async function sbSelect(table,query){
   }catch(e){console.warn('DB select fail:',e);return[];}
 }
 
+// ━━ URL 파라미터에서 학생 정보 파싱 (대시보드에서 열 때) ━━
+const _urlParams = new URLSearchParams(window.location.search);
+const _studentId = _urlParams.get('studentId') || null;
+const _weekIdx = _urlParams.get('week') !== null ? parseInt(_urlParams.get('week')) : null;
+
+// ━━ 테스트 완료 시 학생 wd에 점수 자동 저장 ━━
+async function saveScoreToStudentWd(testType, score) {
+  if (!_studentId || _weekIdx === null || isNaN(_weekIdx)) return;
+  const fieldMap = { '단어테스트': 'vocab', '워크북테스트': 'workbook', '퀴즈테스트': 'quiz' };
+  const field = fieldMap[testType];
+  if (!field) return;
+  try {
+    // 1) 현재 wd 읽기
+    const rows = await sbSelect('students', `select=wd&id=eq.${_studentId}`);
+    if (!rows.length || !rows[0].wd) return;
+    const wd = rows[0].wd;
+    if (_weekIdx >= wd.length) return;
+    // 2) 점수 업데이트
+    const passField = field === 'vocab' ? 'vocabPass' : field === 'workbook' ? 'wbPass' : 'quizPass';
+    wd[_weekIdx][field] = score;
+    wd[_weekIdx][passField] = score >= 80;
+    // 3) DB에 저장
+    await fetch(`${SB_URL}/rest/v1/students?id=eq.${_studentId}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ wd, updated_at: new Date().toISOString() })
+    });
+    console.log(`✅ wd[${_weekIdx}].${field} = ${score} 저장 완료`);
+  } catch (e) { console.warn('wd 저장 실패:', e); }
+}
+
 // Save test score to DB
 async function saveScoreToDB(score,ok,no,timeSec){
   const p=profile;const xd=getXP();
@@ -3755,6 +3786,8 @@ function doSub(auto){
   R();
   // Save to DB for ranking (async, non-blocking)
   saveScoreToDB(score,ok,no,S.te).catch(()=>{});
+  // 학생 대시보드에서 열었으면 wd에 점수 자동 저장
+  saveScoreToStudentWd(S.tt, score).catch(()=>{});
   // Animations
   setTimeout(()=>animateScore(score),100);
   if(score>=80)setTimeout(confetti,400);
