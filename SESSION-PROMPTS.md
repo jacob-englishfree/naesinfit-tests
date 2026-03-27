@@ -28,6 +28,17 @@ STEP 7: 증적 리포트 출력. 리포트 없으면 배포 차단.
 - det: {korean, analysis, tip} 모든 문항 필수
 - 단순 암기형 영작(지문 없는 한→영) 금지 → 문장 완성(지문 기반) 사용
 
+⛔ 작업 범위 제한 (절대):
+- JSON 만들고 naesinfit-tests repo에 push까지만. 이게 네 작업의 끝.
+- shared/ 폴더 절대 수정 금지.
+- sync.sh 실행 금지.
+- sync-catalog.js 실행 금지.
+- 내신핏 관리앱(내신핏v21/app) 수정 금지.
+- 영해공 관리앱(ehg-academy) 수정 금지.
+- index.html 수정 금지.
+- 다른 세션이 만든 파일 수정/삭제 금지.
+→ shared 동기화 + 양쪽 앱 push는 메인 세션에서 일괄 처리.
+
 추가지문 처리:
 - PDF를 읽고 본문이 끝난 후 흐름이 바뀌거나 다른 내용으로 시작되는 부분이 있으면 추가지문.
 - 이름은 출판사마다 다름 (Further Reading, Read More, Inside Culture 등) — PDF에서 확인.
