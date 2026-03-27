@@ -1217,16 +1217,42 @@ async function fetchTestQuestions(testType, selKey) {
   const cacheKey = testType + '|' + selKey;
   if (_fetchCache[cacheKey]) return _fetchCache[cacheKey];
 
-  let path;
+  const jsonTypeMap = { '단어테스트': '단어', '워크북테스트': '워크북', '퀴즈테스트': '퀴즈' };
+  const jsonName = jsonTypeMap[testType] || testType.replace('테스트','');
+
+  // 1차: data/ JSON 시도
+  let jsonPath;
   if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
-    path = selKey + '/' + testType + '.html';
+    jsonPath = 'data/' + selKey + '/' + jsonName + '.json';
   } else {
-    // 교과서: selKey에 섹션이 이미 포함된 경우 (예: "공통영어1/비상홍/1과/본문")
-    // 또는 flat 경로 (예: "공통영어1/능률민병천/1과")
-    path = '교과서/' + selKey + '/' + testType + '.html';
+    jsonPath = 'data/교과서/' + selKey + '/' + jsonName + '.json';
   }
   try {
-    const resp = await fetch(path);
+    const resp = await fetch(jsonPath);
+    if (resp.ok) {
+      const data = await resp.json();
+      const questions = data.questions || [];
+      if (questions.length) {
+        _fetchCache[cacheKey] = questions;
+        if (!QUESTION_BANK[testType]) QUESTION_BANK[testType] = {};
+        QUESTION_BANK[testType][selKey] = questions;
+        if (data.fullPassage) FULL_PASSAGE = data.fullPassage;
+        return questions;
+      }
+    }
+  } catch(e) {
+    console.warn('JSON fetch failed:', jsonPath, e.message);
+  }
+
+  // 2차: HTML fallback
+  let htmlPath;
+  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
+    htmlPath = selKey + '/' + testType + '.html';
+  } else {
+    htmlPath = '교과서/' + selKey + '/' + testType + '.html';
+  }
+  try {
+    const resp = await fetch(htmlPath);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const html = await resp.text();
     const { ei, questions, fullPassage } = parseTestHTML(html);
@@ -1238,7 +1264,7 @@ async function fetchTestQuestions(testType, selKey) {
       return questions;
     }
   } catch(e) {
-    console.warn('Fetch failed for', path, '- using fallback:', e.message);
+    console.warn('HTML fetch also failed:', htmlPath, e.message);
   }
   return null;
 }
