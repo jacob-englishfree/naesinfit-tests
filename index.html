@@ -1221,6 +1221,8 @@ async function fetchTestQuestions(testType, selKey) {
   if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
     path = selKey + '/' + testType + '.html';
   } else {
+    // 교과서: selKey에 섹션이 이미 포함된 경우 (예: "공통영어1/비상홍/1과/본문")
+    // 또는 flat 경로 (예: "공통영어1/능률민병천/1과")
     path = '교과서/' + selKey + '/' + testType + '.html';
   }
   try {
@@ -1249,7 +1251,7 @@ async function ensureQuestionsLoaded(testType, selections) {
   await Promise.all(promises);
 }
 
-let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],dn:"YBM(김은형)"},"YBM박준언":{lessons:[1,2,3,4],dn:"YBM(박준언)"},"능률민병천":{lessons:[1,2,3,4],dn:"능률(민병천)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"동아이병민":{lessons:[1,2,3,4],dn:"동아(이병민)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"}},"영어1":{"YBM박준언":{lessons:[1,2,3,4,5],dn:"YBM(박준언)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"},"천재조수경":{lessons:[1,2,3,4],dn:"천재(조수경)"},"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)"}}}};
+let MANIFEST = {"교과서":{"공통영어1":{"YBM김은형":{lessons:[1,2,3,4],dn:"YBM(김은형)"},"YBM박준언":{lessons:[1,2,3,4],dn:"YBM(박준언)"},"능률민병천":{lessons:[1,2,3,4],dn:"능률(민병천)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"동아이병민":{lessons:[1,2,3,4],dn:"동아(이병민)"},"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)",subs:{"1과":["본문","Read More"],"2과":["본문","Read Culture"],"3과":["본문","Read More"],"4과":["본문","Read Culture"]}},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"}},"영어1":{"YBM박준언":{lessons:[1,2,3,4,5],dn:"YBM(박준언)"},"능률오선영":{lessons:[1,2,3,4],dn:"능률(오선영)"},"지학사신상근":{lessons:[1,2,3,4],dn:"지학사(신상근)"},"천재강상구":{lessons:[1,2,3,4],dn:"천재(강상구)"},"천재조수경":{lessons:[1,2,3,4],dn:"천재(조수경)"},"비상홍":{lessons:[1,2,3,4],dn:"비상(홍민표)"}}}};
 
 // Full scope catalog — includes future data sources. hasData checked at runtime.
 const SCOPE_CATALOG = {
@@ -3254,7 +3256,32 @@ function rSel(){
   const data=MANIFEST['교과서'];let h='';
   for(const[subj,pubs]of Object.entries(data)){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
     for(const[pub,info]of Object.entries(pubs)){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
-      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">과 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div><div class="chips" id="chips_${subj}_${pub}">${info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" id="ch_${k.replace(/\//g,'_')}" onclick="tgSmooth(this,'${k}','${subj}','${pub}')">${l}과</div>`;}).join('')}</div></div></div></div></div>`;}
+      const hasSubs=!!info.subs;
+      let lessonChips='',subPanels='';
+      if(hasSubs){
+        lessonChips=info.lessons.map(l=>{
+          const lKey=subj+'/'+pub+'/'+l+'과';
+          const subs=info.subs[l+'과']||[];
+          const subKeys=subs.map(s=>lKey+'/'+s);
+          const onAny=S.sel.includes(lKey)||subKeys.some(sk=>S.sel.includes(sk));
+          const subAcc='tsub_'+subj+'_'+pub+'_'+l;
+          return'<div class="chip '+(onAny?'on':'')+'" id="ch_'+lKey.replace(/\//g,'_')+'" onclick="taSmooth(\''+subAcc+'\')">'+l+'과 ▼</div>';
+        }).join('');
+        info.lessons.forEach(l=>{
+          const subs=info.subs[l+'과'];if(!subs||!subs.length)return;
+          const subAcc='tsub_'+subj+'_'+pub+'_'+l;
+          const lKey=subj+'/'+pub+'/'+l+'과';
+          let chips='';
+          subs.forEach(s=>{
+            const sk=lKey+'/'+s;
+            chips+='<div class="chip '+(S.sel.includes(sk)?'on':'')+'" id="ch_'+sk.replace(/\//g,'_')+'" onclick="tgSubSmooth(this,\''+sk+'\',\''+subj+'\',\''+pub+'\')">'+s+'</div>';
+          });
+          subPanels+='<div class="acc-slide'+(S.acc[subAcc]?' open':'')+'" id="body_'+subAcc+'"><div style="padding:8px 0 8px 8px;border-left:2px solid var(--blue-l);margin:4px 0 8px 12px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span style="font-size:12px;font-weight:700;color:var(--blue)">'+l+'과</span><button onclick="tbSubSelAll(\''+subj+'\',\''+pub+'\','+l+')" style="font-size:10px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:2px 8px;border-radius:8px;cursor:pointer">전체</button></div><div class="chips">'+chips+'</div></div></div>';
+        });
+      } else {
+        lessonChips=info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" id="ch_${k.replace(/\//g,'_')}" onclick="tgSmooth(this,'${k}','${subj}','${pub}')">${l}과</div>`;}).join('');
+      }
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">과 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div><div class="chips" id="chips_${subj}_${pub}">${lessonChips}</div>${subPanels}</div></div></div></div>`;}
     h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">${subj} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요'}</button>`);
@@ -3346,13 +3373,27 @@ function tgSmooth(el,k,subj,pub){
 }
 
 function sAllSmooth(subj,pub,ls){
-  const allS=ls.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
-  ls.forEach(l=>{
-    const k=subj+'/'+pub+'/'+l+'과',i=S.sel.indexOf(k);
-    const el=$('ch_'+k.replace(/\//g,'_'));
-    if(allS){if(i>=0)S.sel.splice(i,1);if(el)el.classList.remove('on');}
-    else{if(i<0)S.sel.push(k);if(el)el.classList.add('on');}
-  });
+  const info=MANIFEST['교과서']?.[subj]?.[pub];
+  const hasSubs=info&&info.subs;
+  if(hasSubs){
+    // subs가 있는 교과서: 모든 섹션 키를 수집
+    const allKeys=[];
+    ls.forEach(l=>{const subs=info.subs[l+'과'];if(subs){subs.forEach(s=>allKeys.push(subj+'/'+pub+'/'+l+'과/'+s));}else{allKeys.push(subj+'/'+pub+'/'+l+'과');}});
+    const allS=allKeys.every(k=>S.sel.includes(k));
+    allKeys.forEach(k=>{
+      const i=S.sel.indexOf(k);const el=$('ch_'+k.replace(/\//g,'_'));
+      if(allS){if(i>=0)S.sel.splice(i,1);if(el)el.classList.remove('on');}
+      else{if(i<0)S.sel.push(k);if(el)el.classList.add('on');}
+    });
+  } else {
+    const allS=ls.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
+    ls.forEach(l=>{
+      const k=subj+'/'+pub+'/'+l+'과',i=S.sel.indexOf(k);
+      const el=$('ch_'+k.replace(/\//g,'_'));
+      if(allS){if(i>=0)S.sel.splice(i,1);if(el)el.classList.remove('on');}
+      else{if(i<0)S.sel.push(k);if(el)el.classList.add('on');}
+    });
+  }
   updateSelUI(subj,pub);
 }
 
@@ -3367,7 +3408,46 @@ function updateSelUI(subj,pub){
   if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요';}
   // Update select all button text
   const info=MANIFEST['교과서'][subj]?.[pub];
-  if(info){const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));const sa=$('sa_p_'+subj+'_'+pub);if(sa)sa.textContent=allS?'전체 해제':'전체 선택';}
+  if(info){
+    if(info.subs){
+      // subs가 있는 교과서: 모든 섹션이 선택되어 있는지 체크
+      const allS=info.lessons.every(l=>{const subs=info.subs[l+'과'];if(!subs)return S.sel.includes(subj+'/'+pub+'/'+l+'과');return subs.every(s=>S.sel.includes(subj+'/'+pub+'/'+l+'과/'+s));});
+      const sa=$('sa_p_'+subj+'_'+pub);if(sa)sa.textContent=allS?'전체 해제':'전체 선택';
+    } else {
+      const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));const sa=$('sa_p_'+subj+'_'+pub);if(sa)sa.textContent=allS?'전체 해제':'전체 선택';
+    }
+    // Update lesson chip highlight for subs
+    if(info.subs){info.lessons.forEach(l=>{
+      const lKey=subj+'/'+pub+'/'+l+'과';
+      const subs=info.subs[l+'과']||[];
+      const subKeys=subs.map(s=>lKey+'/'+s);
+      const onAny=S.sel.includes(lKey)||subKeys.some(sk=>S.sel.includes(sk));
+      const el=$('ch_'+lKey.replace(/\//g,'_'));if(el)el.classList.toggle('on',onAny);
+    });}
+  }
+}
+
+// Textbook sub-section chip toggle (for subs like 본문, Read More)
+function tgSubSmooth(el,k,subj,pub){
+  const i=S.sel.indexOf(k);
+  if(i>=0){S.sel.splice(i,1);el.classList.remove('on');}
+  else{S.sel.push(k);el.classList.add('on');}
+  updateSelUI(subj,pub);
+}
+
+// Textbook sub-section "전체" button — toggle all subs for a lesson
+function tbSubSelAll(subj,pub,lesson){
+  const info=MANIFEST['교과서']?.[subj]?.[pub];if(!info||!info.subs)return;
+  const subs=info.subs[lesson+'과'];if(!subs)return;
+  const lKey=subj+'/'+pub+'/'+lesson+'과';
+  const subKeys=subs.map(s=>lKey+'/'+s);
+  const allS=subKeys.every(k=>S.sel.includes(k));
+  subKeys.forEach(k=>{
+    const i=S.sel.indexOf(k);const el=$('ch_'+k.replace(/\//g,'_'));
+    if(allS){if(i>=0)S.sel.splice(i,1);if(el)el.classList.remove('on');}
+    else{if(i<0)S.sel.push(k);if(el)el.classList.add('on');}
+  });
+  updateSelUI(subj,pub);
 }
 
 // Keep old functions as fallback (for other screens)
@@ -3494,8 +3574,17 @@ async function loadPassageQuestions(){
 function toSet(){S.scr='settings';S.qc=20;S.tt=null;R();}
 function selSummaryHTML(){
   const g={};
-  S.sel.forEach(s=>{const p=s.split('/');const key=p[0]+'/'+p[1];if(!g[key])g[key]=[];g[key].push(p[2]);});
-  return Object.entries(g).map(([key,ls])=>{const[subj,pub]=key.split('/');const dn=MANIFEST['교과서']?.[subj]?.[pub]?.dn||pub;const nums=ls.map(l=>l.replace('과','')).sort((a,b)=>a-b);const isSeq=nums.length>2&&nums.every((n,i)=>i===0||+n===+nums[i-1]+1);const range=isSeq?nums[0]+'~'+nums[nums.length-1]+'과':ls.sort((a,b)=>parseInt(a)-parseInt(b)).join(', ');return`<div style="display:flex;align-items:baseline;gap:6px;${Object.keys(g).length>1?'margin-bottom:4px':''}"><span style="font-weight:600;color:var(--g900);font-size:14px">${subj}</span><span style="color:var(--g400)">·</span><span style="color:var(--g700);font-size:14px">${dn}</span><span style="color:var(--g400)">·</span><span style="color:var(--blue);font-size:13px;font-weight:500">${range}</span></div>`;}).join('');
+  S.sel.forEach(s=>{const p=s.split('/');const key=p[0]+'/'+p[1];if(!g[key])g[key]=[];
+    // p[2]='1과', p[3]='본문' (optional)
+    const entry=p[3]?p[2]+'/'+p[3]:p[2];
+    if(!g[key].includes(entry))g[key].push(entry);
+  });
+  return Object.entries(g).map(([key,ls])=>{const[subj,pub]=key.split('/');const dn=MANIFEST['교과서']?.[subj]?.[pub]?.dn||pub;
+    // Group by lesson for display
+    const lessonMap={};ls.forEach(e=>{const pp=e.split('/');const l=pp[0];if(!lessonMap[l])lessonMap[l]=[];if(pp[1])lessonMap[l].push(pp[1]);});
+    const parts=Object.entries(lessonMap).sort((a,b)=>parseInt(a[0])-parseInt(b[0])).map(([l,subs])=>subs.length?l+'('+subs.join(',')+')':l);
+    const range=parts.join(', ');
+    return`<div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;${Object.keys(g).length>1?'margin-bottom:4px':''}"><span style="font-weight:600;color:var(--g900);font-size:14px">${subj}</span><span style="color:var(--g400)">·</span><span style="color:var(--g700);font-size:14px">${dn}</span><span style="color:var(--g400)">·</span><span style="color:var(--blue);font-size:13px;font-weight:500">${range}</span></div>`;}).join('');
 }
 
 function rSet(){
@@ -3518,15 +3607,50 @@ async function startE(){
   app.innerHTML=`<div class="page"><div style="padding:20px"><div class="skeleton" style="height:52px;margin-bottom:16px"></div><div class="skeleton" style="height:36px;width:60%;margin-bottom:24px"></div><div class="skeleton" style="height:200px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:160px;margin-bottom:12px;border-radius:var(--r-xl)"></div><div class="skeleton" style="height:44px;width:40%;margin-bottom:12px"></div></div></div>`;
   setBottom(null);
   await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};
+  // Check if this is a textbook multi-sub merge (교과서 subs 합산)
+  const isTbSubMerge=S.sel.length>1&&S.sel.some(k=>{const p=k.split('/');return p.length>=4&&!k.startsWith('모의고사/')&&!k.startsWith('부교재/');});
   // Build per-selection pools
-  const groups=[];S.sel.forEach(k=>{if(b[k]&&b[k].length)groups.push(b[k].map(q=>({...q})));});
+  const groups=[];S.sel.forEach(k=>{if(b[k]&&b[k].length)groups.push({key:k,qs:b[k].map(q=>({...q}))});});
   if(!groups.length){toast('선택한 범위에 문항이 없어요');return;}
-  // Even distribution: base per group + remainder distributed round-robin
-  const n=groups.length,total=S.qc;const base=Math.floor(total/n);let rem=total%n;
-  let pool=[];groups.forEach(g=>{shuffle(g);const take=Math.min(g.length,base+(rem>0?1:0));if(rem>0)rem--;pool.push(...g.slice(0,take));});
-  // If some groups had fewer than quota, fill from remaining
-  if(pool.length<total){const used=new Set(pool.map(q=>q.id+'_'+(q.stem||'').slice(0,20)));let extras=[];groups.forEach(g=>g.forEach(q=>{if(!used.has(q.id+'_'+(q.stem||'').slice(0,20)))extras.push(q);}));shuffle(extras);pool.push(...extras.slice(0,total-pool.length));}
-  shuffle(pool);S.qs=pool.slice(0,total);S.ans={};S.ci=0;S.scr='exam';S.ts=Date.now();S.te=0;S.tlf=S.tl;if(S.ti)clearInterval(S.ti);S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);R();}
+
+  let pool;
+  if(isTbSubMerge&&S.qc===20){
+    // 교과서 블록 합산: 난이도별 20문항, 본문:추가지문 = 9:1
+    const allQs=[];groups.forEach(g=>g.qs.forEach(q=>allQs.push({...q,_src:g.key})));
+    // Classify into 본문 vs 추가지문
+    const isMain=k=>{const p=k.split('/');const sec=p[3]||'';return sec==='본문'||!sec;};
+    const mainQs=allQs.filter(q=>isMain(q._src));
+    const subQs=allQs.filter(q=>!isMain(q._src));
+    // Target: 18 main + 2 sub (if sub exists), else all from main
+    const mainTarget=subQs.length>=2?18:20;
+    const subTarget=subQs.length>=2?2:0;
+    // Difficulty buckets: easy(쉬움)/medium(보통)/hard(어려움)
+    function diffBucket(q){const d=(q.diff||q.difficulty||'보통').toString();if(d==='쉬움'||d==='easy'||d==='1')return'easy';if(d==='어려움'||d==='hard'||d==='3')return'hard';return'medium';}
+    function pickByDiff(src,total){
+      const e=src.filter(q=>diffBucket(q)==='easy');
+      const m=src.filter(q=>diffBucket(q)==='medium');
+      const h=src.filter(q=>diffBucket(q)==='hard');
+      shuffle(e);shuffle(m);shuffle(h);
+      // Target ratio: 5 easy, 10 medium, 5 hard (scaled to total)
+      const eT=Math.round(total*0.25),hT=Math.round(total*0.25),mT=total-eT-hT;
+      const picked=[...e.slice(0,eT),...m.slice(0,mT),...h.slice(0,hT)];
+      // Fill shortages from remaining
+      if(picked.length<total){const used=new Set(picked.map(q=>q.id));const rest=src.filter(q=>!used.has(q.id));shuffle(rest);picked.push(...rest.slice(0,total-picked.length));}
+      return picked.slice(0,total);
+    }
+    const mainPicked=pickByDiff(mainQs,mainTarget);
+    const subPicked=pickByDiff(subQs,subTarget);
+    pool=[...mainPicked,...subPicked];
+    // Assign scores: 쉬움4, 보통5, 어려움6 (total=100)
+    pool.forEach(q=>{const d=diffBucket(q);q.pts=d==='easy'?4:d==='hard'?6:5;});
+  } else {
+    // Default even distribution
+    const n=groups.length,total=S.qc;const base=Math.floor(total/n);let rem=total%n;
+    pool=[];groups.forEach(g=>{shuffle(g.qs);const take=Math.min(g.qs.length,base+(rem>0?1:0));if(rem>0)rem--;pool.push(...g.qs.slice(0,take));});
+    // If some groups had fewer than quota, fill from remaining
+    if(pool.length<total){const used=new Set(pool.map(q=>q.id+'_'+(q.stem||'').slice(0,20)));let extras=[];groups.forEach(g=>g.qs.forEach(q=>{if(!used.has(q.id+'_'+(q.stem||'').slice(0,20)))extras.push(q);}));shuffle(extras);pool.push(...extras.slice(0,total-pool.length));}
+  }
+  shuffle(pool);S.qs=pool.slice(0,S.qc);S.ans={};S.ci=0;S.scr='exam';S.ts=Date.now();S.te=0;S.tlf=S.tl;if(S.ti)clearInterval(S.ti);S.ti=setInterval(()=>{S.te=Math.floor((Date.now()-S.ts)/1000);S.tlf=Math.max(0,S.tl-S.te);const el=$('tmr');if(el){el.textContent=ft(S.tlf);el.className='timer-display'+(S.tlf<=60?' danger':S.tlf<=300?' warn':'');}if(S.tlf<=0){clearInterval(S.ti);doSub(true);}},1000);R();}
 
 // Build exam shell once — inner content updated via DOM manipulation
 function rExam(){
