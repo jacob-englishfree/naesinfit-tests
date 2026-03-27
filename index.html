@@ -3257,31 +3257,22 @@ function rSel(){
   for(const[subj,pubs]of Object.entries(data)){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
     for(const[pub,info]of Object.entries(pubs)){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
       const hasSubs=!!info.subs;
-      let lessonChips='',subPanels='';
+      let lessonContent='';
       if(hasSubs){
-        lessonChips=info.lessons.map(l=>{
-          const lKey=subj+'/'+pub+'/'+l+'과';
+        // 각 과마다 과 이름 + 섹션 chip을 한 줄로 표시
+        lessonContent=info.lessons.map(l=>{
           const subs=info.subs[l+'과']||[];
-          const subKeys=subs.map(s=>lKey+'/'+s);
-          const onAny=S.sel.includes(lKey)||subKeys.some(sk=>S.sel.includes(sk));
-          const subAcc='tsub_'+subj+'_'+pub+'_'+l;
-          return'<div class="chip '+(onAny?'on':'')+'" id="ch_'+lKey.replace(/\//g,'_')+'" onclick="taSmooth(\''+subAcc+'\')">'+l+'과 ▼</div>';
-        }).join('');
-        info.lessons.forEach(l=>{
-          const subs=info.subs[l+'과'];if(!subs||!subs.length)return;
-          const subAcc='tsub_'+subj+'_'+pub+'_'+l;
           const lKey=subj+'/'+pub+'/'+l+'과';
-          let chips='';
-          subs.forEach(s=>{
+          const subChips=subs.map(s=>{
             const sk=lKey+'/'+s;
-            chips+='<div class="chip '+(S.sel.includes(sk)?'on':'')+'" id="ch_'+sk.replace(/\//g,'_')+'" onclick="tgSubSmooth(this,\''+sk+'\',\''+subj+'\',\''+pub+'\')">'+s+'</div>';
-          });
-          subPanels+='<div class="acc-slide'+(S.acc[subAcc]?' open':'')+'" id="body_'+subAcc+'"><div style="padding:8px 0 8px 8px;border-left:2px solid var(--blue-l);margin:4px 0 8px 12px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:8px"><span style="font-size:12px;font-weight:700;color:var(--blue)">'+l+'과</span><button onclick="tbSubSelAll(\''+subj+'\',\''+pub+'\','+l+')" style="font-size:10px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:2px 8px;border-radius:8px;cursor:pointer">전체</button></div><div class="chips">'+chips+'</div></div></div>';
-        });
+            return '<div class="chip '+(S.sel.includes(sk)?'on':'')+'" id="ch_'+sk.replace(/\//g,'_')+'" onclick="tgSubSmooth(this,\''+sk+'\',\''+subj+'\',\''+pub+'\')">'+s+'</div>';
+          }).join('');
+          return '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap"><span style="font-size:13px;font-weight:700;color:var(--g900);min-width:36px">'+l+'과</span><div class="chips" style="margin:0;gap:6px">'+subChips+'</div></div>';
+        }).join('');
       } else {
-        lessonChips=info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" id="ch_${k.replace(/\//g,'_')}" onclick="tgSmooth(this,'${k}','${subj}','${pub}')">${l}과</div>`;}).join('');
+        lessonContent='<div class="chips" id="chips_'+subj+'_'+pub+'">'+info.lessons.map(l=>{const k=subj+'/'+pub+'/'+l+'과',on=S.sel.includes(k);return'<div class="chip '+(on?'on':'')+'" id="ch_'+k.replace(/\//g,'_')+'" onclick="tgSmooth(this,\''+k+'\',\''+subj+'\',\''+pub+'\')">'+l+'과</div>';}).join('')+'</div>';
       }
-      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">과 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div><div class="chips" id="chips_${subj}_${pub}">${lessonChips}</div>${subPanels}</div></div></div></div>`;}
+      inner+=`<div class="sub-section"><div class="sub-trigger" onclick="taSmooth('${pk}')"><span>${info.dn||pub} ${pc?'<span class=badge id=bc_'+pk+'>'+pc+'</span>':''}</span><span class="arrow${S.acc[pk]?' open':''}" id="ar_${pk}">▼</span></div><div class="acc-slide${S.acc[pk]?' open':''}" id="body_${pk}"><div><div style="padding:12px 0 4px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><span class="t-tiny c-sub">범위 선택</span><button onclick="sAllSmooth('${subj}','${pub}',[${info.lessons}])" style="font-size:11px;font-weight:600;color:var(--blue);background:var(--blue-l);border:none;padding:4px 10px;border-radius:10px;cursor:pointer" id="sa_p_${subj}_${pub}">전체 선택</button></div>${lessonContent}</div></div></div></div>`;}
     h+=`<div class="acc"><button class="acc-trigger" onclick="taSmooth('${sk}')"><span class="lf">${subj} ${sc?'<span class=badge id=bc_'+sk+'>'+sc+'</span>':''}</span><span class="arrow${S.acc[sk]?' open':''}" id="ar_${sk}">▼</span></button><div class="acc-slide${S.acc[sk]?' open':''}" id="body_${sk}"><div class="acc-content">${inner}</div></div></div>`;}
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요'}</button>`);
