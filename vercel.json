@@ -1,4 +1,14 @@
 {
   "outputDirectory": ".",
-  "buildCommand": "node scripts/build-all.js"
+  "buildCommand": "node scripts/build-all.js",
+  "headers": [
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET" },
+        { "key": "Content-Type", "value": "application/json; charset=utf-8" }
+      ]
+    }
+  ]
 }
