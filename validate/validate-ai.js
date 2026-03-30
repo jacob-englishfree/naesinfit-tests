@@ -102,7 +102,7 @@ ${passage}
 QUESTION (type: ${q.type}, difficulty: ${q.diff}):
 ${q.stem}
 
-${isMC ? `CHOICES:\n${choicesText}\n\nGiven answer index: ${q.ans} (= "${q.ch[q.ans]}")` : `Given written answer: "${q.wa}"\nAccepted answers: ${JSON.stringify(q.accept)}`}
+${isMC ? `CHOICES:\n${choicesText}\n\nGiven answer index: ${q.ans} (= "${q.ch[q.ans - 1]}")` : `Given written answer: "${q.wa}"\nAccepted answers: ${JSON.stringify(q.accept)}`}
 
 Analyze this question and respond in EXACTLY this JSON format (no other text):
 {
@@ -136,7 +136,7 @@ function buildBatchPrompt(questions, fullPassage, startIdx) {
     return `--- Q${idx} (type: ${q.type}, diff: ${q.diff}) ---
 ${passage !== '[FULL PASSAGE ABOVE]' ? `PASSAGE: ${passage.substring(0, 300)}${passage.length > 300 ? '...' : ''}` : 'PASSAGE: [See full passage above]'}
 STEM: ${q.stem}
-${isMC ? `CHOICES:\n${choicesText}\nGIVEN ANSWER: index ${q.ans} = "${q.ch[q.ans]}"` : `GIVEN ANSWER: "${q.wa}"\nACCEPT: ${JSON.stringify(q.accept)}`}`;
+${isMC ? `CHOICES:\n${choicesText}\nGIVEN ANSWER: index ${q.ans} = "${q.ch[q.ans - 1]}"` : `GIVEN ANSWER: "${q.wa}"\nACCEPT: ${JSON.stringify(q.accept)}`}`;
   }).join('\n\n');
 
   return `You are a strict English test quality auditor for Korean high school students.

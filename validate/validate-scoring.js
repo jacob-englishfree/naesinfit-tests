@@ -102,8 +102,8 @@ function validateScoring(jsonPath) {
 
     // ── SC-3: MC 정답 범위 ──
     if (q.fmt === 'mc' && Array.isArray(q.ch)) {
-      if (typeof q.ans !== 'number' || q.ans < 0 || q.ans >= q.ch.length) {
-        result.add('SC-3', SEV.S, `Q${qid}: ans=${q.ans} 가 ch[0~${q.ch.length - 1}] 범위 밖`);
+      if (typeof q.ans !== 'number' || q.ans < 1 || q.ans > q.ch.length) {
+        result.add('SC-3', SEV.S, `Q${qid}: ans=${q.ans} 가 ch[1~${q.ch.length}] 범위 밖`);
       }
     }
   });
@@ -128,7 +128,7 @@ function validateScoring(jsonPath) {
     const mcQuestions = questions.filter(q => q.fmt === 'mc');
     for (let i = 0; i < mcQuestions.length - 2; i++) {
       if (mcQuestions[i].ans === mcQuestions[i + 1].ans && mcQuestions[i + 1].ans === mcQuestions[i + 2].ans) {
-        result.add('DF-3', SEV.B, `Q${mcQuestions[i].id}~${mcQuestions[i + 2].id}: 같은 정답 번호 3연속 (${mcQuestions[i].ans + 1}번)`);
+        result.add('DF-3', SEV.B, `Q${mcQuestions[i].id}~${mcQuestions[i + 2].id}: 같은 정답 번호 3연속 (${mcQuestions[i].ans}번)`);
       }
     }
   }

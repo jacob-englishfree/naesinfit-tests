@@ -203,7 +203,7 @@ function validateContent(jsonPath) {
 
     // The stem typically contains the target word
     const stemWords = extractKeyWord(q.stem);
-    const answer = (q.ch[q.ans] || '').toLowerCase().trim();
+    const answer = (q.ch[q.ans - 1] || '').toLowerCase().trim();
 
     if (stemWords && answer) {
       const knownSyns = synonymLookup.get(stemWords.toLowerCase());
@@ -221,7 +221,7 @@ function validateContent(jsonPath) {
     if (q.fmt !== 'mc' || !Array.isArray(q.ch)) return;
 
     const stemWords = extractKeyWord(q.stem);
-    const answer = (q.ch[q.ans] || '').toLowerCase().trim();
+    const answer = (q.ch[q.ans - 1] || '').toLowerCase().trim();
 
     if (stemWords && answer) {
       const knownAnts = antonymLookup.get(stemWords.toLowerCase());
@@ -286,7 +286,7 @@ function validateContent(jsonPath) {
 
     // For content questions, at least the correct answer should relate to passage
     // We do a simple keyword overlap check
-    const answerText = (q.ch[q.ans] || '').toLowerCase();
+    const answerText = (q.ch[q.ans - 1] || '').toLowerCase();
     const answerWords = answerText.split(/\s+/).filter(w => w.length > 4);
     if (answerWords.length > 0) {
       const overlap = answerWords.filter(w => passagePlain.includes(w));

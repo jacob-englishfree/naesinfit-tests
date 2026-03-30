@@ -172,9 +172,9 @@ function validate(jsonPath) {
         result.add('C16', SEV.S, `Q${qid}: ch.length = ${q.ch.length}, 4지선다 필수`);
       }
 
-      // C15: ans in bounds
-      if (typeof q.ans === 'number' && (q.ans < 0 || q.ans >= q.ch.length)) {
-        result.add('C15', SEV.S, `Q${qid}: ans=${q.ans} out of bounds [0,${q.ch.length - 1}]`);
+      // C15: ans in bounds (1-based: 1~ch.length)
+      if (typeof q.ans === 'number' && (q.ans < 1 || q.ans > q.ch.length)) {
+        result.add('C15', SEV.S, `Q${qid}: ans=${q.ans} out of bounds [1,${q.ch.length}]`);
       }
 
       // C17: no empty choices AND no dummy choices (-, —, etc.)
@@ -409,7 +409,7 @@ function validate(jsonPath) {
     // 빈칸이 있는데 다른 곳에도 같은 단어가 있으면 B급 (원문에 반복 등장하는 단어일 수 있음)
     // 빈칸 자체가 없으면 A급
     if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸 어휘 완성', '연결사'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
-      const answer = (q.ch[q.ans] || '').trim();
+      const answer = (q.ch[q.ans - 1] || '').trim();
       if (answer.length >= 3) {
         const passageNoBlanks = passagePlain.replace(/_{5,}/g, '').toLowerCase();
         const ansLower = answer.toLowerCase();
@@ -451,7 +451,7 @@ function validate(jsonPath) {
 
     // EX-3: (A)(B)(C) 조합형 — 정답 단어 3개가 passage에 볼드 없이 전부 노출
     if (typeNorm === '(A)(B)(C) 조합형' && q.fmt === 'mc' && Array.isArray(q.ch)) {
-      const answer = (q.ch[q.ans] || '').trim();
+      const answer = (q.ch[q.ans - 1] || '').trim();
       // Parse "word1 — word2 — word3" format
       const parts = answer.split(/\s*[—–-]\s*/).map(s => s.trim().toLowerCase()).filter(s => s.length >= 2);
       if (parts.length >= 3) {
@@ -477,7 +477,7 @@ function validate(jsonPath) {
 
     // EX-4: 내용일치/불일치 — 정답 선지의 핵심 단어(4글자+)가 passage에 1:1 복사
     if (['내용일치', '내용불일치'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
-      const answer = (q.ch[q.ans] || '').trim();
+      const answer = (q.ch[q.ans - 1] || '').trim();
       // Extract meaningful words (4+ chars, not common words)
       const commonWords = new Set(['this', 'that', 'with', 'from', 'they', 'their', 'have', 'been', 'were', 'which', 'about', 'would', 'could', 'should', 'there', 'these', 'those', 'also', 'more', 'than', 'when', 'what', 'some', 'other', 'into', 'very', 'only', 'such', 'most', 'both', 'each', 'does', 'will']);
       const keywords = answer.toLowerCase().split(/\s+/).filter(w => w.length >= 4 && !commonWords.has(w));
