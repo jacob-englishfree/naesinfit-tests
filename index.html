@@ -4947,7 +4947,13 @@ function exitGame(){
   gRunning=false;S.scr='learn';S.dir='back';R();
 }
 
-R();
+// ━━ 대시보드 링크 → 자동 시작 (R() 전에 체크) ━━
+const _dashParams = new URLSearchParams(location.search);
+if (_dashParams.get('source') && _dashParams.get('path') && _dashParams.get('type')) {
+  initChallenge(); // initChallenge 안에서 source/path/type 처리
+} else {
+  R();
+}
 
 // Check for challenge params after initial render
 const _ch=getChallenge();
