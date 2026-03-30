@@ -4359,6 +4359,59 @@ function shareChallenge(){
 
 // ━━ Challenge Init ━━
 function initChallenge(){
+  // ━━ 대시보드 링크 자동 시작 (source/path/unit/type 파라미터) ━━
+  const u = new URLSearchParams(location.search);
+  const source = u.get('source');
+  const pathParam = u.get('path');
+  const unitParam = u.get('unit');
+  const typeParam = u.get('type');
+
+  if (source && pathParam && typeParam) {
+    // 학원 인증 자동 처리 (대시보드에서 온 학생)
+    if (!isAcademyUser()) localStorage.setItem('nf_academy', '1');
+
+    // studentId/week 저장 (점수 DB 저장용)
+    if (u.get('studentId')) {
+      window._nfStudentId = u.get('studentId');
+      window._nfWeek = parseInt(u.get('week')) || 0;
+    }
+
+    // sel 키 생성: source에 따라 경로 조합
+    const sections = u.get('sections');
+    let selKey;
+    if (source === '교과서') {
+      selKey = sections ? pathParam + '/' + unitParam + '/' + sections.split(',')[0] : pathParam + '/' + unitParam;
+    } else if (source === '부교재') {
+      selKey = sections ? pathParam + '/' + unitParam + '/' + sections.split(',')[0] : pathParam + '/' + unitParam;
+    } else if (source === '모의고사') {
+      selKey = pathParam + '/' + unitParam;
+    } else {
+      selKey = pathParam + '/' + unitParam;
+    }
+
+    // 테스트 타입 매핑
+    const ttMap = { 'vocab': '단어테스트', 'workbook': '워크북테스트', 'quiz': '퀴즈테스트' };
+    const tt = ttMap[typeParam] || '단어테스트';
+
+    // mode 설정
+    S.mode = source;
+    S.sel = [selKey];
+    S.tt = tt;
+    S.qc = 20;
+
+    // 프로필 없으면 이름 입력 건너뛰기 (대시보드에서 왔으니까)
+    if (!profile.name.trim()) {
+      const studentName = u.get('name') || '학생';
+      profile.name = studentName;
+      localStorage.setItem('nf_profile', JSON.stringify(profile));
+    }
+
+    startE();
+    history.replaceState(null, '', location.pathname);
+    return;
+  }
+
+  // 기존 challenge 로직
   const ch=getChallenge();if(!ch)return;
   S._challenge=ch;
   // If not logged in, show challenge login
