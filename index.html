@@ -2860,14 +2860,14 @@ function extractSynAntPairs(questions){
     if(q.type==='동의어 고르기'&&q.stem&&q.ch){
       const match=q.stem.match(/<b>([^<]+)<\/b>/);
       if(match&&q.ans!=null){
-        pairs.push({word:match[1],answer:q.ch[q.ans].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'syn',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
+        pairs.push({word:match[1],answer:q.ch[q.ans-1].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'syn',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
       }
     }
     // Direct antonym questions: type === '반의어 고르기'
     if(q.type==='반의어 고르기'&&q.stem&&q.ch){
       const match=q.stem.match(/<b>([^<]+)<\/b>/);
       if(match&&q.ans!=null){
-        pairs.push({word:match[1],answer:q.ch[q.ans].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'ant',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
+        pairs.push({word:match[1],answer:q.ch[q.ans-1].replace(/[^a-zA-Z\s'-]/g,'').trim(),type:'ant',context:(q.passage||'').replace(/<[^>]*>/g,'').slice(0,80)});
       }
     }
     // Extract from tip field: word ↔ word patterns
