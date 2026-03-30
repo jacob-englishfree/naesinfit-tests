@@ -4376,15 +4376,19 @@ function initChallenge(){
       window._nfWeek = parseInt(u.get('week')) || 0;
     }
 
-    // sel 키 생성: source에 따라 경로 조합
+    // sel 키 생성: fetchTestQuestions에서 경로 판단에 사용
+    // 부교재: "부교재/수능특강/영어/1강/Gateway" → data/부교재/수능특강/영어/1강/Gateway/
+    // 모의고사: "모의고사/고1/3월/18번" → data/모의고사/고1/3월/18번/
+    // 교과서: "공통영어1/비상홍/1과/본문" → data/교과서/공통영어1/비상홍/1과/본문/
     const sections = u.get('sections');
     let selKey;
     if (source === '교과서') {
       selKey = sections ? pathParam + '/' + unitParam + '/' + sections.split(',')[0] : pathParam + '/' + unitParam;
     } else if (source === '부교재') {
-      selKey = sections ? pathParam + '/' + unitParam + '/' + sections.split(',')[0] : pathParam + '/' + unitParam;
+      const base = '부교재/' + pathParam + '/' + unitParam;
+      selKey = sections ? base + '/' + sections.split(',')[0] : base;
     } else if (source === '모의고사') {
-      selKey = pathParam + '/' + unitParam;
+      selKey = '모의고사/' + pathParam + '/' + unitParam;
     } else {
       selKey = pathParam + '/' + unitParam;
     }
