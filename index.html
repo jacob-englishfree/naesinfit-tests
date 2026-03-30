@@ -3835,7 +3835,7 @@ function doSub(auto){
   if(!auto){const un=S.qs.length-Object.keys(S.ans).length;if(un>0){if($('cm'))return;const d=document.createElement('div');d.className='modal-overlay';d.id='cm';d.innerHTML=`<div class="modal-box"><div style="font-size:40px;margin-bottom:12px">⚠️</div><div class="t-title">${un}문항이 비어있어요</div><div class="t-caption c-sub" style="margin-top:6px;margin-bottom:24px">빈 문항은 오답으로 처리돼요</div><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="$('cm').remove()">돌아갈게요</button><button class="btn btn-red btn-sm" style="flex:1" onclick="$('cm').remove();doSub(true)">제출할게요</button></div></div>`;document.body.appendChild(d);return;}}
   if(S.ti)clearInterval(S.ti);
   let tP=0,eP=0,ok=0,no=0,sk=0;const tM={};
-  const det=S.qs.map((q,i)=>{tP+=q.pts||0;const a=S.ans[i];let c=false;if(a===undefined||a==='')sk++;else if(q.fmt==='mc')c=a===q.ans;else{const u=String(a).trim().replace(/\s+/g,' ').toLowerCase();if(q.accept)c=q.accept.some(x=>x.trim().replace(/\s+/g,' ').toLowerCase()===u);if(!c&&q.wa)c=u===q.wa.trim().replace(/\s+/g,' ').toLowerCase();}if(c){ok++;eP+=(q.pts||0);}else if(a!==undefined&&a!=='')no++;const t=q.type||'기타';if(!tM[t])tM[t]={total:0,ok:0};tM[t].total++;if(c)tM[t].ok++;return{q,ua:a,ok:c};});
+  const det=S.qs.map((q,i)=>{tP+=q.pts||0;const a=S.ans[i];let c=false;if(a===undefined||a==='')sk++;else if(q.fmt==='mc')c=a+1===q.ans;else{const u=String(a).trim().replace(/\s+/g,' ').toLowerCase();if(q.accept)c=q.accept.some(x=>x.trim().replace(/\s+/g,' ').toLowerCase()===u);if(!c&&q.wa)c=u===q.wa.trim().replace(/\s+/g,' ').toLowerCase();}if(c){ok++;eP+=(q.pts||0);}else if(a!==undefined&&a!=='')no++;const t=q.type||'기타';if(!tM[t])tM[t]={total:0,ok:0};tM[t].total++;if(c)tM[t].ok++;return{q,ua:a,ok:c};});
   const score=tP>0?Math.round(eP/tP*100):0;
   S.res={score,ok,no,sk,tP,eP,lv:LV(score),det,tM};S.scr='result';S.rv={};
   sH({date:new Date().toLocaleDateString('ko-KR'),score,ok,no,sk,tP,eP,time:ftk(S.te),type:S.tt,level:LV(score).i+' '+LV(score).n,det,tM,scopes:S.sel&&S.sel.length?S.sel:[]});
@@ -3974,7 +3974,7 @@ function rResult(){setBottom(null);
 
   // 정답과 해설
   h+=`<div class="r-sec r-anim" style="${d(600)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 펼치기</span></div>`;
-  r.det.forEach((dd,i)=>{const ic=dd.ok?'<span class="spring-check">✅</span>':(dd.ua===undefined||dd.ua===''?'⬜':'<span class="shake">❌</span>');const ua=dd.q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');const ca=dd.q.fmt==='mc'?(NM[dd.q.ans]||''):(dd.q.wa||'');const so=!dd.ok;const dt=dd.q.det||{};
+  r.det.forEach((dd,i)=>{const ic=dd.ok?'<span class="spring-check">✅</span>':(dd.ua===undefined||dd.ua===''?'⬜':'<span class="shake">❌</span>');const ua=dd.q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');const ca=dd.q.fmt==='mc'?(NM[dd.q.ans-1]||''):(dd.q.wa||'');const so=!dd.ok;const dt=dd.q.det||{};
     h+=`<div class="rev"><div class="rev-h" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ra').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span class="ri">${ic}</span><span class="rt">${i+1}번 [${(dd.q.type||'').slice(0,8)}]</span><span class="rp">${dd.q.pts||0}점</span><span class="ra" style="${so?'transform:rotate(180deg)':''}">▼</span></div><div class="rev-b${so?' open':''}"><div class="ans-cmp"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
     if(dt.korean)h+=`<div class="det-tag b">해석</div><div class="det-box hl">${dt.korean}</div>`;
     if(dt.analysis)h+=`<div class="det-tag g">분석</div><div class="det-box">${dt.analysis}</div>`;
@@ -4094,7 +4094,7 @@ function svImg(){
   let qy=Y+50;
   r.det.forEach((d,i)=>{
     const icon=d.ok?'✅':'❌';
-    const ca=d.q.fmt==='mc'?(NM[d.q.ans]||''):(d.q.wa||'');
+    const ca=d.q.fmt==='mc'?(NM[d.q.ans-1]||''):(d.q.wa||'');
     const ua=d.q.fmt==='mc'?(d.ua!==undefined?(NM[d.ua]||'?'):'—'):(d.ua||'—');
     const col=d.ok?'#00C072':'#F04452';
     // Light row background for wrong answers
