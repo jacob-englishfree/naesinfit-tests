@@ -21,3 +21,33 @@ if [ -n "$ENGINE_FILES" ]; then
   echo "⛔ engine.js/css 커밋 금지."
   exit 1
 fi
+
+# ⛔ JSON 정답 정합성 검증 — det↔ans 불일치 시 커밋 차단
+JSON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.json$' | grep '^data/' || true)
+if [ -n "$JSON_FILES" ]; then
+  FAIL=0
+  for f in $JSON_FILES; do
+    if [ -f "$f" ]; then
+      node validate/validate-ans.js "$f" > /dev/null 2>&1
+      if [ $? -ne 0 ]; then
+        FAIL=1
+        echo "⛔ det↔ans 불일치: $f"
+        node validate/validate-ans.js "$f" 2>&1 | grep '\[S\]'
+      fi
+    fi
+  done
+  if [ $FAIL -ne 0 ]; then
+    echo ""
+    echo "⛔ 정답 오류 있는 JSON이 있습니다. ans를 수동으로 수정하지 마세요."
+    echo "   → node validate/auto-ans.js <file> 로 AI 자동 생성하세요."
+    exit 1
+  fi
+fi
+
+# ⛔ ans 수동 수정 감지 — validate-ans를 통과하지 않은 ans 변경 차단
+ANS_CHANGED=$(git diff --cached -U0 -- 'data/*.json' | grep -E '^\+.*"ans":\s*[0-9]' || true)
+if [ -n "$ANS_CHANGED" ]; then
+  # ans가 변경된 파일이 validate-ans를 통과했으면 OK (위에서 이미 체크)
+  # 여기서는 경고만 출력
+  echo "ℹ️  ans 필드 변경 감지됨 — validate-ans 통과 확인 완료"
+fi
