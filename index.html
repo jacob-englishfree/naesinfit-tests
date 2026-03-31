@@ -3979,6 +3979,8 @@ function rResult(){setBottom(null);
     if(dt.correct)h+=`<div class="det-tag g">해설</div><div class="det-box">${String(dt.correct).replace(/\n/g,'<br>')}</div>`;
     if(dt.wrongs&&dt.wrongs.length)h+=`<div class="det-tag g">오답</div><div class="det-box">${dt.wrongs.join('<br>')}</div>`;
     if(dt.tip)h+=`<div class="det-tag b">팁</div><div class="det-box hl">${String(dt.tip).replace(/\n/g,'<br>')}</div>`;
+    // 오답 신고 버튼
+    h+=`<div style="padding:8px 0;text-align:right"><button onclick="reportQuestion(${i})" style="font-size:11px;color:var(--hint);background:none;border:1px solid var(--border);padding:4px 10px;border-radius:8px;cursor:pointer">⚠️ 오류 신고</button></div>`;
     h+=`</div></div>`;});
   h+=`</div><div style="padding:20px"><button class="btn btn-blue" onclick="goHome()" style="width:100%">홈으로 돌아가기</button></div><div style="height:20px"></div></div>`;
   app.innerHTML=h;scrollTo(0,0);
@@ -4004,6 +4006,41 @@ function rResult(){setBottom(null);
 }
 
 // ━━ COPY ━━
+// ━━ 오답 신고 ━━
+async function reportQuestion(idx) {
+  const det = S.res.det[idx];
+  if (!det) return;
+  const q = det.q;
+  const scope = (S.sel && S.sel.length) ? S.sel.join(',') : '';
+  const report = {
+    student_name: profile.name || '익명',
+    school: profile.school || '',
+    scope: scope,
+    test_type: S.tt || '',
+    question_index: idx + 1,
+    question_type: q.type || '',
+    question_stem: (q.stem || '').slice(0, 200),
+    current_ans: q.ans,
+    reported_at: new Date().toISOString(),
+  };
+  try {
+    await sbInsert('error_reports', report);
+    toast('⚠️ 신고 완료! 확인 후 수정할게요');
+  } catch (e) {
+    // error_reports 테이블 없으면 test_scores에 메모로 저장
+    await sbInsert('test_scores', {
+      student_name: report.student_name,
+      school: report.school,
+      scope: 'ERROR_REPORT:' + scope,
+      test_type: report.test_type,
+      score: report.question_index,
+      ok: 0, no: 0, time_sec: 0,
+      level: 0, level_name: 'error_report',
+    });
+    toast('⚠️ 신고 완료!');
+  }
+}
+
 function cpRes(){const r=S.res,p=profile,l=r.lv;let t=`━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신핏 ${S.tt} 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 ${p.name} · ${p.school||''} · ${p.grade||''}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n📊 점수: ${r.score}/100\n✅ ${r.ok} ❌ ${r.no} ⬜ ${r.sk}\n🏅 ${l.i} ${l.n} · ⏱ ${ftk(S.te)}\n\n`;Object.entries(r.tM).forEach(([k,v])=>t+=`${k}: ${v.ok}/${v.total} (${Math.round(v.ok/v.total*100)}%)\n`);t+=`━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(t).then(()=>toast('📋 결과를 복사했어요')).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('📋 결과를 복사했어요');});}
 
 // ━━ IMAGE ━━

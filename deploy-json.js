@@ -195,6 +195,37 @@ function validateSchema(jsonPath) {
     }
   });
 
+  // ⛔ fullPassage 필수 + 최소 길이
+  if (!data.fullPassage || data.fullPassage.replace(/<[^>]*>/g, '').trim().length < 50) {
+    errors.push(`fullPassage 없거나 너무 짧음 (최소 50자)`);
+  }
+
+  // ⛔ 선지 중복 검사
+  data.questions.forEach((q, i) => {
+    if (q.ch && q.ch.length >= 2) {
+      const cleaned = q.ch.map(c => c.replace(/<[^>]*>/g, '').trim().toLowerCase());
+      for (let a = 0; a < cleaned.length; a++) {
+        for (let b = a + 1; b < cleaned.length; b++) {
+          if (cleaned[a] === cleaned[b] && cleaned[a].length > 0) {
+            errors.push(`Q${i + 1}: 선지 중복 ("${cleaned[a].slice(0, 30)}")`);
+          }
+        }
+      }
+    }
+  });
+
+  // ⛔ 서술형 정답 유효성
+  data.questions.forEach((q, i) => {
+    if (q.fmt === 'written') {
+      if (!q.wa && (!q.accept || q.accept.length === 0)) {
+        errors.push(`Q${i + 1}: 서술형 정답(wa/accept) 없음`);
+      }
+      if (q.wa && (q.wa === 'undefined' || q.wa === 'null' || q.wa.trim().length === 0)) {
+        errors.push(`Q${i + 1}: 서술형 정답이 비어있음`);
+      }
+    }
+  });
+
   return errors;
 }
 
