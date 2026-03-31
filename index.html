@@ -4355,7 +4355,7 @@ function shareChallenge(){
 }
 
 // ━━ Challenge Init ━━
-function initChallenge(){
+async function initChallenge(){
   // ━━ 대시보드 링크 자동 시작 (source/path/unit/type 파라미터) ━━
   const u = new URLSearchParams(location.search);
   const source = u.get('source');
@@ -4407,7 +4407,7 @@ function initChallenge(){
       localStorage.setItem('nf_profile', JSON.stringify(profile));
     }
 
-    startE();
+    await startE();
     history.replaceState(null, '', location.pathname);
     return;
   }
@@ -4951,7 +4951,9 @@ function exitGame(){
 // ━━ 대시보드 링크 → 자동 시작 (R() 전에 체크) ━━
 const _dashParams = new URLSearchParams(location.search);
 if (_dashParams.get('source') && _dashParams.get('path') && _dashParams.get('type')) {
-  initChallenge(); // initChallenge 안에서 source/path/type 처리
+  // 로딩 화면 표시 후 initChallenge (async startE 완료까지 대기)
+  app.innerHTML = '<div class="page" style="display:flex;align-items:center;justify-content:center;min-height:100vh"><div style="text-align:center"><div class="skeleton" style="height:40px;width:200px;margin:0 auto 16px"></div><p style="color:var(--c-sub)">시험을 불러오는 중...</p></div></div>';
+  initChallenge();
 } else {
   R();
 }
