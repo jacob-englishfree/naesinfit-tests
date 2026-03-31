@@ -47,7 +47,15 @@ fi
 # ⛔ ans 수동 수정 감지 — validate-ans를 통과하지 않은 ans 변경 차단
 ANS_CHANGED=$(git diff --cached -U0 -- 'data/*.json' | grep -E '^\+.*"ans":\s*[0-9]' || true)
 if [ -n "$ANS_CHANGED" ]; then
-  # ans가 변경된 파일이 validate-ans를 통과했으면 OK (위에서 이미 체크)
-  # 여기서는 경고만 출력
   echo "ℹ️  ans 필드 변경 감지됨 — validate-ans 통과 확인 완료"
+fi
+
+# 📦 카탈로그 자동 동기화 — data/ 변경 시 index.html 카탈로그 자동 업데이트
+if [ -n "$JSON_FILES" ]; then
+  node scripts/auto-catalog.js 2>/dev/null
+  # 카탈로그 변경됐으면 index.html도 스테이징
+  if git diff --name-only index.html | grep -q index.html; then
+    git add index.html
+    echo "📦 카탈로그 자동 동기화됨 — index.html 업데이트"
+  fi
 fi
