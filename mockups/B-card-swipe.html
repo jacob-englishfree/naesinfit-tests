@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 B — 카드 스와이프 (듀오링고/Quizlet)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:#fff;-webkit-font-smoothing:antialiased;overflow:hidden;height:100dvh}
+
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:#fff;position:relative}
+
+/* ━━ Duolingo-style Progress Bar ━━ */
+.progress-top{padding:16px 20px 12px;flex-shrink:0;display:flex;align-items:center;gap:14px}
+.btn-close{width:32px;height:32px;border:none;background:none;font-size:20px;color:#B0B8C1;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.btn-close:active{background:#F2F4F6}
+.progress-track{flex:1;height:12px;background:#E5E8EB;border-radius:6px;overflow:hidden;position:relative}
+.progress-fill{height:100%;width:35%;background:linear-gradient(90deg,#58CC02,#46A302);border-radius:6px;transition:width .6s cubic-bezier(.22,1,.36,1);position:relative}
+.progress-fill::after{content:'';position:absolute;top:2px;left:4px;right:4px;height:4px;background:rgba(255,255,255,.3);border-radius:2px}
+.q-count{font-size:14px;font-weight:800;color:#6B7684;min-width:44px;text-align:right}
+
+/* ━━ Question Area ━━ */
+.question-area{flex:1;display:flex;flex-direction:column;padding:0 24px;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
+
+.stem-section{padding:20px 0 16px}
+.stem{font-size:17px;font-weight:800;line-height:1.7;color:#191F28;word-break:keep-all}
+.meta-pills{display:flex;gap:6px;margin-top:10px}
+.pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:10px}
+.pill.diff{background:#FEF3C7;color:#D97706}
+.pill.pts{background:#F2F4F6;color:#6B7684}
+.pill.type{background:#DCFCE7;color:#16A34A}
+
+/* ━━ Passage Toggle ━━ */
+.passage-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#F8F9FA;border-radius:14px;margin-bottom:16px;cursor:pointer;border:1.5px solid #E5E8EB;transition:all .2s}
+.passage-toggle:active{background:#F2F4F6}
+.passage-toggle .left{display:flex;align-items:center;gap:8px}
+.passage-toggle .icon{font-size:18px}
+.passage-toggle .label{font-size:14px;font-weight:700;color:#4E5968}
+.passage-toggle .arrow{font-size:12px;color:#B0B8C1;transition:transform .3s}
+.passage-toggle.open .arrow{transform:rotate(180deg)}
+.passage-toggle.open{border-color:#8B5CF6;background:#F9F5FF}
+
+/* ━━ Passage Bottom Sheet ━━ */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;display:none;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
+.sheet-overlay.show{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:75vh;display:flex;flex-direction:column;animation:sheetUp .3s cubic-bezier(.2,.9,.3,1)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-handle{width:36px;height:4px;background:#D1D6DB;border-radius:2px;margin:10px auto 0;flex-shrink:0}
+.sheet-header{padding:16px 20px 12px;border-bottom:1px solid #E5E8EB;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.sheet-header h3{font-size:16px;font-weight:800}
+.sheet-close{width:28px;height:28px;border:none;background:#F2F4F6;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sheet-body{padding:20px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+.sheet-passage{font-size:15px;line-height:2.0;color:#4E5968;text-align:justify}
+.sheet-passage b{color:#7C3AED;font-weight:700}
+.sheet-passage u{text-decoration-color:#DC2626;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:600}
+.sheet-passage .blank{display:inline;border-bottom:2px solid #8B5CF6;padding:0 2px;color:#8B5CF6;font-weight:700}
+
+/* ━━ Choices ━━ */
+.choices{display:flex;flex-direction:column;gap:10px;padding-bottom:20px}
+.choice{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:2.5px solid #E5E8EB;background:#fff;cursor:pointer;transition:all .2s cubic-bezier(.2,.9,.3,1)}
+.choice:active{transform:scale(.97)}
+.choice.selected{border-color:#58CC02;background:#F7FEE7;box-shadow:0 4px 16px rgba(88,204,2,.15)}
+.choice-num{width:32px;height:32px;border-radius:50%;background:#F2F4F6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#8B95A1;flex-shrink:0;transition:all .25s}
+.choice.selected .choice-num{background:#58CC02;color:#fff;transform:scale(1.1)}
+.choice-text{font-size:14.5px;font-weight:600;line-height:1.55;color:#333D4B}
+.choice.selected .choice-text{color:#15803D;font-weight:700}
+
+/* ━━ Bottom ━━ */
+.bottom{flex-shrink:0;padding:16px 24px calc(16px + env(safe-area-inset-bottom));border-top:2px solid #E5E8EB}
+.btn-check{width:100%;height:56px;border:none;border-radius:16px;font-size:17px;font-weight:800;cursor:pointer;transition:all .15s;letter-spacing:-.3px}
+.btn-check.active{background:#58CC02;color:#fff;box-shadow:0 4px 0 #46A302,0 6px 20px rgba(88,204,2,.3)}
+.btn-check.active:active{transform:translateY(2px);box-shadow:0 2px 0 #46A302}
+.btn-check.inactive{background:#E5E8EB;color:#B0B8C1}
+.btn-skip{width:100%;height:44px;border:none;background:none;font-size:14px;font-weight:700;color:#B0B8C1;cursor:pointer;margin-top:4px}
+
+/* ━━ Swipe Hint ━━ */
+.swipe-hint{text-align:center;padding:12px;color:#D1D6DB;font-size:11px;font-weight:600}
+.swipe-hint span{display:inline-block;animation:swipeHint 2s infinite}
+@keyframes swipeHint{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(8px);opacity:1}}
+
+.design-label{position:fixed;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:4px 10px;border-radius:8px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="design-label">시안 B: 카드 스와이프</div>
+<div class="app">
+  <!-- Duolingo Progress -->
+  <div class="progress-top">
+    <button class="btn-close">✕</button>
+    <div class="progress-track"><div class="progress-fill" style="width:35%"></div></div>
+    <span class="q-count">7/20</span>
+  </div>
+
+  <!-- Question Area -->
+  <div class="question-area">
+    <div class="stem-section">
+      <div class="stem">다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+      <div class="meta-pills">
+        <span class="pill diff">보통 · 5점</span>
+        <span class="pill type">빈칸 추론</span>
+      </div>
+    </div>
+
+    <!-- Passage Toggle -->
+    <div class="passage-toggle" onclick="toggleSheet()">
+      <div class="left">
+        <span class="icon">📖</span>
+        <span class="label">지문 보기</span>
+      </div>
+      <span class="arrow">▼</span>
+    </div>
+
+    <!-- Choices -->
+    <div class="choices">
+      <div class="choice" onclick="selectB(this)">
+        <span class="choice-num">1</span>
+        <span class="choice-text">determined by the listener's innate musical ability</span>
+      </div>
+      <div class="choice" onclick="selectB(this)">
+        <span class="choice-num">2</span>
+        <span class="choice-text">learned rather than purely instinctive</span>
+      </div>
+      <div class="choice selected" onclick="selectB(this)">
+        <span class="choice-num">3</span>
+        <span class="choice-text">independent of the context in which it is heard</span>
+      </div>
+      <div class="choice" onclick="selectB(this)">
+        <span class="choice-num">4</span>
+        <span class="choice-text">primarily a result of the composer's intention</span>
+      </div>
+    </div>
+
+    <div class="swipe-hint"><span>← 스와이프하여 이동 →</span></div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom">
+    <button class="btn-check active">확인하기</button>
+    <button class="btn-skip">건너뛰기</button>
+  </div>
+</div>
+
+<!-- Passage Bottom Sheet -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet(event)">
+  <div class="sheet" onclick="event.stopPropagation()">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3>📖 지문</h3>
+      <button class="sheet-close" onclick="closeSheet()">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="sheet-passage">
+        The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem. Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.<br><br>
+        For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _______________ )</span>.<br><br>
+        Moreover, studies have demonstrated that people who have had musical training tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectB(el){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleSheet(){
+  document.getElementById('sheetOverlay').classList.add('show');
+}
+function closeSheet(e){
+  if(!e||e.target===document.getElementById('sheetOverlay'))
+    document.getElementById('sheetOverlay').classList.remove('show');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>결과 시안A — 스토리 리빌 (Spotify Wrapped)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:'Noto Sans KR','Inter',sans-serif;background:#0F0F1A;color:#fff;height:100dvh;overflow:hidden;-webkit-font-smoothing:antialiased}
+.app{max-width:480px;margin:0 auto;height:100dvh;position:relative;overflow:hidden}
+
+/* Story cards - swipe vertically */
+.story{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center;transition:transform .5s cubic-bezier(.22,1,.36,1),opacity .4s;opacity:0;transform:translateY(40px)}
+.story.active{opacity:1;transform:translateY(0)}
+.story.prev{opacity:0;transform:translateY(-60px)}
+
+/* Progress dots */
+.story-dots{position:fixed;top:16px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:10}
+.story-dot{width:40px;height:3px;border-radius:2px;background:rgba(255,255,255,.2)}
+.story-dot.done{background:#fff}
+.story-dot.active{background:#A78BFA;animation:dotPulse 1.5s infinite}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* Card 1: Score reveal */
+.score-big{font-size:96px;font-weight:900;font-family:'Inter',sans-serif;letter-spacing:-4px;background:linear-gradient(135deg,#C084FC,#F0ABFC,#FDE68A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:scoreIn .8s cubic-bezier(.34,1.56,.64,1)}
+@keyframes scoreIn{from{transform:scale(.5);opacity:0}50%{transform:scale(1.05)}to{transform:scale(1);opacity:1}}
+.score-label{font-size:14px;font-weight:600;color:rgba(255,255,255,.5);margin-top:8px;letter-spacing:2px;text-transform:uppercase}
+.pass-pill{display:inline-flex;padding:8px 24px;border-radius:24px;margin-top:20px;font-size:14px;font-weight:800}
+.pass-pill.y{background:rgba(167,139,250,.2);color:#C084FC;border:1px solid rgba(167,139,250,.3)}
+.pass-pill.n{background:rgba(252,165,165,.15);color:#FCA5A5;border:1px solid rgba(252,165,165,.2)}
+
+/* Card 2: Stats grid */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.stat-card{padding:24px 16px;border-radius:20px;text-align:center}
+.stat-card.green{background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.05));border:1px solid rgba(16,185,129,.2)}
+.stat-card.red{background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.05));border:1px solid rgba(239,68,68,.2)}
+.stat-card.purple{background:linear-gradient(135deg,rgba(167,139,250,.15),rgba(167,139,250,.05));border:1px solid rgba(167,139,250,.2)}
+.stat-card.gray{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.stat-val{font-size:32px;font-weight:900;font-family:'Inter',sans-serif}
+.stat-card.green .stat-val{color:#34D399}
+.stat-card.red .stat-val{color:#FCA5A5}
+.stat-card.purple .stat-val{color:#C084FC}
+.stat-card.gray .stat-val{color:#fff}
+.stat-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,.4);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+
+/* Card 3: Type analysis */
+.type-list{width:100%;text-align:left}
+.type-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.type-item:last-child{border:none}
+.type-name{flex:1;font-size:14px;font-weight:700}
+.type-bar-wrap{width:80px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.type-bar-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.type-pct{font-size:14px;font-weight:800;min-width:36px;text-align:right;font-family:'Inter',sans-serif}
+
+/* Card 4: Level */
+.level-emoji{font-size:80px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.level-name{font-size:28px;font-weight:900;margin-top:16px;background:linear-gradient(135deg,#A78BFA,#F0ABFC);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.level-range{font-size:13px;color:rgba(255,255,255,.4);margin-top:6px}
+.xp-bar{width:200px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;margin:16px auto 0;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,#A78BFA,#C084FC);border-radius:3px}
+.xp-text{font-size:12px;color:rgba(255,255,255,.4);margin-top:8px}
+
+/* Card 5: Actions */
+.action-btn{width:100%;padding:16px;border:none;border-radius:14px;font-size:15px;font-weight:800;cursor:pointer;margin-bottom:10px;font-family:inherit;transition:transform .15s}
+.action-btn:active{transform:scale(.97)}
+.action-btn.primary{background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;box-shadow:0 6px 24px rgba(139,92,246,.35)}
+.action-btn.secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.action-btn.ghost{background:none;color:rgba(255,255,255,.4);font-size:13px}
+
+/* Tap hint */
+.tap-hint{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;color:rgba(255,255,255,.25);font-weight:600;animation:tapBounce 2s infinite}
+@keyframes tapBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
+
+.section-title{font-size:12px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+
+.tag{position:fixed;top:8px;right:8px;background:rgba(167,139,250,.3);color:#C084FC;font-size:9px;padding:3px 10px;border-radius:10px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="tag">시안A: 스토리</div>
+<div class="app">
+  <!-- Story Dots -->
+  <div class="story-dots">
+    <div class="story-dot active" id="sd0"></div>
+    <div class="story-dot" id="sd1"></div>
+    <div class="story-dot" id="sd2"></div>
+    <div class="story-dot" id="sd3"></div>
+    <div class="story-dot" id="sd4"></div>
+  </div>
+
+  <!-- Card 0: Score -->
+  <div class="story active" id="s0">
+    <div class="score-label">YOUR SCORE</div>
+    <div class="score-big">85</div>
+    <div class="pass-pill y">PASS</div>
+  </div>
+
+  <!-- Card 1: Stats -->
+  <div class="story" id="s1">
+    <div class="section-title">상세 결과</div>
+    <div class="stat-grid">
+      <div class="stat-card green"><div class="stat-val">17</div><div class="stat-lbl">정답</div></div>
+      <div class="stat-card red"><div class="stat-val">2</div><div class="stat-lbl">오답</div></div>
+      <div class="stat-card gray"><div class="stat-val">1</div><div class="stat-lbl">건너뜀</div></div>
+      <div class="stat-card purple"><div class="stat-val">4:32</div><div class="stat-lbl">소요시간</div></div>
+    </div>
+  </div>
+
+  <!-- Card 2: Types -->
+  <div class="story" id="s2">
+    <div class="section-title">유형별 분석</div>
+    <div class="type-list">
+      <div class="type-item"><span class="type-name">빈칸 추론</span><div class="type-bar-wrap"><div class="type-bar-fill" style="width:100%;background:#34D399"></div></div><span class="type-pct" style="color:#34D399">100%</span></div>
+      <div class="type-item"><span class="type-name">어휘</span><div class="type-bar-wrap"><div class="type-bar-fill" style="width:75%;background:#FBBF24"></div></div><span class="type-pct" style="color:#FBBF24">75%</span></div>
+      <div class="type-item"><span class="type-name">어법</span><div class="type-bar-wrap"><div class="type-bar-fill" style="width:100%;background:#34D399"></div></div><span class="type-pct" style="color:#34D399">100%</span></div>
+      <div class="type-item"><span class="type-name">서술형</span><div class="type-bar-wrap"><div class="type-bar-fill" style="width:33%;background:#FCA5A5"></div></div><span class="type-pct" style="color:#FCA5A5">33%</span></div>
+      <div class="type-item"><span class="type-name">주제</span><div class="type-bar-wrap"><div class="type-bar-fill" style="width:100%;background:#34D399"></div></div><span class="type-pct" style="color:#34D399">100%</span></div>
+    </div>
+  </div>
+
+  <!-- Card 3: Level -->
+  <div class="story" id="s3">
+    <div class="level-emoji">👑</div>
+    <div class="level-name">마스터</div>
+    <div class="level-range">80~100점 구간</div>
+    <div class="xp-bar"><div class="xp-fill" style="width:65%"></div></div>
+    <div class="xp-text">+20 XP · Lv.5 마스터</div>
+    <div style="margin-top:24px;font-size:14px;color:rgba(255,255,255,.5);line-height:1.7">약점만 잡으면 만점도 가능해요!<br>서술형 유형 집중 훈련 추천</div>
+  </div>
+
+  <!-- Card 4: Actions -->
+  <div class="story" id="s4">
+    <div class="section-title">다음 할 일</div>
+    <button class="action-btn primary">홈으로 돌아가기</button>
+    <button class="action-btn secondary">재시험</button>
+    <button class="action-btn secondary">정답과 해설 보기</button>
+    <button class="action-btn ghost">결과 복사</button>
+  </div>
+
+  <div class="tap-hint" id="tapHint">탭하여 넘기기 →</div>
+</div>
+
+<script>
+let ci=0;const total=5;
+document.querySelector('.app').addEventListener('click',()=>{
+  if(ci>=total-1)return;
+  document.getElementById('s'+ci).classList.remove('active');
+  document.getElementById('s'+ci).classList.add('prev');
+  document.getElementById('sd'+ci).classList.remove('active');
+  document.getElementById('sd'+ci).classList.add('done');
+  ci++;
+  document.getElementById('s'+ci).classList.add('active');
+  document.getElementById('sd'+ci).classList.add('active');
+  if(ci===total-1)document.getElementById('tapHint').style.display='none';
+});
+</script>
+</body>
+</html>

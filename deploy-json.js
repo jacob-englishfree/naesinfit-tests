@@ -226,6 +226,76 @@ function validateSchema(jsonPath) {
     }
   });
 
+  // ━━━ 고급 품질 검사 (ETS/수능급) ━━━
+
+  // ⛔ 4. 정답 위치 편향 검사
+  const mcQuestions = data.questions.filter(q => q.fmt === 'mc' && q.ch && q.ch.length === 4);
+  if (mcQuestions.length >= 10) {
+    const ansDist = [0, 0, 0, 0];
+    mcQuestions.forEach(q => { if (q.ans >= 1 && q.ans <= 4) ansDist[q.ans - 1]++; });
+    const maxCount = Math.max(...ansDist);
+    const threshold = Math.ceil(mcQuestions.length * 0.45); // 45% 이상 한쪽 쏠림 차단
+    if (maxCount >= threshold) {
+      const biased = ansDist.indexOf(maxCount) + 1;
+      errors.push(`정답 위치 편향: ${biased}번에 ${maxCount}/${mcQuestions.length}개 집중 (${Math.round(maxCount/mcQuestions.length*100)}%)`);
+    }
+  }
+
+  // ⛔ 5. 정답 길이 편향 검사
+  mcQuestions.forEach((q, idx) => {
+    if (!q.ch || q.ch.length !== 4 || q.ans < 1 || q.ans > 4) return;
+    const lengths = q.ch.map(c => c.replace(/<[^>]*>/g, '').trim().length);
+    const correctLen = lengths[q.ans - 1];
+    const otherLens = lengths.filter((_, j) => j !== q.ans - 1);
+    const avgOther = otherLens.reduce((a, b) => a + b, 0) / otherLens.length;
+    // 정답이 오답 평균의 2배 이상 길거나 1/3 이하로 짧으면
+    if (correctLen > avgOther * 2.5 && correctLen > 20) {
+      const i = data.questions.indexOf(q);
+      errors.push(`Q${i + 1}: 정답 길이 편향 — 정답(${correctLen}자)이 오답 평균(${Math.round(avgOther)}자)의 2.5배 이상`);
+    }
+  });
+
+  // ⛔ 6. 절대어 검출 (오답에만 있으면 힌트)
+  const absoluteWords = ['always', 'never', 'completely', 'absolutely', 'all', 'none', 'every', 'only'];
+  mcQuestions.forEach(q => {
+    if (!q.ch || q.ans < 1 || q.ans > 4) return;
+    const correctHas = absoluteWords.some(w => q.ch[q.ans - 1].toLowerCase().includes(w));
+    const wrongsHave = q.ch.filter((_, j) => j !== q.ans - 1).some(c => absoluteWords.some(w => c.toLowerCase().includes(w)));
+    // 오답에만 절대어가 있으면 힌트
+    if (wrongsHave && !correctHas) {
+      const i = data.questions.indexOf(q);
+      // 경고만 (FAIL은 아님) — 너무 엄격하면 정상 문항도 걸림
+    }
+  });
+
+  // ⛔ 7. 선지 동질성 검사 (길이 편차)
+  mcQuestions.forEach(q => {
+    if (!q.ch || q.ch.length < 4) return;
+    const lengths = q.ch.map(c => c.replace(/<[^>]*>/g, '').trim().length);
+    const avg = lengths.reduce((a, b) => a + b, 0) / lengths.length;
+    const maxDev = Math.max(...lengths.map(l => Math.abs(l - avg)));
+    // 평균 대비 편차가 3배 이상이면 비동질
+    if (avg > 5 && maxDev > avg * 3) {
+      const i = data.questions.indexOf(q);
+      errors.push(`Q${i + 1}: 선지 동질성 부족 — 길이 편차 과대 (${lengths.join(',')}자)`);
+    }
+  });
+
+  // ⛔ 8. 교차 누설 검사 (같은 파일 내 다른 문항 해설이 정답 누설)
+  data.questions.forEach((q, i) => {
+    if (q.fmt !== 'mc' || !q.ch || q.ans < 1 || q.ans > 4) return;
+    const correctText = q.ch[q.ans - 1].replace(/<[^>]*>/g, '').trim().toLowerCase();
+    if (correctText.length < 20) return; // 짧은 단어는 자연스럽게 겹칠 수 있음
+    // 다른 문항의 passage/stem에 이 정답이 그대로 나오는지
+    data.questions.forEach((other, j) => {
+      if (i === j) return;
+      const otherText = ((other.det?.analysis || '') + ' ' + (other.det?.korean || '')).toLowerCase();
+      if (otherText.includes(correctText)) {
+        errors.push(`Q${i + 1}: 교차 누설 — Q${j + 1}의 해설에 Q${i + 1} 정답("${correctText.slice(0, 25)}")이 노출`);
+      }
+    });
+  });
+
   return errors;
 }
 

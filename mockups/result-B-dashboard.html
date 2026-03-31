@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>결과 시안B — 대시보드 (Apple Fitness)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR','Inter',sans-serif;background:#FAFAFA;color:#0F172A;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:480px;margin:0 auto;min-height:100dvh;background:#FAFAFA}
+
+/* Score Hero — Apple Fitness Ring style */
+.hero{padding:40px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(139,92,246,.08),transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(236,72,153,.06),transparent 70%);pointer-events:none}
+.ring-wrap{position:relative;width:160px;height:160px;margin:0 auto}
+.ring-wrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#E5E8EB;stroke-width:10}
+.ring-fill{fill:none;stroke:url(#rg);stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:66;transition:stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)}
+.ring-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.ring-score{font-size:48px;font-weight:900;font-family:'Inter',sans-serif;letter-spacing:-2px;color:#0F172A}
+.ring-unit{font-size:16px;font-weight:600;color:#94A3B8}
+.pass-badge{display:inline-flex;align-items:center;gap:4px;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:800;margin-top:14px}
+.pass-badge.y{background:#DCFCE7;color:#16A34A}
+.pass-badge.n{background:#FEE2E2;color:#DC2626}
+
+/* Stats row */
+.stats-row{display:flex;gap:0;margin:0 20px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.stat{flex:1;padding:16px 8px;text-align:center;border-right:1px solid #F1F5F9}
+.stat:last-child{border:none}
+.stat-v{font-size:20px;font-weight:900;font-family:'Inter',sans-serif}
+.stat-v.g{color:#16A34A}.stat-v.r{color:#DC2626}.stat-v.b{color:#7C3AED}
+.stat-l{font-size:10px;font-weight:600;color:#94A3B8;margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Section */
+.sec{margin:12px 16px;background:#fff;border-radius:20px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+.sec-h{font-size:15px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+
+/* Type bars */
+.tbar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tbar:last-child{margin:0}
+.tbar-name{min-width:56px;font-size:12px;font-weight:700;color:#475569;text-align:right}
+.tbar-track{flex:1;height:8px;background:#F1F5F9;border-radius:4px;overflow:hidden}
+.tbar-fill{height:100%;border-radius:4px}
+.tbar-fill.good{background:linear-gradient(90deg,#34D399,#10B981)}
+.tbar-fill.mid{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
+.tbar-fill.bad{background:linear-gradient(90deg,#FCA5A5,#EF4444)}
+.tbar-pct{font-size:13px;font-weight:800;min-width:36px;text-align:right;font-family:'Inter',sans-serif}
+
+/* Level inline */
+.level-row{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border-radius:16px}
+.level-emoji{font-size:40px}
+.level-info{flex:1}
+.level-name{font-size:16px;font-weight:900;color:#6D28D9}
+.level-sub{font-size:11px;color:#7C3AED;font-weight:600}
+.xp-mini{height:4px;background:rgba(139,92,246,.15);border-radius:2px;margin-top:6px;overflow:hidden}
+.xp-mini-fill{height:100%;background:#8B5CF6;border-radius:2px}
+
+/* AI card */
+.ai-card{padding:16px;background:#F8FAFC;border-radius:14px;border:1px solid #E2E8F0}
+.ai-verdict{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:10px}
+.ai-tip{font-size:12px;padding:8px 12px;background:#EFF6FF;border-radius:8px;color:#2563EB;font-weight:600}
+
+/* Actions */
+.actions{display:flex;gap:8px;margin:16px 16px 0}
+.act-btn{flex:1;padding:14px;border-radius:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:transform .15s;border:none}
+.act-btn:active{transform:scale(.96)}
+.act-btn.primary{flex:2;background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;box-shadow:0 4px 16px rgba(139,92,246,.25)}
+.act-btn.sec{background:#fff;color:#475569;border:1.5px solid #E2E8F0}
+
+/* Review */
+.rev-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #F1F5F9}
+.rev-item:last-child{border:none}
+.rev-icon{font-size:16px;flex-shrink:0}
+.rev-text{flex:1;font-size:13px;font-weight:600;color:#334155}
+.rev-pts{font-size:12px;font-weight:700;color:#94A3B8}
+
+.tag{position:fixed;top:8px;right:8px;background:#8B5CF6;color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="tag">시안B: 대시보드</div>
+<div class="app">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="ring-wrap">
+      <svg viewBox="0 0 160 160">
+        <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B5CF6"/><stop offset="100%" style="stop-color:#EC4899"/></linearGradient></defs>
+        <circle class="ring-bg" cx="80" cy="80" r="70"/>
+        <circle class="ring-fill" cx="80" cy="80" r="70"/>
+      </svg>
+      <div class="ring-inner">
+        <div class="ring-score">85</div>
+        <div class="ring-unit">점</div>
+      </div>
+    </div>
+    <div class="pass-badge y">PASS</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat"><div class="stat-v g">17</div><div class="stat-l">정답</div></div>
+    <div class="stat"><div class="stat-v r">2</div><div class="stat-l">오답</div></div>
+    <div class="stat"><div class="stat-v">1</div><div class="stat-l">건너뜀</div></div>
+    <div class="stat"><div class="stat-v b">4:32</div><div class="stat-l">시간</div></div>
+  </div>
+
+  <!-- Level -->
+  <div class="sec">
+    <div class="level-row">
+      <div class="level-emoji">👑</div>
+      <div class="level-info">
+        <div class="level-name">마스터</div>
+        <div class="level-sub">+20 XP · Lv.5</div>
+        <div class="xp-mini"><div class="xp-mini-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type Analysis -->
+  <div class="sec">
+    <div class="sec-h">유형별 분석</div>
+    <div class="tbar"><span class="tbar-name">빈칸 추론</span><div class="tbar-track"><div class="tbar-fill good" style="width:100%"></div></div><span class="tbar-pct" style="color:#10B981">5/5</span></div>
+    <div class="tbar"><span class="tbar-name">어휘</span><div class="tbar-track"><div class="tbar-fill mid" style="width:75%"></div></div><span class="tbar-pct" style="color:#F59E0B">3/4</span></div>
+    <div class="tbar"><span class="tbar-name">어법</span><div class="tbar-track"><div class="tbar-fill good" style="width:100%"></div></div><span class="tbar-pct" style="color:#10B981">4/4</span></div>
+    <div class="tbar"><span class="tbar-name">서술형</span><div class="tbar-track"><div class="tbar-fill bad" style="width:33%"></div></div><span class="tbar-pct" style="color:#EF4444">1/3</span></div>
+    <div class="tbar"><span class="tbar-name">주제</span><div class="tbar-track"><div class="tbar-fill good" style="width:100%"></div></div><span class="tbar-pct" style="color:#10B981">4/4</span></div>
+  </div>
+
+  <!-- AI -->
+  <div class="sec">
+    <div class="sec-h">AI 분석</div>
+    <div class="ai-card">
+      <div class="ai-verdict" style="color:#2563EB">통과! 약점만 잡으면 만점도 가능해요.</div>
+      <div style="font-size:12px;padding:6px 10px;background:#FEF2F2;border-radius:6px;color:#DC2626;font-weight:600;margin-bottom:6px">서술형 33% — 핵심 구문 정확 해석 연습</div>
+      <div class="ai-tip">추천: "서술형" 유형만 잡으면 95점 가능!</div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button class="act-btn sec">재시험</button>
+    <button class="act-btn primary">홈으로</button>
+  </div>
+
+  <!-- Review preview -->
+  <div class="sec" style="margin-top:12px">
+    <div class="sec-h">정답과 해설</div>
+    <div class="rev-item"><span class="rev-icon">✅</span><span class="rev-text">1번 [빈칸 추론]</span><span class="rev-pts">5점</span></div>
+    <div class="rev-item"><span class="rev-icon">✅</span><span class="rev-text">2번 [어휘]</span><span class="rev-pts">4점</span></div>
+    <div class="rev-item"><span class="rev-icon">❌</span><span class="rev-text">3번 [서술형]</span><span class="rev-pts">6점</span></div>
+    <div class="rev-item"><span class="rev-icon">✅</span><span class="rev-text">4번 [주제]</span><span class="rev-pts">5점</span></div>
+    <div class="rev-item"><span class="rev-icon">⬜</span><span class="rev-text">5번 [어법]</span><span class="rev-pts">4점</span></div>
+  </div>
+  <div style="height:24px"></div>
+</div>
+</body>
+</html>

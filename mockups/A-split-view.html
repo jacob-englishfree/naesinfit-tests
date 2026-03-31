@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 A — Split View (산타토익/메가스터디)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:#F2F4F6;-webkit-font-smoothing:antialiased;overflow:hidden;height:100dvh}
+
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:#fff;position:relative}
+
+/* ━━ Top Bar ━━ */
+.top-bar{padding:12px 20px 10px;background:#fff;border-bottom:1px solid #E5E8EB;flex-shrink:0;z-index:10}
+.top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.q-badge{background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;font-size:13px;font-weight:900;padding:5px 14px;border-radius:16px;letter-spacing:.3px}
+.timer{font-size:22px;font-weight:900;color:#191F28;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.timer .warn{color:#D97706}
+.meta-row{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.meta-tag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px}
+.meta-tag.diff-m{background:#FEF3C7;color:#D97706}
+.meta-tag.type{background:#F3EEFF;color:#7C3AED}
+.meta-tag.pts{background:#F2F4F6;color:#6B7684}
+.progress-bar{height:4px;background:#E5E8EB;border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:35%;background:linear-gradient(90deg,#8B5CF6,#C084FC);border-radius:2px;transition:width .4s cubic-bezier(.22,1,.36,1)}
+
+/* ━━ Passage Area (scrollable top 60%) ━━ */
+.passage-area{flex:1;overflow-y:auto;padding:20px 20px 16px;background:#FFFFFF;-webkit-overflow-scrolling:touch;border-bottom:2px solid #E5E8EB;position:relative;min-height:0}
+.passage-area::after{content:'';position:sticky;bottom:0;left:0;right:0;height:32px;background:linear-gradient(transparent,#fff);pointer-events:none;display:block}
+.stem{font-size:16px;font-weight:800;line-height:1.7;color:#191F28;margin-bottom:14px;word-break:keep-all}
+.passage{font-family:'Noto Serif',Georgia,serif;font-size:15px;line-height:2.0;color:#4E5968;text-align:justify;word-break:keep-all}
+.passage b{color:#7C3AED;font-weight:700}
+.passage u{text-decoration-color:#DC2626;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:600}
+.passage .blank{display:inline-block;min-width:120px;border-bottom:2px solid #8B5CF6;margin:0 2px;text-align:center;color:#8B5CF6;font-weight:700}
+.scroll-hint{text-align:center;padding:8px;color:#B0B8C1;font-size:11px;font-weight:600;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* ━━ Answer Area (fixed bottom 40%) ━━ */
+.answer-area{flex-shrink:0;padding:16px 20px;background:#F8F9FA;max-height:44vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.answer-label{font-size:11px;font-weight:700;color:#8B95A1;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.choices{display:flex;flex-direction:column;gap:8px}
+.choice{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:2px solid #E5E8EB;background:#fff;cursor:pointer;transition:all .15s cubic-bezier(.2,.9,.3,1);-webkit-tap-highlight-color:transparent}
+.choice:active{transform:scale(.97)}
+.choice.selected{border-color:#8B5CF6;background:linear-gradient(135deg,#F5F3FF,#EDE9FE);box-shadow:0 4px 16px rgba(139,92,246,.12)}
+.choice-num{width:28px;height:28px;border-radius:10px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#8B95A1;flex-shrink:0;transition:all .2s}
+.choice.selected .choice-num{background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff}
+.choice-text{font-size:13.5px;font-weight:600;line-height:1.5;color:#333D4B}
+
+/* ━━ Bottom Button ━━ */
+.bottom-btn{flex-shrink:0;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #E5E8EB}
+.btn-next{width:100%;height:52px;border:none;border-radius:14px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(139,92,246,.3);transition:transform .1s}
+.btn-next:active{transform:scale(.97)}
+.btn-next:disabled{background:#D1D6DB;box-shadow:none}
+
+/* ━━ Navigation dots ━━ */
+.dots{display:flex;gap:4px;justify-content:center;margin-top:8px}
+.dot{width:6px;height:6px;border-radius:3px;background:#D1D6DB}
+.dot.active{width:18px;background:#8B5CF6}
+.dot.done{background:#A78BFA}
+
+/* ━━ Divider ━━ */
+.split-divider{height:3px;background:linear-gradient(90deg,#8B5CF6 0%,#C084FC 50%,#E9D5FF 100%);flex-shrink:0;position:relative}
+.split-divider::after{content:'선지 영역';position:absolute;right:12px;top:-8px;font-size:9px;font-weight:700;color:#8B5CF6;background:#F8F9FA;padding:0 6px;border-radius:4px}
+
+.design-label{position:fixed;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:4px 10px;border-radius:8px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="design-label">시안 A: Split View</div>
+<div class="app">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-row">
+      <span class="q-badge">Q7 / 20</span>
+      <span class="timer">04:32</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-tag diff-m">보통</span>
+      <span class="meta-tag type">빈칸 추론</span>
+      <span class="meta-tag pts">5점</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
+    <div class="dots">
+      <span class="dot done"></span><span class="dot done"></span><span class="dot done"></span>
+      <span class="dot done"></span><span class="dot done"></span><span class="dot done"></span>
+      <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- Passage Area (scrollable) -->
+  <div class="passage-area">
+    <div class="stem">다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+    <div class="passage">
+      The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem. Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.<br><br>
+      For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _______________ )</span>.<br><br>
+      Moreover, studies have demonstrated that people who have had musical training tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.
+    </div>
+    <div class="scroll-hint">↓ 스크롤하여 전체 지문 확인</div>
+  </div>
+
+  <!-- Split Divider -->
+  <div class="split-divider"></div>
+
+  <!-- Answer Area (fixed) -->
+  <div class="answer-area">
+    <div class="answer-label">답을 선택하세요</div>
+    <div class="choices">
+      <div class="choice" onclick="selectA(this)">
+        <span class="choice-num">1</span>
+        <span class="choice-text">determined by the listener's innate musical ability</span>
+      </div>
+      <div class="choice selected" onclick="selectA(this)">
+        <span class="choice-num">2</span>
+        <span class="choice-text">learned rather than purely instinctive</span>
+      </div>
+      <div class="choice" onclick="selectA(this)">
+        <span class="choice-num">3</span>
+        <span class="choice-text">independent of the context in which it is heard</span>
+      </div>
+      <div class="choice" onclick="selectA(this)">
+        <span class="choice-num">4</span>
+        <span class="choice-text">primarily a result of the composer's intention</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Button -->
+  <div class="bottom-btn">
+    <button class="btn-next">다음 문제 →</button>
+  </div>
+</div>
+
+<script>
+function selectA(el){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 D — 하이브리드 (A+C 조합: 분리 스크롤 + 리더)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;height:100dvh;overflow:hidden}
+
+/* ━━ Theme ━━ */
+body{--bg:#FBF9F4;--surface:#FFFFFF;--text:#2C2C2C;--sub:#7A7A6E;--hint:#AAA89E;--border:#E8E4DA;--accent:#7C3AED;--accent-soft:rgba(124,58,237,.08);--accent-light:#F3EEFF;--answer-bg:#F5F3F0;--bar-bg:rgba(251,249,244,.9)}
+body.dark{--bg:#111;--surface:#1A1A1A;--text:#E0E0E0;--sub:#888;--hint:#555;--border:#2C2C2C;--accent:#A78BFA;--accent-soft:rgba(167,139,250,.1);--accent-light:#2D1B69;--answer-bg:#161616;--bar-bg:rgba(17,17,17,.9)}
+
+body{background:var(--bg);color:var(--text)}
+
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative}
+
+/* ━━ Top Bar — Hybrid (미니멀 + 정보) ━━ */
+.top-bar{flex-shrink:0;padding:10px 20px 8px;background:var(--bar-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:10;border-bottom:1px solid var(--border)}
+.bar-main{display:flex;align-items:center;justify-content:space-between}
+.bar-left{display:flex;align-items:center;gap:10px}
+.btn-back{width:28px;height:28px;border:none;background:none;font-size:16px;color:var(--sub);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.q-info{display:flex;align-items:center;gap:6px}
+.q-num{background:var(--accent);color:#fff;font-size:12px;font-weight:900;padding:4px 12px;border-radius:12px}
+.q-meta{display:flex;gap:4px}
+.q-tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px}
+.q-tag.diff{background:#FEF3C7;color:#D97706}
+.q-tag.type{background:var(--accent-light);color:var(--accent)}
+.q-tag.pts{background:var(--surface);color:var(--sub);border:1px solid var(--border)}
+.bar-right{display:flex;align-items:center;gap:6px}
+.timer{font-size:15px;font-weight:800;color:var(--sub);font-variant-numeric:tabular-nums}
+.btn-icon{width:28px;height:28px;border:1px solid var(--border);background:var(--surface);border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* Progress */
+.progress-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.progress-bar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:35%;background:var(--accent);border-radius:2px;transition:width .5s cubic-bezier(.22,1,.36,1)}
+.progress-label{font-size:10px;font-weight:700;color:var(--hint)}
+
+/* ━━ Passage Area — Reader Style + Independent Scroll ━━ */
+.passage-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 16px;background:var(--bg);position:relative;min-height:0}
+.stem-line{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px;letter-spacing:.3px}
+.passage{font-family:'Noto Serif',Georgia,serif;font-size:16px;line-height:2.1;color:var(--text);text-align:justify;word-break:keep-all}
+.passage .para{margin-bottom:18px}
+.passage .para:last-child{margin-bottom:0}
+.passage b{color:var(--accent);font-weight:700}
+.passage u{text-decoration-color:#DC2626;text-decoration-thickness:2px;text-underline-offset:4px;font-weight:600}
+.passage .blank{display:inline;border-bottom:2.5px solid var(--accent);padding:0 4px;color:var(--accent);font-weight:700;font-family:'Noto Sans KR',sans-serif;font-size:14px}
+/* Fade hint at bottom of passage */
+.passage-area::after{content:'';position:sticky;bottom:0;left:0;right:0;height:24px;background:linear-gradient(transparent,var(--bg));display:block;pointer-events:none}
+
+/* ━━ Split Handle ━━ */
+.split-handle{flex-shrink:0;height:28px;background:var(--answer-bg);display:flex;align-items:center;justify-content:center;gap:8px;border-top:1px solid var(--border);cursor:ns-resize}
+.split-handle .grip{width:32px;height:3px;background:var(--hint);border-radius:2px;opacity:.5}
+.split-handle .label{font-size:9px;font-weight:700;color:var(--hint);letter-spacing:1.5px;text-transform:uppercase}
+
+/* ━━ Answer Area — Compact + Fixed ━━ */
+.answer-area{flex-shrink:0;max-height:42vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 20px;background:var(--answer-bg)}
+.choices{display:flex;flex-direction:column;gap:7px}
+.choice{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .15s cubic-bezier(.2,.9,.3,1)}
+.choice:active{transform:scale(.98)}
+.choice.selected{border-color:var(--accent);background:var(--accent-light);box-shadow:0 2px 12px rgba(124,58,237,.1)}
+.choice-num{width:26px;height:26px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--hint);flex-shrink:0;transition:all .2s;border:1px solid var(--border)}
+.choice.selected .choice-num{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.05)}
+.choice-text{font-size:13px;font-weight:600;line-height:1.5;color:var(--text)}
+
+/* ━━ Bottom ━━ */
+.bottom{flex-shrink:0;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:var(--bar-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;gap:10px}
+.btn-prev{height:48px;padding:0 20px;border:1.5px solid var(--border);border-radius:12px;background:var(--surface);color:var(--sub);font-size:14px;font-weight:700;cursor:pointer}
+.btn-prev:active{background:var(--bg)}
+.btn-next{flex:1;height:48px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(124,58,237,.25);transition:transform .1s}
+.btn-next:active{transform:scale(.97)}
+
+/* ━━ Written Input (서술형) ━━ */
+.written-section{display:none;padding:16px 20px}
+.written-label{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:8px}
+.written-input{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;font-family:inherit;outline:none;background:var(--surface);color:var(--text);transition:border .2s}
+.written-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.08)}
+
+/* ━━ Font Size Popup ━━ */
+.font-popup{display:none;position:fixed;top:56px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200;gap:6px}
+.font-popup.show{display:flex}
+.font-btn{width:36px;height:36px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);font-weight:800;cursor:pointer;color:var(--text);font-size:13px}
+
+/* ━━ Theme picker ━━ */
+.theme-popup{display:none;position:fixed;top:56px;right:50px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200;gap:6px}
+.theme-popup.show{display:flex}
+.theme-btn{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);cursor:pointer}
+.theme-btn.sepia{background:#FBF9F4}
+.theme-btn.white{background:#FFFFFF}
+.theme-btn.night{background:#1A1A1A}
+.theme-btn.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,58,237,.3)}
+
+.design-label{position:fixed;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:4px 10px;border-radius:8px;z-index:999;font-weight:700}
+.design-sublabel{position:fixed;top:8px;right:8px;background:var(--accent);color:#fff;font-size:10px;padding:4px 10px;border-radius:8px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="design-label">시안 D: 하이브리드</div>
+<div class="design-sublabel">A분리스크롤 + C리더</div>
+
+<div class="app">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="bar-main">
+      <div class="bar-left">
+        <button class="btn-back">←</button>
+        <div class="q-info">
+          <span class="q-num">Q7</span>
+          <div class="q-meta">
+            <span class="q-tag diff">보통</span>
+            <span class="q-tag type">빈칸 추론</span>
+            <span class="q-tag pts">5점</span>
+          </div>
+        </div>
+      </div>
+      <div class="bar-right">
+        <span class="timer">04:32</span>
+        <button class="btn-icon" onclick="toggleThemePopup()">🌗</button>
+        <button class="btn-icon" onclick="toggleFontPopup()" style="font-weight:900;font-size:11px">A</button>
+      </div>
+    </div>
+    <div class="progress-row">
+      <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
+      <span class="progress-label">7/20</span>
+    </div>
+  </div>
+
+  <!-- Passage Area (scrollable, reader style) -->
+  <div class="passage-area">
+    <div class="stem-line">다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+    <div class="passage" id="passageText">
+      <div class="para">The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem.</div>
+      <div class="para">Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.</div>
+      <div class="para">For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _____________ )</span>.</div>
+      <div class="para">Moreover, studies have demonstrated that people who have had musical training tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.</div>
+    </div>
+  </div>
+
+  <!-- Split Handle -->
+  <div class="split-handle">
+    <span class="grip"></span>
+    <span class="label">선지</span>
+    <span class="grip"></span>
+  </div>
+
+  <!-- Answer Area (fixed, compact) -->
+  <div class="answer-area">
+    <div class="choices">
+      <div class="choice" onclick="selectD(this)">
+        <span class="choice-num">1</span>
+        <span class="choice-text">determined by the listener's innate musical ability</span>
+      </div>
+      <div class="choice selected" onclick="selectD(this)">
+        <span class="choice-num">2</span>
+        <span class="choice-text">learned rather than purely instinctive</span>
+      </div>
+      <div class="choice" onclick="selectD(this)">
+        <span class="choice-num">3</span>
+        <span class="choice-text">independent of the context in which it is heard</span>
+      </div>
+      <div class="choice" onclick="selectD(this)">
+        <span class="choice-num">4</span>
+        <span class="choice-text">primarily a result of the composer's intention</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom">
+    <button class="btn-prev">← 이전</button>
+    <button class="btn-next">다음 문제 →</button>
+  </div>
+</div>
+
+<!-- Font Popup -->
+<div class="font-popup" id="fontPopup">
+  <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+  <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+</div>
+
+<!-- Theme Popup -->
+<div class="theme-popup" id="themePopup">
+  <button class="theme-btn sepia active" onclick="setTheme('sepia')"></button>
+  <button class="theme-btn white" onclick="setTheme('white')"></button>
+  <button class="theme-btn night" onclick="setTheme('night')"></button>
+</div>
+
+<script>
+function selectD(el){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleFontPopup(){
+  document.getElementById('fontPopup').classList.toggle('show');
+  document.getElementById('themePopup').classList.remove('show');
+}
+function toggleThemePopup(){
+  document.getElementById('themePopup').classList.toggle('show');
+  document.getElementById('fontPopup').classList.remove('show');
+}
+let fs=16;
+function changeFontSize(d){
+  fs=Math.max(13,Math.min(20,fs+d));
+  document.getElementById('passageText').style.fontSize=fs+'px';
+}
+function setTheme(t){
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  if(t==='night'){document.body.className='dark';document.querySelector('.theme-btn.night').classList.add('active')}
+  else if(t==='white'){document.body.className='';
+    // override sepia to white
+    document.documentElement.style.setProperty('--bg','#FFFFFF');
+    document.documentElement.style.setProperty('--surface','#FFFFFF');
+    document.documentElement.style.setProperty('--text','#191F28');
+    document.documentElement.style.setProperty('--sub','#6B7684');
+    document.documentElement.style.setProperty('--hint','#B0B8C1');
+    document.documentElement.style.setProperty('--border','#E5E8EB');
+    document.documentElement.style.setProperty('--answer-bg','#F2F4F6');
+    document.documentElement.style.setProperty('--bar-bg','rgba(255,255,255,.9)');
+    document.querySelector('.theme-btn.white').classList.add('active');
+  }else{
+    document.body.className='';
+    document.documentElement.style.setProperty('--bg','#FBF9F4');
+    document.documentElement.style.setProperty('--surface','#FFFFFF');
+    document.documentElement.style.setProperty('--text','#2C2C2C');
+    document.documentElement.style.setProperty('--sub','#7A7A6E');
+    document.documentElement.style.setProperty('--hint','#AAA89E');
+    document.documentElement.style.setProperty('--border','#E8E4DA');
+    document.documentElement.style.setProperty('--answer-bg','#F5F3F0');
+    document.documentElement.style.setProperty('--bar-bg','rgba(251,249,244,.9)');
+    document.querySelector('.theme-btn.sepia').classList.add('active');
+  }
+}
+// Close popups on outside click
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.btn-icon')&&!e.target.closest('.font-popup')&&!e.target.closest('.theme-popup')){
+    document.getElementById('fontPopup').classList.remove('show');
+    document.getElementById('themePopup').classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>

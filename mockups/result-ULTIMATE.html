@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>결과 ULTIMATE — 압도적 최상급</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR','Inter',sans-serif;background:#0A0A12;color:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:480px;margin:0 auto;min-height:100dvh;position:relative}
+
+/* ━━ Phase 1: Score Reveal (full screen, auto-transitions) ━━ */
+.reveal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#0A0A12;transition:opacity .6s,transform .6s;overflow:hidden}
+.reveal-overlay.hide{opacity:0;pointer-events:none;transform:scale(1.05)}
+.reveal-overlay::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);animation:revealGlow 3s ease-in-out infinite}
+@keyframes revealGlow{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.3);opacity:1}}
+.reveal-score{font-size:120px;font-weight:900;font-family:'Inter',sans-serif;letter-spacing:-6px;opacity:0;transform:scale(.3);transition:all .8s cubic-bezier(.34,1.56,.64,1)}
+.reveal-score.show{opacity:1;transform:scale(1)}
+.reveal-score.pass{background:linear-gradient(135deg,#C084FC,#F0ABFC,#FDE68A);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.reveal-score.fail{background:linear-gradient(135deg,#FCA5A5,#F87171);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.reveal-label{font-size:13px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;opacity:0;transition:opacity .5s .2s}
+.reveal-label.show{opacity:1}
+.reveal-badge{margin-top:20px;padding:8px 28px;border-radius:24px;font-size:15px;font-weight:800;opacity:0;transform:translateY(20px);transition:all .5s .5s}
+.reveal-badge.show{opacity:1;transform:translateY(0)}
+.reveal-badge.pass{background:rgba(167,139,250,.2);color:#C084FC;border:1px solid rgba(167,139,250,.3)}
+.reveal-badge.fail{background:rgba(252,165,165,.15);color:#FCA5A5;border:1px solid rgba(252,165,165,.2)}
+
+/* Confetti particles */
+.particle{position:absolute;width:6px;height:6px;border-radius:50%;pointer-events:none;animation:particleFly 2s ease-out forwards}
+@keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0)}}
+
+/* ━━ Phase 2: Dashboard (scrollable) ━━ */
+.dashboard{opacity:0;transition:opacity .5s .3s}
+.dashboard.show{opacity:1}
+
+/* Hero compact */
+.hero{padding:32px 24px 24px;text-align:center;position:relative}
+.hero-ring{position:relative;width:140px;height:140px;margin:0 auto}
+.hero-ring svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 0 20px rgba(139,92,246,.3))}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:10}
+.ring-fill{fill:none;stroke:url(#rGrad);stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.5s cubic-bezier(.22,1,.36,1)}
+.hero-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.hero-score{font-size:40px;font-weight:900;font-family:'Inter',sans-serif;letter-spacing:-2px;color:#fff}
+.hero-unit{font-size:14px;color:rgba(255,255,255,.4);font-weight:600}
+.hero-pass{display:inline-flex;padding:5px 16px;border-radius:16px;font-size:12px;font-weight:800;margin-top:12px}
+.hero-pass.y{background:rgba(52,211,153,.15);color:#34D399;border:1px solid rgba(52,211,153,.2)}
+.hero-pass.n{background:rgba(252,165,165,.1);color:#FCA5A5;border:1px solid rgba(252,165,165,.15)}
+
+/* Stats row */
+.stats{display:flex;margin:0 16px;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.st{flex:1;padding:14px 4px;text-align:center;border-right:1px solid rgba(255,255,255,.06)}
+.st:last-child{border:none}
+.st-v{font-size:18px;font-weight:900;font-family:'Inter',sans-serif}
+.st-v.g{color:#34D399}.st-v.r{color:#FCA5A5}.st-v.b{color:#A78BFA}
+.st-l{font-size:9px;font-weight:600;color:rgba(255,255,255,.3);margin-top:2px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Sections */
+.sec{margin:12px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:20px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.sec-h{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.9)}
+
+/* Level inline — glass card */
+.lv-row{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(236,72,153,.08));border-radius:16px;border:1px solid rgba(139,92,246,.15)}
+.lv-emoji{font-size:36px;animation:lvBob 3s ease-in-out infinite}
+@keyframes lvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.lv-info{flex:1}
+.lv-name{font-size:16px;font-weight:900;background:linear-gradient(135deg,#C084FC,#F0ABFC);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lv-sub{font-size:11px;color:rgba(255,255,255,.4);font-weight:600;margin-top:2px}
+.xp-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:8px;overflow:hidden}
+.xp-fill{height:100%;background:linear-gradient(90deg,#8B5CF6,#C084FC);border-radius:2px;transition:width 1.5s cubic-bezier(.22,1,.36,1)}
+.xp-badge{display:inline-flex;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:800;background:rgba(139,92,246,.15);color:#A78BFA;margin-top:6px}
+
+/* Type analysis bars */
+.tbar{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tbar:last-child{margin:0}
+.tbar-name{min-width:52px;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbar-track{flex:1;height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden}
+.tbar-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.tbar-fill.g{background:linear-gradient(90deg,#34D399,#10B981)}
+.tbar-fill.y{background:linear-gradient(90deg,#FBBF24,#F59E0B)}
+.tbar-fill.r{background:linear-gradient(90deg,#FCA5A5,#EF4444)}
+.tbar-pct{font-size:12px;font-weight:800;min-width:32px;text-align:right;font-family:'Inter',sans-serif}
+
+/* Score trend mini chart */
+.trend-wrap{display:flex;align-items:flex-end;gap:4px;height:48px;margin-top:12px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+.trend-bar{flex:1;border-radius:3px 3px 0 0;background:rgba(139,92,246,.15);position:relative;transition:height .5s cubic-bezier(.22,1,.36,1)}
+.trend-bar.current{background:linear-gradient(180deg,#8B5CF6,#6D28D9);box-shadow:0 0 12px rgba(139,92,246,.3)}
+.trend-bar .trend-val{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:700;color:rgba(255,255,255,.4);white-space:nowrap}
+.trend-bar.current .trend-val{color:#C084FC;font-size:9px}
+.trend-label{font-size:9px;color:rgba(255,255,255,.25);text-align:center;margin-top:4px}
+
+/* AI Insight — premium card */
+.ai-card{padding:16px;background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(139,92,246,.06));border-radius:14px;border:1px solid rgba(37,99,235,.12)}
+.ai-verdict{font-size:14px;font-weight:700;line-height:1.7;margin-bottom:10px}
+.ai-weak{padding:8px 10px;background:rgba(239,68,68,.08);border-radius:8px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(239,68,68,.1)}
+.ai-weak-name{font-weight:700}.ai-weak-pct{color:#FCA5A5;font-weight:800;font-family:'Inter',sans-serif}
+.ai-weak-tip{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+.ai-action{margin-top:8px;padding:10px 14px;background:rgba(139,92,246,.1);border-radius:10px;font-size:12px;color:#A78BFA;font-weight:700;border:1px solid rgba(139,92,246,.15);cursor:pointer;text-align:center;transition:background .15s}
+.ai-action:active{background:rgba(139,92,246,.2)}
+
+/* Wrong answer drill button */
+.drill-btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;background:linear-gradient(135deg,#EF4444,#DC2626);color:#fff;box-shadow:0 4px 16px rgba(239,68,68,.25);margin-top:8px;transition:transform .15s}
+.drill-btn:active{transform:scale(.97)}
+.drill-count{display:inline-flex;padding:2px 8px;background:rgba(255,255,255,.2);border-radius:8px;font-size:12px;margin-left:6px}
+
+/* Review section */
+.rev{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s}
+.rev:active{background:rgba(255,255,255,.02);border-radius:8px}
+.rev:last-child{border:none}
+.rev-i{width:20px;text-align:center;font-size:13px}
+.rev-num{font-size:11px;font-weight:800;color:rgba(255,255,255,.25);min-width:20px}
+.rev-t{flex:1;font-size:12px;font-weight:600;color:rgba(255,255,255,.7)}
+.rev-p{font-size:11px;font-weight:700;color:rgba(255,255,255,.2);font-family:'Inter',sans-serif}
+.rev-arrow{font-size:10px;color:rgba(255,255,255,.15)}
+
+/* Filter tabs */
+.filter-tabs{display:flex;gap:6px;margin-bottom:12px}
+.ftab{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:none;cursor:pointer;font-family:inherit;transition:all .15s}
+.ftab{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)}
+.ftab.active{background:rgba(139,92,246,.15);color:#A78BFA}
+.ftab:active{transform:scale(.95)}
+
+/* Actions */
+.actions{display:flex;gap:8px;margin:16px 16px 0}
+.act{flex:1;padding:14px;border-radius:14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:none;transition:transform .15s}
+.act:active{transform:scale(.96)}
+.act.pri{flex:2;background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;box-shadow:0 4px 20px rgba(139,92,246,.3)}
+.act.sec{background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.08)}
+
+/* Detail sheet (expandable review) */
+.detail-sheet{display:none;position:fixed;inset:0;z-index:400;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+.detail-sheet.show{display:flex}
+.detail-content{background:#16162A;border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:16px 20px calc(20px + env(safe-area-inset-bottom));animation:sheetUp .3s cubic-bezier(.2,.9,.3,1)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.detail-handle{width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:0 auto 16px}
+.detail-q{font-size:13px;font-weight:700;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:12px}
+.detail-passage{font-size:13px;line-height:1.9;color:rgba(255,255,255,.5);padding:12px 14px;background:rgba(255,255,255,.03);border-radius:12px;border-left:3px solid rgba(139,92,246,.3);margin-bottom:12px}
+.detail-ans{display:flex;gap:8px;margin-bottom:12px}
+.detail-box{flex:1;padding:12px;border-radius:10px;text-align:center;font-weight:800;font-size:14px}
+.detail-box.mine-ok{background:rgba(52,211,153,.1);color:#34D399;border:1px solid rgba(52,211,153,.15)}
+.detail-box.mine-wrong{background:rgba(239,68,68,.1);color:#FCA5A5;border:1px solid rgba(239,68,68,.15)}
+.detail-box.correct{background:rgba(52,211,153,.1);color:#34D399;border:1px solid rgba(52,211,153,.15)}
+.detail-box-label{font-size:10px;font-weight:600;opacity:.6;margin-bottom:4px}
+.detail-explain{font-size:12px;line-height:1.8;color:rgba(255,255,255,.5);padding:12px;background:rgba(255,255,255,.03);border-radius:10px}
+
+.tag{position:fixed;top:8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;font-size:10px;padding:4px 14px;border-radius:14px;z-index:999;font-weight:700;box-shadow:0 2px 12px rgba(139,92,246,.3)}
+</style>
+</head>
+<body>
+<div class="tag">ULTIMATE</div>
+<div class="app">
+
+  <!-- ━━ PHASE 1: Score Reveal ━━ -->
+  <div class="reveal-overlay" id="reveal">
+    <div class="reveal-label" id="revLabel">YOUR SCORE</div>
+    <div class="reveal-score pass" id="revScore">85</div>
+    <div class="reveal-badge pass" id="revBadge">PASS</div>
+  </div>
+
+  <!-- ━━ PHASE 2: Dashboard ━━ -->
+  <div class="dashboard" id="dash">
+    <!-- Hero ring (compact) -->
+    <div class="hero">
+      <div class="hero-ring">
+        <svg viewBox="0 0 140 140">
+          <defs><linearGradient id="rGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8B5CF6"/><stop offset="50%" style="stop-color:#C084FC"/><stop offset="100%" style="stop-color:#EC4899"/></linearGradient></defs>
+          <circle class="ring-bg" cx="70" cy="70" r="60"/>
+          <circle class="ring-fill" id="ringFill" cx="70" cy="70" r="60"/>
+        </svg>
+        <div class="hero-inner">
+          <div class="hero-score" id="heroScore">0</div>
+          <div class="hero-unit">점</div>
+        </div>
+      </div>
+      <div class="hero-pass y">17/20 정답 · 4분 32초</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="st"><div class="st-v g">17</div><div class="st-l">정답</div></div>
+      <div class="st"><div class="st-v r">2</div><div class="st-l">오답</div></div>
+      <div class="st"><div class="st-v">1</div><div class="st-l">건너뜀</div></div>
+      <div class="st"><div class="st-v b">4:32</div><div class="st-l">시간</div></div>
+    </div>
+
+    <!-- Level + XP -->
+    <div class="sec">
+      <div class="lv-row">
+        <div class="lv-emoji">👑</div>
+        <div class="lv-info">
+          <div class="lv-name">마스터</div>
+          <div class="lv-sub">80~100점 구간</div>
+          <div class="xp-bar"><div class="xp-fill" id="xpBar" style="width:0"></div></div>
+          <div class="xp-badge">+20 XP · Lv.5</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Type Analysis -->
+    <div class="sec">
+      <div class="sec-h">유형별 분석</div>
+      <div class="tbar"><span class="tbar-name">빈칸추론</span><div class="tbar-track"><div class="tbar-fill g" id="tb0" style="width:0"></div></div><span class="tbar-pct" style="color:#34D399">5/5</span></div>
+      <div class="tbar"><span class="tbar-name">어휘</span><div class="tbar-track"><div class="tbar-fill y" id="tb1" style="width:0"></div></div><span class="tbar-pct" style="color:#FBBF24">3/4</span></div>
+      <div class="tbar"><span class="tbar-name">어법</span><div class="tbar-track"><div class="tbar-fill g" id="tb2" style="width:0"></div></div><span class="tbar-pct" style="color:#34D399">4/4</span></div>
+      <div class="tbar"><span class="tbar-name">서술형</span><div class="tbar-track"><div class="tbar-fill r" id="tb3" style="width:0"></div></div><span class="tbar-pct" style="color:#FCA5A5">1/3</span></div>
+      <div class="tbar"><span class="tbar-name">주제</span><div class="tbar-track"><div class="tbar-fill g" id="tb4" style="width:0"></div></div><span class="tbar-pct" style="color:#34D399">4/4</span></div>
+
+      <!-- Score Trend -->
+      <div class="trend-wrap">
+        <div class="trend-bar" style="height:50%"><div class="trend-val">62</div></div>
+        <div class="trend-bar" style="height:65%"><div class="trend-val">72</div></div>
+        <div class="trend-bar" style="height:55%"><div class="trend-val">68</div></div>
+        <div class="trend-bar" style="height:70%"><div class="trend-val">78</div></div>
+        <div class="trend-bar current" style="height:85%"><div class="trend-val">85</div></div>
+      </div>
+      <div class="trend-label">최근 5회 점수 추이</div>
+    </div>
+
+    <!-- AI Insight -->
+    <div class="sec">
+      <div class="sec-h">AI 분석</div>
+      <div class="ai-card">
+        <div class="ai-verdict" style="color:#60A5FA">통과! 약점만 잡으면 만점도 가능해요.</div>
+        <div class="ai-weak">
+          <div><div class="ai-weak-name">서술형 <span class="ai-weak-pct">33%</span></div><div class="ai-weak-tip">핵심 구문 정확 해석 연습</div></div>
+        </div>
+        <div class="ai-action" onclick="alert('서술형 집중 훈련 시작!')">서술형 집중 훈련 시작 →</div>
+      </div>
+      <!-- Wrong answer drill -->
+      <button class="drill-btn" onclick="alert('오답 2문항 재풀기!')">
+        틀린 문항 바로 다시 풀기 <span class="drill-count">2문항</span>
+      </button>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="act sec" onclick="alert('재시험')">재시험</button>
+      <button class="act sec" onclick="alert('복사')">결과 복사</button>
+      <button class="act pri" onclick="alert('홈')">홈으로</button>
+    </div>
+
+    <!-- Review -->
+    <div class="sec" style="margin-top:12px">
+      <div class="sec-h">정답과 해설</div>
+      <div class="filter-tabs">
+        <button class="ftab active" onclick="filterRev('all',this)">전체</button>
+        <button class="ftab" onclick="filterRev('wrong',this)">오답만</button>
+        <button class="ftab" onclick="filterRev('skip',this)">건너뜀</button>
+      </div>
+      <div id="revList">
+        <div class="rev" data-type="ok" onclick="showDetail(0)"><span class="rev-num">01</span><span class="rev-i">✅</span><span class="rev-t">빈칸 추론</span><span class="rev-p">5점</span><span class="rev-arrow">›</span></div>
+        <div class="rev" data-type="ok" onclick="showDetail(1)"><span class="rev-num">02</span><span class="rev-i">✅</span><span class="rev-t">어휘</span><span class="rev-p">4점</span><span class="rev-arrow">›</span></div>
+        <div class="rev" data-type="wrong" onclick="showDetail(2)"><span class="rev-num">03</span><span class="rev-i">❌</span><span class="rev-t">서술형</span><span class="rev-p">6점</span><span class="rev-arrow">›</span></div>
+        <div class="rev" data-type="ok" onclick="showDetail(3)"><span class="rev-num">04</span><span class="rev-i">✅</span><span class="rev-t">주제</span><span class="rev-p">5점</span><span class="rev-arrow">›</span></div>
+        <div class="rev" data-type="skip" onclick="showDetail(4)"><span class="rev-num">05</span><span class="rev-i">⬜</span><span class="rev-t">어법</span><span class="rev-p">4점</span><span class="rev-arrow">›</span></div>
+      </div>
+    </div>
+    <div style="height:24px"></div>
+  </div>
+</div>
+
+<!-- Detail Sheet -->
+<div class="detail-sheet" id="detailSheet" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="detail-content">
+    <div class="detail-handle"></div>
+    <div id="detailBody">
+      <div style="font-size:14px;font-weight:800;margin-bottom:12px">3번 · 서술형 · 6점</div>
+      <div class="detail-q">다음 빈칸에 알맞은 단어를 쓰시오.</div>
+      <div class="detail-passage">Music truly is a form of <strong>___</strong>. that carries specific, nuanced meanings.</div>
+      <div class="detail-ans">
+        <div class="detail-box mine-wrong"><div class="detail-box-label">내 답</div>expression</div>
+        <div class="detail-box correct"><div class="detail-box-label">정답</div>communication</div>
+      </div>
+      <div class="detail-explain">
+        <strong style="color:#A78BFA">해설:</strong> 지문에서 "music truly is a form of communication"이라고 직접 언급하고 있습니다. expression(표현)과 혼동하기 쉬우나, 원문의 정확한 단어는 communication입니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ━━ Phase 1: Score Reveal Animation ━━
+setTimeout(()=>{
+  document.getElementById('revLabel').classList.add('show');
+},200);
+setTimeout(()=>{
+  document.getElementById('revScore').classList.add('show');
+  // Particles
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.left='50%';p.style.top='50%';
+    p.style.background=['#C084FC','#F0ABFC','#FDE68A','#34D399','#60A5FA'][i%5];
+    p.style.setProperty('--tx',(Math.random()-.5)*300+'px');
+    p.style.setProperty('--ty',(Math.random()-.5)*300+'px');
+    p.style.animationDelay=Math.random()*.3+'s';
+    document.getElementById('reveal').appendChild(p);
+  }
+},500);
+setTimeout(()=>{
+  document.getElementById('revBadge').classList.add('show');
+},800);
+// Transition to dashboard
+setTimeout(()=>{
+  document.getElementById('reveal').classList.add('hide');
+  document.getElementById('dash').classList.add('show');
+  // Animate dashboard elements
+  setTimeout(()=>{
+    // Ring animation
+    document.getElementById('ringFill').style.strokeDashoffset=440-440*0.85;
+    // Score count
+    let c=0;const target=85;const int=setInterval(()=>{c+=2;if(c>=target){c=target;clearInterval(int);}document.getElementById('heroScore').textContent=c;},20);
+    // XP bar
+    document.getElementById('xpBar').style.width='65%';
+    // Type bars
+    setTimeout(()=>{
+      document.getElementById('tb0').style.width='100%';
+      document.getElementById('tb1').style.width='75%';
+      document.getElementById('tb2').style.width='100%';
+      document.getElementById('tb3').style.width='33%';
+      document.getElementById('tb4').style.width='100%';
+    },200);
+  },300);
+},2200);
+
+// ━━ Filter tabs ━━
+function filterRev(type,btn){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.rev').forEach(r=>{
+    if(type==='all')r.style.display='';
+    else r.style.display=r.dataset.type===type?'':'none';
+  });
+}
+
+// ━━ Detail sheet ━━
+function showDetail(idx){
+  document.getElementById('detailSheet').classList.add('show');
+}
+</script>
+</body>
+</html>

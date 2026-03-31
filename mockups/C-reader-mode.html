@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 C — 리더 모드 (킨들/iBooks + 토스)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;height:100dvh;overflow:hidden}
+
+/* ━━ Theme Modes ━━ */
+body{--bg:#FBF9F4;--card-bg:#FBF9F4;--text:#2C2C2C;--sub:#7A7A6E;--border:#E8E4DA;--passage-bg:#FBF9F4;--choice-bg:#FFFFFF;--choice-border:#E8E4DA;--accent:#7C3AED;--accent-light:#F3EEFF;--bar-bg:rgba(251,249,244,.85)}
+body.dark{--bg:#1A1A1A;--card-bg:#1A1A1A;--text:#E0E0E0;--sub:#8A8A8A;--border:#333;--passage-bg:#1E1E1E;--choice-bg:#242424;--choice-border:#333;--accent:#A78BFA;--accent-light:#2D1B69;--bar-bg:rgba(26,26,26,.85)}
+body.light{--bg:#FFFFFF;--card-bg:#FFFFFF;--text:#191F28;--sub:#6B7684;--border:#E5E8EB;--passage-bg:#FFFFFF;--choice-bg:#FFFFFF;--choice-border:#E5E8EB;--accent:#8B5CF6;--accent-light:#F3EEFF;--bar-bg:rgba(255,255,255,.85)}
+
+body{background:var(--bg);color:var(--text)}
+
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative}
+
+/* ━━ Minimal Top Bar ━━ */
+.top-bar{position:sticky;top:0;z-index:100;padding:10px 20px;background:var(--bar-bg);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);flex-shrink:0}
+.bar-row{display:flex;align-items:center;justify-content:space-between}
+.bar-left{display:flex;align-items:center;gap:8px}
+.btn-back{width:28px;height:28px;border:none;background:none;font-size:16px;color:var(--sub);cursor:pointer}
+.q-label{font-size:13px;font-weight:700;color:var(--sub)}
+.q-label strong{color:var(--text);font-size:15px}
+.bar-right{display:flex;align-items:center;gap:8px}
+.timer-mini{font-size:14px;font-weight:800;color:var(--sub);font-variant-numeric:tabular-nums}
+.btn-theme{width:28px;height:28px;border:none;background:var(--choice-bg);border-radius:50%;font-size:13px;cursor:pointer;border:1px solid var(--border)}
+.btn-font{width:28px;height:28px;border:none;background:var(--choice-bg);border-radius:50%;font-size:11px;font-weight:900;cursor:pointer;color:var(--text);border:1px solid var(--border)}
+.progress-thin{height:2px;background:var(--border);border-radius:1px;margin-top:8px;overflow:hidden}
+.progress-thin .fill{height:100%;width:35%;background:var(--accent);border-radius:1px}
+
+/* ━━ Side Page Indicator ━━ */
+.side-indicator{position:fixed;right:6px;top:50%;transform:translateY(-50%);z-index:50;display:flex;flex-direction:column;gap:3px;align-items:center}
+.side-dot{width:4px;height:4px;border-radius:2px;background:var(--border)}
+.side-dot.active{height:14px;background:var(--accent)}
+.side-dot.done{background:var(--accent);opacity:.4}
+
+/* ━━ Content ━━ */
+.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px 24px 120px;min-height:0}
+
+/* Stem */
+.stem{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:16px;letter-spacing:.5px;text-transform:uppercase}
+
+/* Passage — Reader style */
+.passage{font-family:'Noto Serif',Georgia,'Times New Roman',serif;font-size:16px;line-height:2.2;color:var(--text);text-align:justify;word-break:keep-all;margin-bottom:32px;padding:0;position:relative}
+.passage b{color:var(--accent);font-weight:700;font-style:normal}
+.passage u{text-decoration-color:#DC2626;text-decoration-thickness:2px;text-underline-offset:4px;font-weight:600}
+.passage .blank{display:inline;border-bottom:2.5px solid var(--accent);padding:0 4px;color:var(--accent);font-weight:700;font-family:'Noto Sans KR',sans-serif}
+.passage .para{margin-bottom:20px;text-indent:0}
+.passage .para:last-child{margin-bottom:0}
+
+/* ━━ Divider ━━ */
+.divider{height:1px;background:var(--border);margin:0 0 20px;position:relative}
+.divider::after{content:'선지';position:absolute;left:50%;top:-8px;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--sub);background:var(--bg);padding:0 12px;letter-spacing:2px}
+
+/* ━━ Compact Choices ━━ */
+.choices{display:flex;flex-direction:column;gap:6px}
+.choice{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--choice-border);background:var(--choice-bg);cursor:pointer;transition:all .15s}
+.choice:active{transform:scale(.98)}
+.choice.selected{border-color:var(--accent);background:var(--accent-light)}
+.choice-num{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--sub);flex-shrink:0;transition:all .2s;border:1px solid var(--border)}
+.choice.selected .choice-num{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice-text{font-size:13px;font-weight:600;line-height:1.5;color:var(--text)}
+
+/* ━━ Bottom Button ━━ */
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;padding:12px 24px calc(12px + env(safe-area-inset-bottom));background:var(--bar-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:100}
+.btn-next{width:100%;height:50px;border:none;border-radius:14px;background:var(--accent);color:#fff;font-size:15px;font-weight:800;cursor:pointer;transition:transform .1s}
+.btn-next:active{transform:scale(.97)}
+
+/* ━━ Font Size Controls (popup) ━━ */
+.font-popup{display:none;position:fixed;top:60px;right:20px;background:var(--choice-bg);border:1px solid var(--border);border-radius:14px;padding:12px;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:200}
+.font-popup.show{display:flex;gap:8px}
+.font-btn{width:40px;height:40px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);font-weight:800;cursor:pointer;color:var(--text);font-size:14px}
+.font-btn:active{background:var(--accent-light)}
+
+.design-label{position:fixed;top:8px;left:8px;background:rgba(0,0,0,.7);color:#fff;font-size:10px;padding:4px 10px;border-radius:8px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="design-label">시안 C: 리더 모드</div>
+<div class="app">
+  <!-- Minimal Top Bar -->
+  <div class="top-bar">
+    <div class="bar-row">
+      <div class="bar-left">
+        <button class="btn-back">←</button>
+        <span class="q-label"><strong>Q7</strong> / 20</span>
+      </div>
+      <div class="bar-right">
+        <span class="timer-mini">04:32</span>
+        <button class="btn-theme" onclick="cycleTheme()">🌗</button>
+        <button class="btn-font" onclick="toggleFont()">A</button>
+      </div>
+    </div>
+    <div class="progress-thin"><div class="fill" style="width:35%"></div></div>
+  </div>
+
+  <!-- Side Indicator -->
+  <div class="side-indicator">
+    <span class="side-dot done"></span><span class="side-dot done"></span><span class="side-dot done"></span>
+    <span class="side-dot done"></span><span class="side-dot done"></span><span class="side-dot done"></span>
+    <span class="side-dot active"></span><span class="side-dot"></span><span class="side-dot"></span><span class="side-dot"></span>
+    <span class="side-dot"></span><span class="side-dot"></span><span class="side-dot"></span><span class="side-dot"></span>
+    <span class="side-dot"></span><span class="side-dot"></span><span class="side-dot"></span><span class="side-dot"></span>
+    <span class="side-dot"></span><span class="side-dot"></span>
+  </div>
+
+  <!-- Content (natural scroll) -->
+  <div class="content" id="content">
+    <div class="stem">빈칸 추론 · 보통 · 5점</div>
+
+    <div class="passage" id="passageText">
+      <div class="para">The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem.</div>
+      <div class="para">Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.</div>
+      <div class="para">For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _____________ )</span>.</div>
+      <div class="para">Moreover, studies have demonstrated that people who have had musical training tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="choices">
+      <div class="choice" onclick="selectC(this)">
+        <span class="choice-num">1</span>
+        <span class="choice-text">determined by the listener's innate musical ability</span>
+      </div>
+      <div class="choice selected" onclick="selectC(this)">
+        <span class="choice-num">2</span>
+        <span class="choice-text">learned rather than purely instinctive</span>
+      </div>
+      <div class="choice" onclick="selectC(this)">
+        <span class="choice-num">3</span>
+        <span class="choice-text">independent of the context in which it is heard</span>
+      </div>
+      <div class="choice" onclick="selectC(this)">
+        <span class="choice-num">4</span>
+        <span class="choice-text">primarily a result of the composer's intention</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Button -->
+  <div class="bottom">
+    <button class="btn-next">다음 문제 →</button>
+  </div>
+</div>
+
+<!-- Font Size Popup -->
+<div class="font-popup" id="fontPopup">
+  <button class="font-btn" onclick="changeFontSize(-1)">A-</button>
+  <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+</div>
+
+<script>
+function selectC(el){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+const themes=['','light','dark'];
+let ti=0;
+function cycleTheme(){
+  ti=(ti+1)%themes.length;
+  document.body.className=themes[ti];
+}
+function toggleFont(){
+  document.getElementById('fontPopup').classList.toggle('show');
+}
+let fs=16;
+function changeFontSize(d){
+  fs=Math.max(13,Math.min(20,fs+d));
+  document.getElementById('passageText').style.fontSize=fs+'px';
+}
+</script>
+</body>
+</html>

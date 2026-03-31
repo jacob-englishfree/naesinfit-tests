@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 A-Ultimate — 최고급 기능 풀버전</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   A-ULTIMATE: Split View + 기능 풀옵션
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR','Inter',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;height:100dvh;overflow:hidden;transition:background .3s,color .3s}
+
+:root{
+  --bg:#FAFAFA;--surface:#FFFFFF;--surface2:#F8FAFC;--text:#0F172A;--text2:#475569;--text3:#94A3B8;
+  --border:#E2E8F0;--border-l:#F1F5F9;
+  --accent:#6C3CE0;--accent-h:#5B2CC8;--accent-s:rgba(108,60,224,.06);--accent-m:rgba(108,60,224,.12);--accent-g:rgba(108,60,224,.2);
+  --green:#10B981;--red:#EF4444;--yellow:#F59E0B;
+  --bar:rgba(255,255,255,.82);
+  --highlight-1:rgba(250,204,21,.3);--highlight-2:rgba(52,211,153,.25);--highlight-3:rgba(251,146,60,.25);
+}
+[data-theme="dark"]{
+  --bg:#0B0F1A;--surface:#151B2B;--surface2:#1C2333;--text:#E8ECF4;--text2:#8B95A8;--text3:#4E5A6E;
+  --border:#1E293B;--border-l:#1A2234;
+  --accent:#8B6CEF;--accent-h:#A088F2;--accent-s:rgba(139,108,239,.08);--accent-m:rgba(139,108,239,.15);--accent-g:rgba(139,108,239,.25);
+  --bar:rgba(11,15,26,.85);
+  --highlight-1:rgba(250,204,21,.2);--highlight-2:rgba(52,211,153,.15);--highlight-3:rgba(251,146,60,.15);
+}
+body{background:var(--bg);color:var(--text)}
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+
+/* ━━ Top Bar ━━ */
+.top-bar{flex-shrink:0;padding:10px 16px 8px;background:var(--bar);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);z-index:10;border-bottom:1px solid var(--border-l)}
+.bar-r1{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.bar-left{display:flex;align-items:center;gap:10px}
+.btn-x{width:30px;height:30px;border:none;background:var(--border-l);border-radius:50%;font-size:13px;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-x:active{transform:scale(.9)}
+.q-group{display:flex;align-items:center;gap:6px}
+.q-num{background:var(--accent);color:#fff;font-size:12px;font-weight:800;padding:4px 12px;border-radius:14px;box-shadow:0 2px 10px var(--accent-g)}
+.q-total{font-size:11px;font-weight:600;color:var(--text3)}
+.bar-right{display:flex;align-items:center;gap:6px}
+.timer-chip{display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:16px;font-size:13px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;font-family:'Inter',sans-serif}
+.btn-t{width:30px;height:30px;border:1px solid var(--border);background:var(--surface);border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-t:active{transform:scale(.9)}
+.meta-row{display:flex;gap:4px;margin-bottom:6px}
+.mt{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px}
+.mt.d-m{background:#FEF9C3;color:#CA8A04}.mt.d-e{background:#DCFCE7;color:#16A34A}.mt.d-h{background:#FEE2E2;color:#DC2626}
+.mt.tp{background:var(--accent-s);color:var(--accent)}.mt.pt{background:var(--border-l);color:var(--text3)}
+.pbar{height:3px;background:var(--border-l);border-radius:2px;overflow:hidden}
+.pfill{height:100%;width:35%;background:linear-gradient(90deg,var(--accent),#A78BFA);border-radius:2px;transition:width .5s}
+.dots{display:flex;gap:3px;justify-content:center;margin-top:6px}
+.dot{width:5px;height:5px;border-radius:3px;background:var(--border)}.dot.dn{background:var(--accent);opacity:.4}.dot.cr{width:16px;background:var(--accent)}
+
+/* ━━ Toolbar — 기능 버튼 ━━ */
+.toolbar{flex-shrink:0;display:flex;align-items:center;gap:0;padding:6px 12px;background:var(--surface);border-bottom:1px solid var(--border-l);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.toolbar::-webkit-scrollbar{display:none}
+.tb-btn{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:6px 12px;border:none;background:none;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;border-radius:8px;transition:all .15s;white-space:nowrap}
+.tb-btn:active{background:var(--border-l);transform:scale(.95)}
+.tb-btn.active{background:var(--accent-s);color:var(--accent)}
+.tb-btn .ico{font-size:14px}
+.tb-sep{width:1px;height:20px;background:var(--border);margin:0 4px;flex-shrink:0}
+
+/* ━━ Passage ━━ */
+.passage-zone{flex:1;min-height:0;display:flex;flex-direction:column;position:relative;transition:flex .3s}
+.passage-zone.collapsed{flex:0;min-height:60px}
+.passage-zone.collapsed .passage-scroll{display:none}
+.passage-zone.collapsed .collapse-bar .collapse-label::after{content:'펼치기'}
+.passage-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 16px}
+.passage-scroll::-webkit-scrollbar{width:3px}
+.passage-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.stem{font-size:15px;font-weight:800;line-height:1.7;color:var(--text);margin-bottom:14px;word-break:keep-all}
+
+.p-card{background:var(--surface);border:1px solid var(--border-l);border-radius:14px;padding:18px 20px;box-shadow:0 1px 4px rgba(0,0,0,.03);position:relative}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),#A78BFA,#C4B5FD);border-radius:14px 14px 0 0}
+.p-text{font-family:'Noto Serif',Georgia,serif;font-size:15px;line-height:2.1;color:var(--text);text-align:justify;word-break:keep-all;transition:font-size .2s;user-select:text;-webkit-user-select:text}
+.p-text .para{margin-bottom:14px}.p-text .para:last-child{margin-bottom:0}
+.p-text b{color:var(--accent);font-weight:700}
+.p-text u{text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:1px;font-weight:600}
+.p-text .blank{display:inline;border-bottom:2.5px solid var(--accent);padding:0 4px;color:var(--accent);font-weight:700;font-family:'Noto Sans KR',sans-serif;font-size:13px;background:var(--accent-s);border-radius:3px 3px 0 0}
+
+/* Highlight markers (형광펜) */
+.hl-yellow{background:var(--highlight-1);border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-green{background:var(--highlight-2);border-radius:2px;padding:0 1px;cursor:pointer}
+.hl-orange{background:var(--highlight-3);border-radius:2px;padding:0 1px;cursor:pointer}
+
+/* Passage fade */
+.p-fade{position:absolute;bottom:0;left:0;right:0;height:32px;background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:2}
+
+/* ━━ Collapse bar ━━ */
+.collapse-bar{flex-shrink:0;display:flex;align-items:center;justify-content:center;height:32px;background:var(--surface2);cursor:pointer;border-top:1px solid var(--border-l);border-bottom:1px solid var(--border-l);gap:6px;transition:background .15s}
+.collapse-bar:active{background:var(--border-l)}
+.collapse-icon{font-size:10px;color:var(--text3);transition:transform .3s}
+.passage-zone.collapsed .collapse-icon{transform:rotate(180deg)}
+.collapse-label{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
+.collapse-label::after{content:'접기'}
+
+/* ━━ Answer Zone ━━ */
+.answer-zone{flex-shrink:0;max-height:42vh;background:var(--surface2);transition:max-height .3s}
+.passage-zone.collapsed ~ .answer-zone{max-height:70vh}
+.answer-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 16px 8px}
+.answer-scroll::-webkit-scrollbar{width:3px}
+.answer-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.a-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.a-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px}
+.a-hint{font-size:10px;color:var(--text3)}
+
+.choices{display:flex;flex-direction:column;gap:6px}
+.choice{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.choice::before{content:'';position:absolute;inset:0;background:var(--accent-s);opacity:0;transition:opacity .2s}
+.choice:active{transform:scale(.98)}
+.choice.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 4px 12px var(--accent-g)}
+.choice.selected::before{opacity:1}
+.choice.selected::after{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:2px;background:var(--accent);border-radius:12px 12px 0 0}
+
+/* 소거법 — 취소선 */
+.choice.eliminated{opacity:.35;text-decoration:line-through;border-style:dashed;pointer-events:none}
+.choice.eliminated .choice-num{background:var(--border-l);color:var(--text3);border-color:var(--border);text-decoration:line-through}
+
+/* 정답/오답 */
+.choice.correct{border-color:var(--green);background:rgba(16,185,129,.04)}
+.choice.correct .choice-num{background:var(--green);color:#fff;border-color:var(--green)}
+.choice.correct::after{background:var(--green)}
+.choice.wrong{border-color:var(--red);background:rgba(239,68,68,.04);animation:shake .4s}
+.choice.wrong .choice-num{background:var(--red);color:#fff;border-color:var(--red)}
+.choice.wrong::after{background:var(--red)}
+@keyframes shake{15%{transform:translateX(-4px)}30%{transform:translateX(4px)}45%{transform:translateX(-3px)}60%{transform:translateX(3px)}75%{transform:translateX(-1px)}100%{transform:translateX(0)}}
+
+.c-num{width:24px;height:24px;border-radius:8px;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--text3);flex-shrink:0;transition:all .2s;font-family:'Inter',sans-serif}
+.choice.selected .c-num{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.06)}
+.c-text{font-size:13px;font-weight:500;line-height:1.55;color:var(--text2);padding-top:1px}
+.choice.selected .c-text{color:var(--text);font-weight:600}
+
+/* ━━ Bottom ━━ */
+.bottom{flex-shrink:0;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--bar);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--border-l);display:flex;gap:8px}
+.btn-s{height:46px;padding:0 16px;border:1.5px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-s:active{transform:scale(.96)}
+.btn-p{flex:1;height:46px;border:none;border-radius:12px;background:var(--accent);color:#fff;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--accent-g);transition:all .15s;position:relative;overflow:hidden}
+.btn-p::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent)}
+.btn-p:active{transform:scale(.97)}
+.btn-p:disabled{background:var(--border);color:var(--text3);box-shadow:none}
+
+/* ━━ Highlight Selection Popup ━━ */
+.hl-popup{display:none;position:fixed;z-index:300;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.15);gap:4px}
+.hl-popup.show{display:flex}
+.hl-btn{width:32px;height:32px;border:none;border-radius:8px;cursor:pointer;font-size:14px;transition:transform .15s}
+.hl-btn:active{transform:scale(.85)}
+.hl-btn.y{background:var(--highlight-1)}.hl-btn.g{background:var(--highlight-2)}.hl-btn.o{background:var(--highlight-3)}
+.hl-btn.x{background:var(--border-l);font-size:11px}
+
+/* ━━ Font Size Slider ━━ */
+.font-popup{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 12px 48px rgba(0,0,0,.15);z-index:300;width:280px;flex-direction:column;align-items:center;gap:16px}
+.font-popup.show{display:flex}
+.font-popup h4{font-size:14px;font-weight:800;color:var(--text)}
+.font-slider-row{display:flex;align-items:center;gap:12px;width:100%}
+.font-slider-row span{font-weight:800;color:var(--text2)}
+.font-slider-row span:first-child{font-size:12px}
+.font-slider-row span:last-child{font-size:20px}
+.font-slider{flex:1;height:4px;-webkit-appearance:none;appearance:none;background:var(--border);border-radius:2px;outline:none}
+.font-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;background:var(--accent);border-radius:50%;cursor:pointer;box-shadow:0 2px 8px var(--accent-g)}
+.font-preview{font-family:'Noto Serif',Georgia,serif;color:var(--text2);text-align:center;line-height:1.8}
+.font-popup .close-btn{width:100%;height:40px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+
+/* ━━ Eliminate mode indicator ━━ */
+.elim-badge{display:none;position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:800;z-index:100;box-shadow:0 4px 16px rgba(239,68,68,.3)}
+.elim-badge.show{display:flex;align-items:center;gap:6px;animation:fadeUp .3s}
+
+/* ━━ Overlay ━━ */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:250}
+.overlay.show{display:block}
+
+/* ━━ Toast ━━ */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(10px);background:var(--text);color:var(--bg);padding:10px 22px;border-radius:22px;font-size:12px;font-weight:700;opacity:0;transition:all .25s;z-index:1000;pointer-events:none;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .25s forwards}
+
+.tag{position:fixed;top:6px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),#A78BFA);color:#fff;font-size:10px;padding:3px 12px;border-radius:14px;z-index:999;font-weight:700;letter-spacing:.3px;box-shadow:0 2px 10px var(--accent-g)}
+</style>
+</head>
+<body>
+<div class="tag">A-ULTIMATE</div>
+
+<div class="app">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="bar-r1">
+      <div class="bar-left">
+        <button class="btn-x">✕</button>
+        <div class="q-group"><span class="q-num">Q7</span><span class="q-total">/ 20</span></div>
+      </div>
+      <div class="bar-right">
+        <div class="timer-chip">⏱ <span id="tv">04:32</span></div>
+        <button class="btn-t" onclick="toggleTheme()">🌗</button>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span class="mt d-m">보통</span>
+      <span class="mt tp">빈칸 추론</span>
+      <span class="mt pt">5점</span>
+    </div>
+    <div class="pbar"><div class="pfill" style="width:35%"></div></div>
+    <div class="dots">
+      <span class="dot dn"></span><span class="dot dn"></span><span class="dot dn"></span>
+      <span class="dot dn"></span><span class="dot dn"></span><span class="dot dn"></span>
+      <span class="dot cr"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot"></span>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button class="tb-btn" onclick="toggleFontPopup()"><span class="ico">🔤</span> 글자 크기</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" id="hlBtn" onclick="toggleHighlight()"><span class="ico">🖍</span> 형광펜</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" id="elimBtn" onclick="toggleEliminate()"><span class="ico">✂️</span> 소거법</button>
+    <span class="tb-sep"></span>
+    <button class="tb-btn" onclick="toggleCollapse()"><span class="ico">📐</span> 지문 접기</button>
+  </div>
+
+  <!-- Passage Zone -->
+  <div class="passage-zone" id="passageZone">
+    <div class="passage-scroll" id="pScroll">
+      <div class="stem">다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+      <div class="p-card">
+        <div class="p-text" id="pText">
+          <div class="para">The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem.</div>
+          <div class="para">Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.</div>
+          <div class="para">For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _____________ )</span>.</div>
+          <div class="para">Moreover, studies have demonstrated that people who have had musical training tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.</div>
+        </div>
+      </div>
+    </div>
+    <div class="p-fade"></div>
+  </div>
+
+  <!-- Collapse Bar -->
+  <div class="collapse-bar" onclick="toggleCollapse()">
+    <span class="collapse-icon">▲</span>
+    <span class="collapse-label"></span>
+  </div>
+
+  <!-- Answer Zone -->
+  <div class="answer-zone">
+    <div class="answer-scroll">
+      <div class="a-header">
+        <span class="a-label">답을 선택하세요</span>
+        <span class="a-hint" id="elimHint"></span>
+      </div>
+      <div class="choices" id="choices">
+        <div class="choice" onclick="handleChoice(this)" oncontextmenu="return false" data-idx="1">
+          <span class="c-num">1</span>
+          <span class="c-text">determined by the listener's innate musical ability</span>
+        </div>
+        <div class="choice" onclick="handleChoice(this)" oncontextmenu="return false" data-idx="2">
+          <span class="c-num">2</span>
+          <span class="c-text">learned rather than purely instinctive</span>
+        </div>
+        <div class="choice" onclick="handleChoice(this)" oncontextmenu="return false" data-idx="3">
+          <span class="c-num">3</span>
+          <span class="c-text">independent of the context in which it is heard</span>
+        </div>
+        <div class="choice" onclick="handleChoice(this)" oncontextmenu="return false" data-idx="4">
+          <span class="c-num">4</span>
+          <span class="c-text">primarily a result of the composer's intention</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom">
+    <button class="btn-s" onclick="toast('Q6으로 이동')">←</button>
+    <button class="btn-p" id="nextBtn" onclick="handleNext()">다음 문제 →</button>
+  </div>
+</div>
+
+<!-- Highlight Popup (appears near selection) -->
+<div class="hl-popup" id="hlPopup">
+  <button class="hl-btn y" onclick="applyHL('hl-yellow')">🟡</button>
+  <button class="hl-btn g" onclick="applyHL('hl-green')">🟢</button>
+  <button class="hl-btn o" onclick="applyHL('hl-orange')">🟠</button>
+  <button class="hl-btn x" onclick="removeHL()">✕</button>
+</div>
+
+<!-- Font Size Popup -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+<div class="font-popup" id="fontPopup">
+  <h4>📏 지문 글자 크기</h4>
+  <div class="font-slider-row">
+    <span>A</span>
+    <input type="range" class="font-slider" id="fontSlider" min="13" max="20" value="15" oninput="setFontSize(this.value)">
+    <span>A</span>
+  </div>
+  <div class="font-preview" id="fontPreview" style="font-size:15px">미리보기: Music affects us</div>
+  <button class="close-btn" onclick="closeFontPopup()">확인</button>
+</div>
+
+<!-- Eliminate badge -->
+<div class="elim-badge" id="elimBadge">✂️ 소거법 모드 — 선지를 탭하면 제거됩니다</div>
+
+<!-- Toast -->
+<div class="toast" id="toastEl"></div>
+
+<script>
+// ━━ State ━━
+let selectedIdx = null;
+let submitted = false;
+let highlightMode = false;
+let eliminateMode = false;
+
+// ━━ Choice handling ━━
+function handleChoice(el) {
+  if (submitted) return;
+
+  // 소거법 모드
+  if (eliminateMode) {
+    if (el.classList.contains('eliminated')) {
+      el.classList.remove('eliminated');
+      el.style.pointerEvents = '';
+    } else {
+      el.classList.add('eliminated');
+      // 다시 탭할 수 있도록 pointer-events 유지
+      el.style.pointerEvents = 'auto';
+    }
+    return;
+  }
+
+  // 일반 선택
+  if (el.classList.contains('eliminated')) return;
+  document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedIdx = el.dataset.idx;
+  el.style.transform = 'scale(.97)';
+  setTimeout(() => el.style.transform = '', 100);
+}
+
+// ━━ Submit / Next ━━
+function handleNext() {
+  if (!selectedIdx) { toast('선지를 선택해주세요'); return; }
+  if (!submitted) {
+    submitted = true;
+    const correct = 2;
+    document.querySelectorAll('.choice').forEach(c => {
+      const idx = parseInt(c.dataset.idx);
+      if (idx === correct) c.classList.add('correct');
+      else if (c.classList.contains('selected') && idx !== correct) c.classList.add('wrong');
+    });
+    if (parseInt(selectedIdx) === correct) toast('정답! +5점');
+    else toast('오답 — 정답은 2번');
+    document.getElementById('nextBtn').textContent = '다음 문제 →';
+    // 소거법 자동 해제
+    eliminateMode = false;
+    document.getElementById('elimBtn').classList.remove('active');
+    document.getElementById('elimBadge').classList.remove('show');
+    document.getElementById('elimHint').textContent = '';
+  }
+}
+
+// ━━ Collapse ━━
+function toggleCollapse() {
+  document.getElementById('passageZone').classList.toggle('collapsed');
+}
+
+// ━━ Highlight ━━
+function toggleHighlight() {
+  highlightMode = !highlightMode;
+  document.getElementById('hlBtn').classList.toggle('active', highlightMode);
+  if (highlightMode) toast('지문에서 텍스트를 드래그하세요');
+  else { document.getElementById('hlPopup').classList.remove('show'); }
+}
+
+// Listen for text selection in passage
+document.getElementById('pText').addEventListener('mouseup', showHLPopup);
+document.getElementById('pText').addEventListener('touchend', showHLPopup);
+
+function showHLPopup(e) {
+  if (!highlightMode) return;
+  const sel = window.getSelection();
+  if (!sel.rangeCount || sel.isCollapsed) return;
+  const range = sel.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+  const popup = document.getElementById('hlPopup');
+  popup.style.top = (rect.top - 44) + 'px';
+  popup.style.left = Math.min(rect.left, window.innerWidth - 160) + 'px';
+  popup.classList.add('show');
+  popup._range = range.cloneRange();
+}
+
+function applyHL(cls) {
+  const popup = document.getElementById('hlPopup');
+  const range = popup._range;
+  if (!range) return;
+  const span = document.createElement('span');
+  span.className = cls;
+  try { range.surroundContents(span); } catch(e) {}
+  window.getSelection().removeAllRanges();
+  popup.classList.remove('show');
+}
+
+function removeHL() {
+  // Remove last highlight
+  const hls = document.querySelectorAll('.hl-yellow,.hl-green,.hl-orange');
+  if (hls.length) {
+    const last = hls[hls.length - 1];
+    last.outerHTML = last.innerHTML;
+  }
+  document.getElementById('hlPopup').classList.remove('show');
+}
+
+// ━━ Eliminate mode ━━
+function toggleEliminate() {
+  eliminateMode = !eliminateMode;
+  document.getElementById('elimBtn').classList.toggle('active', eliminateMode);
+  document.getElementById('elimBadge').classList.toggle('show', eliminateMode);
+  document.getElementById('elimHint').textContent = eliminateMode ? '탭하여 제거' : '';
+  if (eliminateMode) toast('소거법: 선지를 탭하여 제거');
+}
+
+// ━━ Font Size ━━
+function toggleFontPopup() {
+  document.getElementById('fontPopup').classList.toggle('show');
+  document.getElementById('overlay').classList.toggle('show');
+}
+function closeFontPopup() {
+  document.getElementById('fontPopup').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+function setFontSize(v) {
+  document.getElementById('pText').style.fontSize = v + 'px';
+  document.getElementById('fontPreview').style.fontSize = v + 'px';
+}
+function closeAll() {
+  document.getElementById('fontPopup').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ━━ Theme ━━
+function toggleTheme() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
+  toast(isDark ? '라이트 모드' : '다크 모드');
+}
+
+// ━━ Toast ━━
+function toast(msg) {
+  const t = document.getElementById('toastEl');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ━━ Timer ━━
+let sec = 272;
+setInterval(() => {
+  sec = Math.max(0, sec - 1);
+  const m = String(Math.floor(sec/60)).padStart(2,'0');
+  const s = String(sec%60).padStart(2,'0');
+  document.getElementById('tv').textContent = m + ':' + s;
+}, 1000);
+
+// ━━ Long press for eliminate (mobile) ━━
+let pressTimer;
+document.querySelectorAll('.choice').forEach(c => {
+  c.addEventListener('touchstart', e => {
+    pressTimer = setTimeout(() => {
+      if (!submitted && !eliminateMode) {
+        c.classList.toggle('eliminated');
+        toast(c.classList.contains('eliminated') ? '선지 제거됨' : '선지 복원됨');
+      }
+    }, 500);
+  });
+  c.addEventListener('touchend', () => clearTimeout(pressTimer));
+  c.addEventListener('touchmove', () => clearTimeout(pressTimer));
+});
+</script>
+</body>
+</html>

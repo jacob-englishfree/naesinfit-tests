@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>결과 시안C — 미니멀 (토스/Linear)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR','Inter',sans-serif;background:#fff;color:#0F172A;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.app{max-width:480px;margin:0 auto;min-height:100dvh}
+
+/* Top section — just the number, nothing else */
+.top{padding:60px 24px 40px;text-align:center}
+.score-number{font-size:72px;font-weight:900;font-family:'Inter',sans-serif;letter-spacing:-3px;color:#0F172A;line-height:1}
+.score-sub{font-size:15px;font-weight:600;color:#94A3B8;margin-top:8px}
+.score-sub strong{color:#0F172A}
+
+/* Inline stats */
+.stats{display:flex;justify-content:center;gap:24px;padding:0 24px 32px}
+.st{text-align:center}
+.st-v{font-size:18px;font-weight:800;font-family:'Inter',sans-serif}
+.st-v.g{color:#10B981}.st-v.r{color:#EF4444}.st-v.p{color:#8B5CF6}
+.st-l{font-size:10px;color:#94A3B8;font-weight:600;margin-top:2px}
+
+/* Divider */
+.div{height:1px;background:#F1F5F9;margin:0 24px}
+
+/* Sections */
+.sec{padding:24px}
+.sec-title{font-size:12px;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px}
+
+/* Type analysis — clean table */
+.type-table{width:100%}
+.tt-row{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid #F8FAFC}
+.tt-row:last-child{border:none}
+.tt-name{flex:1;font-size:13px;font-weight:600}
+.tt-score{font-size:13px;font-weight:800;min-width:40px;text-align:right;font-family:'Inter',sans-serif}
+.tt-dot{width:8px;height:8px;border-radius:50%;margin-left:8px;flex-shrink:0}
+.tt-dot.g{background:#10B981}.tt-dot.y{background:#F59E0B}.tt-dot.r{background:#EF4444}
+
+/* Insight card — single line */
+.insight{padding:14px 16px;background:#F8FAFC;border-radius:12px;font-size:13px;font-weight:600;color:#475569;line-height:1.6;border-left:3px solid #8B5CF6}
+
+/* Review list */
+.rev-list{display:flex;flex-direction:column;gap:2px}
+.rev{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #F8FAFC}
+.rev:last-child{border:none}
+.rev-i{width:20px;text-align:center;font-size:14px}
+.rev-t{flex:1;font-size:13px;font-weight:600;color:#334155}
+.rev-p{font-size:12px;font-weight:700;color:#CBD5E1}
+.rev-arrow{font-size:10px;color:#CBD5E1}
+
+/* Bottom actions */
+.bottom-actions{padding:16px 24px calc(16px + env(safe-area-inset-bottom));display:flex;gap:8px;position:sticky;bottom:0;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid #F1F5F9}
+.btn{flex:1;padding:14px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;border:none;transition:transform .1s}
+.btn:active{transform:scale(.97)}
+.btn.pri{background:#0F172A;color:#fff}
+.btn.sec{background:#F1F5F9;color:#475569}
+
+.tag{position:fixed;top:8px;right:8px;background:#0F172A;color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;z-index:999;font-weight:700}
+</style>
+</head>
+<body>
+<div class="tag">시안C: 미니멀</div>
+<div class="app">
+  <!-- Score -->
+  <div class="top">
+    <div class="score-number">85</div>
+    <div class="score-sub"><strong>17</strong>/20 정답 · 4분 32초</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="st"><div class="st-v g">17</div><div class="st-l">정답</div></div>
+    <div class="st"><div class="st-v r">2</div><div class="st-l">오답</div></div>
+    <div class="st"><div class="st-v">1</div><div class="st-l">건너뜀</div></div>
+    <div class="st"><div class="st-v p">Lv.5</div><div class="st-l">마스터</div></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Type analysis -->
+  <div class="sec">
+    <div class="sec-title">유형별 정답률</div>
+    <div class="type-table">
+      <div class="tt-row"><span class="tt-name">빈칸 추론</span><span class="tt-score">5/5</span><span class="tt-dot g"></span></div>
+      <div class="tt-row"><span class="tt-name">어휘</span><span class="tt-score">3/4</span><span class="tt-dot y"></span></div>
+      <div class="tt-row"><span class="tt-name">어법</span><span class="tt-score">4/4</span><span class="tt-dot g"></span></div>
+      <div class="tt-row"><span class="tt-name">서술형</span><span class="tt-score">1/3</span><span class="tt-dot r"></span></div>
+      <div class="tt-row"><span class="tt-name">주제</span><span class="tt-score">4/4</span><span class="tt-dot g"></span></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Insight -->
+  <div class="sec">
+    <div class="sec-title">AI 코멘트</div>
+    <div class="insight">서술형 유형에 집중하면 <strong>95점</strong>까지 올릴 수 있어요. 핵심 구문 해석 연습을 추천합니다.</div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Review -->
+  <div class="sec">
+    <div class="sec-title">문항별 결과</div>
+    <div class="rev-list">
+      <div class="rev"><span class="rev-i">✅</span><span class="rev-t">1번 빈칸 추론</span><span class="rev-p">5점</span><span class="rev-arrow">›</span></div>
+      <div class="rev"><span class="rev-i">✅</span><span class="rev-t">2번 어휘</span><span class="rev-p">4점</span><span class="rev-arrow">›</span></div>
+      <div class="rev"><span class="rev-i">❌</span><span class="rev-t">3번 서술형</span><span class="rev-p">6점</span><span class="rev-arrow">›</span></div>
+      <div class="rev"><span class="rev-i">✅</span><span class="rev-t">4번 주제</span><span class="rev-p">5점</span><span class="rev-arrow">›</span></div>
+      <div class="rev"><span class="rev-i">⬜</span><span class="rev-t">5번 어법</span><span class="rev-p">4점</span><span class="rev-arrow">›</span></div>
+    </div>
+  </div>
+
+  <div style="height:80px"></div>
+
+  <!-- Bottom actions -->
+  <div class="bottom-actions">
+    <button class="btn sec">재시험</button>
+    <button class="btn pri">홈으로</button>
+  </div>
+</div>
+</body>
+</html>

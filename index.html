@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -78,6 +78,18 @@
   /* Nav / overlay backgrounds */
   --nav-bg: rgba(255,255,255,.72);
   --bottom-bg: rgba(255,255,255,.85);
+
+  /* Reader mode (A-Ultimate) */
+  --passage-font: 'Noto Serif', Georgia, serif;
+  --passage-size: 15.5px;
+  --passage-lh: 2.1;
+  --passage-bg: #FEFDFB;
+  --passage-color: var(--g800);
+  --highlight-yellow: rgba(253,224,71,.4);
+  --highlight-green: rgba(52,211,153,.25);
+  --highlight-orange: rgba(251,146,60,.25);
+  --elim-opacity: 0.3;
+  --toolbar-h: 40px;
 }
 
 /* ━━ Dark Mode ━━ */
@@ -115,12 +127,19 @@
 
   --nav-bg: rgba(17,17,17,.85);
   --bottom-bg: rgba(17,17,17,.85);
+
+  /* Reader mode dark */
+  --passage-bg: #1E1E1E;
+  --passage-color: #D4D4D4;
+  --highlight-yellow: rgba(253,224,71,.2);
+  --highlight-green: rgba(52,211,153,.15);
+  --highlight-orange: rgba(251,146,60,.15);
 }
 
 /* ━━ Reset ━━ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.5;overflow-x:hidden}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.6;overflow-x:hidden}
 button{font-family:inherit;cursor:pointer}
 input,select{font-family:inherit}
 
@@ -267,6 +286,93 @@ input,select{font-family:inherit}
 .c-btn.on .c-n{background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;border-radius:10px;transform:scale(1.05)}
 @keyframes selectPop{0%{transform:scale(1)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
 
+/* ━━ A-Ultimate: Split View Exam — Premium Light ━━ */
+.ex-split{display:flex;flex-direction:column;height:calc(100dvh - 100px);overflow:hidden;background:var(--bg)}
+
+/* Toolbar — refined, subtle */
+.ex-toolbar{height:var(--toolbar-h);display:flex;align-items:center;gap:2px;padding:0 12px;background:var(--white);border-bottom:1px solid var(--g100);flex-shrink:0;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:0 1px 3px rgba(0,0,0,.02)}
+.ex-toolbar::-webkit-scrollbar{display:none}
+.ex-tool-btn{flex-shrink:0;display:flex;align-items:center;gap:4px;padding:6px 11px;border:none;background:none;font-size:11px;font-weight:700;color:var(--g500);cursor:pointer;border-radius:10px;transition:all .2s var(--ease);white-space:nowrap;font-family:inherit}
+.ex-tool-btn:active{transform:scale(.92);background:var(--g50)}
+.ex-tool-btn.active{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(196,132,252,.06));color:var(--blue);box-shadow:0 0 0 1px rgba(139,92,246,.12)}
+.ex-tool-sep{width:1px;height:16px;background:var(--g200);margin:0 3px;flex-shrink:0;opacity:.5}
+
+/* Passage zone — warm reader */
+.ex-passage-zone{flex:0 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 22px;background:var(--passage-bg);min-height:0;max-height:55vh;position:relative}
+.ex-passage-zone::-webkit-scrollbar{width:3px}
+.ex-passage-zone::-webkit-scrollbar-thumb{background:var(--g300);border-radius:2px}
+.ex-passage-zone:empty{display:none}
+.ex-passage-zone .q-passage{font-family:var(--passage-font);font-size:var(--passage-size);line-height:var(--passage-lh);color:var(--passage-color);background:none;border:none;border-image:none;border-left:none;padding:0;margin:0;border-radius:0;text-align:justify;word-break:keep-all}
+.ex-passage-zone .q-passage b{color:#6D28D9;font-weight:700;background:linear-gradient(transparent 60%,rgba(139,92,246,.1) 60%);padding:0 2px;border-radius:0}
+[data-theme="dark"] .ex-passage-zone .q-passage b{color:#A78BFA;background:linear-gradient(transparent 60%,rgba(167,139,250,.15) 60%)}
+.ex-passage-zone .q-passage u{text-decoration:none;border-bottom:2px solid #DC2626;padding-bottom:1px;font-weight:600}
+
+/* Passage fade */
+.ex-passage-zone::after{content:'';position:sticky;bottom:0;left:0;right:0;display:block;height:28px;background:linear-gradient(transparent,var(--passage-bg));pointer-events:none}
+
+/* Passage collapse */
+.ex-passage-collapsed{max-height:0!important;overflow:hidden!important;padding:0!important;flex:0!important;transition:max-height .3s var(--ease),padding .3s var(--ease)}
+.ex-collapse-bar{display:flex;align-items:center;justify-content:center;height:30px;background:linear-gradient(180deg,var(--g50),var(--white));cursor:pointer;border-top:1px solid var(--g100);border-bottom:1px solid var(--g100);gap:6px;flex-shrink:0;transition:background .15s}
+.ex-collapse-bar:active{background:var(--g100)}
+.ex-collapse-bar span{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.5px}
+
+/* Font size steps */
+.ex-font-sm .q-passage{font-size:14px!important;line-height:1.9!important}
+.ex-font-md .q-passage{font-size:15.5px!important;line-height:2.1!important}
+.ex-font-lg .q-passage{font-size:17.5px!important;line-height:2.2!important}
+
+/* Answer zone — premium card feel */
+.ex-answer-zone{flex:1 1 auto;min-height:200px;max-height:70vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--bg);border-top:none;box-shadow:0 -4px 16px rgba(0,0,0,.04)}
+.ex-answer-zone::-webkit-scrollbar{width:3px}
+.ex-answer-zone::-webkit-scrollbar-thumb{background:var(--g300);border-radius:2px}
+.ex-answer-zone .q-card{margin:0 12px 8px;border-radius:20px;box-shadow:0 2px 12px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.02);border:none}
+.ex-answer-zone .q-card-header{padding:14px 18px 10px;background:linear-gradient(135deg,#FAFAFE,#F5F3FF);border-bottom:1px solid rgba(139,92,246,.06)}
+.ex-answer-zone .q-card-body{padding:14px 18px 16px}
+.ex-answer-zone .q-stem{font-size:14.5px;font-weight:800;margin-bottom:14px;letter-spacing:-.2px}
+.ex-answer-zone .choices{gap:7px}
+.ex-answer-zone .c-btn{padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;gap:11px;border:1.5px solid var(--g200);box-shadow:0 1px 3px rgba(0,0,0,.03);transition:all .2s var(--ease-snap)}
+.ex-answer-zone .c-btn:active{transform:scale(.975)}
+.ex-answer-zone .c-btn.on{border-color:var(--blue);background:linear-gradient(135deg,#F9F5FF,#F3EEFF);box-shadow:0 4px 16px rgba(139,92,246,.12),0 0 0 1px rgba(139,92,246,.15)}
+.ex-answer-zone .c-btn .c-n{width:26px;height:26px;font-size:11px;border-radius:9px;background:var(--g50);border:1px solid var(--g200);transition:all .25s var(--ease-spring)}
+.ex-answer-zone .c-btn.on .c-n{background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;border-color:#8B5CF6;transform:scale(1.06);box-shadow:0 2px 8px rgba(139,92,246,.25)}
+.ex-answer-zone .w-input{padding:14px 18px;font-size:15px;border-radius:14px;border:1.5px solid var(--g200);box-shadow:0 1px 3px rgba(0,0,0,.02)}
+.ex-answer-zone .w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.08),0 4px 12px rgba(139,92,246,.06)}
+.ex-answer-zone .q-dots{padding:10px 12px 8px}
+.ex-answer-zone .qd{width:30px;height:30px;border-radius:10px;font-size:11px;box-shadow:0 1px 4px rgba(0,0,0,.04);border:1px solid var(--g100)}
+.ex-answer-zone .qd.cur{border:none;box-shadow:0 4px 14px rgba(139,92,246,.35)}
+.ex-answer-zone .qd.done{border:1px solid rgba(139,92,246,.15)}
+
+/* No passage → full answer zone */
+.ex-split:has(.ex-passage-zone:empty) .ex-answer-zone{flex:1;max-height:none}
+.ex-split:has(.ex-passage-zone[style*="display: none"]) .ex-answer-zone,.ex-split:has(.ex-passage-zone[style*="display:none"]) .ex-answer-zone{flex:1;max-height:none}
+
+/* Eliminate mode */
+.c-btn-elim{opacity:var(--elim-opacity)!important;text-decoration:line-through;border-style:dashed!important;border-color:var(--g300)!important;background:var(--g50)!important;box-shadow:none!important}
+.c-btn-elim .c-n{background:var(--g200)!important;color:var(--g400)!important;text-decoration:line-through}
+.c-btn-elim.on{border-color:var(--g300)!important}
+
+/* Highlight marker */
+.ex-passage-zone .q-passage mark{background:var(--highlight-yellow);border-radius:2px;padding:0 1px;color:inherit}
+.ex-passage-zone .q-passage mark.hl-green{background:var(--highlight-green)}
+.ex-passage-zone .q-passage mark.hl-orange{background:var(--highlight-orange)}
+
+/* Scoring overlay — premium blur */
+.ex-scoring-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px)}
+.ex-scoring-text{font-size:18px;font-weight:800;color:var(--g800);letter-spacing:-.3px}
+.ex-scoring-emoji{font-size:48px;animation:scoringBounce .6s var(--ease-spring)}
+@keyframes scoringBounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+/* ━━ Result page premium overrides ━━ */
+.result-top{background:linear-gradient(165deg,#1E1B4B 0%,#312E81 35%,#4C1D95 70%,#6D28D9 100%)}
+.r-sec{border-radius:24px;box-shadow:0 2px 12px rgba(0,0,0,.04),0 0 0 1px rgba(0,0,0,.02)}
+.r-sec-h{font-size:15px}
+.rev{border-radius:14px;margin-bottom:6px;border:1px solid var(--g100);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.02)}
+.rev-h{padding:13px 16px;transition:background .15s}
+.rev-h:active{background:var(--g50)}
+.rev-h .ri{font-size:15px}
+.rev-h .rt{font-size:14px;font-weight:700}
+.sheet{border-radius:24px 24px 0 0;box-shadow:0 -8px 32px rgba(0,0,0,.08)}
+
 /* Written input */
 .w-input{width:100%;padding:16px 20px;border:2px solid var(--g200);border-radius:16px;font-size:16px;font-family:inherit;outline:none;transition:all .25s var(--ease);background:var(--white)}
 .w-input:focus{border-color:#8B5CF6;box-shadow:0 0 0 4px rgba(139,92,246,.1),0 4px 12px rgba(139,92,246,.08);background:#FAFAFE}
@@ -350,7 +456,7 @@ input,select{font-family:inherit}
 .det-tag{display:inline-flex;font-size:11px;font-weight:800;padding:4px 12px;border-radius:8px;margin-bottom:6px;letter-spacing:.3px}
 .det-tag.b{background:var(--blue-l);color:var(--blue)}.det-tag.g{background:var(--g100);color:var(--sub)}
 .det-box{font-size:13px;line-height:1.9;padding:14px 18px;background:var(--g50);border-radius:var(--r-md);margin-bottom:10px;word-break:keep-all}
-.det-box.hl{border-left:3px solid var(--blue);background:linear-gradient(135deg,var(--blue-xl),rgba(243,238,255,.4))}
+.det-box.hl{border-left:3px solid var(--blue);background:linear-gradient(135deg,var(--blue-xl),rgba(243,238,255,.4));font-family:var(--passage-font);font-size:14px;line-height:2.0}
 
 /* Confetti canvas */
 #confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999}
@@ -1769,7 +1875,7 @@ function startCramMode(){
 function addXP(amount){
   const before=getXP();const oldLv=before.lv;
   const d=_baseAddXP(amount);
-  if(d.lv>oldLv)setTimeout(()=>showLevelUp(d.lv),300);
+  // Level-up popup removed — shown inline in result screen
   return d;
 }
 
@@ -3768,12 +3874,30 @@ async function startE(){
 // Build exam shell once — inner content updated via DOM manipulation
 function rExam(){
   const tot=S.qs.length;
+  S.exTools={highlight:false,eliminate:false,collapsed:false,fontSize:'md'};
   app.innerHTML=`<div class="page">
     <div class="exam-bar"><div style="display:flex;align-items:center;gap:10px"><button onclick="confirmExit()" style="border:none;background:none;font-size:18px;cursor:pointer;padding:4px;color:var(--g700)">←</button><div style="flex:1"><div class="progress-line"><div class="progress-fill" id="exProg" style="width:0%"></div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px"><div id="tmr" class="timer-display">${ft(S.tlf)}</div><div class="t-caption c-sub" style="font-weight:600" id="exAc">0/${tot} 응답</div></div></div>
-    <div class="q-dots" id="exDots"></div>
-    <div id="exCard"></div>
-    <div id="exNav" style="padding:0 20px 16px;display:flex;gap:8px"></div>
-    <div style="height:100px"></div></div>`;
+    <div class="ex-split">
+      <div class="ex-toolbar" id="exToolbar">
+        <button class="ex-tool-btn" onclick="exCycleFont()" title="글자 크기"><span style="font-size:14px">Aa</span></button>
+        <span class="ex-tool-sep"></span>
+        <button class="ex-tool-btn" id="tbHL" onclick="exToggleHL()" title="형광펜">🖍 형광펜</button>
+        <span class="ex-tool-sep"></span>
+        <button class="ex-tool-btn" id="tbElim" onclick="exToggleElim()" title="소거법">✂️ 소거법</button>
+        <span class="ex-tool-sep"></span>
+        <button class="ex-tool-btn" id="tbCollapse" onclick="exToggleCollapse()" title="지문 접기">📐 접기</button>
+        <div style="flex:1"></div>
+        <button class="ex-tool-btn" onclick="toggleTheme()" title="다크모드">🌙</button>
+      </div>
+      <div class="ex-passage-zone ex-font-md" id="exPassage"></div>
+      <div class="ex-collapse-bar" id="exCollapseBar" style="display:none" onclick="exToggleCollapse()"><span>▲ 지문 보기</span></div>
+      <div class="ex-answer-zone">
+        <div class="q-dots" id="exDots"></div>
+        <div id="exCard"></div>
+        <div id="exNav" style="padding:0 16px 12px;display:flex;gap:8px"></div>
+        <div style="height:8px"></div>
+      </div>
+    </div></div>`;
   setBottom(null);
   renderExQ();
 }
@@ -3789,24 +3913,108 @@ function renderExQ(){
   // Dots
   const dEl=$('exDots');
   if(dEl)dEl.innerHTML=S.qs.map((_,di)=>`<button class="qd ${di===idx?'cur':S.ans[di]!==undefined?'done':''}" onclick="goQ(${di})">${di+1}</button>`).join('');
-  // Question card
+  // Passage zone (split view top)
+  const pz=$('exPassage');
+  const cb=$('exCollapseBar');
+  if(pz){
+    if(q.passage){
+      pz.innerHTML=`<div class="q-passage">${q.passage}</div>`;
+      pz.style.display='';
+      pz.className='ex-passage-zone ex-font-'+(S.exTools?S.exTools.fontSize:'md')+(S.exTools&&S.exTools.collapsed?' ex-passage-collapsed':'');
+      if(cb)cb.style.display=S.exTools&&S.exTools.collapsed?'':'none';
+      pz.scrollTop=0;
+      // Restore answer zone constraints
+      const az=pz.parentElement&&pz.parentElement.querySelector('.ex-answer-zone');
+      if(az){az.style.flex='';az.style.maxHeight='';}
+    } else {
+      pz.innerHTML='';pz.style.display='none';
+      if(cb)cb.style.display='none';
+      // No passage: let answer zone expand
+      const az=pz.parentElement&&pz.parentElement.querySelector('.ex-answer-zone');
+      if(az){az.style.flex='1';az.style.maxHeight='none';}
+    }
+  }
+  // Answer card (split view bottom) — stem + choices only, NO passage
   let aH='';
   if(q.fmt==='mc'){aH=`<div class="choices">${(q.ch||[]).map((c,ci)=>{const on=S.ans[idx]===ci,n=ci<NM.length?NM[ci]:(ci+1)+'.';return`<button class="c-btn ${on?'on':''}" id="cb_${idx}_${ci}" onclick="selAns(${idx},${ci})"><span class="c-n">${n}</span><span>${c}</span></button>`;}).join('')}</div>`;}
   else{aH=`<input type="text" class="w-input" placeholder="답안을 입력해주세요" value="${esc(S.ans[idx]||'')}" oninput="S.ans[${idx}]=this.value;updateExDot()" onfocus="setTimeout(()=>this.scrollIntoView({behavior:'smooth',block:'center'}),300)" autocomplete="off" spellcheck="false">`;}
   const cd=$('exCard');
-  if(cd)cd.innerHTML=`<div class="q-card"><div class="q-card-header"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div></div><div class="q-card-body"><div class="q-stem">${q.stem||''}</div>${q.passage?`<div class="q-passage">${q.passage}</div>`:''}${aH}</div></div>`;
+  if(cd)cd.innerHTML=`<div class="q-card"><div class="q-card-header"><div class="q-meta"><span class="q-no">Q${idx+1}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div></div><div class="q-card-body"><div class="q-stem">${q.stem||''}</div>${aH}</div></div>`;
   // Nav buttons
   const nv=$('exNav');
   if(nv)nv.innerHTML=(idx>0?`<button class="btn btn-ghost btn-sm" style="flex:1" onclick="goQ(${idx-1})">이전</button>`:'')+(idx<tot-1?`<button class="btn btn-blue btn-sm" style="flex:1" onclick="goQ(${idx+1})">다음</button>`:`<button class="btn btn-red btn-sm" style="flex:1" onclick="doSub()">제출하기</button>`);
 }
 
 function selAns(idx,ci){
+  // Eliminate mode: toggle strikethrough only, don't select
+  if(S.exTools&&S.exTools.eliminate){
+    const btn=$('cb_'+idx+'_'+ci);
+    if(btn){btn.classList.toggle('c-btn-elim');haptic('tap');}
+    return;
+  }
   document.querySelectorAll('[id^="cb_'+idx+'_"]').forEach(b=>b.classList.remove('on'));
-  const s=$('cb_'+idx+'_'+ci);if(s)s.classList.add('on');
+  const s=$('cb_'+idx+'_'+ci);if(s){s.classList.add('on');s.classList.remove('c-btn-elim');}
   S.ans[idx]=ci;
   haptic('tap');
   updateExDot();
 }
+
+/* ━━ A-Ultimate Toolbar Functions ━━ */
+function exCycleFont(){
+  if(!S.exTools)return;
+  const sizes=['sm','md','lg'];const labels=['작게','보통','크게'];
+  const cur=sizes.indexOf(S.exTools.fontSize);
+  const next=(cur+1)%sizes.length;
+  S.exTools.fontSize=sizes[next];
+  const pz=$('exPassage');
+  if(pz)pz.className=pz.className.replace(/ex-font-\w+/,'ex-font-'+sizes[next]);
+  toast('글자 크기: '+labels[next]);
+}
+function exToggleHL(){
+  if(!S.exTools)return;
+  S.exTools.highlight=!S.exTools.highlight;
+  if(S.exTools.highlight)S.exTools.eliminate=false;
+  const hl=$('tbHL'),el=$('tbElim');
+  if(hl)hl.classList.toggle('active',S.exTools.highlight);
+  if(el)el.classList.remove('active');
+  toast(S.exTools.highlight?'형광펜 ON — 지문을 드래그하세요':'형광펜 OFF');
+}
+function exToggleElim(){
+  if(!S.exTools)return;
+  S.exTools.eliminate=!S.exTools.eliminate;
+  if(S.exTools.eliminate)S.exTools.highlight=false;
+  const el=$('tbElim'),hl=$('tbHL');
+  if(el)el.classList.toggle('active',S.exTools.eliminate);
+  if(hl)hl.classList.remove('active');
+  toast(S.exTools.eliminate?'소거법 ON — 선지를 탭하여 제거':'소거법 OFF');
+}
+function exToggleCollapse(){
+  if(!S.exTools)return;
+  S.exTools.collapsed=!S.exTools.collapsed;
+  const pz=$('exPassage'),cb=$('exCollapseBar'),tb=$('tbCollapse');
+  if(pz)pz.classList.toggle('ex-passage-collapsed',S.exTools.collapsed);
+  if(cb){cb.style.display=S.exTools.collapsed?'':'none';cb.innerHTML=S.exTools.collapsed?'<span>▲ 지문 보기</span>':'<span>▼ 접기</span>';}
+  if(tb)tb.classList.toggle('active',S.exTools.collapsed);
+}
+// Highlight listener — wraps selected text in <mark>
+document.addEventListener('mouseup',function(e){
+  if(!S.exTools||!S.exTools.highlight)return;
+  const pz=$('exPassage');if(!pz||!pz.contains(e.target))return;
+  const sel=window.getSelection();if(!sel.rangeCount||sel.isCollapsed)return;
+  const range=sel.getRangeAt(0);
+  try{const mark=document.createElement('mark');range.surroundContents(mark);}catch(ex){}
+  sel.removeAllRanges();
+});
+document.addEventListener('touchend',function(e){
+  if(!S.exTools||!S.exTools.highlight)return;
+  const pz=$('exPassage');if(!pz||!pz.contains(e.target))return;
+  setTimeout(()=>{
+    const sel=window.getSelection();if(!sel.rangeCount||sel.isCollapsed)return;
+    const range=sel.getRangeAt(0);
+    try{const mark=document.createElement('mark');range.surroundContents(mark);}catch(ex){}
+    sel.removeAllRanges();
+  },100);
+});
 
 function updateExDot(){
   const dEl=$('exDots');
@@ -3848,16 +4056,20 @@ function doSub(auto){
   const newBadges=checkBadges();
   S.res.xpGain=xpGain;S.res.xpResult=xpResult;
   haptic('submit');
-  R();
+  // Scoring overlay
+  const _ov=document.createElement('div');_ov.className='ex-scoring-overlay';
+  _ov.innerHTML=`<div class="ex-scoring-emoji">📝</div><div class="ex-scoring-text">채점 중...</div>`;
+  document.body.appendChild(_ov);
   // Save to DB for ranking (async, non-blocking)
   saveScoreToDB(score,ok,no,S.te).catch(()=>{});
-  // 학생 대시보드에서 열었으면 wd에 점수 자동 저장
   saveScoreToStudentWd(S.tt, score).catch(()=>{});
-  // Animations
-  setTimeout(()=>animateScore(score),100);
-  if(score>=80)setTimeout(confetti,400);
-  // Badge toasts
-  if(newBadges.length){let delay=score>=80?1200:800;newBadges.forEach((b,i)=>{setTimeout(()=>showBadgeToast(b),delay+i*2500);});}
+  // Show result after brief delay
+  setTimeout(()=>{
+    _ov.remove();
+    R();
+    setTimeout(()=>animateScore(score),100);
+    if(score>=80)setTimeout(confetti,400);
+  },800);
 }
 
 // ━━ RESULT ━━
@@ -3866,143 +4078,207 @@ function rResult(){setBottom(null);
   const pT=Object.entries(r.tM).filter(([,v])=>v.ok===v.total).map(([k])=>k);
   const wT=Object.entries(r.tM).filter(([,v])=>v.ok<v.total).map(([k])=>k);
   const fromH=S.fromHist;S.fromHist=false;
-  const circ=2*Math.PI*70;let si=0;const d=ms=>`animation-delay:${ms}ms`;
-
-  let h=`<div class="page">${fromH?'<div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">시험 기록</div></div>':''}`;
-
-  // Score ring hero
-  h+=`<div class="result-top r-anim" style="${d(0)}"><div class="score-ring"><svg viewBox="0 0 180 180"><defs><linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C084FC"/><stop offset="50%" style="stop-color:#A78BFA"/><stop offset="100%" style="stop-color:#E9D5FF"/></linearGradient></defs><circle class="ring-bg" cx="90" cy="90" r="70"/><circle class="ring-fill ${pass?'pass':'fail'}" id="scoreRing" cx="90" cy="90" r="70" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg><div class="score-inner"><div class="score-num"><span id="scoreNum">0</span><span class="unit">점</span></div></div></div><div class="pass-badge ${pass?'y':'n'}">${pass?'✓ 통과':'✗ 미통과'}</div><div class="r-stats"><div class="r-stat"><div class="sv g">${r.ok}</div><div class="sl">정답</div></div><div class="r-stat"><div class="sv r">${r.no}</div><div class="sl">오답</div></div><div class="r-stat"><div class="sv">${r.sk}</div><div class="sl">미응답</div></div><div class="r-stat"><div class="sv">${ftk(S.te)}</div><div class="sl">소요시간</div></div></div></div>`;
-
-  // 시험 정보
-  h+=`<div class="r-sec r-anim" style="${d(100)}"><div class="r-sec-h">시험 정보</div><div class="info-grid"><div class="info-cell"><div class="ik">이름</div><div class="iv">${esc(p.name)}</div></div><div class="info-cell"><div class="ik">학교 / 학년</div><div class="iv">${esc(p.school||'-')} · ${esc(p.grade)}</div></div><div class="info-cell"><div class="ik">테스트</div><div class="iv">${S.tt}</div></div><div class="info-cell"><div class="ik">응시일</div><div class="iv">${new Date().toLocaleDateString('ko-KR')}</div></div><div class="info-cell hl"><div class="ik">점수</div><div class="iv">${r.score}점 (${r.eP}/${r.tP})</div></div><div class="info-cell hl"><div class="ik">통과</div><div class="iv">${pass?'통과':'미통과'}</div></div></div></div>`;
-
-  // 레벨 + XP
+  const circ=2*Math.PI*70;const d=ms=>`animation-delay:${ms}ms`;
   const xpG=r.xpGain||0;const xpR=r.xpResult||getXP();const xpPct=Math.min(100,Math.round(xpR.xp/xpForLevel(xpR.lv)*100));
-  h+=`<div class="r-sec r-anim" style="${d(200)}"><div class="r-sec-h">레벨</div><div class="lv-card"><div class="lv-emoji">${l.i}</div><div class="lv-name">${l.n}</div><div class="lv-range">${l.r}점 구간</div><div class="lv-bar"><div class="lv-fill" id="lvBar"></div></div><div class="lv-msg">${l.m}</div></div>
-  ${xpG?`<div style="margin-top:12px;padding:14px 16px;background:var(--blue-l);border-radius:var(--r-md);display:flex;align-items:center;justify-content:space-between"><div><span style="font-size:13px;font-weight:700;color:var(--blue)">+${xpG} XP 획득!</span><span style="font-size:12px;color:var(--sub);margin-left:8px">Lv.${xpR.lv} ${lvName(xpR.lv)}</span></div><div style="font-size:11px;color:var(--sub)">${xpR.xp}/${xpForLevel(xpR.lv)}</div></div>`:''}</div>`;
-
-  // 유형별 분석
-  h+=`<div class="r-sec r-anim" style="${d(300)}"><div class="r-sec-h">유형별 분석</div>`;
-  Object.entries(r.tM).forEach(([t,v])=>{const pc=Math.round(v.ok/v.total*100);const c=pc>=80?'var(--green)':pc>=50?'var(--yellow)':'var(--red)';h+=`<div class="type-row"><span class="tl">${t.slice(0,8)}</span><div class="bar"><div class="fill r-bar-fill" data-w="${pc}" style="background:${c}"></div></div><span class="tp" style="color:${c}">${v.ok}/${v.total}</span></div>`;});
-  if(pT.length)h+=`<div class="tags">${pT.map(t=>`<span class="tag g">${t.slice(0,8)}</span>`).join('')}</div>`;
-  if(wT.length)h+=`<div class="tags">${wT.map(t=>`<span class="tag r">${t.slice(0,8)}</span>`).join('')}</div>`;
-  h+=`</div>`;
-
-  // AI 분석 리포트
-  h+=`<div class="r-sec r-anim" style="${d(400)}"><div class="r-sec-h">📊 AI 분석 리포트</div>`;
   const xdR=getXP();const gradeR=getGrade(xdR.lv);
-  // Strongest & weakest types
   const sortedTypes=Object.entries(r.tM).map(([t,v])=>({t,pct:v.total>0?Math.round(v.ok/v.total*100):0,ok:v.ok,total:v.total})).sort((a,b)=>a.pct-b.pct);
   const weakTypes=sortedTypes.filter(t=>t.pct<80);
   const strongTypes=sortedTypes.filter(t=>t.pct>=80);
-  // Generate natural language analysis
-  let analysis=`<div style="padding:16px;background:var(--card);border-radius:var(--r-lg);border:1px solid var(--divider)">`;
-  // Avatar + grade
-  analysis+=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-    <div class="avatar-ring ${gradeR.cls}" style="width:44px;height:44px"><img src="${avatarURL(profile.name,gradeR.bg)}" style="width:36px;height:36px;top:4px;left:4px" alt=""></div>
-    <div><div style="font-size:14px;font-weight:800;color:var(--text)">${esc(profile.name)}님의 분석</div><div style="font-size:11px;color:var(--sub)">Lv.${xdR.lv} ${lvName(xdR.lv)} · ${gradeR.name}</div></div></div>`;
-  // Score summary
-  if(r.score>=95)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px">🌟 완벽에 가까운 점수! 이 범위는 마스터했어요.</div>`;
-  else if(r.score>=80)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px">👍 통과! 약점만 잡으면 만점도 가능해요.</div>`;
-  else if(r.score>=60)analysis+=`<div style="font-size:14px;font-weight:700;color:var(--yellow);margin-bottom:10px">💪 조금만 더! 핵심 유형에 집중하면 빠르게 올라가요.</div>`;
-  else analysis+=`<div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">📚 기본기 강화가 필요해요. 해설을 꼼꼼히 확인하세요.</div>`;
-  // Weak type analysis
-  if(weakTypes.length){
-    analysis+=`<div style="margin-bottom:8px"><div style="font-size:12px;font-weight:800;color:var(--red);margin-bottom:6px">⚠️ 약점 유형</div>`;
-    weakTypes.forEach(w=>{
-      let advice='';
-      const tl=w.t.toLowerCase();
-      if(tl.includes('어법')||tl.includes('문법'))advice='문법 규칙을 정리하고, 틀린 문장을 다시 분석해보세요.';
-      else if(tl.includes('어휘')||tl.includes('단어')||tl.includes('동의어')||tl.includes('반의어'))advice='단어장을 다시 보고, 문맥 속에서 뜻을 추론하는 연습을 하세요.';
-      else if(tl.includes('빈칸'))advice='지문의 흐름과 논리적 연결어에 집중하세요.';
-      else if(tl.includes('순서')||tl.includes('삽입'))advice='문장 간 연결어(however, therefore 등)와 지시어(this, these)를 찾아보세요.';
-      else if(tl.includes('내용')||tl.includes('t/f'))advice='지문을 꼼꼼히 읽고 선택지와 비교하세요. 함정이 있는 부분을 체크!';
-      else if(tl.includes('서술'))advice='핵심 구문을 정확히 해석하는 연습이 필요해요.';
-      else advice='이 유형을 집중적으로 반복 풀이하세요.';
-      analysis+=`<div style="padding:8px 12px;background:var(--red-l);border-radius:var(--r-sm);margin-bottom:4px;font-size:12px">
-        <span style="font-weight:700;color:var(--text)">${w.t}</span> <span style="color:var(--red);font-weight:800">${w.pct}%</span> (${w.ok}/${w.total})
-        <div style="color:var(--sub);margin-top:2px;font-size:11px">💡 ${advice}</div>
-      </div>`;
-    });
-    analysis+=`</div>`;
-  }
-  // Strong types
-  if(strongTypes.length){
-    analysis+=`<div><div style="font-size:12px;font-weight:800;color:var(--green);margin-bottom:6px">✅ 강점 유형</div>`;
-    strongTypes.forEach(s=>{
-      analysis+=`<div style="padding:6px 12px;background:var(--green-l);border-radius:var(--r-sm);margin-bottom:4px;font-size:12px;display:flex;align-items:center;justify-content:space-between">
-        <span style="font-weight:700;color:var(--text)">${s.t}</span>
-        <span style="color:var(--green);font-weight:800">${s.pct}%</span>
-      </div>`;
-    });
-    analysis+=`</div>`;
-  }
-  // Next action
-  analysis+=`<div style="margin-top:12px;padding:10px 14px;background:var(--blue-l);border-radius:var(--r-sm);font-size:12px;color:var(--blue);font-weight:700">`;
-  if(weakTypes.length>=2)analysis+=`🎯 추천: "${weakTypes[0].t}" 유형 집중 훈련 → 예상 +${Math.min(20,80-weakTypes[0].pct)}점 상승 가능`;
-  else if(weakTypes.length===1)analysis+=`🎯 추천: "${weakTypes[0].t}" 유형만 잡으면 ${Math.min(r.score+15,100)}점 달성 가능!`;
-  else analysis+=`🎯 추천: 다른 범위도 도전해서 전 범위 마스터하세요!`;
-  analysis+=`</div>`;
-  analysis+=`</div>`;
-  h+=analysis+`</div>`;
 
-  // 액션
-  // Challenge comparison
+  let h=`<div class="page">${fromH?'<div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">시험 기록</div></div>':''}`;
+
+  // ━━ Hero: Score ring — cleaner ━━
+  h+=`<div class="result-top r-anim" style="${d(0)}">
+    <div class="score-ring"><svg viewBox="0 0 180 180"><defs><linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C084FC"/><stop offset="50%" style="stop-color:#A78BFA"/><stop offset="100%" style="stop-color:#E9D5FF"/></linearGradient></defs><circle class="ring-bg" cx="90" cy="90" r="70"/><circle class="ring-fill ${pass?'pass':'fail'}" id="scoreRing" cx="90" cy="90" r="70" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg>
+    <div class="score-inner"><div class="score-num"><span id="scoreNum">0</span><span class="unit">점</span></div></div></div>
+    <div class="pass-badge ${pass?'y':'n'}">${pass?'✓ PASS':'✗ FAIL'}</div>
+    <div class="r-stats">
+      <div class="r-stat"><div class="sv g">${r.ok}</div><div class="sl">정답</div></div>
+      <div class="r-stat"><div class="sv r">${r.no}</div><div class="sl">오답</div></div>
+      <div class="r-stat"><div class="sv">${r.sk}</div><div class="sl">건너뜀</div></div>
+      <div class="r-stat"><div class="sv">${ftk(S.te)}</div><div class="sl">시간</div></div>
+    </div>
+  </div>`;
+
+  // ━━ Quick Stats (inline level + XP) ━━
+  h+=`<div class="r-sec r-anim" style="${d(80)};margin-top:-16px;position:relative;z-index:1">
+    <div style="display:flex;gap:8px">
+      <div style="flex:1;padding:14px;background:var(--blue-l);border-radius:var(--r-md);text-align:center">
+        <div style="font-size:24px">${l.i}</div>
+        <div style="font-size:12px;font-weight:800;color:var(--blue);margin-top:4px">${l.n}</div>
+        <div style="font-size:10px;color:var(--sub)">${l.r}점</div>
+      </div>
+      <div style="flex:1;padding:14px;background:var(--card);border-radius:var(--r-md);border:1px solid var(--divider);text-align:center">
+        <div style="font-size:11px;color:var(--sub);font-weight:600">XP</div>
+        <div style="font-size:18px;font-weight:900;color:var(--text)">${xpG?'+'+xpG:'-'}</div>
+        <div style="height:4px;background:var(--g100);border-radius:2px;margin-top:6px;overflow:hidden"><div id="lvBar" style="height:100%;width:0;background:var(--blue);border-radius:2px;transition:width 1s var(--ease)"></div></div>
+        <div style="font-size:9px;color:var(--hint);margin-top:3px">Lv.${xpR.lv} ${lvName(xpR.lv)}</div>
+      </div>
+      <div style="flex:1;padding:14px;background:var(--card);border-radius:var(--r-md);border:1px solid var(--divider);text-align:center">
+        <div style="font-size:11px;color:var(--sub);font-weight:600">${S.tt||'테스트'}</div>
+        <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:4px">${r.score}점</div>
+        <div style="font-size:10px;color:var(--sub)">${r.eP}/${r.tP}</div>
+      </div>
+    </div>
+  </div>`;
+
+  // ━━ Type Analysis — compact bars ━━
+  h+=`<div class="r-sec r-anim" style="${d(180)}"><div class="r-sec-h">유형별 분석</div>`;
+  Object.entries(r.tM).forEach(([t,v])=>{const pc=Math.round(v.ok/v.total*100);const c=pc>=80?'var(--green)':pc>=50?'var(--yellow)':'var(--red)';h+=`<div class="type-row"><span class="tl">${t.slice(0,8)}</span><div class="bar"><div class="fill r-bar-fill" data-w="${pc}" style="background:${c}"></div></div><span class="tp" style="color:${c}">${v.ok}/${v.total}</span></div>`;});
+  if(pT.length)h+=`<div class="tags" style="margin-top:10px">${pT.map(t=>`<span class="tag g">${t.slice(0,8)}</span>`).join('')}</div>`;
+  if(wT.length)h+=`<div class="tags" style="margin-top:6px">${wT.map(t=>`<span class="tag r">${t.slice(0,8)}</span>`).join('')}</div>`;
+  h+=`</div>`;
+
+  // ━━ AI Analysis — compact ━━
+  h+=`<div class="r-sec r-anim" style="${d(260)}"><div class="r-sec-h">AI 분석</div>`;
+  h+=`<div style="padding:14px;background:var(--card);border-radius:var(--r-lg);border:1px solid var(--divider)">`;
+  // One-line verdict
+  if(r.score>=95)h+=`<div style="font-size:14px;font-weight:700;color:var(--green);margin-bottom:10px">완벽에 가까운 점수! 이 범위는 마스터했어요.</div>`;
+  else if(r.score>=80)h+=`<div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px">통과! 약점만 잡으면 만점도 가능해요.</div>`;
+  else if(r.score>=60)h+=`<div style="font-size:14px;font-weight:700;color:var(--yellow);margin-bottom:10px">조금만 더! 핵심 유형에 집중하면 빠르게 올라가요.</div>`;
+  else h+=`<div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:10px">기본기 강화가 필요해요. 해설을 꼼꼼히 확인하세요.</div>`;
+  // Weak types (compact)
+  if(weakTypes.length){weakTypes.forEach(w=>{
+    let advice='이 유형을 반복 풀이하세요.';const tl=w.t.toLowerCase();
+    if(tl.includes('어법')||tl.includes('문법'))advice='문법 규칙 정리 + 틀린 문장 재분석';
+    else if(tl.includes('어휘')||tl.includes('단어'))advice='단어장 복습 + 문맥 추론 연습';
+    else if(tl.includes('빈칸'))advice='흐름과 논리 연결어에 집중';
+    else if(tl.includes('순서')||tl.includes('삽입'))advice='연결어·지시어 찾기 연습';
+    else if(tl.includes('서술'))advice='핵심 구문 정확 해석 연습';
+    h+=`<div style="padding:8px 10px;background:var(--red-l);border-radius:8px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;justify-content:space-between"><div><span style="font-weight:700">${w.t}</span> <span style="color:var(--red);font-weight:800">${w.pct}%</span></div><div style="font-size:10px;color:var(--sub)">${advice}</div></div>`;});}
+  // Next action
+  h+=`<div style="margin-top:8px;padding:8px 12px;background:var(--blue-l);border-radius:8px;font-size:12px;color:var(--blue);font-weight:700">`;
+  if(weakTypes.length>=2)h+=`추천: "${weakTypes[0].t}" 집중 훈련`;
+  else if(weakTypes.length===1)h+=`추천: "${weakTypes[0].t}" 유형만 잡으면 ${Math.min(r.score+15,100)}점 가능!`;
+  else h+=`추천: 다른 범위도 도전해서 전 범위 마스터!`;
+  h+=`</div></div></div>`;
+
+  // ━━ Challenge comparison ━━
   if(S._challengeScore!=null){
     const cs=S._challengeScore,cn=S._challengeName||'상대';const myS=r.score;const win=myS>cs,draw=myS===cs;
-    h+=`<div class="r-sec r-anim" style="${d(450)}"><div class="r-sec-h">같이 풀기 결과</div>
-      <div style="display:flex;align-items:center;gap:12px;padding:16px;background:${win?'var(--blue-l)':draw?'var(--yellow-l)':'var(--red-l)'};border-radius:var(--r-lg)">
-        <div style="flex:1;text-align:center"><div style="font-size:12px;color:var(--sub);font-weight:600">나</div><div style="font-size:28px;font-weight:900;color:${win?'var(--blue)':'var(--g800)'}">${myS}</div></div>
-        <div style="font-size:16px;font-weight:900;color:var(--sub)">VS</div>
-        <div style="flex:1;text-align:center"><div style="font-size:12px;color:var(--sub);font-weight:600">${esc(cn)}</div><div style="font-size:28px;font-weight:900;color:${!win&&!draw?'var(--blue)':'var(--g800)'}">${cs}</div></div>
+    h+=`<div class="r-sec r-anim" style="${d(340)}"><div class="r-sec-h">같이 풀기</div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px;background:${win?'var(--blue-l)':draw?'var(--yellow-l)':'var(--red-l)'};border-radius:var(--r-lg)">
+        <div style="flex:1;text-align:center"><div style="font-size:11px;color:var(--sub);font-weight:600">나</div><div style="font-size:24px;font-weight:900;color:${win?'var(--blue)':'var(--g800)'}">${myS}</div></div>
+        <div style="font-size:14px;font-weight:900;color:var(--sub)">VS</div>
+        <div style="flex:1;text-align:center"><div style="font-size:11px;color:var(--sub);font-weight:600">${esc(cn)}</div><div style="font-size:24px;font-weight:900;color:${!win&&!draw?'var(--blue)':'var(--g800)'}">${cs}</div></div>
       </div>
-      <div style="text-align:center;margin-top:12px;font-size:15px;font-weight:800;color:${win?'var(--blue)':draw?'var(--yellow)':'var(--red)'}">${win?'승리! 🎉':draw?'무승부!':'아쉽게 패배 😢'}</div>
     </div>`;
   }
 
-  // Share card CTA
-  h+=`<div class="r-sec r-anim" style="${d(480)}">
-    <button onclick="previewShareCard()" style="width:100%;padding:18px;border:none;border-radius:var(--r-xl);background:linear-gradient(135deg,#8B5CF6,#EC4899);color:white;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 16px rgba(139,92,246,.3)">
-      <span style="font-size:20px">📸</span> 결과 카드 공유하기
-    </button>
+  // ━━ Actions — clean row ━━
+  h+=`<div class="r-sec r-anim" style="${d(400)}">
+    <div style="display:flex;gap:8px">${fromH?'':`<button onclick="startE()" style="flex:1;padding:14px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text)">재시험</button>`}<button onclick="cpRes()" style="flex:1;padding:14px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--card);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text)">결과 복사</button><button onclick="goHome()" style="flex:2;padding:14px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(139,92,246,.25)">홈으로</button></div>
   </div>`;
 
-  h+=`<div class="r-sec r-anim" style="${d(550)}"><div class="r-sec-h">액션</div><div class="act-grid">${fromH?'':`<button class="act" onclick="shareChallenge()"><span class="ai">🤝</span><span class="al">같이 풀기</span></button>`}<button class="act" onclick="svImg()"><span class="ai">🖼️</span><span class="al">상세 이미지</span></button><button class="act" onclick="cpRes()"><span class="ai">📋</span><span class="al">결과 복사</span></button>${fromH?'':`<button class="act" onclick="startE()"><span class="ai">🔄</span><span class="al">재시험</span></button>`}<button class="act primary" onclick="goHome()"><span class="ai">🏠</span><span class="al">홈으로</span></button></div></div>`;
+  // ━━ O/X 한눈에 보기 그리드 ━━
+  const wrongCount=r.det.filter(dd=>!dd.ok&&dd.ua!==undefined&&dd.ua!=='').length;
+  h+=`<div class="r-sec r-anim" style="${d(440)}">
+    <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:10px">`;
+  r.det.forEach((dd,i)=>{
+    const bg=dd.ok?'var(--green)':dd.ua===undefined||dd.ua===''?'var(--g300)':'var(--red)';
+    h+=`<div onclick="openRevSheet(${i})" style="width:28px;height:28px;border-radius:8px;background:${bg};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:white;cursor:pointer;transition:transform .1s" ontouchstart="this.style.transform='scale(.9)'" ontouchend="this.style.transform=''">${i+1}</div>`;
+  });
+  h+=`</div>`;
+  if(wrongCount>0)h+=`<button onclick="startWrongReview()" style="width:100%;padding:12px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,#EF4444,#DC2626);color:white;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(239,68,68,.25)">틀린 문항 다시 풀기 (${wrongCount}문항)</button>`;
+  h+=`</div>`;
 
-  // 정답과 해설
-  h+=`<div class="r-sec r-anim" style="${d(600)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 펼치기</span></div>`;
-  r.det.forEach((dd,i)=>{const ic=dd.ok?'<span class="spring-check">✅</span>':(dd.ua===undefined||dd.ua===''?'⬜':'<span class="shake">❌</span>');const ua=dd.q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');const ca=dd.q.fmt==='mc'?(NM[dd.q.ans-1]||''):(dd.q.wa||'');const so=!dd.ok;const dt=dd.q.det||{};
-    h+=`<div class="rev"><div class="rev-h" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ra').style.transform=this.nextElementSibling.classList.contains('open')?'rotate(180deg)':''"><span class="ri">${ic}</span><span class="rt">${i+1}번 [${(dd.q.type||'').slice(0,8)}]</span><span class="rp">${dd.q.pts||0}점</span><span class="ra" style="${so?'transform:rotate(180deg)':''}">▼</span></div><div class="rev-b${so?' open':''}"><div class="ans-cmp"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
-    if(dt.korean)h+=`<div class="det-tag b">해석</div><div class="det-box hl">${dt.korean}</div>`;
-    if(dt.analysis)h+=`<div class="det-tag g">분석</div><div class="det-box">${dt.analysis}</div>`;
-    if(dt.ref)h+=`<div class="det-tag b">원문</div><div class="det-box hl">${String(dt.ref).replace(/\n/g,'<br>')}</div>`;
-    if(dt.correct)h+=`<div class="det-tag g">해설</div><div class="det-box">${String(dt.correct).replace(/\n/g,'<br>')}</div>`;
-    if(dt.wrongs&&dt.wrongs.length)h+=`<div class="det-tag g">오답</div><div class="det-box">${dt.wrongs.join('<br>')}</div>`;
-    if(dt.tip)h+=`<div class="det-tag b">팁</div><div class="det-box hl">${String(dt.tip).replace(/\n/g,'<br>')}</div>`;
-    // 오답 신고 버튼
-    h+=`<div style="padding:8px 0;text-align:right"><button onclick="reportQuestion(${i})" style="font-size:11px;color:var(--hint);background:none;border:1px solid var(--border);padding:4px 10px;border-radius:8px;cursor:pointer">⚠️ 오류 신고</button></div>`;
-    h+=`</div></div>`;});
-  h+=`</div><div style="padding:20px"><button class="btn btn-blue" onclick="goHome()" style="width:100%">홈으로 돌아가기</button></div><div style="height:20px"></div></div>`;
+  // ━━ 정답과 해설 — 리스트 (탭하면 바텀시트) ━━
+  h+=`<div class="r-sec r-anim" style="${d(520)}"><div class="r-sec-h">정답과 해설 <span class="t-tiny c-hint" style="font-weight:400;margin-left:4px">탭하여 상세 보기</span></div>`;
+  h+=`<div style="display:flex;gap:6px;margin-bottom:10px"><button class="chip chip-sm on" onclick="filterRevList('all',this)">전체</button><button class="chip chip-sm" onclick="filterRevList('wrong',this)">오답만</button><button class="chip chip-sm" onclick="filterRevList('skip',this)">건너뜀</button></div>`;
+  h+=`<div id="revListWrap">`;
+  r.det.forEach((dd,i)=>{
+    const ic=dd.ok?'✅':(dd.ua===undefined||dd.ua===''?'⬜':'❌');
+    const dtype=dd.ok?'ok':(dd.ua===undefined||dd.ua===''?'skip':'wrong');
+    h+=`<div class="rev" data-rtype="${dtype}" onclick="openRevSheet(${i})" style="cursor:pointer"><div class="rev-h"><span class="ri">${ic}</span><span class="rt">${i+1}번 [${(dd.q.type||'').slice(0,8)}]</span><span class="rp">${dd.q.pts||0}점</span><span class="ra">›</span></div></div>`;
+  });
+  h+=`</div></div><div style="height:20px"></div></div>`;
+
   app.innerHTML=h;scrollTo(0,0);
-  // Nudge popup — 결과 직후 "같이 풀기" 넛지 (기록 열람 시 미표시)
-  if(!fromH&&!S._nudgeShown&&S._challengeScore==null){S._nudgeShown=true;
-    setTimeout(()=>{
-      if($('nudgeModal'))return;
-      const label=challengeLabel();
-      const msg=r.score>=90?`${r.score}점! 자랑 안 할 수 없지 😏`:r.score>=70?`${r.score}점! 친구한테 공유해볼까?`:`결과 카드 공유하고 친구랑 같이 풀어봐!`;
-      const d=document.createElement('div');d.className='modal-overlay';d.id='nudgeModal';
-      d.onclick=e=>{if(e.target===d)d.remove();};
-      d.innerHTML=`<div class="modal-box" style="padding:28px 24px 20px">
-        <div style="font-size:40px;margin-bottom:8px">📸</div>
-        <div style="font-size:17px;font-weight:800;color:var(--text)">${msg}</div>
-        <div style="font-size:13px;color:var(--sub);margin-top:6px;margin-bottom:20px">내 결과 카드를 인스타·카톡에 공유해보세요</div>
-        <button onclick="document.getElementById('nudgeModal').remove();previewShareCard()" style="width:100%;padding:14px;border:none;border-radius:var(--r-lg);background:linear-gradient(135deg,#8B5CF6,#EC4899);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:8px">📸 결과 카드 보기</button>
-        <button onclick="document.getElementById('nudgeModal').remove();shareChallenge()" style="width:100%;padding:12px;border:none;background:var(--g50);color:var(--text);font-size:14px;font-weight:600;cursor:pointer;border-radius:var(--r-md);margin-bottom:4px">🤝 같이 풀기 공유</button>
-        <button onclick="document.getElementById('nudgeModal').remove()" style="width:100%;padding:10px;border:none;background:none;color:var(--sub);font-size:13px;cursor:pointer">다음에 할게요</button>
-      </div>`;
-      document.body.appendChild(d);
-    },1500);
+}
+
+// ━━ 해설 필터 ━━
+function filterRevList(type,btn){
+  document.querySelectorAll('#revListWrap').forEach(w=>{
+    w.querySelectorAll('.rev').forEach(r=>{
+      if(type==='all')r.style.display='';
+      else r.style.display=r.dataset.rtype===type?'':'none';
+    });
+  });
+  if(btn){btn.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));btn.classList.add('on');}
+}
+
+// ━━ 해설 바텀시트 ━━
+function openRevSheet(idx){
+  const r=S.res;if(!r||!r.det||!r.det[idx])return;
+  // Remove existing sheet
+  const old=document.getElementById('revSheet');if(old)old.remove();
+  // Build sheet
+  const overlay=document.createElement('div');
+  overlay.id='revSheet';
+  overlay.className='sheet-overlay';
+  overlay.onclick=e=>{if(e.target===overlay)overlay.remove();};
+  overlay.innerHTML=`<div class="sheet" style="max-height:85vh;display:flex;flex-direction:column" onclick="event.stopPropagation()">
+    <div class="sheet-bar"></div>
+    <div style="padding:0 20px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:15px;font-weight:900">${idx+1}번</span>
+        <span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--blue-l);color:var(--blue)">${r.det[idx].q.type||''}</span>
+        <span style="font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--g100);color:var(--sub)">${r.det[idx].q.pts||0}점</span>
+      </div>
+      <button onclick="document.getElementById('revSheet').remove()" style="border:none;background:var(--g100);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div id="revSheetBody" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px 20px"></div>
+    <div style="padding:10px 20px calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--divider);display:flex;gap:8px;flex-shrink:0">
+      <button onclick="revSheetNav(${idx-1})" style="flex:1;padding:10px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text);${idx<=0?'opacity:.3;pointer-events:none':''}">← 이전</button>
+      <div style="flex:1;text-align:center;font-size:11px;color:var(--sub);display:flex;align-items:center;justify-content:center">${idx+1} / ${r.det.length}</div>
+      <button onclick="revSheetNav(${idx+1})" style="flex:1;padding:10px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--text);${idx>=r.det.length-1?'opacity:.3;pointer-events:none':''}">다음 →</button>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
+  renderRevSheetBody(idx);
+}
+function revSheetNav(idx){
+  const r=S.res;if(!r||!r.det||idx<0||idx>=r.det.length)return;
+  document.getElementById('revSheet').remove();
+  openRevSheet(idx);
+}
+function renderRevSheetBody(idx){
+  const r=S.res,dd=r.det[idx],q=dd.q,dt=q.det||{};
+  const ua=q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');
+  const ca=q.fmt==='mc'?(NM[q.ans-1]||''):(q.wa||'');
+  let h='';
+  // Stem
+  h+=`<div style="font-size:14px;font-weight:800;line-height:1.7;margin-bottom:12px;color:var(--text)">${q.stem||''}</div>`;
+  // Passage (if exists)
+  if(q.passage)h+=`<div style="font-size:13px;line-height:1.9;padding:12px 14px;background:var(--g50);border-radius:var(--r-md);border-left:3px solid var(--blue);margin-bottom:12px;color:var(--g700);font-family:var(--passage-font)">${q.passage}</div>`;
+  // Answer comparison
+  h+=`<div class="ans-cmp" style="margin-bottom:12px"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
+  // All choices (for MC)
+  if(q.fmt==='mc'&&q.ch){
+    h+=`<div style="margin-bottom:12px">`;
+    q.ch.forEach((c,ci)=>{
+      const isMyAns=dd.ua===ci;
+      const isCorrect=(ci+1)===q.ans;
+      let style='padding:8px 10px;border-radius:8px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;gap:8px;border:1px solid ';
+      if(isCorrect)style+='rgba(0,192,114,.2);background:var(--green-l);';
+      else if(isMyAns&&!dd.ok)style+='rgba(240,68,82,.2);background:var(--red-l);';
+      else style+='var(--divider);background:var(--g50);';
+      const badge=isMyAns&&isCorrect?'<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--green);color:white;margin-left:auto">정답</span>':isCorrect?'<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--green);color:white;margin-left:auto">정답</span>':isMyAns?'<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;background:var(--red);color:white;margin-left:auto">내 답</span>':'';
+      h+=`<div style="${style}"><span style="font-weight:800;color:var(--g500);min-width:18px">${NM[ci]||ci+1}</span><span style="flex:1;color:var(--text);font-weight:500">${c}</span>${badge}</div>`;
+    });
+    h+=`</div>`;
   }
+  // Explanation sections
+  if(dt.korean)h+=`<div style="padding:10px 12px;background:var(--blue-xl);border-radius:var(--r-sm);border-left:3px solid var(--blue);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px">해석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.korean}</div></div>`;
+  if(dt.correct)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:4px">해설</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${String(dt.correct).replace(/\n/g,'<br>')}</div></div>`;
+  if(dt.analysis)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--sub);margin-bottom:4px">분석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.analysis}</div></div>`;
+  if(dt.ref)h+=`<div style="padding:10px 12px;background:var(--blue-xl);border-radius:var(--r-sm);border-left:3px solid var(--blue);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px">원문</div><div style="font-size:13px;line-height:1.8;color:var(--g700);font-family:var(--passage-font)">${String(dt.ref).replace(/\n/g,'<br>')}</div></div>`;
+  if(dt.wrongs&&dt.wrongs.length)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--red);margin-bottom:4px">오답 분석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.wrongs.join('<br>')}</div></div>`;
+  if(dt.tip)h+=`<div style="padding:10px 12px;background:var(--yellow-l);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--yellow);margin-bottom:4px">학습 팁</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${String(dt.tip).replace(/\n/g,'<br>')}</div></div>`;
+  // Report button
+  h+=`<div style="text-align:center;padding:8px 0"><button onclick="reportQuestion(${idx})" style="font-size:11px;color:var(--hint);background:none;border:1px solid var(--border);padding:4px 10px;border-radius:8px;cursor:pointer;font-family:inherit">오류 신고</button></div>`;
+  const body=document.getElementById('revSheetBody');
+  if(body){body.innerHTML=h;body.scrollTop=0;}
 }
 
 // ━━ COPY ━━

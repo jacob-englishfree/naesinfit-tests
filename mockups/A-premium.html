@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>시안 A Premium — 최고급 Split View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   A-PREMIUM: 최고급 Split View
+   산타토익 + Notion + Linear + Apple 감성
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;height:100dvh;overflow:hidden}
+
+/* ━━ Theme System ━━ */
+:root{
+  --bg:#FAFAFA;
+  --surface:#FFFFFF;
+  --surface-elevated:#FFFFFF;
+  --text-primary:#0F172A;
+  --text-secondary:#475569;
+  --text-tertiary:#94A3B8;
+  --text-passage:#1E293B;
+  --border:#E2E8F0;
+  --border-light:#F1F5F9;
+  --accent:#6C3CE0;
+  --accent-hover:#5B2CC8;
+  --accent-soft:rgba(108,60,224,.06);
+  --accent-medium:rgba(108,60,224,.12);
+  --accent-glow:rgba(108,60,224,.2);
+  --answer-bg:#F8FAFC;
+  --correct:#10B981;
+  --wrong:#EF4444;
+  --bar-bg:rgba(255,255,255,.82);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.06);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.08);
+  --shadow-accent:0 4px 20px rgba(108,60,224,.2);
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:20px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-snap:cubic-bezier(.2,.9,.3,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+[data-theme="dark"]{
+  --bg:#0B0F1A;
+  --surface:#151B2B;
+  --surface-elevated:#1C2333;
+  --text-primary:#E8ECF4;
+  --text-secondary:#8B95A8;
+  --text-tertiary:#4E5A6E;
+  --text-passage:#CBD5E1;
+  --border:#1E293B;
+  --border-light:#1A2234;
+  --accent:#8B6CEF;
+  --accent-hover:#A088F2;
+  --accent-soft:rgba(139,108,239,.08);
+  --accent-medium:rgba(139,108,239,.15);
+  --accent-glow:rgba(139,108,239,.25);
+  --answer-bg:#0E1322;
+  --bar-bg:rgba(11,15,26,.85);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.2);
+  --shadow-md:0 4px 12px rgba(0,0,0,.3);
+  --shadow-lg:0 8px 32px rgba(0,0,0,.4);
+  --shadow-accent:0 4px 20px rgba(139,108,239,.2);
+}
+
+body{background:var(--bg);color:var(--text-primary)}
+.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative;background:var(--bg)}
+
+/* ━━ Top Bar — Apple-clean ━━ */
+.top-bar{flex-shrink:0;padding:14px 20px 10px;background:var(--bar-bg);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);z-index:10;border-bottom:1px solid var(--border-light)}
+
+.bar-row-1{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.bar-left{display:flex;align-items:center;gap:12px}
+.btn-close{width:32px;height:32px;border:none;background:var(--border-light);border-radius:50%;font-size:14px;color:var(--text-tertiary);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s var(--ease)}
+.btn-close:active{transform:scale(.9);background:var(--border)}
+.q-badge-group{display:flex;align-items:center;gap:6px}
+.q-number{background:var(--accent);color:#fff;font-size:13px;font-weight:800;padding:5px 14px;border-radius:20px;letter-spacing:.2px;box-shadow:var(--shadow-accent)}
+.q-total{font-size:12px;font-weight:600;color:var(--text-tertiary)}
+.bar-right{display:flex;align-items:center;gap:8px}
+.timer-pill{display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--surface-elevated);border:1px solid var(--border);border-radius:20px}
+.timer-icon{font-size:12px}
+.timer-val{font-size:14px;font-weight:800;color:var(--text-primary);font-variant-numeric:tabular-nums;font-family:'Inter','Noto Sans KR',sans-serif;letter-spacing:-.5px}
+.btn-tool{width:32px;height:32px;border:1px solid var(--border);background:var(--surface);border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s var(--ease)}
+.btn-tool:active{transform:scale(.9);background:var(--border-light)}
+
+/* Meta tags */
+.meta-row{display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.meta-tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:6px;letter-spacing:.3px}
+.meta-tag.diff-e{background:#DCFCE7;color:#16A34A}
+.meta-tag.diff-m{background:#FEF9C3;color:#CA8A04}
+.meta-tag.diff-h{background:#FEE2E2;color:#DC2626}
+.meta-tag.type{background:var(--accent-soft);color:var(--accent)}
+.meta-tag.pts{background:var(--border-light);color:var(--text-tertiary)}
+
+/* Progress — Linear app style */
+.progress-container{position:relative}
+.progress-track{height:4px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;width:35%;background:linear-gradient(90deg,var(--accent),#A78BFA);border-radius:2px;transition:width .6s var(--ease);position:relative}
+.progress-fill::after{content:'';position:absolute;right:0;top:-2px;width:8px;height:8px;background:var(--accent);border-radius:50%;box-shadow:0 0 8px var(--accent-glow);animation:progressGlow 2s ease-in-out infinite}
+@keyframes progressGlow{0%,100%{box-shadow:0 0 6px var(--accent-glow)}50%{box-shadow:0 0 14px var(--accent-glow),0 0 28px rgba(108,60,224,.1)}}
+
+/* Question dots — mini pills */
+.q-dots{display:flex;gap:3px;justify-content:center;margin-top:8px}
+.qd{width:6px;height:6px;border-radius:3px;background:var(--border);transition:all .3s var(--ease-spring)}
+.qd.done{background:var(--accent);opacity:.5}
+.qd.cur{width:20px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+
+/* ━━ Passage Area — Reader-grade ━━ */
+.passage-zone{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+.passage-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 24px 20px;position:relative}
+/* Custom scrollbar */
+.passage-scroll::-webkit-scrollbar{width:3px}
+.passage-scroll::-webkit-scrollbar-track{background:transparent}
+.passage-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.stem{font-size:16px;font-weight:800;line-height:1.75;color:var(--text-primary);margin-bottom:16px;word-break:keep-all;letter-spacing:-.2px}
+
+.passage-card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:20px 22px;box-shadow:var(--shadow-sm);position:relative}
+.passage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),#A78BFA,#C4B5FD);border-radius:var(--radius-lg) var(--radius-lg) 0 0}
+.passage-text{font-family:'Noto Serif',Georgia,serif;font-size:15.5px;line-height:2.1;color:var(--text-passage);text-align:justify;word-break:keep-all}
+.passage-text .para{margin-bottom:16px}
+.passage-text .para:last-child{margin-bottom:0}
+.passage-text b{color:var(--accent);font-weight:700;background:var(--accent-soft);padding:1px 4px;border-radius:3px}
+.passage-text u{text-decoration:none;border-bottom:2px solid #EF4444;padding-bottom:1px;font-weight:600;color:var(--text-primary)}
+.passage-text .blank{display:inline-flex;align-items:center;min-width:140px;height:28px;border-bottom:2.5px solid var(--accent);padding:0 6px;color:var(--accent);font-weight:700;font-family:'Noto Sans KR',sans-serif;font-size:13px;background:var(--accent-soft);border-radius:4px 4px 0 0}
+.passage-text .marker{background:linear-gradient(transparent 60%,rgba(108,60,224,.12) 60%);padding:0 2px}
+
+/* Fade overlay at bottom */
+.passage-fade{position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--bg));pointer-events:none;z-index:2}
+
+/* ━━ Split Divider — Elegant ━━ */
+.split-divider{flex-shrink:0;height:1px;background:var(--border);position:relative;margin:0 20px}
+.split-divider::before{content:'';position:absolute;left:50%;top:-1px;transform:translateX(-50%);width:40px;height:3px;background:linear-gradient(90deg,transparent,var(--accent),transparent);border-radius:2px}
+
+/* ━━ Answer Area — Clean & Compact ━━ */
+.answer-zone{flex-shrink:0;max-height:42vh;background:var(--answer-bg);border-top:1px solid var(--border-light)}
+.answer-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 20px 8px}
+.answer-scroll::-webkit-scrollbar{width:3px}
+.answer-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.answer-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.answer-label{font-size:10px;font-weight:700;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:1.5px}
+.answer-hint{font-size:10px;color:var(--text-tertiary);font-weight:500}
+
+.choices{display:flex;flex-direction:column;gap:6px}
+
+.choice{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:var(--radius-md);border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .2s var(--ease-snap);position:relative;overflow:hidden}
+.choice::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-soft),transparent);opacity:0;transition:opacity .2s}
+.choice:active{transform:scale(.98)}
+.choice:hover::before{opacity:.5}
+
+/* Selected state */
+.choice.selected{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 1px var(--accent),var(--shadow-md)}
+.choice.selected::before{opacity:1}
+.choice.selected::after{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:3px;background:var(--accent);border-radius:var(--radius-md) var(--radius-md) 0 0}
+
+/* Correct / Wrong feedback */
+.choice.correct{border-color:var(--correct);background:rgba(16,185,129,.04)}
+.choice.correct::after{background:var(--correct)}
+.choice.correct .choice-num{background:var(--correct);color:#fff;border-color:var(--correct)}
+.choice.wrong{border-color:var(--wrong);background:rgba(239,68,68,.04);animation:shake .4s var(--ease)}
+.choice.wrong::after{background:var(--wrong)}
+.choice.wrong .choice-num{background:var(--wrong);color:#fff;border-color:var(--wrong)}
+@keyframes shake{15%{transform:translateX(-4px)}30%{transform:translateX(4px)}45%{transform:translateX(-3px)}60%{transform:translateX(3px)}75%{transform:translateX(-1px)}100%{transform:translateX(0)}}
+
+.choice-num{width:26px;height:26px;border-radius:8px;background:var(--bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--text-tertiary);flex-shrink:0;transition:all .25s var(--ease-spring);font-family:'Inter',sans-serif}
+.choice.selected .choice-num{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.08);box-shadow:0 2px 8px var(--accent-glow)}
+.choice-text{font-size:13.5px;font-weight:500;line-height:1.55;color:var(--text-secondary);padding-top:2px;transition:color .2s}
+.choice.selected .choice-text{color:var(--text-primary);font-weight:600}
+
+/* ━━ Bottom Bar ━━ */
+.bottom-bar{flex-shrink:0;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:var(--bar-bg);backdrop-filter:saturate(180%) blur(24px);-webkit-backdrop-filter:saturate(180%) blur(24px);border-top:1px solid var(--border-light);display:flex;gap:10px}
+.btn-secondary{height:48px;padding:0 18px;border:1.5px solid var(--border);border-radius:var(--radius-md);background:var(--surface);color:var(--text-secondary);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s var(--ease);display:flex;align-items:center;gap:6px}
+.btn-secondary:active{transform:scale(.96);background:var(--border-light)}
+.btn-primary{flex:1;height:48px;border:none;border-radius:var(--radius-md);background:var(--accent);color:#fff;font-size:15px;font-weight:800;cursor:pointer;transition:all .15s var(--ease);box-shadow:var(--shadow-accent);position:relative;overflow:hidden;letter-spacing:-.2px}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);pointer-events:none}
+.btn-primary:active{transform:scale(.97);box-shadow:0 2px 12px var(--accent-glow)}
+.btn-primary:disabled{background:var(--border);color:var(--text-tertiary);box-shadow:none}
+.btn-primary .arrow{display:inline-block;transition:transform .2s var(--ease)}
+.btn-primary:hover .arrow{transform:translateX(3px)}
+
+/* ━━ Keyboard shortcut hints ━━ */
+.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;background:var(--border-light);border:1px solid var(--border);border-radius:4px;font-size:9px;font-weight:700;color:var(--text-tertiary);font-family:'Inter',monospace}
+
+/* ━━ Toast / Feedback ━━ */
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--text-primary);color:var(--bg);padding:12px 24px;border-radius:24px;font-size:13px;font-weight:700;opacity:0;transition:all .25s var(--ease-spring);z-index:1000;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow-lg)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ━━ Micro animations ━━ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.animate-in{animation:fadeUp .3s var(--ease) forwards}
+.delay-1{animation-delay:.05s;opacity:0}
+.delay-2{animation-delay:.1s;opacity:0}
+.delay-3{animation-delay:.15s;opacity:0}
+.delay-4{animation-delay:.2s;opacity:0}
+
+/* ━━ Correct answer celebration ━━ */
+@keyframes celebratePop{0%{transform:scale(.8);opacity:0}50%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+.celebrate{animation:celebratePop .4s var(--ease-spring)}
+
+/* ━━ Theme toggle transition ━━ */
+body{transition:background .4s var(--ease),color .4s var(--ease)}
+.top-bar,.bottom-bar,.answer-zone,.passage-card,.choice{transition:background .4s var(--ease),border-color .4s var(--ease),color .4s var(--ease)}
+
+/* ━━ Theme Picker ━━ */
+.theme-picker{display:none;position:fixed;top:56px;right:16px;background:var(--surface-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;box-shadow:var(--shadow-lg);z-index:200;flex-direction:column;gap:8px;min-width:140px}
+.theme-picker.show{display:flex}
+.theme-option{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;border:none;background:none;font-family:inherit;transition:background .15s}
+.theme-option:active{background:var(--border-light)}
+.theme-swatch{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);flex-shrink:0}
+.theme-swatch.s-light{background:#FFFFFF}
+.theme-swatch.s-dark{background:#0B0F1A}
+.theme-name{font-size:13px;font-weight:600;color:var(--text-secondary)}
+.theme-option.active .theme-swatch{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-glow)}
+.theme-option.active .theme-name{color:var(--accent);font-weight:700}
+
+/* ━━ Scroll to top indicator ━━ */
+.scroll-top-hint{display:none;position:absolute;top:8px;left:50%;transform:translateX(-50%);background:var(--surface-elevated);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:10px;font-weight:700;color:var(--text-tertiary);box-shadow:var(--shadow-md);z-index:5;cursor:pointer}
+.scroll-top-hint.show{display:flex;align-items:center;gap:4px;animation:fadeUp .3s var(--ease)}
+
+.design-label{position:fixed;top:8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),#A78BFA);color:#fff;font-size:10px;padding:4px 14px;border-radius:20px;z-index:999;font-weight:700;box-shadow:var(--shadow-accent);letter-spacing:.3px}
+</style>
+</head>
+<body>
+<div class="design-label">A-PREMIUM</div>
+
+<div class="app">
+  <!-- ━━ Top Bar ━━ -->
+  <div class="top-bar">
+    <div class="bar-row-1">
+      <div class="bar-left">
+        <button class="btn-close" onclick="showToast('나가시겠습니까?')">✕</button>
+        <div class="q-badge-group">
+          <span class="q-number">Q7</span>
+          <span class="q-total">/ 20</span>
+        </div>
+      </div>
+      <div class="bar-right">
+        <div class="timer-pill">
+          <span class="timer-icon">⏱</span>
+          <span class="timer-val" id="timerVal">04:32</span>
+        </div>
+        <button class="btn-tool" onclick="toggleTheme()" title="테마 전환">🌗</button>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span class="meta-tag diff-m">보통</span>
+      <span class="meta-tag type">빈칸 추론</span>
+      <span class="meta-tag pts">5점</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-track"><div class="progress-fill" style="width:35%"></div></div>
+    </div>
+    <div class="q-dots">
+      <span class="qd done"></span><span class="qd done"></span><span class="qd done"></span>
+      <span class="qd done"></span><span class="qd done"></span><span class="qd done"></span>
+      <span class="qd cur"></span><span class="qd"></span><span class="qd"></span><span class="qd"></span>
+      <span class="qd"></span><span class="qd"></span><span class="qd"></span><span class="qd"></span>
+      <span class="qd"></span><span class="qd"></span><span class="qd"></span><span class="qd"></span>
+      <span class="qd"></span><span class="qd"></span>
+    </div>
+  </div>
+
+  <!-- ━━ Passage Zone (scrollable) ━━ -->
+  <div class="passage-zone">
+    <div class="passage-scroll" id="passageScroll">
+      <div class="stem animate-in">다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?</div>
+
+      <div class="passage-card animate-in delay-1">
+        <div class="passage-text">
+          <div class="para">The most obvious way in which <b>music affects us</b> is through our emotions. When we listen to a piece of music, we often experience a range of feelings — from joy to sadness, from excitement to calm. But the relationship between music and emotion is not as straightforward as it might seem.</div>
+          <div class="para">Research has shown that our emotional responses to music are shaped not only by the musical features themselves but also by our <u>personal experiences and cultural background</u>.</div>
+          <div class="para">For instance, a piece of music that sounds melancholy to a Western listener might be perceived as peaceful or even uplifting by someone from a different cultural tradition. This suggests that the emotional impact of music is, to a significant extent, <span class="blank">( _____________ )</span>.</div>
+          <div class="para">Moreover, studies have demonstrated that people who have had <span class="marker">musical training</span> tend to process music differently from those who have not. Trained musicians show greater activation in brain areas associated with language processing, suggesting that for them, music truly is a form of communication that carries specific, nuanced meanings.</div>
+        </div>
+      </div>
+    </div>
+    <div class="passage-fade"></div>
+  </div>
+
+  <!-- ━━ Split Divider ━━ -->
+  <div class="split-divider"></div>
+
+  <!-- ━━ Answer Zone (fixed) ━━ -->
+  <div class="answer-zone">
+    <div class="answer-scroll">
+      <div class="answer-header">
+        <span class="answer-label">답을 선택하세요</span>
+        <span class="answer-hint">탭하여 선택</span>
+      </div>
+      <div class="choices">
+        <div class="choice animate-in delay-1" onclick="selectChoice(this)" data-idx="1">
+          <span class="choice-num">1</span>
+          <span class="choice-text">determined by the listener's innate musical ability</span>
+        </div>
+        <div class="choice animate-in delay-2" onclick="selectChoice(this)" data-idx="2">
+          <span class="choice-num">2</span>
+          <span class="choice-text">learned rather than purely instinctive</span>
+        </div>
+        <div class="choice animate-in delay-3" onclick="selectChoice(this)" data-idx="3">
+          <span class="choice-num">3</span>
+          <span class="choice-text">independent of the context in which it is heard</span>
+        </div>
+        <div class="choice animate-in delay-4" onclick="selectChoice(this)" data-idx="4">
+          <span class="choice-num">4</span>
+          <span class="choice-text">primarily a result of the composer's intention</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ━━ Bottom Bar ━━ -->
+  <div class="bottom-bar">
+    <button class="btn-secondary" onclick="showToast('Q6으로 이동')">←</button>
+    <button class="btn-primary" id="nextBtn" onclick="handleNext()">다음 문제 <span class="arrow">→</span></button>
+  </div>
+</div>
+
+<!-- Theme Picker -->
+<div class="theme-picker" id="themePicker">
+  <button class="theme-option active" onclick="setTheme('light')">
+    <span class="theme-swatch s-light"></span>
+    <span class="theme-name">라이트</span>
+  </button>
+  <button class="theme-option" onclick="setTheme('dark')">
+    <span class="theme-swatch s-dark"></span>
+    <span class="theme-name">다크</span>
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ━━ Choice Selection ━━
+let selectedIdx = null;
+function selectChoice(el) {
+  document.querySelectorAll('.choice').forEach(c => {
+    c.classList.remove('selected','correct','wrong');
+  });
+  el.classList.add('selected');
+  selectedIdx = el.dataset.idx;
+  // Subtle haptic-like visual
+  el.style.transform = 'scale(.97)';
+  setTimeout(() => el.style.transform = '', 120);
+}
+
+// ━━ Next button — demo correct/wrong ━━
+let submitted = false;
+function handleNext() {
+  if (!selectedIdx) {
+    showToast('선지를 선택해주세요');
+    return;
+  }
+  if (!submitted) {
+    submitted = true;
+    const correct = 2;
+    document.querySelectorAll('.choice').forEach(c => {
+      const idx = parseInt(c.dataset.idx);
+      if (idx === correct) c.classList.add('correct','celebrate');
+      else if (c.classList.contains('selected') && idx !== correct) c.classList.add('wrong');
+    });
+    document.getElementById('nextBtn').innerHTML = '다음 문제 <span class="arrow">→</span>';
+    if (parseInt(selectedIdx) === correct) {
+      showToast('정답입니다!');
+    } else {
+      showToast('오답 — 정답은 2번');
+    }
+  }
+}
+
+// ━━ Toast ━━
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ━━ Theme ━━
+function toggleTheme() {
+  document.getElementById('themePicker').classList.toggle('show');
+}
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : '');
+  document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.getElementById('themePicker').classList.remove('show');
+}
+
+// Close picker on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.btn-tool') && !e.target.closest('.theme-picker')) {
+    document.getElementById('themePicker').classList.remove('show');
+  }
+});
+
+// ━━ Timer (demo) ━━
+let sec = 272;
+setInterval(() => {
+  sec--;
+  if (sec < 0) sec = 0;
+  const m = String(Math.floor(sec / 60)).padStart(2, '0');
+  const s = String(sec % 60).padStart(2, '0');
+  document.getElementById('timerVal').textContent = m + ':' + s;
+}, 1000);
+</script>
+</body>
+</html>
