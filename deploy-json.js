@@ -132,7 +132,8 @@ function validateSchema(jsonPath) {
     errors.push(`배점 합계 ${totalPoints} ≠ 100`);
   }
 
-  // 필수 필드 검증 (실제 JSON 스키마: id, type, diff, pts, fmt, passage, stem, ans, ch/wa, det)
+  // 필수 필드 검증
+  const numMap = {'①':1,'②':2,'③':3,'④':4,'⑤':5};
   data.questions.forEach((q, i) => {
     if (!q.stem) errors.push(`Q${i + 1}: stem 없음`);
     if (q.ans === undefined && q.answer === undefined && q.wa === undefined) {
@@ -141,6 +142,57 @@ function validateSchema(jsonPath) {
     if (!q.type) errors.push(`Q${i + 1}: type 없음`);
     if (!q.pts && !q.points) errors.push(`Q${i + 1}: 배점(pts) 없음`);
     if (!q.diff) errors.push(`Q${i + 1}: diff(난이도) 없음`);
+
+    // ⛔ 정답범위 검증: 객관식 ans는 1~ch.length 범위
+    if (q.fmt === 'mc' && q.ch && typeof q.ans === 'number') {
+      if (q.ans < 1 || q.ans > q.ch.length) {
+        errors.push(`Q${i + 1}: 정답범위초과 (ans=${q.ans}, 선지=${q.ch.length}개)`);
+      }
+    }
+
+    // ⚠️ det.analysis에 ✅ 정답마크 권장 (경고만, FAIL 아님)
+    // 향후 신규 출제 시 필수로 전환 예정
+
+    // ⛔ det↔ans 불일치 검증
+    if (q.fmt === 'mc' && q.det) {
+      const ana = (q.det.analysis || '');
+      // ✅ 마크로 정답 확인
+      const checkMatches = ana.match(/✅\s*[①②③④⑤]/g);
+      if (checkMatches && checkMatches.length === 1) {
+        const circle = checkMatches[0].match(/[①②③④⑤]/)[0];
+        const detAns = numMap[circle];
+        if (detAns && detAns !== q.ans) {
+          errors.push(`Q${i + 1}: det↔ans 불일치 (해설=✅${circle}=${detAns}번, ans=${q.ans})`);
+        }
+      }
+      // ❌ 3개로 정답 추론
+      const wrongMatches = ana.match(/❌\s*[①②③④]/g);
+      if (wrongMatches && wrongMatches.length === 3 && q.ch && q.ch.length === 4) {
+        const wrongNums = new Set(wrongMatches.map(w => numMap[w.match(/[①②③④]/)[0]]));
+        let correctAns = null;
+        for (let n = 1; n <= 4; n++) { if (!wrongNums.has(n)) { correctAns = n; break; } }
+        if (correctAns && correctAns !== q.ans) {
+          errors.push(`Q${i + 1}: det↔ans 불일치 (오답제외=${correctAns}번, ans=${q.ans})`);
+        }
+      }
+    }
+
+    // ⛔ 정답노출 검증: 정답 선지가 passage에 그대로 포함
+    if (q.fmt === 'mc' && q.ch && q.ans >= 1 && q.ans <= (q.ch.length || 4)) {
+      const correct = (q.ch[q.ans - 1] || '').replace(/<[^>]*>/g, '').trim().toLowerCase();
+      const pass = (q.passage || '').replace(/<[^>]*>/g, '').toLowerCase();
+      if (correct.length > 15 && pass.includes(correct)) {
+        errors.push(`Q${i + 1}: 정답노출 — 정답선지가 passage에 그대로 포함`);
+      }
+    }
+
+    // ⛔ 해석(det.korean) 필수 + 최소 길이
+    if (q.det) {
+      const korean = (q.det.korean || q.det.ko || '').replace(/<[^>]*>/g, '').trim();
+      if (korean.length < 5) {
+        errors.push(`Q${i + 1}: det.korean 너무 짧음 (${korean.length}자, 최소 5자)`);
+      }
+    }
   });
 
   return errors;
