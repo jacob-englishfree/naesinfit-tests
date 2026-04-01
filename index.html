@@ -287,7 +287,7 @@ input,select{font-family:inherit}
 @keyframes selectPop{0%{transform:scale(1)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
 
 /* ━━ A-Ultimate: Split View Exam — Premium Light ━━ */
-.ex-split{display:flex;flex-direction:column;height:calc(100dvh - 80px);overflow:hidden;background:var(--bg)}
+.ex-split{display:flex;flex-direction:column;height:calc(100dvh - 80px);overflow:hidden;background:var(--bg);position:relative}
 
 /* Toolbar — refined, subtle */
 .ex-toolbar{height:var(--toolbar-h);display:flex;align-items:center;gap:4px;padding:0 12px;background:var(--white);border-bottom:1px solid var(--g100);flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.02)}
@@ -296,6 +296,7 @@ input,select{font-family:inherit}
 .ex-tool-btn.active{background:linear-gradient(135deg,#8B5CF6,#7C3AED);box-shadow:0 2px 8px rgba(139,92,246,.3)}
 .ex-tool-btn.active .ex-tool-icon{filter:brightness(10)}
 .ex-tool-icon{font-size:14px;line-height:1}
+.ex-nav-fixed{position:absolute;bottom:0;left:0;right:0;padding:6px 12px calc(6px + env(safe-area-inset-bottom));display:flex;gap:6px;background:var(--nav-bg);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--divider);z-index:10}
 
 /* Passage zone — warm reader */
 .ex-passage-zone{flex:0 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 16px;background:var(--passage-bg);min-height:0;max-height:40vh;position:relative}
@@ -4129,11 +4130,11 @@ function rExam(){
       <div class="ex-passage-zone ex-font-sm" id="exPassage"></div>
       <div class="ex-collapse-bar" id="exCollapseBar" style="display:none" onclick="exToggleCollapse()"><span>▲ 지문 보기</span></div>
       <div class="ex-answer-zone">
-        <div class="q-dots" id="exDots"></div>
+        <div class="q-dots" id="exDots" style="display:none"></div>
         <div id="exCard"></div>
-        <div id="exNav" style="padding:0 10px 6px;display:flex;gap:6px"></div>
-        <div style="height:8px"></div>
+        <div style="height:48px"></div>
       </div>
+      <div id="exNav" class="ex-nav-fixed"></div>
     </div></div>`;
   setBottom(null);
   renderExQ();
@@ -4178,7 +4179,7 @@ function renderExQ(){
   if(q.fmt==='mc'){aH=`<div class="choices">${(q.ch||[]).map((c,ci)=>{const on=S.ans[idx]===ci,n=ci<NM.length?NM[ci]:(ci+1)+'.';return`<button class="c-btn ${on?'on':''}" id="cb_${idx}_${ci}" onclick="selAns(${idx},${ci})"><span class="c-n">${n}</span><span>${c}</span></button>`;}).join('')}</div>`;}
   else{aH=`<input type="text" class="w-input" placeholder="답안을 입력해주세요" value="${esc(S.ans[idx]||'')}" oninput="S.ans[${idx}]=this.value;updateExDot();saveExamSession()" onfocus="setTimeout(()=>this.scrollIntoView({behavior:'smooth',block:'center'}),300)" autocomplete="off" spellcheck="false">`;}
   const cd=$('exCard');
-  if(cd)cd.innerHTML=`<div class="q-card"><div class="q-card-header"><div class="q-meta"><span class="q-no">${idx+1} / ${tot}</span><span class="q-diff ${dc}">${q.diff||''}</span><span class="q-pts">${q.pts||0}점</span>${q.type?`<span class="q-type">${q.type}</span>`:''}</div></div><div class="q-card-body"><div class="q-stem">${q.stem||''}</div>${aH}</div></div>`;
+  if(cd)cd.innerHTML=`<div class="q-card"><div class="q-card-body"><div style="display:flex;align-items:center;gap:5px;margin-bottom:6px;flex-wrap:wrap"><span class="q-no" style="font-size:10px;padding:2px 8px">${idx+1}/${tot}</span><span class="q-diff ${dc}" style="font-size:9px;padding:2px 6px">${q.diff||''}</span>${q.type?`<span class="q-type" style="font-size:9px;padding:2px 6px">${q.type}</span>`:''}<span style="font-size:9px;color:var(--hint);margin-left:auto">${q.pts||0}점</span></div><div class="q-stem">${q.stem||''}</div>${aH}</div></div>`;
   // Nav buttons
   const nv=$('exNav');
   if(nv)nv.innerHTML=(idx>0?`<button class="btn btn-ghost btn-sm" style="flex:1" onclick="goQ(${idx-1})">이전</button>`:'')+(idx<tot-1?`<button class="btn btn-blue btn-sm" style="flex:1" onclick="goQ(${idx+1})">다음</button>`:`<button class="btn btn-red btn-sm" style="flex:1" onclick="doSub()">제출하기</button>`);
