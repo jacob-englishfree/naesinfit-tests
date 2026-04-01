@@ -70,7 +70,8 @@ function autoAttack(jsonPath) {
 
     // 공격5: 서술형 정답이 너무 짧음 (1글자)
     if (q.fmt === 'written' && q.wa) {
-      if (q.wa.trim().length <= 1) {
+      const waStr = String(q.wa);
+      if (waStr.trim().length <= 1) {
         attacks.push({ qId: qid, type: 'ATTACK5', detail: `서술형 정답 "${q.wa}"가 1글자 — 풀이 의미 없음`, severity: 'S' });
       }
     }
