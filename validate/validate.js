@@ -241,6 +241,56 @@ function validate(jsonPath) {
       }
     }
 
+    // N1: ①②③④ 선지인데 passage에 마커가 하나도 없음
+    if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
+      const allCircled = q.ch.every(c => ['①','②','③','④','⑤'].includes((c || '').trim()));
+      if (allCircled) {
+        const hasAnyMarker = passage.includes('①') || passage.includes('②') || passage.includes('<u>');
+        if (!hasAnyMarker) {
+          result.add('N1', SEV.S, `Q${qid}: 선지가 ①②③④인데 passage에 마커(①/<u>)가 하나도 없음 — 학생이 풀 수 없음`);
+        }
+      }
+    }
+
+    // N4: 영영풀이 stem ↔ 선지 정합성 (정의에 맞는 정답이 ch에 있어야 함)
+    if (['영영풀이 매칭', '영영풀이'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch) && q.stem) {
+      // 같은 파일 내 다른 영영풀이 문항과 stem이 동일하면 복붙 의심
+      const sameStems = questions.filter((oq, oi) => oi !== i &&
+        ['영영풀이 매칭', '영영풀이'].includes((oq.type || '').trim()) &&
+        oq.stem === q.stem);
+      if (sameStems.length > 0) {
+        result.add('N4', SEV.S, `Q${qid}: 영영풀이 stem이 Q${sameStems.map(s => s.id).join(',')}과 동일 — 복붙 의심`);
+      }
+    }
+
+    // N5: 가짜 영어 단어 탐지 (-ly/-ness 기계적 조합)
+    if (q.fmt === 'mc' && Array.isArray(q.ch)) {
+      const fakePatterns = [
+        /[a-z]{4,}lyly$/i,           // subsequentlyly
+        /[a-z]{4,}nessness$/i,       // significantlyness
+        /[a-z]{3,}ness$/i,           // buildness, ableness — 추가 체크 필요
+      ];
+      const knownFakeEndings = [
+        'ableness', 'buildness', 'constructly', 'consistentness',
+        'complementness', 'supplemently', 'capablely', 'biographyly',
+        'assumptionness', 'premisely', 'occurrenceness', 'phenomenonly',
+        'spectrumness', 'continuumly', 'lastingness', 'presumedly',
+        'assumedness', 'afterwardness', 'significantlyness', 'considerablyly',
+        'subsequentlyly', 'remotedness',
+      ];
+      q.ch.forEach((c, ci) => {
+        const word = (c || '').trim().toLowerCase();
+        // 이중 접미사 (-lyly, -nessness)
+        if (/[a-z]{3,}lyly$/i.test(word) || /[a-z]{3,}nessness$/i.test(word)) {
+          result.add('N5', SEV.S, `Q${qid}: ch[${ci}] = "${c}" — 이중 접미사 가짜 단어`);
+        }
+        // 알려진 가짜 단어 목록
+        if (knownFakeEndings.includes(word)) {
+          result.add('N5', SEV.S, `Q${qid}: ch[${ci}] = "${c}" — 가짜 영어 단어`);
+        }
+      });
+    }
+
     // P29: 문장삽입 → ①②③④ markers (only if passage has any markers)
     if (typeNorm === '문장삽입' && passage && passage.length > 10) {
       const hasAnyMarker = passage.includes('①') || passage.includes('②');
@@ -737,6 +787,102 @@ function main() {
       result.warnings.forEach(w => console.log(`  [${w.sev}] ${w.id}: ${w.msg}`));
     }
   });
+
+  // ── Cross-file validation (N2, N3, N6) ──
+  if (files.length > 3) {
+    console.log(`\n--- Cross-file checks ---`);
+    let crossIssues = 0;
+
+    // Group files by exam (same directory parent = same exam)
+    const examGroups = {};
+    files.forEach(f => {
+      try {
+        const data = JSON.parse(fs.readFileSync(f, 'utf8'));
+        // Group by grandparent dir (e.g., 모의고사/고3/9월/)
+        const rel = path.relative(path.join(ROOT, 'data'), f);
+        const parts = rel.split(path.sep);
+        // exam key = first 3 parts (e.g., 모의고사/고3/9월) or 교과서/출판사/과
+        const examKey = parts.slice(0, Math.min(3, parts.length - 1)).join('/');
+        const testType = data.testType || '';
+        const groupKey = `${examKey}/${testType}`;
+        if (!examGroups[groupKey]) examGroups[groupKey] = [];
+        examGroups[groupKey].push({ path: f, rel, data, testType });
+      } catch (e) { /* skip */ }
+    });
+
+    Object.entries(examGroups).forEach(([groupKey, group]) => {
+      if (group.length < 2) return;
+
+      // N2: 정답 시퀀스 동일 탐지
+      const ansSeqs = {};
+      group.forEach(g => {
+        const qs = g.data.questions || [];
+        const seq = qs.map(q => q.ans).filter(a => a !== null && a !== undefined).join(',');
+        if (seq.length > 5) {
+          if (!ansSeqs[seq]) ansSeqs[seq] = [];
+          ansSeqs[seq].push(path.relative(ROOT, g.path));
+        }
+      });
+      Object.entries(ansSeqs).forEach(([seq, dupFiles]) => {
+        if (dupFiles.length >= 2) {
+          crossIssues++;
+          console.log(`  [S] N2: 정답 시퀀스 동일 (${dupFiles.length}파일): ${dupFiles.slice(0, 3).join(', ')}${dupFiles.length > 3 ? ` 외 ${dupFiles.length - 3}파일` : ''}`);
+        }
+      });
+
+      // N3: stem+ch 완전 복붙 탐지 (같은 그룹 내 다른 파일)
+      const qFingerprints = {};
+      group.forEach(g => {
+        const qs = g.data.questions || [];
+        qs.forEach(q => {
+          const fp = JSON.stringify({ stem: q.stem, ch: q.ch });
+          if (!qFingerprints[fp]) qFingerprints[fp] = new Set();
+          qFingerprints[fp].add(path.relative(ROOT, g.path));
+        });
+      });
+      let crossCopyCount = 0;
+      Object.entries(qFingerprints).forEach(([fp, fileSet]) => {
+        if (fileSet.size >= 3) crossCopyCount++;
+      });
+      if (crossCopyCount >= 5) {
+        crossIssues++;
+        const sampleFiles = group.slice(0, 3).map(g => path.relative(ROOT, g.path));
+        console.log(`  [A] N3: stem+ch 복붙 ${crossCopyCount}건 — ${sampleFiles.join(', ')} 등`);
+      }
+
+      // N6: 시험 단위 ans 분포 편향
+      const ansDist = { 1: 0, 2: 0, 3: 0, 4: 0 };
+      let totalAns = 0;
+      group.forEach(g => {
+        (g.data.questions || []).forEach(q => {
+          if (typeof q.ans === 'number' && q.ans >= 1 && q.ans <= 4) {
+            ansDist[q.ans]++;
+            totalAns++;
+          }
+        });
+      });
+      if (totalAns >= 40) {
+        Object.entries(ansDist).forEach(([ans, count]) => {
+          const pct = (count / totalAns * 100).toFixed(1);
+          if (pct > 40) {
+            crossIssues++;
+            console.log(`  [A] N6: ${groupKey} — ans=${ans}가 ${pct}% (${count}/${totalAns}) — 40% 초과 편향`);
+          }
+          if (pct < 10) {
+            crossIssues++;
+            console.log(`  [A] N6: ${groupKey} — ans=${ans}가 ${pct}% (${count}/${totalAns}) — 10% 미만 부족`);
+          }
+        });
+      }
+    });
+
+    if (crossIssues === 0) {
+      console.log('  Cross-file checks: ALL CLEAN');
+    } else {
+      console.log(`  Cross-file issues: ${crossIssues}건`);
+      totalFail += crossIssues;
+    }
+  }
 
   if (files.length > 1) {
     console.log(`\n--- Summary ---`);
