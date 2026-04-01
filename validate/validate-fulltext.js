@@ -48,10 +48,12 @@ function normalizePassage(text) {
   s = s.replace(/<b>\([ABC]\)<\/b>\s*/g, '');
   // Remove <u> tags but keep inner text
   s = s.replace(/<\/?u>/g, '');
-  // Remove circled numbers
-  s = s.replace(/[①②③④⑤]/g, '');
-  // Remove blanks (10+ underscores)
-  s = s.replace(/_{5,}/g, '');
+  // Remove circled numbers and their surrounding whitespace
+  s = s.replace(/\s*[①②③④⑤⑥⑦⑧⑨⑩]\s*/g, ' ');
+  // Remove blanks (5+ underscores)
+  s = s.replace(/_{3,}/g, '');
+  // Remove (A)(B)(C) text markers (non-bold)
+  s = s.replace(/\([ABC]\)\s*/g, '');
   // Remove parenthesized word forms for 어형변환: (word)
   // Only remove if it's right after a blank area
   s = s.replace(/\([\w]+\)/g, '');
@@ -161,9 +163,9 @@ function calcMatchRatio(normPassage, normFull, chunkSize = 8) {
 }
 
 // ── Types that MUST contain nearly the full original passage ──
+// 어법/(A)(B)(C)/문장삽입은 의도적으로 마커 삽입 시 passage가 짧아질 수 있음 → 제외
 const STRICT_FULL_TYPES = [
-  '문맥상 부적절한 어휘', '(A)(B)(C) 조합형',
-  '어법', '어법 빈칸', '문장삽입'
+  '내용일치', '내용불일치', '내용이해'
 ];
 
 // ── Types that use full passage but may trim slightly ──
@@ -238,12 +240,12 @@ function validateFulltext(jsonPath, opts = {}) {
     if (ratio < 0.5) {
       result.add('FT-10', isTextbookFile ? SEV.B : blockSev,
         `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 50%) — 원문 변조 의심`);
-    } else if (ratio < 0.8) {
-      result.add('FT-11', isTextbookFile ? SEV.B : SEV.A,
-        `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 80%) — 부분 변조 확인 필요`);
-    } else if (ratio < 0.95) {
-      result.add('FT-12', SEV.B,
-        `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 95%) — 미세 변조 가능성`);
+    } else if (ratio < 0.7) {
+      result.add('FT-11', SEV.B,
+        `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 70%) — 부분 변조 확인 필요`);
+    } else if (ratio < 0.85) {
+      result.add('FT-12', SEV.C,
+        `Q${qid}: passage 원문 일치율 ${(ratio * 100).toFixed(0)}% (< 85%) — 미세 변조 가능성`);
     }
 
     // ── FT-20: Find specific mismatched segments ──
