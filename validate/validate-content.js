@@ -233,9 +233,24 @@ function validateContent(jsonPath) {
   });
 
   // ── CT3: Duplicate question detection ──
+  // 유형 특성상 발문이 동일할 수밖에 없는 유형은 면제
+  const CT3_EXEMPT_TYPES = [
+    '어법', '문맥상 부적절한 어휘', '부적절한 어휘', '부적절',
+    '순서배열', '글순서', '문장삽입', '어순배열',
+    '내용이해', '내용일치', '내용불일치', 'T/F', 'TF',
+    '주제', '주제/요지', '제목', '요약', '요약문',
+    '지칭추론', '지칭', '함축의미 추론', '무관문장', '무관',
+    '오류찾기', '연결사',
+    '동의어 고르기', '반의어 고르기', '다의어 문맥적 의미',
+    '(A)(B)(C) 조합형', '영영풀이 매칭',
+    '빈칸추론', '빈칸 추론', '빈칸 어휘 완성', '빈칸 문맥 완성',
+    '서술형', '어형 변환 (서술형)', '어형 변환',
+  ];
   const seen = new Map();
   questions.forEach(q => {
-    const key = `${(q.type || '').trim()}::${(q.stem || '').trim().substring(0, 50)}`;
+    const typeNorm = (q.type || '').trim();
+    if (CT3_EXEMPT_TYPES.includes(typeNorm)) return; // 면제 유형은 건너뜀
+    const key = `${typeNorm}::${(q.stem || '').trim().substring(0, 50)}`;
     if (seen.has(key)) {
       result.add('CT3', 'A', q.id,
         `중복 의심: Q${seen.get(key)}과 동일한 유형+발문 (type="${q.type}")`);
