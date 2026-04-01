@@ -48,6 +48,8 @@ function normalizePassage(text) {
   s = s.replace(/<b>\([ABC]\)<\/b>\s*/g, '');
   // Remove <u> tags but keep inner text
   s = s.replace(/<\/?u>/g, '');
+  // Remove [정답 / 오답] bracket pairs → keep first word (original)
+  s = s.replace(/\[([^\]\/]+)\s*\/\s*[^\]]+\]/g, (_, first) => first.trim());
   // Remove circled numbers and their surrounding whitespace
   s = s.replace(/\s*[①②③④⑤⑥⑦⑧⑨⑩]\s*/g, ' ');
   // Remove blanks (5+ underscores)
