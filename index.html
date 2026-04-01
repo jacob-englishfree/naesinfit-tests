@@ -405,7 +405,7 @@ input,select{font-family:inherit}
 @keyframes rFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .r-anim{opacity:0;animation:rFadeUp .4s var(--ease-out) forwards}
 
-.result-top{text-align:center;padding:32px 20px 36px;position:relative;overflow:hidden;background:linear-gradient(160deg,#1E1B4B 0%,#312E81 40%,#4C1D95 100%);color:white;margin-bottom:-16px;border-radius:0 0 24px 24px}
+.result-top{text-align:left;padding:20px 20px 24px;position:relative;overflow:hidden;background:linear-gradient(160deg,#1E1B4B 0%,#312E81 40%,#4C1D95 100%);color:white;margin-bottom:-16px;border-radius:0 0 24px 24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .result-top::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(167,139,250,.25) 0%,transparent 70%);pointer-events:none}
 .result-top::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(192,132,252,.15) 0%,transparent 70%);pointer-events:none}
 
@@ -2291,7 +2291,7 @@ function confetti(){
 // ━━ Score counter animation ━━
 function animateScore(target){
   const el=$('scoreNum');if(!el)return;
-  const ring=$('scoreRing');const circ=2*Math.PI*70;
+  const ring=$('scoreRing');const circ=ring?parseFloat(ring.getAttribute('stroke-dasharray')||0):2*Math.PI*40;
   const dur=1400;const start=performance.now();
   function step(ts){const p=Math.min((ts-start)/dur,1);const ease=1-Math.pow(1-p,3);
     el.textContent=Math.round(target*ease);
@@ -4381,19 +4381,24 @@ function rResult(){setBottom(null);
 
   let h=`<div class="page">${fromH?'<div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">시험 기록</div></div>':''}`;
 
-  // ━━ Hero: Score ring + streak ━━
+  // ━━ Hero: Compact horizontal layout ━━
+  const _prevScore=(()=>{const hist=gH();const scopeKey=S.sel&&S.sel.length?S.sel.join(','):'';const prev=hist.filter(h=>h.scopes&&h.scopes.join(',')===scopeKey&&h.type===S.tt).slice(-2,-1)[0];return prev||null;})();
+  const _diff=_prevScore?r.score-_prevScore.score:null;
   h+=`<div class="result-top r-anim">
-    <div class="score-ring"><svg viewBox="0 0 180 180"><defs><linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#C084FC"/><stop offset="50%" style="stop-color:#A78BFA"/><stop offset="100%" style="stop-color:#E9D5FF"/></linearGradient></defs><circle class="ring-bg" cx="90" cy="90" r="70"/><circle class="ring-fill ${pass?'pass':'fail'}" id="scoreRing" cx="90" cy="90" r="70" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg>
-    <div class="score-inner"><div class="score-num"><span id="scoreNum">0</span><span class="unit">점</span></div></div></div>
-    <div class="pass-badge ${pass?'y':'n'}">${pass?'✓ PASS':'✗ FAIL'}</div>
-    <div class="r-stats">
-      <div class="r-stat"><div class="sv g" id="rStatOk">0</div><div class="sl">정답</div></div>
-      <div class="r-stat"><div class="sv r" id="rStatNo">0</div><div class="sl">오답</div></div>
-      <div class="r-stat"><div class="sv" id="rStatSk">0</div><div class="sl">건너뜀</div></div>
-      <div class="r-stat"><div class="sv">${ftk(S.te)}</div><div class="sl">시간</div></div>
+    <div class="score-ring" style="width:100px;height:100px;flex-shrink:0"><svg viewBox="0 0 100 100" style="width:100px;height:100px"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="6"/><circle class="ring-fill ${pass?'pass':'fail'}" id="scoreRing" cx="50" cy="50" r="40" stroke-dasharray="${2*Math.PI*40}" stroke-dashoffset="${2*Math.PI*40}" fill="none" stroke-width="6" stroke-linecap="round"/><text x="50" y="46" text-anchor="middle" fill="white" font-size="28" font-weight="900" id="scoreNum">0</text><text x="50" y="62" text-anchor="middle" fill="rgba(255,255,255,.6)" font-size="11" font-weight="600">점</text></svg></div>
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span class="pass-badge ${pass?'y':'n'}" style="margin:0">${pass?'✓ PASS':'✗ FAIL'}</span>
+        ${streak.count>0?`<span style="font-size:11px;font-weight:800;color:var(--yellow)">🔥${streak.count}일</span>`:''}
+        ${_diff!==null?`<span style="font-size:11px;font-weight:700;color:${_diff>0?'#34D399':_diff<0?'#F87171':'rgba(255,255,255,.5)'}">${_diff>0?'↑+'+_diff:_diff<0?'↓'+_diff:'→0'}</span>`:''}
+      </div>
+      <div style="display:flex;gap:12px;margin-top:8px;font-size:12px">
+        <span><span style="font-weight:800;color:#34D399" id="rStatOk">0</span> <span style="opacity:.6">정답</span></span>
+        <span><span style="font-weight:800;color:#F87171" id="rStatNo">0</span> <span style="opacity:.6">오답</span></span>
+        <span><span style="font-weight:800" id="rStatSk">0</span> <span style="opacity:.6">건너뜀</span></span>
+        <span><span style="font-weight:800">${ftk(S.te)}</span> <span style="opacity:.6">시간</span></span>
+      </div>
     </div>
-    ${streak.count>0?`<div style="margin-top:8px;font-size:13px;font-weight:800;color:var(--yellow)">🔥 ${streak.count}일 연속 학습!</div>`:''}
-    ${(()=>{const hist=gH();const scopeKey=S.sel&&S.sel.length?S.sel.join(','):'';const prev=hist.filter(h=>h.scopes&&h.scopes.join(',')===scopeKey&&h.type===S.tt).slice(-2,-1)[0];if(!prev)return'';const diff=r.score-prev.score;const arrow=diff>0?'↑':diff<0?'↓':'→';const col=diff>0?'var(--green)':diff<0?'var(--red)':'var(--sub)';return`<div style="margin-top:6px;font-size:12px;font-weight:700;color:${col}">이전 ${prev.score}점 ${arrow} ${diff>0?'+'+diff:diff}점</div>`;})()}
   </div>`;
 
   // ━━ Share button — prominent ━━
