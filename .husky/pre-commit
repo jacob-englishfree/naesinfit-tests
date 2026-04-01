@@ -50,6 +50,26 @@ if [ -n "$ANS_CHANGED" ]; then
   echo "ℹ️  ans 필드 변경 감지됨 — validate-ans 통과 확인 완료"
 fi
 
+# ⛔ QA 리포트 존재 확인 — data/ 변경 시 대응 리포트 필수
+if [ -n "$JSON_FILES" ]; then
+  MISSING_REPORTS=""
+  for f in $JSON_FILES; do
+    REPORT_DIR=$(echo "$f" | sed 's|^data/|reports/|' | sed 's|/[^/]*\.json$||')
+    BASENAME=$(basename "$f" .json)
+    REPORT_EXISTS=$(ls ${REPORT_DIR}/${BASENAME}_*.json 2>/dev/null | head -1)
+    if [ -z "$REPORT_EXISTS" ]; then
+      MISSING_REPORTS="$MISSING_REPORTS\n  $f"
+    fi
+  done
+  if [ -n "$MISSING_REPORTS" ]; then
+    echo "⛔ QA 리포트 없는 JSON이 있습니다:"
+    echo -e "$MISSING_REPORTS"
+    echo ""
+    echo "   → npm run qa -- <파일> 로 검수 후 커밋하세요."
+    exit 1
+  fi
+fi
+
 # 📦 카탈로그 자동 동기화 — data/ 변경 시 index.html 카탈로그 자동 업데이트
 if [ -n "$JSON_FILES" ]; then
   node scripts/auto-catalog.js 2>/dev/null
