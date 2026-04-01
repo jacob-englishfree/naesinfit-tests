@@ -334,11 +334,11 @@ input,select{font-family:inherit}
 .ex-answer-zone .q-pts{font-size:10px;padding:3px 8px;border-radius:10px}
 .ex-answer-zone .q-type{font-size:10px;padding:3px 8px;border-radius:10px}
 .ex-answer-zone .q-stem{font-size:14.5px;font-weight:800;margin-bottom:14px;letter-spacing:-.2px}
-.ex-answer-zone .choices{gap:7px}
-.ex-answer-zone .c-btn{padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.55;gap:11px;border:1.5px solid var(--g200);box-shadow:0 1px 3px rgba(0,0,0,.03);transition:all .2s var(--ease-snap)}
+.ex-answer-zone .choices{gap:5px}
+.ex-answer-zone .c-btn{padding:7px 10px;border-radius:10px;font-size:12.5px;line-height:1.4;gap:8px;border:1.5px solid var(--g200);box-shadow:none;transition:all .2s var(--ease-snap)}
 .ex-answer-zone .c-btn:active{transform:scale(.975)}
 .ex-answer-zone .c-btn.on{border-color:var(--blue);background:linear-gradient(135deg,#F9F5FF,#F3EEFF);box-shadow:0 4px 16px rgba(139,92,246,.12),0 0 0 1px rgba(139,92,246,.15)}
-.ex-answer-zone .c-btn .c-n{width:26px;height:26px;font-size:11px;border-radius:9px;background:var(--g50);border:1px solid var(--g200);transition:all .25s var(--ease-spring)}
+.ex-answer-zone .c-btn .c-n{width:22px;height:22px;font-size:10px;border-radius:7px;background:var(--g50);border:1px solid var(--g200);transition:all .25s var(--ease-spring)}
 .ex-answer-zone .c-btn.on .c-n{background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:white;border-color:#8B5CF6;transform:scale(1.06);box-shadow:0 2px 8px rgba(139,92,246,.25)}
 .ex-answer-zone .w-input{padding:14px 18px;font-size:15px;border-radius:14px;border:1.5px solid var(--g200);box-shadow:0 1px 3px rgba(0,0,0,.02)}
 .ex-answer-zone .w-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(139,92,246,.08),0 4px 12px rgba(139,92,246,.06)}
@@ -405,7 +405,7 @@ input,select{font-family:inherit}
 @keyframes rFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .r-anim{opacity:0;animation:rFadeUp .4s var(--ease-out) forwards}
 
-.result-top{text-align:center;padding:48px 20px 36px;position:relative;overflow:hidden;background:linear-gradient(160deg,#1E1B4B 0%,#312E81 40%,#4C1D95 100%);color:white}
+.result-top{text-align:center;padding:48px 20px 48px;position:relative;overflow:hidden;background:linear-gradient(160deg,#1E1B4B 0%,#312E81 40%,#4C1D95 100%);color:white;margin-bottom:-20px;border-radius:0 0 24px 24px}
 .result-top::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(167,139,250,.25) 0%,transparent 70%);pointer-events:none}
 .result-top::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(192,132,252,.15) 0%,transparent 70%);pointer-events:none}
 
@@ -1651,7 +1651,14 @@ initTheme();
 function haptic(type){if(!navigator.vibrate)return;if(type==='ok')navigator.vibrate(30);else if(type==='no')navigator.vibrate([30,50,30]);else if(type==='submit')navigator.vibrate(80);else if(type==='tap')navigator.vibrate(10);}
 
 // ━━ Pro Sound Effects (Web Audio API — multi-tone + harmonics) ━━
-const _audioCtx=(()=>{try{return new(window.AudioContext||window.webkitAudioContext)();}catch(e){return null;}})();
+let _audioCtx=null;
+function _ensureAudio(){
+  if(_audioCtx)return;
+  try{_audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}
+}
+// iOS requires AudioContext creation on user gesture
+document.addEventListener('touchstart',_ensureAudio,{once:true});
+document.addEventListener('click',_ensureAudio,{once:true});
 function _tone(freq,dur,vol,type,delay){
   if(!_audioCtx)return;
   const t=_audioCtx.currentTime+(delay||0);
@@ -4390,7 +4397,7 @@ function rResult(){setBottom(null);
   </div>`;
 
   // ━━ Share button — prominent ━━
-  h+=`<div style="padding:0 16px;margin-top:-8px;margin-bottom:14px">
+  h+=`<div style="padding:0 16px;margin-top:8px;margin-bottom:14px;position:relative;z-index:1">
     <button onclick="shareResultCard()" style="width:100%;padding:15px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,#8B5CF6,#7C3AED);color:white;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(139,92,246,.3);display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s var(--ease)" ontouchstart="this.style.transform='scale(.97)'" ontouchend="this.style.transform=''">
       📤 결과 공유하기
     </button>
@@ -4622,7 +4629,7 @@ function renderRevSheetBody(idx){
   // Stem
   h+=`<div style="font-size:14px;font-weight:800;line-height:1.7;margin-bottom:12px;color:var(--text)">${q.stem||''}</div>`;
   // Passage (if exists)
-  if(q.passage)h+=`<div style="font-size:13px;line-height:1.9;padding:12px 14px;background:var(--g50);border-radius:var(--r-md);border-left:3px solid var(--blue);margin-bottom:12px;color:var(--g700);font-family:var(--passage-font)">${q.passage}</div>`;
+  if(q.passage)h+=`<div style="font-size:13px;line-height:1.9;padding:12px 14px;background:var(--g50);border-radius:var(--r-md);border-left:3px solid var(--blue);margin-bottom:12px;color:var(--g700);font-family:var(--passage-font);text-align:justify;word-break:keep-all">${q.passage}</div>`;
   // Answer comparison
   h+=`<div class="ans-cmp" style="margin-bottom:12px"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
   // Report button — full width, visible for wrong answers
@@ -4657,7 +4664,7 @@ function renderRevSheetBody(idx){
   if(dt.korean)h+=`<div style="padding:10px 12px;background:var(--blue-xl);border-radius:var(--r-sm);border-left:3px solid var(--blue);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px">해석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.korean}</div></div>`;
   if(dt.correct)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:4px">해설</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${String(dt.correct).replace(/\n/g,'<br>')}</div></div>`;
   if(dt.analysis)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--sub);margin-bottom:4px">분석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.analysis}</div></div>`;
-  if(dt.ref)h+=`<div style="padding:10px 12px;background:var(--blue-xl);border-radius:var(--r-sm);border-left:3px solid var(--blue);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px">원문</div><div style="font-size:13px;line-height:1.8;color:var(--g700);font-family:var(--passage-font)">${String(dt.ref).replace(/\n/g,'<br>')}</div></div>`;
+  if(dt.ref)h+=`<div style="padding:10px 12px;background:var(--blue-xl);border-radius:var(--r-sm);border-left:3px solid var(--blue);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px">원문</div><div style="font-size:13px;line-height:1.8;color:var(--g700);font-family:var(--passage-font);text-align:justify">${String(dt.ref).replace(/\n/g,'<br>')}</div></div>`;
   if(dt.wrongs&&dt.wrongs.length)h+=`<div style="padding:10px 12px;background:var(--g50);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--red);margin-bottom:4px">오답 분석</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${dt.wrongs.join('<br>')}</div></div>`;
   if(dt.tip)h+=`<div style="padding:10px 12px;background:var(--yellow-l);border-radius:var(--r-sm);margin-bottom:8px"><div style="font-size:10px;font-weight:700;color:var(--yellow);margin-bottom:4px">학습 팁</div><div style="font-size:13px;line-height:1.8;color:var(--text)">${String(dt.tip).replace(/\n/g,'<br>')}</div></div>`;
   // Understanding feedback buttons
