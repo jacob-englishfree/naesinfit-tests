@@ -16,6 +16,35 @@ const DEPLOY_PATH = path.join(__dirname, '..', '..', 'naesinfit-shared', 'src', 
 
 const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
 
+// ─── 키 정합성 검증: textbooks.ts의 id가 단일 진실 소스 ───
+// textbooks.ts에서 id 목록 추출 (정적 리스트 — textbooks.ts 변경 시 여기도 갱신)
+const TEXTBOOK_IDS = [
+  'C1-능률민','C1-미래','C1-능률오','C1-YBM김','C1-YBM박','C1-동아','C1-비상','C1-지학사','C1-천재강','C1-천재조',
+  'C2-능률민','C2-능률오','C2-YBM김','C2-YBM박','C2-동아','C2-미래','C2-비상','C2-지학사','C2-천재강','C2-천재조',
+  'E1-능률','E1-YBM','E1-동아','E1-미래','E1-비상','E1-지학사','E1-천재강','E1-천재조','E1-YBM한',
+  'E2-능률','E2-YBM','E2-YBM한','E2-동아','E2-미래','E2-비상','E2-지학사','E2-천재강','E2-천재조',
+  'M2-YBM김은형',
+];
+const tbIdSet = new Set(TEXTBOOK_IDS);
+const catalogKeys = Object.keys(catalog['교과서'] || {});
+const errors = [];
+
+// 카탈로그에 있는데 textbooks.ts에 없는 키 → 키 불일치
+for (const k of catalogKeys) {
+  if (!tbIdSet.has(k)) {
+    errors.push(`⛔ 카탈로그 키 "${k}"가 textbooks.ts에 없음! 학생 DB와 매칭 불가.`);
+  }
+}
+
+if (errors.length > 0) {
+  console.error('=== 키 정합성 검증 FAIL ===');
+  errors.forEach(e => console.error(e));
+  console.error('\n→ test-catalog.json의 키를 textbooks.ts의 id에 맞춰주세요.');
+  console.error('→ textbooks.ts 위치: app/src/shared/constants/textbooks.ts');
+  process.exit(1);
+}
+console.log('✅ 키 정합성 검증 PASS — 카탈로그 키가 textbooks.ts와 일치');
+
 // ─── TEST_APP_DEPLOY (교과서) ───
 const textbooks = catalog['교과서'] || {};
 const deployEntries = Object.entries(textbooks).map(([id, info]) => {
