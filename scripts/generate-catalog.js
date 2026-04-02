@@ -115,8 +115,13 @@ function main() {
       continue;
     }
 
-    // 실제 디렉토리 스캔
-    const unitData = scanDeep(dirPath);
+    // 실제 디렉토리 스캔 (NFC 정규화 적용)
+    const unitDataRaw = scanDeep(dirPath);
+    // NFD → NFC 정규화
+    const unitData = {};
+    for (const [k, v] of Object.entries(unitDataRaw)) {
+      unitData[k.normalize('NFC')] = v.map(s => s.normalize('NFC'));
+    }
     const units = Object.keys(unitData).filter(u => /^\d+과$/.test(u)).sort((a, b) =>
       parseInt(a) - parseInt(b)
     );
@@ -156,6 +161,7 @@ function main() {
 
     const items = fs.readdirSync(dirPath)
       .filter(f => fs.statSync(path.join(dirPath, f)).isDirectory())
+      .map(f => f.normalize('NFC'))
       .sort((a, b) => {
         const na = parseInt(a) || 99;
         const nb = parseInt(b) || 99;
@@ -174,16 +180,20 @@ function main() {
       continue;
     }
 
-    const unitData = scanDeep(dirPath);
-    const units = Object.keys(unitData).sort((a, b) => {
+    const unitDataRaw2 = scanDeep(dirPath);
+    const unitData2 = {};
+    for (const [k, v] of Object.entries(unitDataRaw2)) {
+      unitData2[k.normalize('NFC')] = v.map(s => s.normalize('NFC'));
+    }
+    const units = Object.keys(unitData2).sort((a, b) => {
       const na = parseInt(a) || 99;
       const nb = parseInt(b) || 99;
       return na - nb;
     });
     const sections = {};
     for (const u of units) {
-      if (unitData[u] && unitData[u].length > 0) {
-        sections[u] = unitData[u];
+      if (unitData2[u] && unitData2[u].length > 0) {
+        sections[u] = unitData2[u];
       }
     }
 
