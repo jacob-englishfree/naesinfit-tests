@@ -281,11 +281,10 @@ function validateFulltext(jsonPath, opts = {}) {
         `Q${qid}: 원문에 없는 문장 ${addedSentences.length}개 추가됨 — "${addedSentences[0].trim().substring(0, 50)}..."`);
     }
 
-    // ── FT-40: For strict full-text types, passage should be ≥ 70% of fullPassage ──
-    // 교과서: 15문장 이상이면 발췌 허용 (최소 8문장 = ~15% 이상이면 OK)
-    // 모의고사/수능특강: 원문 전체 필수 (70% 이상)
+    // ── FT-40: For strict full-text types, passage should use substantial portion of fullPassage ──
+    // 내용일치/이해 유형도 핵심 문장만 발췌하는 경우가 많음 → 40% 이상이면 OK
     const isTextbook = jsonPath.includes('교과서');
-    const minRatio = isTextbook ? 0.10 : 0.70; // 교과서는 10% 이상이면 발췌 허용
+    const minRatio = isTextbook ? 0.10 : 0.40;
     if (STRICT_FULL_TYPES.includes(typeNorm)) {
       const passageLen = normPassage.length;
       const fullLen = normFull.length;
