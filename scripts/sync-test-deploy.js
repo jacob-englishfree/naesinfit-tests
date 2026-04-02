@@ -252,7 +252,39 @@ export const TEXTBOOK_LABELS: Record<string, string> = {\n`;
     const label = `${labelMap[prefix] || prefix} ${pubName.replace(/[a-zA-Z]+/g, (m) => m)}`;
     ts += `  ${jsonStr(key)}: ${jsonStr(label)},\n`;
   }
-  ts += `};\n`;
+  ts += `};\n\n`;
+
+  // CONTENT_NAMES (괄호 포함 라벨)
+  const contentLabelMap = {
+    'C1': '공통영어1', 'E1': '영어1', 'E2': '영어2', 'M2': '중2',
+  };
+  ts += `export const CONTENT_NAMES: Record<string, string> = {\n`;
+  for (const [key, val] of Object.entries(textbooks)) {
+    const prefix = key.split('-')[0];
+    const pubName = val.path.split('/')[1];
+    // 출판사명에서 영문+한글 분리: "YBM박준언" → "YBM(박준언)", "능률오선영" → "능률(오선영)"
+    const pubFormatted = pubName.replace(/^([a-zA-Z]+)(.+)$/, '$1($2)').replace(/^([가-힣]{2})(.+)$/, '$1($2)');
+    ts += `  ${jsonStr(key)}: ${jsonStr(`${contentLabelMap[prefix] || prefix} ${pubFormatted}`)},\n`;
+  }
+  ts += `};\n\n`;
+
+  // DESIGN_TOKENS (고정값)
+  ts += `export const DESIGN_TOKENS = {
+  P: {
+    bg: "#F2F4F6", bg2: "#FFFFFF", bg3: "#F7F8FA",
+    tx: "#191F28", tx2: "#4E5968", tx3: "#6B7684", tx4: "#8B95A1",
+    bd: "#E5E8EB",
+    ac: "#7C3AED", acL: "#F3EEFF", neon: "#00F5A0", neonL: "#E6FFF5",
+    ok: "#00C471", okB: "#E8FAF0",
+    err: "#FF4545", errB: "#FFEBEB",
+    warn: "#FF9F43", warnB: "#FFF4E6",
+    info: "#6C5CE7", infoB: "#F0EEFF",
+    pink: "#E91E8C", pinkB: "#FFF0F8",
+  },
+  T: { display: 28, title1: 22, title2: 17, body1: 15, body2: 14, caption1: 13, caption2: 12 },
+  R: { lg: 16, md: 12, sm: 8, xs: 4 },
+  S: { lg: 24, md: 16, sm: 12, xs: 8 },
+};\n`;
 
   return ts;
 }
