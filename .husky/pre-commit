@@ -79,3 +79,18 @@ if [ -n "$JSON_FILES" ]; then
     echo "📦 카탈로그 자동 동기화됨 — index.html 업데이트"
   fi
 fi
+
+# 📦 test-deploy 자동 동기화 — data/ 변경 시 naesinfit-app의 test-deploy.ts 자동 업데이트
+if [ -n "$JSON_FILES" ]; then
+  DEPLOY_TS="../내신핏v21/app/src/shared/constants/test-deploy.ts"
+  if [ -f "$DEPLOY_TS" ]; then
+    node scripts/sync-test-deploy.js 2>/dev/null
+    # 검증
+    node scripts/sync-test-deploy.js --verify 2>/dev/null
+    if [ $? -ne 0 ]; then
+      echo "⛔ test-deploy.ts 동기화 검증 실패"
+      exit 1
+    fi
+    echo "📦 test-deploy.ts 자동 동기화됨"
+  fi
+fi
