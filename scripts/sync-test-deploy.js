@@ -291,3 +291,40 @@ function main() {
 
 module.exports = { scanTextbooks, scanSupplements, scanMocks };
 if (require.main === module) main();
+
+// ── Push 후 검증: sections가 제대로 반영됐는지 확인 ──
+function verify() {
+  if (!fs.existsSync(APP_DEPLOY)) {
+    console.error('❌ test-deploy.ts 없음');
+    return false;
+  }
+  const content = fs.readFileSync(APP_DEPLOY, 'utf8');
+  const textbooks = scanTextbooks();
+  let ok = true;
+  
+  for (const [key, val] of Object.entries(textbooks)) {
+    if (val.sections) {
+      for (const [unit, secs] of Object.entries(val.sections)) {
+        // 본문이 첫 번째인지 확인
+        if (secs[0] !== '본문') {
+          console.error(`❌ ${key} ${unit}: 본문이 첫 번째가 아님 (${secs[0]})`);
+          ok = false;
+        }
+        // sections가 파일에 포함되어 있는지 확인
+        for (const sec of secs) {
+          if (!content.includes(sec)) {
+            console.error(`❌ ${key} ${unit} "${sec}" — test-deploy.ts에 없음`);
+            ok = false;
+          }
+        }
+      }
+    }
+  }
+  
+  if (ok) console.log('✅ 검증 통과: 모든 sections 정상 반영');
+  return ok;
+}
+
+if (process.argv.includes('--verify')) {
+  process.exit(verify() ? 0 : 1);
+}
