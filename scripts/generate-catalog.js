@@ -168,6 +168,27 @@ function main() {
         return na - nb;
       });
 
+    // ── 폴더 내 실제 년도 검증: id의 년도 vs 데이터의 년도 ──
+    const expectedYear = m[1]; // textbooks.ts id에서 추출한 년도
+    let actualYear = null;
+    for (const item of items.slice(0, 3)) {
+      for (const t of ['단어.json', '워크북.json', '퀴즈.json']) {
+        const f = path.join(dirPath, item, t);
+        if (!fs.existsSync(f)) continue;
+        try {
+          const raw = fs.readFileSync(f, 'utf8');
+          const hk = raw.match(/histKey["']?\s*:\s*["']([^"']+)/);
+          if (hk) { const ym = hk[1].match(/(20\d\d)/); if (ym) { actualYear = ym[1]; break; } }
+          const subj = raw.match(/subject["']?\s*:\s*["']([^"']+)/);
+          if (subj) { const ym = subj[1].match(/(20\d\d)/); if (ym) { actualYear = ym[1]; break; } }
+        } catch (e) {}
+      }
+      if (actualYear) break;
+    }
+    if (actualYear && actualYear !== expectedYear) {
+      errors.push(`⛔ 모의고사 ${catalogKey}: textbooks.ts 년도=${expectedYear} ≠ 폴더 데이터 년도=${actualYear} (path: ${mock.path})`);
+    }
+
     catalog['모의고사'][catalogKey] = { path: mock.path, items };
   }
 
@@ -243,9 +264,19 @@ function main() {
   console.log(`   모의고사: ${mockDeployed}/${mockCount} 배포됨`);
   console.log(`   부교재: ${supDeployed}/${supCount} 배포됨`);
 
-  if (errors.length > 0) {
+  const criticalErrors = errors.filter(e => e.startsWith('⛔'));
+  const warnings = errors.filter(e => e.startsWith('⚠️'));
+
+  if (warnings.length > 0) {
     console.log('\n⚠️  경고:');
-    errors.forEach(e => console.log('  ' + e));
+    warnings.forEach(e => console.log('  ' + e));
+  }
+
+  if (criticalErrors.length > 0) {
+    console.error('\n⛔ 에러:');
+    criticalErrors.forEach(e => console.error('  ' + e));
+    console.error('\n→ textbooks.ts의 모의고사 path 또는 id 년도를 수정하세요.');
+    process.exit(1);
   }
 
   console.log('\n→ node scripts/sync-catalog.js 실행하여 test-deploy.ts 갱신');
