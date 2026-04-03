@@ -4159,8 +4159,9 @@ function renderExQ(){
   const pz=$('exPassage');
   const cb=$('exCollapseBar');
   if(pz){
-    if(q.passage){
-      pz.innerHTML=`<div class="q-passage">${q.passage}</div>`;
+    const pText=q.passage==='__FULL__'?FULL_PASSAGE:q.passage;
+    if(pText){
+      pz.innerHTML=`<div class="q-passage">${pText}</div>`;
       pz.style.display='';
       pz.className='ex-passage-zone ex-font-'+(S.exTools?S.exTools.fontSize:'md')+(S.exTools&&S.exTools.collapsed?' ex-passage-collapsed':'');
       if(cb)cb.style.display=S.exTools&&S.exTools.collapsed?'':'none';
@@ -4640,7 +4641,7 @@ function renderRevSheetBody(idx){
   // Stem
   h+=`<div style="font-size:14px;font-weight:800;line-height:1.7;margin-bottom:12px;color:var(--text)">${q.stem||''}</div>`;
   // Passage (if exists)
-  if(q.passage)h+=`<div style="font-size:13px;line-height:1.9;padding:12px 14px;background:var(--g50);border-radius:var(--r-md);border-left:3px solid var(--blue);margin-bottom:12px;color:var(--g700);font-family:var(--passage-font);text-align:justify;word-break:keep-all">${q.passage}</div>`;
+  {const rp=q.passage==='__FULL__'?FULL_PASSAGE:q.passage;if(rp)h+=`<div style="font-size:13px;line-height:1.9;padding:12px 14px;background:var(--g50);border-radius:var(--r-md);border-left:3px solid var(--blue);margin-bottom:12px;color:var(--g700);font-family:var(--passage-font);text-align:justify;word-break:keep-all">${rp}</div>`;}
   // Answer comparison
   h+=`<div class="ans-cmp" style="margin-bottom:12px"><div class="ans-box ${dd.ok?'ok':'no'}"><div class="label">내 답</div>${ua}</div><div class="ans-box cor"><div class="label">정답</div>${ca}</div></div>`;
   // Report button — full width, visible for wrong answers
