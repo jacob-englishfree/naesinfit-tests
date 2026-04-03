@@ -78,10 +78,10 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "🔍 AI 블라인드 풀이 검수 시작..."
-          # Get changed data files
-          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'data/**/*.json' 2>/dev/null || echo "")
+          # Get changed data files (한국어 파일명 지원: -z + sed)
+          CHANGED=$(git diff -z --name-only HEAD~1 HEAD -- 'data/' 2>/dev/null | tr '\0' '\n' | grep '\.json$' || echo "")
           if [ -n "$CHANGED" ]; then
-            node verify/blind-solve.js $CHANGED
+            echo "$CHANGED" | xargs node verify/blind-solve.js
           else
             echo "변경된 데이터 파일 없음 — 스킵"
           fi
