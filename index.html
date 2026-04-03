@@ -1476,7 +1476,7 @@ async function fetchTestQuestions(testType, selKey) {
       const resp = await fetch(path);
       if (resp.ok) {
         const data = await resp.json();
-        const questions = data.questions || [];
+        const questions = normalizeQs(data.questions || [], data.fullPassage || FULL_PASSAGE);
         if (questions.length) {
           _fetchCache[cacheKey] = questions;
           if (!QUESTION_BANK[testType]) QUESTION_BANK[testType] = {};
@@ -1501,7 +1501,8 @@ async function fetchTestQuestions(testType, selKey) {
     const resp = await fetch(htmlPath);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const html = await resp.text();
-    const { ei, questions, fullPassage } = parseTestHTML(html);
+    const { ei, questions: rawQs, fullPassage } = parseTestHTML(html);
+    const questions = normalizeQs(rawQs, fullPassage || FULL_PASSAGE);
     if (questions.length) {
       _fetchCache[cacheKey] = questions;
       if (!QUESTION_BANK[testType]) QUESTION_BANK[testType] = {};
@@ -2271,6 +2272,31 @@ const gH=()=>{try{return JSON.parse(localStorage.getItem('nf_h'))||[];}catch(e){
 const sH=e=>{const h=gH();h.push(e);if(h.length>20)h.shift();try{localStorage.setItem('nf_h',JSON.stringify(h));}catch(e){toast('저장 공간이 부족해요. 기록 일부를 삭제해주세요.');}};
 
 const $=id=>document.getElementById(id),app=$('app'),NM='①②③④⑤⑥⑦⑧⑨⑩';
+// ━━ JSON 정규화 — ch 원번호 제거 + __FULL__ 치환 ━━
+const _CRE=/^[①②③④⑤⑥⑦⑧⑨⑩]\s*/;
+function normalizeQs(qs,fp){
+  if(!qs)return qs;
+  qs.forEach(q=>{
+    // __FULL__ → fullPassage 치환
+    if(q.passage==='__FULL__'&&fp)q.passage=fp;
+    // ch 정규화
+    if(!q.ch||!Array.isArray(q.ch))return;
+    const allCircledOnly=q.ch.every(c=>/^[①②③④⑤⑥⑦⑧⑨⑩]$/.test(c.trim()));
+    if(allCircledOnly&&q.passage){
+      // ch가 ["①","②","③","④"] 같이 번호만 — passage에서 밑줄 단어 추출
+      const ms=[...q.passage.matchAll(/<u>([^<]+)<\/u>/g)];
+      const words=ms.map(m=>m[1].replace(_CRE,'').trim());
+      if(words.length>0){
+        const NMS='①②③④⑤⑥⑦⑧⑨⑩';
+        q.ch=q.ch.map(c=>{const idx=NMS.indexOf(c.trim());return idx>=0&&idx<words.length?words[idx]:c;});
+      }
+    } else {
+      // ch가 "① localized" 같이 번호+단어 — 번호만 제거
+      q.ch=q.ch.map(c=>{const s=c.replace(_CRE,'');return s||c;});
+    }
+  });
+  return qs;
+}
 const esc=s=>String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);};
 const ft=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
@@ -4636,7 +4662,7 @@ function revSheetNav(idx){
 function renderRevSheetBody(idx){
   const r=S.res,dd=r.det[idx],q=dd.q,dt=q.det||{};
   const ua=q.fmt==='mc'?(dd.ua!==undefined?NM[dd.ua]||'':'미응답'):(dd.ua||'미응답');
-  const ca=q.fmt==='mc'?(NM[q.ans-1]||''):(q.wa||'');
+  const ca=q.fmt==='mc'?(NM[q.ans-1]||''):(q.wa||q.ans||'');
   let h='';
   // Stem
   h+=`<div style="font-size:14px;font-weight:800;line-height:1.7;margin-bottom:12px;color:var(--text)">${q.stem||''}</div>`;
@@ -4853,7 +4879,7 @@ function svImg(){
   let qy=Y+50;
   r.det.forEach((d,i)=>{
     const icon=d.ok?'✅':'❌';
-    const ca=d.q.fmt==='mc'?(NM[d.q.ans-1]||''):(d.q.wa||'');
+    const ca=d.q.fmt==='mc'?(NM[d.q.ans-1]||''):(d.q.wa||d.q.ans||'');
     const ua=d.q.fmt==='mc'?(d.ua!==undefined?(NM[d.ua]||'?'):'—'):(d.ua||'—');
     const col=d.ok?'#00C072':'#F04452';
     // Light row background for wrong answers
