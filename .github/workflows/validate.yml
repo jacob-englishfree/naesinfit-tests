@@ -74,6 +74,32 @@ jobs:
             exit 1
           fi
 
+      - name: Fulltext Original Passage Verification
+        run: |
+          echo "🔍 원문 대조 검증 시작..."
+          git config core.quotepath false
+          CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep '^data/.*\.json$' || true)
+          if [ -n "$CHANGED" ]; then
+            FAIL=0
+            echo "$CHANGED" | while IFS= read -r f; do
+              RESULT=$(node validate/validate-fulltext.js "$f" 2>&1) || true
+              FT_ERRORS=$(echo "$RESULT" | grep -c '\[S\]\|\[A\]' || true)
+              if [ "$FT_ERRORS" -gt 0 ]; then
+                echo "❌ $f: 원문 변조 $FT_ERRORS건"
+                echo "$RESULT" | grep '\[S\]\|\[A\]'
+                echo "FAIL" > /tmp/ft_fail
+              fi
+            done
+            if [ -f /tmp/ft_fail ]; then
+              echo "❌ 원문 대조 FAIL"
+              rm -f /tmp/ft_fail
+              exit 1
+            fi
+            echo "✅ 원문 대조 PASS"
+          else
+            echo "변경된 데이터 파일 없음 — 스킵"
+          fi
+
       - name: AI Blind-Solve Verification
         if: env.ANTHROPIC_API_KEY != ''
         env:
