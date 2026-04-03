@@ -578,6 +578,90 @@ function validate(jsonPath) {
     // end EX block
   });
 
+  // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──
+  if (questions.length === 20) {
+    const ansDist = {};
+    questions.filter(q => q.fmt === 'mc' && typeof q.ans === 'number').forEach(q => {
+      ansDist[q.ans] = (ansDist[q.ans] || 0) + 1;
+    });
+    Object.entries(ansDist).forEach(([ans, count]) => {
+      if (count >= 5) {
+        result.add('A6', SEV.S, `정답 ${ans}번이 ${count}개 — 5개 이상 금지`);
+      }
+    });
+  }
+
+  // ── A7: 같은 정답 3연속 금지 ──
+  const mcQuestions = questions.filter(q => q.fmt === 'mc' && typeof q.ans === 'number');
+  for (let i = 0; i < mcQuestions.length - 2; i++) {
+    if (mcQuestions[i].ans === mcQuestions[i+1].ans && mcQuestions[i+1].ans === mcQuestions[i+2].ans) {
+      result.add('A7', SEV.S, `Q${mcQuestions[i].id}~Q${mcQuestions[i+2].id}: 정답 ${mcQuestions[i].ans}번 3연속 금지`);
+    }
+  }
+
+  // ── P-UL4: 어법/부적절 밑줄 4개 필수 ──
+  questions.forEach(q => {
+    const t = (q.type || '').trim();
+    if (['어법', '문맥상 부적절한 어휘', '부적절어휘', '부적절'].includes(t)) {
+      const stem = q.stem || '';
+      const ulCount = (stem.match(/①|②|③|④/g) || []).length;
+      if (q.fmt === 'mc' && q.ch && q.ch.length === 4 && ulCount < 4 && stem.includes('밑줄')) {
+        result.add('P-UL4', SEV.A, `Q${q.id}: ${t} 밑줄찾기인데 마커 ${ulCount}개 — 4개 필수`);
+      }
+    }
+  });
+
+  // ── P-SEN: 동의어/반의어 밑줄 필수 ──
+  questions.forEach(q => {
+    const t = (q.type || '').trim();
+    if (t.includes('동의어') || t.includes('반의어')) {
+      const stem = q.stem || '';
+      if (!stem.includes('<u>') && !stem.includes('<b>') && !stem.includes('밑줄')) {
+        result.add('P-SEN', SEV.A, `Q${q.id}: ${t}인데 밑줄(<u>) 없음 — 대상 단어에 밑줄 필수`);
+      }
+    }
+  });
+
+  // ── P-TF: T/F는 워크북 전용 ──
+  questions.forEach(q => {
+    const t = (q.type || '').trim();
+    if ((t === 'T/F' || t === 'TF') && testType !== '워크북') {
+      result.add('P-TF', SEV.S, `Q${q.id}: T/F는 워크북 전용 — ${testType}에서 사용 금지`);
+    }
+  });
+
+  // ── P-STEM-EN: 서술형 stem에 '영어' 명시 ──
+  questions.forEach(q => {
+    if (q.fmt === 'written') {
+      const t = (q.type || '').trim();
+      const stem = q.stem || '';
+      if ((t.includes('찾기') || t.includes('핵심단어')) && !stem.includes('영어')) {
+        result.add('P-STEM-EN', SEV.A, `Q${q.id}: 서술형(찾기) stem에 "영어" 명시 없음 — "영어 단어를 찾아 쓰시오" 필수`);
+      }
+      if (t.includes('한영') && !stem.includes('영어')) {
+        result.add('P-STEM-EN', SEV.A, `Q${q.id}: 한영인데 stem에 "영어" 명시 없음`);
+      }
+    }
+  });
+
+  // ── F10-D: 서술형 accept에 마침표 변형 포함 ──
+  questions.forEach(q => {
+    if (q.fmt === 'written' && q.wa && Array.isArray(q.accept)) {
+      const wa = q.wa.trim();
+      if (wa.endsWith('.')) {
+        const noDot = wa.slice(0, -1).trim();
+        if (!q.accept.some(a => a.trim() === noDot)) {
+          result.add('F10-D', SEV.A, `Q${q.id}: accept에 마침표 없는 변형("${noDot.substring(0,30)}") 없음`);
+        }
+      } else if (wa.length > 10) {
+        const withDot = wa + '.';
+        if (!q.accept.some(a => a.trim() === withDot)) {
+          result.add('F10-D', SEV.B, `Q${q.id}: accept에 마침표 있는 변형 없음 (권장)`);
+        }
+      }
+    }
+  });
+
   // ── C19: id 1~N continuous, no dups ──
   const ids = questions.map(q => q.id).sort((a, b) => a - b);
   const expectedIds = Array.from({ length: questions.length }, (_, i) => i + 1);
