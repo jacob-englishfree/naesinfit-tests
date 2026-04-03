@@ -127,6 +127,23 @@ function validate(jsonPath) {
     if (q.fmt === 'written') {
       if (!q.wa) result.add('F10', SEV.S, `Q${qid}: written missing wa`);
       if (!Array.isArray(q.accept)) result.add('F10', SEV.S, `Q${qid}: written missing accept array`);
+      // F10-B: accept 배열에 대소문자/하이픈 변형 포함 검증
+      if (q.wa && Array.isArray(q.accept) && q.accept.length > 0) {
+        const wa = q.wa.trim();
+        const hasLower = q.accept.some(a => a.trim() === wa.toLowerCase());
+        const hasUpper = q.accept.some(a => a.trim() === wa.charAt(0).toUpperCase() + wa.slice(1));
+        if (!hasLower && wa.toLowerCase() !== wa) {
+          result.add('F10-B', SEV.A, `Q${qid}: accept에 소문자 변형("${wa.toLowerCase()}") 없음`);
+        }
+        // 하이픈 포함 단어는 공백 변형도 필요
+        if (wa.includes('-')) {
+          const noHyphen = wa.replace(/-/g, ' ');
+          const hasNoHyphen = q.accept.some(a => a.trim().replace(/-/g, ' ') === noHyphen);
+          if (!hasNoHyphen) {
+            result.add('F10-C', SEV.S, `Q${qid}: accept에 하이픈 없는 변형("${noHyphen}") 없음 — 학생이 공백으로 쓰면 오답 처리됨`);
+          }
+        }
+      }
     }
 
     // F11: passage key exists
@@ -331,9 +348,24 @@ function validate(jsonPath) {
       result.add('V63', SEV.A, `Q${qid}: passage가 ${passageSentences}문장(${passagePlainLen}자) — 너무 짧아서 빈 화면`);
     }
 
-    // V63-B: 순서배열/문장삽입/어순배열 — __FULL__ passage는 정답 순서 노출 (S급 차단)
-    if (['순서배열', '글순서', '문장삽입', '어순배열'].includes(typeNorm) && q.passage === '__FULL__') {
-      result.add('V63-B', SEV.S, `Q${qid}: ${typeNorm}에 passage="__FULL__" — 지문이 정답 순서를 그대로 노출. passage를 null로 변경 필수`);
+    // V63-B: 순서배열/문장삽입/어순배열 — passage 있으면 정답 노출 (S급 차단)
+    if (['순서배열', '글순서', '문장삽입', '어순배열'].includes(typeNorm) && q.passage && String(q.passage).length > 10) {
+      result.add('V63-B', SEV.S, `Q${qid}: ${typeNorm}에 passage 있음 — stem에 이미 텍스트 포함. passage를 null로 변경 필수`);
+    }
+
+    // V63-C: 어법(밑줄찾기) — passage 있으면 이중표시 (S급 차단)
+    if (typeNorm === '어법' && q.passage && String(q.passage).length > 100) {
+      const stemEng = (q.stem || '').replace(/<[^>]+>/g, '').match(/[a-zA-Z]+/g) || [];
+      if (stemEng.length > 15) {
+        result.add('V63-C', SEV.S, `Q${qid}: 어법인데 passage+stem 이중표시 — passage를 null로 변경 필수`);
+      }
+    }
+
+    // V63-D: 서술형 조건 명확성 — 영작/어순배열은 조건 필수
+    if (q.fmt === 'written' && (typeNorm === '영작' || stem.includes('영작'))) {
+      if (!stem.includes('조건') && !stem.includes('사용할 것') && !stem.includes('사용하여')) {
+        result.add('V63-D', SEV.A, `Q${qid}: 영작 문항인데 조건이 없음 — "조건:" 명시 필수`);
+      }
     }
 
     // V64: 서술형/어순배열 — 정답이 passage에 그대로 노출
