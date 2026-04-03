@@ -268,9 +268,15 @@ async function generate(testType, fullPassage, eiInfo, outputPath, siblingFiles)
 
     if (result.pass) {
       console.log(`     ✅ PASS (${result.warnings.length} warnings)`);
-      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-      fs.writeFileSync(outputPath, JSON.stringify(data, null, 2), 'utf8');
-      return outputPath;
+      // staging/ 에 먼저 저장 (QA 통과 전까지 data/에 직접 쓰지 않음)
+      const stagingPath = outputPath.replace(
+        path.join(ROOT, 'data') + path.sep,
+        path.join(ROOT, 'staging') + path.sep
+      );
+      fs.mkdirSync(path.dirname(stagingPath), { recursive: true });
+      fs.writeFileSync(stagingPath, JSON.stringify(data, null, 2), 'utf8');
+      console.log(`     ✅ staging/ 에 저장됨. QA 통과 후 npm run qa:approve 로 data/에 이동하세요.`);
+      return stagingPath;
     } else {
       console.log(`     ❌ FAIL (${result.errors.length} errors)`);
       result.errors.slice(0, 3).forEach(e => console.log(`        [${e.sev}] ${e.msg}`));

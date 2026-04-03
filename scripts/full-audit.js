@@ -19,8 +19,17 @@ const DATA = path.join(ROOT, 'data');
 const SHARED_DEPLOY = path.join(ROOT, '..', 'naesinfit-shared', 'src', 'constants', 'test-deploy.ts');
 const APP_DEPLOY    = path.join(ROOT, '..', '내신핏v21', 'app', 'src', 'shared', 'constants', 'test-deploy.ts');
 
-const SB_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+// .env 로드 (dotenv 없이 직접)
+const envPath = path.resolve(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, 'utf8').split('\n').forEach(line => {
+    const m = line.match(/^([^#=]+)=(.*)$/);
+    if (m && !process.env[m[1].trim()]) process.env[m[1].trim()] = m[2].trim();
+  });
+}
+
+const SB_URL = process.env.SUPABASE_URL || '';
+const SB_KEY = process.env.SUPABASE_KEY || '';
 
 const OK  = '✅';
 const ERR = '❌';

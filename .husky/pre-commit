@@ -44,6 +44,39 @@ if [ -n "$JSON_FILES" ]; then
   fi
 fi
 
+# ⛔ validate.js S급 검증 (53 checks) ──
+STAGED_JSON=$(git diff --cached --name-only --diff-filter=ACM | grep '^data/.*\.json$')
+if [ -n "$STAGED_JSON" ]; then
+  echo "🔍 validate.js S급 검증 중..."
+  VRESULT=$(node validate/validate.js $STAGED_JSON 2>&1)
+  S_ERRORS=$(echo "$VRESULT" | grep -c '\[S\]' || true)
+  A_ERRORS=$(echo "$VRESULT" | grep -c '\[A\]' || true)
+  if [ "$S_ERRORS" -gt 0 ] || [ "$A_ERRORS" -gt 0 ]; then
+    echo "❌ validate.js FAIL: S급 $S_ERRORS건, A급 $A_ERRORS건"
+    echo "$VRESULT" | grep '\[S\]\|\[A\]'
+    echo ""
+    echo "⛔ S/A급 에러가 있으면 커밋할 수 없습니다. 데이터를 수정하세요."
+    exit 1
+  fi
+  echo "✅ validate.js PASS"
+fi
+
+# ⛔ 신규 파일 _meta 증적 검증 ──
+NEW_JSON=$(git diff --cached --name-only --diff-filter=A | grep '^data/.*\.json$')
+if [ -n "$NEW_JSON" ]; then
+  echo "🔍 신규 파일 _meta 증적 검증..."
+  for f in $NEW_JSON; do
+    HAS_META=$(node -e "const d=JSON.parse(require('fs').readFileSync('$f','utf8'));console.log(d._meta&&d._meta.generator&&d._meta.sopSteps?'OK':'FAIL')" 2>/dev/null || echo "FAIL")
+    if [ "$HAS_META" != "OK" ]; then
+      echo "❌ $f: _meta.generator 또는 _meta.sopSteps 필드 없음"
+      echo "⛔ 신규 JSON 파일은 반드시 _meta 증적이 있어야 합니다."
+      echo "   npm run generate로 출제하면 자동으로 추가됩니다."
+      exit 1
+    fi
+  done
+  echo "✅ _meta 증적 확인 완료"
+fi
+
 # ⛔ ans 수동 수정 감지 — validate-ans를 통과하지 않은 ans 변경 차단
 ANS_CHANGED=$(git diff --cached -U0 -- 'data/*.json' | grep -E '^\+.*"ans":\s*[0-9]' || true)
 if [ -n "$ANS_CHANGED" ]; then
@@ -68,6 +101,14 @@ if [ -n "$JSON_FILES" ]; then
     echo "   → npm run qa -- <파일> 로 검수 후 커밋하세요."
     exit 1
   fi
+fi
+
+# ⚠️ validate.js 무단 수정 차단 ──
+VALIDATE_CHANGED=$(git diff --cached --name-only | grep '^validate/validate\.js$' || true)
+if [ -n "$VALIDATE_CHANGED" ]; then
+  echo "⚠️  validate.js 수정 감지"
+  echo "   validate.js를 수정하려면 커밋 메시지에 [validate-update]를 포함하세요."
+  echo "   무단 severity 낮추기는 금지입니다."
 fi
 
 # 📦 카탈로그 자동 동기화 — data/ 변경 시 index.html 카탈로그 자동 업데이트

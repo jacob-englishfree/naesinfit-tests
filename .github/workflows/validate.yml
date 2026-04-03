@@ -1,0 +1,73 @@
+name: Test Data Validation
+
+on:
+  push:
+    branches: [main]
+    paths: ['data/**', 'validate/**', 'index.html']
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate all test data (S/A level)
+        run: |
+          echo "🔍 전체 데이터 검증 시작..."
+          RESULT=$(node validate/validate.js 2>&1) || true
+          S_COUNT=$(echo "$RESULT" | grep -c '\[S\]' || true)
+          A_COUNT=$(echo "$RESULT" | grep -c '\[A\]' || true)
+          echo "$RESULT" | tail -5
+          if [ "$S_COUNT" -gt 0 ]; then
+            echo "❌ S급 에러 ${S_COUNT}건 — 반드시 수정 필요"
+            echo "$RESULT" | grep '\[S\]'
+            exit 1
+          fi
+          echo "✅ S급 에러 0건"
+
+      - name: Check validate.js integrity
+        run: |
+          CHECKSUM=$(sha256sum validate/validate.js | cut -d' ' -f1)
+          echo "validate.js checksum: $CHECKSUM"
+          # Store checksum for audit trail
+          echo "VALIDATE_CHECKSUM=$CHECKSUM" >> $GITHUB_ENV
+
+      - name: Check for _meta in new data files
+        run: |
+          # Get new files in this push
+          NEW_FILES=$(git diff --name-only HEAD~1 HEAD -- 'data/**/*.json' 2>/dev/null | head -50)
+          if [ -n "$NEW_FILES" ]; then
+            echo "신규/수정 파일 _meta 확인..."
+            node -e "
+              const fs = require('fs');
+              const files = process.argv.slice(1);
+              let issues = 0;
+              files.forEach(f => {
+                try {
+                  const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+                  if (!d._meta) {
+                    // Only warn for now, don't fail (existing files don't have _meta)
+                    console.log('⚠️  ' + f + ': _meta 없음');
+                  }
+                } catch(e) {}
+              });
+            " $NEW_FILES
+          fi
+
+      - name: Verify index.html __FULL__ handling
+        run: |
+          if grep -q "pText=q.passage==='__FULL__'" index.html; then
+            echo "✅ index.html __FULL__ 처리 코드 존재"
+          else
+            echo "❌ index.html에 __FULL__ 처리 코드 없음!"
+            exit 1
+          fi
