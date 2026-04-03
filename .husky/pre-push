@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# ⛔ push 전 시스템 점검 (로컬 체크만 — 빠름)
+# Audit 1: test-deploy.ts 등록 vs 실제 파일 존재
+# Audit 2: shared 코드 sync 상태
+
+echo "🔍 push 전 시스템 점검 중..."
+node scripts/full-audit.js --local-only 2>&1
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  echo ""
+  echo "⛔ 시스템 점검 실패. 위 오류를 수정 후 다시 push하세요."
+  echo "   전체 점검: npm run audit"
+  exit 1
+fi
+echo "✅ 시스템 점검 통과"
