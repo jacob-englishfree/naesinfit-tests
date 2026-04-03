@@ -290,6 +290,44 @@ async function main() {
       }
     } catch (e) { /* ignore */ }
 
+    // ans 자동도출: det.analysis ✅/❌ 그룹 파싱 → ans 강제 세팅
+    // AI가 ans와 analysis를 독립 작성해 불일치하는 버그 원천 차단
+    {
+      const MARKERS_LOCAL = [['①',1],['②',2],['③',3],['④',4],['⑤',5],['ⓐ',1],['ⓑ',2],['ⓒ',3],['ⓓ',4]];
+      const checkGroupRe = /✅\s*([①②③④⑤ⓐⓑⓒⓓ]+)/g;
+      const crossGroupRe = /❌\s*([①②③④⑤ⓐⓑⓒⓓ]+)/g;
+      let ansFixed = 0;
+      const questions = data.questions || (Array.isArray(data) ? data : []);
+      for (const q of questions) {
+        if (q.fmt !== 'mc' || !q.det || !q.det.analysis) continue;
+        const analysis = q.det.analysis;
+        const checkMarks = [], crossMarks = [];
+        let gm;
+        checkGroupRe.lastIndex = 0; crossGroupRe.lastIndex = 0;
+        while ((gm = checkGroupRe.exec(analysis)) !== null) {
+          for (const [marker, idx] of MARKERS_LOCAL) {
+            if (gm[1].includes(marker) && !checkMarks.find(c => c.idx === idx)) checkMarks.push({ marker, idx });
+          }
+        }
+        while ((gm = crossGroupRe.exec(analysis)) !== null) {
+          for (const [marker, idx] of MARKERS_LOCAL) {
+            if (gm[1].includes(marker) && !crossMarks.find(c => c.idx === idx)) crossMarks.push({ marker, idx });
+          }
+        }
+        let derived = null;
+        if (checkMarks.length >= 2 && crossMarks.length === 1) derived = crossMarks[0].idx; // 어법/부적절
+        else if (checkMarks.length === 1 && crossMarks.length >= 1) derived = checkMarks[0].idx; // 일반
+        if (derived !== null && q.ans !== derived) {
+          q.ans = derived;
+          ansFixed++;
+        }
+      }
+      if (ansFixed > 0) {
+        fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf8');
+        console.log(`   🎯 ans 자동도출: ${ansFixed}건 수정`);
+      }
+    }
+
     // validate
     const result = validate(tmpPath);
     if (result.pass) {
