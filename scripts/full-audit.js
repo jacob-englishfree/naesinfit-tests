@@ -29,11 +29,14 @@ const WARN = '⚠️ ';
 let totalErrors = 0;
 let totalWarns  = 0;
 const report = [];
+let localOnlyMode = false;  // --local-only 시 파일누락은 warn으로 처리
 
 function log(msg) { process.stdout.write(msg + '\n'); }
 function err(msg) { totalErrors++; report.push(`${ERR} ${msg}`); log(`  ${ERR} ${msg}`); }
 function warn(msg){ totalWarns++;  report.push(`${WARN}${msg}`); log(`  ${WARN}${msg}`); }
 function ok(msg)  { log(`  ${OK} ${msg}`); }
+// --local-only 모드에서 파일 누락은 warn(미제작 콘텐츠)으로만 처리
+function fileMissing(msg) { if (localOnlyMode) warn(msg); else err(msg); }
 
 // ── HTTP fetch ──
 function sbFetch(path) {
@@ -103,7 +106,7 @@ function auditFiles(deploy) {
       for (const sec of secs) {
         for (const tt of TEST_TYPES) {
           const p = path.join(DATA, '교과서', info.path, unit, sec, `${tt}.json`);
-          if (!fileExists(p)) { err(`교과서 ${key} ${unit} ${sec} ${tt}.json 없음`); missingFiles++; }
+          if (!fileExists(p)) { fileMissing(`교과서 ${key} ${unit} ${sec} ${tt}.json 없음`); missingFiles++; }
         }
       }
     }
@@ -119,7 +122,7 @@ function auditFiles(deploy) {
       // 전체 파일
       for (const tt of TEST_TYPES) {
         const p = path.join(DATA, '부교재', info.path, unit, `${tt}.json`);
-        if (!fileExists(p)) { err(`부교재 ${key} ${unit} 전체 ${tt}.json 없음`); missingFiles++; }
+        if (!fileExists(p)) { fileMissing(`부교재 ${key} ${unit} 전체 ${tt}.json 없음`); missingFiles++; }
       }
       // 번호별 파일
       const secs = info.sections?.[unit];
@@ -129,7 +132,7 @@ function auditFiles(deploy) {
         for (const sec of secs) {
           for (const tt of TEST_TYPES) {
             const p = path.join(DATA, '부교재', info.path, unit, sec, `${tt}.json`);
-            if (!fileExists(p)) { err(`부교재 ${key} ${unit} ${sec} ${tt}.json 없음`); missingFiles++; }
+            if (!fileExists(p)) { fileMissing(`부교재 ${key} ${unit} ${sec} ${tt}.json 없음`); missingFiles++; }
           }
         }
       }
@@ -145,7 +148,7 @@ function auditFiles(deploy) {
     for (const item of (info.items || [])) {
       for (const tt of TEST_TYPES) {
         const p = path.join(DATA, '모의고사', info.path, item, `${tt}.json`);
-        if (!fileExists(p)) { err(`모의고사 ${key} ${item} ${tt}.json 없음`); missingFiles++; }
+        if (!fileExists(p)) { fileMissing(`모의고사 ${key} ${item} ${tt}.json 없음`); missingFiles++; }
       }
     }
   }
@@ -374,6 +377,14 @@ async function auditLectureCoverage() {
       const lectureKeys = Object.keys(c.assets?.lecture || {});
       if (lectureKeys.length === 0) continue;  // 강의 자체가 없으면 패스
 
+      // EBS 전체 강의 케이스: "전체" 키만 있으면 subKeys 무관하게 정상
+      if (lectureKeys.length === 1 && lectureKeys[0] === '전체') {
+        if (!c.assets?.lecture?.['전체']?.has) {
+          warn(`${st.name}: ${cid} EBS 강의 has:false (URL 미등록)`);
+        }
+        continue;
+      }
+
       for (const sk of subKeys) {
         const lecHas = matchesAssetKey(sk, lectureKeys, cid);
         if (!lecHas) {
@@ -404,6 +415,7 @@ async function auditLectureCoverage() {
 // ─────────────────────────────────────────────
 async function main() {
   const localOnly = process.argv.includes('--local-only');
+  localOnlyMode = localOnly;  // Audit 1 파일누락 → warn 모드
 
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   log(`  내신핏 전체 시스템 점검 (full-audit)${localOnly ? ' [로컬 전용]' : ''}`);

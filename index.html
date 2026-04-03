@@ -1616,12 +1616,14 @@ function hasScopeData(path){
     if (catalog['모의고사']) {
       const mock = {};
       for (const [id, info] of Object.entries(catalog['모의고사'])) {
-        // id: "고1-2025-3월" → grade="고1", month="3월"
-        const parts = id.split('-');
-        const grade = parts[0];
-        const month = parts.length >= 3 ? parts.slice(2).join('-') : parts[1];
+        // info.path = "고1/3월_2026" → 실제 파일 경로와 일치하는 키 사용
+        if (!info.path) continue;  // path 없으면 준비중 (items=[] 이므로 skip)
+        const pathParts = info.path.split('/');
+        const grade = pathParts[0];
+        const monthKey = pathParts.slice(1).join('/');  // "3월_2026" — 실제 폴더명
+        if (!grade || !monthKey) continue;
         if (!mock[grade]) mock[grade] = {};
-        mock[grade][month] = { dn: info.dn || id, lessons: info.items || [], isNew: true };
+        mock[grade][monthKey] = { dn: info.dn || id, lessons: info.items || [], isNew: !!info.items?.length };
       }
       SCOPE_CATALOG['모의고사'].items = mock;
     }
