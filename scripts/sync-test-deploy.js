@@ -59,7 +59,7 @@ function scanDir(dir) {
   try {
     return fs.readdirSync(dir, { withFileTypes: true })
       .filter(e => e.isDirectory())
-      .map(e => e.name)
+      .map(e => e.name.normalize('NFC'))  // macOS NFD → NFC
       .sort();
   } catch { return []; }
 }
