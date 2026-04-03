@@ -498,13 +498,29 @@ function validateAns(jsonPath, options = {}) {
         continue;
     }
 
-    // ── MC 4지선다 (기존 로직 유지) ──
+    // ── MC 4지선다 ──
+    // ⚠️ 그룹 파싱: "✅ ①②④" → checkMarks=[①,②,④] (기존 includes 방식은 ①만 감지하는 버그 있음)
     const checkMarks = [];
     const crossMarks = [];
-    for (const [marker, idx] of MARKERS) {
-      if (analysis.includes(`✅ ${marker}`)) checkMarks.push({ marker, idx });
-      if (analysis.includes(`❌ ${marker}`)) crossMarks.push({ marker, idx });
+    const circled = '①②③④⑤ⓐⓑⓒⓓ';
+    const checkGroupRe = /✅\s*([①②③④⑤ⓐⓑⓒⓓ]+)/g;
+    const crossGroupRe = /❌\s*([①②③④⑤ⓐⓑⓒⓓ]+)/g;
+    let gm;
+    while ((gm = checkGroupRe.exec(analysis)) !== null) {
+      for (const [marker, idx] of MARKERS) {
+        if (gm[1].includes(marker) && !checkMarks.find(c => c.idx === idx)) {
+          checkMarks.push({ marker, idx });
+        }
+      }
     }
+    while ((gm = crossGroupRe.exec(analysis)) !== null) {
+      for (const [marker, idx] of MARKERS) {
+        if (gm[1].includes(marker) && !crossMarks.find(c => c.idx === idx)) {
+          crossMarks.push({ marker, idx });
+        }
+      }
+    }
+    void circled; // suppress unused warning
 
     const totalMarkers = checkMarks.length + crossMarks.length;
 
@@ -531,6 +547,10 @@ function validateAns(jsonPath, options = {}) {
           sev: 'S',
           msg: `Q${qid}: 어법/부적절 det says ❌${crossMarks[0].marker}(=${correct}) but ans=${ans}`
         });
+        if (options.fix) {
+          q.ans = correct;
+          modified = true;
+        }
       }
       continue;
     }
@@ -543,6 +563,10 @@ function validateAns(jsonPath, options = {}) {
           sev: 'S',
           msg: `Q${qid}: det says ✅${checkMarks[0].marker}(=${correct}) but ans=${ans}`
         });
+        if (options.fix) {
+          q.ans = correct;
+          modified = true;
+        }
       }
       continue;
     }
