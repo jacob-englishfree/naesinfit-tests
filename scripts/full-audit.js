@@ -119,10 +119,11 @@ function auditFiles(deploy) {
   for (const [key, info] of Object.entries(deploy.supplement)) {
     if (!info.units?.length) { warn(`${key}: units 비어있음 (미배포)`); continue; }
     for (const unit of info.units) {
-      // 전체 파일
+      // 전체 파일 (전체/ 하위폴더 또는 루트 둘 다 체크)
       for (const tt of TEST_TYPES) {
-        const p = path.join(DATA, '부교재', info.path, unit, `${tt}.json`);
-        if (!fileExists(p)) { fileMissing(`부교재 ${key} ${unit} 전체 ${tt}.json 없음`); missingFiles++; }
+        const p1 = path.join(DATA, '부교재', info.path, unit, '전체', `${tt}.json`);
+        const p2 = path.join(DATA, '부교재', info.path, unit, `${tt}.json`);
+        if (!fileExists(p1) && !fileExists(p2)) { fileMissing(`부교재 ${key} ${unit} 전체 ${tt}.json 없음`); missingFiles++; }
       }
       // 번호별 파일
       const secs = info.sections?.[unit];
