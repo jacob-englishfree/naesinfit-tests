@@ -331,6 +331,11 @@ function validate(jsonPath) {
       result.add('V63', SEV.A, `Q${qid}: passage가 ${passageSentences}문장(${passagePlainLen}자) — 너무 짧아서 빈 화면`);
     }
 
+    // V63-B: 순서배열/문장삽입/어순배열 — __FULL__ passage는 정답 순서 노출 (S급 차단)
+    if (['순서배열', '글순서', '문장삽입', '어순배열'].includes(typeNorm) && q.passage === '__FULL__') {
+      result.add('V63-B', SEV.S, `Q${qid}: ${typeNorm}에 passage="__FULL__" — 지문이 정답 순서를 그대로 노출. passage를 null로 변경 필수`);
+    }
+
     // V64: 서술형/어순배열 — 정답이 passage에 그대로 노출
     if (typeNorm === '어순배열' && q.wa) {
       const waLower = q.wa.toLowerCase().trim();
