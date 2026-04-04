@@ -585,8 +585,8 @@ function validate(jsonPath) {
       ansDist[q.ans] = (ansDist[q.ans] || 0) + 1;
     });
     Object.entries(ansDist).forEach(([ans, count]) => {
-      if (count >= 5) {
-        result.add('A6', SEV.S, `정답 ${ans}번이 ${count}개 — 5개 이상 금지`);
+      if (count > 5) {
+        result.add('A6', SEV.S, `정답 ${ans}번이 ${count}개 — 6개 이상 금지 (최대 5개)`);
       }
     });
   }
@@ -599,13 +599,13 @@ function validate(jsonPath) {
     }
   }
 
-  // ── P-UL4: 어법/부적절 밑줄 4개 필수 ──
+  // ── P-UL4: 어법/부적절 밑줄 4개 필수 (passage 또는 stem에서 체크) ──
   questions.forEach(q => {
     const t = (q.type || '').trim();
     if (['어법', '문맥상 부적절한 어휘', '부적절어휘', '부적절'].includes(t)) {
-      const stem = q.stem || '';
-      const ulCount = (stem.match(/①|②|③|④/g) || []).length;
-      if (q.fmt === 'mc' && q.ch && q.ch.length === 4 && ulCount < 4 && stem.includes('밑줄')) {
+      const text = (q.passage || '') + (q.stem || '');
+      const ulCount = (text.match(/①|②|③|④/g) || []).length;
+      if (q.fmt === 'mc' && q.ch && q.ch.length === 4 && ulCount < 4) {
         result.add('P-UL4', SEV.A, `Q${q.id}: ${t} 밑줄찾기인데 마커 ${ulCount}개 — 4개 필수`);
       }
     }
