@@ -418,6 +418,83 @@ function validate(jsonPath) {
       }
     }
 
+    // ── V70~V78: 출제 가이드라인 content quality checks ──
+
+    // V70: 빈칸어휘/빈칸추론 — 빈칸(____) 위치 검증
+    if (['빈칸 어휘 완성', '빈칸어휘', '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸문맥'].includes(typeNorm)) {
+      const stemHasBlank = (q.stem || '').includes('____');
+      const passageHasBlank = (q.passage || '').includes('____');
+      if (stemHasBlank && !passageHasBlank) {
+        result.add('V70', SEV.S, `Q${qid}: ${typeNorm} 빈칸이 stem에 있음 — 빈칸은 반드시 passage 안에 있어야 함`);
+      }
+    }
+
+    // V71: passage가 fullPassage 전체이면 FAIL (발췌해야 함)
+    if (['빈칸 어휘 완성', '빈칸어휘', '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸문맥'].includes(typeNorm)) {
+      if (q.passage && fullPassage && q.passage.replace(/<[^>]+>/g,'').replace(/_{3,}/g,'').trim() === fullPassage.trim()) {
+        result.add('V71', SEV.S, `Q${qid}: ${typeNorm} passage가 fullPassage 전체와 동일 — 5~8문장으로 발췌해야 함`);
+      }
+    }
+
+    // V72: 서술형 핵심단어 — passage 6~10문장 필수
+    if (typeNorm.includes('서술형') && (typeNorm.includes('핵심') || typeNorm.includes('찾기'))) {
+      const pText = (q.passage || '').replace(/<[^>]+>/g, '');
+      const sentCount = (pText.match(/[.!?]+/g) || []).length;
+      if (sentCount > 0 && sentCount < 5) {
+        result.add('V72', SEV.S, `Q${qid}: 서술형(찾기) passage가 ${sentCount}문장 — 최소 6문장 필요`);
+      }
+    }
+
+    // V73: 영작 서술형 — passage 비어야 함 (원문 노출 방지)
+    if (typeNorm.includes('영작') || (q.fmt === 'written' && (q.stem || '').includes('영작'))) {
+      if (q.passage && String(q.passage).length > 10) {
+        result.add('V73', SEV.S, `Q${qid}: 영작 서술형인데 passage가 있음 — passage 비워야 함 (원문 노출 방지)`);
+      }
+    }
+
+    // V74: 어형변환 — passage 2~4문장
+    if (typeNorm.includes('어형') || typeNorm.includes('어형 변환')) {
+      const pText = (q.passage || '').replace(/<[^>]+>/g, '');
+      const sentCount = (pText.match(/[.!?]+/g) || []).length;
+      if (sentCount > 4) {
+        result.add('V74', SEV.A, `Q${qid}: 어형변환 passage가 ${sentCount}문장 — 2~4문장 권장 (정답 단어 노출 방지)`);
+      }
+    }
+
+    // V75: (A)(B)(C) 조합형 — passage 5~8문장
+    if (typeNorm === '(A)(B)(C) 조합형' || typeNorm === '(A)(B)(C)조합형' || typeNorm === '(A)(B)(C)') {
+      const pText = (q.passage || '').replace(/<[^>]+>/g, '');
+      const sentCount = (pText.match(/[.!?]+/g) || []).length;
+      if (sentCount > 0 && sentCount < 4) {
+        result.add('V75', SEV.A, `Q${qid}: (A)(B)(C) 조합형 passage가 ${sentCount}문장 — 5~8문장 권장`);
+      }
+    }
+
+    // V76: 영영풀이 — passage 없어야 함
+    if (typeNorm === '영영풀이 매칭' || typeNorm === '영영풀이') {
+      if (q.passage && String(q.passage).length > 10) {
+        result.add('V76', SEV.S, `Q${qid}: 영영풀이인데 passage 있음 — passage 없어야 함 (밑줄 있으면 정답 노출)`);
+      }
+    }
+
+    // V77: 내용일치/불일치 — passage 5~10문장
+    if (['내용일치', '내용불일치', '내용이해'].includes(typeNorm)) {
+      const pText = (q.passage || '').replace(/<[^>]+>/g, '');
+      const sentCount = (pText.match(/[.!?]+/g) || []).length;
+      if (sentCount > 0 && sentCount < 4) {
+        result.add('V77', SEV.A, `Q${qid}: ${typeNorm} passage가 ${sentCount}문장 — 5~10문장 권장`);
+      }
+    }
+
+    // V78: 동의어/반의어 — passage 3~5문장
+    if (typeNorm.includes('동의어') || typeNorm.includes('반의어')) {
+      const pText = (q.passage || '').replace(/<[^>]+>/g, '');
+      const sentCount = (pText.match(/[.!?]+/g) || []).length;
+      if (sentCount > 0 && sentCount < 2) {
+        result.add('V78', SEV.A, `Q${qid}: ${typeNorm} passage가 ${sentCount}문장 — 3~5문장 권장`);
+      }
+    }
+
     // ── X30~X34: content pollution ──
     const allText = [passage, q.stem || '', JSON.stringify(q.det || {})].join(' ');
 
