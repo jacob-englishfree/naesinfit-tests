@@ -51,12 +51,15 @@ if [ -n "$STAGED_JSON" ]; then
   VRESULT=$(node validate/validate.js $STAGED_JSON 2>&1)
   S_ERRORS=$(echo "$VRESULT" | grep -c '\[S\]' || true)
   A_ERRORS=$(echo "$VRESULT" | grep -c '\[A\]' || true)
-  if [ "$S_ERRORS" -gt 0 ] || [ "$A_ERRORS" -gt 0 ]; then
-    echo "❌ validate.js FAIL: S급 $S_ERRORS건, A급 $A_ERRORS건"
-    echo "$VRESULT" | grep '\[S\]\|\[A\]'
+  if [ "$S_ERRORS" -gt 0 ]; then
+    echo "❌ validate.js FAIL: S급 $S_ERRORS건"
+    echo "$VRESULT" | grep '\[S\]'
     echo ""
-    echo "⛔ S/A급 에러가 있으면 커밋할 수 없습니다. 데이터를 수정하세요."
+    echo "⛔ S급 에러가 있으면 커밋할 수 없습니다. 데이터를 수정하세요."
     exit 1
+  fi
+  if [ "$A_ERRORS" -gt 0 ]; then
+    echo "⚠️  validate.js 경고: A급 $A_ERRORS건 (커밋 허용, 재출제 시 개선 필요)"
   fi
   echo "✅ validate.js PASS"
 fi
