@@ -126,9 +126,10 @@ function validate(jsonPath) {
     // F10: written requires wa + accept
     if (q.fmt === 'written') {
       if (!q.wa) result.add('F10', SEV.S, `Q${qid}: written missing wa`);
+      if (q.wa && typeof q.wa !== 'string') result.add('F10', SEV.S, `Q${qid}: wa must be string, got ${typeof q.wa}`);
       if (!Array.isArray(q.accept)) result.add('F10', SEV.S, `Q${qid}: written missing accept array`);
       // F10-B: accept 배열에 대소문자/하이픈 변형 포함 검증
-      if (q.wa && Array.isArray(q.accept) && q.accept.length > 0) {
+      if (q.wa && typeof q.wa === 'string' && Array.isArray(q.accept) && q.accept.length > 0) {
         const wa = q.wa.trim();
         const hasLower = q.accept.some(a => a.trim() === wa.toLowerCase());
         const hasUpper = q.accept.some(a => a.trim() === wa.charAt(0).toUpperCase() + wa.slice(1));
@@ -603,7 +604,7 @@ function validate(jsonPath) {
     }
 
     // EX-5: 서술형 "원문에서 찾아" stem인데 passage에 정답 단어가 없으면 풀 수 없음
-    if (q.fmt === 'written' && q.wa && (q.stem || '').includes('원문에서 찾아')) {
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && (q.stem || '').includes('원문에서 찾아')) {
       const wa = q.wa.trim().toLowerCase();
       const passLower = passagePlain.toLowerCase();
       // 빈칸으로 대체된 경우(정답 노출 방지 정상) vs 아예 passage에 해당 단어/근거가 없는 경우 구분
@@ -723,7 +724,7 @@ function validate(jsonPath) {
 
   // ── F10-D: 서술형 accept에 마침표 변형 포함 ──
   questions.forEach(q => {
-    if (q.fmt === 'written' && q.wa && Array.isArray(q.accept)) {
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && Array.isArray(q.accept)) {
       const wa = q.wa.trim();
       if (wa.endsWith('.')) {
         const noDot = wa.slice(0, -1).trim();

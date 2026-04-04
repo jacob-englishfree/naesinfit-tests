@@ -45,7 +45,7 @@ if [ -n "$JSON_FILES" ]; then
 fi
 
 # ⛔ validate.js S급 검증 (53 checks) ──
-STAGED_JSON=$(git diff --cached --name-only --diff-filter=ACM | grep '^data/.*\.json$')
+STAGED_JSON=$(git diff --cached --name-only --diff-filter=ACM | grep '^data/.*\.json$' || true)
 if [ -n "$STAGED_JSON" ]; then
   echo "🔍 validate.js S급 검증 중..."
   VRESULT=$(node validate/validate.js $STAGED_JSON 2>&1)
@@ -62,7 +62,7 @@ if [ -n "$STAGED_JSON" ]; then
 fi
 
 # ⛔ 신규 파일 _meta 증적 검증 ──
-NEW_JSON=$(git diff --cached --name-only --diff-filter=A | grep '^data/.*\.json$')
+NEW_JSON=$(git diff --cached --name-only --diff-filter=A | grep '^data/.*\.json$' || true)
 if [ -n "$NEW_JSON" ]; then
   echo "🔍 신규 파일 _meta 증적 검증..."
   for f in $NEW_JSON; do
