@@ -173,6 +173,8 @@ function validate(jsonPath) {
       '한영', '한→영', '한영영작',
       '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
       '서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)',
+      '서술형 — 배열영작',
+      '순서배열', '글순서', '문장삽입',
     ];
     if ((!passage || passage.trim().length === 0) && !noPassageTypes.includes(typeNorm)) {
       result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
@@ -391,7 +393,9 @@ function validate(jsonPath) {
     }
 
     // V67: stem에 "밑줄 친"이 있으면 passage에 <u> 태그 필수 (유형 무관 통합)
-    if (stem.includes('밑줄 친') || stem.includes('밑줄친')) {
+    // 영영풀이는 V76에 의해 passage=null 필수이므로 V67 제외. 어형변환은 stem 오염 가능.
+    const V67_EXEMPT_TYPES = ['영영풀이 매칭', '영영풀이', '어형 변환', '서술형 — 어형변환', '함축의미 추론', '서술형 — 핵심단어', '내용이해 T/F', '오류찾기'];
+    if ((stem.includes('밑줄 친') || stem.includes('밑줄친')) && !V67_EXEMPT_TYPES.includes(typeNorm)) {
       if (!passage.includes('<u>')) {
         result.add('V67', SEV.S, `Q${qid}: stem에 "밑줄 친"이 있는데 passage에 <u> 밑줄 없음`);
       }
