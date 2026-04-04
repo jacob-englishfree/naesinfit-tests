@@ -348,8 +348,8 @@ function validate(jsonPath) {
       result.add('V63', SEV.A, `Q${qid}: passage가 ${passageSentences}문장(${passagePlainLen}자) — 너무 짧아서 빈 화면`);
     }
 
-    // V63-B: 순서배열/문장삽입/어순배열 — passage 있으면 정답 노출 (S급 차단)
-    if (['순서배열', '글순서', '문장삽입', '어순배열'].includes(typeNorm) && q.passage && String(q.passage).length > 10) {
+    // V63-B: 순서배열/문장삽입 — passage 있으면 정답 노출 (S급 차단) (어순배열은 passage에 빈칸 필요하므로 제외)
+    if (['순서배열', '글순서', '문장삽입'].includes(typeNorm) && q.passage && String(q.passage).length > 10) {
       result.add('V63-B', SEV.S, `Q${qid}: ${typeNorm}에 passage 있음 — stem에 이미 텍스트 포함. passage를 null로 변경 필수`);
     }
 
