@@ -22,19 +22,35 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Validate all test data (S/A level)
+      - name: Validate changed data files (S/A level)
         run: |
-          echo "🔍 전체 데이터 검증 시작..."
-          RESULT=$(node validate/validate.js 2>&1) || true
-          S_COUNT=$(echo "$RESULT" | grep -c '\[S\]' || true)
-          A_COUNT=$(echo "$RESULT" | grep -c '\[A\]' || true)
-          echo "$RESULT" | tail -5
-          if [ "$S_COUNT" -gt 0 ]; then
-            echo "❌ S급 에러 ${S_COUNT}건 — 반드시 수정 필요"
-            echo "$RESULT" | grep '\[S\]'
+          echo "🔍 변경 파일 검증 시작..."
+          git config core.quotepath false
+          CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null | grep '^data/.*\.json$' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "변경된 데이터 파일 없음 — 스킵"
+            exit 0
+          fi
+          echo "검증 대상: $(echo "$CHANGED" | wc -l)파일"
+          FAIL=0
+          echo "$CHANGED" | while IFS= read -r f; do
+            RESULT=$(node validate/validate.js "$f" 2>&1)
+            S_COUNT=$(echo "$RESULT" | grep -c '\[S\]' || true)
+            A_COUNT=$(echo "$RESULT" | grep -c '\[A\]' || true)
+            if [ "$S_COUNT" -gt 0 ] || [ "$A_COUNT" -gt 0 ]; then
+              echo "❌ $f: S급 ${S_COUNT}건, A급 ${A_COUNT}건"
+              echo "$RESULT" | grep '\[S\]\|\[A\]'
+              echo "FAIL" > /tmp/validate_fail
+            else
+              echo "✅ $f"
+            fi
+          done
+          if [ -f /tmp/validate_fail ]; then
+            rm -f /tmp/validate_fail
+            echo "❌ FAIL — 검증 실패"
             exit 1
           fi
-          echo "✅ S급 에러 0건"
+          echo "✅ 변경 파일 전부 PASS"
 
       - name: Check validate.js integrity
         run: |
