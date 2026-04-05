@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; if echo \"$f\" | grep -qE '/data/.*\\.json$'; then node \"/Users/woobumpark/Desktop/영어해방공식&내신핏/naesinfit-tests/validate/validate.js\" \"$f\" 2>&1 | head -20; else echo '{\"suppressOutput\":true}'; fi; }",
+            "timeout": 30,
+            "statusMessage": "validate 검증 중..."
+          }
+        ]
+      }
+    ]
+  }
+}
