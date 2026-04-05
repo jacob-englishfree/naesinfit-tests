@@ -42,7 +42,7 @@ const VALID_TEXTBOOK_PATHS = [
   '영어2/YBM한상호',
 ];
 
-const VALID_SUPPLEMENT_PATHS = ['수능특강/영어'];
+const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어'];
 const VALID_UNIT_PATTERN = /^\d+과$|^\d+강$/;
 const VALID_MOCK_PATTERN = /^(고1|고2|고3)\/.+$/;
 
