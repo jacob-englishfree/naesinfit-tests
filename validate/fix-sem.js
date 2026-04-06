@@ -146,6 +146,89 @@ function fixSEM3(q, fullPassage) {
   };
 }
 
+// SEM-3B: ch에 밑줄에 없는 단어가 있고, 밑줄에 ch에 없는 단어가 있으면 교체
+function fixSEM3B(q, fullPassage) {
+  const typeNorm = (q.type || '').trim();
+  if (!GRAMMAR_TYPES.some(gt => typeNorm.includes(gt))) return null;
+
+  const psg = q.passage || fullPassage || '';
+  const underlines = extractUnderlines(psg);
+  if (underlines.length < 3) return null;
+
+  const ch = q.ch || [];
+  if (ch.length === 0) return null;
+
+  // 마커 제거 함수
+  const strip = s => (s || '').replace(/^[①②③④⑤]\s*/, '').trim();
+  const stripLower = s => strip(s).toLowerCase();
+
+  const mapping = matchChToUnderlines(ch.map(strip), underlines);
+
+  // 매칭 안 되는 ch 인덱스
+  const unmatchedCh = [];
+  mapping.forEach((m, i) => { if (m === -1) unmatchedCh.push(i); });
+
+  if (unmatchedCh.length === 0) return null; // 모두 매칭됨
+
+  // 매칭 안 되는 밑줄 인덱스
+  const usedUl = new Set(mapping.filter(m => m !== -1));
+  const unmatchedUl = underlines.map((u, i) => i).filter(i => !usedUl.has(i));
+
+  if (unmatchedUl.length === 0 || unmatchedCh.length > unmatchedUl.length) return null;
+
+  // 정답(ans)이 가리키는 ch가 불일치 대상이면 수정 위험 → 스킵
+  const ansIdx = (q.ans || 0) - 1;
+  if (unmatchedCh.includes(ansIdx)) return null;
+
+  // 교체: 매칭 안 되는 ch를 가장 가까운 미사용 밑줄로 교체
+  const newCh = [...ch];
+  const markers = ['①', '②', '③', '④', '⑤'];
+  const replacements = [];
+
+  unmatchedCh.forEach((chIdx, i) => {
+    if (i >= unmatchedUl.length) return;
+    const ulIdx = unmatchedUl[i];
+    const oldWord = ch[chIdx];
+    const hasMarker = /^[①②③④⑤]/.test(oldWord);
+    const newWord = hasMarker ? `${markers[chIdx]} ${underlines[ulIdx]}` : underlines[ulIdx];
+    newCh[chIdx] = newWord;
+    replacements.push({ chIdx, old: oldWord, new: newWord, ulIdx });
+  });
+
+  if (replacements.length === 0) return null;
+
+  // 교체 후 순서 확인 + 재정렬
+  const newMapping = matchChToUnderlines(newCh.map(strip), underlines);
+  const validOrder = newMapping.filter(m => m !== -1);
+  let isOrdered = true;
+  for (let j = 1; j < validOrder.length; j++) {
+    if (validOrder[j] <= validOrder[j - 1]) { isOrdered = false; break; }
+  }
+
+  // 순서가 맞지 않으면 재정렬
+  let finalCh = newCh;
+  let newAns = q.ans;
+  if (!isOrdered) {
+    const indexed = newCh.map((c, i) => ({ word: c, origIdx: i, ulIdx: newMapping[i] }));
+    const matched = indexed.filter(x => x.ulIdx !== -1).sort((a, b) => a.ulIdx - b.ulIdx);
+    const unmatched = indexed.filter(x => x.ulIdx === -1);
+    const reordered = [...matched, ...unmatched];
+    finalCh = reordered.map(x => x.word);
+    const ansWord = ch[ansIdx];
+    const newAnsPos = finalCh.findIndex(c => c === ansWord || strip(c) === strip(ansWord));
+    newAns = newAnsPos !== -1 ? newAnsPos + 1 : q.ans;
+  }
+
+  return {
+    type: 'SEM-3B',
+    changes: {
+      ch: { old: ch, new: finalCh },
+      ans: { old: q.ans, new: newAns },
+      replacements
+    }
+  };
+}
+
 function fixSEM4(q) {
   if (!q.det || !q.det.korean) return null;
   if (typeof q.ans !== 'number') return null;
@@ -194,6 +277,9 @@ function processFile(filePath, dryRun) {
         if (sem3.changes.det) q.det = sem3.changes.det;
       }
     }
+
+    // SEM-3B: 자동수정 위험 (의도적 오답 선지를 밑줄로 바꿔버릴 수 있음)
+    // → 수동 확인 대상으로 남김, 자동수정 비활성화
 
     // SEM-4 (SEM-3 수정 후 기준으로 체크)
     const sem4 = fixSEM4(q);
@@ -258,6 +344,11 @@ function main() {
         if (fix.type === 'SEM-3') {
           totalSEM3++;
           console.log(`  SEM-3 Q${fix.qId}: ch 재정렬 [${fix.changes.ch.old.join(',')}] → [${fix.changes.ch.new.join(',')}], ans ${fix.changes.ans.old}→${fix.changes.ans.new}`);
+        } else if (fix.type === 'SEM-3B') {
+          totalSEM3++;
+          fix.changes.replacements.forEach(r => {
+            console.log(`  SEM-3B Q${fix.qId}: ch[${r.chIdx+1}] "${r.old}" → "${r.new}" (밑줄[${r.ulIdx+1}]로 교체)`);
+          });
         } else if (fix.type === 'SEM-4') {
           totalSEM4++;
           console.log(`  SEM-4 Q${fix.qId}: ans ${fix.changes.ans.old}→${fix.changes.ans.new}`);

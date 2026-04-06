@@ -1036,20 +1036,30 @@ function validate(jsonPath) {
         .filter(w => w.length >= 5) // 5자 이상 단어만
     );
 
+    // stem에 독립적 영어 문장이 정상적으로 포함되는 유형은 제외
+    const SEM1_EXEMPT_TYPES = [
+      '영영풀이', '영영풀이 매칭', '어형 변환', '어형변환', '어형 변환 (서술형)',
+      '서술형', '서술', '영작문', '한영', '한→영',
+      '요약', '요약문', '문장삽입', '문장 삽입', '순서배열', '순서', '글순서',
+      '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸(문장)',
+      '어순배열', '어순'
+    ];
+
     questions.forEach((q, i) => {
       const qid = q.id || (i + 1);
+      const typeNorm = (q.type || '').trim();
+      if (SEM1_EXEMPT_TYPES.some(t => typeNorm.includes(t))) return;
+
       const stem = (q.stem || '').toLowerCase();
       const stemWords = stem.split(/\s+/).filter(w => w.length >= 5);
-      if (stemWords.length < 3) return; // 짧은 stem은 스킵
+      if (stemWords.length < 3) return;
 
-      // stem의 영어 단어 중 passage에 없는 비율
       const englishStemWords = stemWords.filter(w => /^[a-z]+$/.test(w));
       if (englishStemWords.length < 3) return;
 
       const notInPassage = englishStemWords.filter(w => !fpWords.has(w));
       const foreignRatio = notInPassage.length / englishStemWords.length;
 
-      // 80% 이상 외래 단어 = 다른 지문에서 복붙 의심
       if (foreignRatio >= 0.8 && notInPassage.length >= 5) {
         result.add('SEM-1', SEV.B, `Q${qid}: stem 영어단어 ${notInPassage.length}/${englishStemWords.length}개가 fullPassage에 없음 — 교차오염 의심`);
       }
