@@ -526,6 +526,48 @@ function validate(jsonPath) {
       }
     }
 
+    // V-WRITTEN-WORDCOUNT (A급): 서술형 영작 stem에 단어 수 조건 필수
+    // 2026-04-06 jacob 24강 검수 — feedback_written_wordcount.md
+    if (q.fmt === 'written' && (typeNorm.includes('영작') || stem.includes('영작'))) {
+      if (q.wa && typeof q.wa === 'string') {
+        const waWords = q.wa.trim().split(/\s+/).filter(Boolean);
+        if (waWords.length >= 2) {
+          const stemText = q.stem || '';
+          const hasCond = /\(\d+\s*단어\)|\d+\s*단어를?\s*올바른|한\s*단어|한\s*문장|[a-z]로\s*시작/i.test(stemText);
+          if (!hasCond) {
+            result.add('V-WRITTEN-WORDCOUNT', SEV.A, `Q${qid}: 서술형 영작 stem에 단어 수 조건 누락 (wa: "${q.wa}")`);
+          }
+        }
+      }
+    }
+
+    // V-WRITTEN-FIND-PASSAGE (S급): stem "본문에서 찾아" ↔ passage에서 정답 빈칸 처리 모순
+    // 2026-04-06 jacob 24강 검수 — feedback_written_find_in_passage.md
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string') {
+      const stemText = q.stem || '';
+      if (/본문에서\s*찾아|본문에서\s*골라|지문에서\s*찾아|지문에서\s*골라/.test(stemText)) {
+        const waLower = q.wa.trim().toLowerCase();
+        if (waLower.length > 0) {
+          const visiblePassage = (q.passage && String(q.passage).trim().length > 0) ? q.passage : (fullPassage || '');
+          const visibleClean = String(visiblePassage).replace(/<[^>]+>/g, '').toLowerCase();
+          if (!visibleClean.includes(waLower)) {
+            result.add('V-WRITTEN-FIND-PASSAGE', SEV.S, `Q${qid}: stem이 "본문에서 찾아"인데 정답 "${q.wa}"이 passage에서 빈칸 처리됨`);
+          }
+        }
+      }
+    }
+
+    // V-DET-ANALYSIS-DUP-HEADER (B급): det.analysis 헤더 요약 블록 (① ① 형태) 중복
+    // 2026-04-06 jacob 24강 검수 — feedback_det_analysis_format.md
+    if (q.det && typeof q.det.analysis === 'string' && q.det.analysis.trim().length > 0) {
+      const aText = q.det.analysis.replace(/<[^>]+>/g, '');
+      const aLines = aText.split(/\r?\n/).map(s => s.trim()).filter(Boolean).slice(0, 5);
+      const dupHeader = aLines.filter(line => /^[✅❌]\s*[①②③④]\s*[①②③④]/.test(line)).length;
+      if (dupHeader >= 1) {
+        result.add('V-DET-ANALYSIS-DUP-HEADER', SEV.B, `Q${qid}: det.analysis 헤더 요약 블록 중복 (① ① 형태). 한 블록 순서 정리 권장.`);
+      }
+    }
+
     // ── X30~X34: content pollution ──
     const allText = [passage, q.stem || '', JSON.stringify(q.det || {})].join(' ');
 
