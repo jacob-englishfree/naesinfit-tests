@@ -217,7 +217,7 @@ function validate(jsonPath) {
     if (['빈칸 어휘 완성', '빈칸 문맥 완성', '빈칸추론', '빈칸 추론'].includes(typeNorm) && q.fmt === 'mc') {
       const combined = passage + ' ' + (q.stem || '');
       if (!combined.includes('____') && !combined.includes('(     )') && !combined.includes('______')) {
-        result.add('P22', SEV.A, `Q${qid}: 빈칸형(${typeNorm})인데 빈칸 마커 없음`);
+        result.add('P22', SEV.S, `Q${qid}: 빈칸형(${typeNorm})인데 빈칸 마커 없음 — 학생이 풀 수 없음`);
       }
     }
 
@@ -229,11 +229,15 @@ function validate(jsonPath) {
       }
     }
 
-    // P24: (A)(B)(C) 조합형은 passage 또는 stem에 (A)(B)(C) 마커 필요
-    if (typeNorm === '(A)(B)(C) 조합형') {
-      const combined = passage + ' ' + (q.stem || '');
-      if (!combined.includes('(A)') || !combined.includes('(B)') || !combined.includes('(C)')) {
-        result.add('P24', SEV.B, `Q${qid}: (A)(B)(C) 조합형인데 마커 누락 — passage 또는 stem 확인`);
+    // P24: (A)(B)(C) 조합형은 passage에 (A)(B)(C) 마커 필수
+    // testType 외에 선지 패턴(3단어 — 조합)으로도 감지
+    const isABCByType = typeNorm === '(A)(B)(C) 조합형';
+    const isABCByStem = (q.stem || '').includes('(A)') && (q.stem || '').includes('(B)') && (q.stem || '').includes('(C)');
+    const isABCByCh = q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4 &&
+      q.ch.filter(c => typeof c === 'string' && c.includes(' — ') && c.split(' — ').length >= 3).length >= 3;
+    if (isABCByType || isABCByStem || isABCByCh) {
+      if (!passage.includes('(A)') && !passage.includes('<b>(A)')) {
+        result.add('P24', SEV.S, `Q${qid}: (A)(B)(C) 조합형인데 passage에 (A) 마커 없음 — 학생이 풀 수 없음`);
       }
     }
 
