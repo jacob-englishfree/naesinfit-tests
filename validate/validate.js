@@ -559,6 +559,35 @@ function validate(jsonPath) {
       });
     }
 
+    // X36: 선지 중복 — 동일 선지 2개 이상
+    if (Array.isArray(q.ch)) {
+      const chSet = new Set();
+      q.ch.forEach((c, ci) => {
+        if (typeof c !== 'string' || c.length <= 3 || /^[①②③④⑤]$/.test(c.trim())) return;
+        if (chSet.has(c)) {
+          result.add('X36', SEV.S, `Q${qid}: 선지 중복 "${c.substring(0, 30)}"`);
+        }
+        chSet.add(c);
+      });
+    }
+
+    // X37: __FULL__ 리터럴 노출
+    if (passage && passage.includes('__FULL__')) {
+      result.add('X37', SEV.S, `Q${qid}: passage에 "__FULL__" 리터럴 노출`);
+    }
+
+    // X38: ans=0 (범위 밖)
+    if (q.fmt === 'mc' && q.ans === 0) {
+      result.add('X38', SEV.S, `Q${qid}: ans=0 — 1~4 범위 밖`);
+    }
+
+    // X39: 가짜 어형변환 (nonsense 단어: influencedtion, skepticismtion 등)
+    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string') {
+      if (/[a-z]+(tion|ment|ness|ful|ous|ive|al|ed|ing|ly)(tion|ness)$/i.test(q.wa) && q.wa.length > 10) {
+        result.add('X39', SEV.S, `Q${qid}: wa="${q.wa}" — 존재하지 않는 어형변환`);
+      }
+    }
+
     // ── D43~D48: answer-explanation consistency ──
     if (q.det) {
       // D46: min 10 chars each
