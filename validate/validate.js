@@ -940,6 +940,122 @@ function validate(jsonPath) {
     }
   });
 
+  // ── SEM-3: 어법 ch[]↔passage <u> 밑줄 순서 정합 ──
+  // 어법 유형 문항에서 ch 순서가 passage 밑줄 출현 순서와 다르면 학생이 풀 수 없음
+  const GRAMMAR_TYPES = ['어법', '어법 빈칸', '어법 밑줄형', '어법 빈칸형', '어법 5지선다'];
+
+  // 탐욕적 매칭: 정확 매칭 우선, 이미 사용된 인덱스 제외
+  function matchChToUnderlines(chWords, underlineWords) {
+    const used = new Set();
+    const mapping = new Array(chWords.length).fill(-1);
+
+    // Pass 1: 정확 매칭
+    chWords.forEach((c, ci) => {
+      const idx = underlineWords.findIndex((u, ui) => !used.has(ui) && u === c);
+      if (idx !== -1) { mapping[ci] = idx; used.add(idx); }
+    });
+
+    // Pass 2: 포함 매칭 (긴 것 우선)
+    chWords.forEach((c, ci) => {
+      if (mapping[ci] !== -1) return;
+      const idx = underlineWords.findIndex((u, ui) => !used.has(ui) && (u.includes(c) || c.includes(u)));
+      if (idx !== -1) { mapping[ci] = idx; used.add(idx); }
+    });
+
+    return mapping;
+  }
+
+  questions.forEach((q, i) => {
+    const qid = q.id || (i + 1);
+    const typeNorm = (q.type || '').trim();
+    if (!GRAMMAR_TYPES.some(gt => typeNorm.includes(gt))) return;
+
+    const psg = q.passage || fullPassage || '';
+    const uMatches = psg.match(/<u>([^<]+)<\/u>/g);
+    if (!uMatches || uMatches.length < 2) return;
+
+    const underlineWords = uMatches.map(m => m.replace(/<\/?u>/g, '').trim().toLowerCase());
+    const chWords = (q.ch || []).map(c => (c || '').trim().toLowerCase());
+    if (chWords.length === 0) return;
+
+    const mapping = matchChToUnderlines(chWords, underlineWords);
+    const matchedCount = mapping.filter(m => m !== -1).length;
+    if (matchedCount < 2) return; // 밑줄형이 아닌 어법 문항은 스킵
+
+    // 순서 비교: 매칭된 인덱스가 증가 순서인지
+    const chOrder = mapping.filter(m => m !== -1);
+    let isOrdered = true;
+    for (let j = 1; j < chOrder.length; j++) {
+      if (chOrder[j] <= chOrder[j - 1]) { isOrdered = false; break; }
+    }
+
+    if (!isOrdered) {
+      result.add('SEM-3', SEV.B, `Q${qid}: 어법 ch[] 순서가 passage <u> 밑줄 출현 순서와 불일치`);
+    }
+
+    // ch 단어가 밑줄에 없는 경우도 경고
+    chWords.forEach((c, ci) => {
+      if (c && mapping[ci] === -1) {
+        result.add('SEM-3', SEV.B, `Q${qid}: ch[${ci + 1}]="${q.ch[ci]}"가 passage 밑줄에 없음`);
+      }
+    });
+  });
+
+  // ── SEM-4: det "X→Y" 패턴↔ans 위치 매칭 ──
+  // det.korean에서 "X→Y" 형태의 수정 설명이 있으면, X가 있는 ch 인덱스 = ans여야 함
+  questions.forEach((q, i) => {
+    const qid = q.id || (i + 1);
+    if (!q.det || !q.det.korean) return;
+    if (typeof q.ans !== 'number') return;
+
+    const korean = q.det.korean;
+    // "X → Y" 또는 "X→Y" 패턴 추출
+    const arrowMatch = korean.match(/(\S+)\s*→\s*<b>([^<]+)<\/b>/);
+    if (!arrowMatch) return;
+
+    const wrongWord = arrowMatch[1].replace(/[②③④①⑤]/g, '').trim().toLowerCase();
+    const chWords = (q.ch || []).map(c => (c || '').trim().toLowerCase());
+
+    // wrongWord가 있는 ch 인덱스 찾기 (1-indexed)
+    const wrongIdx = chWords.findIndex(c => c === wrongWord || c.includes(wrongWord) || wrongWord.includes(c));
+    if (wrongIdx === -1) return;
+
+    const expectedAns = wrongIdx + 1; // 1-indexed
+    if (q.ans !== expectedAns) {
+      result.add('SEM-4', SEV.A, `Q${qid}: det "${arrowMatch[1]}→${arrowMatch[2]}" → ch[${expectedAns}]인데 ans=${q.ans}`);
+    }
+  });
+
+  // ── SEM-1: fullPassage↔stem 교차오염 검출 ──
+  // 다른 번호의 passage 키워드가 stem/ch에 대량 혼입되면 복붙 사고
+  // 단일 파일에서는 self-check만 가능: passage 키워드와 전혀 관련없는 stem 탐지
+  if (fullPassage && fullPassage.length > 100) {
+    const fpWords = new Set(
+      fullPassage.replace(/<[^>]+>/g, '').toLowerCase()
+        .split(/\s+/)
+        .filter(w => w.length >= 5) // 5자 이상 단어만
+    );
+
+    questions.forEach((q, i) => {
+      const qid = q.id || (i + 1);
+      const stem = (q.stem || '').toLowerCase();
+      const stemWords = stem.split(/\s+/).filter(w => w.length >= 5);
+      if (stemWords.length < 3) return; // 짧은 stem은 스킵
+
+      // stem의 영어 단어 중 passage에 없는 비율
+      const englishStemWords = stemWords.filter(w => /^[a-z]+$/.test(w));
+      if (englishStemWords.length < 3) return;
+
+      const notInPassage = englishStemWords.filter(w => !fpWords.has(w));
+      const foreignRatio = notInPassage.length / englishStemWords.length;
+
+      // 80% 이상 외래 단어 = 다른 지문에서 복붙 의심
+      if (foreignRatio >= 0.8 && notInPassage.length >= 5) {
+        result.add('SEM-1', SEV.B, `Q${qid}: stem 영어단어 ${notInPassage.length}/${englishStemWords.length}개가 fullPassage에 없음 — 교차오염 의심`);
+      }
+    });
+  }
+
   return result;
 }
 
@@ -1100,7 +1216,7 @@ function findJsonFiles(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
+    if (entry.isDirectory() && entry.name !== '_passages') {
       results = results.concat(findJsonFiles(full));
     } else if (entry.name.endsWith('.json')) {
       results.push(full);
