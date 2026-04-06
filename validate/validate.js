@@ -262,7 +262,8 @@ function validate(jsonPath) {
     }
 
     // N1: ①②③④ 선지인데 passage에 마커가 하나도 없음
-    if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
+    // 단, 문장삽입은 passage=null이 정상 (엔진이 fullPassage를 자동 분할)
+    if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4 && typeNorm !== '문장삽입') {
       const allCircled = q.ch.every(c => ['①','②','③','④','⑤'].includes((c || '').trim()));
       if (allCircled) {
         const hasAnyMarker = passage.includes('①') || passage.includes('②') || passage.includes('<u>');
@@ -682,9 +683,13 @@ function validate(jsonPath) {
   }
 
   // ── P-UL4: 어법/부적절 밑줄 4개 필수 (passage 또는 stem에서 체크) ──
+  // 단, "밑줄 고치기" (ch가 같은 단어의 변형)는 1개 밑줄이면 충분
+  // "밑줄 찾기" (ch가 "① word" 형식)만 4개 마커 필수
   questions.forEach(q => {
     const t = (q.type || '').trim();
     if (['어법', '문맥상 부적절한 어휘', '부적절어휘', '부적절'].includes(t)) {
+      const hasCircledCh = q.ch && q.ch.some(c => /^[①②③④⑤]/.test((c || '').trim()));
+      if (!hasCircledCh) return; // "밑줄 고치기" 타입 — 1개 밑줄이면 OK
       const text = (q.passage || '') + (q.stem || '');
       const ulCount = (text.match(/①|②|③|④/g) || []).length;
       if (q.fmt === 'mc' && q.ch && q.ch.length === 4 && ulCount < 4) {
