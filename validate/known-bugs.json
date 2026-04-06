@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-04-06",
+  "description": "AI 출제로부터 발견된 모든 결함 패턴. validate.js에서 자동 차단.",
+  "patterns": [
+    {
+      "code": "X35",
+      "name": "플레이스홀더 선지 (가짜 텍스트)",
+      "discovered": "2026-04-06",
+      "discoverer": "jacob screenshot",
+      "examples": ["(다른 뜻)", "(다른 뜻) (변형)", "선택1", "선택2", "오답 1", "오답 4", "글의 핵심을 정확히 요약한 것", "글의 내용을 부정적으로 해석한 것", "지문의 핵심", "지문에서 언급되지 않은", "본문에서 확인할 수 없는", "필자의 의도와 다른", "원문의 내용과 상반", "지문과 반대되는", "지문과 일치하는", "지문의 흐름과", "문맥상 적절한 연결", "핵심 내용을 담은"],
+      "field": "ch[]",
+      "severity": "S",
+      "fix": "재출제 (실제 내용 기반 선지로 교체)"
+    },
+    {
+      "code": "X36",
+      "name": "선지 중복",
+      "discovered": "2026-04-06",
+      "examples": ["같은 단어 2개", "동일 문장 2개"],
+      "field": "ch[]",
+      "severity": "S",
+      "fix": "중복 선지를 다른 distractor로 교체"
+    },
+    {
+      "code": "X37",
+      "name": "__FULL__ 리터럴 노출",
+      "discovered": "2026-04-06",
+      "examples": ["__FULL__"],
+      "field": "passage",
+      "severity": "S",
+      "fix": "fullPassage 내용으로 교체"
+    },
+    {
+      "code": "X38",
+      "name": "ans=0 (정답 없음)",
+      "discovered": "2026-04-06",
+      "field": "ans",
+      "severity": "S",
+      "fix": "정답 1-4로 설정"
+    },
+    {
+      "code": "X39",
+      "name": "가짜 어형변환 (nonsense 단어)",
+      "discovered": "2026-04-06",
+      "examples": ["influencedtion", "skepticismtion", "fluentlyness", "subjectiveness", "implicatedness", "exceptionallyness", "bequeathedness", "relativelytion", "receptiveness", "paustion"],
+      "field": "wa",
+      "severity": "S",
+      "fix": "실제 어형변환으로 교체",
+      "whitelist": ["consciousness", "happiness", "kindness", "darkness", "weakness", "willingness", "thankfulness", "carelessness", "effectiveness", "uniqueness"]
+    },
+    {
+      "code": "X40",
+      "name": "지문 없음 (stem이 다음 글 참조하는데 passage 빈칸)",
+      "discovered": "2026-04-06",
+      "field": "passage",
+      "severity": "S",
+      "fix": "fullPassage 내용으로 채움"
+    },
+    {
+      "code": "X41",
+      "name": "stem 자체가 플레이스홀더",
+      "discovered": "2026-04-06",
+      "examples": ["지문의 핵심 연결 문장", "지문에서 확인할 수 없", "핵심 요약 문장"],
+      "field": "stem",
+      "severity": "S",
+      "fix": "재출제"
+    },
+    {
+      "code": "X42",
+      "name": "어법 마커형 ans↔det.korean 불일치 (학생화면 정답이 해설과 다름)",
+      "discovered": "2026-04-06",
+      "discoverer": "jacob screenshot",
+      "description": "ch=[\"①\",\"②\",\"③\",\"④\"]인데 ans가 가리키는 마커의 단어와 det.korean에서 잘못이라고 말하는 단어가 다름. 학생이 보는 정답이 해설과 모순됨.",
+      "field": "ans + det.korean",
+      "severity": "S",
+      "fix": "ans 수정 또는 passage 재생성"
+    },
+    {
+      "code": "X43",
+      "name": "passage에 한국어 섞임 (영어 지문 오염)",
+      "discovered": "2026-04-06",
+      "examples": ["instruction text leak", "OCR 잔여 (영역 고2)", "한국어 코멘트", "(원문 맥락)", "(다른 맥락)"],
+      "field": "passage",
+      "severity": "S",
+      "fix": "한국어 부분 제거 또는 passage 재생성"
+    },
+    {
+      "code": "X44",
+      "name": "난이도-배점 불일치",
+      "discovered": "2026-04-06",
+      "rule": "쉬움=4점, 보통=5점, 어려움=6점",
+      "field": "diff + pts",
+      "severity": "A",
+      "fix": "pts 수정"
+    },
+    {
+      "code": "TF-MISMATCH",
+      "name": "T/F 정답이 해설과 모순",
+      "discovered": "2026-04-06",
+      "description": "ans=T인데 det.korean이 \"F (거짓)\"이라고 말함",
+      "field": "ans + det.korean",
+      "severity": "S",
+      "fix": "ans 수정"
+    },
+    {
+      "code": "P22",
+      "name": "빈칸형인데 빈칸 마커 없음",
+      "field": "passage",
+      "severity": "S (2026-04-06 A→S 승격)",
+      "fix": "passage에 ____ 삽입"
+    },
+    {
+      "code": "P24",
+      "name": "ABC조합형인데 (A)(B)(C) 마커 없음",
+      "field": "passage",
+      "severity": "S (2026-04-06 B→S 승격)",
+      "fix": "passage에 (A)(B)(C) 마커 삽입"
+    },
+    {
+      "code": "N2",
+      "name": "정답 시퀀스가 다른 파일과 동일 (찍기 가능)",
+      "field": "ans (cross-file)",
+      "severity": "S",
+      "fix": "선지 스왑으로 시퀀스 차별화"
+    },
+    {
+      "code": "N4",
+      "name": "stem 복붙 (영영풀이 같은 stem 여러 문항)",
+      "field": "stem",
+      "severity": "S",
+      "fix": "각 문항 고유 stem 작성"
+    },
+    {
+      "code": "TW-TYPE",
+      "name": "허용되지 않은 testType",
+      "field": "testType",
+      "severity": "S",
+      "fix": "유형명을 화이트리스트로 매핑"
+    },
+    {
+      "code": "A6",
+      "name": "정답 분포 편중 (한 번호 6개 이상)",
+      "field": "ans (file-level)",
+      "severity": "S",
+      "fix": "선지 스왑으로 분포 균등화"
+    },
+    {
+      "code": "A7",
+      "name": "정답 3연속 (찍기 가능)",
+      "field": "ans (file-level)",
+      "severity": "S",
+      "fix": "중간 문항 선지 스왑"
+    }
+  ],
+  "_meta": {
+    "total_patterns": 18,
+    "session_2026_04_06": {
+      "discovered_today": ["X35", "X36", "X37", "X38", "X39", "X40", "X41", "X42", "X43", "X44", "TF-MISMATCH"],
+      "promoted_today": ["P22 (A→S)", "P24 (B→S)"],
+      "fixed_count": 1300,
+      "validate_rules_added": 11
+    }
+  }
+}

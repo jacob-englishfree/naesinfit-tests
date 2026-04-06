@@ -12,6 +12,10 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 
+// Phase 1 모듈 통합
+const { validateBySchema } = require('./schema.js');
+const { validateRender } = require('./render-sim.js');
+
 // ── Severity levels ──
 const SEV = { S: 'S', A: 'A', B: 'B', C: 'C' };
 
@@ -105,6 +109,19 @@ function validate(jsonPath) {
 
   questions.forEach((q, i) => {
     const qid = q.id || (i + 1);
+
+    // Phase 1: 유형별 schema 검증
+    try {
+      const schemaErrs = validateBySchema(q, qid);
+      for (const e of schemaErrs) result.add(e.id, SEV[e.sev] || SEV.A, e.msg);
+    } catch (e) {}
+
+    // Phase 1: 렌더링 시뮬레이션
+    try {
+      const renderErrs = validateRender(q, qid);
+      for (const e of renderErrs) result.add(e.id, SEV[e.sev] || SEV.A, e.msg);
+    } catch (e) {}
+
     // F8
     if (q.id === undefined) result.add('F8', SEV.S, `Q${i}: id missing`);
     if (!q.type) result.add('F8', SEV.S, `Q${qid}: type missing`);

@@ -1,0 +1,300 @@
+diff --git a/validate/validate.js b/validate/validate.js
+index 6298e3be..04bba8cb 100644
+--- a/validate/validate.js
++++ b/validate/validate.js
+@@ -500,6 +500,139 @@ function validate(jsonPath) {
+       }
+     }
+ 
++    // ── V79 (S): passage 필수 유형인데 passage=null ──
++    // 문장삽입/순서배열/요약은 지문 없이 렌더링 불가
++    const needsPassageTypes = ['문장삽입', '순서배열', '요약', '글의 순서'];
++    if (q.passage === null || q.passage === undefined) {
++      if (needsPassageTypes.some(t => typeNorm.includes(t))) {
++        result.add('V79', SEV.S, `Q${qid}: ${typeNorm} 유형인데 passage=null — 렌더링 불가`);
++      }
++    }
++
++    // ── V80 (S): ch/stem에 템플릿 플레이스홀더 문구 노출 ──
++    // 자동생성기가 채우지 못한 빈 템플릿이 학생 화면에 그대로 노출되는 사고 방지
++    const PLACEHOLDER_PATTERNS = [
++      /\(다른\s*뜻\)/,
++      /main\s+concept\s+discussed/i,
++      /impact\s+of\s+environment\s+on\s+behavior/i,
++      /relationship\s+between\s+theory\s+and\s+practice/i,
++      /role\s+of\s+communication\s+in\s+society/i,
++      /^\s*\(변형\)\s*$/,
++    ];
++    if (Array.isArray(q.ch)) {
++      q.ch.forEach((c, ci) => {
++        const s = String(c || '');
++        for (const pat of PLACEHOLDER_PATTERNS) {
++          if (pat.test(s)) {
++            result.add('V80', SEV.S, `Q${qid}: ch[${ci}] = "${s.substring(0,40)}" 템플릿 플레이스홀더 노출`);
++            break;
++          }
++        }
++      });
++    }
++    if (q.stem) {
++      for (const pat of PLACEHOLDER_PATTERNS) {
++        if (pat.test(q.stem)) {
++          result.add('V80', SEV.S, `Q${qid}: stem에 템플릿 플레이스홀더 노출`);
++          break;
++        }
++      }
++    }
++
++    // ── V81 (S): \u escape 문자열이 ch/stem/wa/passage/det에 노출 ──
++    // (기존 P3는 passage만 B급 — 격상 + 범위 확장)
++    const escapeFields = [
++      ['ch', Array.isArray(q.ch) ? q.ch.join('|') : ''],
++      ['stem', q.stem || ''],
++      ['wa', q.wa || ''],
++      ['passage', q.passage || ''],
++    ];
++    for (const [fname, fval] of escapeFields) {
++      if (/\\u[0-9a-fA-F]{4}/.test(fval)) {
++        result.add('V81', SEV.S, `Q${qid}: ${fname}에 \\u escape 미변환 노출 (원문자 ①②③ 등)`);
++        break;
++      }
++    }
++
++    // ── V82 (S): 어법/부적절 유형 ch 번호 마커 연속성 ──
++    // ch가 "① speed"처럼 번호 마커로 시작할 때, 마커가 연속되지 않으면 FAIL
++    // (예: ①②③⑤ → ④ 누락)
++    if (typeNorm.includes('어법') || typeNorm.includes('부적절') || typeNorm.includes('어휘')) {
++      if (Array.isArray(q.ch) && q.ch.length >= 2) {
++        const markerMap = { '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 };
++        const markers = q.ch.map(c => {
++          const m = String(c || '').trim().match(/^([①-⑤])/);
++          return m ? markerMap[m[1]] : null;
++        }).filter(x => x !== null);
++        if (markers.length >= 2 && markers.length === q.ch.length) {
++          const sorted = [...markers].sort((a, b) => a - b);
++          for (let i = 1; i < sorted.length; i++) {
++            if (sorted[i] - sorted[i-1] !== 1) {
++              result.add('V82', SEV.S, `Q${qid}: ch 번호 마커 비연속 (${sorted.join(',')}) — 중간 마커 누락`);
++              break;
++            }
++          }
++        }
++      }
++    }
++
++    // ── V85 (S): det.analysis의 "✅ 정답: N번" ↔ ans 교차검증 ──
++    // 해설 불일치 차단 (해설은 1번 정답이라 하는데 ans=4인 사고 방지)
++    if (q.fmt === 'mc' && q.det && q.det.analysis && typeof q.ans === 'number') {
++      const analysis = q.det.analysis;
++      const m1 = analysis.match(/✅\s*정답\s*[:：]\s*(\d+)\s*번/);
++      if (m1) {
++        const declared = parseInt(m1[1]);
++        if (declared !== q.ans) {
++          result.add('V85', SEV.S, `Q${qid}: det.analysis "정답: ${declared}번"인데 ans=${q.ans} — 해설 불일치`);
++        }
++      } else {
++        const m2 = analysis.match(/✅\s*정답\s*[:：]\s*(\d+)\b/);
++        if (m2) {
++          const declared = parseInt(m2[1]);
++          if (declared !== q.ans) {
++            result.add('V85', SEV.S, `Q${qid}: det.analysis "정답: ${declared}"인데 ans=${q.ans} — 해설 불일치`);
++          }
++        }
++      }
++    }
++
++    // ── V86 (S): "본문에서 찾아 쓰시오" 서술형 — wa가 fullPassage에 존재해야 함 ──
++    // wa 오답 감지: 본문에서 찾으라고 했는데 wa가 본문에 없으면 오답
++    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && q.stem) {
++      if (/본문에서.*찾아.*쓰|본문.*에서.*영어/.test(q.stem)) {
++        const wa = q.wa.trim();
++        if (wa.length >= 2 && fullPassage) {
++          const fpClean = fullPassage.replace(/\\[①-⑤]/g, '').replace(/<[^>]+>/g, '');
++          const waNorm = wa.toLowerCase().replace(/[.,!?;:]/g, '').trim();
++          const fpNorm = fpClean.toLowerCase().replace(/[.,!?;:]/g, '');
++          if (!fpNorm.includes(waNorm)) {
++            result.add('V86', SEV.S, `Q${qid}: "본문에서 찾아 쓰시오"인데 wa="${wa}"가 fullPassage에 없음 — wa 오답 가능성`);
++          }
++        }
++      }
++    }
++
++    // ── V84 (A): 내용일치/불일치에서 4개 ch가 모두 fullPassage에 존재 ──
++    // → 복수정답 또는 정답없음 위험 (선지 전부 원문 문장 복붙)
++    if ((typeNorm.includes('내용일치') || typeNorm.includes('내용불일치') || typeNorm.includes('내용 일치')) && Array.isArray(q.ch) && q.ch.length >= 3) {
++      const fpClean = (fullPassage || '').replace(/\\[①-⑤]|<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
++      if (fpClean.length > 50) {
++        let allMatch = true;
++        for (const c of q.ch) {
++          const cClean = String(c || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
++          // 30자 이상 선지만 체크 (짧은 선지는 무의미)
++          if (cClean.length < 30) { allMatch = false; break; }
++          // 선지 앞 40자가 fullPassage에 그대로 있는지
++          const snippet = cClean.substring(0, 40);
++          if (!fpClean.includes(snippet)) { allMatch = false; break; }
++        }
++        if (allMatch) {
++          result.add('V84', SEV.S, `Q${qid}: 내용일치/불일치 4개 선지 모두 fullPassage 발췌 — 복수정답 또는 정답없음 위험`);
++        }
++      }
++    }
++
+     // ── X30~X34: content pollution ──
+     const allText = [passage, q.stem || '', JSON.stringify(q.det || {})].join(' ');
+ 
+@@ -631,11 +764,18 @@ function validate(jsonPath) {
+           // Check that the answer words are NOT inside the (A)(B)(C) positions
+           // If they're exposed elsewhere, it's a problem
+           const markerPositions = [];
++          // Format 1: <b>(A)</b> word
+           const markerRegex = /<b>\(([ABC])\)<\/b>\s*(\w+)/g;
+           let m;
+           while ((m = markerRegex.exec(passage)) !== null) {
+             markerPositions.push(m[2].toLowerCase());
+           }
++          // Format 2: <b>(A)</b>[<b>word1 / word2</b>] — bracket comparison format
++          const bracketRegex = /<b>\(([ABC])\)<\/b>\s*\[\s*<b>\s*(\w+)\s*\/\s*(\w+)\s*<\/b>\s*\]/g;
++          while ((m = bracketRegex.exec(passage)) !== null) {
++            markerPositions.push(m[2].toLowerCase());
++            markerPositions.push(m[3].toLowerCase());
++          }
+           const exposedOutsideMarkers = parts.filter(p => !markerPositions.includes(p));
+           if (exposedOutsideMarkers.length >= 2) {
+             result.add('EX-3', SEV.B, `Q${qid}: (A)(B)(C) 정답 단어가 지문 다른 곳에도 노출됨 — 선지 안 봐도 유추 가능`);
+@@ -658,6 +798,110 @@ function validate(jsonPath) {
+       }
+     }
+     // end EX block
++
++    // ── PH-1: PLACEHOLDER_RESIDUAL — 템플릿 문자열 잔존 검출 (S급) ──
++    const phPatterns = [
++      /^선택\s*[1-5]$/,
++      /^오답\s*[1-5]$/,
++      /^정답\s*[1-5]$/,
++      /^answer$/i,
++      /^\{[a-z_]+\}$/i,
++      /^ans=정답\s*\d/,
++    ];
++    const checkPH = (val, label) => {
++      if (typeof val !== 'string' || !val) return;
++      const t = val.trim();
++      for (const p of phPatterns) {
++        if (p.test(t)) {
++          result.add('PH-1', SEV.S, `Q${qid}: ${label}에 플레이스홀더 잔존 — "${t}"`);
++          return;
++        }
++      }
++    };
++    if (Array.isArray(q.ch)) q.ch.forEach((c, ci) => checkPH(c, `ch[${ci}]`));
++    checkPH(q.wa, 'wa');
++    checkPH(q.stem, 'stem');
++    if (typeof q.passage === 'string') {
++      const passagePH = /(^|\s)(선택\s*[1-5]|오답\s*[1-5]|정답\s*[1-5]|\{correct\}|\{wrong\})(\s|$)/;
++      if (passagePH.test(q.passage)) {
++        result.add('PH-1', SEV.S, `Q${qid}: passage에 플레이스홀더 문자열 잔존`);
++      }
++    }
++
++    // ── ESC-1: ESCAPE_RESIDUAL — 잘린 마커/이스케이프 잔존 (S급) ──
++    const escPattern = /\\[①②③④⑤]/;
++    const escCheck = (val, label) => {
++      if (typeof val !== 'string' || !val) return;
++      if (escPattern.test(val)) {
++        result.add('ESC-1', SEV.S, `Q${qid}: ${label}에 이스케이프 잔존 ("\\①" 등)`);
++      }
++    };
++    if (Array.isArray(q.ch)) q.ch.forEach((c, ci) => escCheck(c, `ch[${ci}]`));
++    escCheck(q.passage, 'passage');
++    escCheck(q.stem, 'stem');
++    escCheck(q.wa, 'wa');
++
++    // ── PFM-1: PASSAGE_FULLPASSAGE_MISMATCH — 교차 오염 탐지 (S급) ──
++    if (typeof q.passage === 'string' && q.passage.trim().length >= 40 &&
++        typeof fullPassage === 'string' && fullPassage.trim().length >= 40) {
++      const stopWords = new Set(['the','a','an','and','or','but','of','to','in','on','at','for','with','by','from','as','is','are','was','were','be','been','being','it','this','that','these','those','his','her','its','their','our','your','my','you','he','she','we','they','not','no','so','if','than','then','there','here','what','which','who','whom','whose','will','would','can','could','should','shall','may','might','must','do','does','did','done','has','have','had','about','into','out','up','down','over','under','just','also','only','very','more','most','some','any','all','each','every','both','either','neither','such','same','other','another','because','while','when','where','why','how','one','two','three','many','much','few','first','second','third']);
++      const tokenize = (s) => (s.toLowerCase().replace(/<[^>]+>/g, ' ').match(/[a-z]+/g) || [])
++        .filter(w => w.length >= 5 && !stopWords.has(w));
++      const pTokens = tokenize(q.passage);
++      const fTokens = new Set(tokenize(fullPassage));
++      if (pTokens.length >= 5 && fTokens.size >= 5) {
++        const freq = {};
++        pTokens.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
++        const top3 = Object.entries(freq).sort((a,b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
++        const sharedTop = top3.filter(w => fTokens.has(w));
++        if (top3.length >= 3 && sharedTop.length === 0) {
++          const sharedAll = pTokens.filter(w => fTokens.has(w));
++          const shareRatio = sharedAll.length / pTokens.length;
++          if (shareRatio < 0.1) {
++            result.add('PFM-1', SEV.S, `Q${qid}: passage가 fullPassage와 주제 불일치 — 교차 오염 의심 (top3: ${top3.join(',')}, 공유율: ${(shareRatio*100).toFixed(0)}%)`);
++          }
++        }
++      }
++    }
++
++    // ── TSM-1: TYPE_STEM_MISMATCH — 유형↔stem 키워드 매칭 (S급) ──
++    if (typeof q.stem === 'string' && q.stem.trim()) {
++      const stemTxt = q.stem;
++      const typeStemRules = [
++        { types: ['함축의미 추론', '함축의미', '함축 의미 추론', '밑줄 함축'], mustHave: ['밑줄', '의미', '함축'] },
++        { types: ['주제', '주제 추론', '글의 주제'], mustHave: ['주제'] },
++        { types: ['요지', '요지 추론', '글의 요지'], mustHave: ['요지'] },
++        { types: ['내용이해', '내용 이해', '내용일치', '내용 일치', '내용불일치', '내용 불일치'], mustHave: ['일치', '내용'] },
++      ];
++      for (const rule of typeStemRules) {
++        if (rule.types.includes(typeNorm)) {
++          const hasAny = rule.mustHave.some(kw => stemTxt.includes(kw));
++          if (!hasAny) {
++            result.add('TSM-1', SEV.S, `Q${qid}: type="${typeNorm}"인데 stem에 [${rule.mustHave.join('/')}] 키워드 없음 — type↔stem 불일치`);
++          }
++          break;
++        }
++      }
++    }
++
++    // ── CAO-1: CH_ANALYSIS_ORDER — det.analysis 마커가 ch[] 순서와 일치 (S급) ──
++    if (q.det && typeof q.det.analysis === 'string' && Array.isArray(q.ch) && q.ch.length >= 2) {
++      const analysis = q.det.analysis;
++      const markerSeq = (analysis.match(/[①②③④⑤]/g) || []);
++      if (markerSeq.length >= 2) {
++        const markerMap = { '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 };
++        const nums = markerSeq.map(m => markerMap[m]);
++        const seen = new Set();
++        const uniqOrder = [];
++        nums.forEach(n => { if (!seen.has(n)) { seen.add(n); uniqOrder.push(n); } });
++        if (uniqOrder.length >= 2) {
++          const isOrdered = uniqOrder.every((v, idx) => v === idx + 1);
++          if (!isOrdered) {
++            result.add('CAO-1', SEV.S, `Q${qid}: det.analysis 마커 순서 [${uniqOrder.join('')}]가 ch[] 순서(1,2,3,4...)와 불일치`);
++          }
++        }
++      }
++    }
+   });
+ 
+   // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──
+@@ -776,6 +1020,25 @@ function validate(jsonPath) {
+     });
+   }
+ 
++  // ── V83 (S): 동일 stem+ch 조합 중복 (같은 파일 내) ──
++  // 같은 선지/질문이 두 번 나오면 하나는 오류 (2024 고1 3월 30번 Q3/Q4 사고)
++  {
++    const sig2q = new Map();
++    questions.forEach(q => {
++      if (q.fmt !== 'mc' || !q.stem || !Array.isArray(q.ch)) return;
++      const stemClean = String(q.stem).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
++      const chClean = q.ch.map(c => String(c || '').replace(/<[^>]+>/g, '').trim()).join('||');
++      const passageSig = (q.passage || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 60);
++      const sig = stemClean + '##' + chClean + '##' + passageSig;
++      if (sig2q.has(sig)) {
++        const prev = sig2q.get(sig);
++        result.add('V83', SEV.S, `Q${q.id}: 동일 stem+ch+passage 조합이 Q${prev}와 중복 — 하나는 오류`);
++      } else {
++        sig2q.set(sig, q.id);
++      }
++    });
++  }
++
+   // ── R51~R53: 모의고사 문항번호 적합성 ──
+   if (ei.subject && ei.subject.includes('모의고사')) {
+     const pubNum = parseInt(ei.pub);
