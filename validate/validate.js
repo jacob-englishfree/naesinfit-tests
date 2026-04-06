@@ -596,6 +596,37 @@ function validate(jsonPath) {
       }
     }
 
+    // X42: 어법 마커형 ans↔det.korean 불일치 (학생이 화면에서 보는 정답이 해설과 다름)
+    if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
+      const isMarkerCh = q.ch.every(c => typeof c === 'string' && /^[①②③④⑤]\s*$/.test(c.trim()));
+      if (isMarkerCh && q.det && q.det.korean) {
+        // 우선순위 1: "①word" 또는 "③ word →" 같은 마커+단어 직접 패턴
+        let wrongWord = null;
+        const markerWordMatch = q.det.korean.match(/^[①②③④⑤]\s*([a-zA-Z][a-zA-Z\s\-']{1,30}?)(?:\s*[:→↔]|$)/m);
+        if (markerWordMatch) {
+          wrongWord = markerWordMatch[1].trim();
+        } else {
+          // 우선순위 2: "X → Y" 패턴 (단, "→ Y" 형태로 시작하면 안 됨)
+          const arrowMatch = q.det.korean.match(/(?:^|\.\s*|\n)([a-zA-Z][a-zA-Z\s\-']{2,30}?)\s*→/);
+          if (arrowMatch) wrongWord = arrowMatch[1].trim();
+        }
+        if (wrongWord) {
+          const markers = ['①','②','③','④','⑤'];
+          const ansIdx = q.ans - 1;
+          if (ansIdx >= 0 && ansIdx < markers.length) {
+            const ansPattern = new RegExp(markers[ansIdx] + '\\s*<u>([^<]+)</u>');
+            const ansMatch = passage.match(ansPattern);
+            if (ansMatch) {
+              const ansWord = ansMatch[1].trim();
+              if (ansWord.toLowerCase() !== wrongWord.toLowerCase() && !ansWord.toLowerCase().includes(wrongWord.toLowerCase().split(/\s+/)[0])) {
+                result.add('X42', SEV.S, `Q${qid}: ans=${q.ans}(${ansWord}) ↔ det.korean="${wrongWord}" 불일치 — 학생화면 정답이 해설과 다름`);
+              }
+            }
+          }
+        }
+      }
+    }
+
     // X36: 선지 중복 — 동일 선지 2개 이상
     if (Array.isArray(q.ch)) {
       const chSet = new Set();
