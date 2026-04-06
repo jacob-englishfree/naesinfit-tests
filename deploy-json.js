@@ -153,26 +153,34 @@ function validateSchema(jsonPath) {
     // ⚠️ det.analysis에 ✅ 정답마크 권장 (경고만, FAIL 아님)
     // 향후 신규 출제 시 필수로 전환 예정
 
-    // ⛔ det↔ans 불일치 검증
-    if (q.fmt === 'mc' && q.det) {
+    // ⛔ det↔ans 불일치 검증 (텍스트 매칭 — 인덱스 가정 금지, feedback_det_not_ch_index)
+    if (q.fmt === 'mc' && q.det && Array.isArray(q.ch) && q.ch.length > 0) {
       const ana = (q.det.analysis || '');
-      // ✅ 마크로 정답 확인
-      const checkMatches = ana.match(/✅\s*[①②③④⑤]/g);
-      if (checkMatches && checkMatches.length === 1) {
-        const circle = checkMatches[0].match(/[①②③④⑤]/)[0];
-        const detAns = numMap[circle];
-        if (detAns && detAns !== q.ans) {
-          errors.push(`Q${i + 1}: det↔ans 불일치 (해설=✅${circle}=${detAns}번, ans=${q.ans})`);
+      const lines = ana.split('\n');
+      const checkedTexts = [];
+      for (const line of lines) {
+        const m = line.match(/^[\s]*[✅✓☑]\s*(.*)$/);
+        if (m) {
+          let t = m[1].trim().replace(/^[①②③④⑤⑥⑦⑧⑨⑩]\s*/, '').replace(/^[1-9][\.\)]\s*/, '');
+          if (t.length > 0) checkedTexts.push(t);
         }
       }
-      // ❌ 3개로 정답 추론
-      const wrongMatches = ana.match(/❌\s*[①②③④]/g);
-      if (wrongMatches && wrongMatches.length === 3 && q.ch && q.ch.length === 4) {
-        const wrongNums = new Set(wrongMatches.map(w => numMap[w.match(/[①②③④]/)[0]]));
-        let correctAns = null;
-        for (let n = 1; n <= 4; n++) { if (!wrongNums.has(n)) { correctAns = n; break; } }
-        if (correctAns && correctAns !== q.ans) {
-          errors.push(`Q${i + 1}: det↔ans 불일치 (오답제외=${correctAns}번, ans=${q.ans})`);
+      if (checkedTexts.length === 1) {
+        const norm = (s) => String(s || '')
+          .replace(/[①②③④⑤⑥⑦⑧⑨⑩✅✓❌✗☑☒]/g, '')
+          .replace(/^[\s]*[1-9][\.\)]\s*/, '')
+          .replace(/[\s\-—–·,.()<>"'`]/g, '')
+          .toLowerCase().trim();
+        const target = norm(checkedTexts[0]);
+        if (target.length >= 3) {
+          const matches = [];
+          for (let k = 0; k < q.ch.length; k++) {
+            const c = norm(q.ch[k]);
+            if (c && (c.includes(target) || target.includes(c))) matches.push(k + 1);
+          }
+          if (matches.length === 1 && matches[0] !== q.ans) {
+            errors.push(`Q${i + 1}: det↔ans 불일치 (해설텍스트="${checkedTexts[0].slice(0, 40)}"=${matches[0]}번, ans=${q.ans})`);
+          }
         }
       }
     }
@@ -220,7 +228,7 @@ function validateSchema(jsonPath) {
       if (!q.wa && (!q.accept || q.accept.length === 0)) {
         errors.push(`Q${i + 1}: 서술형 정답(wa/accept) 없음`);
       }
-      if (q.wa && (q.wa === 'undefined' || q.wa === 'null' || q.wa.trim().length === 0)) {
+      if (q.wa && typeof q.wa === 'string' && (q.wa === 'undefined' || q.wa === 'null' || q.wa.trim().length === 0)) {
         errors.push(`Q${i + 1}: 서술형 정답이 비어있음`);
       }
     }
@@ -366,6 +374,7 @@ function collectJsonFiles(target) {
     const files = [];
     const walk = (dir) => {
       for (const entry of fs.readdirSync(dir)) {
+        if (entry === '_passages' || entry.startsWith('.')) continue;
         const full = path.join(dir, entry);
         if (fs.statSync(full).isDirectory()) walk(full);
         else if (full.endsWith('.json')) files.push(full);
