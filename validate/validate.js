@@ -177,7 +177,10 @@ function validate(jsonPath) {
       '순서배열', '글순서', '문장삽입',
     ];
     if ((!passage || passage.trim().length === 0) && !noPassageTypes.includes(typeNorm)) {
-      result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
+      const stemEngCount = ((q.stem || '').replace(/<[^>]+>/g, '').match(/[a-zA-Z]+/g) || []).length;
+      if (stemEngCount < 20) {
+        result.add('P_EMPTY', SEV.S, `Q${qid}: passage가 비어있음 — passage 필수`);
+      }
     }
     // 교과서: 15문장 이상이면 최소 8문장 발췌 허용 (정답 근거 포함 필수)
     // 모의고사/수능특강: 원문 전체 필수 (별도 체크)
@@ -235,7 +238,8 @@ function validate(jsonPath) {
     const isABCByStem = (q.stem || '').includes('(A)') && (q.stem || '').includes('(B)') && (q.stem || '').includes('(C)');
     const isABCByCh = q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4 &&
       q.ch.filter(c => typeof c === 'string' && c.includes(' — ') && c.split(' — ').length >= 3).length >= 3;
-    if (isABCByType || isABCByStem || isABCByCh) {
+    const isOrderType = ['순서배열', '글순서', '문장삽입'].includes(typeNorm);
+    if (!isOrderType && (isABCByType || isABCByStem || isABCByCh)) {
       if (!passage.includes('(A)') && !passage.includes('<b>(A)')) {
         result.add('P24', SEV.S, `Q${qid}: (A)(B)(C) 조합형인데 passage에 (A) 마커 없음 — 학생이 풀 수 없음`);
       }
@@ -576,7 +580,11 @@ function validate(jsonPath) {
     if (q.fmt === 'mc' && !['문장삽입', '순서배열', '글순서'].includes(typeNorm)) {
       const stemPlain = (q.stem || '').replace(/<[^>]+>/g, '');
       if ((stemPlain.includes('다음 글') || stemPlain.includes('이 글') || stemPlain.includes('밑줄 친')) && (!passage || passage.trim().length === 0)) {
-        result.add('X40', SEV.S, `Q${qid}: stem이 지문 참조하는데 passage 없음 — 풀 수 없음`);
+        // Skip if stem itself contains substantial english (passage embedded in stem)
+        const stemEng = (stemPlain.match(/[a-zA-Z]+/g) || []).length;
+        if (stemEng < 20) {
+          result.add('X40', SEV.S, `Q${qid}: stem이 지문 참조하는데 passage 없음 — 풀 수 없음`);
+        }
       }
     }
 
