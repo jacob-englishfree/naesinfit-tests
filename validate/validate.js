@@ -537,6 +537,28 @@ function validate(jsonPath) {
       result.add('X34', SEV.A, `Q${qid}: contains broken character (U+FFFD)`);
     }
 
+    // X35: placeholder choices — 가짜 선지 차단
+    if (Array.isArray(q.ch)) {
+      const placeholderPatterns = [
+        /^\(다른 뜻\)/,
+        /^\(다른 뜻\) \(변형\)/,
+        /^선택\d$/,
+        /^오답 \d$/,
+        /^글의 (핵심|내용)을? (정확히|부정적으로)/,
+        /^지문의 핵심/,
+        /^지문에서 언급되지 않은/,
+      ];
+      q.ch.forEach((c, ci) => {
+        if (typeof c !== 'string') return;
+        for (const pat of placeholderPatterns) {
+          if (pat.test(c.trim())) {
+            result.add('X35', SEV.S, `Q${qid}: ch[${ci+1}]="${c.substring(0,30)}" — 플레이스홀더 선지 (가짜)`);
+            break;
+          }
+        }
+      });
+    }
+
     // ── D43~D48: answer-explanation consistency ──
     if (q.det) {
       // D46: min 10 chars each
