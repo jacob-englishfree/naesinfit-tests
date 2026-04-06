@@ -596,6 +596,24 @@ function validate(jsonPath) {
       }
     }
 
+    // X43: passage에 한국어 섞임 (영어 지문이어야 함)
+    if (q.fmt === 'mc' && passage && passage.length > 30) {
+      const passagePlain = passage.replace(/<[^>]+>/g, '');
+      const koreanMatches = passagePlain.match(/[가-힣]+/g);
+      if (koreanMatches && koreanMatches.length >= 3) {
+        // 3개 이상 한국어 토큰이면 명백한 오염
+        result.add('X43', SEV.S, `Q${qid}: passage에 한국어 섞임 — "${koreanMatches.slice(0,3).join(',')}"`);
+      }
+    }
+
+    // X44: 난이도-배점 불일치
+    if (q.diff && q.pts) {
+      const expected = q.diff === '쉬움' ? 4 : q.diff === '보통' ? 5 : q.diff === '어려움' ? 6 : null;
+      if (expected && q.pts !== expected) {
+        result.add('X44', SEV.A, `Q${qid}: diff=${q.diff} pts=${q.pts} (expected ${expected})`);
+      }
+    }
+
     // X42: 어법 마커형 ans↔det.korean 불일치 (학생이 화면에서 보는 정답이 해설과 다름)
     if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
       const isMarkerCh = q.ch.every(c => typeof c === 'string' && /^[①②③④⑤]\s*$/.test(c.trim()));
