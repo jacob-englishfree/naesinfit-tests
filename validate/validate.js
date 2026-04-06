@@ -551,6 +551,14 @@ function validate(jsonPath) {
         /^글의 (핵심|내용)을? (정확히|부정적으로)/,
         /^지문의 핵심/,
         /^지문에서 언급되지 않은/,
+        /^본문에서 확인할 수 없는/,
+        /^필자의 의도와 다른/,
+        /^원문의 내용과 상반/,
+        /^지문과 반대되는/,
+        /^지문과 일치하는/,
+        /^지문의 흐름과/,
+        /^문맥상 적절한 연결/,
+        /^핵심 내용을 담은/,
       ];
       q.ch.forEach((c, ci) => {
         if (typeof c !== 'string') return;
@@ -561,6 +569,22 @@ function validate(jsonPath) {
           }
         }
       });
+    }
+
+    // X40: stem이 '다음 글'/'이 글'/'밑줄' 참조하는데 passage 없음
+    if (q.fmt === 'mc') {
+      const stemPlain = (q.stem || '').replace(/<[^>]+>/g, '');
+      if ((stemPlain.includes('다음 글') || stemPlain.includes('이 글') || stemPlain.includes('밑줄 친')) && (!passage || passage.trim().length === 0)) {
+        result.add('X40', SEV.S, `Q${qid}: stem이 지문 참조하는데 passage 없음 — 풀 수 없음`);
+      }
+    }
+
+    // X41: stem 자체가 플레이스홀더
+    {
+      const stemPlain = (q.stem || '').replace(/<[^>]+>/g, '');
+      if (/지문의 핵심 연결 문장|지문에서 확인할 수 없|핵심 요약 문장/.test(stemPlain)) {
+        result.add('X41', SEV.S, `Q${qid}: stem이 플레이스홀더 — "${stemPlain.substring(0,40)}"`);
+      }
     }
 
     // X36: 선지 중복 — 동일 선지 2개 이상
