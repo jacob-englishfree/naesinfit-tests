@@ -990,13 +990,13 @@ function validate(jsonPath) {
     }
 
     if (!isOrdered) {
-      result.add('SEM-3', SEV.B, `Q${qid}: 어법 ch[] 순서가 passage <u> 밑줄 출현 순서와 불일치`);
+      result.add('SEM-3', SEV.A, `Q${qid}: 어법 ch[] 순서가 passage <u> 밑줄 출현 순서와 불일치`);
     }
 
     // ch 단어가 밑줄에 없는 경우도 경고
     chWords.forEach((c, ci) => {
       if (c && mapping[ci] === -1) {
-        result.add('SEM-3', SEV.B, `Q${qid}: ch[${ci + 1}]="${q.ch[ci]}"가 passage 밑줄에 없음`);
+        result.add('SEM-3', SEV.A, `Q${qid}: ch[${ci + 1}]="${q.ch[ci]}"가 passage 밑줄에 없음`);
       }
     });
   });
