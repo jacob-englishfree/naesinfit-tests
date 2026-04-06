@@ -611,7 +611,22 @@ function validate(jsonPath) {
 
     // X39: 가짜 어형변환 (nonsense 단어: influencedtion, skepticismtion 등)
     if (q.fmt === 'written' && q.wa && typeof q.wa === 'string') {
-      if (/[a-z]+(tion|ment|ness|ful|ous|ive|al|ed|ing|ly)(tion|ness)$/i.test(q.wa) && q.wa.length > 10) {
+      // 정상 영단어 화이트리스트 (regex 패턴에 걸리지만 실제 존재하는 단어)
+      const X39_WHITELIST = new Set([
+        'consciousness','seriousness','willingness','mindfulness','usefulness',
+        'effectiveness','purposefulness','persuasiveness','expressiveness',
+        'playfulness','receptiveness','memorability','attractiveness',
+        'aggressiveness','competitiveness','creativeness','decisiveness',
+        'exclusiveness','impressiveness','inventiveness','objectiveness',
+        'perceptiveness','productiveness','progressiveness','protectiveness',
+        'responsiveness','selectiveness','sensitiveness','submissiveness',
+        'successfulness','supportiveness','thoughtfulness','assertiveness',
+        'thankfulness','gratefulness','hopefulness','resourcefulness',
+        'meaningfulness','cheerfulness','forgetfulness','restfulness',
+      ]);
+      const waWords = q.wa.split(/\s+/);
+      const nonsenseWord = waWords.find(w => /[a-z]+(tion|ment|ness|ful|ous|ive|al|ed|ing|ly)(tion|ness)$/i.test(w) && w.length > 10 && !X39_WHITELIST.has(w.toLowerCase()));
+      if (nonsenseWord) {
         result.add('X39', SEV.S, `Q${qid}: wa="${q.wa}" — 존재하지 않는 어형변환`);
       }
     }
