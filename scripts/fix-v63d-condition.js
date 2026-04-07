@@ -28,8 +28,8 @@ function processFile(file) {
     if (q.fmt !== 'written') continue;
     const typeNorm = (q.type || '').trim();
     const stem = (q.stem || '').toString();
-    if (!(typeNorm === '영작' || stem.includes('영작'))) continue;
-    if (stem.includes('조건') || stem.includes('사용할 것') || stem.includes('사용하여')) continue;
+    if (!(typeNorm.includes('영작') || stem.includes('영작'))) continue;
+    if (stem.includes('조건') || stem.includes('사용할 것') || stem.includes('사용하여') || stem.includes('단어 사용') || stem.includes('단어로')) continue;
 
     const wa = (q.wa || '').toString().trim();
     if (!wa) {

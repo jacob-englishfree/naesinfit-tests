@@ -366,9 +366,10 @@ function validate(jsonPath) {
       }
     }
 
-    // V62: "위 글의 빈칸" / "위 빈칸" stem인데 passage에 빈칸 없음
-    if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸')) && !passage.includes('____')) {
-      result.add('V62', SEV.S, `Q${qid}: stem에 "위 빈칸"이라고 했는데 passage에 빈칸(____) 없음`);
+    // V62: "빈칸에 들어갈"/"위 글의 빈칸"/"위 빈칸" stem인데 passage에 빈칸 없음
+    // ⛔ 어법/어휘/추론 모두 포함. passage가 존재하는 경우만 (passage 자체가 없는 유형은 X40이 처리)
+    if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸') || stem.includes('빈칸에 들어갈') || stem.includes('빈 칸에 들어갈')) && passage.trim().length > 10 && !passage.includes('____') && !passage.includes('_____')) {
+      result.add('V62', SEV.S, `Q${qid}: stem에 "빈칸"이라고 했는데 passage에 빈칸(____) 없음 — 풀 수 없음`);
     }
 
     // V63: passage 2문장 이하 빈 화면 (서술형 영작/영영풀이 제외)
@@ -392,9 +393,26 @@ function validate(jsonPath) {
     }
 
     // V63-D: 서술형 조건 명확성 — 영작/어순배열은 조건 필수
-    if (q.fmt === 'written' && (typeNorm === '영작' || stem.includes('영작'))) {
-      if (!stem.includes('조건') && !stem.includes('사용할 것') && !stem.includes('사용하여')) {
+    // typeNorm이 '영작'/'서술형 — 영작'/'조건영작' 등 포함
+    if (q.fmt === 'written' && (typeNorm.includes('영작') || stem.includes('영작'))) {
+      if (!stem.includes('조건') && !stem.includes('사용할 것') && !stem.includes('사용하여') && !stem.includes('단어 사용') && !stem.includes('단어로')) {
         result.add('V63-D', SEV.A, `Q${qid}: 영작 문항인데 조건이 없음 — "조건:" 명시 필수`);
+      }
+    }
+
+    // V67-H: 함축의미 추론 — passage에 <u> 밑줄 필수 (stem이 "밑줄 친" 명시 안 해도)
+    if (typeNorm === '함축의미 추론' || typeNorm === '함축의미추론') {
+      if (!passage.includes('<u>') && !passage.includes('<b>')) {
+        result.add('V67-H', SEV.S, `Q${qid}: 함축의미 추론인데 passage에 <u> 밑줄 없음 — 대상 구절 표시 필수`);
+      }
+    }
+
+    // V63-E: 어형변환 — stem에 "괄호 안의"라 했는데 passage/stem에 (word) 또는 [word] 없음
+    if (typeNorm.includes('어형') && (stem.includes('괄호 안의') || stem.includes('괄호 속의') || stem.includes('괄호안의'))) {
+      const parenRe = /[\(\[][A-Za-z][A-Za-z\s\-']*[\)\]]/;
+      const hasParen = parenRe.test(passage) || parenRe.test(stem);
+      if (!hasParen) {
+        result.add('V63-E', SEV.S, `Q${qid}: 어형변환 "괄호 안의 단어" stem인데 괄호가 없음 — 학생이 변환 대상 모름`);
       }
     }
 
@@ -421,7 +439,8 @@ function validate(jsonPath) {
 
     // V67: stem에 "밑줄 친"이 있으면 passage에 <u> 태그 필수 (유형 무관 통합)
     // 영영풀이는 V76에 의해 passage=null 필수이므로 V67 제외. 어형변환은 stem 오염 가능.
-    const V67_EXEMPT_TYPES = ['영영풀이 매칭', '영영풀이', '어형 변환', '서술형 — 어형변환', '함축의미 추론', '서술형 — 핵심단어', '내용이해 T/F', '오류찾기'];
+    // ⛔ '함축의미 추론' 제거: 함축의미는 밑줄 구절이 반드시 있어야 풀 수 있음
+    const V67_EXEMPT_TYPES = ['영영풀이 매칭', '영영풀이', '어형 변환', '서술형 — 어형변환', '서술형 — 핵심단어', '내용이해 T/F', '오류찾기'];
     if ((stem.includes('밑줄 친') || stem.includes('밑줄친')) && !V67_EXEMPT_TYPES.includes(typeNorm)) {
       if (!passage.includes('<u>')) {
         result.add('V67', SEV.S, `Q${qid}: stem에 "밑줄 친"이 있는데 passage에 <u> 밑줄 없음`);
