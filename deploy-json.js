@@ -40,6 +40,8 @@ const VALID_TEXTBOOK_PATHS = [
   '영어1/미래엔김성연', '영어1/비상홍', '영어1/지학사신상근',
   '영어1/천재강상구', '영어1/천재조수경',
   '영어2/YBM한상호',
+  '중2/YBM김은형',
+  '중3/미래엔최연희',
 ];
 
 const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어'];
@@ -81,11 +83,11 @@ function validatePath(jsonPath) {
       errors.push(`교과서 경로 깊이 부족: ${rel}`);
       return errors;
     }
-    const textbookPath = `${parts[1]}/${parts[2]}`;
+    const textbookPath = `${parts[1]}/${parts[2]}`.normalize('NFC');
     if (!VALID_TEXTBOOK_PATHS.includes(textbookPath)) {
       errors.push(`미등록 교과서: "${textbookPath}"\n  등록된 교과서: ${VALID_TEXTBOOK_PATHS.join(', ')}`);
     }
-    const unit = parts[3];
+    const unit = parts[3].normalize('NFC');
     if (!VALID_UNIT_PATTERN.test(unit)) {
       errors.push(`잘못된 단원명: "${unit}" (예: 1과, 2과, 1강)`);
     }
@@ -186,11 +188,19 @@ function validateSchema(jsonPath) {
     }
 
     // ⛔ 정답노출 검증: 정답 선지가 passage에 그대로 포함
+    // 내용일치/불일치/빈칸추론/T·F 등 원문 기반 유형은 제외 (원문 문장이 선지에 당연히 포함)
     if (q.fmt === 'mc' && q.ch && q.ans >= 1 && q.ans <= (q.ch.length || 4)) {
-      const correct = (q.ch[q.ans - 1] || '').replace(/<[^>]*>/g, '').trim().toLowerCase();
-      const pass = (q.passage || '').replace(/<[^>]*>/g, '').toLowerCase();
-      if (correct.length > 15 && pass.includes(correct)) {
-        errors.push(`Q${i + 1}: 정답노출 — 정답선지가 passage에 그대로 포함`);
+      const type = (q.type || '').toLowerCase();
+      const stem = (q.stem || '').toLowerCase();
+      const skipTypes = ['내용이해', '내용일치', '내용불일치', 't/f', '빈칸추론', '빈칸어휘', '빈칸 어휘 완성', '오류찾기'];
+      const isContentBased = skipTypes.some(t => type.includes(t)) ||
+        /일치|불일치|t\s*\/?\s*f|빈칸/.test(stem);
+      if (!isContentBased) {
+        const correct = (q.ch[q.ans - 1] || '').replace(/<[^>]*>/g, '').trim().toLowerCase();
+        const pass = (q.passage || '').replace(/<[^>]*>/g, '').toLowerCase();
+        if (correct.length > 15 && pass.includes(correct)) {
+          errors.push(`Q${i + 1}: 정답노출 — 정답선지가 passage에 그대로 포함`);
+        }
       }
     }
 

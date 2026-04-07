@@ -210,6 +210,12 @@ function fixFile(filePath) {
     // Validate ch array
     if (!Array.isArray(q.ch) || q.ch.length < 2) return;
 
+    // ⛔ 어법형(마커 라벨만 있는 ch) 셔플 금지 — ch 순서 = passage 밑줄 순서
+    const isMarkerOnly = q.ch.every(c => /^[①②③④⑤⑥⑦⑧⑨⑩]\s*$/.test(String(c).trim()) || /^[①②③④⑤]\s+\S{1,20}$/.test(String(c).trim()));
+    const stem = (q.stem || '') + ' ' + (q.type || '');
+    const isGrammar = /어법|어형|부적절/.test(stem);
+    if (isMarkerOnly || isGrammar) return;
+
     const { ch: newCh, ans: newAns } = rotateChoices(q.ch, q.ans, target);
 
     // Verify the correct content is preserved
