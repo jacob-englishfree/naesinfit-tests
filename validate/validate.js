@@ -635,11 +635,12 @@ function validate(jsonPath) {
       });
     }
 
-    // X40: stem이 '다음 글'/'이 글'/'밑줄' 참조하는데 passage 없음
+    // X40: stem이 '다음 글'/'이 글'/'본문'/'밑줄' 참조하는데 passage 없음
     // 문장삽입/순서배열은 passage 없이 stem에 텍스트를 포함하므로 제외 (V63-B 참조)
-    if (q.fmt === 'mc' && !['문장삽입', '순서배열', '글순서'].includes(typeNorm)) {
+    // ⛔ mc/written 모두 검사: 서술형도 "이 글에서..." stem이면 passage 필수
+    if (!['문장삽입', '순서배열', '글순서'].includes(typeNorm)) {
       const stemPlain = (q.stem || '').replace(/<[^>]+>/g, '');
-      if ((stemPlain.includes('다음 글') || stemPlain.includes('이 글') || stemPlain.includes('밑줄 친')) && (!passage || passage.trim().length === 0)) {
+      if ((stemPlain.includes('다음 글') || stemPlain.includes('이 글') || stemPlain.includes('본문') || stemPlain.includes('윗글') || stemPlain.includes('위 글') || stemPlain.includes('밑줄 친')) && (!passage || passage.trim().length === 0)) {
         // Skip if stem itself contains substantial english (passage embedded in stem)
         const stemEng = (stemPlain.match(/[a-zA-Z]+/g) || []).length;
         if (stemEng < 20) {
