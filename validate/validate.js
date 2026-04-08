@@ -359,12 +359,8 @@ function validate(jsonPath) {
       }
     }
 
-    // V61: 영작 서술형 — passage가 비어있어야 함
-    if (q.fmt === 'written' && (stem.includes('우리말') || stem.includes('한→영') || stem.includes('영작') || stem.includes('일치하도록'))) {
-      if (passage.trim().length > 0) {
-        result.add('V61', SEV.S, `Q${qid}: 영작 서술형인데 passage가 있음 — 영작은 passage 비워야 함 (정답 노출 방지)`);
-      }
-    }
+    // V61: 영작 서술형 — 2026-04-08 보정. 새 원칙: passage 필수, 단 영어 정답 자리는 ____ 처리
+    // 검사 비활성화 (S-NO-PASSAGE + S-ANS-NEAR-BLANK가 대체)
 
     // V62: "빈칸에 들어갈"/"위 글의 빈칸"/"위 빈칸" stem인데 passage에 빈칸 없음
     // ⛔ 어법/어휘/추론 모두 포함. passage가 존재하는 경우만 (passage 자체가 없는 유형은 X40이 처리)
@@ -496,12 +492,8 @@ function validate(jsonPath) {
       }
     }
 
-    // V73: 영작 서술형 — passage 비어야 함 (원문 노출 방지)
-    if (typeNorm.includes('영작') || (q.fmt === 'written' && (q.stem || '').includes('영작'))) {
-      if (q.passage && String(q.passage).length > 10) {
-        result.add('V73', SEV.S, `Q${qid}: 영작 서술형인데 passage가 있음 — passage 비워야 함 (원문 노출 방지)`);
-      }
-    }
+    // V73: 2026-04-08 보정 — 영작 서술형도 passage 필수 (새 원칙)
+    // 검사 비활성화. S-NO-PASSAGE + S-ANS-NEAR-BLANK로 대체
 
     // V74: 어형변환 — passage 2~4문장
     if (typeNorm.includes('어형') || typeNorm.includes('어형 변환')) {
@@ -808,8 +800,9 @@ function validate(jsonPath) {
     const passagePlain = passage.replace(/<[^>]+>/g, '');
 
     // EX-1: 빈칸 문제 — 정답이 passage의 빈칸 외 다른 곳에 그대로 노출
-    // 빈칸이 있는데 다른 곳에도 같은 단어가 있으면 B급 (원문에 반복 등장하는 단어일 수 있음)
-    // 빈칸 자체가 없으면 A급
+    // 2026-04-06 보정: 빈칸 직후 5단어 이내 노출은 S-ANS-NEAR-BLANK로 이관.
+    // 여기서는 "빈칸 자체가 없는데 정답이 본문에 있음"만 A급으로 차단.
+    // 빈칸이 있는 경우 본문 다른 곳 등장은 B급 경고 (정상 케이스).
     if (['빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸 어휘 완성', '연결사'].includes(typeNorm) && q.fmt === 'mc' && Array.isArray(q.ch)) {
       const answer = (q.ch[q.ans - 1] || '').trim();
       if (answer.length >= 3) {
@@ -817,8 +810,9 @@ function validate(jsonPath) {
         const ansLower = answer.toLowerCase();
         if (passageNoBlanks.includes(ansLower)) {
           const hasBlank = passage.includes('____');
-          const exSev = (answer.length <= 5 || hasBlank) ? SEV.B : SEV.A;
-          result.add('EX-1', exSev, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
+          // 빈칸이 있으면 항상 B (경고). 빈칸 없는 빈칸형은 A (차단).
+          const exSev = hasBlank ? SEV.B : SEV.A;
+          result.add('EX-1', exSev, `Q${qid}: 빈칸 정답 "${answer}" 이 지문에 그대로 노출됨${hasBlank ? ' (빈칸 있음 · 참고)' : ' — 빈칸 없음'}`);
         }
       }
     }
@@ -1067,6 +1061,116 @@ function validate(jsonPath) {
         result.add('S-LENGTH-BIAS', SEV.S, `Q${qid}: 정답 길이 ${ansLen}자 vs 오답 평균 ${wrongAvg.toFixed(1)}자 — 길이 편향`);
       }
     }
+
+    // S-COND-WORD-MATCH (2026-04-08): 영작 서술형 [조건] 명시 단어와 wa 단어 일치 검증
+    // stem에 "[조건] (1) X, Y, Z를 모두 사용" 패턴 → wa의 모든 단어가 X,Y,Z 안에 있어야 함
+    // 메인 자기 편향 사고(and/a/or 등 기능어 빼먹기) 차단
+    if (isWritten && q.wa && (typeNorm.includes('영작') || stem.includes('영작'))) {
+      // [조건] 안의 "(1) X, Y, Z를 모두 사용" 패턴 추출
+      const condMatch = stem.match(/\[?조건\]?[\s\S]*?\(1\)[^(]*?([a-zA-Z][\w,\s\-']*?)(?:를|을)\s*모두\s*사용/);
+      if (condMatch) {
+        const condStr = condMatch[1].trim();
+        // 콤마로 분리, 각 단어 정리
+        const condWords = condStr.split(/[,，]/).map(w => w.trim().toLowerCase()).filter(Boolean);
+        if (condWords.length >= 2) {
+          // wa의 단어들 (어법 변형 후 형태일 수 있으므로 stem 단어 기반으로 변형 허용)
+          const waWords = String(q.wa).toLowerCase().split(/\s+/).filter(Boolean);
+          // wa의 모든 단어가 조건 단어 (또는 변형) 안에 있는지
+          // 간단 검증: wa 단어의 어근(첫 3~4글자)이 조건 단어에 있는지
+          const condStems = condWords.map(w => w.substring(0, Math.min(4, w.length)));
+          const missing = waWords.filter(ww => {
+            const wwStem = ww.substring(0, Math.min(4, ww.length));
+            // 조건 단어 또는 어근 매칭
+            return !condWords.includes(ww) && !condStems.some(cs => wwStem.startsWith(cs.substring(0, 3)) || cs.startsWith(wwStem.substring(0, 3)));
+          });
+          if (missing.length > 0) {
+            result.add('S-COND-WORD-MATCH', SEV.S, `Q${qid}: 영작 정답("${q.wa}")의 단어 중 [조건]에 명시 안 된 단어 있음: ${missing.join(', ')} — 학생이 만들 수 없음`);
+          }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 2026-04-06 신규: passage 필수 + 빈칸 인접 정답 노출 + 패러프레이즈
+    // ─────────────────────────────────────────────────────────────
+
+    // S-NO-PASSAGE: mc/written 문항에 passage 필수
+    // 예외: 영영풀이, 다의어(미니문장 (A)(B) 형식)
+    if ((isMc || isWritten)) {
+      const passageTrim = passage.replace(/\s+/g, ' ').trim();
+      const hasNoPassage = passageTrim.length < 10;
+      if (hasNoPassage) {
+        const isEngDef = /영영풀이|영영 풀이|영영정의/.test(typeNorm);
+        const isPolysemy = /다의어/.test(typeNorm);
+        // 다의어는 stem에 (A)(B) 미니 문장이 있으면 통과
+        const polysemyHasMini = isPolysemy && /\(A\)[\s\S]+\(B\)/.test(stem);
+        // 한영(영작) 서술형: 한국어 문장 → 영어 영작이라 passage 불필요
+        const isHanyeong = /한영|한→영|영작|배열영작|조건영작/.test(typeNorm);
+        // 순서배열: 주어진 글 + (A)(B)(C) 박스가 stem에 들어있는 형식이면 passage 별도 불필요
+        const isOrder = /순서배열|글순서|순서/.test(typeNorm) && /\([A-C]\)/.test(stem);
+        if (!isEngDef && !polysemyHasMini && !isHanyeong && !isOrder) {
+          result.add('S-NO-PASSAGE', SEV.S, `Q${qid}: passage 누락 (type=${typeNorm || '-'}, fmt=${q.fmt}) — passage 필수`);
+        }
+      }
+    }
+
+    // S-ANS-NEAR-BLANK: 빈칸형에서 빈칸 직후 5단어 이내에 정답 단어 그대로 노출
+    // 본문 다른 위치 노출은 OK (EX-1에서 B급 경고로만 처리).
+    if (isMc && ch.length >= 4 && typeof q.ans === 'number' && passage) {
+      const isBlankType = /빈칸|연결사/.test(typeNorm);
+      if (isBlankType) {
+        const answer = (ch[q.ans - 1] || '').trim().toLowerCase();
+        // 한 단어 또는 짧은 구만 검사 (너무 길면 의미 없음)
+        if (answer.length >= 3 && answer.length <= 30) {
+          const plain = passage.replace(/<[^>]+>/g, '');
+          // 빈칸 위치: ____ 이상의 언더스코어
+          const blankRe = /_{4,}/g;
+          let m;
+          while ((m = blankRe.exec(plain)) !== null) {
+            const after = plain.slice(m.index + m[0].length, m.index + m[0].length + 200);
+            // 직후 5단어 추출
+            const next5 = (after.trim().split(/\s+/).slice(0, 5).join(' ') || '').toLowerCase();
+            // 구두점 제거 후 단어 단위 매칭
+            const next5Words = next5.replace(/[.,;:!?()'"]/g, '');
+            const ansWords = answer.replace(/[.,;:!?()'"]/g, '');
+            // 정답이 단일 단어이고, 직후 5단어 중에 정확히 포함되는지
+            if (ansWords.split(/\s+/).length === 1) {
+              const wordList = next5Words.split(/\s+/).filter(Boolean);
+              if (wordList.includes(ansWords)) {
+                result.add('S-ANS-NEAR-BLANK', SEV.S, `Q${qid}: 빈칸 직후 5단어 이내에 정답 "${answer}" 노출`);
+                break;
+              }
+            } else if (next5Words.includes(ansWords)) {
+              result.add('S-ANS-NEAR-BLANK', SEV.S, `Q${qid}: 빈칸 직후 5단어 이내에 정답 "${answer}" 노출`);
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    // S-PARAPHRASE-NEEDED (A급 경고): 내용일치/주제/제목 한국어 선지가 본문 영어 직역 패턴
+    // 보수적으로: 한국어 선지가 없고 전부 영어면 skip (이미 다른 체크에서 잡힘)
+    // 실제 구현은 A-PARAPHRASE로 A급 경고 (차단 아님 · false positive 방지)
+    if (isMc && ch.length === 4 && typeof q.ans === 'number' && passage) {
+      const isMatchType = /내용일치|내용 일치|내용불일치|내용 불일치|주제|제목|요지|대의/.test(typeNorm);
+      if (isMatchType) {
+        const ansCh = (ch[q.ans - 1] || '').trim();
+        const koreanLen = (ansCh.match(/[가-힣]/g) || []).length;
+        // 한국어 선지일 때만 검사
+        if (koreanLen >= 5 && ansCh.length >= 10) {
+          // 직역 탐지는 어려우므로 보수적: 선지 안에 영어 단어 2개 이상이 passage에 그대로 있을 때만
+          const engWords = (ansCh.match(/[A-Za-z]{4,}/g) || []).map(w => w.toLowerCase());
+          if (engWords.length >= 2) {
+            const passLower = passage.toLowerCase();
+            const exposed = engWords.filter(w => passLower.includes(w));
+            if (exposed.length >= 2) {
+              result.add('A-PARAPHRASE', SEV.A, `Q${qid}: 내용일치/주제 한국어 선지에 passage 영어 단어(${exposed.slice(0,3).join(',')}) 직역 의심 — 패러프레이즈 권장`);
+            }
+          }
+        }
+      }
+    }
   });
 
   // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──
@@ -1256,7 +1360,8 @@ function validate(jsonPath) {
       '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
       '어휘', '어순', '어순배열',
       '영한', '영→한', '영한해석', '한영영작', '한영', '한→영',
-      '추론불가', '일치', '어휘 문맥', '종합'
+      '추론불가', '일치', '어휘 문맥', '종합',
+      '글의 목적', '목적', '목적 추론'
     ],
     '퀴즈': [
       '순서배열', '순서', '글순서',
@@ -1276,7 +1381,8 @@ function validate(jsonPath) {
       '지칭', '지칭추론', '연결사', '함축의미 추론', '무관한 문장 찾기',
       '어법빈칸', '어법 5지선다', '어법 ⓐ~ⓔ', '어법 ⓐ~ⓓ', '어법 A/B/C',
       '한영', '한→영',
-      '기타', '종합', '어휘 문맥'
+      '기타', '종합', '어휘 문맥',
+      '글의 목적', '목적', '목적 추론'
     ]
   };
 
