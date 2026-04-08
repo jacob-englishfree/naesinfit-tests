@@ -1104,11 +1104,9 @@ function validate(jsonPath) {
         const isPolysemy = /다의어/.test(typeNorm);
         // 다의어는 stem에 (A)(B) 미니 문장이 있으면 통과
         const polysemyHasMini = isPolysemy && /\(A\)[\s\S]+\(B\)/.test(stem);
-        // 한영(영작) 서술형: 한국어 문장 → 영어 영작이라 passage 불필요
-        const isHanyeong = /한영|한→영|영작|배열영작|조건영작/.test(typeNorm);
-        // 순서배열: 주어진 글 + (A)(B)(C) 박스가 stem에 들어있는 형식이면 passage 별도 불필요
-        const isOrder = /순서배열|글순서|순서/.test(typeNorm) && /\([A-C]\)/.test(stem);
-        if (!isEngDef && !polysemyHasMini && !isHanyeong && !isOrder) {
+        // 순서배열/글순서/문장삽입은 stem에 본문 텍스트가 포함되므로 passage 없음 허용 (V63-B와 정합)
+        const isOrderInsert = /순서배열|글순서|문장삽입|어순배열/.test(typeNorm);
+        if (!isEngDef && !polysemyHasMini && !isOrderInsert) {
           result.add('S-NO-PASSAGE', SEV.S, `Q${qid}: passage 누락 (type=${typeNorm || '-'}, fmt=${q.fmt}) — passage 필수`);
         }
       }
