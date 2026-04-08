@@ -893,6 +893,182 @@ function validate(jsonPath) {
     // end EX block
   });
 
+  // ───────────────────────────────────────────────────────────────
+  // S급 추가 검사 11종 (2026-04-06) — 사고 재발 방지, 보수적 매칭
+  // ───────────────────────────────────────────────────────────────
+  const COMMON_EN_SHORT = new Set(['the','a','an','of','to','in','on','at','by','it','is','be','as','or','if','no','so','do','we','he','i','me','my','us','up','go','no','am','us','our','his','her','its','for','and','but','not','was','are','has','had','can','may','too','out','off','use','one','two','all','any','new','old','how','why','who','you','she','him','them','this','that','from','with','into','than','then','when','what','were','have','been','will','also','more','some','such','most','both','each','does','only','very','over','many','much','ad','ads','dr','mr','ms','mrs','st','co','tv','pc','ai','id','uk','us','eu','un','vs','ok','tax','etc','cf','eg','ie']);
+  const META_PATTERNS = [
+    /\(원문에 없[는음]/,
+    /\[\d점\]/,
+    /✅|❌/,
+    /\(보기\)/,
+    /출제자/,
+    /정답\s*:/
+  ];
+
+  questions.forEach((q, i) => {
+    const qid = q.id || (i + 1);
+    const stem = (q.stem || '').toString();
+    const passage = (q.passage || '').toString();
+    const ch = Array.isArray(q.ch) ? q.ch.map(c => (c || '').toString()) : [];
+    const wa = (q.wa || '').toString();
+    const typeNorm = (q.type || '').trim();
+    const isMc = q.fmt === 'mc';
+    const isWritten = q.fmt === 'written';
+
+    // S-META-LEAK: 메타 텍스트 노출
+    const metaTargets = [
+      { name: 'passage', txt: passage },
+      { name: 'stem', txt: stem },
+      ...ch.map((c, idx) => ({ name: `ch[${idx + 1}]`, txt: c }))
+    ];
+    for (const t of metaTargets) {
+      for (const pat of META_PATTERNS) {
+        if (pat.test(t.txt)) {
+          result.add('S-META-LEAK', SEV.S, `Q${qid}: ${t.name}에 메타 텍스트 노출 — ${pat}`);
+          break;
+        }
+      }
+    }
+
+    // S-PREFIX-DOMINANT: ch 4개 중 3+가 동일한 15자+ prefix (긴 문장형 ch만)
+    // 조합형/단어형 제외 (공유 prefix가 정상)
+    const isCombinatorial = /\(A\)\(B\)\(C\)|조합|동의어|반의어|영영풀이|한영|어형|다의어/.test(typeNorm);
+    if (isMc && ch.length >= 4 && !isCombinatorial) {
+      const avgLen = ch.reduce((s, c) => s + c.length, 0) / ch.length;
+      if (avgLen >= 30) {
+        const norm = ch.map(c => c.replace(/\s+/g, ' ').trim().toLowerCase());
+        const prefixCounts = {};
+        for (const c of norm) {
+          if (c.length >= 15) {
+            const p = c.slice(0, 15);
+            prefixCounts[p] = (prefixCounts[p] || 0) + 1;
+          }
+        }
+        for (const [p, cnt] of Object.entries(prefixCounts)) {
+          if (cnt >= 3) {
+            result.add('S-PREFIX-DOMINANT', SEV.S, `Q${qid}: ch 4개 중 ${cnt}개가 동일 prefix "${p}..." — 형식 편향`);
+            break;
+          }
+        }
+      }
+    }
+
+    // S-CIRCULAR-STEM: 서술형에서 wa가 stem에 따옴표로 노출
+    if (isWritten && wa) {
+      const isDefinitionType = /다음 한국어 뜻|영영풀이|뜻에 해당하는|해당하는 단어/.test(stem);
+      if (!isDefinitionType) {
+        const waEsc = wa.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const quotePat = new RegExp(`['"\u2018\u2019\u201C\u201D]\\s*${waEsc}\\s*['"\u2018\u2019\u201C\u201D]|\\*\\*${waEsc}\\*\\*`, 'i');
+        if (quotePat.test(stem)) {
+          result.add('S-CIRCULAR-STEM', SEV.S, `Q${qid}: 서술형 wa("${wa}")가 stem에 따옴표로 노출 — 정답 노출`);
+        }
+      }
+    }
+
+    // S-MISSING-KOREAN: "우리말에 맞도록"/"다음 우리말" 등인데 한국어 단서 부족
+    if (/우리말에 맞도록|다음 우리말|우리말 뜻|아래 우리말/.test(stem)) {
+      // 지시문 외에 한국어 단서가 더 있어야 함
+      const koreanChars = (stem.match(/[가-힣]/g) || []).length;
+      // 지시문 자체가 길면 보통 15자+ 한국어. 추가 한국어 5자가 더 있어야 한다.
+      // 보수적으로: 한국어 총 길이가 15자 이하이면 단서 부족
+      if (koreanChars <= 15) {
+        result.add('S-MISSING-KOREAN', SEV.S, `Q${qid}: "우리말" 지시문이 있는데 stem 한국어 ${koreanChars}자 — 단서 부족`);
+      }
+    }
+
+    // S-WORDCOUNT-MISMATCH: stem에 (N단어) 명시 + wa 단어 수 불일치
+    if (wa) {
+      const m = stem.match(/\((?:조건\s*:\s*)?(\d{1,2})\s*단어(?:\s*사용)?\)/);
+      if (m) {
+        const expected = parseInt(m[1], 10);
+        const actual = wa.trim().split(/\s+/).filter(Boolean).length;
+        if (actual !== expected) {
+          result.add('S-WORDCOUNT-MISMATCH', SEV.S, `Q${qid}: stem 명시 ${expected}단어 vs wa 실제 ${actual}단어`);
+        }
+      }
+    }
+
+    // S-CH-TRUNCATED: ch 끝이 미완결 영어 단어 또는 한국어 어미 없이 끝남
+    if (isMc && ch.length) {
+      ch.forEach((c, idx) => {
+        const trimmed = c.trim();
+        if (!trimmed) return;
+        // T/F/O/X 등 짧은 정답 라벨 제외
+        if (trimmed.length <= 5) return;
+        // 영어 ch (한글 거의 없음)
+        const koreanCnt = (trimmed.match(/[가-힣]/g) || []).length;
+        const isEnglish = koreanCnt < 2 && /[a-zA-Z]/.test(trimmed);
+        if (isEnglish) {
+          // ... 으로 끝나면서 길이 50자+
+          if (/\.\.\.$/.test(trimmed) && trimmed.length >= 50) {
+            result.add('S-CH-TRUNCATED', SEV.S, `Q${qid}: ch[${idx + 1}] "..." 절단 (${trimmed.length}자)`);
+            return;
+          }
+          // 마지막 단어가 1~3자이고 알려진 단어 아님
+          const lastWord = (trimmed.match(/([A-Za-z]+)\s*[.!?]?$/) || [, ''])[1];
+          if (lastWord && lastWord.length >= 1 && lastWord.length <= 2) {
+            if (!COMMON_EN_SHORT.has(lastWord.toLowerCase()) && !/[.!?"'\)\]]$/.test(trimmed)) {
+              result.add('S-CH-TRUNCATED', SEV.S, `Q${qid}: ch[${idx + 1}] 끝 단어 "${lastWord}" — 미완결 의심`);
+            }
+          }
+        }
+      });
+    }
+
+    // S-MARKER-LEAK: passage에 ①②③④⑤ 마커가 있는데 해당 유형 아닐 때
+    const markerCount = (passage.match(/[①②③④⑤]/g) || []).length;
+    const markerAllowedTypes = [
+      '(A)(B)(C) 조합형','어법','어법 오류','어법성 판단','오류 찾기','문법 오류',
+      '내용일치','내용 일치','내용불일치','내용 불일치',
+      '문장삽입','문장 삽입','순서배열','글의 순서','순서','어순배열','문맥상 부적절한 어휘','부적절한 어휘'
+    ];
+    const typeNoSpace = typeNorm.replace(/\s+/g, '');
+    if (markerCount >= 2 && !markerAllowedTypes.some(t => typeNoSpace.includes(t.replace(/\s+/g,'')))) {
+      result.add('S-MARKER-LEAK', SEV.S, `Q${qid}: passage에 마커 ${markerCount}개 노출 (type=${typeNorm})`);
+    }
+
+    // S-TYPE-CONTENT-MISMATCH: 내용일치인데 ch 4개 모두 부정문
+    if (typeNorm.replace(/\s+/g, '') === '내용일치' && isMc && ch.length === 4) {
+      const negativeCount = ch.filter(c => /^It is not|^원문에 없|^다음 중 .*아니|아니다\.?$|않다\.?$|없다\.?$/.test(c.trim())).length;
+      if (negativeCount === 4) {
+        result.add('S-TYPE-CONTENT-MISMATCH', SEV.S, `Q${qid}: 내용일치인데 ch 4개 모두 부정형 — 정답=긍정 구조 위반`);
+      }
+    }
+
+    // S-PASSAGE-1-SENTENCE: mc 문항 passage가 1문장
+    const noPassageOk = ['동의어','반의어','영영풀이','한영','어형변환','다의어'];
+    if (isMc && passage && !noPassageOk.some(t => typeNorm.includes(t))) {
+      const sentCount = (passage.replace(/\s+/g, ' ').match(/[.!?]['")\]]?(\s|$)/g) || []).length;
+      if (sentCount <= 1 && passage.replace(/\s+/g,'').length > 20) {
+        result.add('S-PASSAGE-1-SENTENCE', SEV.S, `Q${qid}: mc passage가 1문장 — 너무 짧음`);
+      }
+    }
+
+    // S-WA-IN-PASSAGE: 서술형 wa가 passage에 그대로 등장 (단, 본문에서 찾기 유형 제외)
+    if (isWritten && wa && passage) {
+      const isFindInPassage = /본문에서 찾아|발췌|본문 그대로|본문에서 골라|지문에서 찾아/.test(stem);
+      // 어형변환: passage에 (원형) 형태가 있어 변형 정답이 substring으로 잡힘 / 한영: 한국어→영어 매칭
+      const isMorphOrK2E = typeNorm.includes('어형') || typeNorm.includes('한영');
+      if (!isFindInPassage && !isMorphOrK2E) {
+        const waNorm = wa.trim().toLowerCase();
+        if (waNorm.length >= 4 && passage.toLowerCase().includes(waNorm)) {
+          result.add('S-WA-IN-PASSAGE', SEV.S, `Q${qid}: 서술형 wa가 passage에 그대로 노출 — 정답 노출`);
+        }
+      }
+    }
+
+    // S-LENGTH-BIAS: mc 정답 길이가 오답 평균의 2.5배+
+    if (isMc && ch.length === 4 && typeof q.ans === 'number' && q.ans >= 1 && q.ans <= 4) {
+      const ansLen = ch[q.ans - 1].length;
+      const wrong = ch.filter((_, idx) => idx !== q.ans - 1);
+      const wrongAvg = wrong.reduce((s, c) => s + c.length, 0) / wrong.length;
+      if (wrongAvg >= 5 && ansLen >= wrongAvg * 2.5) {
+        result.add('S-LENGTH-BIAS', SEV.S, `Q${qid}: 정답 길이 ${ansLen}자 vs 오답 평균 ${wrongAvg.toFixed(1)}자 — 길이 편향`);
+      }
+    }
+  });
+
   // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──
   if (questions.length === 20) {
     const ansDist = {};
