@@ -1091,6 +1091,19 @@ function validate(jsonPath) {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // S-TF-ORDER: T/F 2지선다는 ① T → ② F 순서 강제 (2026-04-09 추가)
+    // ─────────────────────────────────────────────────────────────
+    if (/T\/F|^TF$|TF 판별/.test(typeNorm) && Array.isArray(ch) && ch.length === 2) {
+      const ch0 = ch[0].trim().toUpperCase();
+      const ch1 = ch[1].trim().toUpperCase();
+      const isF0 = ch0 === 'F' || ch0.startsWith('F ') || ch0.startsWith('FALSE');
+      const isT1 = ch1 === 'T' || ch1.startsWith('T ') || ch1.startsWith('TRUE');
+      if (isF0 && isT1) {
+        result.add('S-TF-ORDER', SEV.S, `Q${qid}: T/F 순서가 F→T — 표준은 ① T → ② F`);
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // 2026-04-06 신규: passage 필수 + 빈칸 인접 정답 노출 + 패러프레이즈
     // ─────────────────────────────────────────────────────────────
 
