@@ -759,6 +759,35 @@ async function saveScoreToStudentWd(testType, score) {
   } catch (e) { console.warn('wd 저장 실패:', e); }
 }
 
+// Save per-question results to DB (for accuracy anomaly detection)
+async function saveQuestionResults(det){
+  const p=profile;const scopeStr=(S.sel&&S.sel.length)?S.sel.join(','):'';
+  if(!p.name||!scopeStr||!det||!det.length)return;
+  // Batch insert: 20문항씩 나눠서 전송 (한번에 너무 많으면 실패 가능)
+  const rows=det.map((d,i)=>({
+    student_name:p.name,
+    school:p.school||'',
+    scope:scopeStr,
+    test_type:S.tt||'',
+    question_index:i+1,
+    question_type:d.q.type||'',
+    question_stem:(d.q.stem||'').slice(0,200),
+    correct_ans:String(d.q.ans||''),
+    student_answer:d.ua!==undefined?String(d.ua):'',
+    is_correct:!!d.ok
+  }));
+  for(let i=0;i<rows.length;i+=20){
+    const batch=rows.slice(i,i+20);
+    try{
+      await fetch(`${SB_URL}/rest/v1/question_results`,{
+        method:'POST',
+        headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify(batch)
+      });
+    }catch(e){/* silent */}
+  }
+}
+
 // Save test score to DB
 async function saveScoreToDB(score,ok,no,timeSec){
   const p=profile;const xd=getXP();
@@ -4429,6 +4458,7 @@ function doSub(auto){
   // Save to DB (async)
   saveScoreToDB(score,ok,no,S.te).catch(()=>{});
   saveScoreToStudentWd(S.tt, score).catch(()=>{});
+  saveQuestionResults(det).catch(()=>{});
   // Transition to result after reveal
   setTimeout(()=>{
     _ov.classList.add('hide');
