@@ -1091,6 +1091,34 @@ function validate(jsonPath) {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // S-WRITTEN-TOKEN-LEAK (2026-04-09): 영작 보기 토큰이 정답 순서 그대로 나열되면 차단
+    // 학생이 보기를 베끼기만 하면 풀리는 가짜 영작 문제 영구 차단
+    // 룰: stem 안 <b>...</b> 박스 또는 단독 슬래시-나열 토큰 시퀀스가 wa의 단어 순서와 일치하면 S급 FAIL
+    // ─────────────────────────────────────────────────────────────
+    if (isWritten && q.wa && stem) {
+      const waNorm = String(q.wa).toLowerCase().replace(/[?.!,]/g, '').replace(/\s+/g, ' ').trim();
+      // <b>...</b> 박스 또는 stem 마지막 줄의 슬래시 나열 추출
+      const candidates = [];
+      const bMatches = [...stem.matchAll(/<b>([^<]+)<\/b>/g)];
+      for (const m of bMatches) {
+        const inner = m[1];
+        if (inner.includes('/') && inner.split('/').length >= 3) candidates.push(inner);
+      }
+      // stem 마지막 줄에 슬래시 나열만 있는 경우도 (HTML 태그 제거 후)
+      const tail = stem.replace(/<[^>]+>/g, '').split(/\n|<br>/).map(s=>s.trim()).filter(Boolean).pop() || '';
+      if (tail.includes('/') && tail.split('/').length >= 3) candidates.push(tail);
+      for (const cand of candidates) {
+        const tokens = cand.split('/').map(s => s.trim()).filter(Boolean);
+        if (tokens.length < 3) continue;
+        const seqNorm = tokens.join(' ').toLowerCase().replace(/[?.!,]/g, '').replace(/\s+/g, ' ').trim();
+        if (seqNorm === waNorm) {
+          result.add('S-WRITTEN-TOKEN-LEAK', SEV.S, `Q${qid}: 영작 보기 토큰 순서가 정답("${q.wa}") 그대로 — 학생이 베끼기만 하면 풀림. 알파벳순/셔플 필수`);
+          break;
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // S-TF-ORDER: T/F 2지선다는 ① T → ② F 순서 강제 (2026-04-09 추가)
     // ─────────────────────────────────────────────────────────────
     if (/T\/F|^TF$|TF 판별/.test(typeNorm) && Array.isArray(ch) && ch.length === 2) {
