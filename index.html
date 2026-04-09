@@ -1648,6 +1648,47 @@ function hasScopeData(path){
 
 let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,ti:null,tl:1200,tlf:1200,res:null,acc:{},rv:{},dir:'fwd'};
 
+// ━━ Preset 파라미터 처리 (학생 대시보드에서 통합 테스트로 들어올 때) ━━
+(function applyPreset(){
+  try {
+    const u = new URLSearchParams(location.search);
+    const preset = u.get('preset');
+    const presetType = u.get('type');
+    if (!preset) return;
+    const items = preset.split(',').filter(Boolean);
+    if (items.length === 0) return;
+    // 모드 자동 감지: 첫 항목 prefix로 결정
+    const first = items[0];
+    if (first.startsWith('부교재/')) S.mode = '부교재';
+    else if (first.startsWith('모의고사/')) S.mode = '모의고사';
+    else if (first.startsWith('교과서/')) S.mode = '교과서';
+    // 모드 prefix 제거하고 S.sel에 채우기 (각 카탈로그에 맞게)
+    S.sel = items.map(item => {
+      if (S.mode === '교과서') return item.replace(/^교과서\//, '');
+      return item;
+    });
+    // 테스트 타입 자동 설정
+    if (presetType === 'vocab') S.tt = 'vocab';
+    else if (presetType === 'workbook') S.tt = 'workbook';
+    else if (presetType === 'quiz') S.tt = 'quiz';
+    // 선택 화면으로 자동 이동
+    S.scr = 'select';
+    // 부교재/모의고사면 관련 아코디언 자동 펼치기
+    items.forEach(item => {
+      const parts = item.split('/');
+      if (S.mode === '부교재' && parts.length >= 4) {
+        // 부교재/시리즈/책/강 → b_시리즈, b_시리즈_책 펼치기
+        S.acc['b_'+parts[1]] = true;
+        S.acc['b_'+parts[1]+'_'+parts[2]] = true;
+        if (parts.length >= 5) S.acc['bsub_'+parts[1]+'_'+parts[2]+'_'+parts[3]] = true;
+      } else if (S.mode === '모의고사' && parts.length >= 3) {
+        S.acc['m_'+parts[1]] = true;
+        S.acc['m_'+parts[1]+'_'+parts[2]] = true;
+      }
+    });
+  } catch(e) { console.warn('preset 처리 실패:', e); }
+})();
+
 // ━━ Dark Mode ━━
 function initTheme(){const t=localStorage.getItem('nf_theme')||'light';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#111111':'#FFFFFF';}
 function toggleTheme(){const cur=document.documentElement.getAttribute('data-theme');const next=cur==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',next);localStorage.setItem('nf_theme',next);document.querySelector('meta[name="theme-color"]').content=next==='dark'?'#111111':'#FFFFFF';}
