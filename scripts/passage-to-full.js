@@ -158,13 +158,12 @@ function bestMatch(normExtract, fullSentsNorm, usedSet) {
 
 // Types that should NOT be converted (keep original passage)
 // 어형변환: 2~4 sentence limit (V74)
-// 서술형 — 영작: wa leaks into fullPassage (V69/S-WA-IN-PASSAGE)
 // 영영풀이 매칭: definition-based, no passage needed
+// 영작/찾기는 fullPassage 맥락 필수 → 변환 적용 (validate exempted)
 function isSkipType(type) {
   if (!type) return false;
   const t = String(type).replace(/\s+/g, '');
   if (/어형변환/.test(t)) return true;
-  if (/영작/.test(t)) return true; // 서술형 — 영작
   if (/영영풀이/.test(t)) return true;
   return false;
 }
@@ -204,15 +203,7 @@ function convertPassage(origPassage, fullPassage, qType, qStem, qWa) {
     return { ok: true, kind: 'skip-type', newPassage: origPassage, skipped: true };
   }
 
-  // Skip 찾기 서술형: stem says "본문에서 찾아" or "본문 속" — find-in-passage by design.
-  // wa exposure in fullPassage triggers V69/S-WA-IN-PASSAGE.
-  if (qStem && /본문에서\s*찾아|본문\s*속|본문에서\s*고르|글에서\s*찾아/.test(qStem)) {
-    return { ok: true, kind: 'skip-find-stem', newPassage: origPassage, skipped: true };
-  }
-  // Also skip if wa is short (≤2 words) — likely 찾기형 even without explicit stem hint
-  if (qWa && typeof qWa === 'string' && qWa.trim().split(/\s+/).length <= 2 && qType && /서술형/.test(qType)) {
-    return { ok: true, kind: 'skip-short-wa', newPassage: origPassage, skipped: true };
-  }
+  // 찾기/영작 서술형도 fullPassage 맥락 필수 (jacob 결정 2026-04-09)
 
   // Skip sentence-level 어법 (4 paraphrased sentences with ①②③④ at starts, no <u>)
   if (classify(origPassage) === 'sentence-grammar') {

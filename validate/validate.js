@@ -453,11 +453,15 @@ function validate(jsonPath) {
       }
     }
 
-    // V69: 서술형 — 정답(wa)이 passage에 문장 단위로 그대로 노출 (어형변환 제외)
+    // V69: 서술형 — 정답(wa)이 passage에 문장 단위로 그대로 노출 (어형변환/찾기/영작 제외)
+    // 찾기/영작은 fullPassage 맥락 제공이 필수라 노출 허용 (jacob 결정 2026-04-09)
     if (q.fmt === 'written' && q.wa && typeof q.wa === 'string') {
       const waLower = q.wa.toLowerCase().trim();
       const skipTypes = ['어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형'];
-      if (!skipTypes.includes(typeNorm) && waLower.length > 15) {
+      const stem = String(q.stem || '');
+      const isFindStem = /본문에서\s*찾아|본문\s*속|글에서\s*찾아|본문에서\s*고르/.test(stem);
+      const isWriting = /영작/.test(typeNorm) || /영작/.test(stem);
+      if (!skipTypes.includes(typeNorm) && !isFindStem && !isWriting && waLower.length > 15) {
         const passLower = passage.replace(/<[^>]+>/g, '').replace(/_{5,}/g, '').toLowerCase();
         if (passLower.includes(waLower)) {
           result.add('V69', SEV.S, `Q${qid}: 서술형 정답("${q.wa.substring(0,30)}...")이 passage에 문장 단위로 그대로 노출`);
@@ -1039,12 +1043,14 @@ function validate(jsonPath) {
       }
     }
 
-    // S-WA-IN-PASSAGE: 서술형 wa가 passage에 그대로 등장 (단, 본문에서 찾기 유형 제외)
+    // S-WA-IN-PASSAGE: 서술형 wa가 passage에 그대로 등장 (찾기/영작/어형/한영 유형 제외)
+    // 영작도 fullPassage 맥락 제공이 필수라 노출 허용 (jacob 결정 2026-04-09)
     if (isWritten && wa && passage) {
-      const isFindInPassage = /본문에서 찾아|발췌|본문 그대로|본문에서 골라|지문에서 찾아/.test(stem);
+      const isFindInPassage = /본문에서\s*찾아|본문\s*속|발췌|본문 그대로|본문에서\s*골라|지문에서\s*찾아|글에서\s*찾아/.test(stem);
+      const isWriting = /영작/.test(typeNorm) || /영작/.test(stem);
       // 어형변환: passage에 (원형) 형태가 있어 변형 정답이 substring으로 잡힘 / 한영: 한국어→영어 매칭
       const isMorphOrK2E = typeNorm.includes('어형') || typeNorm.includes('한영');
-      if (!isFindInPassage && !isMorphOrK2E) {
+      if (!isFindInPassage && !isWriting && !isMorphOrK2E) {
         const waNorm = wa.trim().toLowerCase();
         if (waNorm.length >= 4 && passage.toLowerCase().includes(waNorm)) {
           result.add('S-WA-IN-PASSAGE', SEV.S, `Q${qid}: 서술형 wa가 passage에 그대로 노출 — 정답 노출`);
