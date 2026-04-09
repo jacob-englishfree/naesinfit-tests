@@ -1043,6 +1043,28 @@ function validate(jsonPath) {
       }
     }
 
+    // S-PASSAGE-NOT-FULL: 모의/부교재 — passage가 fullPassage 90% 미만 (jacob 2026-04-09)
+    // 학생은 발췌가 아닌 fullPassage 통째에서 풀어야 함.
+    // 면제: 어형변환 (V74 길이 권장) / 영영풀이 (passage 불필요) / 문장단위 어법 / 짧은 자체완결 지문 (안내문 등)
+    if (data && data.fullPassage && passage && typeof passage === 'string') {
+      const subj = String((data.ei && data.ei.subject) || '');
+      const isMockOrSupp = /모의|수능특강|수능완성|EBS|부교재/.test(subj) || /모의고사|부교재/.test(String(data.ei && data.ei.pub || ''));
+      const fullLen = data.fullPassage.length;
+      if (isMockOrSupp && fullLen >= 200) {
+        const typeNoSpace = String(typeNorm || '').replace(/\s+/g, '');
+        // 면제: 어형변환/영영풀이/영작/어법/부적절 어휘 (paraphrased excerpts OK) + 찾기 stem
+        const skipFull = /어형변환|영영풀이|영작|^어법|문장단위어법|오류찾기|부적절/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
+        // 문장단위 어법: ①②③④ at sentence start, no <u>
+        const isSentLevelGrammar = /[①②③④⑤]\s*[A-Z]/.test(passage) && !/<u>/i.test(passage) && (passage.match(/[①②③④⑤]/g) || []).length >= 3;
+        if (!skipFull && !isSentLevelGrammar) {
+          const passLen = passage.length;
+          if (passLen < fullLen * 0.85) {
+            result.add('S-PASSAGE-NOT-FULL', SEV.S, `Q${qid}: passage(${passLen}자)가 fullPassage(${fullLen}자)의 85% 미만 — 모의/부교재는 fullPassage 통째 + 오버레이만 허용`);
+          }
+        }
+      }
+    }
+
     // S-WA-IN-PASSAGE: 서술형 wa가 passage에 그대로 등장 (찾기/영작/어형/한영 유형 제외)
     // 영작도 fullPassage 맥락 제공이 필수라 노출 허용 (jacob 결정 2026-04-09)
     if (isWritten && wa && passage) {
