@@ -21,6 +21,34 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA = path.join(ROOT, 'data');
 const CATALOG_PATH = path.join(ROOT, 'test-catalog.json');
 
+// ─── 차단 목록 (validate FAIL 파일) ───
+// _blocked_files.txt: 한 줄에 하나씩 'data/...json' 형식
+// section/item 안에 어떤 type(단어/워크북/퀴즈)이라도 차단되면 그 section/item 전체를 카탈로그에서 제외 → 학생에게 노출 안 됨
+const BLOCKED_PATH = path.join(ROOT, '_blocked_files.txt');
+const BLOCKED_TB_SECTIONS = new Set(); // "공통영어1/비상홍/1과/본문" (교과서)
+const BLOCKED_MOCK_ITEMS = new Set();  // "고1/2025/3월/18번"
+const BLOCKED_SUP_SECTIONS = new Set(); // "수능특강/영어/1강/본문"
+function loadBlockedList() {
+  if (!fs.existsSync(BLOCKED_PATH)) {
+    console.log('(차단 목록 없음: _blocked_files.txt)');
+    return;
+  }
+  const lines = fs.readFileSync(BLOCKED_PATH, 'utf8').split('\n').map(l => l.trim()).filter(Boolean);
+  for (const line of lines) {
+    const rel = line.replace(/^data[\/\\]/, '').normalize('NFC');
+    const parts = rel.split('/');
+    if (parts.length < 5) continue;
+    const fileName = parts[parts.length - 1];
+    if (!['단어.json', '워크북.json', '퀴즈.json'].includes(fileName)) continue;
+    const source = parts[0];
+    const sectionKey = parts.slice(1, -1).join('/'); // source 제외
+    if (source === '교과서') BLOCKED_TB_SECTIONS.add(sectionKey);
+    else if (source === '부교재') BLOCKED_SUP_SECTIONS.add(sectionKey);
+    else if (source === '모의고사') BLOCKED_MOCK_ITEMS.add(sectionKey);
+  }
+  console.log(`🚫 차단: ${lines.length}파일 → 교과서 section ${BLOCKED_TB_SECTIONS.size}개 / 모의고사 item ${BLOCKED_MOCK_ITEMS.size}개 / 부교재 section ${BLOCKED_SUP_SECTIONS.size}개 제외`);
+}
+
 // ─── textbooks.ts 파싱 (TypeScript → JS eval 없이 정규식으로) ───
 const SHARED_PATH = path.resolve(ROOT, '..', 'naesinfit-shared', 'src', 'constants', 'textbooks.ts');
 
@@ -61,10 +89,11 @@ function scanDir(dir) {
   const result = {};
   if (!fs.existsSync(dir)) return result;
   for (const item of fs.readdirSync(dir)) {
+    if (item.startsWith('_')) continue;
     const full = path.join(dir, item);
     if (fs.statSync(full).isDirectory()) {
       const children = fs.readdirSync(full).filter(f =>
-        fs.statSync(path.join(full, f)).isDirectory()
+        !f.startsWith('_') && fs.statSync(path.join(full, f)).isDirectory()
       ).sort();
       result[item] = children;
     }
@@ -76,10 +105,11 @@ function scanDeep(dir) {
   const result = {};
   if (!fs.existsSync(dir)) return result;
   for (const unit of fs.readdirSync(dir).sort()) {
+    if (unit.startsWith('_')) continue; // _passages 등 내부 폴더 제외
     const unitPath = path.join(dir, unit);
     if (!fs.statSync(unitPath).isDirectory()) continue;
     const sections = fs.readdirSync(unitPath)
-      .filter(f => fs.statSync(path.join(unitPath, f)).isDirectory())
+      .filter(f => !f.startsWith('_') && fs.statSync(path.join(unitPath, f)).isDirectory())
       .sort();
     result[unit] = sections;
   }
@@ -89,6 +119,7 @@ function scanDeep(dir) {
 // ─── 메인 ───
 function main() {
   console.log('=== generate-catalog.js ===\n');
+  loadBlockedList();
 
   const { textbooks, mocks, supplements } = parseTextbooksTS();
   console.log(`textbooks.ts 파싱: 교과서 ${textbooks.length}개, 모의고사 ${mocks.length}개, 부교재 ${supplements.length}개\n`);
@@ -128,15 +159,20 @@ function main() {
     const sections = {};
     for (const u of units) {
       if (unitData[u] && unitData[u].length > 0) {
-        sections[u] = unitData[u];
+        const kept = unitData[u].filter(s => {
+          const key = `${tb.path.normalize('NFC')}/${u}/${s}`.normalize('NFC');
+          return !BLOCKED_TB_SECTIONS.has(key);
+        });
+        if (kept.length > 0) sections[u] = kept;
       }
     }
+    const filteredUnits = units.filter(u => sections[u] && sections[u].length > 0);
 
     catalog['교과서'][tb.id] = {
       path: tb.path,
       cat: tb.cat,
       dn: `${tb.pub}(${tb.author})`,
-      units,
+      units: filteredUnits,
       sections,
     };
   }
@@ -160,8 +196,13 @@ function main() {
     }
 
     const items = fs.readdirSync(dirPath)
-      .filter(f => fs.statSync(path.join(dirPath, f)).isDirectory())
+      .filter(f => !f.startsWith('_') && fs.statSync(path.join(dirPath, f)).isDirectory())
       .map(f => f.normalize('NFC'))
+      .filter(f => {
+        // mock.path = "고1/2025/3월", item = "18번" → key = "고1/2025/3월/18번"
+        const key = `${mock.path.normalize('NFC')}/${f}`;
+        return !BLOCKED_MOCK_ITEMS.has(key);
+      })
       .sort((a, b) => {
         const na = parseInt(a) || 99;
         const nb = parseInt(b) || 99;
@@ -214,11 +255,16 @@ function main() {
     const sections = {};
     for (const u of units) {
       if (unitData2[u] && unitData2[u].length > 0) {
-        sections[u] = unitData2[u];
+        const kept = unitData2[u].filter(s => {
+          const key = `${sup.path.normalize('NFC')}/${u}/${s}`.normalize('NFC');
+          return !BLOCKED_SUP_SECTIONS.has(key);
+        });
+        if (kept.length > 0) sections[u] = kept;
       }
     }
+    const filteredUnits2 = units.filter(u => sections[u] && sections[u].length > 0);
 
-    catalog['부교재'][sup.id] = { path: sup.path, units, sections };
+    catalog['부교재'][sup.id] = { path: sup.path, units: filteredUnits2, sections };
   }
 
   // ─── 검증: data/ 폴더에 있는데 textbooks.ts에 없는 것 ───
