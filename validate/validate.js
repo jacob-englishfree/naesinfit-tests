@@ -1098,6 +1098,53 @@ function validate(jsonPath) {
       }
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // S-STEM-NOT-IN-PASSAGE (2026-04-10): stem이 참조하는 단어가 passage에 없으면 차단
+    // 원인: 다른 passage용 문항을 템플릿 복사한 후 stem/ch만 안 바꾼 경우
+    // 적용: 동의어/반의어/함축의미 등 stem에 "<u>단어</u>" 참조가 있는 유형
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && stem && passage) {
+      // stem에서 <u>단어</u> 추출
+      const stemUWords = [...stem.matchAll(/<u>([^<]+)<\/u>/g)].map(m => m[1].toLowerCase());
+      for (const sw of stemUWords) {
+        if (sw.length >= 3 && !passage.toLowerCase().includes(sw) && !(fullPassage || '').toLowerCase().includes(sw)) {
+          result.add('S-STEM-NOT-IN-PASSAGE', SEV.S, `Q${qid}: stem이 참조하는 단어 "${sw}"가 passage에도 fullPassage에도 없음 — 다른 지문용 문항 복사 의심`);
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-DUPLICATE-PASSAGE-BLANK (2026-04-10): 같은 파일 내 빈칸 위치 중복 차단
+    // 원인: 템플릿 복사 시 빈칸 문항이 전부 같은 단어를 비움
+    // ─────────────────────────────────────────────────────────────
+
+    // ─────────────────────────────────────────────────────────────
+    // S-DET-FOREIGN-WORD (2026-04-10): det 해설에 passage에 없는 영어 핵심단어 참조 차단
+    // 원인: 템플릿 복사 시 det.korean/analysis가 원래 passage 내용 그대로
+    // 적용: det.korean에 <b>단어</b>가 있는데 그 단어가 passage/fp에 없으면 차단
+    // ─────────────────────────────────────────────────────────────
+    if (q.det && q.det.korean) {
+      const detBoldWords = [...q.det.korean.matchAll(/<b>([A-Za-z][^<]*)<\/b>/g)].map(m => {
+        // "training(훈련)" → "training", "took part(참여하다)" → "took part"
+        let w = m[1].trim();
+        w = w.replace(/\([^)]*\)/g, '').trim();  // Remove Korean in parentheses
+        w = w.replace(/→.*$/, '').trim();         // Remove "→ correction" part
+        return w.toLowerCase();
+      });
+      for (const dbw of detBoldWords) {
+        if (dbw.length >= 4 && !(fullPassage || '').toLowerCase().includes(dbw) && !passage.toLowerCase().includes(dbw)) {
+          // 예외: 어형변환(변형 형태), 동의어/반의어(정답 단어가 지문 밖), 영영풀이(정답 단어), 다의어
+          const isMorph = typeNorm.includes('어형');
+          const isSynAnt = typeNorm.includes('동의어') || typeNorm.includes('반의어');
+          const isEngEng = typeNorm.includes('영영');
+          const isPoly = typeNorm.includes('다의어');
+          if (!isMorph && !isSynAnt && !isEngEng && !isPoly) {
+            result.add('S-DET-FOREIGN-WORD', SEV.S, `Q${qid}: det 해설의 핵심단어 "${dbw}"가 지문에 없음 — 다른 지문용 문항 복사 의심`);
+          }
+        }
+      }
+    }
+
     // S-LENGTH-BIAS: mc 정답 길이가 오답 평균의 2.5배+
     if (isMc && ch.length === 4 && typeof q.ans === 'number' && q.ans >= 1 && q.ans <= 4) {
       const ansLen = ch[q.ans - 1].length;
@@ -1668,6 +1715,74 @@ function validate(jsonPath) {
         result.add('SEM-1', SEV.B, `Q${qid}: stem 영어단어 ${notInPassage.length}/${englishStemWords.length}개가 fullPassage에 없음 — 교차오염 의심`);
       }
     });
+  }
+
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  // ── Q: 품질 게이트 — "학생이 풀 수 있는가" 검증 ──
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  for (const q of questions) {
+    const { id: qid, type: qtype = '', fmt = '', passage = '', stem = '', ch = [], wa = '', det = {} } = q;
+    const p = passage || '';
+
+    // ── Q1: 어순배열 stem에 단어 수 조건 필수 ──
+    if (/어순/.test(qtype) && fmt === 'written') {
+      if (!/\d+단어/.test(stem) && !/단어로/.test(stem)) {
+        // stem에 단어 수 힌트가 없으면 경고
+        const waWords = (wa || '').split(/\s+/).length;
+        if (waWords > 0 && !/\d/.test(stem)) {
+          result.add('Q1-WORDCOUNT', SEV.S, `Q${qid}: 어순배열 stem에 단어 수 조건(${waWords}단어) 없음 — 학생이 정답 길이 모름`);
+        }
+      }
+    }
+
+    // ── Q2: 서술형 stem에 [조건] 또는 구체적 지시 필수 ──
+    if (fmt === 'written' && !/어순/.test(qtype)) {
+      const hasCondition = /조건|단어|괄호|찾아|빈칸|변형|바꿔|형태/.test(stem);
+      if (!hasCondition) {
+        result.add('Q2-NO-CONDITION', SEV.S, `Q${qid}: 서술형 stem에 조건/지시 없음 — 학생이 뭘 써야 하는지 모름`);
+      }
+    }
+
+    // ── Q3: 빈칸형 정답이 fullPassage에 존재해야 함 ──
+    if (/빈칸/.test(qtype) && fmt === 'mc' && ch.length > 0 && q.ans >= 1 && q.ans <= ch.length) {
+      const ansText = (ch[q.ans - 1] || '').trim();
+      if (ansText && ansText.length >= 3 && fullPassage && !fullPassage.includes(ansText)) {
+        result.add('Q3-ANS-NOT-IN-FP', SEV.S, `Q${qid}: 빈칸 정답 "${ansText}"이 fullPassage에 없음 — 지문과 무관한 정답`);
+      }
+    }
+
+    // ── Q4: 영영풀이 정답이 fullPassage에 존재해야 함 ──
+    if (/영영풀이/.test(qtype) && fmt === 'mc' && ch.length > 0 && q.ans >= 1 && q.ans <= ch.length) {
+      const ansText = (ch[q.ans - 1] || '').trim().toLowerCase();
+      if (ansText && fullPassage && !fullPassage.toLowerCase().includes(ansText)) {
+        result.add('Q4-EIYOUNG-NOT-IN-FP', SEV.S, `Q${qid}: 영영풀이 정답 "${ansText}"이 fullPassage에 없음`);
+      }
+    }
+
+    // ── Q5: 서술형 wa가 fullPassage에서 유도 가능해야 함 ──
+    if (fmt === 'written' && wa && !/어순/.test(qtype)) {
+      const waClean = wa.trim();
+      if (waClean.split(/\s+/).length === 1 && fullPassage) {
+        // 단어 1개짜리: fullPassage에 있어야 함
+        if (!fullPassage.includes(waClean) && !fullPassage.toLowerCase().includes(waClean.toLowerCase())) {
+          result.add('Q5-WA-NOT-IN-FP', SEV.S, `Q${qid}: 서술형 wa "${waClean}"이 fullPassage에 없음 — 지문에서 유도 불가`);
+        }
+      }
+    }
+
+    // ── Q6: 빈칸형 오답 3개 이상이 fullPassage에 없으면 소거법으로 풀림 ──
+    if (/빈칸/.test(qtype) && fmt === 'mc' && ch.length >= 4 && q.ans >= 1 && fullPassage) {
+      const wrongNotInFp = ch.filter((c, i) => i !== q.ans - 1 && !fullPassage.includes(c.trim())).length;
+      if (wrongNotInFp >= 3) {
+        result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNotInFp}개가 fullPassage에 없음 — 소거법으로 풀림`);
+      }
+    }
+
+    // ── Q7: det.analysis 비어있으면 해설 없음 ──
+    if (det && (!det.analysis || det.analysis.length < 10)) {
+      result.add('Q7-DET-EMPTY', SEV.A, `Q${qid}: det.analysis 비어있거나 너무 짧음 — 해설 부실`);
+    }
   }
 
   return result;
