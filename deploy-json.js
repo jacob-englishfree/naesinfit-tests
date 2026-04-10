@@ -44,7 +44,7 @@ const VALID_TEXTBOOK_PATHS = [
   '중3/미래엔최연희',
 ];
 
-const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어'];
+const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어', '올림포스전국연합고2/2026'];
 const VALID_UNIT_PATTERN = /^\d+과$|^\d+강$/;
 const VALID_MOCK_PATTERN = /^(고1|고2|고3)\/.+$/;
 
@@ -397,7 +397,7 @@ function collectJsonFiles(target) {
 }
 
 // ── 메인 ──
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   if (args.length === 0) {
     console.log('사용법: node deploy-json.js <파일/폴더> 또는 --all');
@@ -405,14 +405,24 @@ function main() {
   }
 
   const checkOnly = args.includes('--check-only');
-  const targetArg = args.find(a => a !== '--check-only');
-  const target = targetArg === '--all' ? DATA_DIR : path.resolve(targetArg);
+  const targetArgs = args.filter(a => a !== '--check-only');
+  const isAll = targetArgs.includes('--all');
 
   console.log('\n🔍 NaesinFit 테스트 JSON 배포 검증\n');
 
-  const files = collectJsonFiles(target);
+  // 여러 인자 지원: 모든 인자에서 JSON 파일 수집 후 합침
+  let files = [];
+  if (isAll) {
+    files = collectJsonFiles(DATA_DIR);
+  } else {
+    for (const arg of targetArgs) {
+      files = files.concat(collectJsonFiles(path.resolve(arg)));
+    }
+    // 중복 제거
+    files = [...new Set(files)];
+  }
   if (files.length === 0) {
-    console.log('❌ JSON 파일을 찾을 수 없습니다:', target);
+    console.log('❌ JSON 파일을 찾을 수 없습니다');
     process.exit(1);
   }
 
@@ -435,19 +445,143 @@ function main() {
   console.log('\n✅ 전체 PASS');
 
   // --all 또는 --check-only 모드에서는 자동 push 안 함
-  if (targetArg === '--all' || checkOnly) {
+  if (isAll || checkOnly) {
     if (!checkOnly) console.log('(--all 모드: 검증만 수행, push 안 함)');
     process.exit(0);
+  }
+
+  // PASS된 파일은 차단 목록(_blocked_files.txt)에서 제거
+  const blockedPath = path.join(ROOT, '_blocked_files.txt');
+  if (fs.existsSync(blockedPath)) {
+    const blockedLines = fs.readFileSync(blockedPath, 'utf8').split('\n').map(l => l.trim()).filter(Boolean);
+    const passedRel = new Set(files.map(f => path.relative(ROOT, f).normalize('NFC')));
+    const remaining = blockedLines.filter(l => !passedRel.has(l.normalize('NFC')));
+    if (remaining.length !== blockedLines.length) {
+      fs.writeFileSync(blockedPath, remaining.join('\n') + '\n', 'utf8');
+      console.log(`🔓 차단 해제: ${blockedLines.length - remaining.length}개 파일 (PASS → 차단 목록에서 제거)`);
+    }
+  }
+
+  // 카탈로그 자동 재생성 (학생 노출 차단 반영)
+  try {
+    execSync(`node "${path.join(ROOT, 'scripts/generate-catalog.js')}"`, { stdio: 'inherit', cwd: ROOT });
+  } catch (e) {
+    console.log('⚠️  카탈로그 재생성 실패 — 수동 실행: node scripts/generate-catalog.js');
   }
 
   // 자동 git add + commit + push
   console.log('\n📦 배포 중...');
   try {
-    execSync(`cd "${ROOT}" && git add ${files.map(f => `"${f}"`).join(' ')}`, { stdio: 'inherit' });
+    const catalogPath = path.join(ROOT, 'test-catalog.json');
+    const blockedFile = path.join(ROOT, '_blocked_files.txt');
+    const extraAdds = [`"${catalogPath}"`];
+    if (fs.existsSync(blockedFile)) extraAdds.push(`"${blockedFile}"`);
+    execSync(`cd "${ROOT}" && git add ${files.map(f => `"${f}"`).join(' ')} ${extraAdds.join(' ')}`, { stdio: 'inherit' });
     const fileList = files.map(f => path.relative(ROOT, f)).join(', ');
     execSync(`cd "${ROOT}" && git commit -m "deploy: ${fileList}"`, { stdio: 'inherit' });
     execSync(`cd "${ROOT}" && git push`, { stdio: 'inherit' });
-    console.log('\n✅ 배포 완료');
+
+    // ── 영구 차단 장치 #1: 배포 후 git에 모든 파일이 들어갔는지 검증 ──
+    console.log('\n🔒 배포 후 검증 중...');
+    let allCommitted = true;
+    for (const f of files) {
+      const rel = path.relative(ROOT, f);
+      try {
+        // git ls-files로 tracked 여부 확인 + 마지막 commit이 HEAD인지
+        execSync(`cd "${ROOT}" && git ls-files --error-unmatch "${rel}"`, { stdio: 'pipe' });
+        const status = execSync(`cd "${ROOT}" && git status --porcelain "${rel}"`, { encoding: 'utf8' });
+        if (status.trim()) {
+          console.log(`❌ 미커밋 변경 잔존: ${rel}`);
+          allCommitted = false;
+        }
+      } catch (e) {
+        console.log(`❌ git untracked: ${rel}`);
+        allCommitted = false;
+      }
+    }
+    if (!allCommitted) {
+      console.log('\n🚨 배포 실패 — 일부 파일이 git에 반영되지 않았습니다. 수동 add 필요.');
+      process.exit(1);
+    }
+
+    // ── 영구 차단 장치 #2: 배포한 파일이 Vercel/GitHub Pages에 실제 살아있는지 HTTP 확인 ──
+    // (선택: 빌드 시간 1~2분 필요해서 즉시 확인 안 됨. git tracked 검증으로 충분)
+
+    // ── 영구 차단 장치 #3: DB assets.has=true 자동 패치 (2026-04-10) ──
+    // deploy 성공 후 자동으로 contents DB에 has=true 켜기. 수동 패치 깜빡할 일 없음.
+    try {
+      console.log('\n📡 DB has=true 자동 패치...');
+      // textbooks.ts에서 path→id 매핑 로드
+      const sharedTs = fs.readFileSync(path.resolve(ROOT, '..', 'naesinfit-shared', 'src', 'constants', 'textbooks.ts'), 'utf8');
+      const pathToId = {};
+      const idRe = /id:"([^"]+)"[^}]*?path:"([^"]+)"/g;
+      let idM;
+      while (idM = idRe.exec(sharedTs)) pathToId[idM[2]] = idM[1];
+
+      const typeMap = { '단어.json': 'vocab', '워크북.json': 'workbook', '퀴즈.json': 'quiz' };
+      const patchMap = {}; // contentId → { vocab: { section: true }, ... }
+
+      for (const f of files) {
+        const rel = path.relative(DATA_DIR, f).split(path.sep);
+        const fname = rel[rel.length - 1];
+        if (!typeMap[fname]) continue;
+        const dbType = typeMap[fname];
+        const source = rel[0];
+        let contentId, section;
+
+        if (source === '교과서' && rel.length >= 5) {
+          const tbPath = rel[1] + '/' + rel[2];
+          const idPfx = pathToId[tbPath];
+          if (idPfx) { contentId = idPfx + '-' + rel[3]; section = rel[4]; }
+        } else if (source === '모의고사' && rel.length >= 5) {
+          const mockPath = rel[1] + '/' + rel[2];
+          const idPfx = pathToId[mockPath];
+          if (idPfx) { contentId = idPfx; section = rel[3]; }
+        } else if (source === '부교재' && rel.length >= 5) {
+          const p2 = rel[1] + '/' + rel[2];
+          if (pathToId[p2]) { contentId = pathToId[p2] + '-' + rel[3]; section = rel[4]; }
+        }
+
+        if (contentId && section) {
+          if (!patchMap[contentId]) patchMap[contentId] = {};
+          if (!patchMap[contentId][dbType]) patchMap[contentId][dbType] = {};
+          patchMap[contentId][dbType][section] = true;
+        }
+      }
+
+      // Supabase patch
+      const NF_URL = 'https://enkewpvhaugcmyglifkc.supabase.co';
+      const NF_KEY = process.env.NF_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
+      let sbMod;
+      try { sbMod = require('@supabase/supabase-js'); } catch { sbMod = require(path.resolve(ROOT, '..', 'ehg-academy 2', 'node_modules', '@supabase', 'supabase-js')); }
+      const sb = sbMod.createClient(NF_URL, NF_KEY);
+
+      let dbPatched = 0;
+      for (const [cid, types] of Object.entries(patchMap)) {
+        const { data: row } = await sb.from('contents').select('id,assets').eq('id', cid).single();
+        if (!row) { console.log(`  ⚠️ DB row 없음: ${cid}`); continue; }
+        const a = row.assets || {};
+        let changed = false;
+        for (const [dt, secs] of Object.entries(types)) {
+          if (!a[dt]) a[dt] = {};
+          for (const sec of Object.keys(secs)) {
+            if (!a[dt][sec]) a[dt][sec] = {};
+            if (a[dt][sec].has !== true) { a[dt][sec].has = true; changed = true; }
+          }
+        }
+        if (changed) {
+          const { error } = await sb.from('contents').update({ assets: a }).eq('id', cid);
+          if (error) console.log(`  ❌ DB 패치 실패: ${cid} — ${error.message}`);
+          else dbPatched++;
+        }
+      }
+      if (dbPatched > 0) console.log(`  ✅ DB has=true 패치: ${dbPatched}개 contentId`);
+      else console.log('  (DB 패치 불필요 — 이미 최신)');
+    } catch (e) {
+      console.log(`  ⚠️ DB 자동패치 실패 (배포는 정상) — ${e.message}`);
+    }
+
+    console.log(`✅ 배포 완료 — ${files.length}개 파일 모두 git 반영 확인`);
   } catch (e) {
     console.log('\n⚠️  git push 실패 — 수동으로 push하세요');
     process.exit(1);
