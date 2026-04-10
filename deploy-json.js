@@ -44,7 +44,7 @@ const VALID_TEXTBOOK_PATHS = [
   '중3/미래엔최연희',
 ];
 
-const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어', '올림포스전국연합고2/2026'];
+const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어', '올림포스전국연합고2/2026', 'ReadingPower유형편완성'];
 const VALID_UNIT_PATTERN = /^\d+과$|^\d+강$/;
 const VALID_MOCK_PATTERN = /^(고1|고2|고3)\/.+$/;
 
@@ -100,7 +100,7 @@ function validatePath(jsonPath) {
 
   if (source === '부교재') {
     const supPath = `${parts[1]}/${parts[2]}`;
-    if (!VALID_SUPPLEMENT_PATHS.includes(supPath)) {
+    if (!VALID_SUPPLEMENT_PATHS.some(p => supPath === p || supPath.startsWith(p + '/') || p.startsWith(supPath + '/'))) {
       errors.push(`미등록 부교재: "${supPath}"`);
     }
   }
@@ -540,9 +540,14 @@ async function main() {
           const mockPath = rel[1] + '/' + rel[2];
           const idPfx = pathToId[mockPath];
           if (idPfx) { contentId = idPfx; section = rel[3]; }
-        } else if (source === '부교재' && rel.length >= 5) {
+        } else if (source === '부교재' && rel.length >= 4) {
+          // 2단계 path (수능특강/영어) 먼저, 없으면 1단계 (ReadingPower유형편완성)
           const p2 = rel[1] + '/' + rel[2];
-          if (pathToId[p2]) { contentId = pathToId[p2] + '-' + rel[3]; section = rel[4]; }
+          if (pathToId[p2] && rel.length >= 5) {
+            contentId = pathToId[p2] + '-' + rel[3]; section = rel[4];
+          } else if (pathToId[rel[1]]) {
+            contentId = pathToId[rel[1]] + '-' + rel[2]; section = rel[3];
+          }
         }
 
         if (contentId && section) {
