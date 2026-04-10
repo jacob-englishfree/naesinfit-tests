@@ -37,7 +37,7 @@ function scanSupplements() {
       const subs = {};
 
       for (const item of scanDir(bookPath)) {
-        if (!item.match(/^\d+강$/)) continue;
+        if (!item.match(/^\d+강$/) && !item.match(/^TEST/)) continue;
         const itemPath = path.join(bookPath, item);
         if (!hasJson(itemPath) && scanDir(itemPath).length === 0) continue;
         lessons.push(item);
