@@ -929,6 +929,24 @@ function validate(jsonPath) {
       }
     }
 
+    // S-FULL-PLACEHOLDER: __FULL__ 등 미치환 플레이스홀더 학생 노출 (트랙B Phase1, 2026-04-09)
+    // 사고: feedback_full_placeholder_bug — passage="__FULL__"이 학생 화면에 그대로 표시 (34건+)
+    const PLACEHOLDER_PATTERNS = [
+      /__FULL__/,
+      /__PASSAGE__/,
+      /__STEM__/,
+      /\{\{[A-Z_]+\}\}/,
+      /<<[A-Z_]+>>/
+    ];
+    for (const t of metaTargets) {
+      for (const pat of PLACEHOLDER_PATTERNS) {
+        if (pat.test(t.txt)) {
+          result.add('S-FULL-PLACEHOLDER', SEV.S, `Q${qid}: ${t.name}에 미치환 플레이스홀더 노출 — ${pat}`);
+          break;
+        }
+      }
+    }
+
     // S-PREFIX-DOMINANT: ch 4개 중 3+가 동일한 15자+ prefix (긴 문장형 ch만)
     // 조합형/단어형 제외 (공유 prefix가 정상)
     const isCombinatorial = /\(A\)\(B\)\(C\)|조합|동의어|반의어|영영풀이|한영|어형|다의어/.test(typeNorm);

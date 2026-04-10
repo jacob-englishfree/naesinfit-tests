@@ -192,7 +192,7 @@ function validateSchema(jsonPath) {
     if (q.fmt === 'mc' && q.ch && q.ans >= 1 && q.ans <= (q.ch.length || 4)) {
       const type = (q.type || '').toLowerCase();
       const stem = (q.stem || '').toLowerCase();
-      const skipTypes = ['내용이해', '내용일치', '내용불일치', 't/f', '빈칸추론', '빈칸어휘', '빈칸 어휘 완성', '오류찾기'];
+      const skipTypes = ['내용이해', '내용일치', '내용불일치', 't/f', '빈칸추론', '빈칸어휘', '빈칸 어휘 완성', '오류찾기', '어법', '지칭추론', '부적절'];
       const isContentBased = skipTypes.some(t => type.includes(t)) ||
         /일치|불일치|t\s*\/?\s*f|빈칸/.test(stem);
       if (!isContentBased) {
@@ -262,6 +262,9 @@ function validateSchema(jsonPath) {
   // ⛔ 5. 정답 길이 편향 검사
   mcQuestions.forEach((q, idx) => {
     if (!q.ch || q.ch.length !== 4 || q.ans < 1 || q.ans > 4) return;
+    // 어법/오류찾기 유형은 밑줄 구간 길이 차이가 자연스러우므로 제외
+    const qtype = (q.type || '').toLowerCase();
+    if (['어법', '오류찾기'].some(t => qtype.includes(t))) return;
     const lengths = q.ch.map(c => c.replace(/<[^>]*>/g, '').trim().length);
     const correctLen = lengths[q.ans - 1];
     const otherLens = lengths.filter((_, j) => j !== q.ans - 1);
