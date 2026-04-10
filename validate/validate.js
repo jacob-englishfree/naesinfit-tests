@@ -1071,7 +1071,7 @@ function validate(jsonPath) {
       if (isMockOrSupp && fullLen >= 200) {
         const typeNoSpace = String(typeNorm || '').replace(/\s+/g, '');
         // 면제: 어형변환/영영풀이/영작/어법/부적절 어휘 (paraphrased excerpts OK) + 찾기 stem
-        const skipFull = /어형변환|영영풀이|영작|^어법|문장단위어법|오류찾기|부적절/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
+        const skipFull = /어형변환|영영풀이|영작|다의어|^어법|문장단위어법|오류찾기|부적절/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
         // 문장단위 어법: ①②③④ at sentence start, no <u>
         const isSentLevelGrammar = /[①②③④⑤]\s*[A-Z]/.test(passage) && !/<u>/i.test(passage) && (passage.match(/[①②③④⑤]/g) || []).length >= 3;
         if (!skipFull && !isSentLevelGrammar) {
