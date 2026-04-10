@@ -114,13 +114,17 @@ if [ -n "$VALIDATE_CHANGED" ]; then
   echo "   무단 severity 낮추기는 금지입니다."
 fi
 
-# 📦 카탈로그 자동 동기화 — data/ 변경 시 index.html 카탈로그 자동 업데이트
+# 📦 카탈로그 자동 동기화 — data/ 변경 시 index.html + test-catalog.json 자동 업데이트
 if [ -n "$JSON_FILES" ]; then
   node scripts/auto-catalog.js 2>/dev/null
-  # 카탈로그 변경됐으면 index.html도 스테이징
   if git diff --name-only index.html | grep -q index.html; then
     git add index.html
     echo "📦 카탈로그 자동 동기화됨 — index.html 업데이트"
+  fi
+  node scripts/sync-test-catalog.js 2>/dev/null
+  if git diff --name-only test-catalog.json | grep -q test-catalog.json; then
+    git add test-catalog.json
+    echo "📦 test-catalog.json 자동 동기화됨"
   fi
 fi
 
@@ -138,3 +142,9 @@ if [ -n "$JSON_FILES" ]; then
     echo "📦 test-deploy.ts 자동 동기화됨"
   fi
 fi
+
+# ⛔ --no-verify 우회 차단 마커 (트랙B Phase1 #5, 2026-04-10)
+# pre-commit 통과 → 마커 작성. post-commit이 마커 보고 .validated-commits에 HEAD 기록.
+# pre-push는 푸시 대상 commits가 모두 검증되었는지 검사 → --no-verify로 우회한 commit 차단.
+mkdir -p .git
+echo "1" > .git/.pre-commit-pass
