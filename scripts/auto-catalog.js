@@ -42,7 +42,7 @@ function scanSupplements() {
         if (!hasJson(itemPath) && scanDir(itemPath).length === 0) continue;
         lessons.push(item);
 
-        const subDirs = scanDir(itemPath).filter(s => hasJson(path.join(itemPath, s)));
+        const subDirs = scanDir(itemPath).filter(s => s !== '_passages' && hasJson(path.join(itemPath, s)));
         if (subDirs.length > 0) {
           subs[item] = subDirs.sort((a, b) => {
             if (a === 'Gateway') return -1;
@@ -52,7 +52,11 @@ function scanSupplements() {
         }
       }
 
-      lessons.sort((a, b) => parseInt(a) - parseInt(b));
+      lessons.sort((a, b) => {
+        const na = parseInt(a) || 999;
+        const nb = parseInt(b) || 999;
+        return na - nb;
+      });
       if (lessons.length > 0) {
         const entry = { dn: `${series} ${book}`, lessons, isNew: true };
         if (Object.keys(subs).length > 0) entry.subs = subs;
