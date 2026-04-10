@@ -305,6 +305,49 @@ function main() {
   const supCount = Object.keys(catalog['부교재']).length;
   const supDeployed = Object.values(catalog['부교재']).filter(v => v.units && v.units.length > 0).length;
 
+  // ─── 고아 폴더 감지: data/에 있는데 textbooks.ts에 path 없는 폴더 (2026-04-10) ───
+  // 이게 있으면 학생이 테스트를 보는데 시스템이 "미출제"로 잘못 판정할 수 있음
+  const registeredPaths = new Set([
+    ...textbooks.filter(t => t.path).map(t => t.path),
+    ...mocks.filter(t => t.path).map(t => t.path),
+    ...supplements.filter(t => t.path).map(t => t.path),
+  ]);
+  const orphans = [];
+  for (const source of ['교과서', '모의고사', '부교재']) {
+    const sourceDir = path.join(DATA, source);
+    if (!fs.existsSync(sourceDir)) continue;
+    // walk 2~3 levels to find actual content folders
+    for (const l1 of fs.readdirSync(sourceDir).filter(f => !f.startsWith('_') && fs.statSync(path.join(sourceDir, f)).isDirectory())) {
+      if (source === '모의고사') {
+        // 고1/3월 → check "고1/3월"
+        for (const l2 of fs.readdirSync(path.join(sourceDir, l1)).filter(f => !f.startsWith('_') && fs.statSync(path.join(sourceDir, l1, f)).isDirectory())) {
+          const p = l1 + '/' + l2;
+          if (!registeredPaths.has(p)) orphans.push(source + '/' + p);
+        }
+      } else if (source === '부교재') {
+        // 수능특강/영어 or 올림포스전국연합고2/2026
+        for (const l2 of fs.readdirSync(path.join(sourceDir, l1)).filter(f => !f.startsWith('_') && fs.statSync(path.join(sourceDir, l1, f)).isDirectory())) {
+          const p = l1 + '/' + l2;
+          if (registeredPaths.has(p)) continue; // exact match
+          // check if any registered path starts with this
+          if ([...registeredPaths].some(rp => rp.startsWith(p + '/') || rp === p)) continue;
+          orphans.push(source + '/' + p);
+        }
+      } else {
+        // 교과서: 공통영어1/비상홍
+        for (const l2 of fs.readdirSync(path.join(sourceDir, l1)).filter(f => !f.startsWith('_') && fs.statSync(path.join(sourceDir, l1, f)).isDirectory())) {
+          const p = l1 + '/' + l2;
+          if (!registeredPaths.has(p)) orphans.push(source + '/' + p);
+        }
+      }
+    }
+  }
+  if (orphans.length > 0) {
+    console.log('\n🚨 고아 폴더 감지 (data/에 있는데 textbooks.ts에 path 미등록):');
+    orphans.forEach(o => console.log('  ' + o));
+    console.log('  → textbooks.ts에 path 추가하거나, 중복 폴더면 삭제하세요.');
+  }
+
   console.log('✅ test-catalog.json 생성 완료');
   console.log(`   교과서: ${tbDeployed}/${tbCount} 배포됨`);
   console.log(`   모의고사: ${mockDeployed}/${mockCount} 배포됨`);
