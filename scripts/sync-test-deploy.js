@@ -43,6 +43,7 @@ const TEXTBOOK_MAP = {
 const SUPPLEMENT_MAP = {
   '수능특강/영어': '수능특강영어2027',
   '수능특강Light/영어': '수능특강Light영어2026',
+  '올림포스전국연합고2/2026': '올림포스전국연합고2-2026',
 };
 
 // ── 모의고사 폴더 → deploy key 매핑 ──
