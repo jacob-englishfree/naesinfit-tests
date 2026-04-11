@@ -44,6 +44,28 @@ if [ -n "$JSON_FILES" ]; then
   fi
 fi
 
+# ⛔ 블라인드 풀이 증적 검증 (2026-04-11 추가) ──
+# git은 한글 경로를 이스케이프하므로 -z로 원본 경로 추출
+STAGED_TEST_JSON=$(git diff --cached --name-only -z --diff-filter=ACM | tr '\0' '\n' | grep -E '^data/.*(단어|워크북|퀴즈)\.json$' || true)
+if [ -n "$STAGED_TEST_JSON" ]; then
+  BLIND_MISSING=""
+  while IFS= read -r f; do
+    BLIND_FILE=$(echo "$f" | sed 's/\.json$/.blind.json/')
+    if [ ! -f "$BLIND_FILE" ]; then
+      BLIND_MISSING="$BLIND_MISSING\n  $f"
+    fi
+  done <<< "$STAGED_TEST_JSON"
+  if [ -n "$BLIND_MISSING" ]; then
+    echo "⛔ 블라인드 풀이 증적(.blind.json) 누락 — 커밋 차단"
+    echo "   SOP STEP 3~5 완료 후 커밋하세요."
+    echo -e "$BLIND_MISSING"
+    echo ""
+    echo "   → node validate/blind-solve.js <대상폴더>"
+    exit 1
+  fi
+  echo "✅ 블라인드 증적 확인"
+fi
+
 # ⛔ validate.js S급 검증 (53 checks) ──
 STAGED_JSON=$(git diff --cached --name-only --diff-filter=ACM | grep '^data/.*\.json$' || true)
 if [ -n "$STAGED_JSON" ]; then

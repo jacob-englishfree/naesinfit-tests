@@ -445,7 +445,41 @@ async function main() {
     process.exit(1);
   }
 
-  console.log('\n✅ 전체 PASS');
+  console.log('\n✅ validate 전체 PASS');
+
+  // ⛔ 블라인드 풀이 증적 게이트 (2026-04-11 추가)
+  // .blind.json이 없으면 배포 차단
+  const missingBlind = [];
+  for (const f of files) {
+    const dir = path.dirname(f);
+    const base = path.basename(f, '.json');
+    const blindFile = path.join(dir, `${base}.blind.json`);
+    if (!fs.existsSync(blindFile)) {
+      missingBlind.push(path.relative(ROOT, f));
+    } else {
+      // 증적 내용 검증
+      try {
+        const blind = JSON.parse(fs.readFileSync(blindFile, 'utf8'));
+        const orig = JSON.parse(fs.readFileSync(f, 'utf8'));
+        if (!blind.solves || blind.solves.length !== orig.questions.length) {
+          missingBlind.push(`${path.relative(ROOT, f)} (blind.json 문항수 불일치)`);
+        }
+      } catch (e) {
+        missingBlind.push(`${path.relative(ROOT, f)} (blind.json 파싱 실패)`);
+      }
+    }
+  }
+
+  if (missingBlind.length > 0) {
+    console.log(`\n⛔ 블라인드 풀이 증적 누락 — 배포 차단`);
+    console.log(`   SOP STEP 3~5를 먼저 완료하세요.\n`);
+    console.log(`   누락 파일:`);
+    missingBlind.forEach(f => console.log(`     ${f}`));
+    console.log(`\n   실행: node validate/blind-solve.js <대상폴더>`);
+    process.exit(1);
+  }
+
+  console.log('✅ 블라인드 증적 전체 확인');
 
   // --all 또는 --check-only 모드에서는 자동 push 안 함
   if (isAll || checkOnly) {
