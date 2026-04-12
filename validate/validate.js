@@ -1914,7 +1914,7 @@ function validate(jsonPath) {
     }
 
     // ── Q5: 서술형 wa가 fullPassage에서 유도 가능해야 함 ──
-    if (fmt === 'written' && wa && !/어순/.test(qtype)) {
+    if (fmt === 'written' && wa && typeof wa === 'string' && !/어순/.test(qtype)) {
       const waClean = wa.trim();
       // 어형변환은 변환형이 fullPassage에 없는 게 정상 (science→scientific)
       const isMorphChange = /어형\s*변환|어형변화|어형변형/.test(qtype);
