@@ -511,6 +511,14 @@
       ]
     }
   },
+  "typeAliases": {
+    "빈칸추론": "빈칸 어휘 완성",
+    "어휘": "문맥상 부적절한 어휘",
+    "서술형": "서술형 — 핵심단어",
+    "주제/요지": "주제",
+    "주제/요지/대의": "주제",
+    "내용이해": "내용 일치/불일치"
+  },
   "questionTypes": {
     "(A)(B)(C) 조합형": {
       "fmt": "mc",
@@ -523,7 +531,9 @@
       "choiceFormat": "word1 — word2 — word3",
       "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
       "markerFormat": "<b>(A)</b>[correct / wrong]",
-      "markerSpread": "fullPassage 전체에 분산 (한쪽 몰림 금지)"
+      "markerSpread": "fullPassage 전체에 분산 (한쪽 몰림 금지)",
+      "overlayRequired": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "overlayNote": "3개 단어 모두 fullPassage에 반드시 존재. 본문 전체에 분산 배치."
     },
     "문맥상 부적절한 어휘": {
       "fmt": "mc",
@@ -540,7 +550,9 @@
         "④"
       ],
       "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
-      "markerSpread": "본문 전체에 분산"
+      "markerSpread": "본문 전체에 분산",
+      "overlayRequired": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "overlayNote": "4개 마커 필수. 정답 위치만 find/display (원문→반의어). 나머지 3개는 문자열(원문 그대로). 본문 전체 분산."
     },
     "빈칸 어휘 완성": {
       "fmt": "mc",
@@ -551,7 +563,9 @@
       },
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
-      "blankWordRule": "추론 가능한 단어만 (숫자/고유명사/단순사실 금지)"
+      "blankWordRule": "추론 가능한 단어만 (숫자/고유명사/단순사실 금지)",
+      "overlayRequired": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "overlayNote": "숫자/고유명사/단순사실 금지. 문맥에서 추론 가능한 단어만. 오답도 fullPassage에서 가져올 것(소거법 방지)."
     },
     "빈칸 문맥 완성": {
       "fmt": "mc",
@@ -560,7 +574,9 @@
         "부교재": "fullPassage + __________",
         "모의고사": "fullPassage + __________"
       },
-      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함"
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "overlayRequired": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "overlayNote": "숫자/고유명사/단순사실 금지. 문맥에서 추론 가능한 단어만. 오답도 fullPassage에서 가져올 것(소거법 방지)."
     },
     "동의어 고르기": {
       "fmt": "mc",
@@ -570,7 +586,9 @@
         "모의고사": "fullPassage + <u>target</u>"
       },
       "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
-      "distractorRule": "반의어 1개 + 유사 뉘앙스 1개 + 무관 1개"
+      "distractorRule": "반의어 1개 + 유사 뉘앙스 1개 + 무관 1개",
+      "overlayRequired": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "overlayNote": "stem에 해당 단어 포함. 오답은 같은 품사."
     },
     "반의어 고르기": {
       "fmt": "mc",
@@ -580,26 +598,34 @@
         "모의고사": "fullPassage + <u>target</u>"
       },
       "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
-      "distractorRule": "같은 어미로 혼동 유발. 전부 동의어 금지"
+      "distractorRule": "같은 어미로 혼동 유발. 전부 동의어 금지",
+      "overlayRequired": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "overlayNote": "stem에 해당 단어 포함. 오답은 같은 품사."
     },
     "다의어 문맥적 의미": {
       "fmt": "mc",
       "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
       "choiceFormat": "(A) 의미 — (B) 의미",
-      "distractorRule": "(A)(B) 의미 뒤바꾼 함정 포함"
+      "distractorRule": "(A)(B) 의미 뒤바꾼 함정 포함",
+      "overlayRequired": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "overlayNote": "passage 필드에 (A)(B) 두 미니 문장을 직접 넣으세요 — 이 유형만 예외적으로 passage를 AI가 작성."
     },
     "영영풀이 매칭": {
       "fmt": "mc",
       "passageRule": "ALL: passage 없음 (빈 문자열)",
       "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
-      "distractorRule": "같은 어미/비슷한 형태 단어"
+      "distractorRule": "같은 어미/비슷한 형태 단어",
+      "overlayRequired": "overlay = {} (passage 없음)",
+      "overlayNote": "stem에 영영 정의 포함. 선지는 같은 어미/비슷한 형태."
     },
     "어형 변환": {
       "fmt": "written",
       "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
       "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
       "acceptMin": 3,
-      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지",
+      "overlayRequired": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "overlayNote": "accept 3개 이상 필수 (마침표 변형 포함). wa = 변환된 형태."
     },
     "어법": {
       "fmt": "mc",
@@ -615,7 +641,9 @@
         "④"
       ],
       "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
-      "markerSpread": "본문 전체에 분산"
+      "markerSpread": "본문 전체에 분산",
+      "overlayRequired": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "overlayNote": "4개 마커 필수. 정답 위치만 find/display (원문→문법오류). 본문 전체 분산."
     },
     "내용이해 T/F": {
       "fmt": "mc",
@@ -629,7 +657,9 @@
         "F"
       ],
       "stem": "한국어 진술문 (패러프레이징 필수, 직역 금지)",
-      "restriction": "워크북 전용. 퀴즈(예상문제) 사용 금지"
+      "restriction": "워크북 전용. 퀴즈(예상문제) 사용 금지",
+      "overlayRequired": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "overlayNote": "ch=[\"T\",\"F\"]. stem = 한국어 진술문(패러프레이즈 필수, 직역 금지). ans=1(T) or 2(F)."
     },
     "내용 일치/불일치": {
       "fmt": "mc",
@@ -639,7 +669,9 @@
         "모의고사": "fullPassage"
       },
       "ch": "한국어 진술문 4개",
-      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈"
+      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
+      "overlayRequired": "overlay = {}",
+      "overlayNote": "ch = 한국어 진술문 4개 (패러프레이즈 필수, 직역 금지)."
     },
     "주제": {
       "fmt": "mc",
@@ -648,7 +680,9 @@
         "부교재": "fullPassage",
         "모의고사": "fullPassage"
       },
-      "ch": "한국어 4개"
+      "ch": "한국어 4개",
+      "overlayRequired": "overlay = {}",
+      "overlayNote": "ch = 한국어 4개."
     },
     "함축의미 추론": {
       "fmt": "mc",
@@ -657,7 +691,9 @@
         "부교재": "fullPassage + <u>비유표현</u>",
         "모의고사": "fullPassage + <u>비유표현</u>"
       },
-      "ch": "한국어 4개"
+      "ch": "한국어 4개",
+      "overlayRequired": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "overlayNote": "ch = 한국어 4개."
     },
     "지칭추론": {
       "fmt": "mc",
@@ -667,12 +703,16 @@
         "모의고사": "fullPassage + <u>대명사</u>"
       },
       "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)",
-      "answerRule": "바로 앞 문장만으로 판단 불가하게"
+      "answerRule": "바로 앞 문장만으로 판단 불가하게",
+      "overlayRequired": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "overlayNote": "ch = 한국어 명사/명사구 4개. 영어 인명 금지(정답 노출)."
     },
     "오류찾기": {
       "fmt": "mc",
       "passageRule": "ALL: 4~5문장 (번호 마커 포함)",
-      "answerRule": "문법 오류 1개 찾기"
+      "answerRule": "문법 오류 1개 찾기",
+      "overlayRequired": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "overlayNote": "4~5개 마커. 1개만 문법 오류."
     },
     "서술형 — 핵심단어": {
       "fmt": "written",
@@ -683,7 +723,9 @@
       },
       "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
       "acceptMin": 3,
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단",
+      "overlayRequired": "overlay = {}",
+      "overlayNote": "stem = 패러프레이징된 한국어 + \"찾아 쓰시오\" + 응답 언어 명시 \"(영어로)\" 또는 \"(우리말로)\". wa = 정답. accept 3개 이상 (대소문자, 마침표 변형)."
     },
     "서술형 — 조건영작": {
       "fmt": "written",
@@ -695,7 +737,9 @@
       "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
       "stemRule": "조건 단어 수 > wa 단어 수이거나, 조건에 wa에 없는 더미 단어 포함 필수 (단순 어순배열 방지). stem에 응답 언어 '(영어로)' 명시 필수",
       "acceptMin": 3,
-      "conditionRule": "기능어 포함 모든 단어 명시. 주어진 단어 수 = wa 단어 수이면 사실상 어순배열이므로 금지"
+      "conditionRule": "기능어 포함 모든 단어 명시. 주어진 단어 수 = wa 단어 수이면 사실상 어순배열이므로 금지",
+      "overlayRequired": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "overlayNote": "passage 필수 (정답자리만 빈칸). stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건 + \"(영어로)\" 응답 언어 명시. 조건 단어 수 ≠ wa 단어 수 (같으면 어순배열). accept 3개 이상."
     },
     "어순배열": {
       "fmt": "written",
@@ -709,17 +753,23 @@
         "min": 8,
         "max": 15
       },
-      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지"
+      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지",
+      "overlayRequired": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
+      "overlayNote": "stem에 셔플된 단어 8~15개 + (N단어) 조건. wa = 올바른 순서. passage의 해당 부분이 반드시 ____로 가려져야 함."
     },
     "순서배열": {
       "fmt": "mc",
       "passageRule": "도입문 1~2문장 + (A)(B)(C) 각 2~3문장",
-      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지"
+      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지",
+      "overlayRequired": "overlay = {}",
+      "overlayNote": "passage는 도입문 + (A)(B)(C) 블록으로 구성. AI가 분할."
     },
     "문장삽입": {
       "fmt": "mc",
       "passageRule": "fullPassage + (①)(②)(③)(④) 위치 마커",
-      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지"
+      "restriction": "짧은 지문(모의고사 18~20, 26번) 사용 금지",
+      "overlayRequired": "overlay.insertionMarkers = [문장인덱스1, 문장인덱스2, 문장인덱스3, 문장인덱스4]",
+      "overlayNote": "4개 위치 마커. 본문 전체에 분산."
     }
   },
   "validateRules": {

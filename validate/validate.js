@@ -12,6 +12,9 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 
+// ── Load question-schema.json — single source of truth for rules ──
+const SCHEMA = JSON.parse(fs.readFileSync(path.join(__dirname, 'question-schema.json'), 'utf8'));
+
 // Phase 1 모듈 통합
 const { validateBySchema } = require('./schema.js');
 const { validateRender } = require('./render-sim.js');
@@ -53,32 +56,34 @@ function validate(jsonPath) {
     result.add('S1', SEV.S, 'questions is not an array');
     return result;
   }
-  // Non-20 question files accepted silently (legacy 지문별 분리 등)
+  // Non-standard question count files accepted silently (legacy 지문별 분리 등)
 
-  // ── S2: sum(pts) check — flexible for non-20 question files ──
+  // ── S2: sum(pts) check — derived from SCHEMA.global.totalScore ──
+  const schemaTotalScore = SCHEMA.global.totalScore;
+  const schemaTotalQ = SCHEMA.global.totalQuestions;
   const totalPts = questions.reduce((s, q) => s + (q.pts || 0), 0);
-  if (questions.length === 20 && totalPts !== 100) {
-    result.add('S2', SEV.S, `sum(pts) = ${totalPts}, expected 100`);
-  } else if (questions.length !== 20 && totalPts !== (ei.total || totalPts)) {
+  if (questions.length === schemaTotalQ && totalPts !== schemaTotalScore) {
+    result.add('S2', SEV.S, `sum(pts) = ${totalPts}, expected ${schemaTotalScore}`);
+  } else if (questions.length !== schemaTotalQ && totalPts !== (ei.total || totalPts)) {
     // For non-20 files, check EI.total matches actual
     if (ei.total && ei.total !== totalPts) {
       result.add('S2', SEV.B, `sum(pts) = ${totalPts}, ei.total = ${ei.total}`);
     }
   }
 
-  // ── S3~S5: 배점 분포 — 20문항일 때만 엄격 체크 ──
-  if (questions.length === 20 && totalPts === 100) {
-    const easy = questions.filter(q => q.diff === '쉬움' && q.pts === 4);
-    if (easy.length !== 5) {
-      result.add('S3', SEV.S, `쉬움(4점) count = ${easy.length}, expected 5`);
-    }
-    const mid = questions.filter(q => q.diff === '보통' && q.pts === 5);
-    if (mid.length !== 10) {
-      result.add('S4', SEV.S, `보통(5점) count = ${mid.length}, expected 10`);
-    }
-    const hard = questions.filter(q => q.diff === '어려움' && q.pts === 6);
-    if (hard.length !== 5) {
-      result.add('S5', SEV.S, `어려움(6점) count = ${hard.length}, expected 5`);
+  // ── S3~S5: 배점 분포 — derived from SCHEMA.global.diffDistribution ──
+  if (questions.length === schemaTotalQ && totalPts === schemaTotalScore) {
+    const diffDist = SCHEMA.global.diffDistribution;
+    const diffChecks = [
+      { id: 'S3', diff: '쉬움', expectedCount: diffDist['쉬움'].count, expectedPts: diffDist['쉬움'].pts },
+      { id: 'S4', diff: '보통', expectedCount: diffDist['보통'].count, expectedPts: diffDist['보통'].pts },
+      { id: 'S5', diff: '어려움', expectedCount: diffDist['어려움'].count, expectedPts: diffDist['어려움'].pts },
+    ];
+    for (const dc of diffChecks) {
+      const matched = questions.filter(q => q.diff === dc.diff && q.pts === dc.expectedPts);
+      if (matched.length !== dc.expectedCount) {
+        result.add(dc.id, SEV.S, `${dc.diff}(${dc.expectedPts}점) count = ${matched.length}, expected ${dc.expectedCount}`);
+      }
     }
   }
 
@@ -91,8 +96,8 @@ function validate(jsonPath) {
   if (ei.totalQ !== questions.length) {
     result.add('S6', SEV.B, `ei.totalQ = ${ei.totalQ}, actual questions = ${questions.length}`);
   }
-  if (questions.length === 20 && ei.total !== 100) {
-    result.add('S6', SEV.S, `ei.total = ${ei.total}, expected 100`);
+  if (questions.length === schemaTotalQ && ei.total !== schemaTotalScore) {
+    result.add('S6', SEV.S, `ei.total = ${ei.total}, expected ${schemaTotalScore}`);
   }
 
   // ── F7: EI 8 required fields ──
@@ -106,6 +111,25 @@ function validate(jsonPath) {
   // ── F8~F14: Question field checks ──
   const validDiffs = ['쉬움', '보통', '어려움'];
   const validFmts = ['mc', 'written'];
+
+  // ── Derive noPassageTypes from schema (computed once, not per question) ──
+  const noPassageTypes = Object.entries(SCHEMA.questionTypes)
+    .filter(([k, v]) => {
+      const rule = typeof v.passageRule === 'string' ? v.passageRule : '';
+      return rule.includes('없음') || rule.includes('빈 문자열');
+    })
+    .map(([k]) => k);
+  if (!noPassageTypes.includes('영영풀이 매칭')) noPassageTypes.push('영영풀이 매칭');
+  const noPassageAliases = [
+    '한영', '한→영', '한영영작',
+    '어형 변환 (서술형)', '어형변화', '어형변형',
+    '서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)',
+    '서술형 — 배열영작',
+    '순서배열', '글순서', '문장삽입',
+  ];
+  for (const alias of noPassageAliases) {
+    if (!noPassageTypes.includes(alias)) noPassageTypes.push(alias);
+  }
 
   questions.forEach((q, i) => {
     const qid = q.id || (i + 1);
@@ -185,14 +209,7 @@ function validate(jsonPath) {
     const typeNorm = (q.type || '').trim();
 
     // ── passage 비어있으면 S급 에러 (passage 없이 출제되는 유형은 면제) ──
-    const noPassageTypes = [
-      '영영풀이 매칭',
-      '한영', '한→영', '한영영작',
-      '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
-      '서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)',
-      '서술형 — 배열영작',
-      '순서배열', '글순서', '문장삽입',
-    ];
+    // noPassageTypes is derived from SCHEMA.questionTypes above (before the loop)
     if ((!passage || passage.trim().length === 0) && !noPassageTypes.includes(typeNorm)) {
       const stemEngCount = ((q.stem || '').replace(/<[^>]+>/g, '').match(/[a-zA-Z]+/g) || []).length;
       if (stemEngCount < 20) {
@@ -686,9 +703,10 @@ function validate(jsonPath) {
       }
     }
 
-    // X44: 난이도-배점 불일치
+    // X44: 난이도-배점 불일치 — derived from SCHEMA.global.diffDistribution
     if (q.diff && q.pts) {
-      const expected = q.diff === '쉬움' ? 4 : q.diff === '보통' ? 5 : q.diff === '어려움' ? 6 : null;
+      const diffEntry = SCHEMA.global.diffDistribution[q.diff];
+      const expected = diffEntry ? diffEntry.pts : null;
       if (expected && q.pts !== expected) {
         result.add('X44', SEV.A, `Q${qid}: diff=${q.diff} pts=${q.pts} (expected ${expected})`);
       }
@@ -1186,6 +1204,7 @@ function validate(jsonPath) {
     }
 
     // S-LENGTH-BIAS: mc 정답 길이가 오답 평균의 2.5배+
+    // TODO: move lengthBiasRatio to schema (currently described in validateRules but no numeric field)
     if (isMc && ch.length === 4 && typeof q.ans === 'number' && q.ans >= 1 && q.ans <= 4) {
       const ansLen = ch[q.ans - 1].length;
       const wrong = ch.filter((_, idx) => idx !== q.ans - 1);
@@ -1405,36 +1424,46 @@ function validate(jsonPath) {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // S-WORDORDER-RANGE: 어순배열 단어 수 범위 (2026-04-13)
-    // wa가 8~15단어 범위를 벗어나면 차단
+    // S-WORDORDER-RANGE: 어순배열 단어 수 범위 — derived from SCHEMA.questionTypes.어순배열.wordCount
     // ─────────────────────────────────────────────────────────────
-    if (/어순배열/.test(typeNorm) && wa) {
-      const wordCount = wa.trim().split(/\s+/).length;
-      if (wordCount < 8 || wordCount > 15) {
-        result.add('S-WORDORDER-RANGE', SEV.S, `Q${qid}: 어순배열 wa가 ${wordCount}단어 — 8~15단어 범위 필수`);
+    {
+      const wordOrderSchema = SCHEMA.questionTypes['어순배열'];
+      const woMin = (wordOrderSchema && wordOrderSchema.wordCount && wordOrderSchema.wordCount.min) || 8;
+      const woMax = (wordOrderSchema && wordOrderSchema.wordCount && wordOrderSchema.wordCount.max) || 15;
+      if (/어순배열/.test(typeNorm) && wa) {
+        const wordCount = wa.trim().split(/\s+/).length;
+        if (wordCount < woMin || wordCount > woMax) {
+          result.add('S-WORDORDER-RANGE', SEV.S, `Q${qid}: 어순배열 wa가 ${wordCount}단어 — ${woMin}~${woMax}단어 범위 필수`);
+        }
       }
     }
 
   });
 
-  // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──
-  if (questions.length === 20) {
+  // ── A6: 정답 분포 — derived from SCHEMA.global.ansRules.maxSameAns ──
+  const schemaMaxSameAns = SCHEMA.global.ansRules.maxSameAns;
+  if (questions.length === schemaTotalQ) {
     const ansDist = {};
     questions.filter(q => q.fmt === 'mc' && typeof q.ans === 'number').forEach(q => {
       ansDist[q.ans] = (ansDist[q.ans] || 0) + 1;
     });
     Object.entries(ansDist).forEach(([ans, count]) => {
-      if (count > 5) {
-        result.add('A6', SEV.S, `정답 ${ans}번이 ${count}개 — 6개 이상 금지 (최대 5개)`);
+      if (count > schemaMaxSameAns) {
+        result.add('A6', SEV.S, `정답 ${ans}번이 ${count}개 — ${schemaMaxSameAns + 1}개 이상 금지 (최대 ${schemaMaxSameAns}개)`);
       }
     });
   }
 
-  // ── A7: 같은 정답 3연속 금지 ──
+  // ── A7: 같은 정답 연속 금지 — derived from SCHEMA.global.ansRules.maxConsecutive ──
+  const schemaMaxConsecutive = SCHEMA.global.ansRules.maxConsecutive;
   const mcQuestions = questions.filter(q => q.fmt === 'mc' && typeof q.ans === 'number');
-  for (let i = 0; i < mcQuestions.length - 2; i++) {
-    if (mcQuestions[i].ans === mcQuestions[i+1].ans && mcQuestions[i+1].ans === mcQuestions[i+2].ans) {
-      result.add('A7', SEV.S, `Q${mcQuestions[i].id}~Q${mcQuestions[i+2].id}: 정답 ${mcQuestions[i].ans}번 3연속 금지`);
+  for (let i = 0; i <= mcQuestions.length - (schemaMaxConsecutive + 1); i++) {
+    let allSame = true;
+    for (let j = 1; j <= schemaMaxConsecutive; j++) {
+      if (mcQuestions[i].ans !== mcQuestions[i + j].ans) { allSame = false; break; }
+    }
+    if (allSame) {
+      result.add('A7', SEV.S, `Q${mcQuestions[i].id}~Q${mcQuestions[i + schemaMaxConsecutive].id}: 정답 ${mcQuestions[i].ans}번 ${schemaMaxConsecutive + 1}연속 금지`);
     }
   }
 
@@ -1537,19 +1566,27 @@ function validate(jsonPath) {
     });
   }
 
-  // ── R51~R53: 모의고사 문항번호 적합성 ──
+  // ── R51~R53: 모의고사 문항번호 적합성 — derived from SCHEMA.sourceTypes.모의고사 ──
+  const mockSchema = SCHEMA.sourceTypes && SCHEMA.sourceTypes['모의고사'];
+  const excludedNums = mockSchema && mockSchema.questionNumberTypeMap
+    ? Object.entries(mockSchema.questionNumberTypeMap)
+        .filter(([k, v]) => v.includes('제외'))
+        .map(([k]) => parseInt(k))
+    : [25, 27, 28]; // fallback
+  const shortNums = (mockSchema && mockSchema.shortPassageRestrictions && mockSchema.shortPassageRestrictions.numbers || []).map(Number);
+  const shortForbidden = (mockSchema && mockSchema.shortPassageRestrictions && mockSchema.shortPassageRestrictions.forbidden) || ['순서배열', '문장삽입', '어순배열'];
+
   if (ei.subject && ei.subject.includes('모의고사')) {
     const pubNum = parseInt(ei.pub);
     if (!isNaN(pubNum)) {
       // R51: excluded numbers
-      if ([25, 27, 28].includes(pubNum)) {
+      if (excludedNums.includes(pubNum)) {
         result.add('R51', SEV.C, `문항번호 ${pubNum}번은 출제 제외 번호입니다`);
       }
-      // R52: short passages shouldn't have 순서/삽입/어순배열 → S급 차단
-      if ([18, 19, 20, 26].includes(pubNum)) {
-        const badTypes = ['순서배열', '글순서', '문장삽입', '어순배열'];
+      // R52: short passages shouldn't have forbidden types → S급 차단
+      if (shortNums.includes(pubNum)) {
         questions.forEach(q => {
-          if (badTypes.includes(q.type)) {
+          if (shortForbidden.includes(q.type)) {
             result.add('R52', SEV.S, `Q${q.id}: 짧은 지문(${pubNum}번)에 ${q.type} 출제 — 금지 유형`);
           }
         });
@@ -1575,26 +1612,28 @@ function validate(jsonPath) {
     result.add('TT', SEV.S, `testType="${testType}" invalid`);
   }
 
-  // ── TW: Type whitelist — 허용 유형 외 전부 차단 ──
-  // 정규 이름 → 같은 유형의 약어/변형 모두 포함
-  const TYPE_WHITELIST = {
+  // ── TW: Type whitelist — derived from SCHEMA.testLayouts ──
+  // Base types from schema slots
+  const TYPE_WHITELIST_BASE = {};
+  for (const [layoutName, layout] of Object.entries(SCHEMA.testLayouts)) {
+    TYPE_WHITELIST_BASE[layoutName] = [...new Set(layout.slots.map(s => s.type))];
+  }
+  // Extend with known aliases/variants (schema has canonical names only; real data uses many aliases)
+  const TYPE_ALIASES = {
     '단어': [
-      '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
-      '빈칸 어휘 완성', '빈칸 문맥 완성',
-      '(A)(B)(C) 조합형',
-      '문맥상 부적절한 어휘', '부적절한 어휘', '부적절어휘', '부적절',
-      '다의어 문맥적 의미', '다의어 / 문맥적 의미', '다의어·문맥적 의미', '다의어 / 영영풀이',
-      '어형 변환 (서술형)', '어형 변환',
+      '부적절한 어휘', '부적절어휘', '부적절',
+      '다의어 / 문맥적 의미', '다의어·문맥적 의미', '다의어 / 영영풀이',
+      '어형 변환 (서술형)',
       '한영', '내용이해',
       '어휘', '주제', '빈칸추론', '빈칸 추론'
     ],
     '워크북': [
-      '내용이해', '내용일치', '내용불일치', '내용 일치/불일치', '불일치', '내용이해 T/F',
-      'T/F', 'TF', 'TF 판별',
-      '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸', '빈칸어휘', '빈칸 어휘 완성', '빈칸(구)', '빈칸(문장)', '주제빈칸', '추론',
-      '어법', '어법 빈칸', '어법빈칸', '어법 5지선다', '어법 밑줄형', '어법 빈칸형',
-      '문장삽입', '순서배열', '순서', '글순서', '오류찾기', '오류', '무관', '무관문장',
-      '서술형', '서술', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 조건영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
+      '내용이해', '내용일치', '내용불일치', '불일치', '내용 일치/불일치',
+      'TF', 'TF 판별', 'T/F',
+      '빈칸', '빈칸어휘', '빈칸(구)', '빈칸(문장)', '주제빈칸', '추론',
+      '어법 빈칸', '어법빈칸', '어법 5지선다', '어법 밑줄형', '어법 빈칸형',
+      '문장삽입', '순서배열', '순서', '글순서', '오류', '무관', '무관문장',
+      '서술', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
       '지칭추론', '지칭', '연결사',
       '주제', '주제/요지', '대의', '의미파악', '의미', '함축', '함축의미 추론', '요약', '요약문',
       '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
@@ -1605,32 +1644,34 @@ function validate(jsonPath) {
       '어휘', '어순', '어순배열',
       '영한', '영→한', '영한해석', '한영영작', '한영', '한→영',
       '추론불가', '일치', '어휘 문맥', '종합',
-      '글의 목적', '목적', '목적 추론'
+      '글의 목적', '목적', '목적 추론',
+      '빈칸 추론', '빈칸추론', '빈칸 문맥 완성', '빈칸 어휘 완성'
     ],
     '퀴즈': [
-      '순서배열', '순서', '글순서',
-      '문장삽입', '어순배열',
-      '어법', '어법 빈칸', '어법 ⓐ~ⓔ', '어법 ⓐ~ⓓ', '어법 A/B/C', '어법 밑줄형', '어법 빈칸형',
-      '문맥상 부적절한 어휘', '부적절어휘', '부적절',
+      '순서', '글순서',
+      '어법 빈칸', '어법 ⓐ~ⓔ', '어법 ⓐ~ⓓ', '어법 A/B/C', '어법 밑줄형', '어법 빈칸형', '어법빈칸', '어법 5지선다',
+      '부적절어휘', '부적절',
       '어휘', '어휘 ①~⑤', '어휘 A/B/C',
-      '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸', '빈칸 어휘 완성', '빈칸(구)', '빈칸(문장)',
-      '서술형', '서술', '서술형요약', '서술형영작', '서술형어형', '서술형(요약)', '서술형(영작)', '서술형(어형)', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 조건영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
-      '내용이해', '내용일치', '내용불일치', '내용 일치/불일치', '일치', '불일치', '내용이해 T/F',
-      'T/F', 'TF', 'TF 판별',
-      '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
-      '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
-      '다의어 문맥적 의미', '다의어 / 문맥적 의미',
-      '(A)(B)(C) 조합형',
-      '주제', '주제/요지', '주제빈칸', '제목', '대의', '시사점', '무관문장', '무관', '함축', '요약', '요약문', '추론',
-      '지칭', '지칭추론', '연결사', '함축의미 추론', '무관한 문장 찾기',
-      '어법빈칸', '어법 5지선다', '어법 ⓐ~ⓔ', '어법 ⓐ~ⓓ', '어법 A/B/C',
+      '빈칸', '빈칸(구)', '빈칸(문장)', '빈칸 추론', '빈칸추론', '빈칸 어휘 완성',
+      '서술', '서술형요약', '서술형영작', '서술형어형', '서술형(요약)', '서술형(영작)', '서술형(어형)', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
+      '일치', '불일치', '내용이해', '내용일치', '내용불일치', '내용 일치/불일치',
+      'TF', 'TF 판별',
+      '어형 변환 (서술형)', '어형변화', '어형변형',
+      '다의어 / 문맥적 의미',
+      '주제/요지', '주제빈칸', '제목', '대의', '시사점', '무관문장', '무관', '함축', '요약', '요약문', '추론',
+      '지칭', '연결사', '무관한 문장 찾기',
       '한영', '한→영',
       '기타', '종합', '어휘 문맥',
       '글의 목적', '목적', '목적 추론'
     ]
   };
+  const TYPE_WHITELIST = {};
+  for (const [layout, baseTypes] of Object.entries(TYPE_WHITELIST_BASE)) {
+    TYPE_WHITELIST[layout] = [...new Set([...baseTypes, ...(TYPE_ALIASES[layout] || [])])];
+  }
 
   // 절대 금지 유형 (어떤 테스트에도 불가)
+  // TODO: move banned types list to schema (e.g., SCHEMA.global.bannedTypes)
   const BANNED_TYPES = ['심경', '심경변화', '도표', '안내문', '광고문'];
 
   const allowed = TYPE_WHITELIST[testType] || [];

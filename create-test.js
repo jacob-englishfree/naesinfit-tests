@@ -23,6 +23,31 @@ const path = require('path');
 const ROOT = path.resolve(__dirname);
 const SCHEMA = JSON.parse(fs.readFileSync(path.join(ROOT, 'validate/question-schema.json'), 'utf8'));
 
+// ── 스키마 questionTypes 퍼지 매칭: 슬롯 type명 → schema questionType 키 ──
+function findQuestionType(typeName) {
+  // 1. 정확 매칭
+  if (SCHEMA.questionTypes[typeName]) return SCHEMA.questionTypes[typeName];
+  // 2. typeAliases 테이블 매칭 (schema에 별칭 정의)
+  const aliases = SCHEMA.typeAliases || {};
+  if (aliases[typeName] && SCHEMA.questionTypes[aliases[typeName]]) {
+    return SCHEMA.questionTypes[aliases[typeName]];
+  }
+  // 3. 부분 매칭: 슬롯 type에 포함된 키워드로 schema에서 찾기
+  const keys = Object.keys(SCHEMA.questionTypes);
+  for (const k of keys) {
+    if (k.includes(typeName) || typeName.includes(k)) return SCHEMA.questionTypes[k];
+  }
+  // 4. 키워드 분할 매칭: "주제/요지" → "주제" 또는 "요지"
+  const subKeys = typeName.split(/[/·\s]+/);
+  for (const sub of subKeys) {
+    if (sub.length < 2) continue;
+    for (const k of keys) {
+      if (k.includes(sub)) return SCHEMA.questionTypes[k];
+    }
+  }
+  return {};
+}
+
 // ── CLI 파싱 ──
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -111,14 +136,15 @@ function getSlots(testType, source, sourcePath) {
     }
   }
 
-  // ── 모의고사 짧은 지문 번호별 금지 유형 자동 필터링 ──
+  // ── 모의고사 짧은 지문 번호별 금지 유형 자동 필터링 (SCHEMA에서 로드) ──
   if (source === '모의고사' && sourcePath) {
     const numMatch = sourcePath.match(/(\d+)번/);
     if (numMatch) {
       const qNum = parseInt(numMatch[1]);
-      const shortPassageNums = [18, 19, 20, 26];
+      const shortRestrictions = SCHEMA.sourceTypes['모의고사']?.shortPassageRestrictions || {};
+      const shortPassageNums = (shortRestrictions.numbers || []).map(n => parseInt(n));
       if (shortPassageNums.includes(qNum)) {
-        const forbiddenTypes = ['순서배열', '문장삽입', '어순배열', '서술형 — 조건영작'];
+        const forbiddenTypes = [...(shortRestrictions.forbidden || []), '서술형 — 조건영작'];
         for (let i = 0; i < slots.length; i++) {
           if (forbiddenTypes.includes(slots[i].type)) {
             const oldType = slots[i].type;
@@ -185,7 +211,7 @@ function buildEi(source, sourcePath, testType, passageData) {
 // ── passage 오버레이 (스크립트가 처리) ──
 function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
   const sourceConfig = SCHEMA.sourceTypes[source];
-  const typeConfig = SCHEMA.questionTypes[questionType];
+  const typeConfig = findQuestionType(questionType);
 
   // typeConfig 없어도 overlay는 적용 (validate 허용 유형이 schema questionTypes보다 넓음)
 
@@ -304,16 +330,25 @@ function escapeRegex(str) {
 // ── ans 분포 추적 ──
 class AnsTracker {
   constructor() {
-    this.counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    const choiceCount = SCHEMA.global.ansRules.choiceCount;
+    this.counts = {};
+    for (let i = 1; i <= choiceCount; i++) this.counts[i] = 0;
     this.sequence = [];
+    this.maxSameAns = SCHEMA.global.ansRules.maxSameAns;
+    this.maxConsecutive = SCHEMA.global.ansRules.maxConsecutive;
   }
 
   canUse(ans) {
-    // 5개 이상 금지
-    if (this.counts[ans] >= 5) return false;
-    // 3연속 금지
+    if (this.counts[ans] >= this.maxSameAns) return false;
+    // maxConsecutive+1 연속 금지
     const len = this.sequence.length;
-    if (len >= 2 && this.sequence[len - 1] === ans && this.sequence[len - 2] === ans) return false;
+    if (len >= this.maxConsecutive) {
+      let allSame = true;
+      for (let i = 1; i <= this.maxConsecutive; i++) {
+        if (this.sequence[len - i] !== ans) { allSame = false; break; }
+      }
+      if (allSame) return false;
+    }
     return true;
   }
 
@@ -401,7 +436,7 @@ function assembleQuestion(slot, passageText, aiDecision) {
 // ── 단일 문항 validate (경량) ──
 function validateSingleQuestion(q, slot, fullPassage, source) {
   const errors = [];
-  const typeConfig = SCHEMA.questionTypes[slot.type] || {};
+  const typeConfig = findQuestionType(slot.type);
 
   // 1. passage 존재 확인 (영영풀이만 제외 — 조건영작도 passage 필수)
   if (slot.type !== '영영풀이 매칭') {
@@ -729,7 +764,7 @@ function main() {
   console.log(`\n── 슬롯 목록 (AI에게 전달) ──`);
 
   const aiPromptSlots = slots.map(slot => {
-    const typeConfig = SCHEMA.questionTypes[slot.type] || {};
+    const typeConfig = findQuestionType(slot.type);
     const suggested = tracker.suggestAns();
 
     return {
@@ -751,95 +786,21 @@ function main() {
   const outputDir = path.join(ROOT, 'data', source, sourcePath);
   fs.mkdirSync(outputDir, { recursive: true });
 
-  // ── 유형별 overlay 필수 규칙 생성 ──
+  // ── 유형별 overlay 필수 규칙 생성 (SCHEMA.questionTypes에서 로드, 퍼지 매칭) ──
   const overlayRules = {};
   const usedTypes = [...new Set(aiPromptSlots.map(s => s.type))];
   for (const t of usedTypes) {
-    const tc = SCHEMA.questionTypes[t] || {};
-    if (t.includes('(A)(B)(C)')) {
+    const tc = findQuestionType(t);
+    if (tc.overlayRequired || tc.overlayNote) {
       overlayRules[t] = {
-        required: 'overlay.abc = { "A": ["원문단어","오답단어"], "B": [...], "C": [...] }',
-        note: '3개 단어 모두 fullPassage에 반드시 존재. 본문 전체에 분산 배치.'
+        required: tc.overlayRequired || '',
+        note: tc.overlayNote || ''
       };
-    } else if (t.includes('부적절') || t === '어휘') {
-      overlayRules[t] = {
-        required: 'overlay.markers = { "①": "원문단어", "②": "원문단어", "③": { "find": "원문단어", "display": "교체단어" }, "④": "원문단어" }',
-        note: '4개 마커 필수. 정답 위치만 find/display (원문→반의어). 나머지 3개는 문자열(원문 그대로). 본문 전체 분산.'
-      };
-    } else if (t.includes('어법')) {
-      overlayRules[t] = {
-        required: 'overlay.markers = { "①": "원문단어", "②": { "find": "원문단어", "display": "문법오류형태" }, "③": "원문단어", "④": "원문단어" }',
-        note: '4개 마커 필수. 정답 위치만 find/display (원문→문법오류). 본문 전체 분산.'
-      };
-    } else if (t.includes('빈칸')) {
-      overlayRules[t] = {
-        required: 'overlay.blank = "빈칸으로 만들 단어/구" (fullPassage에 반드시 존재하는 단어)',
-        note: '숫자/고유명사/단순사실 금지. 문맥에서 추론 가능한 단어만. 오답도 fullPassage에서 가져올 것(소거법 방지).'
-      };
-    } else if (t.includes('동의어') || t.includes('반의어')) {
-      overlayRules[t] = {
-        required: 'overlay.underline = "밑줄칠단어" (fullPassage에 존재하는 단어)',
-        note: 'stem에 해당 단어 포함. 오답은 같은 품사.'
-      };
-    } else if (t.includes('다의어')) {
-      overlayRules[t] = {
-        required: 'overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)',
-        note: 'passage 필드에 (A)(B) 두 미니 문장을 직접 넣으세요 — 이 유형만 예외적으로 passage를 AI가 작성.'
-      };
-    } else if (t.includes('영영풀이')) {
-      overlayRules[t] = {
-        required: 'overlay = {} (passage 없음)',
-        note: 'stem에 영영 정의 포함. 선지는 같은 어미/비슷한 형태.'
-      };
-    } else if (t.includes('어형')) {
-      overlayRules[t] = {
-        required: 'overlay.excerptSentences = "2~4문장 발췌 (__________ (원형) 포함)"',
-        note: 'accept 3개 이상 필수 (마침표 변형 포함). wa = 변환된 형태.'
-      };
-    } else if (t.includes('영작')) {
-      overlayRules[t] = {
-        required: 'overlay.blank = "빈칸으로 만들 문장/구" (passage의 정답자리를 ____로 가림)',
-        note: 'passage 필수 (정답자리만 빈칸). stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건 + "(영어로)" 응답 언어 명시. 조건 단어 수 ≠ wa 단어 수 (같으면 어순배열). accept 3개 이상.'
-      };
-    } else if (t.includes('어순')) {
-      overlayRules[t] = {
-        required: 'overlay.blank = "빈칸으로 만들 문장/구" (passage에서 빈칸 처리)',
-        note: 'stem에 셔플된 단어 8~15개 + (N단어) 조건. wa = 올바른 순서. passage의 해당 부분이 반드시 ____로 가려져야 함.'
-      };
-    } else if (t.includes('T/F')) {
-      overlayRules[t] = {
-        required: 'overlay = {} (passage는 스크립트가 fullPassage 주입)',
-        note: 'ch=["T","F"]. stem = 한국어 진술문(패러프레이즈 필수, 직역 금지). ans=1(T) or 2(F).'
-      };
-    } else if (t.includes('내용일치') || t.includes('내용이해')) {
+    } else {
+      // SCHEMA-TODO: 이 유형의 overlay 규칙을 question-schema.json에 추가
       overlayRules[t] = {
         required: 'overlay = {}',
-        note: 'ch = 한국어 진술문 4개 (패러프레이즈 필수, 직역 금지).'
-      };
-    } else if (t.includes('주제') || t.includes('요약') || t.includes('대의') || t.includes('제목')) {
-      overlayRules[t] = {
-        required: 'overlay = {}',
-        note: 'ch = 한국어 4개.'
-      };
-    } else if (t.includes('함축')) {
-      overlayRules[t] = {
-        required: 'overlay.underline = "비유표현/관용구" (fullPassage에 존재)',
-        note: 'ch = 한국어 4개.'
-      };
-    } else if (t.includes('지칭')) {
-      overlayRules[t] = {
-        required: 'overlay.underline = "대명사" (fullPassage에 존재)',
-        note: 'ch = 한국어 명사/명사구 4개. 영어 인명 금지(정답 노출).'
-      };
-    } else if (t.includes('오류')) {
-      overlayRules[t] = {
-        required: 'overlay.markers = { "①": { "find": "원문", "display": "오류형태" }, "②": "원문", ... }',
-        note: '4~5개 마커. 1개만 문법 오류.'
-      };
-    } else if (t === '서술형' || t === '서술형 — 핵심단어') {
-      overlayRules[t] = {
-        required: 'overlay = {}',
-        note: 'stem = 패러프레이징된 한국어 + "찾아 쓰시오" + 응답 언어 명시 "(영어로)" 또는 "(우리말로)". wa = 정답. accept 3개 이상 (대소문자, 마침표 변형).'
+        note: `(${t} — schema에 overlayRequired 미정의)`
       };
     }
   }
@@ -856,7 +817,9 @@ function main() {
     source,
     sourcePath,
     testType,
-    passageRule: source === '교과서' ? 'excerpt (5~10문장 발췌) — overlay 단어는 excerptRange 안 문장에서만 선택!' : 'fullPassage 통째 + overlay만',
+    passageRule: SCHEMA.sourceTypes[source]?.passageRule === 'excerpt'
+      ? `excerpt (${SCHEMA.sourceTypes[source]?.passageLength || '5~10문장 발췌'}) — overlay 단어는 excerptRange 안 문장에서만 선택!`
+      : `fullPassage 통째 + overlay만 (${SCHEMA.sourceTypes[source]?.passageLength || ''})`,
     fullPassage: passageData.fullPassage,
     title: passageData.title,
     // 교과서: 문장 인덱스 목록 제공 (AI가 excerptRange 결정에 활용)
@@ -879,27 +842,44 @@ function main() {
     ei,
     slots: aiPromptSlots,
     overlayRules,
-    validateRules: {
-      _description: "아래 규칙 위반 시 validate가 즉시 차단합니다. 반드시 준수하세요.",
-      "S-MARKER-MUST-EXIST": "마커형(어법/부적절/오류찾기) → overlay.markers에 ①②③④ 4개 필수. 누락 시 학생이 풀 수 없음",
-      "S-BLANK-MUST-EXIST": "빈칸형(빈칸추론/빈칸어휘) → overlay.blank 필수. 누락 시 학생이 풀 수 없음",
-      "S-UNDERLINE-MUST-EXIST": "밑줄형(동의어/반의어/함축/지칭) → overlay.underline 필수",
-      "S-WEAK-DISTRACTOR": "mc 오답은 가능하면 fullPassage에 등장하는 단어로. fullPassage에 없는 오답 3개 = 소거법으로 풀림",
-      "S-WA-IN-PASSAGE": "서술형(어순배열 포함) wa가 passage에 그대로 노출 금지. 해당 부분을 __________로 가려야 함",
-      "S-LENGTH-BIAS": "정답 길이가 오답 평균의 2.5배 이상 금지",
-      "S-META-LEAK": "passage/stem/ch에 '(원문에 없)', '정답:', '✅', '❌' 등 메타텍스트 금지",
-      "S-CIRCULAR-STEM": "서술형 wa가 stem에 그대로 노출 금지",
-      "ACCEPT-MIN-3": "서술형 accept 변형 3개 이상 필수 (대소문자, 마침표 등)",
-      "ANS-RULES": "ans는 1-indexed(1,2,3,4). 같은 번호 최대 5개. 3연속 금지.",
-      "WORDCOUNT": "어순배열/영작 stem에 반드시 (N단어) 조건 포함",
-      "_A급 (재출제 권고 — 이것도 지켜야 PASS)": {
-        "A-V63-PASSAGE-SHORT": "다의어 passage 최소 4문장 이상 (2문장=빈화면). (A)(B) 각 2문장씩 권장",
-        "A-WEAK-DISTRACTOR": "mc 오답은 fullPassage에 등장하는 단어/표현으로. 3개 모두 fp에 없으면 소거법",
-        "A-PARAPHRASE": "한국어 선지에 영어 고유명사(Beth, Friedman 등) 직접 사용 금지. 한국어로 패러프레이즈",
-        "A-WRITTEN-WORDCOUNT": "서술형 영작/조건영작 stem에 반드시 (N단어) 조건 포함. wa 단어수와 정확히 일치",
-        "A-X42-DET-MISMATCH": "어법/마커형 det.korean: 정답 마커 번호의 설명에 '→' 교정 표시. ①~④ 순서로 나열하되 analysis의 ✅❌와 일관되게"
+    validateRules: (() => {
+      // SCHEMA.validateRules에서 S급/A급 규칙 로드
+      const rules = {
+        _description: "아래 규칙 위반 시 validate가 즉시 차단합니다. 반드시 준수하세요."
+      };
+      // S급 규칙 추가
+      if (SCHEMA.validateRules && SCHEMA.validateRules['S급 (즉시 차단)']) {
+        for (const rule of SCHEMA.validateRules['S급 (즉시 차단)']) {
+          const colonIdx = rule.indexOf(':');
+          if (colonIdx > 0) {
+            const code = rule.substring(0, colonIdx).trim();
+            const desc = rule.substring(colonIdx + 1).trim();
+            rules[code] = desc;
+          }
+        }
       }
-    },
+      // 스크립트 고유 규칙 (schema에 없는 overlay 관련)
+      rules['S-MARKER-MUST-EXIST'] = rules['S-MARKER-MUST-EXIST'] || '마커형(어법/부적절/오류찾기) → overlay.markers에 ①②③④ 4개 필수';
+      rules['S-BLANK-MUST-EXIST'] = rules['S-BLANK-MUST-EXIST'] || '빈칸형(빈칸추론/빈칸어휘) → overlay.blank 필수';
+      rules['S-UNDERLINE-MUST-EXIST'] = rules['S-UNDERLINE-MUST-EXIST'] || '밑줄형(동의어/반의어/함축/지칭) → overlay.underline 필수';
+      rules['ACCEPT-MIN-3'] = '서술형 accept 변형 3개 이상 필수 (대소문자, 마침표 등)';
+      rules['ANS-RULES'] = `ans는 ${SCHEMA.global.ansRules.indexed}. 같은 번호 최대 ${SCHEMA.global.ansRules.maxSameAns}개. ${SCHEMA.global.ansRules.maxConsecutive + 1}연속 금지.`;
+      rules['WORDCOUNT'] = '어순배열/영작 stem에 반드시 (N단어) 조건 포함';
+      // A급 규칙
+      const aGrade = {};
+      if (SCHEMA.validateRules && SCHEMA.validateRules['A급 (재출제 권장)']) {
+        for (const rule of SCHEMA.validateRules['A급 (재출제 권장)']) {
+          const colonIdx = rule.indexOf(':');
+          if (colonIdx > 0) {
+            const code = rule.substring(0, colonIdx).trim();
+            const desc = rule.substring(colonIdx + 1).trim();
+            aGrade[code] = desc;
+          }
+        }
+      }
+      rules['_A급 (재출제 권고 — 이것도 지켜야 PASS)'] = aGrade;
+      return rules;
+    })(),
     responseFormat: {
       _description: "response.json 구조 — decisions 배열에 20개 판단",
       _structure: { source, sourcePath, testType, decisions: "[...20개]" },
