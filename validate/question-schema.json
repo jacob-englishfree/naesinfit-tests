@@ -680,16 +680,21 @@
         "부교재": "fullPassage (정답 포함 OK)",
         "모의고사": "fullPassage (정답 포함 OK)"
       },
-      "stem": "위 글에서 다음 빈칸에 들어갈 말을 찾아 쓰시오 + 패러프레이징된 문장",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
       "acceptMin": 3,
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지"
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
     },
     "서술형 — 조건영작": {
       "fmt": "written",
-      "passageRule": "ALL: passage 없음 (정답 노출 방지)",
+      "passageRule": {
+        "교과서": "발췌 + 정답자리 __________",
+        "부교재": "fullPassage + 정답자리 __________",
+        "모의고사": "fullPassage + 정답자리 __________"
+      },
       "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "stemRule": "조건 단어 수 > wa 단어 수이거나, 조건에 wa에 없는 더미 단어 포함 필수 (단순 어순배열 방지). stem에 응답 언어 '(영어로)' 명시 필수",
       "acceptMin": 3,
-      "conditionRule": "기능어(a,an,the,and,or,to,of,is,are) 포함 모든 단어 명시"
+      "conditionRule": "기능어 포함 모든 단어 명시. 주어진 단어 수 = wa 단어 수이면 사실상 어순배열이므로 금지"
     },
     "어순배열": {
       "fmt": "written",

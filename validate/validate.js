@@ -1102,6 +1102,40 @@ function validate(jsonPath) {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // S-WRITTEN-NO-PASSAGE (2026-04-13): 서술형에 passage 없으면 차단
+    // 규칙: 모든 서술형(mc+written)에 passage 필수. 예외: 영영풀이, 다의어만
+    // ─────────────────────────────────────────────────────────────
+    if (isWritten && !passage && !/영영/.test(typeNorm) && !/다의어/.test(typeNorm)) {
+      result.add('S-WRITTEN-NO-PASSAGE', SEV.S, `Q${qid}: 서술형인데 passage 없음 — 모든 서술형에 passage 필수`);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-WRITTEN-NO-LANG (2026-04-13): 서술형 stem에 응답 언어(영어/우리말) 미지정
+    // ─────────────────────────────────────────────────────────────
+    if (isWritten && stem) {
+      const hasLang = /영어로|우리말로|한국어로|한글로|English|Korean/.test(stem);
+      const isWordForm = /어형|변환/.test(typeNorm); // 어형변환은 언어 자명
+      const isWordOrder = /어순|배열/.test(typeNorm); // 어순배열도 자명
+      if (!hasLang && !isWordForm && !isWordOrder) {
+        result.add('S-WRITTEN-NO-LANG', SEV.S, `Q${qid}: 서술형 stem에 응답 언어(영어로/우리말로) 미지정 — 학생이 뭘 써야 하는지 모름`);
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-COND-IS-WORDORDER (2026-04-13): 조건영작인데 조건 단어 수 = wa 단어 수 → 사실상 어순배열
+    // ─────────────────────────────────────────────────────────────
+    if (typeNorm.includes('조건영작') && isWritten && wa && stem) {
+      const condMatch = stem.match(/\[조건\].*?\(1\)\s*([^(]+)\(2\)/s);
+      if (condMatch) {
+        const condWords = condMatch[1].replace(/를\s*모두\s*사용/g, '').split(/[,\s]+/).filter(w => w.trim().length > 0);
+        const waWords = wa.trim().split(/\s+/);
+        if (condWords.length > 0 && condWords.length === waWords.length) {
+          result.add('S-COND-IS-WORDORDER', SEV.S, `Q${qid}: 조건영작 단어 ${condWords.length}개 = wa ${waWords.length}단어 → 사실상 어순배열. 더미 단어 추가 또는 유형 변경 필요`);
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // S-STEM-NOT-IN-PASSAGE (2026-04-10): stem이 참조하는 단어가 passage에 없으면 차단
     // 원인: 다른 passage용 문항을 템플릿 복사한 후 stem/ch만 안 바꾼 경우
     // 적용: 동의어/반의어/함축의미 등 stem에 "<u>단어</u>" 참조가 있는 유형
@@ -1439,12 +1473,12 @@ function validate(jsonPath) {
       if ([25, 27, 28].includes(pubNum)) {
         result.add('R51', SEV.C, `문항번호 ${pubNum}번은 출제 제외 번호입니다`);
       }
-      // R52: short passages shouldn't have 순서/삽입/어순배열
+      // R52: short passages shouldn't have 순서/삽입/어순배열 → S급 차단
       if ([18, 19, 20, 26].includes(pubNum)) {
         const badTypes = ['순서배열', '글순서', '문장삽입', '어순배열'];
         questions.forEach(q => {
           if (badTypes.includes(q.type)) {
-            result.add('R52', SEV.C, `Q${q.id}: 짧은 지문(${pubNum}번)에 ${q.type} 출제`);
+            result.add('R52', SEV.S, `Q${q.id}: 짧은 지문(${pubNum}번)에 ${q.type} 출제 — 금지 유형`);
           }
         });
       }

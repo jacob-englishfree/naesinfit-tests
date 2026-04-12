@@ -174,8 +174,8 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
     return sentences.slice(0, 3).join(' ');
   }
 
-  // 영작 서술형: passage 없음
-  if (questionType === '서술형 — 조건영작') return '';
+  // 영작 서술형: passage 필수 + 정답자리 빈칸 (overlay.blank로 처리됨 — 빈칸추론과 동일 로직)
+  // 2026-04-13: "passage 없음" 규칙 폐기 → 모든 서술형에 passage 필수 (CLAUDE.md)
 
   // 1단계: fullPassage에 overlay 적용 (교과서 발췌 전에 먼저 적용해야 마커가 발췌본에 포함됨)
   let overlaid = fullPassage;
@@ -770,8 +770,8 @@ function main() {
       };
     } else if (t.includes('영작')) {
       overlayRules[t] = {
-        required: 'overlay = {} (passage 없음 — 정답 노출 방지)',
-        note: 'stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건. accept 3개 이상.'
+        required: 'overlay.blank = "빈칸으로 만들 문장/구" (passage의 정답자리를 ____로 가림)',
+        note: 'passage 필수 (정답자리만 빈칸). stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건 + "(영어로)" 응답 언어 명시. 조건 단어 수 ≠ wa 단어 수 (같으면 어순배열). accept 3개 이상.'
       };
     } else if (t.includes('어순')) {
       overlayRules[t] = {
@@ -811,7 +811,7 @@ function main() {
     } else if (t === '서술형' || t === '서술형 — 핵심단어') {
       overlayRules[t] = {
         required: 'overlay = {}',
-        note: 'stem = 패러프레이징된 한국어 + "찾아 쓰시오". wa = 정답. accept 3개 이상 (대소문자, 마침표 변형).'
+        note: 'stem = 패러프레이징된 한국어 + "찾아 쓰시오" + 응답 언어 명시 "(영어로)" 또는 "(우리말로)". wa = 정답. accept 3개 이상 (대소문자, 마침표 변형).'
       };
     }
   }
@@ -911,12 +911,12 @@ function main() {
         korean: "해석", analysis: "분석", tip: "팁"
       },
       writing_example: {
-        _comment: "영작 서술형 — overlay={}, passage 없음",
+        _comment: "영작 서술형 — passage 필수(정답자리 빈칸) + 응답 언어 명시",
         id: 20,
-        stem: "다음 우리말에 맞도록 주어진 조건에 따라 영작하시오.\n\"그는 집에서 그녀를 기다리기로 결정했다.\"\n[조건] (1) he, decided, to, wait, for, her, at, home을 모두 사용 (2) 8단어로 쓸 것",
+        stem: "다음 우리말에 맞도록 주어진 조건에 따라 영작하시오. (영어로)\n\"그는 집에서 그녀를 기다리기로 결정했다.\"\n[조건] (1) he, decided, to, wait, for, her, home, at을 모두 사용 (2) 정확히 7단어로 쓸 것",
         wa: "He decided to wait for her at home",
         accept: ["He decided to wait for her at home", "He decided to wait for her at home.", "he decided to wait for her at home"],
-        overlay: {},
+        overlay: { blank: "He decided to wait for her at home" },
         korean: "해석", analysis: "분석", tip: "팁"
       }
     }
