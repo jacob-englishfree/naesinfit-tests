@@ -364,7 +364,9 @@ function validate(jsonPath) {
 
     // V62: "빈칸에 들어갈"/"위 글의 빈칸"/"위 빈칸" stem인데 passage에 빈칸 없음
     // ⛔ 어법/어휘/추론 모두 포함. passage가 존재하는 경우만 (passage 자체가 없는 유형은 X40이 처리)
-    if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸') || stem.includes('빈칸에 들어갈') || stem.includes('빈 칸에 들어갈')) && passage.trim().length > 10 && !passage.includes('____') && !passage.includes('_____')) {
+    // 서술형 "찾기" 유형은 stem에 빈칸이 있어도 passage에는 필요 없음 (stem 안 한국어 문장의 빈칸)
+    const isFindType = stem.includes('찾아 쓰시오') || stem.includes('찾아쓰시오') || stem.includes('본문에서 찾아');
+    if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸') || stem.includes('빈칸에 들어갈') || stem.includes('빈 칸에 들어갈')) && passage.trim().length > 10 && !passage.includes('____') && !passage.includes('_____') && !isFindType) {
       result.add('V62', SEV.S, `Q${qid}: stem에 "빈칸"이라고 했는데 passage에 빈칸(____) 없음 — 풀 수 없음`);
     }
 
@@ -549,7 +551,7 @@ function validate(jsonPath) {
         const waWords = q.wa.trim().split(/\s+/).filter(Boolean);
         if (waWords.length >= 2) {
           const stemText = q.stem || '';
-          const hasCond = /\(\d+\s*단어\)|\d+\s*단어를?\s*올바른|한\s*단어|한\s*문장|[a-z]로\s*시작/i.test(stemText);
+          const hasCond = /\(\d+\s*단어\)|\d+\s*단어로?\s*(쓸|올바른|작성)|한\s*단어|한\s*문장|[a-z]로\s*시작/i.test(stemText);
           if (!hasCond) {
             result.add('V-WRITTEN-WORDCOUNT', SEV.A, `Q${qid}: 서술형 영작 stem에 단어 수 조건 누락 (wa: "${q.wa}")`);
           }
@@ -1035,9 +1037,10 @@ function validate(jsonPath) {
     // S-MARKER-LEAK: passage에 ①②③④⑤ 마커가 있는데 해당 유형 아닐 때
     const markerCount = (passage.match(/[①②③④⑤]/g) || []).length;
     const markerAllowedTypes = [
-      '(A)(B)(C) 조합형','어법','어법 오류','어법성 판단','오류 찾기','문법 오류',
+      '(A)(B)(C) 조합형','어법','어법 오류','어법성 판단','오류 찾기','문법 오류','오류찾기',
       '내용일치','내용 일치','내용불일치','내용 불일치',
-      '문장삽입','문장 삽입','순서배열','글의 순서','순서','어순배열','문맥상 부적절한 어휘','부적절한 어휘'
+      '문장삽입','문장 삽입','순서배열','글의 순서','순서','어순배열','문맥상 부적절한 어휘','부적절한 어휘',
+      '어휘','부적절어휘','부적절'
     ];
     const typeNoSpace = typeNorm.replace(/\s+/g, '');
     if (markerCount >= 2 && !markerAllowedTypes.some(t => typeNoSpace.includes(t.replace(/\s+/g,'')))) {
@@ -1138,7 +1141,8 @@ function validate(jsonPath) {
           const isSynAnt = typeNorm.includes('동의어') || typeNorm.includes('반의어');
           const isEngEng = typeNorm.includes('영영');
           const isPoly = typeNorm.includes('다의어');
-          if (!isMorph && !isSynAnt && !isEngEng && !isPoly) {
+          const isWriting = typeNorm.includes('영작') || typeNorm.includes('조건영작') || typeNorm.includes('한영');
+          if (!isMorph && !isSynAnt && !isEngEng && !isPoly && !isWriting) {
             result.add('S-DET-FOREIGN-WORD', SEV.S, `Q${qid}: det 해설의 핵심단어 "${dbw}"가 지문에 없음 — 다른 지문용 문항 복사 의심`);
           }
         }
@@ -1240,7 +1244,9 @@ function validate(jsonPath) {
         const polysemyHasMini = isPolysemy && /\(A\)[\s\S]+\(B\)/.test(stem);
         // 순서배열/글순서/문장삽입은 stem에 본문 텍스트가 포함되므로 passage 없음 허용 (V63-B와 정합)
         const isOrderInsert = /순서배열|글순서|문장삽입|어순배열/.test(typeNorm);
-        if (!isEngDef && !polysemyHasMini && !isOrderInsert) {
+        // 영작 서술형은 정답 노출 방지를 위해 passage 없음이 정상
+        const isWritingTask = /조건영작|영작문|한영영작|한영|한→영/.test(typeNorm);
+        if (!isEngDef && !polysemyHasMini && !isOrderInsert && !isWritingTask) {
           result.add('S-NO-PASSAGE', SEV.S, `Q${qid}: passage 누락 (type=${typeNorm || '-'}, fmt=${q.fmt}) — passage 필수`);
         }
       }
@@ -1763,7 +1769,9 @@ function validate(jsonPath) {
     // ── Q5: 서술형 wa가 fullPassage에서 유도 가능해야 함 ──
     if (fmt === 'written' && wa && !/어순/.test(qtype)) {
       const waClean = wa.trim();
-      if (waClean.split(/\s+/).length === 1 && fullPassage) {
+      // 어형변환은 변환형이 fullPassage에 없는 게 정상 (science→scientific)
+      const isMorphChange = /어형\s*변환|어형변화|어형변형/.test(qtype);
+      if (waClean.split(/\s+/).length === 1 && fullPassage && !isMorphChange) {
         // 단어 1개짜리: fullPassage에 있어야 함
         if (!fullPassage.includes(waClean) && !fullPassage.toLowerCase().includes(waClean.toLowerCase())) {
           result.add('Q5-WA-NOT-IN-FP', SEV.S, `Q${qid}: 서술형 wa "${waClean}"이 fullPassage에 없음 — 지문에서 유도 불가`);
