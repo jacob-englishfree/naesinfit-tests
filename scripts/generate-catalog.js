@@ -185,8 +185,27 @@ function main() {
     const catalogKey = `${m[2]}-${m[1]}-${m[3]}`;
 
     if (!mock.path) {
-      catalog['모의고사'][catalogKey] = { path: '', items: [], _deployed: false };
-      continue;
+      // textbooks.ts에 path 없어도 data/ 폴더에 실제 데이터가 있으면 자동 탐지
+      // catalogKey = "고1-2025-3월" → 가능한 폴더: "고1/3월_2025", "고1/3월"
+      const grade = m[2]; // 고1
+      const month = m[3]; // 3월
+      const year = m[1]; // 2025
+      const candidates = [`${grade}/${month}_${year}`, `${grade}/${month}`];
+      let foundPath = null;
+      for (const c of candidates) {
+        const cp = path.join(DATA, '모의고사', c.normalize('NFC'));
+        if (fs.existsSync(cp) && fs.readdirSync(cp).some(f => !f.startsWith('_') && fs.statSync(path.join(cp, f)).isDirectory())) {
+          foundPath = c;
+          break;
+        }
+      }
+      if (!foundPath) {
+        catalog['모의고사'][catalogKey] = { path: '', items: [], _deployed: false };
+        continue;
+      }
+      // path를 찾았으면 아래 로직으로 진행
+      mock.path = foundPath;
+      console.log(`  📁 ${catalogKey}: textbooks.ts에 path 없음 → data/${foundPath} 자동 탐지`);
     }
 
     const dirPath = path.join(DATA, '모의고사', mock.path.normalize('NFC'));
