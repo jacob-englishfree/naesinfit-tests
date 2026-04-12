@@ -186,7 +186,7 @@ function validate(jsonPath) {
 
     // ── passage 비어있으면 S급 에러 (passage 없이 출제되는 유형은 면제) ──
     const noPassageTypes = [
-      '동의어 고르기', '반의어 고르기', '영영풀이 매칭',
+      '영영풀이 매칭',
       '한영', '한→영', '한영영작',
       '어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형',
       '서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)',
@@ -505,7 +505,9 @@ function validate(jsonPath) {
     if (typeNorm.includes('어형') || typeNorm.includes('어형 변환')) {
       const pText = (q.passage || '').replace(/<[^>]+>/g, '');
       const sentCount = (pText.match(/[.!?]+/g) || []).length;
-      if (sentCount > 4) {
+      if (sentCount > 6) {
+        result.add('V74', SEV.S, `Q${qid}: 어형변환 passage가 ${sentCount}문장 — 2~4문장 권장, 6문장 초과 차단 (정답 단어 노출 방지)`);
+      } else if (sentCount > 4) {
         result.add('V74', SEV.A, `Q${qid}: 어형변환 passage가 ${sentCount}문장 — 2~4문장 권장 (정답 단어 노출 방지)`);
       }
     }
@@ -1074,7 +1076,7 @@ function validate(jsonPath) {
       if (isMockOrSupp && fullLen >= 200) {
         const typeNoSpace = String(typeNorm || '').replace(/\s+/g, '');
         // 면제: 어형변환/영영풀이/영작/어법/부적절 어휘 (paraphrased excerpts OK) + 찾기 stem
-        const skipFull = /어형변환|영영풀이|영작|다의어|^어법|문장단위어법|오류찾기|부적절/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
+        const skipFull = /어형변환|영영풀이|다의어|문장단위어법/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
         // 문장단위 어법: ①②③④ at sentence start, no <u>
         const isSentLevelGrammar = /[①②③④⑤]\s*[A-Z]/.test(passage) && !/<u>/i.test(passage) && (passage.match(/[①②③④⑤]/g) || []).length >= 3;
         if (!skipFull && !isSentLevelGrammar) {
@@ -1279,7 +1281,7 @@ function validate(jsonPath) {
         // 순서배열/글순서/문장삽입은 stem에 본문 텍스트가 포함되므로 passage 없음 허용 (V63-B와 정합)
         const isOrderInsert = /순서배열|글순서|문장삽입|어순배열/.test(typeNorm);
         // 영작 서술형은 정답 노출 방지를 위해 passage 없음이 정상
-        const isWritingTask = /조건영작|영작문|한영영작|한영|한→영/.test(typeNorm);
+        const isWritingTask = /조건영작|영작문|한영영작/.test(typeNorm);
         if (!isEngDef && !polysemyHasMini && !isOrderInsert && !isWritingTask) {
           result.add('S-NO-PASSAGE', SEV.S, `Q${qid}: passage 누락 (type=${typeNorm || '-'}, fmt=${q.fmt}) — passage 필수`);
         }
@@ -1337,12 +1339,82 @@ function validate(jsonPath) {
             const passLower = passage.toLowerCase();
             const exposed = engWords.filter(w => passLower.includes(w));
             if (exposed.length >= 2) {
-              result.add('A-PARAPHRASE', SEV.A, `Q${qid}: 내용일치/주제 한국어 선지에 passage 영어 단어(${exposed.slice(0,3).join(',')}) 직역 의심 — 패러프레이즈 권장`);
+              result.add('A-PARAPHRASE', SEV.S, `Q${qid}: 내용일치/주제 한국어 선지에 passage 영어 단어(${exposed.slice(0,3).join(',')}) 직역 의심 — 패러프레이즈 필수`);
             }
           }
         }
       }
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-MARKER-CLUSTER: 마커 분산 원칙 (2026-04-13)
+    // 어법/부적절/오류찾기/(A)(B)(C) 마커가 본문 일부에만 몰리면 차단
+    // ─────────────────────────────────────────────────────────────
+    if (data && data.fullPassage && data.fullPassage.length >= 200) {
+      const isMarkerType = /어법|부적절|오류찾기/.test(typeNorm) || /\(A\)\(B\)\(C\)|\(A\)\s*\(B\)\s*\(C\)/.test(typeNorm);
+      if (isMarkerType && passage) {
+        const fp = data.fullPassage;
+        const quarterLen = Math.floor(fp.length / 4);
+        // Extract marker words: ①②③④⑤ or (A)(B)(C)
+        let markerPositions = [];
+        const circledMarkers = ['①','②','③','④','⑤'];
+        const abcMarkers = ['(A)','(B)','(C)'];
+        const markers = /\(A\)/.test(passage) ? abcMarkers : circledMarkers;
+        markers.forEach(m => {
+          const idx = fp.indexOf(m);
+          if (idx >= 0) markerPositions.push(idx);
+        });
+        if (markerPositions.length >= 3) {
+          const quarters = new Set(markerPositions.map(pos => Math.min(3, Math.floor(pos / quarterLen))));
+          if (quarters.size <= 1) {
+            result.add('S-MARKER-CLUSTER', SEV.S, `Q${qid}: 마커가 본문 일부에만 몰려있음 — 전체 분산 필수`);
+          }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-BLANK-MEMORIZATION: 빈칸 단어 선택 원칙 (2026-04-13)
+    // 빈칸 정답이 단순 암기형(숫자/고유명사/요일/색깔 등)이면 차단
+    // ─────────────────────────────────────────────────────────────
+    {
+      const isBlankType = /빈칸추론|빈칸\s*어휘\s*완성|빈칸\s*문맥\s*완성/.test(typeNorm);
+      if (isBlankType) {
+        let blankAnswer = '';
+        if (isMc && Array.isArray(q.ch) && typeof q.ans === 'number' && q.ch[q.ans - 1]) {
+          blankAnswer = q.ch[q.ans - 1].toString().trim();
+        } else if (isWritten && wa) {
+          blankAnswer = wa.trim();
+        }
+        if (blankAnswer) {
+          const memorizeWords = [
+            'monday','tuesday','wednesday','thursday','friday','saturday','sunday',
+            'january','february','march','april','may','june','july','august','september','october','november','december',
+            'red','blue','green','yellow','black','white','orange','purple','pink','brown'
+          ];
+          const ansLower = blankAnswer.toLowerCase();
+          if (/^\d+$/.test(blankAnswer)) {
+            result.add('S-BLANK-MEMORIZATION', SEV.S, `Q${qid}: 빈칸 정답이 단순 암기형 (숫자: ${blankAnswer}) — 문맥 추론 가능한 단어만 출제`);
+          } else if (/^[A-Z][a-z]*$/.test(blankAnswer) && !blankAnswer.includes(' ')) {
+            result.add('S-BLANK-MEMORIZATION', SEV.S, `Q${qid}: 빈칸 정답이 단순 암기형 (고유명사 의심: ${blankAnswer}) — 문맥 추론 가능한 단어만 출제`);
+          } else if (memorizeWords.includes(ansLower)) {
+            result.add('S-BLANK-MEMORIZATION', SEV.S, `Q${qid}: 빈칸 정답이 단순 암기형 (${blankAnswer}) — 문맥 추론 가능한 단어만 출제`);
+          }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-WORDORDER-RANGE: 어순배열 단어 수 범위 (2026-04-13)
+    // wa가 8~15단어 범위를 벗어나면 차단
+    // ─────────────────────────────────────────────────────────────
+    if (/어순배열/.test(typeNorm) && wa) {
+      const wordCount = wa.trim().split(/\s+/).length;
+      if (wordCount < 8 || wordCount > 15) {
+        result.add('S-WORDORDER-RANGE', SEV.S, `Q${qid}: 어순배열 wa가 ${wordCount}단어 — 8~15단어 범위 필수`);
+      }
+    }
+
   });
 
   // ── A6: 정답 분포 — 한 번호 5개 이상 금지 ──

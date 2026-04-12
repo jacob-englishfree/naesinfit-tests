@@ -88,7 +88,7 @@ function loadPassage(source, sourcePath) {
 }
 
 // ── 스키마에서 슬롯 로드 ──
-function getSlots(testType) {
+function getSlots(testType, source, sourcePath) {
   const layout = SCHEMA.testLayouts[testType];
   if (!layout) {
     console.error(`❌ 알 수 없는 테스트 타입: ${testType}`);
@@ -108,6 +108,34 @@ function getSlots(testType) {
         fmt: slot.fmt || 'mc',
         choiceCount: slot.choiceCount || SCHEMA.global.ansRules.choiceCount
       });
+    }
+  }
+
+  // ── 모의고사 짧은 지문 번호별 금지 유형 자동 필터링 ──
+  if (source === '모의고사' && sourcePath) {
+    const numMatch = sourcePath.match(/(\d+)번/);
+    if (numMatch) {
+      const qNum = parseInt(numMatch[1]);
+      const shortPassageNums = [18, 19, 20, 26];
+      if (shortPassageNums.includes(qNum)) {
+        const forbiddenTypes = ['순서배열', '문장삽입', '어순배열', '서술형 — 조건영작'];
+        for (let i = 0; i < slots.length; i++) {
+          if (forbiddenTypes.includes(slots[i].type)) {
+            const oldType = slots[i].type;
+            // 보통 난이도 → 빈칸추론, 그 외 → 내용 일치/불일치
+            if (slots[i].diff === '보통') {
+              slots[i].type = '빈칸추론';
+              slots[i].fmt = 'mc';
+              slots[i].choiceCount = SCHEMA.global.ansRules.choiceCount;
+            } else {
+              slots[i].type = '내용 일치/불일치';
+              slots[i].fmt = 'mc';
+              slots[i].choiceCount = SCHEMA.global.ansRules.choiceCount;
+            }
+            console.log(`   ⚠️ 짧은 지문(${qNum}번): ${oldType} → ${slots[i].type} 자동 교체`);
+          }
+        }
+      }
     }
   }
 
@@ -375,8 +403,8 @@ function validateSingleQuestion(q, slot, fullPassage, source) {
   const errors = [];
   const typeConfig = SCHEMA.questionTypes[slot.type] || {};
 
-  // 1. passage 존재 확인 (영영풀이/영작 제외)
-  if (slot.type !== '영영풀이 매칭' && slot.type !== '서술형 — 조건영작') {
+  // 1. passage 존재 확인 (영영풀이만 제외 — 조건영작도 passage 필수)
+  if (slot.type !== '영영풀이 매칭') {
     if (!q.passage || q.passage.length < 30) {
       errors.push(`Q${q.id}: passage 없거나 너무 짧음 (${(q.passage || '').length}자)`);
     }
@@ -489,7 +517,7 @@ function assembleMode(responseFile) {
 
   // 1. passage + 슬롯 로드
   const passageData = loadPassage(source, sourcePath);
-  const slots = getSlots(testType);
+  const slots = getSlots(testType, source, sourcePath);
   const ei = buildEi(source, sourcePath, testType, passageData);
   const tracker = new AnsTracker();
 
@@ -688,7 +716,7 @@ function main() {
   console.log(`   fullPassage: ${passageData.fullPassage.length}자, "${passageData.title}"`);
 
   // 2. 슬롯 로드
-  const slots = getSlots(testType);
+  const slots = getSlots(testType, source, sourcePath);
   console.log(`   슬롯: ${slots.length}개`);
 
   // 3. ei 생성
