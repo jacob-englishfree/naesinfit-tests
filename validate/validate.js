@@ -1094,7 +1094,7 @@ function validate(jsonPath) {
       if (isMockOrSupp && fullLen >= 200) {
         const typeNoSpace = String(typeNorm || '').replace(/\s+/g, '');
         // 면제: 어형변환/영영풀이/영작/어법/부적절 어휘 (paraphrased excerpts OK) + 찾기 stem
-        const skipFull = /어형변환|영영풀이|다의어|문장단위어법/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
+        const skipFull = /어형변환|영영풀이|다의어|문장단위어법|조건영작|어순배열/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
         // 문장단위 어법: ①②③④ at sentence start, no <u>
         const isSentLevelGrammar = /[①②③④⑤]\s*[A-Z]/.test(passage) && !/<u>/i.test(passage) && (passage.match(/[①②③④⑤]/g) || []).length >= 3;
         if (!skipFull && !isSentLevelGrammar) {
@@ -1141,19 +1141,8 @@ function validate(jsonPath) {
       }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // S-COND-IS-WORDORDER (2026-04-13): 조건영작인데 조건 단어 수 = wa 단어 수 → 사실상 어순배열
-    // ─────────────────────────────────────────────────────────────
-    if (typeNorm.includes('조건영작') && isWritten && wa && stem) {
-      const condMatch = stem.match(/\[조건\].*?\(1\)\s*([^(]+)\(2\)/s);
-      if (condMatch) {
-        const condWords = condMatch[1].replace(/를\s*모두\s*사용/g, '').split(/[,\s]+/).filter(w => w.trim().length > 0);
-        const waWords = wa.trim().split(/\s+/);
-        if (condWords.length > 0 && condWords.length === waWords.length) {
-          result.add('S-COND-IS-WORDORDER', SEV.S, `Q${qid}: 조건영작 단어 ${condWords.length}개 = wa ${waWords.length}단어 → 사실상 어순배열. 더미 단어 추가 또는 유형 변경 필요`);
-        }
-      }
-    }
+    // S-COND-IS-WORDORDER 삭제 (2026-04-13)
+    // 조건영작은 [조건] 단어수 = wa 단어수 허용 (어순배열과 형식 동일, 한국어 해석 제시가 차이점)
 
     // ─────────────────────────────────────────────────────────────
     // S-STEM-NOT-IN-PASSAGE (2026-04-10): stem이 참조하는 단어가 passage에 없으면 차단
@@ -1965,19 +1954,9 @@ function validate(jsonPath) {
       }
     }
 
-    // S-COND-EXTRA-WORD: [조건]에 있는데 wa에 없는 단어 (역방향 검증)
-    // 기존 S-COND-WORD-MATCH는 wa→조건만. 이건 조건→wa 방향
-    if (fmt === 'written' && wa && /조건영작|영작/.test(qtype)) {
-      const condMatch2 = stem.match(/\[?조건\]?[\s\S]*?\(1\)[^(]*?([a-zA-Z][\w,\s\-']*?)(?:를|을)\s*모두\s*사용/);
-      if (condMatch2) {
-        const condWords2 = condMatch2[1].split(/[,，]/).map(w => w.trim().toLowerCase()).filter(Boolean);
-        const waWords2 = wa.toLowerCase().replace(/[.,!?]/g, '').split(/\s+/).filter(Boolean);
-        const extraInCond = condWords2.filter(cw => cw && !waWords2.includes(cw));
-        if (extraInCond.length > 0) {
-          result.add('S-COND-EXTRA-WORD', SEV.S, `Q${qid}: [조건]에 "${extraInCond.join(', ')}" 있는데 wa에 없음 — 학생이 전부 사용 불가`);
-        }
-      }
-    }
+    // S-COND-EXTRA-WORD 삭제 (2026-04-13)
+    // 조건영작 [조건] = wa 단어 전부 나열이 정상. "모두 사용" 규칙이므로 여분 단어 없어야 함
+    // → S-COND-WORD-MATCH (wa→조건 방향)만 유지하면 충분
 
     // S-WORDCOUNT-MISMATCH-STRICT: stem "N단어" vs wa 실제 단어수 불일치
     // 기존 S-WORDCOUNT-MISMATCH 보완 — 모든 서술형에 적용
