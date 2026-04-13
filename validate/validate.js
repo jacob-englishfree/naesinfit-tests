@@ -1936,14 +1936,15 @@ function validate(jsonPath) {
     // 찾기 유형은 wa가 passage에 보이는 게 정상 (유형 본질: 본문에서 찾기)
     // 대신 S-WRITTEN-NO-WORDCOUNT로 (N단어) 조건 누락을 잡음
 
-    // S-WRITTEN-NO-WORDCOUNT: 서술형 stem에 (N단어) 조건 누락
-    // 찾기/영작/어순배열 — 학생이 답 길이를 모르면 풀 수 없음
-    if (fmt === 'written' && wa && wa.trim().split(/\s+/).length >= 2) {
-      const hasWC = /\d+\s*단어/.test(stem) || /한\s*단어/.test(stem);
+    // S-WRITTEN-NO-WORDCOUNT: 서술형 stem에 (N단어) 조건 누락 → S급 차단
+    // 1단어든 10단어든 학생이 답 길이를 모르면 풀 수 없음
+    // 면제: 어형변환(원형 제시로 답이 명확), 영영풀이
+    if (fmt === 'written' && wa) {
+      const hasWC = /\d+\s*단어/.test(stem) || /한\s*단어/.test(stem) || /\d+\s*word/i.test(stem);
       const isEng = /영영|영영풀이/.test(qtype);
       const isMorph = /어형/.test(qtype);
       if (!hasWC && !isEng && !isMorph) {
-        result.add('S-WRITTEN-NO-WORDCOUNT', SEV.A, `Q${qid}: 서술형 stem에 (N단어) 조건 없음 — 학생이 답 길이 모름 (wa: ${wa.trim().split(/\s+/).length}단어)`);
+        result.add('S-WRITTEN-NO-WORDCOUNT', SEV.S, `Q${qid}: 서술형 stem에 (N단어) 조건 없음 — 학생이 답 길이 모름 (wa: ${wa.trim().split(/\s+/).length}단어)`);
       }
     }
 
