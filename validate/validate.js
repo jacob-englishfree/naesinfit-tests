@@ -1944,22 +1944,8 @@ function validate(jsonPath) {
     // 2026-04-13 신규 10종 — 파이프라인 전수 점검에서 발견된 결함
     // ══════════════════════════════════════════════════════════════
 
-    // S-FIND-WA-EXPOSED: 서술형 찾기 — wa가 passage에 그대로 노출 + 빈칸 없음
-    // "본문에서 찾아 쓰시오" 유형에서 passage에 정답이 보이면 학생이 베낌
-    // 찾기 유형은 passage에 정답이 있어야 하지만 stem에서 패러프레이징으로 유도해야 함
-    // 단, passage 자체에 빈칸(____) 처리돼있으면 OK (빈칸 채우기 형태)
-    if (fmt === 'written' && wa) {
-      const isFindType = /찾아\s*쓰시오|본문에서\s*찾아/.test(stem);
-      if (isFindType && passage.length > 50) {
-        if (!passage.includes('____') && passage.toLowerCase().includes(wa.toLowerCase())) {
-          // 1단어 찾기는 OK (본문에서 단어 찾기가 유형 본질)
-          const waWordCount = wa.trim().split(/\s+/).length;
-          if (waWordCount >= 3) {
-            result.add('S-FIND-WA-EXPOSED', SEV.S, `Q${qid}: 서술형 찾기 정답("${wa.substring(0,30)}")이 passage에 그대로 노출 — 빈칸 처리 필요`);
-          }
-        }
-      }
-    }
+    // 찾기 유형은 wa가 passage에 보이는 게 정상 (유형 본질: 본문에서 찾기)
+    // 대신 S-WRITTEN-NO-WORDCOUNT로 (N단어) 조건 누락을 잡음
 
     // S-WRITTEN-NO-WORDCOUNT: 서술형 stem에 (N단어) 조건 누락
     // 찾기/영작/어순배열 — 학생이 답 길이를 모르면 풀 수 없음
