@@ -1939,6 +1939,118 @@ function validate(jsonPath) {
     if (det && (!det.analysis || det.analysis.length < 10)) {
       result.add('Q7-DET-EMPTY', SEV.A, `Q${qid}: det.analysis 비어있거나 너무 짧음 — 해설 부실`);
     }
+
+    // ══════════════════════════════════════════════════════════════
+    // 2026-04-13 신규 10종 — 파이프라인 전수 점검에서 발견된 결함
+    // ══════════════════════════════════════════════════════════════
+
+    // S-FIND-WA-EXPOSED: 서술형 찾기 — wa가 passage에 그대로 노출 + 빈칸 없음
+    // "본문에서 찾아 쓰시오" 유형에서 passage에 정답이 보이면 학생이 베낌
+    // 찾기 유형은 passage에 정답이 있어야 하지만 stem에서 패러프레이징으로 유도해야 함
+    // 단, passage 자체에 빈칸(____) 처리돼있으면 OK (빈칸 채우기 형태)
+    if (fmt === 'written' && wa) {
+      const isFindType = /찾아\s*쓰시오|본문에서\s*찾아/.test(stem);
+      if (isFindType && passage.length > 50) {
+        if (!passage.includes('____') && passage.toLowerCase().includes(wa.toLowerCase())) {
+          // 1단어 찾기는 OK (본문에서 단어 찾기가 유형 본질)
+          const waWordCount = wa.trim().split(/\s+/).length;
+          if (waWordCount >= 3) {
+            result.add('S-FIND-WA-EXPOSED', SEV.S, `Q${qid}: 서술형 찾기 정답("${wa.substring(0,30)}")이 passage에 그대로 노출 — 빈칸 처리 필요`);
+          }
+        }
+      }
+    }
+
+    // S-WRITTEN-NO-WORDCOUNT: 서술형 stem에 (N단어) 조건 누락
+    // 찾기/영작/어순배열 — 학생이 답 길이를 모르면 풀 수 없음
+    if (fmt === 'written' && wa && wa.trim().split(/\s+/).length >= 2) {
+      const hasWC = /\d+\s*단어/.test(stem) || /한\s*단어/.test(stem);
+      const isEng = /영영|영영풀이/.test(qtype);
+      const isMorph = /어형/.test(qtype);
+      if (!hasWC && !isEng && !isMorph) {
+        result.add('S-WRITTEN-NO-WORDCOUNT', SEV.A, `Q${qid}: 서술형 stem에 (N단어) 조건 없음 — 학생이 답 길이 모름 (wa: ${wa.trim().split(/\s+/).length}단어)`);
+      }
+    }
+
+    // S-YJAKR-NO-BLANK: 조건영작 passage에 정답 부분 빈칸 없음
+    if (fmt === 'written' && /조건영작/.test(qtype) && passage.length > 50) {
+      if (!passage.includes('____')) {
+        result.add('S-YJAKR-NO-BLANK', SEV.S, `Q${qid}: 조건영작 passage에 빈칸(____) 없음 — 정답자리를 가려야 함`);
+      }
+    }
+
+    // S-COND-EXTRA-WORD: [조건]에 있는데 wa에 없는 단어 (역방향 검증)
+    // 기존 S-COND-WORD-MATCH는 wa→조건만. 이건 조건→wa 방향
+    if (fmt === 'written' && wa && /조건영작|영작/.test(qtype)) {
+      const condMatch2 = stem.match(/\[?조건\]?[\s\S]*?\(1\)[^(]*?([a-zA-Z][\w,\s\-']*?)(?:를|을)\s*모두\s*사용/);
+      if (condMatch2) {
+        const condWords2 = condMatch2[1].split(/[,，]/).map(w => w.trim().toLowerCase()).filter(Boolean);
+        const waWords2 = wa.toLowerCase().replace(/[.,!?]/g, '').split(/\s+/).filter(Boolean);
+        const extraInCond = condWords2.filter(cw => cw && !waWords2.includes(cw));
+        if (extraInCond.length > 0) {
+          result.add('S-COND-EXTRA-WORD', SEV.S, `Q${qid}: [조건]에 "${extraInCond.join(', ')}" 있는데 wa에 없음 — 학생이 전부 사용 불가`);
+        }
+      }
+    }
+
+    // S-WORDCOUNT-MISMATCH-STRICT: stem "N단어" vs wa 실제 단어수 불일치
+    // 기존 S-WORDCOUNT-MISMATCH 보완 — 모든 서술형에 적용
+    if (fmt === 'written' && wa) {
+      const wcMatch = stem.match(/(?:정확히\s*)?(\d+)\s*단어/);
+      if (wcMatch) {
+        const declared = parseInt(wcMatch[1]);
+        const actual = wa.trim().split(/\s+/).length;
+        if (declared !== actual) {
+          result.add('S-WORDCOUNT-MISMATCH', SEV.S, `Q${qid}: stem "${declared}단어" vs wa 실제 ${actual}단어 — 학생이 맞춰도 틀림`);
+        }
+      }
+    }
+
+    // A-NO-RESPONSE-LANG: 서술형 stem에 "(영어로)" 응답언어 누락
+    if (fmt === 'written') {
+      const hasLang = /영어로|우리말로|한국어로|\(영어\)|\(한국어\)/.test(stem);
+      if (!hasLang) {
+        result.add('A-NO-RESPONSE-LANG', SEV.A, `Q${qid}: 서술형 stem에 응답 언어 명시 없음 — "(영어로)" 또는 "(우리말로)" 필요`);
+      }
+    }
+
+    // A-MORPH-BASE-NOT-IN-FP: 어형변환 원형이 fullPassage에 없음
+    if (/어형/.test(qtype) && passage) {
+      const morphBase = passage.match(/\((\w{3,})\)/);
+      if (morphBase && fullPassage) {
+        const base = morphBase[1];
+        if (!fullPassage.toLowerCase().includes(base.toLowerCase())) {
+          result.add('A-MORPH-BASE-NOT-IN-FP', SEV.A, `Q${qid}: 어형변환 원형 "(${base})"이 fullPassage에 없음`);
+        }
+      }
+    }
+
+    // A-ACCEPT-MIN: accept 변형 3개 미만
+    if (fmt === 'written' && q.accept) {
+      if (q.accept.length < 3) {
+        result.add('A-ACCEPT-MIN', SEV.A, `Q${qid}: accept ${q.accept.length}개 — 최소 3개 필요`);
+      }
+    }
+
+    // S-ORDER-MARKER-LEAK: 순서배열 (A)(B)(C) 마커가 비순서 유형 passage에 잔류
+    if (passage.length > 50) {
+      const isOrderType = /순서|글순서|(A)(B)(C)|조합|다의어/.test(qtype);
+      if (!isOrderType) {
+        // plain (A) (B) 패턴 — <b> 없는 것만 (ABC 조합형의 <b>(A)</b>는 제외)
+        const hasPlainABC = /(?<![<\w])\(A\)\s/.test(passage) && /(?<![<\w])\(B\)\s/.test(passage) && !/<b>\(A\)/.test(passage);
+        if (hasPlainABC) {
+          result.add('S-ORDER-MARKER-LEAK', SEV.A, `Q${qid}: 순서배열 (A)(B)(C) 마커가 비순서 유형에 잔류 — strip 필요`);
+        }
+      }
+    }
+
+    // A-EOSUN-NO-WORDS: 어순배열 stem에 셔플 단어 목록 없음
+    if (/어순/.test(qtype) && fmt === 'written') {
+      const hasWordList = /\[.*[a-zA-Z]+.*\/.*[a-zA-Z]+.*\]/.test(stem) || /[a-zA-Z]+,\s*[a-zA-Z]+,\s*[a-zA-Z]+/.test(stem) || /\[\s*단어\s*\]/.test(stem);
+      if (!hasWordList) {
+        result.add('A-EOSUN-NO-WORDS', SEV.A, `Q${qid}: 어순배열 stem에 셔플 단어 목록 없음 — 학생이 뭘 배열할지 모름`);
+      }
+    }
   }
 
   return result;
