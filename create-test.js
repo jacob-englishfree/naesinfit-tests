@@ -693,9 +693,20 @@ function assembleMode(responseFile) {
     console.error(`\n⚠️  blind-solve 일부 실패 — 에이전트 풀이 필요한 문항 있을 수 있음`);
   }
 
-  // 8. 최종 보고
+  // 8. 최종 보고 + 블라인드 완전성 체크
   const blindFile = outputFile.replace('.json', '.blind.json');
   const hasBlind = fs.existsSync(blindFile);
+  let needsAgentCount = 0;
+  let blindMismatch = 0;
+
+  if (hasBlind) {
+    try {
+      const blindData = JSON.parse(fs.readFileSync(blindFile, 'utf8'));
+      const solves = blindData.solves || [];
+      needsAgentCount = solves.filter(s => s.needsAgent).length;
+      blindMismatch = solves.filter(s => s.match === false && !s.needsAgent).length;
+    } catch (e) { /* ignore */ }
+  }
 
   console.log(`\n══════════════════════════════════════`);
   console.log(`  ASSEMBLE 완료: ${relOutput}`);
@@ -703,7 +714,21 @@ function assembleMode(responseFile) {
   console.log(`  총점: ${questions.reduce((s, q) => s + q.pts, 0)}점`);
   console.log(`  ans분포: ${JSON.stringify(stats.counts)}`);
   console.log(`  blind.json: ${hasBlind ? '✅ 생성됨' : '❌ 미생성'}`);
+  if (needsAgentCount > 0) {
+    console.log(`  ⛔ 에이전트 풀이 필요: ${needsAgentCount}문항`);
+  }
+  if (blindMismatch > 0) {
+    console.log(`  ⚠️  불일치: ${blindMismatch}문항 — 정답 확인 필요`);
+  }
   console.log(`══════════════════════════════════════`);
+
+  if (needsAgentCount > 0) {
+    console.log(`\n⛔ 블라인드 풀이 미완료! 다음 단계 필수:`);
+    console.log(`  1. ${relOutput}의 ${needsAgentCount}문항을 정답 보지 않고 직접 풀기`);
+    console.log(`  2. .blind.json의 needsAgent 문항에 myAnswer + reasoning 채우기`);
+    console.log(`  3. 정답 대조 → 불일치 시 문항 수정`);
+    console.log(`  ⛔ 이 작업 없이 커밋하면 validate S-BLIND-INCOMPLETE로 차단됩니다.`);
+  }
 
   if (!hasBlind) {
     console.log(`\n⚠️  blind.json 미생성 — 에이전트 블라인드 풀이 필요:`);

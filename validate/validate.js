@@ -2018,6 +2018,31 @@ function validate(jsonPath) {
     }
   }
 
+  // ══════════════════════════════════════════════════════════════
+  // S-BLIND-INCOMPLETE: blind.json 완전성 검증
+  // 블라인드 풀이가 완료되지 않으면 배포 차단
+  // ══════════════════════════════════════════════════════════════
+  const blindPath = jsonPath.replace('.json', '.blind.json');
+  if (fs.existsSync(blindPath)) {
+    try {
+      const blind = JSON.parse(fs.readFileSync(blindPath, 'utf8'));
+      const solves = blind.solves || [];
+      const needsAgent = solves.filter(s => s.needsAgent).length;
+      const mismatched = solves.filter(s => s.match === false && !s.needsAgent).length;
+
+      if (needsAgent > 0) {
+        result.add('S-BLIND-INCOMPLETE', SEV.S, `블라인드 풀이 미완료: ${needsAgent}문항 에이전트 풀이 필요 — 20/20 완료 후 배포`);
+      }
+      if (mismatched > 0) {
+        result.add('A-BLIND-MISMATCH', SEV.A, `블라인드 풀이 불일치: ${mismatched}문항 — 정답 확인 필요`);
+      }
+    } catch (e) {
+      // blind.json 파싱 실패
+    }
+  } else {
+    result.add('S-BLIND-MISSING', SEV.S, `blind.json 없음 — 블라인드 풀이 필수`);
+  }
+
   return result;
 }
 
