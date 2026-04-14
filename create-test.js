@@ -798,10 +798,7 @@ function main() {
       diff: slot.diff,
       pts: slot.pts,
       fmt: slot.fmt,
-      passageRule: typeConfig.passageRule?.[source] || typeConfig.passageRule || 'fullPassage',
-      stem: typeConfig.stem || '',
-      answerRule: typeConfig.answerRule || '',
-      distractorRule: typeConfig.distractorRule || '',
+      overlay: typeConfig.overlayRequired || typeConfig.overlayNote || '',
       suggestedAns: suggested,
       choiceCount: slot.choiceCount
     };
@@ -811,43 +808,34 @@ function main() {
   const outputDir = path.join(ROOT, 'data', source, sourcePath);
   fs.mkdirSync(outputDir, { recursive: true });
 
-  // ── 유형별 overlay 필수 규칙 생성 (SCHEMA.questionTypes에서 로드, 퍼지 매칭) ──
-  const overlayRules = {};
+  // 유형별 규칙 — 사용되는 유형만, 1번만
+  const typeRules = {};
   const usedTypes = [...new Set(aiPromptSlots.map(s => s.type))];
   for (const t of usedTypes) {
     const tc = findQuestionType(t);
-    if (tc.overlayRequired || tc.overlayNote) {
-      overlayRules[t] = {
-        required: tc.overlayRequired || '',
-        note: tc.overlayNote || ''
-      };
-    } else {
-      // SCHEMA-TODO: 이 유형의 overlay 규칙을 question-schema.json에 추가
-      overlayRules[t] = {
-        required: 'overlay = {}',
-        note: `(${t} — schema에 overlayRequired 미정의)`
-      };
-    }
+    typeRules[t] = {
+      fmt: tc.fmt || 'mc',
+      stem: tc.stem || '',
+      overlay: tc.overlayRequired || tc.overlayNote || '',
+      passageRule: tc.passageRule?.[source] || tc.passageRule || 'fullPassage',
+      answerRule: tc.answerRule || '',
+      ch: tc.ch || (tc.fmt === 'written' ? undefined : '4개')
+    };
   }
 
   const promptFile = path.join(outputDir, `${testType}.prompt.json`);
   const promptData = {
-    _instruction: [
-      "AI에게 전달: 각 슬롯의 판단만 채워주세요. JSON 구조/passage 복붙은 스크립트가 합니다.",
-      "⛔ passage를 직접 작성하지 마세요 — 스크립트가 overlay 기반으로 fullPassage에서 자동 생성합니다.",
-      "⛔ 다의어 문맥적 의미만 예외: 이 유형은 decision에 passage 필드를 직접 넣으세요.",
-      "⛔ 모든 overlay 단어는 반드시 fullPassage에 존재해야 합니다 (find 키의 단어)."
+    _: [
+      "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+      "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+      `ans: ${SCHEMA.global.ansRules.indexed}, 최대${SCHEMA.global.ansRules.maxSameAns}개, ${SCHEMA.global.ansRules.maxConsecutive + 1}연속금지`,
+      "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
     ],
-    _responseInstruction: "응답 파일명: 같은 경로에 .response.json으로 저장 → node create-test.js --assemble <경로>",
     source,
     sourcePath,
     testType,
-    passageRule: SCHEMA.sourceTypes[source]?.passageRule === 'excerpt'
-      ? `excerpt (${SCHEMA.sourceTypes[source]?.passageLength || '5~10문장 발췌'}) — overlay 단어는 excerptRange 안 문장에서만 선택!`
-      : `fullPassage 통째 + overlay만 (${SCHEMA.sourceTypes[source]?.passageLength || ''})`,
     fullPassage: passageData.fullPassage,
     title: passageData.title,
-    // 교과서: 문장 인덱스 목록 제공 (AI가 excerptRange 결정에 활용)
     ...(source === '교과서' ? {
       sentenceIndex: (() => {
         const sentences = passageData.fullPassage.match(/[^.!?]+[.!?]+/g) || [];
@@ -855,104 +843,10 @@ function main() {
           idx: i,
           preview: s.trim().substring(0, 80) + (s.trim().length > 80 ? '...' : '')
         }));
-      })(),
-      _excerptGuide: [
-        "⛔ excerptRange = [시작인덱스, 끝인덱스] (0-based, 끝 미포함)",
-        "⛔ overlay의 모든 단어(markers, blank, underline)는 반드시 excerptRange 안의 문장에 존재해야 함",
-        "⛔ 한 문항의 마커 4개가 모두 같은 excerptRange 안에 있어야 함",
-        "⛔ excerptRange는 5~10문장 (너무 짧거나 길면 안 됨)",
-        "예: excerptRange: [12, 19] → sentenceIndex[12]~[18]의 문장만 사용"
-      ]
+      })()
     } : {}),
-    ei,
-    slots: aiPromptSlots,
-    overlayRules,
-    validateRules: (() => {
-      // SCHEMA.validateRules에서 S급/A급 규칙 로드
-      const rules = {
-        _description: "아래 규칙 위반 시 validate가 즉시 차단합니다. 반드시 준수하세요."
-      };
-      // S급 규칙 추가
-      if (SCHEMA.validateRules && SCHEMA.validateRules['S급 (즉시 차단)']) {
-        for (const rule of SCHEMA.validateRules['S급 (즉시 차단)']) {
-          const colonIdx = rule.indexOf(':');
-          if (colonIdx > 0) {
-            const code = rule.substring(0, colonIdx).trim();
-            const desc = rule.substring(colonIdx + 1).trim();
-            rules[code] = desc;
-          }
-        }
-      }
-      // 스크립트 고유 규칙 (schema에 없는 overlay 관련)
-      rules['S-MARKER-MUST-EXIST'] = rules['S-MARKER-MUST-EXIST'] || '마커형(어법/부적절/오류찾기) → overlay.markers에 ①②③④ 4개 필수';
-      rules['S-BLANK-MUST-EXIST'] = rules['S-BLANK-MUST-EXIST'] || '빈칸형(빈칸추론/빈칸어휘) → overlay.blank 필수';
-      rules['S-UNDERLINE-MUST-EXIST'] = rules['S-UNDERLINE-MUST-EXIST'] || '밑줄형(동의어/반의어/함축/지칭) → overlay.underline 필수';
-      rules['ACCEPT-MIN-3'] = '서술형 accept 변형 3개 이상 필수 (대소문자, 마침표 등)';
-      rules['ANS-RULES'] = `ans는 ${SCHEMA.global.ansRules.indexed}. 같은 번호 최대 ${SCHEMA.global.ansRules.maxSameAns}개. ${SCHEMA.global.ansRules.maxConsecutive + 1}연속 금지.`;
-      rules['WORDCOUNT'] = '어순배열/영작 stem에 반드시 (N단어) 조건 포함';
-      // A급 규칙
-      const aGrade = {};
-      if (SCHEMA.validateRules && SCHEMA.validateRules['A급 (재출제 권장)']) {
-        for (const rule of SCHEMA.validateRules['A급 (재출제 권장)']) {
-          const colonIdx = rule.indexOf(':');
-          if (colonIdx > 0) {
-            const code = rule.substring(0, colonIdx).trim();
-            const desc = rule.substring(colonIdx + 1).trim();
-            aGrade[code] = desc;
-          }
-        }
-      }
-      rules['_A급 (재출제 권고 — 이것도 지켜야 PASS)'] = aGrade;
-      return rules;
-    })(),
-    responseFormat: {
-      _description: "response.json 구조 — decisions 배열에 20개 판단",
-      _structure: { source, sourcePath, testType, decisions: "[...20개]" },
-      mc_example: {
-        id: 1,
-        stem: "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
-        ch: ["w1 — w2 — w3", "w4 — w2 — w3", "w1 — w5 — w3", "w1 — w2 — w6"],
-        ans: 1,
-        overlay: { abc: { A: ["correct", "wrong"], B: ["correct", "wrong"], C: ["correct", "wrong"] } },
-        korean: "한국어 해석 (5자 이상)",
-        analysis: "✅ ① 정답근거\n❌ ② 오답이유\n❌ ③ 오답이유\n❌ ④ 오답이유",
-        tip: "학습 팁"
-      },
-      marker_example: {
-        _comment: "어법/부적절/오류찾기 — ch는 반드시 ['①','②','③','④']",
-        id: 4,
-        stem: "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-        ch: ["①", "②", "③", "④"],
-        ans: 3,
-        overlay: { markers: { "①": "original_word1", "②": "original_word2", "③": { find: "original_word3", display: "wrong_replacement" }, "④": "original_word4" } },
-        korean: "해석", analysis: "분석", tip: "팁"
-      },
-      blank_example: {
-        id: 7,
-        stem: "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-        ch: ["정답(fp에있음)", "오답1(fp에있음)", "오답2(fp에있음)", "오답3(fp에있음)"],
-        ans: 1,
-        overlay: { blank: "fullPassage에_있는_단어" },
-        korean: "해석", analysis: "분석", tip: "팁"
-      },
-      written_example: {
-        id: 17,
-        stem: "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
-        wa: "changed",
-        accept: ["changed", "Changed", "changed."],
-        overlay: { excerptSentences: "She __________ (change) her mind." },
-        korean: "해석", analysis: "분석", tip: "팁"
-      },
-      writing_example: {
-        _comment: "영작 서술형 — passage 필수(정답자리 빈칸) + 응답 언어 명시",
-        id: 20,
-        stem: "다음 우리말에 맞도록 주어진 조건에 따라 영작하시오. (영어로)\n\"그는 집에서 그녀를 기다리기로 결정했다.\"\n[조건] (1) he, decided, to, wait, for, her, home, at을 모두 사용 (2) 정확히 7단어로 쓸 것",
-        wa: "He decided to wait for her at home",
-        accept: ["He decided to wait for her at home", "He decided to wait for her at home.", "he decided to wait for her at home"],
-        overlay: { blank: "He decided to wait for her at home" },
-        korean: "해석", analysis: "분석", tip: "팁"
-      }
-    }
+    typeRules,
+    slots: aiPromptSlots
   };
 
   fs.writeFileSync(promptFile, JSON.stringify(promptData, null, 2), 'utf8');
