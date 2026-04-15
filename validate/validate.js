@@ -1304,8 +1304,9 @@ function validate(jsonPath) {
     // S-DISTRACTOR-ALL-FIRST-SENT (2026-04-15): 빈칸추론 오답 3개가
     // passage 첫 문장 명사 재사용만이면 소거법 가능 — 차단
     // ─────────────────────────────────────────────────────────────
+    // 함축의미/지칭 추론 제외 (해석 선지 기반이라 첫 문장 단어 재사용은 정상 패턴)
     if (isMc && Array.isArray(q.ch) && q.ch.length === 4 && typeof q.ans === 'number' &&
-        /빈칸|완성|추론/.test(typeNorm) && fullPassage) {
+        /빈칸|빈칸어휘|빈칸추론/.test(typeNorm) && !/함축|지칭/.test(typeNorm) && fullPassage) {
       const firstSent = (fullPassage.match(/^[^.!?]+[.!?]/) || [''])[0].toLowerCase();
       if (firstSent.length >= 20) {
         const wrongs = q.ch.map((c, idx) => ({ c: String(c || '').replace(/<[^>]*>/g, '').trim(), idx }))
@@ -2206,7 +2207,7 @@ function validate(jsonPath) {
     // A-ACCEPT-MIN: 제거 (2026-04-15 jacob) — NORM 자동 정규화로 case/마침표/하이픈 변형 불필요. wa 1개로 충분
 
     // S-ORDER-MARKER-LEAK: 순서배열 (A)(B)(C) 마커가 비순서 유형 passage에 잔류
-    if (passage.length > 50) {
+    if (passage && passage.length > 50) {
       const isOrderType = /순서|글순서|(A)(B)(C)|조합|다의어/.test(qtype);
       if (!isOrderType) {
         // plain (A) (B) 패턴 — <b> 없는 것만 (ABC 조합형의 <b>(A)</b>는 제외)

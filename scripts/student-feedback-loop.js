@@ -16,13 +16,22 @@
  *   node scripts/student-feedback-loop.js --min-attempts 10  → 최소 10회 응시 문항만
  */
 
-require('dotenv').config({ path: '.env' });
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const SB_URL = process.env.SUPABASE_URL;
-const SB_KEY = process.env.SUPABASE_KEY;
+
+// .env 수동 파싱 (dotenv 의존성 없이)
+const envPath = path.join(ROOT, '.env');
+if (fs.existsSync(envPath)) {
+  for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
+    const m = line.match(/^([A-Z_][A-Z0-9_]*)=(.*)$/);
+    if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '');
+  }
+}
+
+const SB_URL = process.env.SUPABASE_URL || process.env.NAESINFIT_SUPABASE_URL;
+const SB_KEY = process.env.SUPABASE_KEY || process.env.NAESINFIT_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
 if (!SB_URL || !SB_KEY) {
   console.error('❌ SUPABASE_URL / SUPABASE_KEY 미설정 (.env)');
@@ -33,51 +42,48 @@ const WINDOW = (process.argv.find(a => a.startsWith('--window=')) || '--window=3
 const MIN_ATTEMPTS = parseInt((process.argv.find(a => a.startsWith('--min-attempts=')) || '--min-attempts=5').split('=')[1]);
 const DRY = process.argv.includes('--dry');
 
-// ⚠️ Supabase 테이블 스키마 추정 (실제 확인 필요)
-// test_results: { student_id, test_id (파일경로), question_id, selected_answer, is_correct, submitted_at }
-// 만약 schema 다르면 이 쿼리 부분 수정
+// Supabase 스키마 (확인됨 2026-04-15):
+//   test_results: hist_key, test_type, subject, pub, lesson, name, school, grade, score, total, correct, wrong, unanswered, elapsed, taken_at
+//   test_scores: student_name, scope, test_type, score, ok, no, time_sec, created_at
+// → 문항별 데이터 없음. 시험 전체 점수 기반 분석만 가능
+// → 문항별 상세 분석은 별도 테이블 신설 필요 (jacob 승인 사항)
 
 async function fetchStats() {
   const since = new Date(Date.now() - parseInt(WINDOW) * 24 * 60 * 60 * 1000).toISOString();
-  const url = `${SB_URL}/rest/v1/test_results?select=test_id,question_id,selected_answer,is_correct&submitted_at=gte.${since}&limit=50000`;
+  const url = `${SB_URL}/rest/v1/test_results?select=hist_key,test_type,subject,pub,lesson,score,total,taken_at&taken_at=gte.${since}&limit=50000`;
   const r = await fetch(url, { headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` } });
   if (!r.ok) {
-    console.warn(`⚠️  test_results 조회 실패 (${r.status}) — 스키마 확인 필요`);
+    console.warn(`⚠️  test_results 조회 실패 (${r.status})`);
     return [];
   }
   return await r.json();
 }
 
 function aggregate(rows) {
-  const byQ = {};
+  // hist_key 단위로 집계 (시험 파일별)
+  const byTest = {};
   for (const row of rows) {
-    const key = `${row.test_id}::${row.question_id}`;
-    byQ[key] = byQ[key] || { total: 0, correct: 0, answers: {}, test_id: row.test_id, question_id: row.question_id };
-    byQ[key].total++;
-    if (row.is_correct) byQ[key].correct++;
-    const a = String(row.selected_answer);
-    byQ[key].answers[a] = (byQ[key].answers[a] || 0) + 1;
+    const key = row.hist_key || `${row.subject}-${row.pub}-${row.lesson}-${row.test_type}`;
+    byTest[key] = byTest[key] || { attempts: 0, scoreSum: 0, key, test_type: row.test_type, subject: row.subject, pub: row.pub, lesson: row.lesson, scores: [] };
+    byTest[key].attempts++;
+    byTest[key].scoreSum += (row.score || 0);
+    byTest[key].scores.push(row.score || 0);
   }
-  return byQ;
+  return byTest;
 }
 
 function suspectFlags(stats) {
   const flags = [];
   for (const [key, s] of Object.entries(stats)) {
-    if (s.total < MIN_ATTEMPTS) continue;
-    const correctRate = s.correct / s.total;
-    const flagsForQ = [];
-    if (correctRate < 0.20) flagsForQ.push({ type: 'TOO-HARD', severity: 'high', rate: correctRate.toFixed(2) });
-    if (correctRate > 0.95) flagsForQ.push({ type: 'TOO-EASY', severity: 'medium', rate: correctRate.toFixed(2) });
-    // 특정 오답에 몰림
-    for (const [a, cnt] of Object.entries(s.answers)) {
-      const share = cnt / s.total;
-      if (share > 0.40 && correctRate < 0.50) {
-        flagsForQ.push({ type: 'STRONG-DISTRACTOR', severity: 'high', answer: a, share: share.toFixed(2) });
-      }
-    }
-    if (flagsForQ.length) {
-      flags.push({ test_id: s.test_id, question_id: s.question_id, total: s.total, correct: s.correct, correctRate: correctRate.toFixed(2), flags: flagsForQ });
+    if (s.attempts < MIN_ATTEMPTS) continue;
+    const avgScore = s.scoreSum / s.attempts;
+    const passRate = s.scores.filter(x => x >= 80).length / s.attempts;
+    const flagsForTest = [];
+    if (avgScore < 40) flagsForTest.push({ type: 'AVG-TOO-LOW', severity: 'high', avgScore: avgScore.toFixed(1), note: '시험 전체 난이도 너무 높음 또는 출제 오류' });
+    if (avgScore > 95) flagsForTest.push({ type: 'AVG-TOO-HIGH', severity: 'medium', avgScore: avgScore.toFixed(1), note: '시험 전체 난이도 너무 낮음' });
+    if (passRate < 0.20 && s.attempts >= 10) flagsForTest.push({ type: 'LOW-PASS-RATE', severity: 'high', passRate: passRate.toFixed(2) });
+    if (flagsForTest.length) {
+      flags.push({ test: key, info: `${s.subject}/${s.pub}/${s.lesson}/${s.test_type}`, attempts: s.attempts, avgScore: avgScore.toFixed(1), passRate: passRate.toFixed(2), flags: flagsForTest });
     }
   }
   return flags;
