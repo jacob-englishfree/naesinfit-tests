@@ -64,6 +64,54 @@ if [ -n "$STAGED_TEST_JSON" ]; then
     exit 1
   fi
   echo "✅ 블라인드 증적 확인"
+
+  # ⛔ Tier 2 cross-blind + STEP 5 adversarial 증적 검증 (2026-04-16 추가)
+  # 신규 출제 파일은 반드시 .cross-blind.json + .adversarial.json 짝이 있어야 커밋 가능.
+  # 레거시 대량 migration 시 SKIP_ARTIFACT_GATE=1 환경변수로 임시 해제.
+  if [ "${SKIP_ARTIFACT_GATE:-0}" != "1" ]; then
+    CB_MISSING=""
+    ADV_MISSING=""
+    HIGH_ISSUES=""
+    while IFS= read -r f; do
+      CB_FILE=$(echo "$f" | sed 's/\.json$/.cross-blind.json/')
+      ADV_FILE=$(echo "$f" | sed 's/\.json$/.adversarial.json/')
+      if [ ! -f "$CB_FILE" ]; then
+        CB_MISSING="$CB_MISSING\n  $f"
+      fi
+      if [ ! -f "$ADV_FILE" ]; then
+        ADV_MISSING="$ADV_MISSING\n  $f"
+      else
+        # adversarial HIGH 이슈 잔존 검사
+        H_COUNT=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$ADV_FILE','utf8'));console.log((d.issues||[]).filter(i=>(i.severity||'').toLowerCase()==='high').length)}catch(e){console.log(0)}" 2>/dev/null)
+        if [ "$H_COUNT" -gt 0 ] 2>/dev/null; then
+          HIGH_ISSUES="$HIGH_ISSUES\n  $f (HIGH $H_COUNT건 미해결)"
+        fi
+      fi
+    done <<< "$STAGED_TEST_JSON"
+    if [ -n "$CB_MISSING" ] || [ -n "$ADV_MISSING" ] || [ -n "$HIGH_ISSUES" ]; then
+      echo "⛔ SOP Tier 2/STEP 5 증적 누락 — 커밋 차단"
+      if [ -n "$CB_MISSING" ]; then
+        echo "  [cross-blind.json 누락]"
+        echo -e "$CB_MISSING"
+      fi
+      if [ -n "$ADV_MISSING" ]; then
+        echo "  [adversarial.json 누락]"
+        echo -e "$ADV_MISSING"
+      fi
+      if [ -n "$HIGH_ISSUES" ]; then
+        echo "  [adversarial HIGH 이슈 미해결]"
+        echo -e "$HIGH_ISSUES"
+      fi
+      echo ""
+      echo "   → node cross-blind.js --prep <파일> 후 반대모델 풀이 → .cross-blind.json"
+      echo "   → Agent에 prompts/agent_adversarial.md 전달 → .adversarial.json"
+      echo "   → 레거시 대량 migration 시 SKIP_ARTIFACT_GATE=1 git commit ... 로 임시 해제"
+      exit 1
+    fi
+    echo "✅ cross-blind + adversarial 증적 확인"
+  else
+    echo "⚠️  artifact gate SKIP (SKIP_ARTIFACT_GATE=1)"
+  fi
 fi
 
 # ⛔ validate.js S급 검증 (53 checks) ──

@@ -348,8 +348,9 @@ function runValidate(jsonPath) {
 
 // ── 파일 하나 전체 검증 ──
 // ── 증적 게이트: 각 test.json은 cross-blind.json + adversarial.json 짝이 있어야 배포 가능 ──
-// 단, 이미 존재하는 레거시 파일(기존 배포분)은 migration 기간 동안 STRICT_GATE=true 일 때만 강제
-const STRICT_GATE = process.env.STRICT_GATE === 'true' || process.argv.includes('--strict-gate');
+// 2026-04-16부터 기본값 ON. 해제하려면 --no-gate 또는 STRICT_GATE=false.
+// 레거시 파일 대량 migration 시에만 해제.
+const STRICT_GATE = !(process.env.STRICT_GATE === 'false' || process.argv.includes('--no-gate'));
 function validateArtifacts(jsonPath) {
   const errs = [];
   const cbPath = jsonPath.replace(/\.json$/, '.cross-blind.json');
