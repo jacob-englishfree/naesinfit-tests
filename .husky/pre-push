@@ -14,3 +14,28 @@ if [ $STATUS -ne 0 ]; then
   exit 1
 fi
 echo "✅ 시스템 점검 통과"
+
+# ⛔ --no-verify 우회 차단 (트랙B Phase1 #5, 2026-04-10)
+# stdin으로 들어오는 push ref 목록에서 푸시 대상 commit 전부 추출.
+# 각 commit이 .git/.validated-commits에 존재해야 함. 없으면 --no-verify로 우회된 commit.
+VALIDATED=".git/.validated-commits"
+while read local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "0000000000000000000000000000000000000000" ] && continue
+  if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+    RANGE="$local_sha"
+    COMMITS=$(git rev-list --max-count=50 "$local_sha")
+  else
+    RANGE="$remote_sha..$local_sha"
+    COMMITS=$(git rev-list "$RANGE")
+  fi
+  for c in $COMMITS; do
+    if [ ! -f "$VALIDATED" ] || ! grep -qx "$c" "$VALIDATED"; then
+      echo ""
+      echo "⛔ 미검증 commit 차단: $c"
+      echo "   pre-commit을 우회(--no-verify)한 commit은 push할 수 없습니다."
+      echo "   해결: 해당 commit을 되돌리고 hook 통과 후 재커밋."
+      exit 1
+    fi
+  done
+done
+echo "✅ 검증 통과 commit만 푸시"
