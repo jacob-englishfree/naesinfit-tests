@@ -1162,18 +1162,58 @@ function validate(jsonPath) {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // S-ANTONYM-PREFIX (2026-04-15): 접두사 조작형 반의어 차단
+    // S-ANTONYM-PREFIX (2026-04-15, 확장 2026-04-15): 접두사 조작형 반의어 차단
     // 의미 학습 없이 un-/in-/dis-/mis-/non-/im- 등 제거만으로 답이 되는 문제
     // 예: stem "'unmatch'의 반의어" wa="match" → 접두사 un 제거 = 정답. 무의미
+    // 확장: mc 선지(ch)에도 적용 — "unbehavior", "untogether" 같은 비실존 단어 차단
     // ─────────────────────────────────────────────────────────────
+    const PREFIXES = ['un', 'in', 'im', 'dis', 'mis', 'non', 'anti', 'de', 'ir', 'il'];
+    // Common English words by prefix (valid words that START with prefix but are NOT pseudo)
+    // This is a heuristic: if word starts with prefix AND base (after prefix) is a common word,
+    // AND the prefixed word is NOT in a basic dictionary, flag it as pseudo.
+    // Simpler approach: check against a small "known-good prefixed words" list.
+    const KNOWN_PREFIXED_WORDS = new Set([
+      'understand','uniform','university','under','until','unit','union','unique','unless','unlike',
+      'inside','into','involve','income','increase','industry','influence','information','interest','international','internet','interview',
+      'important','improve','impression','impact','imagine','immediate',
+      'discuss','discover','display','distance','disagree','disappear','distinct','distinguish','discipline',
+      'mistake','missing','missile','mission','mist','missionary',
+      'nonsense','nothing','notion','notice','novel',
+      'antique','anticipate','anxiety',
+      'describe','design','decide','decrease','depart','deposit','derive','despair','despite','destination','destroy','detail','determine',
+      'iron','ironic','irritate',
+      'island','isle'
+    ]);
+    // Check mc ch for pseudo-prefix words in 어휘 부적절/문맥 inappropriate questions
+    if (isMc && Array.isArray(q.ch) && (/어휘|부적절/.test(typeNorm) || /적절하지\s*<b>?\s*않은/.test(stem))) {
+      const chTexts = q.ch.map(c => String(c || '').replace(/<[^>]*>/g, '').trim());
+      for (let i=0;i<chTexts.length;i++) {
+        const ct = chTexts[i];
+        const m = ct.match(/\b([a-z]+)\b/gi);
+        if (!m) continue;
+        for (const word of m) {
+          const lw = word.toLowerCase();
+          if (lw.length < 5) continue;
+          for (const pfx of PREFIXES) {
+            if (lw.startsWith(pfx) && lw.length > pfx.length + 2) {
+              const base = lw.slice(pfx.length);
+              const fpLow = (fullPassage || '').toLowerCase();
+              // Pseudo check: base is in passage but prefixed form is NOT + prefixed is not in known dict
+              if (fpLow.includes(base) && !fpLow.includes(lw) && !KNOWN_PREFIXED_WORDS.has(lw)) {
+                result.add('S-ANTONYM-PREFIX', SEV.S, `Q${qid}: ch[${i+1}]="${lw}" — 접두사 "${pfx}-" 비실존 조작 의심 (base "${base}"는 passage에 있으나 "${lw}"는 없음). 학생이 단어 형태만 보고 편법 풀이 가능`);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+    // 기존: written 반의어 (stem → wa)
     if (isWritten && stem && wa && /반의어|반대/.test(stem)) {
-      // stem에서 따옴표로 둘러싸인 영어 단어 추출
       const stemWordMatch = stem.match(/['"'‘’“”]([a-zA-Z][a-zA-Z-]+)['"'‘’“”]/);
       if (stemWordMatch) {
         const stemWord = stemWordMatch[1].toLowerCase();
         const waWord = wa.replace(/[.!?,]+$/, '').trim().toLowerCase();
-        // 접두사 제거 패턴들
-        const PREFIXES = ['un', 'in', 'im', 'dis', 'mis', 'non', 'anti', 'de', 'ir', 'il'];
         for (const pfx of PREFIXES) {
           if (stemWord.startsWith(pfx) && stemWord.slice(pfx.length) === waWord) {
             result.add('S-ANTONYM-PREFIX', SEV.S, `Q${qid}: 접두사 "${pfx}-" 제거형 반의어 — "${stemWord}"에서 ${pfx} 빼면 정답 "${waWord}". 기계적 문제, 의미 학습 X`);
@@ -1183,6 +1223,102 @@ function validate(jsonPath) {
             result.add('S-ANTONYM-PREFIX', SEV.S, `Q${qid}: 접두사 "${pfx}-" 추가형 반의어 — "${stemWord}"에 ${pfx} 붙이면 정답 "${waWord}". 기계적 문제, 의미 학습 X`);
             break;
           }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-DUPLICATE-ITEM (2026-04-15): 같은 파일 내 중복 문항 차단
+    // 선지/정답/stem이 거의 동일한 문항이 2개 이상이면 차단
+    // 예: Q18 = Q19 (ch 배열 같음, ans 같음, stem 90%+ 동일)
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && Array.isArray(q.ch) && q.ch.length === 4 && i < questions.length - 1) {
+      // 마커형(①②③④) 선지는 중복 체크 제외 — 내용은 overlay가 결정하므로 오탐
+      const MARKER_SET = new Set(['①','②','③','④','⑤']);
+      const isMarkerCh = q.ch.every(c => MARKER_SET.has(String(c).trim()));
+      if (!isMarkerCh) for (let j = i + 1; j < questions.length; j++) {
+        const other = questions[j];
+        if (!other || !Array.isArray(other.ch) || other.ch.length !== 4) continue;
+        // 상대도 마커형이면 스킵
+        const otherIsMarker = other.ch.every(c => MARKER_SET.has(String(c).trim()));
+        if (otherIsMarker) continue;
+        // Check if ch arrays are identical (as sets)
+        const chSet = new Set(q.ch.map(c => String(c).toLowerCase().trim()));
+        const otherChSet = new Set(other.ch.map(c => String(c).toLowerCase().trim()));
+        if (chSet.size === 4 && otherChSet.size === 4) {
+          const intersection = [...chSet].filter(x => otherChSet.has(x)).length;
+          if (intersection === 4) {
+            // Also check ans 표현 동일성 (same correct answer content)
+            const qAns = String(q.ch[q.ans - 1] || '').toLowerCase().trim();
+            const oAns = String(other.ch[other.ans - 1] || '').toLowerCase().trim();
+            if (qAns === oAns) {
+              result.add('S-DUPLICATE-ITEM', SEV.S, `Q${qid}↔Q${other.id}: 선지 4개 + 정답 내용 완전 동일 — 중복 문항. 하나를 다른 유형/선지로 교체 필수`);
+              break;
+            }
+          }
+        }
+      } // end for j (marker check guard)
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-MULTI-CORRECT (2026-04-15): 내용 일치/불일치에 복수 정답 차단
+    // stem이 "일치하는 것"/"일치하지 않는 것"인데 오답 선지 중 2개 이상이
+    // passage 내용과도 일치하면 복수 정답 → 채점 불가
+    // 휴리스틱: 오답 선지의 주요 명사구가 passage에 그대로 등장하는 비율로 판단
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && Array.isArray(q.ch) && q.ch.length === 4 && typeof q.ans === 'number' &&
+        (/일치하는|일치하지/.test(stem))) {
+      const fpLow = (fullPassage || '').toLowerCase();
+      const isFindMatching = /일치하는\s*것/.test(stem) && !/일치하지\s*않/.test(stem);
+      // "일치하는 것" (find matching) — 오답 3개는 passage에 없어야 함
+      // "일치하지 않는 것" (find non-matching) — 오답 3개는 passage에 있어야 함
+      const wrongs = q.ch.map((c, idx) => ({ c: String(c || '').replace(/<[^>]*>/g, '').trim(), idx })).filter(x => x.idx !== q.ans - 1);
+      // 주요 명사구 추출: 한국어 명사 체인(2글자 이상)
+      let matchCount = 0;
+      for (const w of wrongs) {
+        // passage 토큰 기반 간이 매칭: 한국어는 어렵고, 영어 고유명사/구문 기반
+        const ENtokens = w.c.match(/[a-zA-Z][a-zA-Z'-]+/g) || [];
+        const KOtokens = w.c.match(/[가-힣]{2,}/g) || [];
+        const enInPassage = ENtokens.filter(t => t.length >= 4 && fpLow.includes(t.toLowerCase())).length;
+        const koInPassage = KOtokens.filter(t => t.length >= 3 && (data.korean || '').includes(t) || fpLow.includes(t.toLowerCase())).length;
+        // 한국어 번역 기반 판단은 불완전 — 영어 토큰 + 기본 키워드 매칭
+        const wKeywords = w.c.match(/[가-힣]{3,}|[a-zA-Z]{4,}/g) || [];
+        const keywordMatch = wKeywords.filter(kw => {
+          const kl = kw.toLowerCase();
+          return fpLow.includes(kl) || (kw.match(/[가-힣]/) && questions.some(qq => (qq.korean || '').includes(kw)));
+        }).length;
+        const ratio = wKeywords.length ? keywordMatch / wKeywords.length : 0;
+        if (ratio >= 0.5 && wKeywords.length >= 2) matchCount++;
+      }
+      // Flag conditions:
+      if (isFindMatching && matchCount >= 2) {
+        result.add('S-MULTI-CORRECT', SEV.S, `Q${qid}: 내용 일치 문제에서 오답 ${matchCount}개 이상이 passage와 일치 의심 — 복수 정답 위험. 오답 선지를 passage와 무관한 내용으로 교체 필수`);
+      } else if (!isFindMatching && matchCount <= 1) {
+        // "일치하지 않는 것"인데 오답이 passage와 거의 일치 안 하면 복수 정답 없음 → OK
+        // 반대로 오답들도 대부분 일치 안 한다면 "일치하지 않는 것" 여러 개 → 복수 정답
+        // 이건 또 다른 이슈이지만 여기선 skip (more data needed)
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-DISTRACTOR-ALL-FIRST-SENT (2026-04-15): 빈칸추론 오답 3개가
+    // passage 첫 문장 명사 재사용만이면 소거법 가능 — 차단
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && Array.isArray(q.ch) && q.ch.length === 4 && typeof q.ans === 'number' &&
+        /빈칸|완성|추론/.test(typeNorm) && fullPassage) {
+      const firstSent = (fullPassage.match(/^[^.!?]+[.!?]/) || [''])[0].toLowerCase();
+      if (firstSent.length >= 20) {
+        const wrongs = q.ch.map((c, idx) => ({ c: String(c || '').replace(/<[^>]*>/g, '').trim(), idx }))
+          .filter(x => x.idx !== q.ans - 1);
+        let firstSentHits = 0;
+        for (const w of wrongs) {
+          const tokens = (w.c.match(/[a-zA-Z]{4,}/g) || []).map(t => t.toLowerCase());
+          if (!tokens.length) continue;
+          const inFirst = tokens.filter(t => firstSent.includes(t)).length;
+          if (inFirst > 0 && inFirst / tokens.length >= 0.5) firstSentHits++;
+        }
+        if (firstSentHits === 3) {
+          result.add('S-DISTRACTOR-ALL-FIRST-SENT', SEV.S, `Q${qid}: 빈칸 추론 오답 3개가 모두 passage 첫 문장 단어 재사용 — 학생이 본문 읽지 않고 문법/위치만으로 소거 가능`);
         }
       }
     }
@@ -1203,6 +1339,36 @@ function validate(jsonPath) {
       const abstractWrongs = wrongs.filter(w => ABSTRACT_HINTS.some(re => re.test(w)));
       if (abstractWrongs.length >= 3 && wrongs.length === 3) {
         result.add('S-ANTI-CHEESE-GATE', SEV.S, `Q${qid}: 오답 3개 전부 추상/메타 서술 — 학생이 passage 안 읽고도 정답 소거 가능. 문제로서 기능 안 함`);
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-MULTI-ITEM-WRITTEN (2026-04-15): 서술형에 "N가지 찾아 쓰시오" 다중 항목 금지
+    // 원칙: 서술형 답은 "한 문항 = 한 항목". N가지 찾기는 쉼표/and 채점 지옥 유발
+    // 적용:
+    //   (a) stem에 "두/세/네/다섯 가지" + "찾아 쓰시오"/"찾아서" 조합
+    //   (b) wa에 쉼표 2개 이상 (A, B, C) 또는 " and " 패턴 (A, B, and C)
+    //   (c) stem에 "모두 쓰시오" + 구두점 조건 없음
+    //   (d) (N단어) 단어수가 wa의 의미 토큰 수와 불일치 (예: 3가지인데 4단어)
+    // 예외: 조건영작(wa가 문장), 어순배열(wa가 문장), 한영(단일 구문) — 허용
+    // ─────────────────────────────────────────────────────────────
+    if (isWritten && wa && stem) {
+      const isWriting = /영작|어순|배열|한영/.test(typeNorm) || /영작|어순배열/.test(stem);
+      const waLow = String(wa).trim();
+      const hasMultiCommas = (waLow.match(/,/g) || []).length >= 2;
+      const hasListAnd = /,\s*and\s+\w+/i.test(waLow);
+      // "N가지를/개를 찾아 쓰시오" — multi-answer (bad)
+      // "N가지 중 ~ 찾아 쓰시오" — single answer (OK, exempt)
+      const stemMultiList = /(두|세|네|다섯|여섯|2|3|4|5|6)\s*(가지|개)(를|\s)\s*(모두|함께|다)?\s*(본문에서\s*)?찾아\s*쓰/.test(stem);
+      const stemNMiddleOf = /(두|세|네|다섯|여섯|2|3|4|5|6)\s*(가지|개)\s*중/.test(stem);
+      if (!isWriting) {
+        if (hasListAnd) {
+          result.add('S-MULTI-ITEM-WRITTEN', SEV.S, `Q${qid}: 서술형 wa가 "A, B, and C" 다중 항목 형식 — 쉼표/and 채점 모호. 단일 답 (1 항목) 원칙 위반`);
+        } else if (hasMultiCommas && /찾아\s*쓰/.test(stem)) {
+          result.add('S-MULTI-ITEM-WRITTEN', SEV.S, `Q${qid}: 서술형 wa에 쉼표 2+ 포함 + stem "찾아 쓰기" — 다중 항목 채점 모호. 단일 답 원칙 위반`);
+        } else if (stemMultiList && !stemNMiddleOf) {
+          result.add('S-MULTI-ITEM-WRITTEN', SEV.S, `Q${qid}: stem에 "N가지를 찾아 쓰시오" — 다중 항목 금지. 단일 답 + accept에 후보 여러 개 등록 원칙`);
+        }
       }
     }
 
