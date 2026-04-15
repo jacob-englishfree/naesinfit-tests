@@ -169,23 +169,8 @@ function validate(jsonPath) {
       if (!q.wa) result.add('F10', SEV.S, `Q${qid}: written missing wa`);
       if (q.wa && typeof q.wa !== 'string') result.add('F10', SEV.S, `Q${qid}: wa must be string, got ${typeof q.wa}`);
       if (!Array.isArray(q.accept)) result.add('F10', SEV.S, `Q${qid}: written missing accept array`);
-      // F10-B: accept 배열에 대소문자/하이픈 변형 포함 검증
-      if (q.wa && typeof q.wa === 'string' && Array.isArray(q.accept) && q.accept.length > 0) {
-        const wa = q.wa.trim();
-        const hasLower = q.accept.some(a => a.trim() === wa.toLowerCase());
-        const hasUpper = q.accept.some(a => a.trim() === wa.charAt(0).toUpperCase() + wa.slice(1));
-        if (!hasLower && wa.toLowerCase() !== wa) {
-          result.add('F10-B', SEV.A, `Q${qid}: accept에 소문자 변형("${wa.toLowerCase()}") 없음`);
-        }
-        // 하이픈 포함 단어는 공백 변형도 필요
-        if (wa.includes('-')) {
-          const noHyphen = wa.replace(/-/g, ' ');
-          const hasNoHyphen = q.accept.some(a => a.trim().replace(/-/g, ' ') === noHyphen);
-          if (!hasNoHyphen) {
-            result.add('F10-C', SEV.S, `Q${qid}: accept에 하이픈 없는 변형("${noHyphen}") 없음 — 학생이 공백으로 쓰면 오답 처리됨`);
-          }
-        }
-      }
+      // F10-B/C: 채점 시 production이 NORM(소문자/마침표/하이픈) 자동 정규화 → accept 변형 강제 불필요. 정보성으로만 유지.
+      // 변경 이력: 2026-04-15 jacob — 출제 오버헤드 제거. 채점은 항상 case/period/hyphen 무시.
     }
 
     // F11: passage key exists
@@ -478,7 +463,7 @@ function validate(jsonPath) {
       const waLower = q.wa.toLowerCase().trim();
       const skipTypes = ['어형 변환 (서술형)', '어형 변환', '어형변화', '어형변형'];
       const stem = String(q.stem || '');
-      const isFindStem = /본문에서\s*찾아|본문\s*속|글에서\s*찾아|본문에서\s*고르/.test(stem);
+      const isFindStem = /본문에서\s*찾아|본문\s*속|글에서\s*찾아|본문에서\s*고르|찾아\s*쓰시오/.test(stem);
       const isWriting = /영작/.test(typeNorm) || /영작/.test(stem);
       if (!skipTypes.includes(typeNorm) && !isFindStem && !isWriting && waLower.length > 15) {
         const passLower = passage.replace(/<[^>]+>/g, '').replace(/_{5,}/g, '').toLowerCase();
@@ -1109,7 +1094,7 @@ function validate(jsonPath) {
     // S-WA-IN-PASSAGE: 서술형 wa가 passage에 그대로 등장 (찾기/영작/어형/한영 유형 제외)
     // 영작도 fullPassage 맥락 제공이 필수라 노출 허용 (jacob 결정 2026-04-09)
     if (isWritten && wa && passage) {
-      const isFindInPassage = /본문에서\s*찾아|본문\s*속|발췌|본문 그대로|본문에서\s*골라|지문에서\s*찾아|글에서\s*찾아/.test(stem);
+      const isFindInPassage = /본문에서\s*찾아|본문\s*속|발췌|본문 그대로|본문에서\s*골라|지문에서\s*찾아|글에서\s*찾아|찾아\s*쓰시오/.test(stem);
       const isWriting = /영작/.test(typeNorm) || /영작/.test(stem);
       // 어형변환: passage에 (원형) 형태가 있어 변형 정답이 substring으로 잡힘 / 한영: 한국어→영어 매칭
       const isMorphOrK2E = typeNorm.includes('어형') || typeNorm.includes('한영');
@@ -1143,6 +1128,83 @@ function validate(jsonPath) {
 
     // S-COND-IS-WORDORDER 삭제 (2026-04-13)
     // 조건영작은 [조건] 단어수 = wa 단어수 허용 (어순배열과 형식 동일, 한국어 해석 제시가 차이점)
+
+    // ─────────────────────────────────────────────────────────────
+    // S-META-CHOICE (2026-04-15): 메타 선지 차단
+    // C7 "뻔한 오답" 규칙 코드화. 오답이 "본문에서 언급된", "다루지 않은", "관련 없는",
+    // "부차적", "직접 언급되지 않은", "논점과 상반" 등 메타 서술이면 학생이 passage 안 읽고 소거 가능
+    // 적용: mc (주제/요지/내용일치/지칭추론 등)
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && Array.isArray(q.ch) && q.ch.length >= 2) {
+      const META_PATTERNS = [
+        /본문에서\s*언급/,
+        /본문에서\s*직접\s*언급되지/,
+        /다루지\s*않은/,
+        /관련\s*없는/,
+        /부차적/,
+        /상반되는\s*결론/,
+        /논점과\s*상반/,
+        /본문의\s*부차/,
+        /본문에\s*없는/,
+        /언급되지\s*않은/,
+        /본문과\s*무관/,
+        /글에서\s*다루지/,
+        /주요\s*대상/,
+        /비교되는\s*다른\s*대상/
+      ];
+      const metaHits = q.ch.filter(c => {
+        const s = String(c || '').replace(/<[^>]*>/g, '').trim();
+        return META_PATTERNS.some(re => re.test(s));
+      });
+      if (metaHits.length >= 1) {
+        result.add('S-META-CHOICE', SEV.S, `Q${qid}: 선지에 메타 서술 포함 (${metaHits.length}건) — 학생이 passage 없이 소거법으로 풀림. C7 뻔한오답 금지 위반`);
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-ANTONYM-PREFIX (2026-04-15): 접두사 조작형 반의어 차단
+    // 의미 학습 없이 un-/in-/dis-/mis-/non-/im- 등 제거만으로 답이 되는 문제
+    // 예: stem "'unmatch'의 반의어" wa="match" → 접두사 un 제거 = 정답. 무의미
+    // ─────────────────────────────────────────────────────────────
+    if (isWritten && stem && wa && /반의어|반대/.test(stem)) {
+      // stem에서 따옴표로 둘러싸인 영어 단어 추출
+      const stemWordMatch = stem.match(/['"'‘’“”]([a-zA-Z][a-zA-Z-]+)['"'‘’“”]/);
+      if (stemWordMatch) {
+        const stemWord = stemWordMatch[1].toLowerCase();
+        const waWord = wa.replace(/[.!?,]+$/, '').trim().toLowerCase();
+        // 접두사 제거 패턴들
+        const PREFIXES = ['un', 'in', 'im', 'dis', 'mis', 'non', 'anti', 'de', 'ir', 'il'];
+        for (const pfx of PREFIXES) {
+          if (stemWord.startsWith(pfx) && stemWord.slice(pfx.length) === waWord) {
+            result.add('S-ANTONYM-PREFIX', SEV.S, `Q${qid}: 접두사 "${pfx}-" 제거형 반의어 — "${stemWord}"에서 ${pfx} 빼면 정답 "${waWord}". 기계적 문제, 의미 학습 X`);
+            break;
+          }
+          if (waWord.startsWith(pfx) && waWord.slice(pfx.length) === stemWord) {
+            result.add('S-ANTONYM-PREFIX', SEV.S, `Q${qid}: 접두사 "${pfx}-" 추가형 반의어 — "${stemWord}"에 ${pfx} 붙이면 정답 "${waWord}". 기계적 문제, 의미 학습 X`);
+            break;
+          }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // S-ANTI-CHEESE-GATE (2026-04-15): passage 없이 풀리는 문제 차단
+    // 핵심 안전망. 어느 편법이든 "passage 빠져도 풀리면" = 문제로서 기능 X
+    // 현재는 메타선지 누적 + 정답 선지가 유일하게 구체적(나머지 추상)인 경우 감지
+    // ─────────────────────────────────────────────────────────────
+    if (isMc && Array.isArray(q.ch) && q.ch.length === 4 && typeof q.ans === 'number' && q.ans >= 1 && q.ans <= 4) {
+      const chTexts = q.ch.map(c => String(c || '').replace(/<[^>]*>/g, '').trim());
+      // 정답 외 3개 선지 전부가 추상/메타 서술인지 검사
+      const ABSTRACT_HINTS = [
+        /본문/, /언급/, /다루/, /부차/, /무관/, /관련/, /상반/, /논점/, /결론/, /주장/, /요소/, /내용/
+      ];
+      const ansIdx = q.ans - 1;
+      const wrongs = chTexts.filter((_, i) => i !== ansIdx);
+      const abstractWrongs = wrongs.filter(w => ABSTRACT_HINTS.some(re => re.test(w)));
+      if (abstractWrongs.length >= 3 && wrongs.length === 3) {
+        result.add('S-ANTI-CHEESE-GATE', SEV.S, `Q${qid}: 오답 3개 전부 추상/메타 서술 — 학생이 passage 안 읽고도 정답 소거 가능. 문제로서 기능 안 함`);
+      }
+    }
 
     // ─────────────────────────────────────────────────────────────
     // S-STEM-NOT-IN-PASSAGE (2026-04-10): stem이 참조하는 단어가 passage에 없으면 차단
@@ -1505,23 +1567,7 @@ function validate(jsonPath) {
     }
   });
 
-  // ── F10-D: 서술형 accept에 마침표 변형 포함 ──
-  questions.forEach(q => {
-    if (q.fmt === 'written' && q.wa && typeof q.wa === 'string' && Array.isArray(q.accept)) {
-      const wa = q.wa.trim();
-      if (wa.endsWith('.')) {
-        const noDot = wa.slice(0, -1).trim();
-        if (!q.accept.some(a => a.trim() === noDot)) {
-          result.add('F10-D', SEV.A, `Q${q.id}: accept에 마침표 없는 변형("${noDot.substring(0,30)}") 없음`);
-        }
-      } else if (wa.length > 10) {
-        const withDot = wa + '.';
-        if (!q.accept.some(a => a.trim() === withDot)) {
-          result.add('F10-D', SEV.B, `Q${q.id}: accept에 마침표 있는 변형 없음 (권장)`);
-        }
-      }
-    }
-  });
+  // ── F10-D: production NORM이 마침표 자동 제거 → 변형 강제 불필요 (2026-04-15 jacob 결정) ──
 
   // ── C19: id 1~N continuous, no dups ──
   const ids = questions.map(q => q.id).sort((a, b) => a - b);
@@ -1991,12 +2037,7 @@ function validate(jsonPath) {
       }
     }
 
-    // A-ACCEPT-MIN: accept 변형 3개 미만
-    if (fmt === 'written' && q.accept) {
-      if (q.accept.length < 3) {
-        result.add('A-ACCEPT-MIN', SEV.A, `Q${qid}: accept ${q.accept.length}개 — 최소 3개 필요`);
-      }
-    }
+    // A-ACCEPT-MIN: 제거 (2026-04-15 jacob) — NORM 자동 정규화로 case/마침표/하이픈 변형 불필요. wa 1개로 충분
 
     // S-ORDER-MARKER-LEAK: 순서배열 (A)(B)(C) 마커가 비순서 유형 passage에 잔류
     if (passage.length > 50) {

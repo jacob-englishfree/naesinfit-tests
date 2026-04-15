@@ -628,7 +628,7 @@
       "acceptMin": 3,
       "answerRule": "정답 단어가 passage 다른 곳에 노출 금지",
       "overlayRequired": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
-      "overlayNote": "accept 3개 이상 필수 (마침표 변형 포함). wa = 변환된 형태."
+      "overlayNote": "accept 의미적 변형(동의어/축약/패러프레이즈)만. case/마침표/하이픈 변형 불필요 (채점 NORM 자동 정규화). wa = 변환된 형태."
     },
     "어법": {
       "fmt": "mc",
@@ -728,7 +728,7 @@
       "acceptMin": 3,
       "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단",
       "overlayRequired": "overlay = {}",
-      "overlayNote": "stem = 패러프레이징된 한국어 + \"찾아 쓰시오\" + 응답 언어 명시 \"(영어로)\" 또는 \"(우리말로)\". wa = 정답. accept 3개 이상 (대소문자, 마침표 변형)."
+      "overlayNote": "stem = 패러프레이징된 한국어 + \"찾아 쓰시오\" + 응답 언어 명시 \"(영어로)\" 또는 \"(우리말로)\". wa = 정답. accept는 의미적 변형(동의어/축약)만 — case/마침표/하이픈 변형 불필요 (채점 NORM 자동 정규화). stem에 case 조건(첫 글자 대문자/소문자) 절대 금지."
     },
     "서술형 — 조건영작": {
       "fmt": "written",
@@ -742,7 +742,7 @@
       "acceptMin": 3,
       "conditionRule": "기능어 포함 모든 단어 명시. 주어진 단어 수 = wa 단어 수이면 사실상 어순배열이므로 금지",
       "overlayRequired": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
-      "overlayNote": "passage 필수 (정답자리만 빈칸). stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건 + \"(영어로)\" 응답 언어 명시. 조건 단어 수 ≠ wa 단어 수 (같으면 어순배열). accept 3개 이상."
+      "overlayNote": "passage 필수 (정답자리만 빈칸). stem에 [조건] + wa의 모든 단어(기능어 포함) 명시 + (N단어) 조건 + \"(영어로)\" 응답 언어 명시. 조건 단어 수 ≠ wa 단어 수 (같으면 어순배열). accept는 의미적 변형(동의어/축약)만 — case/마침표/하이픈 변형 불필요 (NORM 자동)."
     },
     "어순배열": {
       "fmt": "written",
@@ -795,7 +795,10 @@
       "TW-TYPE: 테스트 종류별 허용 유형 위반",
       "TW-BAN: 금지 유형 사용 (심경변화, 도표, 안내문 등)",
       "X42: ans와 det 불일치",
-      "RENDER-MARKER-MISSING: 마커형 ch인데 passage에 마커 없음"
+      "RENDER-MARKER-MISSING: 마커형 ch인데 passage에 마커 없음",
+      "S-META-CHOICE: 선지에 메타서술(본문에서/다루지 않은/관련 없는 등) 포함 — C7 뻔한 오답 금지 코드화",
+      "S-ANTONYM-PREFIX: 접두사(un-/in-/dis-/mis-/non-) 제거 조작형 반의어 — 의미 학습 0",
+      "S-ANTI-CHEESE-GATE: 오답 3개 전부 추상/메타 서술 — passage 없이 소거법으로 풀림"
     ],
     "A급 (재출제 권장)": [
       "V63: passage 너무 짧음",

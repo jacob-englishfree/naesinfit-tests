@@ -466,9 +466,7 @@ function validateSingleQuestion(q, slot, fullPassage, source) {
     if (!q.wa || q.wa.length < 1) {
       errors.push(`Q${q.id}: wa(정답) 없음`);
     }
-    if (!q.accept || q.accept.length < 3) {
-      errors.push(`Q${q.id}: accept 변형 3개 이상 필요 (${(q.accept || []).length}개)`);
-    }
+    // accept 변형 강제 제거 (2026-04-15 jacob): 채점이 NORM 자동 정규화 → wa 1개만 있어도 충분
   }
 
   // 5. det 필수 필드

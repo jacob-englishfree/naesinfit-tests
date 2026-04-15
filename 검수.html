@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>검수 — 수특Light 영독</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;background:#0F0F0F;color:#fff;margin:0;padding:16px;max-width:760px;margin:0 auto}
+h1{color:#C8FF00;margin:0 0 8px;font-size:18px}
+.bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:#1a1a1a;padding:10px;border-radius:6px;margin-bottom:12px;font-size:14px}
+select,button{background:#222;color:#fff;border:1px solid #444;padding:6px 10px;border-radius:4px;font-size:14px}
+button{cursor:pointer}
+button.primary{background:#C8FF00;color:#000;font-weight:bold}
+button:hover{background:#333}
+button.primary:hover{background:#a0d800}
+.q{background:#1a1a1a;border-radius:8px;padding:16px;margin-bottom:14px;border-left:3px solid #C8FF00}
+.qhead{font-size:13px;color:#C8FF00;margin-bottom:8px}
+.qmeta{font-size:12px;color:#888;margin-left:6px}
+.passage{background:#0a0a0a;padding:12px;border-radius:6px;margin:10px 0;font-size:14px;line-height:1.6;white-space:pre-wrap}
+.passage b{color:#C8FF00}
+.passage u{color:#ff9800;text-decoration:underline}
+.stem{font-size:15px;font-weight:600;margin:10px 0 8px}
+.ch{display:block;background:#0a0a0a;padding:8px 12px;margin:5px 0;border-radius:4px;cursor:pointer;font-size:14px;border:1px solid transparent}
+.ch:hover{background:#222}
+.ch.picked{background:#2a3a00;border-color:#C8FF00}
+.ch.correct{background:#1a4a1a;border-color:#4caf50}
+.ch.wrong{background:#4a1a1a;border-color:#f44336}
+input[type=text]{width:100%;background:#0a0a0a;border:1px solid #444;color:#fff;padding:8px;font-size:14px;border-radius:4px;margin:6px 0}
+.det{background:#0a0a0a;padding:10px;border-radius:6px;margin-top:10px;font-size:13px;display:none}
+.det.show{display:block}
+.det b{color:#C8FF00}
+.det .korean{color:#ffe082;margin-bottom:6px}
+.det .analysis{white-space:pre-line;color:#ccc;line-height:1.5}
+.det .tip{color:#90caf9;margin-top:6px;font-size:12px}
+.score{position:fixed;bottom:0;left:0;right:0;background:#C8FF00;color:#000;padding:14px;text-align:center;font-weight:bold;font-size:16px;display:none}
+.score.show{display:block}
+.toolbar{display:flex;gap:8px;margin:10px 0}
+.fail{color:#f44336}
+.pass{color:#4caf50}
+</style>
+</head>
+<body>
+<h1>📋 검수 — 수특Light 영독</h1>
+
+<div class="bar">
+  <select id="kang">
+    <option value="1강">1강</option>
+    <option value="2강">2강</option>
+  </select>
+  <select id="num">
+    <option>1번</option><option>2번</option><option>3번</option>
+    <option>4번</option><option>5번</option><option>6번</option>
+  </select>
+  <select id="type">
+    <option value="단어">단어</option>
+    <option value="워크북">워크북</option>
+    <option value="퀴즈">퀴즈</option>
+  </select>
+  <button class="primary" onclick="load()">불러오기</button>
+  <button onclick="toggleAll()">전체 정답/해설 보기/숨기기</button>
+  <span id="meta"></span>
+</div>
+
+<div id="root">상단에서 강·번호·유형 선택 후 [불러오기].</div>
+<div id="score" class="score"></div>
+
+<script>
+let DATA=null, picked={}, written={};
+
+async function load(){
+  const k=kang.value, n=num.value, t=type.value;
+  const url=`/data/부교재/수능특강Light/영어독해연습/${k}/${n}/${t}.json`;
+  try{
+    const r=await fetch(url);
+    if(!r.ok){root.innerHTML='<div class="fail">로드 실패: '+r.status+' '+url+'</div>';return}
+    DATA=await r.json();
+    picked={}; written={};
+    render();
+  }catch(e){root.innerHTML='<div class="fail">에러: '+e.message+'</div>'}
+}
+
+function render(){
+  if(!DATA){return}
+  meta.textContent = `${DATA.ei.subject} ${DATA.ei.lesson} ${DATA.ei.section} ${DATA.testType} | ${DATA.questions.length}문항 ${DATA.ei.total}점`;
+  const html = DATA.questions.map((q,idx)=>renderQ(q,idx)).join('');
+  root.innerHTML = html;
+  score.classList.remove('show');
+}
+
+function renderQ(q,idx){
+  const passage = q.passage ? `<div class="passage">${escapeHtmlPreserve(q.passage)}</div>` : '';
+  let body='';
+  if(q.fmt==='mc'){
+    body = q.ch.map((c,i)=>{
+      const num=['①','②','③','④','⑤'][i]||(i+1);
+      return `<div class="ch" data-q="${q.id}" data-i="${i+1}" onclick="pick(${q.id},${i+1})">${num} ${escapeHtml(c)}</div>`;
+    }).join('');
+  } else {
+    body = `<input type="text" placeholder="정답 입력" oninput="setW(${q.id}, this.value)">`;
+  }
+  const det = q.det ? `<div class="det" id="det${q.id}">
+    <div class="korean"><b>해석:</b> ${escapeHtml(q.det.korean||'')}</div>
+    <div class="analysis"><b>풀이:</b>\n${escapeHtml(q.det.analysis||'')}</div>
+    ${q.det.tip?`<div class="tip"><b>팁:</b> ${escapeHtml(q.det.tip)}</div>`:''}
+    <div style="margin-top:8px;color:#C8FF00"><b>정답:</b> ${q.fmt==='mc'?(['①','②','③','④'][q.ans-1]||q.ans):escapeHtml(q.wa||'')}</div>
+  </div>`:'';
+  return `<div class="q" id="q${q.id}">
+    <div class="qhead">Q${q.id} <span class="qmeta">[${q.type} · ${q.diff} · ${q.pts}점]</span>
+      <button style="float:right;font-size:12px" onclick="toggleDet(${q.id})">정답/해설</button>
+    </div>
+    <div class="stem">${escapeHtml(q.stem)}</div>
+    ${passage}
+    ${body}
+    ${det}
+  </div>`;
+}
+
+function pick(qid,i){
+  picked[qid]=i;
+  const els = document.querySelectorAll(`.ch[data-q="${qid}"]`);
+  const q = DATA.questions.find(x=>x.id===qid);
+  els.forEach(el=>{
+    const ci=parseInt(el.dataset.i);
+    el.classList.remove('picked','correct','wrong');
+    if(ci===i){
+      if(ci===q.ans) el.classList.add('correct');
+      else el.classList.add('wrong');
+    } else if(ci===q.ans && i!==q.ans) {
+      el.classList.add('correct');
+    }
+  });
+  document.getElementById('det'+qid).classList.add('show');
+  updateScore();
+}
+
+function setW(qid,v){
+  written[qid]=v;
+  updateScore();
+}
+
+function updateScore(){
+  let total=0, correct=0;
+  DATA.questions.forEach(q=>{
+    total += q.pts;
+    if(q.fmt==='mc' && picked[q.id]===q.ans) correct += q.pts;
+    if(q.fmt==='written' && written[q.id]){
+      const NORM=s=>String(s||'').trim().replace(/\s+/g,' ').replace(/[.!?,;:'"`]+$/,'').replace(/-/g,' ').toLowerCase();
+      const v=NORM(written[q.id]);
+      const wa=NORM(q.wa);
+      const accept=(q.accept||[]).map(NORM);
+      if(v===wa || accept.includes(v)) correct += q.pts;
+    }
+  });
+  score.textContent = `현재 ${correct} / ${total}점`;
+  score.classList.add('show');
+}
+
+function toggleDet(qid){
+  document.getElementById('det'+qid).classList.toggle('show');
+}
+
+function toggleAll(){
+  const dets=document.querySelectorAll('.det');
+  const anyHidden=Array.from(dets).some(d=>!d.classList.contains('show'));
+  dets.forEach(d=>{ if(anyHidden) d.classList.add('show'); else d.classList.remove('show')});
+}
+
+function escapeHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escapeHtmlPreserve(s){
+  // <b>, <u>, __________(빈칸) 같은 태그는 유지
+  return String(s||'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'\x00LT\x00').replace(/>/g,'\x00GT\x00')
+    .replace(/\x00LT\x00(\/?(?:b|u|br))\x00GT\x00/g,'<$1>');
+}
+</script>
+</body>
+</html>
