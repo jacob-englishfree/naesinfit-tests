@@ -343,6 +343,22 @@ STEP 3: 자동 조립+검증
 - `npm run validate:all` — 4단 전체 검증
 - `npm run deploy -- data/.../단어.json` — 검증+배포 원스톱
 - `node validate/validate-render.js --all --screenshot` — 스크린샷 포함
+- `node create-test.js --status data/.../단어.json` — SOP 6단계(response/json/blind/cross-blind/adversarial/report) 이행 여부 체크리스트
+- `STRICT_GATE=true node deploy-json.js <경로>` — 증적 artifact 없으면 배포 차단 (cross-blind + adversarial + _audit-report.md 필수)
+
+### Agent 프롬프트 템플릿 (프롬프트 직접 작성 금지)
+**반드시 아래 파일을 사용하고 변수만 치환**. 매 세션 프롬프트 새로 쓰면 SOP 단계 누락 재발 위험:
+- `prompts/agent_vocab.md` — 단어 테스트 출제 (STEP A~D 전부)
+- `prompts/agent_workbook.md` — 워크북 테스트 출제
+- `prompts/agent_quiz.md` — 퀴즈 테스트 출제
+- `prompts/agent_cross_blind.md` — Tier 2 교차검증 풀이 (반대 모델)
+- `prompts/agent_adversarial.md` — STEP 5 적대적 공격 검수
+
+### 재발 방지 문서
+- `guardrails/POSTMORTEM-2026-04-15-sop-skipped.md` — SOP 건너뛴 사고 & 재발 방지 구조
+
+### 배포 게이트 (2026-04-16 추가)
+`deploy-json.js`가 각 test.json에 **`.blind.json` + `.cross-blind.json` + `.adversarial.json` + `_audit-report.md`** 4종 artifact 존재를 확인. adversarial.json의 HIGH 이슈가 남아 있으면 차단. `STRICT_GATE=true` 환경변수 또는 `--strict-gate` 플래그로 강제 차단 활성화.
 
 ### 문항번호별 유형 규칙
 - **출제 제외**: 25번(도표), 27~28번(안내문)

@@ -733,7 +733,69 @@ function assembleMode(responseFile) {
     console.log(`   node validate/blind-solve.js "${outputFile}"`);
   }
 
-  return { outputFile, relOutput, hasBlind, failCount };
+  // ── 다음 단계 안내 (SOP 이행 체크리스트) ──
+  const cbFile = outputFile.replace(/\.json$/, '.cross-blind.json');
+  const advFile = outputFile.replace(/\.json$/, '.adversarial.json');
+  const gangDir = path.dirname(path.dirname(outputFile));
+  const reportFile = path.join(gangDir, '_audit-report.md');
+  const hasCross = fs.existsSync(cbFile);
+  const hasAdv = fs.existsSync(advFile);
+  const hasReport = fs.existsSync(reportFile);
+
+  console.log(`\n── SOP 이행 체크리스트 ──`);
+  console.log(`  [${hasBlind ? '✅' : '❌'}] STEP 3 자체 블라인드 (.blind.json)`);
+  console.log(`  [${hasCross ? '✅' : '❌'}] Tier 2 Cross-blind (.cross-blind.json) — 반대 모델 풀이`);
+  console.log(`  [${hasAdv ? '✅' : '❌'}] STEP 5 적대적 공격 (.adversarial.json)`);
+  console.log(`  [${hasReport ? '✅' : '❌'}] STEP 7 증적 리포트 (${path.relative(ROOT, reportFile)})`);
+
+  const missing = [];
+  if (!hasCross) missing.push(`node cross-blind.js --prep "${outputFile}" → 반대모델이 .cross-blind.json 작성 → node cross-blind.js --verify "${outputFile}"`);
+  if (!hasAdv) missing.push(`다른 Agent에게 prompts/agent_adversarial.md 템플릿 전달 → .adversarial.json 작성`);
+  if (!hasReport) missing.push(`지문 폴더에 _audit-report.md 작성 (배포 시 필수)`);
+  if (missing.length) {
+    console.log(`\n⛔ 다음 단계 필수 (미완료 시 deploy-json.js --strict-gate 차단):`);
+    missing.forEach((m, i) => console.log(`  ${i + 1}. ${m}`));
+  } else {
+    console.log(`\n✅ 모든 SOP 단계 이행 완료 — 배포 가능 상태`);
+  }
+
+  return { outputFile, relOutput, hasBlind, hasCross, hasAdv, hasReport, failCount };
+}
+
+// ── --status 모드: test.json의 SOP 단계별 이행 여부 리포트 ──
+function statusMode(testPath) {
+  const abs = path.isAbsolute(testPath) ? testPath : path.join(ROOT, testPath);
+  if (!fs.existsSync(abs) || !abs.endsWith('.json')) {
+    console.error(`❌ 파일 없음: ${testPath}`);
+    process.exit(1);
+  }
+  const responseFile = abs.replace(/\.json$/, '.response.json');
+  const blindFile = abs.replace(/\.json$/, '.blind.json');
+  const cbFile = abs.replace(/\.json$/, '.cross-blind.json');
+  const advFile = abs.replace(/\.json$/, '.adversarial.json');
+  const gangDir = path.dirname(path.dirname(abs));
+  const reportFile = path.join(gangDir, '_audit-report.md');
+
+  const check = (p) => fs.existsSync(p) ? '✅' : '❌';
+  console.log(`\n── SOP 상태: ${path.relative(ROOT, abs)} ──`);
+  console.log(`  ${check(responseFile)} STEP 1 response.json (Agent 출제)`);
+  console.log(`  ${check(abs)} STEP 2 ${path.basename(abs)} (assemble+validate)`);
+  console.log(`  ${check(blindFile)} STEP 3 blind.json (자체 블라인드)`);
+  console.log(`  ${check(cbFile)} Tier 2 cross-blind.json (반대모델)`);
+  console.log(`  ${check(advFile)} STEP 5 adversarial.json (공격 검수)`);
+  console.log(`  ${check(reportFile)} STEP 7 _audit-report.md (증적)`);
+
+  // adversarial HIGH 이슈 검사
+  if (fs.existsSync(advFile)) {
+    try {
+      const adv = JSON.parse(fs.readFileSync(advFile, 'utf8'));
+      const highs = (adv.issues || []).filter(i => (i.severity || '').toLowerCase() === 'high');
+      if (highs.length) {
+        console.log(`\n⛔ adversarial HIGH ${highs.length}건 미해결: ${highs.map(h => `Q${h.id}(${h.category})`).join(', ')}`);
+      }
+    } catch (e) { /* ignore */ }
+  }
+  console.log('');
 }
 
 // ── 메인 ──
@@ -743,6 +805,12 @@ function main() {
   // --assemble 모드
   if (args.assemble) {
     assembleMode(args.assemble);
+    return;
+  }
+
+  // --status 모드: SOP 이행 상태 확인
+  if (args.status) {
+    statusMode(args.status);
     return;
   }
 

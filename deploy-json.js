@@ -44,7 +44,7 @@ const VALID_TEXTBOOK_PATHS = [
   '중3/미래엔최연희',
 ];
 
-const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강Light/영어', '수능특강Light/영어독해연습', '올림포스전국연합고2/2026', 'ReadingPower유형편완성'];
+const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강/영어독해연습', '수능특강Light/영어', '수능특강Light/영어독해연습', '올림포스전국연합고2/2026', 'ReadingPower유형편완성'];
 const VALID_UNIT_PATTERN = /^\d+과$|^\d+강$/;
 const VALID_MOCK_PATTERN = /^(고1|고2|고3)\/.+$/;
 
@@ -347,6 +347,40 @@ function runValidate(jsonPath) {
 }
 
 // ── 파일 하나 전체 검증 ──
+// ── 증적 게이트: 각 test.json은 cross-blind.json + adversarial.json 짝이 있어야 배포 가능 ──
+// 단, 이미 존재하는 레거시 파일(기존 배포분)은 migration 기간 동안 STRICT_GATE=true 일 때만 강제
+const STRICT_GATE = process.env.STRICT_GATE === 'true' || process.argv.includes('--strict-gate');
+function validateArtifacts(jsonPath) {
+  const errs = [];
+  const cbPath = jsonPath.replace(/\.json$/, '.cross-blind.json');
+  const advPath = jsonPath.replace(/\.json$/, '.adversarial.json');
+  const blindPath = jsonPath.replace(/\.json$/, '.blind.json');
+  if (!fs.existsSync(blindPath)) errs.push(`blind.json 없음: ${path.basename(blindPath)} (STEP 3 블라인드 미이행)`);
+  if (!fs.existsSync(cbPath)) errs.push(`cross-blind.json 없음: ${path.basename(cbPath)} (Tier 2 교차검증 미이행)`);
+  if (!fs.existsSync(advPath)) errs.push(`adversarial.json 없음: ${path.basename(advPath)} (STEP 5 적대적 공격 미이행)`);
+  // adversarial HIGH 이슈 잔존 차단
+  if (fs.existsSync(advPath)) {
+    try {
+      const adv = JSON.parse(fs.readFileSync(advPath, 'utf8'));
+      const highs = (adv.issues || []).filter(i => (i.severity || '').toLowerCase() === 'high');
+      if (highs.length) errs.push(`adversarial HIGH 이슈 ${highs.length}건 미해결: ${highs.map(h => `Q${h.id}`).join(', ')}`);
+    } catch (e) {
+      errs.push(`adversarial.json 파싱 실패: ${e.message}`);
+    }
+  }
+  // _audit-report.md는 지문(폴더) 단위로 1개 있으면 OK — 폴더 루트까지 올라가며 확인
+  const parentDir = path.dirname(jsonPath);
+  const gangDir = path.dirname(parentDir); // 1번의 부모=1강
+  const reportCandidates = [
+    path.join(gangDir, '_audit-report.md'),
+    path.join(parentDir, '_audit-report.md'),
+  ];
+  if (!reportCandidates.some(p => fs.existsSync(p))) {
+    errs.push(`_audit-report.md 없음: ${path.relative(ROOT, gangDir)}/ (STEP 7 증적 리포트 미작성)`);
+  }
+  return errs;
+}
+
 function checkFile(jsonPath) {
   totalFiles++;
   const rel = path.relative(ROOT, jsonPath);
@@ -364,6 +398,18 @@ function checkFile(jsonPath) {
   if (schemaErrors.length === 0) {
     const valErrors = runValidate(jsonPath);
     allErrors.push(...valErrors.map(e => `[검증] ${e}`));
+  }
+
+  // 4. 증적 게이트 (STRICT_GATE=true 시 차단, 기본은 경고만)
+  const artifactErrors = validateArtifacts(jsonPath);
+  if (artifactErrors.length) {
+    if (STRICT_GATE) {
+      allErrors.push(...artifactErrors.map(e => `[증적] ${e}`));
+    } else {
+      // 경고만 (기존 파일 호환). STRICT_GATE=true 적용 시 차단.
+      console.log(`  ⚠ ${rel} (증적 미비 — STRICT_GATE=true 시 차단됨)`);
+      artifactErrors.forEach(e => console.log(`     ${e}`));
+    }
   }
 
   if (allErrors.length === 0) {
