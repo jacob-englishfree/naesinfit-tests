@@ -1,0 +1,51 @@
+{
+  "model": "claude-sonnet-4-6",
+  "role": "adversarial-inspector",
+  "inspectedAt": "2026-04-15",
+  "issues": [
+    {
+      "qid": "Q7",
+      "severity": "LOW",
+      "code": "Q6-WEAK-DISTRACTOR",
+      "desc": "오답(ignored, refused, challenged)이 fullPassage에 없음. 단, 단어 테스트 특성상 동의어/반의어 오답은 불가피. 소거법으로 일부 풀릴 수 있으나, 정답 complied는 문맥 추론 필요 — 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "qid": "Q8",
+      "severity": "LOW",
+      "code": "Q6-WEAK-DISTRACTOR",
+      "desc": "오답(permission, suggestion, agreement)이 fullPassage에 없음. obligation은 지문 원문. 소거 가능하나 'legal ___'에서 obligation이 명확한 정답 — 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "qid": "Q9",
+      "severity": "LOW",
+      "code": "Q6-WEAK-DISTRACTOR",
+      "desc": "오답(returned, damaged, missing)이 fullPassage에 없음. enclosed는 지문 원문. 'with form ___'에서 enclosed가 명확 — 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "qid": "Q18",
+      "severity": "LOW",
+      "code": "A-MORPH-BASE-NOT-IN-FP",
+      "desc": "어형변환 원형 '(send)'이 fullPassage에 없음(fullPassage에는 'sent'만 있음). 그러나 발췌문 자체에 원형+빈칸 구조가 명확히 제시되므로 학생 풀이에 문제없음 — 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "qid": "Q1-Q3",
+      "severity": "LOW",
+      "code": "EX-3",
+      "desc": "(A)(B)(C) 정답 단어가 지문 다른 곳에도 노출됨. 이는 110단어 단지문 특성상 불가피. 학생이 (A)(B)(C) 마커를 문맥 안에서 판단해야 하므로 유효한 문항 — 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "qid": "Q13",
+      "severity": "LOW",
+      "code": "DOUBLE-USAGE",
+      "desc": "Q11(동의어)과 Q13(반의어)이 동일 단어 'complied' 사용. 다른 유형이므로 학생 입장에서 혼란 없음 — 허용.",
+      "action": "ACCEPT"
+    }
+  ],
+  "highIssueCount": 0,
+  "verdict": "PASS — HIGH 이슈 0건. 모든 이슈 ACCEPT 처리 완료."
+}

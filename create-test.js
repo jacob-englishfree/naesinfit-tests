@@ -408,7 +408,7 @@ function assembleQuestion(slot, passageText, aiDecision) {
   const tip = aiDecision.tip || det.tip || '';
 
   // 다의어 등 AI가 직접 passage를 제공한 경우 우선 사용
-  const customPassageTypes = ['다의어 문맥적 의미', '다의어 / 문맥적 의미'];
+  const customPassageTypes = ['다의어 문맥적 의미', '다의어 / 문맥적 의미', '오류찾기'];
   const useCustomPassage = customPassageTypes.includes(slot.type) && aiDecision.passage;
 
   const q = {
