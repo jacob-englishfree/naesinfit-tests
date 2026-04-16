@@ -1,0 +1,20 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/3강/4번/워크북.json",
+  "attackerModel": "opus",
+  "issues": [
+    {
+      "id": 15,
+      "severity": "HIGH",
+      "type": "단어수 조건 모순/채점 모호",
+      "note": "stem '이유 세 가지를 우리말로 쓰시오. (우리말로, 각 이유를 쉼표로 구분, 7단어)' — wa '결혼 준비, 병원 풀타임 직장, 대학원 계획'(7어절). 하지만 accept 배열에 '결혼 준비, 병원 일, 대학원 계획'(6어절), '결혼 준비, 풀타임 직장, 대학원 진학 계획'(8어절), '봄 결혼 준비, 병원 근무, 대학원 계획'(7어절) 등 단어수가 6~8로 모두 허용. stem의 '7단어' 조건을 위반한 답도 정답 처리. 채점 기준 일관성 상실."
+    },
+    {
+      "id": 16,
+      "severity": "HIGH",
+      "type": "S-WORDCOUNT-MISMATCH",
+      "note": "stem '(영어로, 5단어)' 조건인데 wa 'for the past three years'(5단어)는 맞지만 accept 배열에 'the past three years'(4단어), 'for three years'(3단어), 'past three years'(3단어)가 포함됨. 5단어 조건을 위반한 답을 다수 허용. S급 차단 규칙 S-WORDCOUNT-MISMATCH 위반."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 2
+}

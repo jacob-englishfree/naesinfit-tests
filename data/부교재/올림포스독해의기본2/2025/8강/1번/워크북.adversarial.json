@@ -1,0 +1,38 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/8강/1번/워크북.json",
+  "attackerModel": "opus",
+  "issues": [
+    {
+      "id": 15,
+      "severity": "HIGH",
+      "type": "단어수 조건 위반 (S-WORDCOUNT-MISMATCH)",
+      "note": "stem '(6단어, 영어로)' — wa 'seeing beauty in every human being' = 6단어 OK이나 accept 배열에 'the habit of seeing beauty in every human being'(8단어), 'I once created the habit of seeing beauty in every human being'(11단어) 포함. 6단어 조건과 모순 → 학생이 11단어 답해도 정답 처리되는 채점 모순."
+    },
+    {
+      "id": 16,
+      "severity": "HIGH",
+      "type": "단어수 조건 위반 (S-WORDCOUNT-MISMATCH)",
+      "note": "stem '5단어, 영어로, 본문에서 찾아' — wa 'there must be something beautiful' 5단어. 그러나 accept에 'somewhere inside there must be something beautiful'(6단어), 'must be something beautiful inside'(5단어 변형) 포함. 6단어 변형은 조건 위반."
+    },
+    {
+      "id": 17,
+      "severity": "HIGH",
+      "type": "어순배열 정답에 comma 포함 (단어 토큰 불명확)",
+      "note": "stem '10단어, 영어로, 주어진 단어 [a, a, around, be, can, found, geode, stone, that, volcanoes]' — 정답 'a geode, a stone that can be found around volcanoes'에 comma 포함. 주어진 단어 토큰엔 comma 없음. 학생이 comma를 어디 넣어야 할지 단서 없음. accept 'a geode a stone that can be found around volcanoes'(comma 없음)도 허용 → 채점 NORM 처리 가능하나 stem 자체가 모호."
+    },
+    {
+      "id": 20,
+      "severity": "HIGH",
+      "type": "S-WA-IN-PASSAGE (서술형 영작 정답이 fullPassage에 그대로 노출)",
+      "note": "wa 'a stone that can be found around volcanoes' — 워크북 ei.fullPassage에 동일 문구 그대로 등장. passage 자체는 빈칸 처리되어 있으나 학생은 본문 인식 시 정답 그대로 베낄 수 있음. 영작이 사실상 'find-and-copy'."
+    },
+    {
+      "id": 1,
+      "severity": "MED",
+      "type": "어법 정답 약함",
+      "note": "②'value' 오류 — 'is value'는 비표준이나 'is a value'(부정관사 추가)는 가능. 학생이 'value' 자체를 명사 보어로 받아들일 여지 있어 변별력 모호."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 4
+}
