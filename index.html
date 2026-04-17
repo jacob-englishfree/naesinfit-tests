@@ -1500,6 +1500,14 @@ async function fetchTestQuestions(testType, selKey) {
     }
   }
 
+  // 부교재 "전체" 폴백:
+  // selKey = 부교재/X/Y/Z/전체 → 전체/ 폴더 없으면 루트 레벨(부교재/X/Y/Z)도 시도
+  // (수능특강 1~14강, 21~24강 등 루트 JSON이 있는 경우 커버)
+  if (selKey.startsWith('부교재/') && selKey.endsWith('/전체')) {
+    const parentPath = selKey.slice(0, selKey.lastIndexOf('/전체'));
+    tryPaths.push('data/' + parentPath + '/' + jsonName + '.json');
+  }
+
   for (const path of tryPaths) {
     try {
       // 2026-04-08: cache-busting (캐시 영구 무효화)
@@ -1543,6 +1551,49 @@ async function fetchTestQuestions(testType, selKey) {
   } catch(e) {
     console.warn('HTML fetch also failed:', htmlPath, e.message);
   }
+
+  // 3차: 부교재 멀티섹션 병합 폴백
+  // 루트 JSON도 전체/ 폴더도 없는 경우 (수능특강 15강+, 수능특강Light 전체, 올림포스전국연합고2 등)
+  // SCOPE_CATALOG의 sections 정보로 각 섹션 JSON을 병렬 fetch 후 합산 반환
+  if (selKey.startsWith('부교재/')) {
+    // 전체 suffix 제거해서 기본 경로 추출
+    const baseKey = selKey.endsWith('/전체')
+      ? selKey.slice(0, selKey.lastIndexOf('/전체'))
+      : selKey;
+    const bParts = baseKey.split('/'); // ['부교재', series, book?, unit]
+    if (bParts.length >= 3) {
+      const series = bParts[1];
+      // noBook 형식: 부교재/series/unit (3단계) → book='_', unit=bParts[2]
+      // 일반 형식: 부교재/series/book/unit (4단계) → book=bParts[2], unit=bParts[3]
+      const isNoBook = bParts.length === 3;
+      const bookKey = isNoBook ? '_' : bParts[2];
+      const unit = bParts[bParts.length - 1];
+      const catItem = SCOPE_CATALOG?.['부교재']?.items?.[series]?.[bookKey];
+      const sectionList = catItem?.subs?.[unit];
+      if (sectionList && sectionList.length > 0) {
+        // "전체" 제외 (재귀 방지), 실제 섹션만 병렬 fetch
+        const realSections = sectionList.filter(s => s !== '전체');
+        if (realSections.length > 0) {
+          const sectionFetches = realSections.map(sec => {
+            const secPath = 'data/' + baseKey + '/' + sec + '/' + jsonName + '.json';
+            return fetch(secPath + '?v=' + Date.now(), { cache: 'no-store' })
+              .then(r => r.ok ? r.json() : null)
+              .then(d => d ? normalizeQs(d.questions || [], d.fullPassage || '') : [])
+              .catch(() => []);
+          });
+          const sectionResults = await Promise.all(sectionFetches);
+          const mergedQs = sectionResults.flat().filter(Boolean);
+          if (mergedQs.length) {
+            _fetchCache[cacheKey] = mergedQs;
+            if (!QUESTION_BANK[testType]) QUESTION_BANK[testType] = {};
+            QUESTION_BANK[testType][selKey] = mergedQs;
+            return mergedQs;
+          }
+        }
+      }
+    }
+  }
+
   return null;
 }
 
