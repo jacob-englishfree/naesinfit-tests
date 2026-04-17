@@ -1,0 +1,60 @@
+{
+  "file": "data/부교재/수능특강Light/영어독해연습/3강/4번/워크북.json",
+  "timestamp": "2026-04-18T00:02:00.000Z",
+  "attacker": "opus-4.6",
+  "method": "adversarial review — 학생 관점에서 오류/모호함/치팅 가능성 점검",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "question": 10,
+      "type": "빈칸추론",
+      "issue": "오답 'a favour'이 문맥상 약간 그럴듯해 보일 수 있음",
+      "detail": "본문에 favour가 등장하여 오답이지만, 'creates a favour to be paid back'은 어색함이 명확(favour는 갚는 대상이 아니라 되갚는 것). 학생이 debt와 확실히 구분 가능.",
+      "verdict": "PASS — 오답 매력도 적절"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "question": 15,
+      "type": "서술형",
+      "issue": "서술형 정답 'return the favour'가 passage에 그대로 노출",
+      "detail": "이 문항은 '찾기' 유형으로, 정답이 passage에 있는 것이 의도. stem에 '본문에서 찾아 쓰시오'로 명시. validate의 EX-2 warning은 찾기 유형 허용 예외에 해당.",
+      "verdict": "PASS — 찾기 유형 예외"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "question": 16,
+      "type": "서술형",
+      "issue": "서술형 정답 'reputation'이 passage에 그대로 노출",
+      "detail": "찾기 유형. stem에 '본문에서 찾아 쓰시오'로 명시. 의도된 노출.",
+      "verdict": "PASS — 찾기 유형 예외"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "question": 17,
+      "type": "어순배열",
+      "issue": "11단어 어순배열이 본문 문장과 동일",
+      "detail": "어순배열은 본문 문장을 재구성하는 유형이므로 본문 참조 가능. 단, 주어진 단어 11개가 알파벳순 셔플되어 있어 단순 베끼기 불가. 학생이 문장 구조(S+V+C+to-inf)를 이해해야 함.",
+      "verdict": "PASS — 어순배열 유형 특성"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "question": 14,
+      "type": "오류찾기",
+      "issue": "마커 ①related와 ④fortunate가 문법적으로 너무 명백하게 정답 아님",
+      "detail": "①related(be+p.p.)와 ④fortunate(be+형용사)는 기본 문법. 실질 선택지는 ②gains vs ③creates. 하지만 '쉬움' 아닌 '어려움' 난이도이고, ②와 ③ 사이 판단(복수주어+동사 vs 동명사주어+동사)이 핵심 포인트로 적절.",
+      "verdict": "PASS — 난이도 적합"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "totalIssues": 5,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}

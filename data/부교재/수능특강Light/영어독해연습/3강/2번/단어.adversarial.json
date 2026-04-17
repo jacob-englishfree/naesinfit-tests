@@ -1,0 +1,31 @@
+{
+  "testFile": "data/부교재/수능특강Light/영어독해연습/3강/2번/단어.json",
+  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-04-18T02:57:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "qIds": [1, 2, 3],
+      "description": "ABC 정답 단어가 fullPassage에 반복 등장하여 문맥 없이도 유추 가능 (EX-3 경고). 그러나 이 지문은 visual/damage/intact 등 핵심 어휘가 반복되는 학술 텍스트 특성상 불가피. 학생이 올바른 조합을 선택하려면 각 빈칸 위치의 문맥을 정확히 이해해야 하므로 학습 가치 유지."
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "qIds": [7],
+      "description": "빈칸 정답 imagery가 passage 다른 곳에 노출 (visual imagery system 등). 그러나 빈칸 직전 5단어 이내에는 없고, 단어 테스트 특성상 핵심 어휘 반복은 학습 목적에 부합."
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "qIds": [6],
+      "description": "Q6 부적절 어휘: ①cooperatively → independently. 'do not work cooperatively'가 부적절한 이유를 파악하려면 뒤따르는 'but are continually interacting'과의 논리적 모순을 이해해야 함. 난이도 보통에 적합한 사고력 요구."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "verdict": "PASS — HIGH 0건, 정답 모호 문항 0건. 20문항 모두 단일 정답 명확."
+  }
+}
