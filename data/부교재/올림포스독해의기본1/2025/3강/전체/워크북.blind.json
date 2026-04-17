@@ -1,26 +1,288 @@
 {
-  "testFile": "data/부교재/올림포스독해의기본1/2025/3강/전체/워크북.json",
-  "model": "claude-opus-4-6",
-  "solves": [
-    { "id": 1, "pick": 2, "reason": "②trying은 오류. 'not to try and do it'에서 to부정사 구조. trying(동명사)은 불가." },
-    { "id": 2, "pick": 3, "reason": "③what은 오류. 'happens when he/she thinks out loud'에서 시간 접속사 when 필요. what은 명사절 접속사로 부적절." },
-    { "id": 3, "pick": 3, "reason": "③do는 오류. 'you realise you're do most of the talking'에서 be+현재분사(doing) 진행형이 필요. be do는 비문." },
-    { "id": 4, "pick": 1, "reason": "①what은 오류. 'It has been said what most people listen...'에서 뒤에 완전한 절이 오므로 that(접속사) 필요. what은 불완전한 절이 와야 함." },
-    { "id": 5, "pick": 3, "reason": "③teaching은 문맥 부적합. 멘티의 '학습(learning)' 과정이지 '교수(teaching)' 과정이 아님." },
-    { "id": 6, "pick": 4, "reason": "④reluctantly(마지못해)는 문맥 부적합. 적극적으로(actively) 듣는 것이 핵심. reluctantly는 반의어." },
-    { "id": 7, "pick": 1, "reason": "T. 본문 첫 문장: 'listen with the intention to reply rather than to understand' — 이해가 아닌 대답을 위해 듣는다와 일치." },
-    { "id": 8, "pick": 2, "reason": "F. 본문: 'The rest of it happens by reflection and practice outside mentoring sessions' — 세션 밖에서도 학습. '전부 세션 안'은 거짓." },
-    { "id": 9, "pick": 2, "reason": "F. 본문: 'your mentee should be doing most of the talking' — 멘티가 주도해야 함. 멘토 주도는 반대." },
-    { "id": 10, "pick": 3, "reason": "빈칸 앞: 'not to try and do it for them' — 대신 해주고 싶은 유혹. ③ 'no matter how tempting that may be'가 적합." },
-    { "id": 11, "pick": 2, "reason": "빈칸 앞: 'The rest of it happens' — 나머지 학습의 방법. ② 'by reflection and practice outside mentoring sessions'이 문맥상 정확." },
-    { "id": 12, "pick": 4, "reason": "④ '멘토는 멘티가 스스로 생각할 수 있도록 도와야 한다' — 'facilitate your mentee's thinking'과 일치." },
-    { "id": 13, "pick": 4, "reason": "④ '멘토가 말을 많이 하면 대화의 질이 높아진다' — 본문은 멘토 말 많으면 멈추라고 함. 정반대." },
-    { "id": 14, "pick": 1, "reason": "①mentees는 오류. 'your mentees thinking'은 소유격 없이 의미 불통. 원문 mentee's(소유격) 필요." },
-    { "id": 15, "pick": "stop, sit back and listen", "reason": "본문: 'I'd respectfully suggest that you just stop, sit back and listen' — 세 가지 행동." },
-    { "id": 16, "pick": "facilitate", "reason": "본문: 'Your job as a mentor is to facilitate your mentee's thinking' — 멘토의 역할은 사고를 촉진(facilitate)하는 것." },
-    { "id": 17, "pick": "to have a sense of being heard and of feeling acknowledged", "reason": "원문 구조: to have(to부정사) + a sense(명사) + of being heard(전치사구) + and of feeling acknowledged(병렬)." },
-    { "id": 18, "pick": 1, "reason": "글 전체가 멘토링에서 경청의 중요성에 대한 내용. ① '멘토링에서 경청의 중요성' 적합." },
-    { "id": 19, "pick": 3, "reason": "요지: 멘토는 말하기보다 적극적으로 경청해야 멘티가 성장. ③과 일치." },
-    { "id": 20, "pick": "it is essential that you listen well", "reason": "가주어 it + is essential + that절(you listen well). 7단어. 모든 조건 단어 사용." }
+  "version": 3,
+  "testType": "워크북",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Chapter 1-03: The Importance of Listening in Mentoring",
+    "subject": "올림포스독해의기본1",
+    "pub": "2025",
+    "lesson": "3강",
+    "section": "전체",
+    "histKey": "workbooktest_1_3__v3"
+  },
+  "fullPassage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "passage": "It has been ①<u>said</u> that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not ②<u>trying</u> and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process ③<u>happens</u> when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling ④<u>acknowledged</u>, it is essential that you listen well.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "passage": "It has been said that most people ①<u>listen</u> with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you ②<u>realise</u> you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens ③<u>what</u> he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more ④<u>effectively</u>. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply ①<u>rather</u> than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how ②<u>tempting</u> that may be. If, during a mentoring session, you realise you're ③<u>do</u> most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of ④<u>being</u> heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "passage": "It has been said ①<u>what</u> most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter ②<u>how</u> tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd ③<u>respectfully</u> suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express ④<u>themselves</u> more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to ①<u>facilitate</u> your mentee's thinking and not to try and do it for them, no matter how ②<u>tempting</u> that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's ③<u>teaching</u> process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain ④<u>insight</u> and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the ①<u>intention</u> to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the ③<u>talking</u>, then I'd respectfully ②<u>suggest</u> that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening ④<u>reluctantly</u> and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "밑줄 친 ①~④ 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "내용이해 T/F",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "대부분의 사람들은 상대방을 이해하기 위해서가 아니라 대답하기 위해 듣는다.",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "멘티의 학습 과정 전부는 멘토링 세션 안에서만 이루어진다.",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "멘토링 세션에서 멘토가 대부분의 대화를 이끌어야 효과적이다.",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how __________ that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "essential",
+        "respectfully",
+        "tempting",
+        "acknowledged"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by __________ and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "intention",
+        "reflection",
+        "insight",
+        "talking"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "멘토의 핵심 역할은 멘티의 사고를 대신 해주는 것이다.",
+        "멘토링에서는 멘토가 대부분 이야기해야 한다.",
+        "멘티의 학습은 오직 멘토링 세션 중에만 일어난다.",
+        "멘토는 멘티가 스스로 생각할 수 있도록 도와야 한다."
+      ]
+    },
+    {
+      "id": 13,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "적극적이고 공감적인 경청은 멘티의 자기표현에 도움이 된다.",
+        "멘티가 인정받는 느낌을 갖기 위해 경청이 필수적이다.",
+        "멘티의 학습 중 일부는 세션 밖의 성찰과 연습으로 이루어진다.",
+        "멘토링 중 멘토가 말을 많이 하면 대화의 질이 높아진다."
+      ]
+    },
+    {
+      "id": 14,
+      "type": "오류찾기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your ①<u>mentees</u> thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she ②<u>thinks</u> out loud. The rest of it happens by ③<u>reflection</u> and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express ④<u>themselves</u> more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "서술형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "위 글에서 멘토가 멘토링 중 자신이 대부분 말하고 있다고 깨달았을 때 해야 할 세 가지 행동을 본문에서 찾아 쓰시오. (5단어) (영어로)"
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "위 글에 따르면, 멘토의 역할은 멘티의 사고를 어떻게 하는 것인지 본문에서 찾아 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 17,
+      "type": "어순배열",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee __________, it is essential that you listen well.",
+      "stem": "다음 주어진 단어를 올바른 순서로 배열하시오. (11단어) (영어로)\n[a, acknowledged, and, being, feeling, have, heard, of, of, sense, to]"
+    },
+    {
+      "id": 18,
+      "type": "주제/요지",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "멘토링에서 경청의 중요성",
+        "효과적인 발표 기술의 필요성",
+        "멘티 선발 기준과 절차",
+        "팀워크를 위한 의사소통 방법"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "주제/요지",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, it is essential that you listen well.",
+      "stem": "다음 글의 요지로 가장 적절한 것은?",
+      "ch": [
+        "멘토는 자신의 경험을 최대한 많이 공유해야 한다.",
+        "멘토링의 성공은 멘토의 전문 지식에 달려 있다.",
+        "멘토는 말하기보다 경청함으로써 멘티의 성장을 도와야 한다.",
+        "멘티는 멘토의 조언을 그대로 따라야 효과적으로 배울 수 있다."
+      ]
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "passage": "It has been said that most people listen with the intention to reply rather than to understand. Your job as a mentor is to facilitate your mentee's thinking and not to try and do it for them, no matter how tempting that may be. If, during a mentoring session, you realise you're doing most of the talking, then I'd respectfully suggest that you just stop, sit back and listen. A good part of the mentee's learning process happens when he/she thinks out loud. The rest of it happens by reflection and practice outside mentoring sessions. Therefore, your mentee should be doing most of the talking. Listening actively and empathically helps mentees to gain insight and to express themselves more effectively. For your mentee to have a sense of being heard and of feeling acknowledged, __________.",
+      "stem": "다음 빈칸에 들어갈 말을 조건에 맞게 영작하시오. (영어로)\nFor your mentee to have a sense of being heard and of feeling acknowledged, __________.\n우리말: 당신이 잘 듣는 것은 필수적이다.\n[조건] (1) essential, is, it, listen, that, well, you를 모두 사용할 것 (2) 정확히 7단어로 쓸 것"
+    }
   ]
 }
