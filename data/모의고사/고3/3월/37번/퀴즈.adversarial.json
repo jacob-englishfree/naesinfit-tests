@@ -1,0 +1,36 @@
+{
+  "testFile": "data/모의고사/고3/3월/37번/퀴즈.json",
+  "model": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": null,
+      "type": "(A)(B)(C) 원문 마커",
+      "description": "fullPassage에 원문 (A)(B)(C) 마커가 있어 ORDER-MARKER-LEAK A급 경고. 37번 문장삽입 유형 원문 특성.",
+      "resolution": "원문 특성 — 변경 불가"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "Q6 오답 fullPassage 미포함",
+      "description": "Q6 오답 3개(engineers ahead of executives, innovation ahead of regulation, profit ahead of the public)가 fullPassage에 직접 없음.",
+      "resolution": "본문 어구 재조합 오답. 빈칸추론형이므로 허용"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 17,
+      "type": "서술형 찾기 + or 접속사",
+      "description": "Q17 wa 'suspended or struck off'에서 or는 본문 원문 그대로. 학생이 and로 쓸 가능성 있으나 accept에 포함.",
+      "resolution": "accept에 'suspended and struck off', 'being suspended or struck off' 포함"
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 이슈 0건",
+  "timestamp": "2026-04-17T16:30:00Z"
+}

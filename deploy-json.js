@@ -279,7 +279,7 @@ function validateSchema(jsonPath) {
   // ⛔ 6. 절대어 검출 (오답에만 있으면 힌트)
   const absoluteWords = ['always', 'never', 'completely', 'absolutely', 'all', 'none', 'every', 'only'];
   mcQuestions.forEach(q => {
-    if (!q.ch || q.ans < 1 || q.ans > 4) return;
+    if (!q.ch || q.ans < 1 || q.ans > q.ch.length || !q.ch[q.ans - 1]) return;
     const correctHas = absoluteWords.some(w => q.ch[q.ans - 1].toLowerCase().includes(w));
     const wrongsHave = q.ch.filter((_, j) => j !== q.ans - 1).some(c => absoluteWords.some(w => c.toLowerCase().includes(w)));
     // 오답에만 절대어가 있으면 힌트
@@ -304,7 +304,7 @@ function validateSchema(jsonPath) {
 
   // ⛔ 8. 교차 누설 검사 (같은 파일 내 다른 문항 해설이 정답 누설)
   data.questions.forEach((q, i) => {
-    if (q.fmt !== 'mc' || !q.ch || q.ans < 1 || q.ans > 4) return;
+    if (q.fmt !== 'mc' || !q.ch || q.ans < 1 || q.ans > q.ch.length || !q.ch[q.ans - 1]) return;
     const correctText = q.ch[q.ans - 1].replace(/<[^>]*>/g, '').trim().toLowerCase();
     if (correctText.length < 20) return; // 짧은 단어는 자연스럽게 겹칠 수 있음
     // 다른 문항의 passage/stem에 이 정답이 그대로 나오는지

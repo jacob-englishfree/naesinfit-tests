@@ -1,0 +1,17 @@
+{
+  "testFile": "data/모의고사/고3/3월/22번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-04-17T14:44:00Z",
+  "issues": [],
+  "totalIssues": 0,
+  "checks": [
+    {"check": "정답 2개 가능", "result": "CLEAN", "detail": "20문항 모두 단일 정답만 가능. 모호한 문항 없음."},
+    {"check": "선지 뻔함 (소거법)", "result": "CLEAN", "detail": "Q8/Q9 오답이 모두 fullPassage에 존재하는 단어로 구성됨(character, pacing, structure, effect, place, shape). 소거법 차단됨."},
+    {"check": "정답 노출", "result": "CLEAN", "detail": "빈칸형(Q7-9, Q19-20)에서 빈칸 5단어 이내 정답 직접 노출 없음. 어형변환(Q17-18) 정답 단어(directions, knowledge) passage 다른 곳 미노출."},
+    {"check": "S-ANTONYM-PREFIX", "result": "CLEAN", "detail": "반의어 문항(Q13, Q14): Q13 hideous는 접두사 조작이 아닌 별개 단어. Q14 idealism도 접두사 조작 아님. PASS."},
+    {"check": "S-META-CHOICE", "result": "CLEAN", "detail": "선지에 메타서술(본문에서/다루지 않은 등) 없음."},
+    {"check": "S-ANTI-CHEESE-GATE", "result": "CLEAN", "detail": "모든 mc 문항에 fullPassage 제공. passage 없이 풀 수 있는 문항 없음."},
+    {"check": "마커/빈칸 분산", "result": "CLEAN", "detail": "Q4 마커: ①문장1 ②문장2 ③문장3 ④문장4. Q5 마커: ①문장5 ②문장6 ③문장6 ④문장7. Q6 마커: ①문장2 ②문장4 ③문장6 ④문장8(후반). 전체 분산 양호."},
+    {"check": "det-ans 교차검증", "result": "CLEAN", "detail": "20문항 모두 det.analysis의 ←정답 표시와 ans/wa 일치 확인."}
+  ]
+}

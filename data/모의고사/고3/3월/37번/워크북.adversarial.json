@@ -1,0 +1,36 @@
+{
+  "testFile": "data/모의고사/고3/3월/37번/워크북.json",
+  "model": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": null,
+      "type": "(A)(B)(C) 원문 마커",
+      "description": "fullPassage에 원문 (A)(B)(C) 마커가 있어 ORDER-MARKER-LEAK A급 경고. 37번은 문장삽입 유형 원문.",
+      "resolution": "원문 특성 — 변경 불가. 학생 혼동 최소(마커형 유형 없음)"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 10,
+      "type": "빈칸 정답 노출",
+      "description": "Q10 빈칸 'self-regulation'이 지문 첫 문장에 등장. 빈칸은 (B) 파트에 위치하므로 거리 있음.",
+      "resolution": "허용 — 빈칸과 별개 위치에서 등장. 문맥추론 필요"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 11,
+      "type": "Q11 오답 fullPassage 미포함",
+      "description": "Q11 오답 3개(regulate us more strictly, suspend our engineers, enforce industry codes)가 fullPassage에 직접 없음.",
+      "resolution": "본문 주제 관련 자연스러운 오답. passage 추론형 문항이므로 허용"
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 이슈 0건",
+  "timestamp": "2026-04-17T16:10:00Z"
+}
