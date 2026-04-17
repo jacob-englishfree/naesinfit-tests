@@ -1,0 +1,37 @@
+{
+  "model": "sonnet",
+  "reviewedAt": "2026-04-18",
+  "issues": [
+    {
+      "id": 10,
+      "severity": "MEDIUM",
+      "issue": "동의어 고르기 — values의 동의어로 evaluates(평가하다)가 준정답 논란 가능. '그녀의 우정을 평가한다'는 해석도 완전히 틀리지는 않아 고급 학생이 헷갈릴 수 있음. cherishes가 '소중히 여기다'로 더 강한 정답이긴 하나, evaluates를 오답으로 처리할 근거를 det에서 '가치 판단이지만 소중히 여기다와 다름'이라고만 설명해 논리가 약함.",
+      "suggestion": "det.analysis에 'evaluates = 가치를 수치로 판단하는 행위(외부 평가), values/cherishes = 감정적으로 소중히 여기는 것(내부 태도)'처럼 의미 차이를 구체적으로 보완하거나, evaluates를 criticizes 자리로 교체하고 더 명확히 틀린 오답으로 변경 권장."
+    },
+    {
+      "id": 14,
+      "severity": "MEDIUM",
+      "issue": "반의어 고르기 — forgive의 반의어 선지 중 accept(받아들이다)가 의미적으로 'forgive와 유사하게 취급될 수 있지 않나?'라고 학생이 혼동할 여지가 있음. 특히 '받아들인다'를 '용서한다'와 동일시하는 학생이 실수할 수 있음. 그러나 blame이 명백히 반의어이므로 정답 2개 가능성은 없음.",
+      "suggestion": "accept 대신 'punish(벌하다)'처럼 forgive와 더 명확히 대립되는 오답을 사용하면 논란 여지 제거 가능. 현재 배포는 가능하나 수정 권장."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "issue": "다의어 문맥적 의미 — (B) 문장 'The company's total values exceeded ten million dollars after the merger'에서 values는 사실 재무 용어로 자연스럽지 않음. 일반적으로 'total value(단수)' 또는 'assets'를 쓰는 것이 영어 원어민 표현에 더 가깝고, values(복수)로 금액을 표시하는 예문이 다소 어색함. 학생이 예문 자체에 의문을 가질 수 있음.",
+      "suggestion": "'The company's total values exceeded ten million dollars' → 'The company's stock values exceeded ten million dollars' 또는 'The values of the assets exceeded ten million dollars'처럼 더 자연스러운 예문으로 교체 권장."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "issue": "빈칸 문맥 완성 — 빈칸이 'I certainly meant ____'인데, fullPassage에서 빈칸 바로 앞 context에 이미 'truly sorry', 'thoughtlessness' 등 사과 관련 단어가 많이 나옴. 'no offense'가 정답이고 선지 ①~④ 중 나머지가 문맥에 맞지 않아 비교적 쉽게 소거 가능. 난이도 '보통'으로 설정됐으나 실제 체감은 쉬움에 가까울 수 있음.",
+      "suggestion": "현재 배포 가능. 향후 동일 지문 재출제 시 난이도 조정 또는 오답 선지 강화(예: 'no harm', 'ill will' 등 유사 부정표현) 고려."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "issue": "빈칸 문맥 완성 — 정답 'missing the obvious'가 바로 뒷 절 'of not seeing what's right before your eyes'와 동격 관계로 매우 직접적으로 힌트를 제공. 본문 안에서 정답을 거의 알 수 있어 추론 수준이 낮음. 난이도 '어려움'으로 설정됐으나 실제 체감은 보통 이하일 수 있음.",
+      "suggestion": "현재 배포 가능. '어려움' 난이도 재고 필요. 뒷 절 힌트를 약화시키거나 다른 문장의 빈칸으로 교체하면 실제 어려움 수준에 더 부합."
+    }
+  ],
+  "summary": "HIGH 이슈 0건. 배포 가능. MEDIUM 2건(10번 evaluates 오답 설명 미흡, 14번 accept 혼동 여지)은 수정 권장이나 배포 차단 수준 아님. LOW 3건(15번 예문 어색함, 19번·20번 난이도 과표기)은 참고용. 전체적으로 문항 구성, 정답 노출, 마커 사용, passage 길이, 선지 완결성 등 S급 체크리스트 위반 없음. 20문항 cross-blind 일치율 100%로 출제 품질 양호."
+}

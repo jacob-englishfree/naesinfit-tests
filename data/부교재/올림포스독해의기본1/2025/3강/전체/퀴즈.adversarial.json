@@ -1,0 +1,51 @@
+{
+  "reviewer": "opus-4.6-adversarial",
+  "timestamp": "2026-04-18T03:15:00.000Z",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionId": 16,
+      "type": "서술형",
+      "issue": "Q16 서술형 정답 'listen well'이 passage에 그대로 노출. 찾기 유형이므로 의도된 노출이나, validate EX-2 경고 발생",
+      "recommendation": "찾기 유형이므로 정상. stem에 '본문에서 찾아 쓰시오' 명시되어 있어 OK"
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionId": 17,
+      "type": "서술형",
+      "issue": "Q17 서술형 정답 'reflection and practice'가 passage에 노출. 찾기 유형으로 의도됨",
+      "recommendation": "찾기 유형이므로 정상"
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionId": 18,
+      "type": "어순배열",
+      "issue": "Q18 어순배열이 FIRST group이 아닌 18번 위치. prompt slot 정의가 이 위치를 지정",
+      "recommendation": "prompt slot 구조 문제. 퀴즈 schema에서 어순배열 position이 18로 고정. validate T39 경고는 slot 정의 수준 이슈"
+    },
+    {
+      "id": "ADV-B4",
+      "severity": "LOW",
+      "questionId": 11,
+      "type": "주제",
+      "issue": "Q11-Q12 둘 다 주제/요지 유형으로 유사. Q11=주제, Q12=요지로 stem 차별화는 되어 있음",
+      "recommendation": "주제와 요지는 미묘하게 다른 유형. 현재 차별화 충분"
+    },
+    {
+      "id": "ADV-B5",
+      "severity": "LOW",
+      "questionId": 20,
+      "type": "서술형 — 조건영작",
+      "issue": "Q20 정답 'by reflection and practice outside mentoring sessions'가 Q17 정답 'reflection and practice'와 중복 포함",
+      "recommendation": "Q17은 3단어, Q20은 7단어로 범위 다름. 하지만 학생이 Q17을 먼저 풀면 Q20 힌트 가능. 시험 순서상 Q17이 먼저이므로 약간의 cross-leak 존재하나 심각하지 않음"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 5,
+  "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능"
+}
