@@ -114,20 +114,35 @@ if (fs.existsSync(mockBase)) {
       for (const [k, v] of Object.entries(catalog['모의고사'] || {})) {
         if (v.path === targetPath) { entryKey = k; break; }
       }
-      if (!entryKey) continue;
-      
-      const entry = catalog['모의고사'][entryKey];
+
       const fsItems = scanDir(examPath).filter(d => hasJson(path.join(examPath, d)));
       fsItems.sort((a, b) => (parseInt(a) || 99) - (parseInt(b) || 99));
-      
-      if (fsItems.length > 0) {
-        const current = entry.items || [];
-        const merged = [...new Set([...current, ...fsItems])];
-        merged.sort((a, b) => (parseInt(a) || 99) - (parseInt(b) || 99));
-        if (JSON.stringify(merged) !== JSON.stringify(current)) {
-          entry.items = merged;
-          changed = true;
+      if (fsItems.length === 0) continue;
+
+      // 카탈로그에 없으면 자동 등록 (폴더명에서 키 생성: "고2/3월_2023" → "고2-2023-3월")
+      if (!entryKey) {
+        const m = exam.match(/^(\d+)월_(\d{4})$/);  // "3월_2023"
+        if (m) {
+          entryKey = `${grade}-${m[2]}-${m[1]}월`;
+        } else {
+          const m2 = exam.match(/^(\d+)월$/);  // "3월" (년도 없음)
+          if (m2) continue;  // 년도 없는 폴더는 스킵
+          continue;
         }
+        if (!catalog['모의고사']) catalog['모의고사'] = {};
+        catalog['모의고사'][entryKey] = { path: targetPath, items: [] };
+        console.log(`📦 모의고사 자동 등록: ${entryKey} (${targetPath})`);
+        changed = true;
+      }
+
+      const entry = catalog['모의고사'][entryKey];
+
+      const current = entry.items || [];
+      const merged = [...new Set([...current, ...fsItems])];
+      merged.sort((a, b) => (parseInt(a) || 99) - (parseInt(b) || 99));
+      if (JSON.stringify(merged) !== JSON.stringify(current)) {
+        entry.items = merged;
+        changed = true;
       }
     }
   }
