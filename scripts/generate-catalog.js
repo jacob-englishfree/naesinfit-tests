@@ -253,6 +253,14 @@ function main() {
   }
 
   // ─── 부교재 ───
+  // path 누락 경고 (2026-04-19 추가)
+  const noPathSupplements = supplements.filter(s => !s.path);
+  if (noPathSupplements.length > 0) {
+    console.log('\n⚠️  path 누락 부교재 (catalog에서 제외됨 — textbooks.ts에 path 추가 필요):');
+    noPathSupplements.forEach(s => console.log(`  ⚠️ ${s.id}: "${s.label}" — path 없음`));
+    noPathSupplements.forEach(s => errors.push(`⚠️ 부교재 ${s.id} path 누락 — catalog 미등록`));
+  }
+
   for (const sup of supplements) {
     if (!sup.path) continue;
     const dirPath = path.join(DATA, '부교재', sup.path.normalize('NFC'));
@@ -284,6 +292,13 @@ function main() {
     const filteredUnits2 = units.filter(u => sections[u] && sections[u].length > 0);
 
     catalog['부교재'][sup.id] = { path: sup.path, units: filteredUnits2, sections };
+
+    // "전체"만 있는 강 경고 (2026-04-19 추가)
+    for (const u of filteredUnits2) {
+      if (sections[u] && sections[u].length === 1 && sections[u][0] === '전체') {
+        errors.push(`⚠️ 부교재 ${sup.id} ${u}: "전체"만 있음 — 개별 지문(1번/2번/3번) 테스트 누락 가능성`);
+      }
+    }
   }
 
   // ─── 검증: data/ 폴더에 있는데 textbooks.ts에 없는 것 ───
