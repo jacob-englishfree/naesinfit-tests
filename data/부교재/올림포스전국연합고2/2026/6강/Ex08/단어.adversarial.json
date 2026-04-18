@@ -1,0 +1,46 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고2/2026/6강/Ex08/단어.json",
+  "attackedBy": "claude-opus-4-6",
+  "attackedAt": "2026-04-18T00:00:00Z",
+  "checks": [
+    "정답 2개 가능 여부",
+    "정답 passage 노출 여부",
+    "뻔한 오답 여부",
+    "모호한 stem 여부",
+    "문법 오류 여부",
+    "passage 무관 문제 여부",
+    "prefix 반의어 사용 여부",
+    "메타서술 선지 여부",
+    "anti-cheese gate (소거법 풀이 가능 여부)",
+    "마커 분산 여부"
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "issue": "EX-3 경고: (A)(B)(C) 정답 단어가 passage 다른 곳에도 등장. 단어 테스트 특성상 불가피 (본문이 짧아서 동일 단어 재등장). 학생이 ABC 유형임을 알고 선지에서 선택하므로 실질 영향 미미.",
+      "action": "유지"
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "issue": "반의어 relieved→intensified: prefix 조작(un-/in-/dis-) 아님. intensified는 독립 단어. 오답에 eased(유의어), comforted(유의어), familiar(의미축 다른 단어) 포함하여 소거법 차단됨.",
+      "action": "유지"
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "issue": "반의어 diversify→standardize: prefix 조작 아님. 오답에 expand(유의어), enrich(유의어), cultivate(의미축 다른 단어) 포함하여 소거법 차단됨.",
+      "action": "유지"
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "issue": "빈칸 문맥 완성: 오답 중 'is bound to spark', 'is central to identity'는 passage 표현이지만 it___that 구문에 어법상 불가. 소거법이 아닌 문법 지식 필요.",
+      "action": "유지"
+    }
+  ],
+  "totalIssues": 4,
+  "highCount": 0,
+  "summary": "HIGH 이슈 0건. 20문항 모두 정답 1개 명확, 오답 변별 충분, prefix 반의어 0건, 메타서술 0건, 마커 분산 양호. 배포 가능."
+}

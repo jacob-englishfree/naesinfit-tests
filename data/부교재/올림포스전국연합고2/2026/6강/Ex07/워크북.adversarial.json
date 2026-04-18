@@ -1,0 +1,47 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고2/2026/6강/Ex07/워크북.json",
+  "attacker": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 15,
+      "issue": "Q15 서술형 정답 'readily accepted'가 passage에 그대로 노출. 그러나 stem이 '본문에서 찾아 쓰시오'이므로 찾기 유형으로 의도된 노출. 문제없음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 16,
+      "issue": "Q16 서술형 정답 'shills'가 passage에 노출. 찾기 유형(stem: '본문에서 찾아 쓰시오')이므로 의도적. 문제없음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 6,
+      "issue": "Q6 ④irregular은 regular의 un-/in-/dis- 접두사 변형이 아닌 ir- 접두사이나, S-ANTONYM-PREFIX 규칙은 부적절어휘 유형의 반의어 교체에 적용되는 것이고 irregular은 완전히 다른 의미(비정규적인)를 가지므로 학습가치 있음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 17,
+      "issue": "Q17 어순배열 stem에 주어진 단어 목록이 있으나 validate가 SCHEMA-WORDS 경고. 단어는 <b>주어진 단어:</b> 형식으로 포함되어 있어 학생에게 표시됨. 기능적 문제없음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 10,
+      "issue": "Q10 빈칸 'persuade'가 fullPassage에 존재하여 정답이 passage 다른 곳에 노출될 수 있으나, 빈칸 자리에서 해당 단어가 제거되므로 학생은 문맥으로 추론해야 함. 빈칸 규칙(빈칸 옆 5단어 이내 직접 노출 금지)에는 해당 없음.",
+      "action": "KEEP"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — HIGH 0건. 모든 이슈 LOW. 배포 가능."
+  }
+}

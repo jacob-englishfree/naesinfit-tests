@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Ex02",
+    "subject": "올림포스전국연합고2",
+    "pub": "2026",
+    "lesson": "6강",
+    "section": "Ex02",
+    "histKey": "wordtest_2_6_ex02_v3"
+  },
+  "fullPassage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will <b>(A)</b>[opt / hesitate] for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will <b>(B)</b>[compensate / penalize] you generously for any <b>(C)</b>[risks / rewards] you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "opt — compensate — risks",
+        "hesitate — compensate — risks",
+        "opt — penalize — risks",
+        "opt — compensate — rewards"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you <b>(A)</b>[prefer / reject] $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is <b>(B)</b>[amazing / predictable]. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make <b>(C)</b>[inconsistent / logical] decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "reject — amazing — inconsistent",
+        "prefer — predictable — inconsistent",
+        "prefer — amazing — logical",
+        "prefer — amazing — inconsistent"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you <b>(A)</b>[hold out / give in] for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this <b>(B)</b>[phenomenon / illusion] hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are <b>(C)</b>[willing / reluctant] to give up in exchange for it.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "give in — phenomenon — willing",
+        "hold out — illusion — willing",
+        "hold out — phenomenon — reluctant",
+        "hold out — phenomenon — willing"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will ①<u>opt</u> for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will ②<u>deprive</u> you ③<u>generously</u> for any ④<u>risks</u> you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make ①<u>inconsistent</u> decisions. Science calls this ②<u>phenomenon</u> hyperbolic discounting. The closer a ③<u>reward</u> is, the higher our \"emotional interest rate\" rises and the more we are ④<u>reluctant</u> to give up in exchange for it.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly ②<u>interest</u> rate of 10 percent. A ①<u>foolish</u> choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's ③<u>simple</u> enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The ④<u>introduction</u> of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you __________ for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "monthly",
+        "generously",
+        "emotionally",
+        "simply"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make __________ decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "simple",
+        "emotional",
+        "inconsistent",
+        "wise"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in __________ for it.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "exchange",
+        "interest",
+        "reward",
+        "introduction"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will <u>opt</u> for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "밑줄 친 <b>opt</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "refuse",
+        "demand",
+        "choose",
+        "hesitate"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will <u>compensate</u> you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "밑줄 친 <b>compensate</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "punish",
+        "reward",
+        "ignore",
+        "restrict"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this <u>phenomenon</u> hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "밑줄 친 <b>phenomenon</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "theory",
+        "experiment",
+        "occurrence",
+        "hypothesis"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are <u>willing</u> to give up in exchange for it.",
+      "stem": "밑줄 친 <b>willing</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "eager",
+        "reluctant",
+        "ready",
+        "prepared"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A <u>wise</u> choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "밑줄 친 <b>wise</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "prudent",
+        "sensible",
+        "reckless",
+        "thoughtful"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) He decided to <u>figure</u> out the total cost before making a purchase. It took him several hours to calculate everything.<br><br>(B) She was a prominent <u>figure</u> in the world of modern art. Her influence on contemporary artists was remarkable.",
+      "stem": "밑줄 친 (A)와 (B)의 <b>figure</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 모양 — (B) 숫자",
+        "(A) 계산하다 — (B) 인물",
+        "(A) 인물 — (B) 계산하다",
+        "(A) 계산하다 — (B) 숫자"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어는?<br><br>\"the act or process of reducing the estimated value of something\"",
+      "ch": [
+        "discounting",
+        "discovering",
+        "discussing",
+        "dismissing"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "In the first case, the __________ (simple) of the decision makes it easy. You figure: \"I've already waited twelve months; what's one more?\"",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The closer a reward is, the higher our \"emotional interest rate\" rises and the more our __________ (willing) to give up increases.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you __________ for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon hyperbolic discounting. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "give up",
+        "take over",
+        "run out",
+        "hold out"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you rather receive $1,000 in a year or $1,100 in a year and a month? Most people will opt for the larger sum in thirteen months — where else will you find a monthly interest rate of 10 percent. A wise choice, since the interest will compensate you generously for any risks you face by waiting the extra few weeks. Second question: Would you prefer $1,000 today cash on the table or $1,100 in a month? If you think like most people, you'll take the $1,000 right away. This is amazing. In both cases, if you hold out for just a month longer, you get $100 more. In the first case, it's simple enough. You figure: \"I've already waited twelve months; what's one more?\" Not in the second case. The introduction of \"now\" causes us to make inconsistent decisions. Science calls this phenomenon __________. The closer a reward is, the higher our \"emotional interest rate\" rises and the more we are willing to give up in exchange for it.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "inconsistent decisions",
+        "emotional interest rate",
+        "monthly interest rate",
+        "hyperbolic discounting"
+      ]
+    }
+  ]
+}

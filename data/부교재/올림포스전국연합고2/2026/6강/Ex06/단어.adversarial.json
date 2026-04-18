@@ -1,0 +1,36 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고2/2026/6강/Ex06/단어.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-04-18T12:10:00Z",
+  "checks": [
+    "정답 2개 가능 여부",
+    "정답 passage 노출 여부",
+    "뻔한 오답 (소거법)",
+    "모호한 stem",
+    "문법/철자 오류",
+    "passage 무관 문제",
+    "S-ANTONYM-PREFIX 위반",
+    "S-META-CHOICE 위반",
+    "S-ANTI-CHEESE-GATE 위반",
+    "마커 분산 확인"
+  ],
+  "issues": [
+    {
+      "id": 7,
+      "severity": "LOW",
+      "type": "정답 노출",
+      "detail": "empathy가 passage 다른 곳에 여러 번 노출(cognitive empathy, affective empathy 등). 빈칸이 첫 단어이므로 뒤 문맥에서 empathy가 반복 등장하여 정답 유추 용이. 단, 단어 테스트 쉬움 난이도(4점)이므로 의도된 수준."
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "type": "정답 노출",
+      "detail": "(A)(B)(C) 조합형은 본질적으로 정답 단어가 passage에 노출됨(오답과 함께 병렬 제시). 유형 특성상 불가피."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "summary": "HIGH 이슈 0건. Q7 empathy 노출은 쉬움 난이도 의도. Q1~3 ABC 정답 노출은 유형 특성. 반의어(Q13,Q14) prefix 조작 없음(apathy, vague). 메타서술 선지 없음. 마커 분산 양호(Q4 전반부, Q5 후반부, Q6 전체). 모든 문항 정답 유일."
+}
