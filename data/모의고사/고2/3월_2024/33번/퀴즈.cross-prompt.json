@@ -1,5 +1,11 @@
 {
-  "version": 3,
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
   "testType": "퀴즈",
   "ei": {
     "subject": "2024 고2 3월 모의고사",
@@ -17,128 +23,107 @@
       "id": 1,
       "type": "어법",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a ①<u>reflection</u> of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the ②<u>resulting</u> reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas ③<u>writing</u> after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity ④<u>drove</u> the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "③ writing → <b>written</b> (과거분사: sonatas가 '쓰여진' 것이므로 수동)",
-        "analysis": "✅ ① reflection: 명사, a reflection of ~의 반영 — 적절\n✅ ② resulting: 현재분사, reward를 수식 (결과로 생기는) — 적절\n❌ ③ writing: sonatas는 '쓰여진' 것이므로 과거분사 written이 적절 ← 정답\n✅ ④ drove: drive의 과거형, curiosity가 주어로 능동 — 적절",
-        "tip": "분사의 능동/수동 구별: 수식받는 명사(sonatas)가 행위의 대상이면 과거분사(written)"
-      },
-      "ans": 3,
-      "ch": ["①", "②", "③", "④"]
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
     },
     {
       "id": 2,
       "type": "어법",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of ①<u>exploring</u> something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity ②<u>influence</u> musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen ③<u>revealed</u> that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ④<u>ideas</u>. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "② influence → <b>influences</b> (주어 curiosity는 3인칭 단수)",
-        "analysis": "✅ ① exploring: 전치사 of 뒤 동명사 — 적절\n❌ ② influence: 주어 curiosity(3인칭 단수)에 맞게 influences 필요 ← 정답\n✅ ③ revealed: computer modeling이 주어, 과거시제 동사 — 적절\n✅ ④ ideas: 복수 명사, new musical ideas — 적절",
-        "tip": "주어-동사 수일치: curiosity(단수) → influences(3인칭 단수 현재)"
-      },
-      "ans": 2,
-      "ch": ["①", "②", "③", "④"]
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
     },
     {
       "id": 3,
       "type": "어법",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase ①<u>that</u> we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling ②<u>focused</u> on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns ③<u>finding</u> in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became ④<u>less</u> predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "③ finding → <b>found</b> (과거분사: patterns가 '발견된' 것이므로 수동)",
-        "analysis": "✅ ① that: 목적격 관계대명사, 선행사 a musical phrase 수식 — 적절\n✅ ② focused: 과거분사, computer modeling을 수식 (~에 초점을 맞춘) — 적절\n❌ ③ finding: patterns는 '발견된' 것이므로 과거분사 found 필요 ← 정답\n✅ ④ less: 비교급 부사, predictable 수식 (덜 예측 가능한) — 적절",
-        "tip": "분사 구별: patterns(발견의 대상) → found. focused도 과거분사이나 modeling(초점을 맞추는 주체)의 능동적 의미"
-      },
-      "ans": 3,
-      "ch": ["①", "②", "③", "④"]
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
     },
     {
       "id": 4,
       "type": "문맥상 부적절한 어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of ①<u>reward</u> when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music ②<u>increased</u> in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less ③<u>predictable</u> over time, as his curiosity drove the exploration of new musical ④<u>ideas</u>. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "② increased → <b>decreased</b> (기존 패턴은 후기 소나타에서 줄어듦)",
-        "analysis": "✅ ① reward: 보상 — 새로운 것을 만들 때 보상감을 느낀다는 문맥에 적절\n❌ ② increased: 원문은 decreased(감소). 기존 패턴은 후기에 줄고, 새로운 패턴이 늘었음 ← 정답\n✅ ③ predictable: 예측 가능한 — less predictable(덜 예측 가능)이 문맥에 적절\n✅ ④ ideas: 아이디어 — new musical ideas 문맥에 적절",
-        "tip": "decreased(감소) ↔ increased(증가): 기존 패턴은 후기에 감소, 새로운 패턴이 증가"
-      },
-      "ans": 2,
-      "ch": ["①", "②", "③", "④"]
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
     },
     {
       "id": 5,
       "type": "문맥상 부적절한 어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something ①<u>novel</u> is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of ②<u>pleasure</u>. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were ③<u>common</u> to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the ④<u>exploration</u> of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "③ common → <b>unique</b> (특정 소나타에만 고유한 패턴)",
-        "analysis": "✅ ① novel: 새로운 — 새로운 것을 만들려는 욕구 문맥에 적절\n✅ ② pleasure: 즐거움 — 보상이 가져다주는 즐거움 문맥에 적절\n❌ ③ common: 원문은 unique(고유한). 특정 소나타에만 있는 독특한 패턴 ← 정답\n✅ ④ exploration: 탐구 — 새로운 음악적 아이디어의 탐구 문맥에 적절",
-        "tip": "unique(고유한) ↔ common(흔한): novel patterns이 특정 소나타에 '고유한' 것"
-      },
-      "ans": 3,
-      "ch": ["①", "②", "③", "④"]
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
     },
     {
       "id": 6,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less __________ over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸에 <b>predictable(예측 가능한)</b>이 적절",
-        "analysis": "✅ ① predictable: 기존 패턴 감소 + 새 패턴 증가 = '덜 예측 가능' 문맥에 부합 ← 정답\n❌ ② creative: less와 결합하면 '덜 창의적'이 되어 글의 논지에 반대\n❌ ③ musical: '덜 음악적'은 글의 맥락과 무관\n❌ ④ rewarding: '덜 보람 있는'은 본문 논지와 무관",
-        "tip": "less + 빈칸: 새로운 패턴 증가 = 예측이 어려워짐 (less predictable)"
-      },
-      "ans": 1,
-      "ch": ["predictable", "creative", "musical", "rewarding"]
+      "ch": [
+        "predictable",
+        "creative",
+        "musical",
+        "rewarding"
+      ]
     },
     {
       "id": 7,
       "type": "빈칸추론",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us __________. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸에 <b>a sense of pleasure(즐거움)</b>가 적절",
-        "analysis": "✅ ① a sense of pleasure: 호기심→새로움→보상(reward)→즐거움(pleasure)의 논리 흐름에 부합 ← 정답\n❌ ② a musical composition: reward가 가져다주는 결과로서 '음악 작곡'은 어색\n❌ ③ a state of uncertainty: '불확실성 상태'는 보상의 결과가 아님\n❌ ④ a powerful driver: 마지막 문장 표현이나 빈칸 문맥(reward brings us ~)에 맞지 않음",
-        "tip": "reward → pleasure: 호기심이 새로운 것으로 이어질 때 보상이 가져다주는 것은 즐거움"
-      },
-      "ans": 1,
-      "ch": ["a sense of pleasure", "a musical composition", "a state of uncertainty", "a powerful driver"]
+      "ch": [
+        "a sense of pleasure",
+        "a musical composition",
+        "a state of uncertainty",
+        "a powerful driver"
+      ]
     },
     {
       "id": 8,
       "type": "내용 일치/불일치",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "<b>베토벤의 후기 소나타에서 새로운 패턴이 증가했다</b>",
-        "analysis": "❌ ① 베토벤은 열세 살 이전에 서른두 곡의 피아노 소나타를 작곡했다: 원문은 'written after age thirteen(열세 살 이후)'\n❌ ② 우리 뇌는 익숙한 것을 탐구할 때 보상감을 느낀다: 원문은 'uncertain(불확실한)' 것을 탐구할 때\n❌ ③ 베토벤의 음악은 시간이 지나면서 더 예측 가능해졌다: 원문은 'less predictable(덜 예측 가능)'\n✅ ④ 베토벤의 후기 소나타에서 새로운 패턴이 증가했다: 'novel patterns increased'와 일치 ← 정답",
-        "tip": "novel patterns, including patterns unique to a particular sonata, increased"
-      },
-      "ans": 4,
       "ch": [
         "베토벤은 열세 살 이전에 서른두 곡의 피아노 소나타를 작곡했다.",
         "우리 뇌는 익숙한 것을 탐구할 때 보상감을 느낀다.",
@@ -150,16 +135,9 @@
       "id": 9,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "<b>여러 연구자들이 호기심이 음악 작곡에 미치는 영향을 모형화했다</b>",
-        "analysis": "❌ ① 호기심이 새로운 것으로 이어지면 실망감을 느낀다: 원문은 'pleasure(즐거움)'\n✅ ② 여러 연구자들이 호기심이 음악 작곡에 미치는 영향을 모형화했다: 'investigators have modeled how curiosity influences musical composition'과 일치 ← 정답\n❌ ③ 컴퓨터 모델링은 베토벤의 초기 작품에만 한정되었다: 'sonatas written after age thirteen' 전체가 대상\n❌ ④ 기존 음악 패턴이 후기 소나타에서 증가했다: 원문은 'decreased(감소)'",
-        "tip": "A number of investigators have modeled how curiosity influences musical composition"
-      },
-      "ans": 2,
       "ch": [
         "호기심이 새로운 것으로 이어지면 실망감을 느낀다.",
         "여러 연구자들이 호기심이 음악 작곡에 미치는 영향을 모형화했다.",
@@ -171,16 +149,9 @@
       "id": 10,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 내용과 <b>일치하지 않는</b> 것은?",
-      "det": {
-        "korean": "<b>호기심은 인간의 창의성에 거의 영향을 미치지 않는다</b>가 원문과 불일치",
-        "analysis": "❌ ① 베토벤의 창작 욕구는 그의 호기심 상태를 반영한다: 첫 문장과 일치\n❌ ② 새로운 것을 만들 때 뇌에서 보상감이 생긴다: 두 번째 문장과 일치\n✅ ③ 호기심은 인간의 창의성에 거의 영향을 미치지 않는다: 마지막 문장 'a powerful driver'와 정반대 ← 불일치\n❌ ④ 특정 소나타에만 고유한 패턴이 포함되어 있었다: 'unique to a particular sonata'와 일치",
-        "tip": "마지막 문장: Curiosity is a powerful driver of human creativity(강력한 원동력)"
-      },
-      "ans": 3,
       "ch": [
         "베토벤의 창작 욕구는 그의 호기심 상태를 반영한다.",
         "새로운 것을 만들 때 뇌에서 보상감이 생긴다.",
@@ -192,16 +163,9 @@
       "id": 11,
       "type": "주제",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 주제로 가장 적절한 것은?",
-      "det": {
-        "korean": "주제: <b>호기심이 베토벤의 음악적 창의성을 이끈 원동력</b>",
-        "analysis": "✅ ① 호기심이 베토벤의 음악적 창의성을 이끈 원동력: 글 전체가 호기심→새로움→보상→창의성의 흐름 ← 정답\n❌ ② 피아노 소나타의 역사적 발전 과정: 소나타는 예시일 뿐 역사적 발전이 주제가 아님\n❌ ③ 컴퓨터 모델링 기술의 음악적 활용: 모델링은 연구 방법일 뿐 주제가 아님\n❌ ④ 음악 교육에서 반복 연습의 중요성: 본문에 반복 연습 언급 없음",
-        "tip": "핵심어: curiosity, novel, creativity"
-      },
-      "ans": 1,
       "ch": [
         "호기심이 베토벤의 음악적 창의성을 이끈 원동력",
         "피아노 소나타의 역사적 발전 과정",
@@ -213,16 +177,9 @@
       "id": 12,
       "type": "주제",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "다음 글의 제목으로 가장 적절한 것은?",
-      "det": {
-        "korean": "제목: <b>호기심이 베토벤의 음악적 혁신을 이끈 원동력</b>",
-        "analysis": "❌ ① The Science of Sound: How Music Affects the Brain: 뇌과학이 아닌 호기심과 창의성이 핵심\n❌ ② Beethoven's Early Life and Musical Training: 초기 생애/훈련이 아닌 창작 과정\n❌ ③ Why Repetition Matters in Classical Music: 반복 아닌 새로움이 핵심\n✅ ④ Curiosity: The Engine Behind Beethoven's Musical Innovation: 호기심이 음악적 혁신의 원동력 ← 정답",
-        "tip": "curiosity → novel patterns → less predictable → creativity"
-      },
-      "ans": 4,
       "ch": [
         "The Science of Sound: How Music Affects the Brain",
         "Beethoven's Early Life and Musical Training",
@@ -234,16 +191,9 @@
       "id": 13,
       "type": "함축의미 추론",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. <u>Curiosity is a powerful driver of human creativity.</u>",
       "stem": "밑줄 친 'Curiosity is a powerful driver of human creativity.'가 다음 글에서 의미하는 바로 가장 적절한 것은?",
-      "det": {
-        "korean": "함축의미: <b>알고자 하는 열망이 새로운 것을 만들어내는 핵심 동력이다</b>",
-        "analysis": "❌ ① 예술적 재능은 타고나는 것이므로 교육으로 길러지지 않는다: 글은 호기심을 통한 발전을 주장\n✅ ② 알고자 하는 열망이 새로운 것을 만들어내는 핵심 동력이다: curiosity→탐구→novel→creativity 논리 ← 정답\n❌ ③ 과학적 분석이 예술 작품의 가치를 평가하는 유일한 수단이다: 모델링은 도구일 뿐 글의 핵심 아님\n❌ ④ 반복적인 연습을 통해서만 음악적 성취를 이룰 수 있다: 반복이 아닌 새로움이 핵심",
-        "tip": "curiosity(호기심=알고자 하는 열망) + driver(원동력=핵심 동력) + creativity(창의성=새로운 것을 만듦)"
-      },
-      "ans": 2,
       "ch": [
         "예술적 재능은 타고나는 것이므로 교육으로 길러지지 않는다.",
         "알고자 하는 열망이 새로운 것을 만들어내는 핵심 동력이다.",
@@ -255,16 +205,9 @@
       "id": 14,
       "type": "지칭추론",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of <u>his</u> state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "밑줄 친 'his'가 가리키는 것은?",
-      "det": {
-        "korean": "<b>his</b>는 <b>베토벤</b>을 가리킴",
-        "analysis": "❌ ① 연구자들: investigators는 뒤에 등장, his의 지칭 대상 아님\n❌ ② 작곡가 일반: 일반론이 아닌 Beethoven 특정 언급\n✅ ③ 베토벤: Beethoven's drive → his state, 같은 인물의 소유격 반복 ← 정답\n❌ ④ 컴퓨터 프로그래머: 본문에 언급 없음",
-        "tip": "Beethoven's drive → his state: 동일 인물의 소유격"
-      },
-      "ans": 3,
       "ch": [
         "연구자들",
         "작곡가 일반",
@@ -276,16 +219,9 @@
       "id": 15,
       "type": "지칭추론",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that <u>we</u>'ve never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
       "stem": "밑줄 친 'we'가 가리키는 것은?",
-      "det": {
-        "korean": "<b>we</b>는 <b>인간 전체</b>를 가리킴",
-        "analysis": "✅ ① 인간 전체: Our brains experience ~ when we create ~ 일반론적 서술 ← 정답\n❌ ② 베토벤과 그의 동료: 특정 집단이 아닌 일반론\n❌ ③ 음악 연구자들: investigators는 별도로 언급됨\n❌ ④ 피아노 연주자들: 피아노에 한정되지 않는 일반론",
-        "tip": "Our brains ~ we: 인간 전체를 포괄하는 일반적 주어"
-      },
-      "ans": 1,
       "ch": [
         "인간 전체",
         "베토벤과 그의 동료",
@@ -297,81 +233,41 @@
       "id": 16,
       "type": "서술형 — 핵심단어",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
-      "stem": "위 글에서 호기심이 새로운 것으로 이어질 때 보상이 우리에게 가져다주는 감정을 나타내는 단어를 본문에서 찾아 쓰시오. (영어로) (1단어)",
-      "det": {
-        "korean": "<b>pleasure</b> (즐거움)",
-        "analysis": "호기심 → novel → reward → pleasure. 원문: 'the resulting reward brings us a sense of pleasure'",
-        "tip": "reward brings a sense of pleasure"
-      },
-      "wa": "pleasure",
-      "accept": ["pleasure", "Pleasure"]
+      "stem": "위 글에서 호기심이 새로운 것으로 이어질 때 보상이 우리에게 가져다주는 감정을 나타내는 단어를 본문에서 찾아 쓰시오. (영어로) (1단어)"
     },
     {
       "id": 17,
       "type": "서술형 — 핵심단어",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
-      "stem": "위 글에서 컴퓨터 모델링이 분석 대상으로 삼은 베토벤의 작품 형식을 나타내는 표현을 본문에서 찾아 쓰시오. (영어로) (2단어)",
-      "det": {
-        "korean": "<b>piano sonatas</b> (피아노 소나타)",
-        "analysis": "원문: 'computer modeling focused on the thirty-two piano sonatas'. 분석 대상 = piano sonatas",
-        "tip": "the thirty-two piano sonatas written after age thirteen"
-      },
-      "wa": "piano sonatas",
-      "accept": ["piano sonatas", "Piano sonatas", "Piano Sonatas"]
+      "stem": "위 글에서 컴퓨터 모델링이 분석 대상으로 삼은 베토벤의 작품 형식을 나타내는 표현을 본문에서 찾아 쓰시오. (영어로) (2단어)"
     },
     {
       "id": 18,
       "type": "어순배열",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. __________ a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. Curiosity is a powerful driver of human creativity.",
-      "stem": "다음 주어진 단어를 올바른 순서로 배열하여 빈칸을 완성하시오. (영어로)\n\nresulting, to, leads, brings, our, reward, the, novel, us, something, When, curiosity (12단어)",
-      "det": {
-        "korean": "<b>When our curiosity leads to something novel, the resulting reward brings us</b>",
-        "analysis": "올바른 어순: When(부사절 시작) + our curiosity(주어) + leads to(동사구) + something novel(목적어), + the resulting reward(주절 주어) + brings(동사) + us(목적어). 부사절 + 주절 구조.",
-        "tip": "부사절(When our curiosity leads to something novel) + 주절(the resulting reward brings us)"
-      },
-      "wa": "When our curiosity leads to something novel, the resulting reward brings us",
-      "accept": ["When our curiosity leads to something novel, the resulting reward brings us", "when our curiosity leads to something novel, the resulting reward brings us"]
+      "stem": "다음 주어진 단어를 올바른 순서로 배열하여 빈칸을 완성하시오. (영어로)\n\nresulting, to, leads, brings, our, reward, the, novel, us, something, When, curiosity (12단어)"
     },
     {
       "id": 19,
       "type": "서술형 — 조건영작",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove __________. Curiosity is a powerful driver of human creativity.",
-      "stem": "다음 우리말에 맞도록 주어진 조건에 따라 빈칸에 들어갈 말을 (영어로) 쓰시오.\n\n\"새로운 음악적 아이디어의 탐구\"\n\n[조건] (1) the, exploration, of, new, musical, ideas, creative를 모두 사용하되 불필요한 단어 1개를 제외할 것 (2) 6단어로 쓸 것",
-      "det": {
-        "korean": "<b>the exploration of new musical ideas</b>",
-        "analysis": "the exploration of new musical ideas = 새로운 음악적 아이디어의 탐구. creative는 불필요 단어(제외). 원문: 'his curiosity drove the exploration of new musical ideas'",
-        "tip": "the + 명사 + of + 형용사 + 명사 구조. creative 제외."
-      },
-      "wa": "the exploration of new musical ideas",
-      "accept": ["the exploration of new musical ideas", "The exploration of new musical ideas"]
+      "stem": "다음 우리말에 맞도록 주어진 조건에 따라 빈칸에 들어갈 말을 (영어로) 쓰시오.\n\n\"새로운 음악적 아이디어의 탐구\"\n\n[조건] (1) the, exploration, of, new, musical, ideas, creative를 모두 사용하되 불필요한 단어 1개를 제외할 것 (2) 6단어로 쓸 것"
     },
     {
       "id": 20,
       "type": "서술형 — 조건영작",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "Beethoven's drive to create something novel is a reflection of his state of curiosity. Our brains experience a sense of reward when we create something new in the process of exploring something uncertain, such as a musical phrase that we've never played or heard before. When our curiosity leads to something novel, the resulting reward brings us a sense of pleasure. A number of investigators have modeled how curiosity influences musical composition. In the case of Beethoven, computer modeling focused on the thirty-two piano sonatas written after age thirteen revealed that the musical patterns found in all of Beethoven's music decreased in later sonatas, while novel patterns, including patterns that were unique to a particular sonata, increased. In other words, Beethoven's music became less predictable over time, as his curiosity drove the exploration of new musical ideas. __________.",
-      "stem": "다음 우리말에 맞도록 주어진 조건에 따라 빈칸에 들어갈 말을 (영어로) 쓰시오.\n\n\"호기심은 인간 창의성의 강력한 원동력이다\"\n\n[조건] (1) Curiosity, is, a, powerful, driver, of, human, creativity, natural을 모두 사용하되 불필요한 단어 1개를 제외할 것 (2) 8단어로 쓸 것",
-      "det": {
-        "korean": "<b>Curiosity is a powerful driver of human creativity</b>",
-        "analysis": "Curiosity is a powerful driver of human creativity = 호기심은 인간 창의성의 강력한 원동력. natural은 불필요 단어(제외). 원문 마지막 문장과 일치.",
-        "tip": "S + V + C: Curiosity + is + a powerful driver of human creativity. natural 제외."
-      },
-      "wa": "Curiosity is a powerful driver of human creativity",
-      "accept": ["Curiosity is a powerful driver of human creativity", "curiosity is a powerful driver of human creativity"]
+      "stem": "다음 우리말에 맞도록 주어진 조건에 따라 빈칸에 들어갈 말을 (영어로) 쓰시오.\n\n\"호기심은 인간 창의성의 강력한 원동력이다\"\n\n[조건] (1) Curiosity, is, a, powerful, driver, of, human, creativity, natural을 모두 사용하되 불필요한 단어 1개를 제외할 것 (2) 8단어로 쓸 것"
     }
   ]
 }
