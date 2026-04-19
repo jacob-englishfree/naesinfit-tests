@@ -1,0 +1,34 @@
+{
+  "testFile": "data/부교재/수능특강/영어독해연습/3강/9번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-04-18T05:10:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-Q7-EXPOSURE",
+      "severity": "LOW",
+      "questionId": 7,
+      "category": "정답 노출",
+      "description": "빈칸 정답 'exchange'가 passage 첫 문장에 등장. 단, 빈칸 자리에서 문맥적으로 추론해야 하며 빈칸 위치와 노출 위치가 동일 문장이므로 빈칸 유형 특성상 허용 범위.",
+      "resolution": "빈칸 어휘 유형 특성상 원문 단어를 빈칸으로 만드는 것이 정상. B-level warning으로 이미 인지됨."
+    },
+    {
+      "id": "ADV-Q10-CONTRAST",
+      "severity": "LOW",
+      "questionId": 10,
+      "category": "동의어 정밀도",
+      "description": "compare의 동의어로 contrast를 정답 처리. compare는 유사점+차이점 모두 비교, contrast는 차이점 강조. 엄밀히 완전 동의어는 아니지만 4선지 중 가장 가까운 것이므로 문항 의도상 적절.",
+      "resolution": "4선지 중 가장 가까운 의미라는 출제 의도에 부합. 유지."
+    },
+    {
+      "id": "ADV-Q9-CHOICES",
+      "severity": "LOW",
+      "questionId": 9,
+      "category": "선지 유사성",
+      "description": "③ choices와 ④ alternatives가 유사어. 원문이 alternatives이므로 정답은 명확하지만 학생이 혼동할 여지 있음.",
+      "resolution": "원문 표현 정확히 일치하는 것을 고르는 문항이므로 alternatives가 명확한 정답. 문항 변별력에 기여."
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. 모든 20문항 출제 품질 적합."
+}
