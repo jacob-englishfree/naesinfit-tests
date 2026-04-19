@@ -1,0 +1,53 @@
+{
+  "attacks": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "vector": "유사 문법 포인트 중복",
+      "detail": "Q1과 Q2가 동일한 prevent A from -ing 문법 포인트를 활용. 하나를 풀면 다른 것도 자동 해결. 다만 어법 4문항 중 2문항(50%)이 동일 포인트는 다소 편향되나, Q1은 detach/detaching, Q2는 collapsed/collapsing으로 변형이 다르므로 LOW."
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "vector": "마커 번호 순서 비순차",
+      "detail": "Q4 passage에서 마커가 ②→①→③→④ 순으로 나타남(①이 ② 뒤에 위치). 학생 혼란 가능성 있으나, 오류찾기(Q14)도 비순차(④→③→①→②). 엔진이 마커 번호와 선지를 매칭하므로 기능적 문제 없음. LOW."
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "vector": "T/F 정답 패턴",
+      "detail": "Q7=T(1), Q8=T(1), Q9=F(2). T가 연속 2개 후 F 1개. 3문항밖에 없어 패턴 유추 약하지만, T/F 유형 자체가 2지선다라 분포 편향 가능성. 현재 범위 내 적정."
+    },
+    {
+      "id": 4,
+      "severity": "LOW",
+      "vector": "빈칸추론 정답 위치 편향",
+      "detail": "Q10=④, Q11=④ 둘 다 정답이 4번. 빈칸추론 2문항 연속 같은 위치. 다만 전체 20문항 정답 분포에서 최대 동일번호 5개 규칙 범위 내. LOW."
+    },
+    {
+      "id": 5,
+      "severity": "LOW",
+      "vector": "서술형 찾기 유형 — 정답 본문 노출",
+      "detail": "Q15(detaching), Q16(offspring) 모두 '본문에서 찾아 쓰시오' 유형이므로 정답이 passage에 있는 것이 정상. stem에 '본문의 표현으로 찾아 쓰시오' 명시. 구조적으로 정상."
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "vector": "조건영작 단어 나열",
+      "detail": "Q20 조건 단어가 알파벳순(earthquakes, human, in, increases, policy, rates, survival, This). 단어 수=8개=정답 단어 수. 순서 그대로 배열하면 정답이 아님(earthquakes가 맨 앞이 될 수 없음). 셔플 기능 정상."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "vector": "어순배열 Q17 — 빈칸 위치로 정답 추론 가능성",
+      "detail": "빈칸 앞 문장이 rain damage로 끝나고, 뒤 문장이 It was reported로 시작. However로 시작하는 전환이 자연스러워 However가 첫 단어임을 쉽게 알 수 있음. 다만 이는 어순배열의 자연스러운 난이도이며 '보통' 난이도에 적합. LOW."
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 7,
+    "verdict": "PASS — HIGH/MEDIUM 0건. 배포 가능."
+  }
+}

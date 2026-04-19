@@ -1,0 +1,47 @@
+{
+  "attacker": "claude-opus-4-6",
+  "attackedAt": "2026-04-18",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 2,
+    "LOW": 3,
+    "CLEAN": 15
+  },
+  "issues": [
+    {
+      "id": 10,
+      "severity": "MEDIUM",
+      "category": "정답 노출 근접",
+      "detail": "빈칸 'the _____ per family is small' 바로 뒤에 'the total surplus'가 등장. surplus라는 정답 단어가 빈칸 직후 문장에 그대로 노출되어 문맥 추론 없이도 답을 찾을 수 있음. 다만 빈칸 '바로 옆 5단어 이내'는 아니고 약간 떨어져 있어 규칙 위반은 아님.",
+      "recommendation": "현행 유지 가능. 본문이 하나의 짧은 지문이므로 surplus 재등장은 불가피."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "category": "선지 패턴",
+      "detail": "오답 3개(high output, small area, total surplus)가 모두 본문에서 직접 가져온 2단어 구. 정답 boat transport도 동일 패턴이라 소거법 난이도 낮음. 하지만 문맥 상 빈칸 위치('can be used for ___ of food to the town')가 명확하여 정답 도출에 문제 없음.",
+      "recommendation": "현행 유지."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "category": "T/F 난이도",
+      "detail": "T/F 문항인데 진술이 본문 첫 문장 거의 직역. 난이도가 '쉬움'이라 의도된 것이지만, 본문 한 줄만 읽으면 바로 답이 나옴.",
+      "recommendation": "쉬움 배점(4점)이므로 현행 유지."
+    },
+    {
+      "id": 15,
+      "severity": "MEDIUM",
+      "category": "서술형 답 범위",
+      "detail": "stem이 '관개 수로나 강의 용도를 본문에서 찾아 쓰시오 (4단어)'인데, 학생이 'boat transport of food'가 아닌 'transport of food'(3단어)를 쓸 가능성. 단어 수 조건(4단어)으로 방어되나, accept에 대안이 없음.",
+      "recommendation": "4단어 조건이 명확하므로 현행 유지. accept에 추가 변형 불필요."
+    },
+    {
+      "id": 9,
+      "severity": "LOW",
+      "category": "T/F 난이도",
+      "detail": "본문 마지막 문장 거의 직역 진술. 쉬움 의도이지만 지나치게 직접적.",
+      "recommendation": "보통 배점(5점)에 쉬움 수준. 현행 유지 가능."
+    }
+  ]
+}

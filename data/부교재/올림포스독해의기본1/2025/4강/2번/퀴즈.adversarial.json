@@ -1,0 +1,38 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-04-18",
+  "type": "adversarial",
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 2,
+  "issues": [
+    {
+      "severity": "LOW",
+      "questionId": 16,
+      "issue": "서술형 정답 energy가 passage에 노출. 단, 찾기 유형(본문에서 찾아 쓰시오)이므로 의도된 노출.",
+      "action": "허용 (찾기 유형)"
+    },
+    {
+      "severity": "LOW",
+      "questionId": 17,
+      "issue": "서술형 정답 the new diet가 passage에 노출. 단, 찾기 유형(본문에서 찾아 쓰시오)이므로 의도된 노출.",
+      "action": "허용 (찾기 유형)"
+    }
+  ],
+  "checklist": {
+    "S-META-LEAK": "PASS - 메타텍스트 노출 0건",
+    "S-PREFIX-DOMINANT": "PASS - 동일 prefix 3개+ 0건",
+    "S-CIRCULAR-STEM": "PASS - wa가 stem에 노출 0건",
+    "S-MISSING-KOREAN": "PASS - 한국어 단서 충분",
+    "S-WORDCOUNT-MISMATCH": "PASS - 단어수 조건 일치",
+    "S-CH-TRUNCATED": "PASS - 선지 잘림 0건",
+    "S-MARKER-LEAK": "PASS - 마커 노출 0건",
+    "S-TYPE-CONTENT-MISMATCH": "PASS - type vs ch 일치",
+    "S-PASSAGE-1-SENTENCE": "PASS - 5문장 이상",
+    "S-WA-IN-PASSAGE": "PASS - 찾기 유형 예외 적용",
+    "S-LENGTH-BIAS": "PASS - 정답 길이 편향 없음",
+    "정답2개가능": "PASS - 모든 문항 정답 유일",
+    "선지뻔함": "PASS - 오답도 합리적",
+    "정답노출": "PASS - 빈칸형은 정답 가림, 찾기형은 의도적 노출"
+  }
+}

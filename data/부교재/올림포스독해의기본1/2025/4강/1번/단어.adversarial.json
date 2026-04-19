@@ -1,0 +1,35 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-04-18",
+  "summary": "20문항 적대적 공격 검수. HIGH 0건, MEDIUM 1건, LOW 2건.",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "questionId": 20,
+      "severity": "MEDIUM",
+      "category": "정답 노출 근접",
+      "description": "Q20 정답 'as familiar to others as they are to us'가 fullPassage 원문 그대로. 빈칸 문맥 완성 유형이므로 원문 빈칸 복원이 본질이라 허용 범위. 다만 오답 3개도 전부 원문 구절이므로 소거법보다 문맥 이해로 풀어야 함 — OK.",
+      "resolution": "유지. 오답도 전부 본문 구절이라 소거 불가. 문맥 이해 필수."
+    },
+    {
+      "id": "ADV-02",
+      "questionId": 1,
+      "severity": "LOW",
+      "category": "EX-3 ABC 정답 노출",
+      "description": "Q1 (A)(B)(C) 정답 단어 distinctive/private/conformity가 지문 다른 곳에도 등장. 7문장 짧은 지문이라 불가피. ABC 유형 자체가 원문 단어를 [X/Y] 형태로 보여주므로 구조적 한계.",
+      "resolution": "유지. validate EX-3 경고는 짧은 지문 ABC 유형의 구조적 한계."
+    },
+    {
+      "id": "ADV-03",
+      "questionId": 9,
+      "severity": "LOW",
+      "category": "오답 변별력",
+      "description": "Q9 오답 ② inventions — 다음 문장에 'inventions of our own... psychic lives' 등장. 'brilliant inventions'가 문맥상 의미가 통할 수 있으나, 원문은 accomplishments이고 inventions는 다음 문장 별개 표현. 문맥을 정확히 읽으면 구분 가능.",
+      "resolution": "유지. 'brilliant accomplishments'가 원문이고 'inventions'는 바로 다음 문장이라 위치적으로 구분됨."
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 1,
+  "lowCount": 2,
+  "pass": true
+}
