@@ -1,0 +1,42 @@
+{
+  "solver": "opus-4.6-adversarial",
+  "timestamp": "2026-04-20T02:56:00.000Z",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 1,
+    "totalIssues": 1
+  },
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 8,
+      "type": "빈칸 어휘 완성",
+      "issue": "EX-1 경고: 'reproductive'가 빈칸 외 지문에 2회 더 등장. 단, 빈칸 자리에서 5단어 이상 떨어져 있고 학생이 문맥 추론으로 풀어야 하므로 직접 베끼기는 불가.",
+      "recommendation": "현행 유지. 'reproductive success'가 본문 핵심 고정 표현이라 다른 단어로 교체 시 문항 가치 하락."
+    }
+  ],
+  "attackLog": [
+    {"questionId":1,"attack":"정답 ① 외 다른 조합 가능성 검토","result":"SAFE","detail":"(A)variability는 2문장 'This variability'로 확정. (B)enriches는 긍정 의미, (C)complicates는 부정 의미로 both A and B 구조에 맞음."},
+    {"questionId":2,"attack":"(A)abandon이 문맥상 가능한지 검토","result":"SAFE","detail":"employ a variety of=사용. abandon은 '포기'로 variety와 모순."},
+    {"questionId":3,"attack":"(A)exposure와 protection 혼동 가능성","result":"SAFE","detail":"'from predation'이 protection 확정. exposure는 뒤에 별도로 등장."},
+    {"questionId":4,"attack":"오답 선지 뻔한지 검토","result":"SAFE","detail":"①enriches, ③employ, ④changeable 모두 원문 그대로. ②만 교체되어 구별 가능."},
+    {"questionId":5,"attack":"오답 선지 뻔한지 검토","result":"SAFE","detail":"마커 4개가 본문 전체에 분산. 앞(①), 중간(②③), 뒤(④)."},
+    {"questionId":6,"attack":"마커 분산 확인","result":"SAFE","detail":"①predation(6문장), ②synchrony(8문장), ③distances(8문장), ④exclude(9문장). 후반에 약간 편중이나 3개 문장에 걸쳐 분산."},
+    {"questionId":7,"attack":"정답 approaches가 passage에 노출되는지","result":"SAFE","detail":"빈칸 자리에만 등장. 다른 곳에는 없음."},
+    {"questionId":8,"attack":"reproductive가 다른 곳에 노출","result":"LOW","detail":"빈칸 외 2회 등장하나 5단어 이상 떨어져 있고 빈칸이 있어 구별됨."},
+    {"questionId":9,"attack":"predation이 유일한 가능 답인지","result":"SAFE","detail":"'and other threats'에서 threats의 상위 개념/구체 사례로 predation만 적합."},
+    {"questionId":10,"attack":"hire가 정답일 가능성","result":"SAFE","detail":"employ approaches에서 hire(고용)는 부자연스러움. use가 유일한 적합 동의어."},
+    {"questionId":11,"attack":"maintained가 enhanced 동의어인지","result":"SAFE","detail":"maintained=유지, enhanced=향상. 의미 차이 명확."},
+    {"questionId":12,"attack":"reduce가 maintain 동의어인지","result":"SAFE","detail":"reduce=줄이다. maintain=유지. 반대 방향."},
+    {"questionId":13,"attack":"접두사 반의어(un-/in-) 사용 여부","result":"SAFE","detail":"impoverishes는 접두사 반의어 아님. enrich↔impoverish는 어근이 다른 독립 반의어."},
+    {"questionId":14,"attack":"unstable 대신 volatile 사용이 적절한지","result":"SAFE","detail":"volatile은 접두사 반의어 아닌 독립 어휘. stable의 반의어로 학습 가치 있음."},
+    {"questionId":15,"attack":"다의어 passage가 원문과 무관한지","result":"SAFE","detail":"(A)는 원문 발췌. (B)는 rear의 다른 의미를 보여주는 자연스러운 예문."},
+    {"questionId":16,"attack":"영영풀이가 다른 단어에도 해당하는지","result":"SAFE","detail":"'being different or diverse + changing'은 variability에만 해당. stability/synchrony/predation은 정의 불일치."},
+    {"questionId":17,"attack":"reared(과거분사)가 정답 가능성","result":"SAFE","detail":"females reared calves라면 동사 enjoy와 동사 2개가 되어 비문. rearing은 분사구로 주어 수식."},
+    {"questionId":18,"attack":"associated가 정답 가능성","result":"SAFE","detail":"'close associated'는 비문. close+명사 구조이므로 associates(명사 복수)가 정답."},
+    {"questionId":19,"attack":"정답 노출 여부","result":"SAFE","detail":"빈칸이 'greater reproductive success' 전체를 가리므로 개별 단어 노출은 문제 아님."},
+    {"questionId":20,"attack":"정답 노출 여부","result":"SAFE","detail":"빈칸이 'increased control over their calves' environment' 전체를 가리므로 문맥 추론 필요."}
+  ]
+}
