@@ -1769,10 +1769,10 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
       if (S.mode === '교과서') return item.replace(/^교과서\//, '');
       return item;
     });
-    // 테스트 타입 자동 설정
-    if (presetType === 'vocab') S.tt = 'vocab';
-    else if (presetType === 'workbook') S.tt = 'workbook';
-    else if (presetType === 'quiz') S.tt = 'quiz';
+    // 테스트 타입 자동 설정 (영문 → 한국어 테스트 키)
+    if (presetType === 'vocab') S.tt = '단어테스트';
+    else if (presetType === 'workbook') S.tt = '워크북테스트';
+    else if (presetType === 'quiz') S.tt = '퀴즈테스트';
     // 통합 모드면 자동 시작, 단일 모드면 선택 화면
     if (S.mode === '통합' && presetType) {
       S.scr = 'home'; // 임시: startE()에서 자동 시작 (아래 autoStart에서 처리)
