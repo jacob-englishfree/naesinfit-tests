@@ -1,1 +1,43 @@
-{"reviewer":"claude-opus-4-6","date":"2026-04-20","issues":[],"summary":"No HIGH issues found. All 20 questions reviewed for: ambiguous answers, answer leakage, passage-stem mismatch, distractor quality. PASS."}
+{
+  "reviewer": "claude-opus-4-6-adversarial",
+  "date": "2026-04-20",
+  "issues": [
+    {
+      "qId": 11,
+      "severity": "MEDIUM",
+      "type": "ambiguous-distractor",
+      "detail": "④ friendship vs ③ relationship: 'a good friendship is the best souvenir'도 문맥상 자연스러울 수 있음. 원문이 relationship이므로 정답 명확하나, 학생이 friendship을 고르면 억울할 수 있음. 다만 빈칸문맥완성은 원문 기반이므로 relationship이 유일한 정답."
+    },
+    {
+      "qId": 15,
+      "severity": "LOW",
+      "type": "wa-in-passage",
+      "detail": "서술형 핵심단어 '본문에서 찾아 쓰시오' 유형이므로 wa(souvenirs)가 passage에 있는 것은 의도적. 규칙상 찾기 유형 예외에 해당."
+    },
+    {
+      "qId": 16,
+      "severity": "LOW",
+      "type": "wa-in-passage",
+      "detail": "서술형 핵심단어 '본문에서 찾아 쓰시오'. wa(new friends)가 passage에 노출 — 찾기 유형 예외."
+    },
+    {
+      "qId": 20,
+      "severity": "HIGH",
+      "type": "stem-wordcount-mismatch",
+      "detail": "stem 첫 줄에 '(6단어)'이나 조건 (2)에는 '정확히 5단어', wa도 5단어. 학생이 6단어를 쓰려고 시도하면 혼란. stem 첫 줄 (6단어) → (5단어)로 수정 필요. S-WORDCOUNT-MISMATCH 해당."
+    },
+    {
+      "qId": 7,
+      "severity": "LOW",
+      "type": "tf-balance",
+      "detail": "T/F 문항 3개(Q7,8,9) 중 F-T-F 배치. 편향은 아니나 참고."
+    },
+    {
+      "qId": 14,
+      "severity": "LOW",
+      "type": "subtle-difference",
+      "detail": "오류찾기 ④ 'each from one trip' vs 원문 'one from each trip'. 단어 위치만 바뀌었고 차이가 미묘하여 좋은 문항. 난이도 적절."
+    }
+  ],
+  "summary": "6 issues found (1 HIGH, 2 MEDIUM, 3 LOW). Q20 stem 첫줄 (6단어) vs 조건 (5단어) 불일치 = HIGH. 학생 혼란 유발하므로 반드시 수정 필요. 나머지 수용 가능."
+}

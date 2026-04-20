@@ -1,1 +1,31 @@
-{"reviewer":"claude-opus-4-6","date":"2026-04-20","issues":[],"summary":"No HIGH issues found. All 20 questions reviewed for: ambiguous answers, answer leakage, passage-stem mismatch, distractor quality. PASS."}
+{
+  "reviewer": "claude-opus-4-6-adversarial",
+  "date": "2026-04-20",
+  "issues": [
+    {
+      "qId": 17,
+      "severity": "HIGH",
+      "type": "wa-passage-duplication",
+      "detail": "CRITICAL: passage ends with '______ they would experience.' but wa = 'were only the tip of the iceberg of the transformation they would' (12 words including 'they would'). If rendered literally, the result would read '...were only the tip of the iceberg of the transformation they would they would experience.' -- 'they would' is duplicated. Either (a) the passage blank should extend to cover 'they would experience' making it '______ experience.' or (b) wa should be 'were only the tip of the iceberg of the transformation' (9 words) and stem should say 9 words with matching tokens. The provided tokens in stem also include 'they' and 'would' which confirms the intent was 12 words, but the passage text contradicts this."
+    },
+    {
+      "qId": 20,
+      "severity": "LOW",
+      "type": "det-metadata-error",
+      "detail": "det.analysis says '= 9단어' but wa has 8 words. Incorrect metadata (det only, not student-facing). Minor."
+    },
+    {
+      "qId": 7,
+      "severity": "LOW",
+      "type": "tf-consecutive",
+      "detail": "Q7 and Q8 are both T(ans=1). Two consecutive same answer is within rules (max 2) but worth noting."
+    },
+    {
+      "qId": 11,
+      "severity": "MEDIUM",
+      "type": "weak-distractor",
+      "detail": "ch2 'satisfying' could arguably fit 'hard but satisfying' contextually. However, the original text specifically uses 'invaluable', and 'satisfying' doesn't capture the 'priceless, once-in-a-lifetime' nuance as well. The 'but' contrast demands something stronger than 'satisfying'. Borderline but defensible."
+    }
+  ],
+  "summary": "4 issues found (1 HIGH, 1 MEDIUM, 2 LOW). Q17 has a HIGH blocking issue: wa includes 'they would' which duplicates text already visible after the blank in the passage. Must fix before deployment."
+}

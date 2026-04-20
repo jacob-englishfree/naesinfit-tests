@@ -1,1 +1,43 @@
-{"reviewer":"claude-opus-4-6","date":"2026-04-20","issues":[],"summary":"No HIGH issues found. All 20 questions reviewed for: ambiguous answers, answer leakage, passage-stem mismatch, distractor quality. PASS."}
+{
+  "reviewer": "claude-opus-4-6-adversarial",
+  "date": "2026-04-20",
+  "issues": [
+    {
+      "qId": 3,
+      "severity": "MEDIUM",
+      "type": "answer-leaked-in-passage",
+      "detail": "affordable 동의어 문제에서 passage에 'at a reasonable price'가 그대로 노출. 학생이 passage만 읽으면 답(reasonable)을 직접 발견 가능. 단어테스트 특성상 동의어 인식 자체가 목표이므로 치명적이진 않으나, 추론 없이 단어 매칭만으로 풀 수 있음."
+    },
+    {
+      "qId": 7,
+      "severity": "LOW",
+      "type": "weak-distractor",
+      "detail": "③ stored: 'had stored lots of these maps'도 문맥상 어색하지만 완전 배제 불가. 그러나 accumulated이 원문이므로 정답 확실. 약한 오답이지만 수용 범위."
+    },
+    {
+      "qId": 9,
+      "severity": "LOW",
+      "type": "collocation-gives-away",
+      "detail": "Without a moment's ______은 영어 관용구(hesitation)를 아는 학생에겐 즉답. 단어 테스트 목적에 부합하므로 수용 가능."
+    },
+    {
+      "qId": 11,
+      "severity": "LOW",
+      "type": "collocation-gives-away",
+      "detail": "catching a ______ of 역시 관용구(glimpse). 관용어 학습이 단어테스트 목표이므로 적절."
+    },
+    {
+      "qId": 14,
+      "severity": "LOW",
+      "type": "weak-distractor",
+      "detail": "④ happened upon: 본문에 나오는 표현이나 '사람에게 부적합'이라는 det 설명은 약간 부정확. 'happened upon a person'도 영어에선 가능하나, 문맥상 elderly couple 뒤에 오므로 made friends with가 훨씬 자연스러워 정답 명확."
+    },
+    {
+      "qId": 16,
+      "severity": "MEDIUM",
+      "type": "definition-ambiguity",
+      "detail": "영영풀이 'to keep something to have or continue to have something'은 preserve뿐 아니라 retain, maintain 등에도 해당. 다만 선지에 이 단어들이 없으므로 4지선다 내에서는 preserve가 유일한 정답. 정의 자체가 좀 평범."
+    }
+  ],
+  "summary": "6 issues found (0 HIGH, 2 MEDIUM, 4 LOW). No HIGH blocking issues. Q3의 reasonable 직접 노출은 단어테스트 특성상 동의어 인식이 목표이므로 수용 가능. Q16 영영풀이 정의가 다소 일반적이나 선지 내에서 답 명확."
+}
