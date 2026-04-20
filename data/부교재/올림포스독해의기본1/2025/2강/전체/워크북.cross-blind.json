@@ -1,26 +1,106 @@
 {
   "testFile": "data/부교재/올림포스독해의기본1/2025/2강/전체/워크북.json",
-  "model": "claude-opus-4-6-cross",
+  "solver": "opus-cross-verify",
   "solves": [
-    { "id": 1, "pick": 3, "reason": "hearing은 동사 자리 불가. 원문 heard가 맞음" },
-    { "id": 2, "pick": 1, "reason": "quick(형용사)은 동사 수식 불가. quickly(부사) 필요" },
-    { "id": 3, "pick": 3, "reason": "had been signing(X) → had been signed(O). 수동태 p.p." },
-    { "id": 4, "pick": 2, "reason": "since→until. didn't believe...until 구문. since는 의미 부적합" },
-    { "id": 5, "pick": 2, "reason": "mourning(애도)은 전쟁 종전 기쁜 맥락과 반대. 원문 cheering(환호)" },
-    { "id": 6, "pick": 4, "reason": "vanish(사라지다)는 기쁨 넘침과 반대. 원문 overflow(넘쳐흐르다)" },
-    { "id": 7, "pick": 2, "reason": "F. refugee에게서 처음 소식을 들었지, 군인이 아님" },
-    { "id": 8, "pick": 1, "reason": "T. Joy seemed to overflow from her heart — 본문 직접 기술" },
-    { "id": 9, "pick": 2, "reason": "F. pulling out of the castle(나오는 중). 들어가는 것 아님" },
-    { "id": 10, "pick": 3, "reason": "cheering. 전쟁 종전 환호. heard+V-ing 구문에 적합" },
-    { "id": 11, "pick": 4, "reason": "overflow. Joy seemed to overflow from her heart. 문맥 일치" },
-    { "id": 12, "pick": 4, "reason": "④ He confirmed that the armistice had been signed — 원문 일치" },
-    { "id": 13, "pick": 3, "reason": "③ 피난민 말만 듣고 바로 울지 않음. hardly dared believe 후 기수 확인이 먼저" },
-    { "id": 14, "pick": 1, "reason": "was shouting → were shouting. crowds는 복수. 수일치 오류" },
-    { "id": 15, "pick": "army motorcycle dispatch rider", "reason": "리나가 확신한 직접 계기인 인물. 본문에서 확인" },
-    { "id": 16, "pick": "hardly dared believe it", "reason": "확인 전 리나의 심리 상태. 본문 표현" },
-    { "id": 17, "pick": "until she heard it with her own ears", "reason": "until+S+V+O+전치사구 배열. 8단어" },
-    { "id": 18, "pick": 1, "reason": "전쟁 종전 소식 + 기쁨이 글 전체를 관통하는 주제" },
-    { "id": 19, "pick": 4, "reason": "오랜 전쟁의 끝이 믿기 어려울 만큼 큰 기쁨 = 요지" },
-    { "id": 20, "pick": "Joy seemed to overflow from her heart", "reason": "seem to V + overflow from. 조건 단어 전부 사용. 7단어" }
+    {
+      "id": 1,
+      "pick": 3,
+      "reason": "'자신의 귀로 듣다'는 관용표현은 복수형 ears이다. ear(단수)는 어법상 틀리다."
+    },
+    {
+      "id": 2,
+      "pick": 4,
+      "reason": "'한 마디'는 단수 명사 word이다. a single words처럼 단수 관사 a와 복수형 words를 함"
+    },
+    {
+      "id": 3,
+      "pick": 4,
+      "reason": "전치사 by 뒤에는 동명사(banging)가 와야 한다. banged는 과거형 동사로 by 뒤에 올 수 없다"
+    },
+    {
+      "id": 4,
+      "pick": 1,
+      "reason": "show up은 자동사구(나타나다)이므로 수동태로 쓸 수 없다. were showed up은 어법상 틀리다."
+    },
+    {
+      "id": 5,
+      "pick": 2,
+      "reason": "'계속되다(continue)'가 아니라 '중단되다(cease)'가 문맥상 적절하다. 휴전 협정이 체결되었으므"
+    },
+    {
+      "id": 6,
+      "pick": 3,
+      "reason": "'지루한(boring)'이 아니라 '매혹적인(captivating)'이 문맥상 적절하다. 로버트가 할아버지의"
+    },
+    {
+      "id": 7,
+      "pick": 2,
+      "reason": "Lina still didn't believe the news until she heard it with h"
+    },
+    {
+      "id": 8,
+      "pick": 1,
+      "reason": "marking the entrance's location on his map with a surge of t"
+    },
+    {
+      "id": 9,
+      "pick": 2,
+      "reason": "I looked through every window, but no one was there. 창문 밖을 확"
+    },
+    {
+      "id": 10,
+      "pick": 3,
+      "reason": "Lina는 기쁨으로 가득 차 눈물을 흘릴 뻔 했고, 기쁨이 가슴에서 넘쳐흘렀다. 그 다음 행동으로 '어머니를"
+    },
+    {
+      "id": 11,
+      "pick": 2,
+      "reason": "Robert는 낡은 통나무 위에 앉은 채 '자신을 이곳으로 이끈 여정을 회상하며(reflecting on t"
+    },
+    {
+      "id": 12,
+      "pick": 4,
+      "reason": "More than a thousand people showed up at the field. 천 명이 넘는 "
+    },
+    {
+      "id": 13,
+      "pick": 2,
+      "reason": "빛을 포착한 직후: Robert captured the crucial data → marking on his"
+    },
+    {
+      "id": 14,
+      "pick": 3,
+      "reason": "주절 noticed가 과거시제이므로 종속절(that절)도 과거시제 had stopped가 올바르다. has "
+    },
+    {
+      "id": 15,
+      "pick": "He confirmed the armistice",
+      "reason": "He confirmed that the armistice had been signed. 기마 전령이 휴전 협"
+    },
+    {
+      "id": 16,
+      "pick": "the journey that had led him",
+      "reason": "he settled onto an old log, reflecting on the journey that h"
+    },
+    {
+      "id": 17,
+      "pick": "They did cartwheels and backflips and even a three-tier pyramid",
+      "reason": "그들은 옆돌기와 공중제비, 심지어 3단 피라미드까지 선보였다."
+    },
+    {
+      "id": 18,
+      "pick": 1,
+      "reason": "Robert가 신중하게 준비한 끝에 빛의 섬광으로 동굴 입구를 발견하고, 할아버지에 대한 기억과 함께 감동적"
+    },
+    {
+      "id": 19,
+      "pick": 3,
+      "reason": "모든 사람이 응원하고, 관중석의 환호가 치어리더를 놀라게 했으며, 역대 가장 시끄럽고 흥분된 경기였다는 내용"
+    },
+    {
+      "id": 20,
+      "pick": "they were hearing something come back from the stands",
+      "reason": "치어리더들은 처음으로 관중석에서 무언가가 돌아오는 것을 듣고 있었다."
+    }
   ]
 }
