@@ -2416,7 +2416,7 @@ function ddayHTML(){
 
 const P=()=>{try{return JSON.parse(localStorage.getItem('nf_p'))||{name:'',school:'',grade:''};}catch(e){return{name:'',school:'',grade:''};}};
 let profile=P();
-if(!profile.name.trim())S.scr='login';
+if(!profile.name.trim()&&!S.scr)S.scr='login';
 const sP=p=>{profile=p;try{localStorage.setItem('nf_p',JSON.stringify(p));}catch(e){}};
 const gH=()=>{try{return JSON.parse(localStorage.getItem('nf_h'))||[];}catch(e){return[];}};
 const sH=e=>{const h=gH();h.push(e);if(h.length>20)h.shift();try{localStorage.setItem('nf_h',JSON.stringify(h));}catch(e){toast('저장 공간이 부족해요. 기록 일부를 삭제해주세요.');}};
