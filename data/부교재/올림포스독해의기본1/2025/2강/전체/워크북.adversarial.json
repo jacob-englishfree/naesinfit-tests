@@ -1,7 +1,37 @@
 {
   "testFile": "data/부교재/올림포스독해의기본1/2025/2강/전체/워크북.json",
-  "issues": [],
-  "totalIssues": 0,
-  "verdict": "CLEAN",
-  "notes": "Opus cross-check: 20/20 match, no HIGH issues found"
+  "solver": "sonnet-adversarial",
+  "issues": [
+    {
+      "id": 18,
+      "severity": "MED",
+      "desc": "stem 표기 오류(수정완료): '다음 글(1번 지문)의 주제' → '다음 글(2번 지문)의 주제'. det 해설은 Robert의 동굴 발견(2번 지문) 이야기를 설명함. '1번 지문'으로 표기 시 학생이 Lina(전쟁 종전) 지문 주제로 오인 가능.",
+      "fix": "stem의 '(1번 지문)' → '(2번 지문)' 수정 완료"
+    }
+  ],
+  "adversarialChecks": [
+    {"id": 1, "check": "어법포인트", "result": "PASS", "note": "ears 복수 필수 관용표현 명확"},
+    {"id": 2, "check": "어법포인트", "result": "PASS", "note": "a single words 단수관사+복수 불가 명확"},
+    {"id": 3, "check": "어법포인트", "result": "PASS", "note": "by + 동명사 규칙 명확"},
+    {"id": 4, "check": "어법포인트", "result": "PASS", "note": "show up 자동사 수동태 불가 명확"},
+    {"id": 5, "check": "정답2개가능", "result": "PASS", "note": "cease vs continue 명확"},
+    {"id": 6, "check": "정답2개가능", "result": "PASS", "note": "captivating vs boring 명확"},
+    {"id": 7, "check": "T/F모호", "result": "PASS", "note": "환호만으론 믿지 않음 명확"},
+    {"id": 8, "check": "T/F모호", "result": "PASS", "note": "순서 일치 명확"},
+    {"id": 9, "check": "T/F모호", "result": "PASS", "note": "처음엔 없었음 명확"},
+    {"id": 10, "check": "정답2개가능", "result": "PASS", "note": "hugged her mother 순서 맥락 명확"},
+    {"id": 11, "check": "정답2개가능", "result": "PASS", "note": "reflecting on the journey 분사구문 명확"},
+    {"id": 12, "check": "정답2개가능", "result": "PASS", "note": "천 명 이상 명확"},
+    {"id": 13, "check": "정답2개가능", "result": "PASS", "note": "captured→marking→Memories 순서 명확"},
+    {"id": 14, "check": "어법포인트", "result": "PASS", "note": "시제 일치 had stopped 명확"},
+    {"id": 15, "check": "서술형범위", "result": "PASS", "note": "4단어 He confirmed the armistice 명확"},
+    {"id": 16, "check": "서술형범위", "result": "PASS", "note": "6단어 the journey that had led him 명확"},
+    {"id": 17, "check": "어순배열", "result": "PASS", "note": "10단어 유일한 문장 구성"},
+    {"id": 18, "check": "stem정확성", "result": "FIXED", "note": "'1번 지문' → '2번 지문' 수정 완료"},
+    {"id": 19, "check": "요지추론", "result": "PASS", "note": "열정적 응원=흥분된 경기 명확"},
+    {"id": 20, "check": "영작조건", "result": "PASS", "note": "9단어 조건 충족"}
+  ],
+  "totalIssues": 1,
+  "verdict": "FIXED",
+  "notes": "MED 1건 수정 완료: id:18 stem '1번 지문'→'2번 지문'. HIGH 이슈 없음."
 }

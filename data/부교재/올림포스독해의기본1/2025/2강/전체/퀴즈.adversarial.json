@@ -1,7 +1,138 @@
 {
   "testFile": "data/부교재/올림포스독해의기본1/2025/2강/전체/퀴즈.json",
-  "issues": [],
+  "solver": "sonnet-adversarial",
+  "issues": [
+    {
+      "id": 15,
+      "severity": "RESOLVED",
+      "desc": "X42 오류(수정완료): 원본 ans=4이었으나 ch[3]='로버트에게 이야기를 전해 준 낯선 노인'으로 정답과 불일치. det가 'Robert가 말을 내뱉음=정답'이라 했으나 ch 배열에서 ②(ch[1])가 '동굴 입구를 발견한 로버트'. ans=2로 수정 완료. 또한 ch ③이 ②와 중복('동굴 입구를 처음 발견한 로버트'→'동굴 근처에서 길을 잃은 여행자'로 교체 완료).",
+      "fix": "ans=2로 수정, ch[2]='동굴 근처에서 길을 잃은 여행자'로 교체 — 완료",
+      "resolution": "Fixed in this commit"
+    }
+  ],
+  "adversarialChecks": [
+    {
+      "id": 1,
+      "check": "어법포인트",
+      "result": "PASS",
+      "note": "confirming vs confirmed 명확"
+    },
+    {
+      "id": 2,
+      "check": "어법포인트",
+      "result": "PASS",
+      "note": "being unveiled vs unveiling 명확"
+    },
+    {
+      "id": 3,
+      "check": "어법포인트",
+      "result": "PASS",
+      "note": "try to + 동사원형 명확"
+    },
+    {
+      "id": 4,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "shallow vs profound 명확"
+    },
+    {
+      "id": 5,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "booing vs cheering 명확"
+    },
+    {
+      "id": 6,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "contain the terror 유일"
+    },
+    {
+      "id": 7,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "a huge cheer 유일"
+    },
+    {
+      "id": 8,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "기마 전령 확인 명확"
+    },
+    {
+      "id": 9,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "동행자 없음 명확"
+    },
+    {
+      "id": 10,
+      "check": "정답2개가능",
+      "result": "PASS",
+      "note": "하프타임 전 음식 소진 명확"
+    },
+    {
+      "id": 11,
+      "check": "주제추론",
+      "result": "PASS",
+      "note": "공포→안도 전환 명확"
+    },
+    {
+      "id": 12,
+      "check": "주제추론",
+      "result": "PASS",
+      "note": "집단 흥분 명확"
+    },
+    {
+      "id": 13,
+      "check": "함축의미",
+      "result": "PASS",
+      "note": "overflow = 넘침 명확"
+    },
+    {
+      "id": 14,
+      "check": "지칭추론",
+      "result": "PASS",
+      "note": "dispatch rider → he 명확"
+    },
+    {
+      "id": 15,
+      "check": "X42+중복선지",
+      "result": "FIXED",
+      "note": "ans=2 수정, ch 중복 제거 완료"
+    },
+    {
+      "id": 16,
+      "check": "서술형정답",
+      "result": "PASS",
+      "note": "a surge of triumph 명확"
+    },
+    {
+      "id": 17,
+      "check": "서술형정답",
+      "result": "PASS",
+      "note": "a huge cheer 명확"
+    },
+    {
+      "id": 18,
+      "check": "어순배열",
+      "result": "PASS",
+      "note": "10단어 조건 충족"
+    },
+    {
+      "id": 19,
+      "check": "영작조건",
+      "result": "PASS",
+      "note": "4단어 조건 충족"
+    },
+    {
+      "id": 20,
+      "check": "영작조건",
+      "result": "PASS",
+      "note": "8단어 조건 충족"
+    }
+  ],
   "totalIssues": 0,
   "verdict": "CLEAN",
-  "notes": "Opus cross-check: 20/20 match, no HIGH issues found"
+  "notes": "HIGH 1건 수정 완료: id:15 X42 ans 오류(4→2) + ch 중복 선지 교체. 워크북 id:18 MED(stem '1번 지문' 표기)는 별도 파일 참조."
 }

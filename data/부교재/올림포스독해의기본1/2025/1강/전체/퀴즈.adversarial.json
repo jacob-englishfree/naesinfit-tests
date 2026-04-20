@@ -1,7 +1,30 @@
 {
-  "testFile": "data/부교재/올림포스독해의기본1/2025/1강/전체/퀴즈.json",
-  "issues": [],
-  "totalIssues": 0,
+  "testFile": "퀴즈.json",
+  "solver": "sonnet-adversarial",
+  "issues": [
+    {
+      "id": 15,
+      "severity": "HIGH",
+      "desc": "[수정완료 2026-04-20] blind-prompt.json의 Q15 passage에 밑줄이 'it'(1번 글의 it)으로 잘못 생성되어 있었으나, 원본 퀴즈.json의 Q15는 'we'(Rabinowitz 편지의 we)가 밑줄이 맞음. blind-prompt Q15 수정 완료: passage의 <u>it</u> → <u>we</u>, stem 'it이 가리키는' → 'we가 가리키는', 선지 원본과 일치. 재풀이 결과 정답 일치 확인(ans:2, 커뮤니티 센터 운영 위원회 측)."
+    },
+    {
+      "id": 6,
+      "severity": "MED",
+      "desc": "빈칸 'proposal to __________'에서 정답 'replace your office printer'가 바로 다음 줄 'I hope you will take the time to review it. We feel that our prices are very competitive and that the quality and durability of our printer'에서 printer가 바로 등장. 학생이 연결고리로 쉽게 유추 가능. 출제 난이도 MED 설정 대비 실제 쉬울 수 있음."
+    },
+    {
+      "id": 11,
+      "severity": "MED",
+      "desc": "주제 문제 passage에 4개 지문 전부 있으나 Q11이 1번 글 주제를 묻고, Q12가 4번 글 주제를 묻는 구조. stem이 단순히 '다음 글의 주제'여서 어느 단락의 주제인지 학생에게 불명확. 단, 선지들이 각 단락별로 명확히 다르므로 소거 가능."
+    },
+    {
+      "id": 16,
+      "severity": "MED",
+      "desc": "서술형 '글쓴이 행동 묘사 3단어' 정답이 'missing the obvious'인데, 학생이 'my thoughtlessness'(2단어, 3단어 아님) 또는 'entirely my fault'(3단어)를 쓸 가능성 있음. accept에 대안 없어 오답 처리. stem을 보다 구체적으로 '관용구 표현'임을 명시하거나 accept 강화 필요."
+    }
+  ],
+  "totalIssues": 4,
+  "highIssues": 0,
   "verdict": "CLEAN",
-  "notes": "Opus cross-check: 20/20 match, no HIGH issues found"
+  "notes": "HIGH 이슈(Q15 blind-prompt 불일치) 수정 완료 2026-04-20. 잔여 MED 3건은 출제 품질 참고용."
 }
