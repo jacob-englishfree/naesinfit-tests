@@ -1484,7 +1484,7 @@ async function fetchTestQuestions(testType, selKey) {
 
   // 1차: data/ JSON 시도
   let jsonPath;
-  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
+  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/') || selKey.startsWith('교과서/')) {
     jsonPath = 'data/' + selKey + '/' + jsonName + '.json';
   } else {
     jsonPath = 'data/교과서/' + selKey + '/' + jsonName + '.json';
@@ -1494,9 +1494,12 @@ async function fetchTestQuestions(testType, selKey) {
   const tryPaths = [jsonPath];
   if (!selKey.startsWith('모의고사/') && !selKey.startsWith('부교재/')) {
     // "공통영어1/능률민병천/1과" → "data/교과서/공통영어1/능률민병천/1과/본문/단어.json" 도 시도
-    const parts = selKey.split('/');
+    // "교과서/공통영어1/능률민병천/1과" → "data/교과서/공통영어1/능률민병천/1과/본문/단어.json" 도 시도
+    const stripped = selKey.startsWith('교과서/') ? selKey.slice(4) : selKey;
+    const parts = stripped.split('/');
     if (parts.length === 3) { // subj/pub/과 형태면 본문 추가
-      tryPaths.push('data/교과서/' + selKey + '/본문/' + jsonName + '.json');
+      const base = selKey.startsWith('교과서/') ? selKey : '교과서/' + selKey;
+      tryPaths.push('data/' + base + '/본문/' + jsonName + '.json');
     }
   }
 
@@ -1530,7 +1533,7 @@ async function fetchTestQuestions(testType, selKey) {
 
   // 2차: HTML fallback
   let htmlPath;
-  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/')) {
+  if (selKey.startsWith('모의고사/') || selKey.startsWith('부교재/') || selKey.startsWith('교과서/')) {
     htmlPath = selKey + '/' + testType + '.html';
   } else {
     htmlPath = '교과서/' + selKey + '/' + testType + '.html';
@@ -1634,7 +1637,7 @@ const SCOPE_CATALOG = {
     "고2":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"3월_2024":{dn:"2024년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"6월":{dn:"6월 모의고사"},"9월":{dn:"9월 모의고사"},"11월":{dn:"11월 모의고사"}},
     "고3":{"3월":{dn:"2025년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"3월_2024":{dn:"2024년 3월",lessons:["18번","19번","20번","21번","22번","23번","24번","26번","29번","30번","31번","32번","33번","34번","35번","36번","37번","38번","39번","40번","41-42번","43-45번"],isNew:true},"6월":{dn:"6월 모의평가"},"9월":{dn:"9월 모의평가"},"수능":{dn:"수능"}}
   }},
-  "부교재":{ icon:"📖", items:{"ReadingPower유형편완성":{"_":{dn:"리딩파워 유형편완성",lessons:[],isNew:false,_noBook:true}},"수능특강":{"영어":{dn:"수능특강 영어",lessons:["1강","2강","3강","4강","5강","6강","7강","8강","9강","10강","11강","12강","13강","14강","15강","16강","17강","18강","19강","20강","21강","22강","23강","24강","25강"],isNew:true,subs:{"10강":["Gateway","1번","2번","3번","4번"],"11강":["Gateway","1번","2번","3번","4번"],"12강":["Gateway","1번","2번","3번","4번"],"13강":["Gateway","1번","2번","3번","4번"],"14강":["Gateway","1번","2번","3번","4번"],"15강":["Gateway","1번","2번","3번","4번"],"16강":["Gateway","1번","2번","3번","4번"],"17강":["Gateway","1번","2번","3번","4번"],"18강":["Gateway","1번","2번","3번","4번"],"19강":["Gateway","1번","2번","3번","4번"],"1강":["Gateway","1번","2번","3번","4번"],"20강":["Gateway","1번","2번","3번","4번"],"21강":["Gateway","1번","2번","3번"],"22강":["Gateway","1번","2번","3번"],"23강":["Gateway","1번","2번","3번"],"24강":["Gateway","1번","2번"],"25강":["Gateway","1번","2번","3번"],"2강":["Gateway","1번","2번","3번","4번"],"3강":["Gateway","1번","2번","3번","4번"],"4강":["Gateway","1번","2번","3번","4번"],"5강":["Gateway","1번","2번","3번","4번"],"6강":["Gateway","1번","2번","3번","4번"],"7강":["Gateway","1번","2번","3번","4번"],"8강":["Gateway","1번","2번","3번","4번"],"9강":["Gateway","1번","2번","3번","4번"]}}},"수능특강Light":{"영어":{dn:"수능특강Light 영어",lessons:["1강","2강","3강","4강","5강","6강","7강","8강","9강","10강","11강","12강","13강","14강","15강","16강","17강","18강","19강","20강","21강","22강","TEST"],isNew:true,subs:{"10강":["Gateway","1번","2번","3번","4번"],"11강":["Gateway","1번","2번","3번","4번"],"12강":["Gateway","1번","2번","3번","4번"],"13강":["Gateway","1번","2번","3번","4번"],"14강":["Gateway","1번","2번","3번","4번"],"15강":["Gateway","1번","3번"],"16강":["Gateway","1번","2번"],"17강":["Gateway","1번","2번","3번","4번"],"18강":["Gateway","1번","2번","3번","4번"],"19강":["Gateway","1번","2번","3번","4번"],"1강":["Gateway","1번","2번","3번","4번"],"20강":["Gateway","1번","2번","3번","4번"],"21강":["Gateway","1번","2번","3번","4번"],"22강":["Gateway","1번","2번","3번","4번"],"2강":["Gateway","1번","2번","3번","4번"],"3강":["Gateway","1번","2번","3번","4번"],"4강":["Gateway","1번","2번","3번","4번"],"5강":["Gateway","1번","2번","3번","4번"],"6강":["Gateway","1번","2번","3번","4번"],"7강":["Gateway","1번","2번","3번","4번"],"8강":["Gateway","1번","2번","3번","4번"],"9강":["Gateway","1번","2번","3번","4번"],"TEST":["TEST-03","TEST-15","TEST-20"]}},"영어독해연습":{dn:"수능특강Light 영어독해연습",lessons:["1강","2강"],isNew:true,subs:{"1강":["1번","2번","3번","4번","5번","6번"],"2강":["1번","2번","3번","4번","5번","6번"]}}},"올림포스전국연합고2":{"2026":{dn:"올림포스전국연합고2 2026",lessons:["1강","2강","3강","4강","5강"],isNew:true,subs:{"1강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"2강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"3강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"4강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"5강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"]}}}}}
+  "부교재":{ icon:"📖", items:{"ReadingPower유형편완성":{"_":{dn:"리딩파워 유형편완성",lessons:[],isNew:false,_noBook:true}},"수능특강":{"영어":{dn:"수능특강 영어",lessons:["1강","2강","3강","4강","5강","6강","7강","8강","9강","10강","11강","12강","13강","14강","15강","16강","17강","18강","19강","20강","21강","22강","23강","24강","25강"],isNew:true,subs:{"10강":["Gateway","1번","2번","3번","4번"],"11강":["Gateway","1번","2번","3번","4번"],"12강":["Gateway","1번","2번","3번","4번"],"13강":["Gateway","1번","2번","3번","4번"],"14강":["Gateway","1번","2번","3번","4번"],"15강":["Gateway","1번","2번","3번","4번"],"16강":["Gateway","1번","2번","3번","4번"],"17강":["Gateway","1번","2번","3번","4번"],"18강":["Gateway","1번","2번","3번","4번"],"19강":["Gateway","1번","2번","3번","4번"],"1강":["Gateway","1번","2번","3번","4번"],"20강":["Gateway","1번","2번","3번","4번"],"21강":["Gateway","1번","2번","3번"],"22강":["Gateway","1번","2번","3번"],"23강":["Gateway","1번","2번","3번"],"24강":["Gateway","1번","2번"],"25강":["Gateway","1번","2번","3번"],"2강":["Gateway","1번","2번","3번","4번"],"3강":["Gateway","1번","2번","3번","4번"],"4강":["Gateway","1번","2번","3번","4번"],"5강":["Gateway","1번","2번","3번","4번"],"6강":["Gateway","1번","2번","3번","4번"],"7강":["Gateway","1번","2번","3번","4번"],"8강":["Gateway","1번","2번","3번","4번"],"9강":["Gateway","1번","2번","3번","4번"]}}},"수능특강Light":{"영어":{dn:"수능특강Light 영어",lessons:["1강","2강","3강","4강","5강","6강","7강","8강","9강","10강","11강","12강","13강","14강","15강","16강","17강","18강","19강","20강","21강","22강","TEST"],isNew:true,subs:{"10강":["Gateway","1번","2번","3번","4번"],"11강":["Gateway","1번","2번","3번","4번"],"12강":["Gateway","1번","2번","3번","4번"],"13강":["Gateway","1번","2번","3번","4번"],"14강":["Gateway","1번","2번","3번","4번"],"15강":["Gateway","1번","3번"],"16강":["Gateway","1번","2번"],"17강":["Gateway","1번","2번","3번","4번"],"18강":["Gateway","1번","2번","3번","4번"],"19강":["Gateway","1번","2번","3번","4번"],"1강":["Gateway","1번","2번","3번","4번"],"20강":["Gateway","1번","2번","3번","4번"],"21강":["Gateway","1번","2번","3번","4번"],"22강":["Gateway","1번","2번","3번","4번"],"2강":["Gateway","1번","2번","3번","4번"],"3강":["Gateway","1번","2번","3번","4번"],"4강":["Gateway","1번","2번","3번","4번"],"5강":["Gateway","1번","2번","3번","4번"],"6강":["Gateway","1번","2번","3번","4번"],"7강":["Gateway","1번","2번","3번","4번"],"8강":["Gateway","1번","2번","3번","4번"],"9강":["Gateway","1번","2번","3번","4번"],"TEST":["TEST-03","TEST-15","TEST-20"]}},"영어독해연습":{dn:"수능특강Light 영어독해연습",lessons:["1강","2강"],isNew:true,subs:{"1강":["1번","2번","3번","4번","5번","6번"],"2강":["1번","2번","3번","4번","5번","6번"]}}},"올림포스전국연합고2":{"2026":{dn:"올림포스전국연합고2 2026",lessons:["1강","2강","3강","4강","5강","6강"],isNew:true,subs:{"1강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"2강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"3강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"4강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"],"5강":["Ex01","Ex02","Ex03","Ex04","Ex05","Ex06","Ex07","Ex08","Ex09","Ex10","Ex11","Ex12","학평"]}}}}}
 };
 function hasScopeData(path){
   const parts=path.split('/');
@@ -1749,13 +1752,20 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     if (!preset) return;
     const items = preset.split(',').filter(Boolean);
     if (items.length === 0) return;
-    // 모드 자동 감지: 첫 항목 prefix로 결정
-    const first = items[0];
-    if (first.startsWith('부교재/')) S.mode = '부교재';
-    else if (first.startsWith('모의고사/')) S.mode = '모의고사';
-    else if (first.startsWith('교과서/')) S.mode = '교과서';
-    // 모드 prefix 제거하고 S.sel에 채우기 (각 카탈로그에 맞게)
+    // 모드 자동 감지: 혼합 모드(통합) 지원
+    const modes = new Set();
+    items.forEach(item => {
+      if (item.startsWith('부교재/')) modes.add('부교재');
+      else if (item.startsWith('모의고사/')) modes.add('모의고사');
+      else if (item.startsWith('교과서/')) modes.add('교과서');
+    });
+    if (modes.size > 1) S.mode = '통합';
+    else if (modes.has('부교재')) S.mode = '부교재';
+    else if (modes.has('모의고사')) S.mode = '모의고사';
+    else S.mode = '교과서';
+    // S.sel: 모든 항목에 prefix 보존 (fetchTestQuestions가 prefix 기반 분기)
     S.sel = items.map(item => {
+      // 단일 교과서 모드일 때만 하위호환을 위해 prefix 제거
       if (S.mode === '교과서') return item.replace(/^교과서\//, '');
       return item;
     });
@@ -1763,12 +1773,17 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     if (presetType === 'vocab') S.tt = 'vocab';
     else if (presetType === 'workbook') S.tt = 'workbook';
     else if (presetType === 'quiz') S.tt = 'quiz';
-    // 선택 화면으로 자동 이동
-    S.scr = 'select';
+    // 통합 모드면 자동 시작, 단일 모드면 선택 화면
+    if (S.mode === '통합' && presetType) {
+      S.scr = 'home'; // 임시: startE()에서 자동 시작 (아래 autoStart에서 처리)
+      S._autoStart = true;
+    } else {
+      S.scr = 'select';
+    }
     // 부교재/모의고사면 관련 아코디언 자동 펼치기
     items.forEach(item => {
       const parts = item.split('/');
-      if (S.mode === '부교재' && parts.length >= 3) {
+      if ((S.mode === '부교재' || S.mode === '통합') && item.startsWith('부교재/') && parts.length >= 3) {
         // 부교재/시리즈/강 (3단계, book없는 교재) 또는 부교재/시리즈/책/강 (4단계)
         S.acc['b_'+parts[1]] = true;
         if (parts.length === 3) {
@@ -1779,13 +1794,24 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
           S.acc['b_'+parts[1]+'_'+parts[2]] = true;
           if (parts.length >= 5) S.acc['bsub_'+parts[1]+'_'+parts[2]+'_'+parts[3]] = true;
         }
-      } else if (S.mode === '모의고사' && parts.length >= 3) {
+      } else if ((S.mode === '모의고사' || S.mode === '통합') && item.startsWith('모의고사/') && parts.length >= 3) {
         S.acc['m_'+parts[1]] = true;
         S.acc['m_'+parts[1]+'_'+parts[2]] = true;
       }
     });
   } catch(e) { console.warn('preset 처리 실패:', e); }
 })();
+
+// 통합 모드 자동 시작 (preset에서 교과서+부교재/모의고사 혼합 시)
+if (S._autoStart) {
+  delete S._autoStart;
+  // qc = URL limit 파라미터 또는 기본 30문항
+  const u = new URLSearchParams(location.search);
+  const limitParam = parseInt(u.get('limit') || '30', 10);
+  S.qc = limitParam > 0 ? limitParam : 30;
+  // DOM 로드 후 자동 시험 시작
+  document.addEventListener('DOMContentLoaded', () => { setTimeout(() => startE(true), 100); });
+}
 
 // ━━ Dark Mode ━━
 function initTheme(){const t=localStorage.getItem('nf_theme')||'light';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#111111':'#FFFFFF';}
@@ -3878,6 +3904,7 @@ function startDailyQuiz(){
 
 // ━━ SELECT ━━
 function rSel(){
+  if(S.mode==='통합'){startE(true);return;}
   if(S.mode==='모의고사') return rSelMock();
   if(S.mode==='부교재') return rSelBugyo();
   const data=MANIFEST['교과서'];let h='';
@@ -4239,7 +4266,8 @@ async function startE(forceNew){
   setBottom(null);
   await ensureQuestionsLoaded(S.tt,S.sel);const b=QUESTION_BANK[S.tt]||{};
   // Check if this is a textbook multi-sub merge (교과서 subs 합산)
-  const isTbSubMerge=S.sel.length>1&&S.sel.some(k=>{const p=k.split('/');return p.length>=4&&!k.startsWith('모의고사/')&&!k.startsWith('부교재/');});
+  // 교과서/ prefix 포함 시 제거 후 판단 (통합 모드 호환)
+  const isTbSubMerge=S.sel.length>1&&S.sel.some(k=>{if(k.startsWith('모의고사/')||k.startsWith('부교재/'))return false;const sk=k.startsWith('교과서/')?k.slice(4):k;return sk.split('/').length>=4;});
   // Build per-selection pools
   const groups=[];S.sel.forEach(k=>{if(b[k]&&b[k].length)groups.push({key:k,qs:b[k].map(q=>({...q}))});});
   if(!groups.length){toast('선택한 범위에 문항이 없어요');return;}
@@ -4249,7 +4277,7 @@ async function startE(forceNew){
     // 교과서 블록 합산: 난이도별 20문항, 본문:추가지문 = 9:1
     const allQs=[];groups.forEach(g=>g.qs.forEach(q=>allQs.push({...q,_src:g.key})));
     // Classify into 본문 vs 추가지문
-    const isMain=k=>{const p=k.split('/');const sec=p[3]||'';return sec==='본문'||!sec;};
+    const isMain=k=>{const sk=k.startsWith('교과서/')?k.slice(4):k;const p=sk.split('/');const sec=p[3]||'';return sec==='본문'||!sec;};
     const mainQs=allQs.filter(q=>isMain(q._src));
     const subQs=allQs.filter(q=>!isMain(q._src));
     // Target: 18 main + 2 sub (if sub exists), else all from main
