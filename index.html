@@ -4225,7 +4225,7 @@ async function loadPassageQuestions(){
   await Promise.all(promises);
 }
 
-function toSet(){S.scr='settings';S.qc=20;S.tt=null;R();}
+function toSet(){S.scr='settings';S.qc=20;if(!S.tt)S.tt=null;R();}
 function selSummaryHTML(){
   const g={};
   S.sel.forEach(s=>{const p=s.split('/');const key=p[0]+'/'+p[1];if(!g[key])g[key]=[];
