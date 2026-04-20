@@ -1773,13 +1773,8 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     if (presetType === 'vocab') S.tt = '단어테스트';
     else if (presetType === 'workbook') S.tt = '워크북테스트';
     else if (presetType === 'quiz') S.tt = '퀴즈테스트';
-    // 통합 모드면 자동 시작, 단일 모드면 선택 화면
-    if (S.mode === '통합' && presetType) {
-      S.scr = 'home'; // 임시: startE()에서 자동 시작 (아래 autoStart에서 처리)
-      S._autoStart = true;
-    } else {
-      S.scr = 'select';
-    }
+    // 선택 화면으로 이동 (통합 모드 포함)
+    S.scr = 'select';
     // 부교재/모의고사면 관련 아코디언 자동 펼치기
     items.forEach(item => {
       const parts = item.split('/');
@@ -1801,17 +1796,6 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     });
   } catch(e) { console.warn('preset 처리 실패:', e); }
 })();
-
-// 통합 모드 자동 시작 (preset에서 교과서+부교재/모의고사 혼합 시)
-if (S._autoStart) {
-  delete S._autoStart;
-  // qc = URL limit 파라미터 또는 기본 30문항
-  const u = new URLSearchParams(location.search);
-  const limitParam = parseInt(u.get('limit') || '30', 10);
-  S.qc = limitParam > 0 ? limitParam : 30;
-  // DOM 로드 후 자동 시험 시작
-  document.addEventListener('DOMContentLoaded', () => { setTimeout(() => startE(true), 100); });
-}
 
 // ━━ Dark Mode ━━
 function initTheme(){const t=localStorage.getItem('nf_theme')||'light';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="theme-color"]').content=t==='dark'?'#111111':'#FFFFFF';}
@@ -3904,7 +3888,7 @@ function startDailyQuiz(){
 
 // ━━ SELECT ━━
 function rSel(){
-  if(S.mode==='통합'){startE(true);return;}
+  if(S.mode==='통합') return rSelIntegrated();
   if(S.mode==='모의고사') return rSelMock();
   if(S.mode==='부교재') return rSelBugyo();
   const data=MANIFEST['교과서'];let h='';
@@ -3931,6 +3915,28 @@ function rSel(){
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">범위 선택</div></div><div class="sec-label">교과 · 출판사 · 과</div>${h}<div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 선택 · 시작하기':'범위를 선택해주세요'}</button>`);
 }
+
+function rSelIntegrated(){
+  // 통합 모드: 교과서/부교재/모의고사 혼합 선택 표시
+  const tbItems=S.sel.filter(k=>k.startsWith('교과서/'));
+  const supItems=S.sel.filter(k=>k.startsWith('부교재/'));
+  const mockItems=S.sel.filter(k=>k.startsWith('모의고사/'));
+  function label(k){
+    const p=k.split('/');
+    if(k.startsWith('교과서/'))return p.slice(1).join(' › ');
+    if(k.startsWith('부교재/'))return p.slice(1).join(' › ');
+    if(k.startsWith('모의고사/'))return p.slice(1).join(' › ');
+    return k;
+  }
+  function renderGroup(title,icon,items){
+    if(!items.length)return'';
+    return`<div style="margin-bottom:16px"><div class="sec-label">${icon} ${title} <span class="badge">${items.length}</span></div><div class="chips" style="gap:8px">${items.map(k=>{const on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${k}')">${label(k)}</div>`;}).join('')}</div></div>`;
+  }
+  let h=renderGroup('교과서','📚',tbItems)+renderGroup('부교재','📖',supItems)+renderGroup('모의고사','📝',mockItems);
+  app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">통합테스트 범위</div></div>${h}<div class="bottom-spacer"></div></div>`;
+  setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 범위 · 시작하기':'범위를 선택해주세요'}</button>`);
+}
+function intTg(el,k){const i=S.sel.indexOf(k);if(i>=0){S.sel.splice(i,1);el.classList.remove('on');}else{S.sel.push(k);el.classList.add('on');}const btn=$('selBtn');if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 범위 · 시작하기':'범위를 선택해주세요';}}
 
 function rSelMock(){
   const cat=SCOPE_CATALOG['모의고사'];if(!cat||!cat.items)return;
