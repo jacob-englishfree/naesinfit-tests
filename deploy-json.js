@@ -44,7 +44,7 @@ const VALID_TEXTBOOK_PATHS = [
   '중3/미래엔최연희',
 ];
 
-const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강/영어독해연습', '수능특강Light/영어', '수능특강Light/영어독해연습', '올림포스전국연합고2/2026', '올림포스독해의기본2/2025', 'ReadingPower유형편완성'];
+const VALID_SUPPLEMENT_PATHS = ['수능특강/영어', '수능특강/영어독해연습', '수능특강Light/영어', '수능특강Light/영어독해연습', '올림포스전국연합고2/2026', '올림포스독해의기본1/2025', '올림포스독해의기본2/2025', 'ReadingPower유형편완성', '빠른독해바른독해_구문독해_2024'];
 const VALID_UNIT_PATTERN = /^\d+과$|^\d+강$/;
 const VALID_MOCK_PATTERN = /^(고1|고2|고3)\/.+$/;
 
