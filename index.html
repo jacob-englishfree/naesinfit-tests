@@ -1779,6 +1779,8 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     if (isCramming && S.sel.length > 0 && S.tt) {
       S.qc = presetLimit || 30;
       S.scr = 'settings';
+      // settings 진입 전 questions 미리 로드
+      S._crammingAutoLoad = true;
     } else {
       // 선택 화면으로 이동 (통합 모드 포함)
       S.scr = 'select';
@@ -4250,6 +4252,11 @@ function selSummaryHTML(){
 }
 
 function rSet(){
+  // cramming 자동 로드: settings 직행 시 questions 아직 미로드 → 비동기 fetch 후 UI 갱신
+  if(S._crammingAutoLoad && S.tt && S.sel.length > 0){
+    S._crammingAutoLoad = false;
+    ensureQuestionsLoaded(S.tt, S.sel).then(() => updateSetUI());
+  }
   const av=getAvail(),mx=av||40,qc=Math.min(S.qc,mx);
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="S.scr='select';S.dir='back';R()">←</button><div class="nav-title">시험 설정</div></div>
     <div class="sec-label">선택 범위</div><div class="card" style="background:var(--g50);border:none;padding:14px 16px">${selSummaryHTML()}</div>
