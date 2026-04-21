@@ -1773,8 +1773,16 @@ let S={scr:'home',mode:null,sel:[],qc:20,tt:null,qs:[],ans:{},ci:0,ts:null,te:0,
     if (presetType === 'vocab') S.tt = '단어테스트';
     else if (presetType === 'workbook') S.tt = '워크북테스트';
     else if (presetType === 'quiz') S.tt = '퀴즈테스트';
-    // 선택 화면으로 이동 (통합 모드 포함)
-    S.scr = 'select';
+    // cramming(통합테스트) 파라미터 있으면 범위선택 건너뛰고 바로 설정→시험
+    const isCramming = u.get('cramming') === '1';
+    const presetLimit = parseInt(u.get('limit') || '20', 10);
+    if (isCramming && S.sel.length > 0 && S.tt) {
+      S.qc = presetLimit || 30;
+      S.scr = 'settings';
+    } else {
+      // 선택 화면으로 이동 (통합 모드 포함)
+      S.scr = 'select';
+    }
     // 부교재/모의고사면 관련 아코디언 자동 펼치기
     items.forEach(item => {
       const parts = item.split('/');
