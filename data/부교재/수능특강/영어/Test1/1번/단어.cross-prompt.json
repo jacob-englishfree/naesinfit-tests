@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Request for a Discount on a Bulk Order",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "Test1",
+    "section": "1번",
+    "histKey": "wordtest__test1_1_v3"
+  },
+  "fullPassage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are <b>(A)</b>[normally / rarely] sold in individual plastic and cardboard packages. However, we will not need <b>(B)</b>[packaging / delivering] or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be <b>(C)</b>[reasonable / excessive]. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "(A) rarely - (B) packaging - (C) reasonable",
+        "(A) normally - (B) packaging - (C) reasonable",
+        "(A) normally - (B) delivering - (C) excessive",
+        "(A) rarely - (B) delivering - (C) excessive"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in <b>(A)</b>[individual / collective] plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, <b>(B)</b>[directly / indirectly] from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please <b>(C)</b>[confirm / deny] the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "(A) collective - (B) directly - (C) confirm",
+        "(A) individual - (B) indirectly - (C) confirm",
+        "(A) collective - (B) indirectly - (C) deny",
+        "(A) individual - (B) directly - (C) confirm"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are <b>(A)</b>[considering / rejecting] ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these <b>(B)</b>[circumstances / opportunities], I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a <b>(C)</b>[mutually / individually] agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "(A) considering - (B) circumstances - (C) mutually",
+        "(A) rejecting - (B) circumstances - (C) individually",
+        "(A) considering - (B) opportunities - (C) individually",
+        "(A) rejecting - (B) opportunities - (C) mutually"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are ①<u>normally</u> sold in individual plastic and cardboard packages. However, we will not need packaging or ②<u>transportation</u> for our order as we can pick up the balls, packed loose in cardboard boxes, ③<u>indirectly</u> from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be ④<u>reasonable</u>. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are ①<u>considering</u> ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a ②<u>surcharge</u> on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would ③<u>appreciate</u> a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can ④<u>finalize</u> the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally ①<u>sold</u> in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to ②<u>request</u> a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually ③<u>agreeable</u> arrangement. I look forward to your ④<u>negative</u> response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your __________. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "warehouse",
+        "delivery",
+        "order",
+        "discount"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the __________ in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "order",
+        "discount",
+        "agreement",
+        "arrangement"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your __________ response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "reasonable",
+        "positive",
+        "individual",
+        "loose"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are <u>considering</u> ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 considering과 의미가 가장 가까운 것은?",
+      "ch": [
+        "ordering",
+        "packaging",
+        "requesting",
+        "thinking about"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would <u>appreciate</u> a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 appreciate과 의미가 가장 가까운 것은?",
+      "ch": [
+        "confirm",
+        "request",
+        "be grateful for",
+        "finalize"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable <u>arrangement</u>. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 arrangement과 의미가 가장 가까운 것은?",
+      "ch": [
+        "agreement",
+        "transportation",
+        "discount",
+        "circumstance"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be <u>reasonable</u>. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 reasonable과 의미가 가장 반대인 것은?",
+      "ch": [
+        "agreeable",
+        "outrageous",
+        "positive",
+        "individual"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please <u>confirm</u> the agreement in writing. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 밑줄 친 confirm과 의미가 가장 반대인 것은?",
+      "ch": [
+        "finalize",
+        "appreciate",
+        "deny",
+        "request"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our <u>order</u> as we can pick up the balls directly from your warehouse.\n\n(B) Given these circumstances, I would like to request a discount on our <u>order</u>. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing.",
+      "stem": "다음 (A), (B)의 밑줄 친 <b>order</b>와 가장 가까운 의미로 쓰인 것은?",
+      "ch": [
+        "The teacher asked the students to sit in alphabetical order.",
+        "The judge issued a court order to stop the construction.",
+        "The old machine was out of order and needed repairs.",
+        "She placed an order for new office supplies online."
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a large building used for storing goods before they are sold or sent somewhere\"",
+      "ch": [
+        "warehouse",
+        "transportation",
+        "arrangement",
+        "packaging"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "We are __________ (consider) ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "However, we will not need packaging or transportation for our order as we can pick up the balls, __________ (pack) loose in cardboard boxes, directly from your warehouse.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement __________. If not, I would appreciate a call at 555-5555 as soon as possible so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "on our order",
+        "at least",
+        "as possible",
+        "in writing"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Pollet Toys, We are considering ordering 50 striped 2-inch plastic balls for the city-wide Youth Activity Day on June 14. According to your website, the balls are normally sold in individual plastic and cardboard packages. However, we will not need packaging or transportation for our order as we can pick up the balls, packed loose in cardboard boxes, directly from your warehouse. Given these circumstances, I would like to request a discount on our order. I believe that a discount of at least 25% would be reasonable. If you agree to this, please confirm the agreement in writing. If not, I would appreciate a call at 555-5555 __________ so we can reach a mutually agreeable arrangement. I look forward to your positive response and hope that we can finalize the order details soon. Sincerely, Granville Community Center",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "packed loose",
+        "as soon as possible",
+        "in individual plastic",
+        "on our order"
+      ]
+    }
+  ]
+}
