@@ -1,0 +1,36 @@
+{
+  "testFile": "data/모의고사/고3/3월/37번/단어.json",
+  "model": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 8,
+      "type": "정답 노출 가능성",
+      "description": "Q8 빈칸 정답 'consequences'가 fullPassage 파트(C)에도 'few consequences for serious moral failings'로 등장. 그러나 빈칸 위치(A)와 거리가 멀고 문맥이 다르므로 직접 베끼기 어려움. validate B급(EX-1) 참고용.",
+      "resolution": "허용 — 빈칸과 5단어 이상 떨어져 있고 다른 파트에서 등장"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": null,
+      "type": "(A)(B)(C) 원문 마커",
+      "description": "fullPassage에 원문 (A)(B)(C) 마커가 있어 S-ORDER-MARKER-LEAK A급 경고. 37번은 문장삽입 유형이라 원문 자체에 마커가 포함됨.",
+      "resolution": "원문 특성 — strip 불가. 조합형 Q1-3은 overlay로 별도 <b>(A)</b> 마커 사용하므로 학생 혼동 최소"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 14,
+      "type": "반의어 난이도",
+      "description": "aspiration↔resignation은 고3 수준에서 난이도 높은 편. 그러나 어려움 배점(6점)으로 적절.",
+      "resolution": "난이도 의도적 — 어려움 배점에 부합"
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 이슈 0건",
+  "timestamp": "2026-04-17T15:50:00Z"
+}

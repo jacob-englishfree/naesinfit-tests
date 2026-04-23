@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Tree of Descartes",
+    "subject": "3월 고3 모의고사",
+    "pub": "21번",
+    "lesson": "Tree of Descartes",
+    "histKey": "wordtest_3_3_21_v3"
+  },
+  "fullPassage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree <b>(A)</b>[corresponded / contradicted] to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately <b>(B)</b>[justified / undermined] by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was <b>(C)</b>[necessary / unnecessary] to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "corresponded — justified — necessary",
+        "contradicted — justified — necessary",
+        "corresponded — undermined — necessary",
+        "corresponded — justified — unnecessary"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the <b>(B)</b>[intelligible / obscure] principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He <b>(A)</b>[regarded / dismissed] the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would <b>(C)</b>[develop / stagnate] from the trunk without regard to the roots.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "regarded — obscure — develop",
+        "dismissed — intelligible — develop",
+        "regarded — intelligible — develop",
+        "regarded — intelligible — stagnate"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not <b>(A)</b>[merely / entirely] by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and <b>(B)</b>[plausible / implausible]. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the <b>(C)</b>[physical / abstract] principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "entirely — plausible — physical",
+        "merely — plausible — physical",
+        "merely — implausible — physical",
+        "merely — plausible — abstract"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the ①<u>famous</u> tree of Descartes: The roots of this tree ②<u>corresponded</u> to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call ④<u>theoretical</u> science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately ③<u>justified</u> by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The ①<u>simplicity</u> was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be ②<u>derived</u> which were precisely in agreement with ③<u>observation</u>, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was ④<u>necessary</u> to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of ①<u>intermediate</u> generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ②<u>ultimately</u> justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were ③<u>loosely</u> in agreement with observation, but these principles seemed to be intelligible and ④<u>plausible</u>. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the __________ tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "general",
+        "famous",
+        "physical",
+        "technical"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science __________; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "together",
+        "merely",
+        "equally",
+        "alone"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was __________ in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "cut",
+        "described",
+        "regarded",
+        "derived"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best <u>described</u> by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 described와 의미가 가장 가까운 것은?",
+      "ch": [
+        "criticized",
+        "predicted",
+        "depicted",
+        "invented"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be <u>derived</u> which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 derived와 의미가 가장 가까운 것은?",
+      "ch": [
+        "concealed",
+        "obtained",
+        "abandoned",
+        "restored"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and <u>plausible</u>. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 plausible과 의미가 가장 가까운 것은?",
+      "ch": [
+        "profitable",
+        "permanent",
+        "primitive",
+        "reasonable"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the <u>general</u> principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 general과 의미가 가장 반대인 것은?",
+      "ch": [
+        "specific",
+        "popular",
+        "familiar",
+        "ordinary"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the <u>intelligible</u> principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 밑줄 친 intelligible과 의미가 가장 반대인 것은?",
+      "ch": [
+        "rational",
+        "visible",
+        "incomprehensible",
+        "remarkable"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The old oak <u>tree</u> in the park has been standing for over three hundred years, providing shade for generations of visitors.\n(B) Descartes used the image of a <u>tree</u> to represent the entire system of knowledge: roots as metaphysics, the trunk as physics, and the branches as applied sciences.",
+      "stem": "다음 (A), (B)에서 밑줄 친 <b>tree</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 나무  —  (B) 나무",
+        "(A) 나무  —  (B) 체계도/구조의 비유",
+        "(A) 계통  —  (B) 나무",
+        "(A) 수목  —  (B) 가지"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"the process of arriving at a conclusion by reasoning from general principles or premises\"",
+      "ch": [
+        "observation",
+        "derivation",
+        "agreement",
+        "evidence"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were __________ (ultimate) justified by their \"fruits,\" not merely by their self-evidence.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로 쓰시오)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be __________ (derive) which were precisely in agreement with observation.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로 쓰시오)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely __________, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk without regard to the roots.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "in the trunk of the tree",
+        "by their self-evidence",
+        "in agreement with observation",
+        "in medicine and ethics"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The unity of science and philosophy in the old classical sense was perhaps best described by the famous tree of Descartes: The roots of this tree corresponded to metaphysics (the intelligible principles), the trunk to physics (statements of intermediate generality), and the branches and fruit to what we would call applied science. He regarded the whole system of science and philosophy as we today regard science alone; he felt that the metaphysical principles were ultimately justified by their “fruits,” not merely by their self-evidence. What we today call applied science consisted for him not only in mechanics but also in medicine and ethics. The difficulty was that from the general principles of Cartesian or Aristotelian science-philosophy no results could be derived which were precisely in agreement with observation, but these principles seemed to be intelligible and plausible. So the tree was cut in the middle. For the derivation of technical results, it was necessary to start from the physical principles in the trunk. Science in the new sense was to think only of how the fruits would develop from the trunk __________.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "in agreement with observation",
+        "from the branches and fruit",
+        "by their self-evidence alone",
+        "without regard to the roots"
+      ]
+    }
+  ]
+}
