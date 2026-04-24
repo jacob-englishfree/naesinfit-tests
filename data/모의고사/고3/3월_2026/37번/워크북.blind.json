@@ -1,26 +1,125 @@
 {
-  "solver": "claude-opus-4-6",
-  "timestamp": "2026-04-23T00:00:00Z",
   "answers": [
-    { "id": 1, "ans": 2, "reason": "①mentioned(gets mentioned 수동태 OK), ②grown→growing(현재분사 필요, grown은 과거분사), ③expanding OK, ④existed OK" },
-    { "id": 2, "ans": 3, "reason": "①In OK, ②causes OK, ③stretched→stretches(현재시제 필요), ④since OK" },
-    { "id": 3, "ans": 3, "reason": "①to resist OK, ②what OK, ③which→that(강조구문 It is...that), ④embedded OK" },
-    { "id": 4, "ans": 4, "reason": "①it OK, ②simply OK, ③apart OK, ④embedding→embedded(수동 관계)" },
-    { "id": 5, "ans": 2, "reason": "①resist OK, ②something→nothingness(원문: expands into nothingness), ③separate OK, ④stretches OK" },
-    { "id": 6, "ans": 4, "reason": "①finite OK, ②accurate OK, ③elastic OK, ④closer→apart(원문: move farther apart)" },
-    { "id": 7, "ans": 2, "reason": "T/F: '우주는 다른 별개의 존재나 다른 차원으로 팽창' → F(not spilling into another separate entity)" },
-    { "id": 8, "ans": 1, "reason": "T/F: '시공간의 구조는 적어도 빅뱅 이후로 존재' → T(at least since the Big Bang)" },
-    { "id": 9, "ans": 2, "reason": "T/F: '블랙홀 안에서 우리를 하나로 합칠 수 있다' → F(pull us apart = 찢어놓다, 합치는 것 아님)" },
-    { "id": 10, "ans": 1, "reason": "빈칸: the Universe expands into ____ → nothingness" },
-    { "id": 11, "ans": 3, "reason": "빈칸: It is ____ that stretches → the structure of space and time" },
-    { "id": 12, "ans": 1, "reason": "내용 일치: '시공간의 직물은 탄력적이고 유연하여 변형' → elastic and malleable 일치" },
-    { "id": 13, "ans": 3, "reason": "내용 불일치: '파이프 누출로 우주도 기존 공간으로 퍼진다' → In contrast to(대조 관계)이므로 불일치" },
-    { "id": 14, "ans": 4, "reason": "오류찾기: ④embedding→embedded(수동 관계 필요)" },
-    { "id": 15, "wa": "the Universe does not expand into anything", "reason": "더 정확히 표현한 문장: To be more accurate, the Universe does not expand into anything" },
-    { "id": 16, "wa": "elastic and malleable", "reason": "시공간 구조의 두 형용사: elastic and malleable" },
-    { "id": 17, "wa": "it is the structure of space and time that stretches", "reason": "강조구문: It is the structure of space and time that stretches" },
-    { "id": 18, "ans": 1, "reason": "주제: 우주 팽창의 본질과 시공간 구조의 특성" },
-    { "id": 19, "ans": 4, "reason": "요지: 우주 팽창은 외부 확장이 아니라 시공간 구조 자체의 신축" },
-    { "id": 20, "wa": "move farther apart", "reason": "조건영작: apart, farther, move → move farther apart (3단어)" }
-  ]
+    {
+      "id": 1,
+      "myAnswer": 2,
+      "reasoning": "어법 분석: grown → growing: 'a finite and growing boundary'에서 boundary를 수식하는 현재분사(~하고 있는) 필요. grown(과거분사/완료) 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 2,
+      "myAnswer": 3,
+      "reasoning": "어법 분석: stretched → stretches: 주절 현재시제(It is the structure... that stretches)에서 현재형 stretches가 필요. stretched(과거형) 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 3,
+      "myAnswer": 3,
+      "reasoning": "어법 분석: which → that: 'a room that exists in its own right'에서 선행사 room을 수식하는 주격 관계대명사. 문맥상 that이 적절하나, which도 비제한적 용법에서만 가능. 여기는 제한적 용법이므로 that 필요. 단, 실제로 which도 제한적에서 쓰일 수 있어 난이도가 있음. 원문 기준 that이 정답.",
+      "confidence": "high"
+    },
+    {
+      "id": 4,
+      "myAnswer": 4,
+      "reasoning": "어법 분석: embedding → embedded: 'anyone embedded in it'에서 사람/사물이 시공간에 '박혀 있는' 수동 관계. embedding(능동) 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 5,
+      "myAnswer": 2,
+      "reasoning": "원문 대조 결과 something → nothingness: 우주가 '무(nothingness)'로 팽창한다는 맥락. something(무언가)은 반의어로 부적절. 원문과 다른 단어가 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 6,
+      "myAnswer": 4,
+      "reasoning": "원문 대조 결과 closer → apart: 팽창하면 모든 것이 '더 멀리 떨어지게' 한다. closer(더 가깝게)는 apart(떨어지게)의 반의어로 부적절. 원문과 다른 단어가 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 7,
+      "myAnswer": 2,
+      "reasoning": "본문 내용 대조: (A)에서: our expanding Universe is not spilling into another separate entity, nor even another dimension — 별개의 존재나 다른 차원으로 팽창하는 것이 아니다.",
+      "confidence": "high"
+    },
+    {
+      "id": 8,
+      "myAnswer": 1,
+      "reasoning": "본문 내용 대조: (A)에서: a structure that has always existed, at least since the Big Bang — 적어도 빅뱅 이후로 항상 존재해왔다.",
+      "confidence": "high"
+    },
+    {
+      "id": 9,
+      "myAnswer": 2,
+      "reasoning": "본문 내용 대조: (C)에서: it can pull us apart as we fall inside a black hole — 블랙홀 안으로 떨어질 때 우리를 찢어놓을 수 있다. '하나로 합치는' 것이 아님.",
+      "confidence": "high"
+    },
+    {
+      "id": 10,
+      "myAnswer": 1,
+      "reasoning": "빈칸 전후 문맥에서 추론: 우주는 '무(nothingness)'로 팽창한다 — 다른 곳이 아닌 무로.",
+      "confidence": "high"
+    },
+    {
+      "id": 11,
+      "myAnswer": 3,
+      "reasoning": "빈칸 전후 문맥에서 추론: 늘어나는 것은 '시공간의 구조'이다 — 풍선이나 가스가 아닌.",
+      "confidence": "high"
+    },
+    {
+      "id": 12,
+      "myAnswer": 1,
+      "reasoning": "본문 내용 대조: (C)에서: This structure or fabric of space and time is elastic and malleable — 시공간의 직물은 탄력적이고 유연하다.",
+      "confidence": "high"
+    },
+    {
+      "id": 13,
+      "myAnswer": 3,
+      "reasoning": "본문 내용 대조: (A)에서 파이프 누출과 우주 팽창의 '대조'를 언급. 우주는 기존 공간으로 퍼지는 것이 아니라고 함.",
+      "confidence": "high"
+    },
+    {
+      "id": 14,
+      "myAnswer": 4,
+      "reasoning": "원문 대조 어법 확인: embedding → embedded: 'anyone embedded in it'에서 수동(박혀 있는) 관계이므로 과거분사 embedded 필요. embedding(능동) 부적절.",
+      "confidence": "high"
+    },
+    {
+      "id": 15,
+      "myAnswer": "the Universe does not expand into anything",
+      "reasoning": "본문에서 해당 표현 확인: 우주는 그 어떤 것 속으로도 팽창하지 않는다 — the Universe does not expand into anything.",
+      "confidence": "high"
+    },
+    {
+      "id": 16,
+      "myAnswer": "elastic and malleable",
+      "reasoning": "본문에서 해당 표현 확인: 시공간의 구조: 탄력적이고 유연한 — elastic and malleable.",
+      "confidence": "high"
+    },
+    {
+      "id": 17,
+      "myAnswer": "it is the structure of space and time that stretches",
+      "reasoning": "구문 구조 분석: 늘어나는 것은 시공간의 구조이다. (강조구문).",
+      "confidence": "high"
+    },
+    {
+      "id": 18,
+      "myAnswer": 1,
+      "reasoning": "전체 내용 종합: 글의 핵심: 우주 팽창은 다른 곳으로 퍼지는 것이 아니라 시공간 구조 자체가 늘어나는 것이며, 그 구조는 탄력적이고 유연하다.",
+      "confidence": "high"
+    },
+    {
+      "id": 19,
+      "myAnswer": 4,
+      "reasoning": "전체 내용 종합: 요지: 우주 팽창은 다른 곳으로 쏟아지는 것이 아니라 시공간 구조 자체가 탄력적으로 늘어나는 것이다.",
+      "confidence": "high"
+    },
+    {
+      "id": 20,
+      "myAnswer": "move farther apart",
+      "reasoning": "조건 단어 조합: 더 멀리 떨어지다 = move farther apart.",
+      "confidence": "high"
+    }
+  ],
+  "score": "20/20"
 }
