@@ -1,0 +1,50 @@
+{
+  "file": "data/모의고사/고3/3월_2026/43-45번/퀴즈.json",
+  "testType": "퀴즈",
+  "reviewedAt": "2026-04-23",
+  "reviewedBy": "claude-opus-4.6",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "questionId": "Q1-Q20",
+      "code": "S-ORDER-MARKER-LEAK",
+      "description": "(A)(B)(C)(D) 단락 마커가 비순서배열 유형의 passage에 전부 잔류. 20문항 전체에서 발생.",
+      "recommendation": "장문 지문 (A)(B)(C)(D) 마커 strip 필수."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 14,
+      "code": "REFERENT-AMBIGUITY",
+      "description": "지칭추론 Q14 — 밑줄 친 'them'이 stem에서는 'invited them to stay with her'로 제시되는데, passage에서의 밑줄 위치는 'she brought them to the hospital' 쪽. stem과 passage의 밑줄 위치가 다름.",
+      "recommendation": "passage의 밑줄 위치와 stem의 인용문이 일치하도록 수정."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 18,
+      "code": "QUIZ-ORDER-VIOLATION",
+      "description": "어순배열 Q18이 LAST 그룹에 배치. 퀴즈 순서 규칙상 어순배열은 FIRST 그룹에 와야 함.",
+      "recommendation": "문항 순서 재배치."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 20,
+      "code": "INCOMPLETE-SENTENCE",
+      "description": "서술형 영작 Q20 — wa 'prepared an extra mattress so that her'가 문장 미완성. passage 빈칸 뒤에 'parents could sleep nearby'가 이어지므로 wa가 절 중간에서 잘림. 학생은 7단어만 쓰면 되지만, wa 자체가 불완전한 문장이라 채점 모호.",
+      "recommendation": "wa를 완전 절로 변경하거나, 빈칸 범위를 조정하여 완결된 표현이 정답이 되도록."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 16,
+      "code": "WRITTEN-WA-IN-PASSAGE",
+      "description": "서술형 Q16 정답 'apple butter'가 passage에 노출. 찾기 유형이므로 정상.",
+      "recommendation": "정상."
+    }
+  ],
+  "summary": {
+    "HIGH": 1,
+    "MEDIUM": 3,
+    "LOW": 1,
+    "verdict": "FAIL — (A)(B)(C)(D) 마커 잔류 20문항 + 어순배열 순서 위반 + 영작 wa 미완성. 수정 후 재검수."
+  }
+}

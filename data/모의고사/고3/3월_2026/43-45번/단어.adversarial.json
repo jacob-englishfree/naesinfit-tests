@@ -1,0 +1,50 @@
+{
+  "file": "data/모의고사/고3/3월_2026/43-45번/단어.json",
+  "testType": "단어",
+  "reviewedAt": "2026-04-23",
+  "reviewedBy": "claude-opus-4.6",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "questionId": "ALL",
+      "code": "A6-ANS-DISTRIBUTION",
+      "description": "정답 1번 7개, 정답 2번 7개. 두 번호 모두 5개 초과. Q1~Q3 연속 1번, Q7~Q9 연속 1번, Q10~Q12 연속 2번, Q14~Q16 연속 2번.",
+      "recommendation": "정답 분포 재조정 필수."
+    },
+    {
+      "severity": "HIGH",
+      "questionId": "Q4-Q14",
+      "code": "S-ORDER-MARKER-LEAK",
+      "description": "장문 (A)(B)(C)(D) 순서배열 마커가 비순서배열 유형(부적절어휘, 빈칸, 동의어, 반의어 등)의 passage에 잔류. 학생에게 (A)(B)(C)(D) 마커가 보이면 순서배열 문제로 혼동. 13개 문항에서 발생.",
+      "recommendation": "passage에서 (A), (B), (C), (D) 마커를 strip하거나, 장문 특성상 단락 구분만 유지하고 마커 제거."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 1,
+      "code": "ABC-MISSING-C",
+      "description": "(A)(B)(C) 조합형 Q1 — stem에 (C) 위치가 없음. 선지에 'generous/selfish'가 있지만 passage에 (C) 마커가 없음. det에도 (C) 설명 부재.",
+      "recommendation": "(C) 마커를 passage에 추가하거나, 유형을 (A)(B) 2-조합으로 변경."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 7,
+      "code": "WEAK-DISTRACTOR",
+      "description": "빈칸어휘 Q7 — 정답 transplant. 오답 treatment/surgery/donation 중 surgery도 'heart surgery'로 자연스러움. 하지만 본문에 'transplant' 반복 등장하므로 소거 가능.",
+      "recommendation": "지문에 transplant가 이미 노출되므로 빈칸형으로서 난이도 '쉬움'은 적절."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 17,
+      "code": "MORPH-BASE-NOT-IN-FP",
+      "description": "어형변환 Q17 — 원형 'introduce'가 fullPassage에 'introducing'으로 존재하지만 원형 그대로는 없음.",
+      "recommendation": "변형형이 존재하므로 교육적으로 유효."
+    }
+  ],
+  "summary": {
+    "HIGH": 2,
+    "MEDIUM": 2,
+    "LOW": 1,
+    "verdict": "FAIL — 정답 분포 위반 + (A)(B)(C)(D) 마커 잔류 13문항. 수정 후 재검수 필요."
+  }
+}

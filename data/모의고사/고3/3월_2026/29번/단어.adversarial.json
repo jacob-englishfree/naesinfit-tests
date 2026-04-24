@@ -1,0 +1,41 @@
+{
+  "issues": [
+    {
+      "qId": 0,
+      "severity": "HIGH",
+      "type": "FULLPASSAGE_CORRUPTED",
+      "description": "fullPassage에 출제용 마커(①②③④⑤)가 삽입되어 있고, 원문 'accept'가 'reject'로 변형됨. fullPassage는 원문 그대로여야 하며 마커/변형은 개별 문항 passage에만 적용해야 함. fullPassage 원문 복원 필수: 마커 5개 제거 + reject→accept 복원."
+    },
+    {
+      "qId": 0,
+      "severity": "HIGH",
+      "type": "ANS_DISTRIBUTION_VIOLATION",
+      "description": "MC 18문항 중 정답 1번이 8회 출현. 규칙상 최대 5개인데 8개로 초과. 정답 재배치 필요."
+    },
+    {
+      "qId": 0,
+      "severity": "HIGH",
+      "type": "ANS_CONSECUTIVE_VIOLATION",
+      "description": "정답 1번이 3개 연속(Q10,11,12). 규칙상 최대 2개 연속."
+    },
+    {
+      "qId": 4,
+      "severity": "HIGH",
+      "type": "PASSAGE_MARKER_CORRUPTION",
+      "description": "Q4 passage에 ①②③④⑤ 5개 마커가 있으나 선지는 4개(①~④)뿐. ⑤reject 마커가 passage에 노출되지만 선택지에 없어 학생 혼란. 또한 ④④ 이중 마커 존재(④④<u>expand</u>). passage 재구성 필요."
+    },
+    {
+      "qId": 5,
+      "severity": "HIGH",
+      "type": "PASSAGE_MARKER_CORRUPTION",
+      "description": "Q5 passage에 이중 마커 존재: ①①<u>reshaped</u>, ②②<u>accumulates</u>. 또한 ⑤ 마커가 passage에 있으나 선지에 없음. passage 재구성 필요."
+    },
+    {
+      "qId": 6,
+      "severity": "HIGH",
+      "type": "PASSAGE_MARKER_CORRUPTION",
+      "description": "Q6 passage에 이중 마커 존재: ③③<u>branching</u>. 또한 ⑤ 마커가 passage에 있으나 선지에 없음. passage 재구성 필요."
+    }
+  ],
+  "summary": "29번 단어 20문항 적대적 공격 검수. HIGH 6건. 가장 심각한 문제: (1) fullPassage 자체가 마커+단어변형으로 오염됨(accept→reject, ①~⑤ 마커 삽입). (2) Q4~Q6 passage에 이중 마커(①①, ②② 등)와 ⑤번 여분 마커 존재 — 4지선다인데 5개 마커. (3) MC 정답 분포 위반(1번 8회, 3연속). 이 파일은 fullPassage 복원 + Q4~Q6 passage 재구성 + 정답 재분배가 모두 필요."
+}

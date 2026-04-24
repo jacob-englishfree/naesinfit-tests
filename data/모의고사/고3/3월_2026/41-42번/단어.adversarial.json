@@ -1,0 +1,64 @@
+{
+  "file": "data/모의고사/고3/3월_2026/41-42번/단어.json",
+  "testType": "단어",
+  "reviewedAt": "2026-04-23",
+  "reviewedBy": "claude-opus-4.6",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "questionId": "ALL",
+      "code": "A6-ANS-DISTRIBUTION",
+      "description": "정답 1번이 14/20 = 70%. Q1~Q3, Q7~Q16 연속 1번. 학생이 찍기만 해도 70점. validate A6/A7 위반.",
+      "recommendation": "정답 분포 재조정 필수. 최대 5개/번호, 최대 연속 2개 규칙."
+    },
+    {
+      "severity": "HIGH",
+      "questionId": 8,
+      "code": "DUAL-ANSWER-POSSIBLE",
+      "description": "빈칸 '_____ of reality' — 정답 version이지만, vision도 'a vision of reality'로 충분히 자연스러움. det에서 '가능하나 원문이 version'이라고만 설명 — 원문 암기 없이는 구별 불가.",
+      "recommendation": "vision을 다른 오답(예: venture)으로 교체하거나, stem에 '거울이 제공하는 것'이라는 한국어 단서 추가."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 7,
+      "code": "ANSWER-IN-PASSAGE",
+      "description": "빈칸 '직접적인 __________' — 정답 reflection이 fullPassage 앞부분과 뒷부분에 'reflection' 반복 등장. 소거법 없이도 지문에서 직접 찾을 수 있음.",
+      "recommendation": "validate EX-1 경고 확인. 빈칸형이므로 허용 범위이나, 빈칸 자리 바로 앞뒤 5단어 이내 reflection 재등장 여부 점검."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 19,
+      "code": "ANSWER-IN-PASSAGE",
+      "description": "빈칸 문맥 완성 — 정답 'a complex affair'가 그대로 원문에 등장. 빈칸 바로 뒤 'by no means a direct reflection'과 연결하면 원문 문장 그대로 복원됨.",
+      "recommendation": "빈칸 문맥 완성이므로 원문 복원 자체가 목적이긴 하나, 난이도 '보통'에 비해 지나치게 쉬움."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 20,
+      "code": "ANSWER-IN-PASSAGE",
+      "description": "빈칸에 'praising the kind of naive realism' — passage에서 빈칸 직전까지 읽으면 문맥상 바로 유추 가능. 난이도 '어려움'에 비해 쉬움.",
+      "recommendation": "난이도 재조정 또는 오답 선지 강화."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 15,
+      "code": "PASSAGE-NOT-FROM-FP",
+      "description": "다의어 문맥적 의미 — (B) 문장이 fullPassage에 없는 자작 문장. validate P2 경고.",
+      "recommendation": "다의어 유형 예외로 허용되나, passage 출처 명시 필요."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 17,
+      "code": "MORPH-BASE-NOT-IN-FP",
+      "description": "어형 변환 원형 'significance'가 fullPassage에 없음. fullPassage에는 'significant'만 존재.",
+      "recommendation": "validate A-MORPH 경고. 발췌 문장에서 출제했으므로 교육적으로는 유효하나, fullPassage 기반 원칙 확인."
+    }
+  ],
+  "summary": {
+    "HIGH": 2,
+    "MEDIUM": 3,
+    "LOW": 2,
+    "verdict": "FAIL — 정답 분포 A6/A7 위반 + Q8 복수정답 가능성. 수정 후 재검수 필요."
+  }
+}

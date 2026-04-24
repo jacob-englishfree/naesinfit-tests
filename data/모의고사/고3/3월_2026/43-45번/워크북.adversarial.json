@@ -1,0 +1,43 @@
+{
+  "file": "data/모의고사/고3/3월_2026/43-45번/워크북.json",
+  "testType": "워크북",
+  "reviewedAt": "2026-04-23",
+  "reviewedBy": "claude-opus-4.6",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "severity": "HIGH",
+      "questionId": "Q1-Q20",
+      "code": "S-ORDER-MARKER-LEAK",
+      "description": "(A)(B)(C)(D) 단락 마커가 비순서배열 유형(어법, 어휘, T/F, 빈칸추론, 내용일치, 오류찾기, 서술형, 어순배열, 주제/요지, 영작)의 passage에 전부 잔류. 20문항 전체에서 발생.",
+      "recommendation": "장문 지문의 특성상 (A)(B)(C)(D) 단락 마커 제거 또는 빈 줄만으로 구분. validate S-ORDER-MARKER-LEAK 20건 해소 필요."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 3,
+      "code": "MARKER-POSITION-MISMATCH",
+      "description": "어법 Q3 — ④ was가 passage (A) 단락에 위치하는데, 원문은 'The grieving parents were asking'이므로 was→were가 정답. 하지만 det에서 'Though they were total strangers' 문맥을 설명하면서 'they' 주어 기준이라 혼동. 실제로는 'The grieving parents ④was asking'이 오류 위치.",
+      "recommendation": "det 설명을 정확한 위치(A 단락의 parents were)로 수정."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 15,
+      "code": "WRITTEN-WA-IN-PASSAGE",
+      "description": "서술형 Q15 정답 'they were from the same hometown'이 passage에 노출. 찾기 유형이므로 정상.",
+      "recommendation": "정상."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 16,
+      "code": "WRITTEN-WA-IN-PASSAGE",
+      "description": "서술형 Q16 정답 'their home was four hours away from the hospital'이 passage에 노출. 찾기 유형이므로 정상.",
+      "recommendation": "정상."
+    }
+  ],
+  "summary": {
+    "HIGH": 1,
+    "MEDIUM": 1,
+    "LOW": 2,
+    "verdict": "FAIL — (A)(B)(C)(D) 마커 잔류 20문항. 마커 strip 후 재검수."
+  }
+}

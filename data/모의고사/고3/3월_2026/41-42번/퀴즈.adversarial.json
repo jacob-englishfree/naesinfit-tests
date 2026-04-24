@@ -1,0 +1,50 @@
+{
+  "file": "data/모의고사/고3/3월_2026/41-42번/퀴즈.json",
+  "testType": "퀴즈",
+  "reviewedAt": "2026-04-23",
+  "reviewedBy": "claude-opus-4.6",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "severity": "MEDIUM",
+      "questionId": 6,
+      "code": "WEAK-DISTRACTOR",
+      "description": "빈칸추론 Q6 — 정답 'exclusions and distortions'. 오답 3개(direct reflections, coherent images, naive assumptions)가 fullPassage에 등장하지 않는 조합어. 본문에 개별 단어는 있으나 조합이 없어 소거법으로 풀림 가능.",
+      "recommendation": "오답을 fullPassage에 실제 등장하는 표현 조합으로 교체 (예: flaws and blind spots, contradictions and absences)."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 14,
+      "code": "REFERENT-AMBIGUITY",
+      "description": "지칭추론 Q14 — stem에서 <u>It</u>이 passage 앞부분('as It stands')에 밑줄쳐져 있는데, stem 본문에서는 'Even so ~ It is as though ~'를 묻고 있음. passage의 밑줄 위치와 stem의 질문 위치가 불일치 — 학생 혼란 가능.",
+      "recommendation": "passage의 밑줄 위치를 stem이 묻는 'It is as though it allows us~' 위치로 이동."
+    },
+    {
+      "severity": "MEDIUM",
+      "questionId": 18,
+      "code": "QUIZ-ORDER-VIOLATION",
+      "description": "어순배열 Q18이 LAST 그룹(id=18)에 배치. 퀴즈 순서 규칙상 어순배열은 FIRST 그룹에 와야 함.",
+      "recommendation": "문항 순서 재배치 — 어순배열을 앞쪽(Q1~Q5)으로 이동."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 16,
+      "code": "WRITTEN-WA-IN-PASSAGE",
+      "description": "서술형 Q16 정답 'by no means a direct reflection'이 passage에 노출. 찾기 유형이므로 허용.",
+      "recommendation": "정상."
+    },
+    {
+      "severity": "LOW",
+      "questionId": 3,
+      "code": "DUPLICATE-GRAMMAR-POINT",
+      "description": "어법 Q3 — what → which 문법 포인트가 워크북 Q1과 동일. 같은 지문에서 동일 문법 포인트 중복 출제.",
+      "recommendation": "cross-test 중복은 허용 범위이나, 학생이 두 테스트를 연속 풀 경우 신선도 저하."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 3,
+    "LOW": 2,
+    "verdict": "CONDITIONAL PASS — 어순배열 순서 위반(Q18) 수정 + 지칭추론(Q14) 밑줄 위치 수정 후 통과."
+  }
+}
