@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Filippo Brunelleschi is considered to be the found",
+    "subject": "6월 고2 모의고사",
+    "pub": "26번",
+    "lesson": "Filippo Brunelleschi is considered to be the found",
+    "histKey": "wordtest_2_6_26_v3"
+  },
+  "fullPassage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically <b>(A)</b>[talented / gifted], and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the <b>(B)</b>[remains / relics] of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also <b>(C)</b>[designed / neglected] machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "gifted — remains — designed",
+        "talented — remains — designed",
+        "talented — relics — designed",
+        "talented — remains — neglected"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, <b>(A)</b>[strengthened / weakened] his reputation. And the <b>(B)</b>[stunning / dull] dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was <b>(C)</b>[buried / abandoned] in Il Duomo.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "weakened — stunning — buried",
+        "strengthened — dull — buried",
+        "strengthened — stunning — abandoned",
+        "strengthened — stunning — buried"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the <b>(A)</b>[founding / establishing] father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of <b>(B)</b>[ancient / modern] Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to <b>(C)</b>[produce / consume] special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "founding — modern — produce",
+        "establishing — ancient — produce",
+        "founding — ancient — produce",
+        "founding — ancient — consume"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically ①<u>talented</u>, and ②<u>restrained</u> as a goldsmith and a clockmaker before becoming an ③<u>architect</u>. When he was around 25, he ④<u>traveled</u> to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural ①<u>commission</u> was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, ②<u>strengthened</u> his reputation. And the stunning dome of Il Duomo is his ③<u>catastrophe</u>. He also ④<u>designed</u> machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the ②<u>founding</u> father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ③<u>ancient</u> Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his ④<u>reputation</u>. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to ①<u>prevent</u> special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an __________. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "sculptor",
+        "goldsmith",
+        "machinery",
+        "architect"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his __________. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "reputation",
+        "productions",
+        "chapels",
+        "machinery"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the __________ of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "commission",
+        "masterpiece",
+        "effects",
+        "remains"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the <u>stunning</u> dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "밑줄 친 <b>stunning</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "ordinary",
+        "breathtaking",
+        "fragile",
+        "temporary"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, <u>strengthened</u> his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "밑줄 친 <b>strengthened</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "reinforced",
+        "diminished",
+        "delayed",
+        "abandoned"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural <u>commission</u> was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "밑줄 친 <b>commission</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "obstacle",
+        "competition",
+        "residence",
+        "assignment"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of <u>ancient</u> Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "밑줄 친 <b>ancient</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "modern",
+        "historic",
+        "remote",
+        "classical"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically <u>talented</u>, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "밑줄 친 <b>talented</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "creative",
+        "brilliant",
+        "incompetent",
+        "capable"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Filippo was artistically talented, and <u>trained</u> as a goldsmith and a clockmaker before becoming an architect.\n\n(B) The rescue team <u>trained</u> their binoculars on the distant mountain to spot the missing hikers.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 <b>trained</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 조준하다 — (B) 훈련받다",
+        "(A) 훈련받다 — (B) 조준하다",
+        "(A) 조준하다 — (B) 조준하다",
+        "(A) 훈련받다 — (B) 훈련받다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어를 고르시오.\n\n\"a person who makes decorative objects out of gold\"",
+      "ch": [
+        "architect",
+        "sculptor",
+        "goldsmith",
+        "clockmaker"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, __________ (strengthen) his reputation.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "His first __________ (architecture) commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied the remains of ancient Roman buildings. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce __________. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "chapels in Florentine churches",
+        "remains of ancient Roman buildings",
+        "a goldsmith and a clockmaker",
+        "special effects in theatrical productions"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Filippo Brunelleschi is considered to be the founding father of Renaissance architecture. He was born in Florence in 1377. Filippo was artistically talented, and trained as a goldsmith and a clockmaker before becoming an architect. When he was around 25, he traveled to Rome with his friend, the sculptor Donatello, where he studied __________. His first architectural commission was the Ospedale degli Innocenti, which is one of the great Renaissance buildings. A number of other fine works, including chapels in Florentine churches, strengthened his reputation. And the stunning dome of Il Duomo is his masterpiece. He also designed machinery to produce special effects in theatrical productions. He died in Florence and was buried in Il Duomo.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "the remains of ancient Roman buildings",
+        "the founding father of Renaissance architecture",
+        "a goldsmith and a clockmaker",
+        "chapels in Florentine churches"
+      ]
+    }
+  ]
+}
