@@ -598,12 +598,14 @@ function validate(jsonPath) {
       result.add('X30', SEV.S, `Q${qid}: contains ERROR pattern`);
     }
 
-    // X31
+    // X31 — "undefined"가 fullPassage 원문에 있으면 false positive이므로 제외
     if (/\bundefined\b|\bnull\b|\bNaN\b/.test(allText.replace(/"[^"]*"/g, ''))) {
       // Only flag if not inside a JSON string value context
       // Simple heuristic: check in stem and passage directly
       const directText = (q.stem || '') + ' ' + (passage || '');
-      if (/\bundefined\b|\bNaN\b/.test(directText)) {
+      const fpHasUndefined = fullPassage && /\bundefined\b/.test(fullPassage);
+      const testPattern = fpHasUndefined ? /\bNaN\b/ : /\bundefined\b|\bNaN\b/;
+      if (testPattern.test(directText)) {
         result.add('X31', SEV.S, `Q${qid}: contains undefined/NaN literal`);
       }
     }
@@ -764,6 +766,7 @@ function validate(jsonPath) {
         'successfulness','supportiveness','thoughtfulness','assertiveness',
         'thankfulness','gratefulness','hopefulness','resourcefulness',
         'meaningfulness','cheerfulness','forgetfulness','restfulness',
+        'nothingness','willingness','belongingness','lovingness',
       ]);
       const waWords = q.wa.split(/\s+/);
       const nonsenseWord = waWords.find(w => /[a-z]+(tion|ment|ness|ful|ous|ive|al|ed|ing|ly)(tion|ness)$/i.test(w) && w.length > 10 && !X39_WHITELIST.has(w.toLowerCase()));
@@ -1079,7 +1082,7 @@ function validate(jsonPath) {
       if (isMockOrSupp && fullLen >= 200) {
         const typeNoSpace = String(typeNorm || '').replace(/\s+/g, '');
         // 면제: 어형변환/영영풀이/영작/어법/부적절 어휘 (paraphrased excerpts OK) + 찾기 stem
-        const skipFull = /어형변환|영영풀이|다의어|문장단위어법|조건영작|어순배열/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
+        const skipFull = /어형변환|영영풀이|다의어|문장단위어법|조건영작|어순배열|오류찾기/.test(typeNoSpace) || /본문에서\s*찾아|본문\s*속/.test(String(q.stem || ''));
         // 문장단위 어법: ①②③④ at sentence start, no <u>
         const isSentLevelGrammar = /[①②③④⑤]\s*[A-Z]/.test(passage) && !/<u>/i.test(passage) && (passage.match(/[①②③④⑤]/g) || []).length >= 3;
         if (!skipFull && !isSentLevelGrammar) {
@@ -1850,14 +1853,14 @@ function validate(jsonPath) {
       '빈칸 추론', '빈칸추론', '빈칸 문맥 완성', '빈칸 어휘 완성'
     ],
     '퀴즈': [
-      '순서', '글순서',
+      '순서', '글순서', '순서배열', '문장삽입',
       '어법 빈칸', '어법 ⓐ~ⓔ', '어법 ⓐ~ⓓ', '어법 A/B/C', '어법 밑줄형', '어법 빈칸형', '어법빈칸', '어법 5지선다',
       '부적절어휘', '부적절',
       '어휘', '어휘 ①~⑤', '어휘 A/B/C',
       '빈칸', '빈칸(구)', '빈칸(문장)', '빈칸 추론', '빈칸추론', '빈칸 어휘 완성',
       '서술', '서술형요약', '서술형영작', '서술형어형', '서술형(요약)', '서술형(영작)', '서술형(어형)', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
       '일치', '불일치', '내용이해', '내용일치', '내용불일치', '내용 일치/불일치',
-      'TF', 'TF 판별',
+      'TF', 'TF 판별', 'T/F', '내용이해 T/F',
       '어형 변환 (서술형)', '어형변화', '어형변형',
       '다의어 / 문맥적 의미',
       '주제/요지', '주제빈칸', '제목', '대의', '시사점', '무관문장', '무관', '함축', '요약', '요약문', '추론',
@@ -2415,6 +2418,8 @@ function findJsonFiles(dir) {
     if (entry.isDirectory() && entry.name !== '_passages') {
       results = results.concat(findJsonFiles(full));
     } else if (entry.name.endsWith('.json')) {
+      if (entry.name.startsWith('_')) continue;
+      if (/\.(blind|blind-prompt|prompt|response)\.json$/.test(entry.name)) continue;
       results.push(full);
     }
   }
