@@ -1,0 +1,39 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-04-27",
+  "file": "data/모의고사/고3/9월/37번/단어.json",
+  "role": "adversarial-reviewer",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 19,
+      "type": "정답노출",
+      "description": "Q19 빈칸 정답 'going on'이 passage 다른 곳('something mathematical going on')에 노출. 그러나 빈칸 자리가 명확하고 다른 곳의 going on은 다른 문장이므로 학생이 문맥 추론으로 풀어야 하는 구조 유지됨.",
+      "action": "KEEP — 빈칸이 있어 구별 가능"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 3,
+      "type": "유사어혼동",
+      "description": "Q3 (A) rely vs depend — 둘 다 '의존하다'로 의미 거의 동일. 원문이 rely이므로 정답은 명확하나, depend를 고른 학생이 억울할 수 있음.",
+      "action": "KEEP — 단어 테스트 특성상 원문 정확 재현이 목적. stem이 이를 명시."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 17,
+      "type": "passage출처",
+      "description": "Q17 어형변환 passage가 fullPassage 발췌라 P2 경고 발생. 어형변환은 발췌 허용 예외.",
+      "action": "KEEP — 어형변환 유형은 발췌 허용"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "totalIssues": 3,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}
