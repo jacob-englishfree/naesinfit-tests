@@ -1,0 +1,30 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-04-27",
+  "file": "data/모의고사/고2/3월_2025/32번/워크북.json",
+  "role": "adversarial-reviewer",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [15, 16],
+      "category": "EX-2 정답 노출",
+      "description": "서술형 Q15, Q16은 본문에서 찾기 유형. 정답이 passage에 노출되는 것이 의도적. stem에 '본문에서 찾아'가 명시되어 있음.",
+      "action": "ACCEPT - 찾기 유형 구조적 특성"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [10, 11],
+      "category": "Q6-WEAK-DISTRACTOR",
+      "description": "빈칸추론 Q10, Q11에서 오답이 fullPassage에 없어 소거법 가능. 그러나 phrase 수준의 오답(a widely accepted scientific theory 등)은 fullPassage에 존재하기 어려운 것이 정상. 의미적 판단이 핵심.",
+      "action": "ACCEPT - phrase 수준 빈칸추론의 구조적 한계"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "summary": "HIGH 이슈 0건. 서술형 찾기 유형의 정답 노출과 phrase 빈칸추론의 오답 한계는 구조적 특성. 배포 가능.",
+  "verdict": "PASS"
+}
