@@ -1,0 +1,29 @@
+{
+  "file": "data/모의고사/고3/6월/31번/워크북.json",
+  "timestamp": "2026-04-27T12:40:00.000Z",
+  "attacker": "opus-4.6-adversarial",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": [15, 16],
+      "type": "서술형 정답 passage 노출",
+      "description": "Q15 chemical trails, Q16 route learning이 passage에 노출. 단, 둘 다 stem에 '본문에서 찾아' 명시된 찾기 유형이므로 의도적 노출.",
+      "action": "허용 (찾기 유형)"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 14,
+      "type": "오류찾기 passage 구조",
+      "description": "Q14 오류찾기: fullPassage에서 overlay 마커 적용. 마커 4개(have been, in which→which, release, expend)가 분산됨.",
+      "action": "유지"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}

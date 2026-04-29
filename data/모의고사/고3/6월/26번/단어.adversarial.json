@@ -1,0 +1,54 @@
+{
+  "file": "data/모의고사/고3/6월/26번/단어.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-04-27T00:00:00Z",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "issue": "ABC 정답 단어가 지문 다른 곳에도 노출됨 (EX-3 경고)",
+      "detail": "26번은 9문장 짧은 지문이라 ABC 타겟 단어가 지문 내에서 반복 노출 불가피. 단어 테스트 특성상 학생이 어휘를 알아야 풀 수 있으므로 문맥 노출은 학습 의도와 부합.",
+      "action": "ACCEPT — 짧은 지문 한계"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9, 19, 20],
+      "issue": "빈칸 정답이 지문 다른 곳에 노출될 수 있음",
+      "detail": "Q7 'directed', Q8 'discovered', Q9 'responses'는 지문에서 한 번만 등장하여 빈칸으로 가리면 노출 없음. Q19 'published'도 한 번만 등장. Q20 'wait time'은 따옴표 안에 있어 빈칸 처리됨.",
+      "action": "ACCEPT — 노출 없음 확인"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [4, 5, 6],
+      "issue": "부적절 어휘 마커 분산 확인",
+      "detail": "Q4: ①achievements(1문장)→②inspired(2문장)→③hindered(5문장)→④leading(마지막문장) — 전체 분산 OK. Q5: ①graduated(3문장)→②abandoned(6문장)→③served(7문장)→④published(8문장) — 중후반 집중이지만 수용 가능. Q6: ①earned(4문장)→②increasing(5문장)→③practiced(9문장)→④forgotten(마지막) — 분산 OK.",
+      "action": "ACCEPT — 9문장 짧은 지문에서 합리적 분산"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionIds": [15],
+      "issue": "다의어 (B) 문장이 fullPassage와 무관한 창작 문장",
+      "detail": "다의어 유형은 AI가 passage를 직접 작성하는 유일한 예외 유형. (A)는 원문 기반, (B)는 다른 의미 문맥이므로 창작 필요. 규칙 준수.",
+      "action": "ACCEPT — 다의어 규칙 정상"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionIds": [17, 18],
+      "issue": "어형변환 정답이 너무 쉬울 수 있음",
+      "detail": "Q17 serve→served(과거시제), Q18 remember→remembered(수동태). 둘 다 기본적인 문법 포인트이나 Q17=보통5점, Q18=어려움6점 배점이 적절한지. Q18의 수동태 인식은 'was ___'에서 명확하게 단서 제공.",
+      "action": "ACCEPT — 단어테스트 어형변환은 기본 문법 확인이 목적"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — HIGH 이슈 0건, 배포 가능"
+  }
+}

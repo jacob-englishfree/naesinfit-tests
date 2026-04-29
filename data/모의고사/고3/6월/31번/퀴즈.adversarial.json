@@ -1,0 +1,29 @@
+{
+  "file": "data/모의고사/고3/6월/31번/퀴즈.json",
+  "timestamp": "2026-04-27T13:10:00.000Z",
+  "attacker": "opus-4.6-adversarial",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": [16, 17],
+      "type": "서술형 정답 passage 노출",
+      "description": "Q16 teach, Q17 route learning이 passage에 노출. 둘 다 stem에 '본문에서 찾아' 명시된 찾기 유형.",
+      "action": "허용 (찾기 유형)"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 18,
+      "type": "어순배열 순서 위치",
+      "description": "Q18 어순배열이 퀴즈 순서 규칙상 FIRST 그룹에 있어야 하지만 뒤에 위치. B-level 경고.",
+      "action": "유지 (slot 순서는 prompt.json이 결정)"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}
