@@ -1,0 +1,35 @@
+{
+  "file": "data/모의고사/고1/6월/37번/단어.json",
+  "timestamp": "2026-04-27T12:10:00.000Z",
+  "attacker": "opus-4.6-adversarial",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": "ADV-B-EX3",
+      "severity": "LOW",
+      "qIds": [1, 2, 3],
+      "description": "EX-3: (A)(B)(C) 조합형 문항에서 정답 단어가 passage 다른 곳에도 노출됨. 이 지문은 원래 (A)(B)(C) 구조가 있는 순서배열형이라 (A)(B)(C) 조합형을 만들면 다른 단락에서 같은 단어가 등장할 수밖에 없음. 단어 테스트 특성상 허용 범위.",
+      "action": "ACCEPT — 원문 구조상 불가피. 단어 테스트에서 (A)(B)(C) 조합형은 어휘 지식 테스트 목적."
+    },
+    {
+      "id": "ADV-B-Q9",
+      "severity": "LOW",
+      "qIds": [9],
+      "description": "Q9 빈칸 'not ____ for their smarts': recognized(①)도 문맥상 성립 가능('인정받은'). 그러나 원문은 praised이며, recognized는 FP에서 다른 문맥(internationally recognized pioneer)에 사용됨. 'not recognized for their smarts but for their effort' 해석도 가능하나 praised가 더 자연스럽고 원문과 일치.",
+      "action": "ACCEPT — praised가 유일한 정답. recognized는 'pioneer'를 수식하는 다른 문맥에서 사용됨."
+    },
+    {
+      "id": "ADV-B-Q15",
+      "severity": "LOW",
+      "qIds": [15],
+      "description": "Q15 다의어: (B) 문장이 fullPassage에 없는 AI 직접 작성 문장. 그러나 다의어 유형은 스펙상 AI가 직접 passage 작성하는 것이 허용됨.",
+      "action": "ACCEPT — 다의어 유형 스펙 준수."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "total": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "meta": { "file": "data/모의고사/고1/6월/31번/워크북.json", "attackerModel": "claude-opus-4-6", "date": "2026-04-27", "method": "adversarial attack" },
+  "issues": [
+    { "id": "ADV-01", "severity": "LOW", "questionId": 15, "issue": "찾기 유형이라 wa='detect'가 passage에 노출되는 건 의도된 것이나, B급 경고 발생", "resolution": "찾기 유형 특성상 허용. validate도 S급이 아닌 B급으로만 감지." },
+    { "id": "ADV-02", "severity": "LOW", "questionId": 11, "issue": "hardly는 부사인데 빈칸 위치가 'they are ___ stupid'이므로 부사 위치로 문법적으로도 추론 가능", "resolution": "오답(poorly, profoundly, alone)도 모두 부사라 품사로만 소거 불가. 문맥 추론 필수." }
+  ],
+  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 2, "verdict": "PASS — HIGH 0건, 배포 가능" }
+}
