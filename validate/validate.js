@@ -1239,7 +1239,9 @@ function validate(jsonPath) {
       // 마커형(①②③④) 선지는 중복 체크 제외 — 내용은 overlay가 결정하므로 오탐
       const MARKER_SET = new Set(['①','②','③','④','⑤']);
       const isMarkerCh = q.ch.every(c => MARKER_SET.has(String(c).trim()));
-      if (!isMarkerCh) for (let j = i + 1; j < questions.length; j++) {
+      // T/F형 선지는 중복 체크 제외 — 선지가 고정(T/F/None)이므로 stem이 다르면 다른 문항
+      const isTFCh = q.ch.some(c => /^[TF]\s*\(/.test(String(c).trim()) || /^(True|False)$/i.test(String(c).trim()));
+      if (!isMarkerCh && !isTFCh) for (let j = i + 1; j < questions.length; j++) {
         const other = questions[j];
         if (!other || !Array.isArray(other.ch) || other.ch.length !== 4) continue;
         // 상대도 마커형이면 스킵
@@ -2111,16 +2113,21 @@ function validate(jsonPath) {
       }
     }
 
-    // ── Q4: 영영풀이 정답이 fullPassage에 존재해야 함 ──
-    if (/영영풀이/.test(qtype) && fmt === 'mc' && ch.length > 0 && q.ans >= 1 && q.ans <= ch.length) {
-      const ansText = (ch[q.ans - 1] || '').trim().toLowerCase();
-      if (ansText && fullPassage && !fullPassage.toLowerCase().includes(ansText)) {
-        result.add('Q4-EIYOUNG-NOT-IN-FP', SEV.S, `Q${qid}: 영영풀이 정답 "${ansText}"이 fullPassage에 없음`);
+    // ── Q4: 영영풀이 대상 단어가 fullPassage에 존재해야 함 ──
+    // 영영풀이 매칭은 정의(ch)가 아니라 대상 단어(stem의 <b>단어</b>)가 fullPassage에 있어야 함
+    if (/영영풀이/.test(qtype) && fmt === 'mc' && fullPassage) {
+      const stemText = String(q.stem || '');
+      const boldMatch = stemText.match(/<b>(.*?)<\/b>/);
+      const targetWord = boldMatch ? boldMatch[1].trim().toLowerCase() : '';
+      if (targetWord && !fullPassage.toLowerCase().includes(targetWord)) {
+        result.add('Q4-EIYOUNG-NOT-IN-FP', SEV.S, `Q${qid}: 영영풀이 대상 단어 "${targetWord}"이 fullPassage에 없음`);
       }
     }
 
     // ── Q5: 서술형 wa가 fullPassage에서 유도 가능해야 함 ──
-    if (fmt === 'written' && wa && typeof wa === 'string' && !/어순/.test(qtype)) {
+    // 어순배열/순서배열/무관문장/문장삽입은 구조적 답변(번호/순서)이므로 제외
+    const isStructuralAnswer = /어순|순서|무관|삽입/.test(qtype) || /^[A-Z]{2,4}$/.test((wa || '').trim()) || /^[1-5④⑤③②①]$/.test((wa || '').trim());
+    if (fmt === 'written' && wa && typeof wa === 'string' && !isStructuralAnswer) {
       const waClean = wa.trim();
       // 어형변환은 변환형이 fullPassage에 없는 게 정상 (science→scientific)
       const isMorphChange = /어형\s*변환|어형변화|어형변형/.test(qtype);
@@ -2133,10 +2140,14 @@ function validate(jsonPath) {
     }
 
     // ── Q6: 빈칸형 오답 3개 이상이 fullPassage에 없으면 소거법으로 풀림 ──
+    // 한국어 선지(빈칸추론 등)는 영어 fullPassage에 포함될 수 없으므로 제외
     if (/빈칸/.test(qtype) && fmt === 'mc' && ch.length >= 4 && q.ans >= 1 && fullPassage) {
-      const wrongNotInFp = ch.filter((c, i) => i !== q.ans - 1 && !fullPassage.includes(c.trim())).length;
-      if (wrongNotInFp >= 3) {
-        result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNotInFp}개가 fullPassage에 없음 — 소거법으로 풀림`);
+      const hasKoreanChoice = ch.some(c => /[\uAC00-\uD7A3]/.test(c));
+      if (!hasKoreanChoice) {
+        const wrongNotInFp = ch.filter((c, i) => i !== q.ans - 1 && !fullPassage.includes(c.trim())).length;
+        if (wrongNotInFp >= 3) {
+          result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNotInFp}개가 fullPassage에 없음 — 소거법으로 풀림`);
+        }
       }
     }
 
@@ -2197,12 +2208,18 @@ function validate(jsonPath) {
     }
 
     // A-MORPH-BASE-NOT-IN-FP: 어형변환 원형이 fullPassage에 없음
+    // 밑줄(____) 패턴은 원형이 아니므로 제외, wa(변환 결과)가 FP에 있으면 OK
     if (/어형/.test(qtype) && passage) {
       const morphBase = passage.match(/\((\w{3,})\)/);
       if (morphBase && fullPassage) {
         const base = morphBase[1];
-        if (!fullPassage.toLowerCase().includes(base.toLowerCase())) {
-          result.add('A-MORPH-BASE-NOT-IN-FP', SEV.A, `Q${qid}: 어형변환 원형 "(${base})"이 fullPassage에 없음`);
+        const isUnderscore = /^_+$/.test(base);
+        if (!isUnderscore && !fullPassage.toLowerCase().includes(base.toLowerCase())) {
+          // 어형변환은 base→wa 변환이므로, wa가 FP에 있으면 정상
+          const waInFp = wa && fullPassage.toLowerCase().includes(wa.trim().toLowerCase());
+          if (!waInFp) {
+            result.add('A-MORPH-BASE-NOT-IN-FP', SEV.A, `Q${qid}: 어형변환 원형 "(${base})"이 fullPassage에 없음`);
+          }
         }
       }
     }
