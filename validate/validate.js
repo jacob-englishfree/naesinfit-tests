@@ -2082,7 +2082,8 @@ function validate(jsonPath) {
   // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   for (const q of questions) {
-    const { id: qid, type: qtype = '', fmt = '', passage = '', stem = '', ch = [], wa = '', det = {} } = q;
+    const { id: qid, type: qtype = '', fmt = '', passage = '', stem = '', ch = [], wa: _rawWa = '', det = {} } = q;
+    const wa = (typeof _rawWa === 'string') ? _rawWa : String(_rawWa || '');
     const p = passage || '';
 
     // ── Q1: 어순배열 stem에 단어 수 조건 필수 ──
@@ -2176,7 +2177,7 @@ function validate(jsonPath) {
     }
 
     // S-YJAKR-NO-BLANK: 조건영작 passage에 정답 부분 빈칸 없음
-    if (fmt === 'written' && /조건영작/.test(qtype) && passage.length > 50) {
+    if (fmt === 'written' && /조건영작/.test(qtype) && passage && passage.length > 50) {
       if (!passage.includes('____')) {
         result.add('S-YJAKR-NO-BLANK', SEV.S, `Q${qid}: 조건영작 passage에 빈칸(____) 없음 — 정답자리를 가려야 함`);
       }
