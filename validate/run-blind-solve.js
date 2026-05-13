@@ -38,6 +38,78 @@ function collectFiles(target) {
 }
 
 /**
+ * 텍스트 정규화 (비교용)
+ */
+function norm(s) {
+  return (s || '').toLowerCase().replace(/\s+/g, ' ').replace(/['']/g, "'").trim();
+}
+
+/**
+ * passage에서 HTML 태그/마커 제거하여 순수 텍스트 추출
+ */
+function stripHtml(s) {
+  return (s || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/[①②③④⑤]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * passage의 마커형(①<u>word</u>) 단어들을 추출
+ * 반환: [{marker: '①', word: 'being', idx: 1}, ...]
+ */
+function extractMarkerWords(passageRaw) {
+  const markers = [];
+  const markerMap = {'①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5};
+  // 패턴: ①<u>word</u> 또는 ①word
+  const re = /([①②③④⑤])\s*(?:<u>)?([^<①②③④⑤,.\n]+?)(?:<\/u>)?(?=\s|[.,;:!?\n]|[①②③④⑤]|$)/g;
+  let m;
+  while ((m = re.exec(passageRaw)) !== null) {
+    markers.push({
+      marker: m[1],
+      word: m[2].trim(),
+      idx: markerMap[m[1]] || 0
+    });
+  }
+  return markers;
+}
+
+/**
+ * fullPassage에서 context 기준으로 특정 위치의 원문 단어를 찾음
+ * passageWord의 주변 context를 fullPassage에서 검색
+ */
+function findOriginalWord(fpNorm, passNorm, markerWord) {
+  const mw = norm(markerWord);
+  // markerWord 전후 문맥을 passage에서 추출
+  const mwIdx = passNorm.indexOf(mw);
+  if (mwIdx < 0) return null;
+
+  // 전후 3-5단어 컨텍스트
+  const beforeCtx = passNorm.substring(Math.max(0, mwIdx - 60), mwIdx).trim();
+  const afterCtx = passNorm.substring(mwIdx + mw.length, mwIdx + mw.length + 60).trim();
+
+  const beforeWords = beforeCtx.split(/\s+/).slice(-3).join(' ');
+  const afterWords = afterCtx.split(/\s+/).slice(0, 3).join(' ');
+
+  if (beforeWords.length < 3) return null;
+
+  // fullPassage에서 같은 전후문맥 찾기
+  const fpIdx = fpNorm.indexOf(beforeWords);
+  if (fpIdx < 0) return null;
+
+  const fpAfter = fpNorm.substring(fpIdx + beforeWords.length).trim();
+  // 다음 단어(들) 추출
+  const fpWords = fpAfter.split(/[\s,.;:!?'"]+/).filter(Boolean);
+  if (fpWords.length === 0) return null;
+
+  // markerWord가 여러 단어일 수 있음
+  const mwWordCount = mw.split(/\s+/).length;
+  const originalWords = fpWords.slice(0, mwWordCount).join(' ');
+  return originalWords;
+}
+
+/**
  * 블라인드 풀이 — passage + stem + ch만 보고 정답 추론
  *
  * ⛔ 이 함수는 ans, wa, det, accept를 절대 받지 않습니다.
@@ -45,128 +117,349 @@ function collectFiles(target) {
 function solveQuestion(q) {
   const { passage, stem, ch, fmt, type, fullPassage } = q;
   const fp = (fullPassage || '').toLowerCase();
+  const fpRaw = fullPassage || '';
+  const passRaw = passage || '';
   const pass = (passage || '').toLowerCase();
+  const passStripped = norm(stripHtml(passRaw));
+  const fpNorm = norm(fpRaw);
+  const typeL = (type || '').toLowerCase();
 
+  // ═══════════════════════════════════════════
+  // 서술형 (written)
+  // ═══════════════════════════════════════════
   if (fmt === 'written') {
-    // 서술형: passage에서 단서를 찾아 추론
-    // 어형변환: 괄호 안 원형에서 변형
-    const morphMatch = (passage || '').match(/_{5,}\s*\((\w+)\)/);
+    // ── 어형변환: __________ (base) → fullPassage에서 정확한 형태 찾기 ──
+    const morphMatch = passRaw.match(/_{3,}\s*\((\w+)\)/);
     if (morphMatch) {
       const base = morphMatch[1].toLowerCase();
-      // 일반적인 어형변환 규칙
+      // fullPassage에서 base의 변형 찾기
+      const fpWords = fpRaw.split(/[\s,.;:!?'"()\[\]]+/).filter(Boolean);
+      const found = fpWords.find(w => {
+        const wl = w.toLowerCase();
+        if (wl === base) return false; // 원형 그대로는 제외
+        if (wl.startsWith(base.substring(0, Math.min(base.length, 4)))) return true;
+        if (base.endsWith('e') && wl.startsWith(base.slice(0, -1))) return true;
+        if (base.endsWith('y') && wl.startsWith(base.slice(0, -1))) return true;
+        return false;
+      });
+
+      // context-based: passage에서 빈칸 전후 문맥을 fullPassage에서 찾기
+      const blankIdx = pass.indexOf('___');
+      if (blankIdx >= 0) {
+        const beforeCtx = pass.substring(Math.max(0, blankIdx - 60), blankIdx).trim();
+        const afterMatch = pass.substring(blankIdx).match(/_{3,}\s*\(\w+\)\s*(.*)/);
+        const afterCtx = afterMatch ? afterMatch[1].substring(0, 40).trim() : '';
+        const bWords = beforeCtx.split(/\s+/).slice(-3).join(' ');
+        if (bWords.length > 3) {
+          const fpIdx2 = fp.indexOf(bWords);
+          if (fpIdx2 >= 0) {
+            const fpAfter = fp.substring(fpIdx2 + bWords.length).trim();
+            const fpWord = fpAfter.split(/[\s,.;:!?'"()\[\]]+/).filter(Boolean)[0];
+            if (fpWord && fpWord !== base) {
+              return { answer: fpWord, reasoning: `어형변환 원문대조: (${base}) → "${fpWord}"` };
+            }
+          }
+        }
+      }
+
+      if (found) {
+        return { answer: found.toLowerCase(), reasoning: `어형변환 FP검색: (${base}) → "${found}"` };
+      }
+      // 규칙 기반 폴백
       const forms = generateWordForms(base);
-      // passage 문맥에서 가장 적합한 형태 추론
-      return { answer: forms[0] || base, reasoning: `어형변환: ${base} → ${forms[0]}` };
+      return { answer: forms[0] || base, reasoning: `어형변환 규칙: ${base} → ${forms[0]}` };
     }
 
-    // 어순배열: stem에 주어진 단어들을 배열
-    if ((type || '').includes('어순') || (stem || '').includes('배열')) {
-      return { answer: '[어순배열]', reasoning: '어순배열 — 에이전트 풀이 필요' };
+    // ── 어순배열: stem에서 토큰 추출 → fullPassage에서 원문 문장 찾기 ──
+    if (typeL.includes('어순') || (stem || '').includes('배열') || (stem || '').includes('순서로')) {
+      // stem에서 [ ... ] 안의 단어 추출
+      const bracketMatch = (stem || '').match(/\[\s*([^\]]+)\]/);
+      if (bracketMatch) {
+        const tokens = bracketMatch[1].split(/\s*[,/]\s*/).map(t => t.trim().toLowerCase()).filter(Boolean);
+        if (tokens.length >= 3) {
+          // passage에서 빈칸 전후문맥 추출
+          const blankIdx = pass.indexOf('___');
+          if (blankIdx >= 0) {
+            const beforeCtx = pass.substring(Math.max(0, blankIdx - 80), blankIdx).trim();
+            const afterCtx = pass.substring(blankIdx + 3).replace(/_{2,}/, '').trim().substring(0, 80);
+            const bWords = beforeCtx.split(/\s+/).slice(-3).join(' ');
+            const aWords = afterCtx.split(/[\s,.;:!?]+/).filter(Boolean).slice(0, 3).join(' ');
+
+            if (bWords.length > 3) {
+              const fpIdx = fp.indexOf(bWords);
+              if (fpIdx >= 0) {
+                // fullPassage에서 빈칸 이후 텍스트 추출
+                const fpAfter = fp.substring(fpIdx + bWords.length).trim();
+                // aWords까지의 구간이 정답
+                let endIdx = fpAfter.length;
+                if (aWords.length > 3) {
+                  const aIdx = fpAfter.indexOf(aWords);
+                  if (aIdx > 0) endIdx = aIdx;
+                }
+                const candidate = fpAfter.substring(0, endIdx).trim()
+                  .replace(/^\s*[,.;:!?]+\s*/, '')
+                  .replace(/\s*[,.;:!?]+\s*$/, '')
+                  .trim();
+                if (candidate.length > 2 && candidate.split(/\s+/).length >= 2) {
+                  return { answer: candidate, reasoning: `어순배열 원문대조: "${candidate}"` };
+                }
+              }
+            }
+          }
+        }
+      }
+      return { answer: 0, reasoning: '어순배열 — 에이전트 풀이 필요' };
     }
 
-    // 영작: 조건에서 단어 조합
-    if ((type || '').includes('영작') || (stem || '').includes('영작')) {
-      return { answer: '[영작]', reasoning: '영작 — 에이전트 풀이 필요' };
+    // ── 조건영작: stem의 조건 단어를 조합 → fullPassage에서 검증 ──
+    if (typeL.includes('영작') || (stem || '').includes('영작')) {
+      // fullPassage에서 빈칸 위치 원문 추출 시도
+      const blankIdx = pass.indexOf('___');
+      if (blankIdx >= 0) {
+        const beforeCtx = pass.substring(Math.max(0, blankIdx - 80), blankIdx).trim();
+        const afterCtx = pass.substring(blankIdx + 3).replace(/_{2,}/, '').trim().substring(0, 80);
+        const bWords = norm(beforeCtx).split(/\s+/).slice(-3).join(' ');
+        const aWords = norm(afterCtx).split(/[\s,.;:!?]+/).filter(Boolean).slice(0, 3).join(' ');
+
+        if (bWords.length > 3) {
+          const fpIdx = fpNorm.indexOf(bWords);
+          if (fpIdx >= 0) {
+            const fpAfter = fpNorm.substring(fpIdx + bWords.length).trim();
+            let endIdx = fpAfter.length;
+            if (aWords.length > 3) {
+              const aIdx = fpAfter.indexOf(aWords);
+              if (aIdx > 0) endIdx = aIdx;
+            }
+            const candidate = fpAfter.substring(0, endIdx).trim()
+              .replace(/^\s*[,.;:!?]+\s*/, '')
+              .replace(/\s*[,.;:!?]+\s*$/, '')
+              .trim();
+            if (candidate.length > 1) {
+              return { answer: candidate, reasoning: `영작 원문대조: "${candidate}"` };
+            }
+          }
+        }
+      }
+      return { answer: 0, reasoning: '영작 — 에이전트 풀이 필요' };
     }
 
-    // 핵심단어 찾기
+    // ── 핵심단어/서술형 찾기: fullPassage에서 추론 ──
     if ((stem || '').includes('찾아') || (stem || '').includes('본문에서')) {
-      return { answer: '[찾기]', reasoning: '본문 찾기 — 에이전트 풀이 필요' };
+      return { answer: 0, reasoning: '본문 찾기 — 에이전트 풀이 필요' };
     }
 
-    return { answer: '[서술형]', reasoning: '서술형 — 에이전트 풀이 필요' };
+    // ── 서술형 빈칸 (문장완성 등): fullPassage에서 원문 추출 ──
+    const blankIdx = pass.indexOf('___');
+    if (blankIdx >= 0) {
+      const beforeCtx = pass.substring(Math.max(0, blankIdx - 80), blankIdx).trim();
+      const bWords = norm(beforeCtx).split(/\s+/).slice(-3).join(' ');
+      if (bWords.length > 3) {
+        const fpIdx = fpNorm.indexOf(bWords);
+        if (fpIdx >= 0) {
+          const fpAfter = fpNorm.substring(fpIdx + bWords.length).trim();
+          const afterCtx = pass.substring(blankIdx + 3).replace(/_{2,}/, '').trim();
+          const aWords = norm(afterCtx).split(/[\s,.;:!?]+/).filter(Boolean).slice(0, 3).join(' ');
+          let endIdx = Math.min(fpAfter.length, 100);
+          if (aWords.length > 3) {
+            const aIdx = fpAfter.indexOf(aWords);
+            if (aIdx > 0) endIdx = aIdx;
+          }
+          const candidate = fpAfter.substring(0, endIdx).trim()
+            .replace(/^\s*[,.;:!?]+\s*/, '')
+            .replace(/\s*[,.;:!?]+\s*$/, '')
+            .trim();
+          if (candidate.length > 0 && candidate.length < 100) {
+            return { answer: candidate, reasoning: `서술형 원문대조: "${candidate}"` };
+          }
+        }
+      }
+    }
+
+    return { answer: 0, reasoning: '서술형 — 에이전트 풀이 필요' };
   }
 
-  // 객관식
+  // ═══════════════════════════════════════════
+  // 객관식 (mc)
+  // ═══════════════════════════════════════════
   if (!ch || ch.length === 0) return { answer: 1, reasoning: '선지 없음 — 기본값' };
 
-  // ── 유형별 풀이 전략 ──
-
-  // T/F: 원문과 대조
+  // ── T/F: 에이전트 필요 ──
   if (ch.length === 2 && (ch[0] === 'T' || ch[0] === 'F')) {
-    // T/F는 에이전트가 정확히 풀어야 함
     return { answer: 0, reasoning: 'T/F — 에이전트 풀이 필요' };
   }
 
-  // 어법/부적절/오류찾기: 마커형 (①②③④)
+  // ═══════════════════════════════════════════
+  // 마커형 (①②③④): 어법/부적절/오류찾기
+  // fullPassage와 비교하여 변경된 단어 = 정답
+  // ═══════════════════════════════════════════
   if (ch.every(c => /^[①②③④⑤]$/.test(c.trim()))) {
-    // 마커형은 passage에서 문법 오류를 찾아야 함
-    return { answer: 0, reasoning: '마커형 — 에이전트 풀이 필요' };
+    const markers = extractMarkerWords(passRaw);
+    if (markers.length >= ch.length) {
+      // 각 마커 단어를 fullPassage와 비교
+      const diffs = [];
+      for (const mk of markers) {
+        const origWord = findOriginalWord(fpNorm, passStripped, mk.word);
+        if (origWord && norm(origWord) !== norm(mk.word)) {
+          diffs.push({ idx: mk.idx, marker: mk.marker, passage: mk.word, original: origWord });
+        }
+      }
+
+      if (diffs.length === 1) {
+        // 하나만 다름 = 정답
+        const ansIdx = ch.indexOf(diffs[0].marker);
+        if (ansIdx >= 0) {
+          return {
+            answer: ansIdx + 1,
+            reasoning: `마커 원문대조: ${diffs[0].marker}"${diffs[0].passage}" ≠ 원문"${diffs[0].original}"`
+          };
+        }
+      } else if (diffs.length > 1) {
+        // 여러 개 다름 — 첫 번째 반환 (부적절 유형은 보통 1개만 다름)
+        const ansIdx = ch.indexOf(diffs[0].marker);
+        if (ansIdx >= 0) {
+          return {
+            answer: ansIdx + 1,
+            reasoning: `마커 원문대조(${diffs.length}개 차이): ${diffs[0].marker}"${diffs[0].passage}" ≠ "${diffs[0].original}"`
+          };
+        }
+      }
+    }
+    // 마커형이지만 풀이 실패
+    return { answer: 0, reasoning: '마커형 — 원문대조 실패, 에이전트 풀이 필요' };
   }
 
-  // (A)(B)(C) 조합형
-  if ((type || '').includes('(A)(B)(C)') || (type || '').includes('조합형')) {
-    // passage에서 (A)(B)(C) 위치의 원문 단어를 찾아 매칭
-    const abcMatches = (passage || '').match(/<b>\(([ABC])\)<\/b>\[([^/]+)\s*\/\s*([^\]]+)\]/g);
-    if (abcMatches) {
+  // ═══════════════════════════════════════════
+  // (A)(B)(C) 조합형: 확장된 패턴 매칭
+  // ═══════════════════════════════════════════
+  if (typeL.includes('(a)(b)(c)') || typeL.includes('조합형')) {
+    // 패턴1: <b>(A)</b>[word1 / word2]
+    const abcMatches = (passRaw).match(/<b>\(([ABC])\)<\/b>\s*\[([^/\]]+?)\s*\/\s*([^\]]+?)\]/g);
+    // 패턴2: (A)[word1 / word2] 또는 (A) [word1 / word2]
+    const abcMatches2 = !abcMatches ? (passRaw).match(/\(([ABC])\)\s*\[([^/\]]+?)\s*\/\s*([^\]]+?)\]/g) : null;
+    const matches = abcMatches || abcMatches2;
+
+    if (matches) {
       const correctWords = [];
-      for (const m of abcMatches) {
-        const parts = m.match(/<b>\(([ABC])\)<\/b>\[([^/]+)\s*\/\s*([^\]]+)\]/);
+      const pattern = abcMatches
+        ? /<b>\(([ABC])\)<\/b>\s*\[([^/\]]+?)\s*\/\s*([^\]]+?)\]/
+        : /\(([ABC])\)\s*\[([^/\]]+?)\s*\/\s*([^\]]+?)\]/;
+
+      for (const m of matches) {
+        const parts = m.match(pattern);
         if (parts) {
           const word1 = parts[2].trim();
           const word2 = parts[3].trim();
           // fullPassage에서 어느 단어가 원문인지 확인
           if (fp.includes(word1.toLowerCase())) {
             correctWords.push(word1);
-          } else {
+          } else if (fp.includes(word2.toLowerCase())) {
             correctWords.push(word2);
+          } else {
+            correctWords.push(word1); // 폴백
           }
         }
       }
+
       if (correctWords.length > 0) {
-        const correctCombo = correctWords.join(' — ').toLowerCase();
-        for (let i = 0; i < ch.length; i++) {
-          if (ch[i].toLowerCase().replace(/\s+/g, ' ') === correctCombo) {
-            return { answer: i + 1, reasoning: `(A)(B)(C) 원문 대조: ${correctCombo}` };
-          }
-        }
-        // 부분 매칭
-        for (let i = 0; i < ch.length; i++) {
-          const parts = ch[i].toLowerCase().split('—').map(s => s.trim());
-          if (parts.length === correctWords.length && parts.every((p, j) => p === correctWords[j].toLowerCase())) {
-            return { answer: i + 1, reasoning: `(A)(B)(C) 부분매칭: ${correctCombo}` };
-          }
-        }
-      }
-    }
-  }
-
-  // 동의어/반의어: <u>target</u> 매칭
-  if ((type || '').includes('동의어') || (type || '').includes('반의어')) {
-    return { answer: 0, reasoning: '동의어/반의어 — 에이전트 풀이 필요' };
-  }
-
-  // 빈칸: fullPassage에서 빈칸 자리의 원문 단어 찾기
-  if ((type || '').includes('빈칸')) {
-    const blankIdx = pass.indexOf('__________');
-    if (blankIdx >= 0) {
-      // passage에서 빈칸 전후 5단어를 추출
-      const before = pass.substring(Math.max(0, blankIdx - 80), blankIdx).trim();
-      const after = pass.substring(blankIdx + 10, blankIdx + 90).trim();
-
-      // fullPassage에서 같은 전후 패턴을 찾아 빈칸 단어 추론
-      const beforeWords = before.split(/\s+/).slice(-3).join(' ');
-      const afterWords = after.split(/\s+/).slice(0, 3).join(' ');
-
-      if (beforeWords.length > 5) {
-        const fpIdx = fp.indexOf(beforeWords);
-        if (fpIdx >= 0) {
-          const fpAfterBefore = fp.substring(fpIdx + beforeWords.length).trim();
-          const nextWord = fpAfterBefore.split(/[\s,.;:!?]+/)[0];
-          if (nextWord) {
-            // 선지에서 이 단어 찾기
-            for (let i = 0; i < ch.length; i++) {
-              if (ch[i].toLowerCase().includes(nextWord)) {
-                return { answer: i + 1, reasoning: `빈칸 원문대조: "${nextWord}" (before: "${beforeWords}")` };
-              }
+        // 선지 매칭: 여러 구분자 시도
+        const separators = [' — ', ' - ', '—', '-'];
+        for (const sep of separators) {
+          const correctCombo = correctWords.join(sep).toLowerCase();
+          for (let i = 0; i < ch.length; i++) {
+            const chNorm = ch[i].toLowerCase().replace(/\s+/g, ' ').trim();
+            if (chNorm === correctCombo) {
+              return { answer: i + 1, reasoning: `(A)(B)(C) 원문 대조: ${correctCombo}` };
             }
           }
         }
+        // 개별 단어 매칭: 모든 정답 단어가 선지에 포함되는지
+        for (let i = 0; i < ch.length; i++) {
+          const chLow = ch[i].toLowerCase();
+          const allMatch = correctWords.every(w => chLow.includes(w.toLowerCase()));
+          if (allMatch) {
+            return { answer: i + 1, reasoning: `(A)(B)(C) 개별매칭: ${correctWords.join(', ')}` };
+          }
+        }
       }
     }
   }
 
-  // 내용일치/불일치, 주제/제목 등: 에이전트 필요
+  // ═══════════════════════════════════════════
+  // 빈칸형: fullPassage에서 빈칸 자리 원문 찾기 (개선)
+  // ═══════════════════════════════════════════
+  const hasBlank = pass.includes('____') || pass.includes('__________');
+  if (hasBlank || typeL.includes('빈칸')) {
+    // 빈칸 패턴 찾기 (다양한 길이)
+    const blankRe = /_{3,}/g;
+    let blankMatch;
+    while ((blankMatch = blankRe.exec(pass)) !== null) {
+      const blankIdx = blankMatch.index;
+      const beforeCtx = pass.substring(Math.max(0, blankIdx - 100), blankIdx).trim();
+      const afterCtx = pass.substring(blankIdx + blankMatch[0].length, blankIdx + blankMatch[0].length + 100).trim();
+
+      // 여러 컨텍스트 길이로 시도 (5, 4, 3, 2 단어)
+      for (const numWords of [5, 4, 3, 2]) {
+        const bWords = beforeCtx.split(/\s+/).slice(-numWords).join(' ');
+        if (bWords.length < 4) continue;
+
+        const fpIdx = fp.indexOf(bWords);
+        if (fpIdx < 0) continue;
+
+        const fpAfterBefore = fp.substring(fpIdx + bWords.length).trim();
+        // 다음 단어(들) 추출 — 빈칸이 여러 단어일 수 있음
+        const nextWords = fpAfterBefore.split(/[\s]+/).filter(Boolean);
+
+        // afterCtx의 첫 단어로 빈칸 끝 위치 결정
+        const aFirst = afterCtx.split(/[\s,.;:!?'"]+/).filter(Boolean)[0];
+        let gapWords = [];
+        if (aFirst && aFirst.length > 1) {
+          for (const nw of nextWords) {
+            if (nw.replace(/[,.;:!?'"]/g, '') === aFirst.replace(/[,.;:!?'"]/g, '')) break;
+            gapWords.push(nw.replace(/[,.;:!?'"]/g, ''));
+          }
+        } else {
+          gapWords = [nextWords[0]];
+        }
+
+        if (gapWords.length === 0 || !gapWords[0]) continue;
+        const gapText = gapWords.join(' ').replace(/[,.;:!?'"]/g, '').trim();
+
+        // 선지에서 gapText 매칭
+        if (gapText.length > 0) {
+          let bestMatch = -1;
+          let bestScore = 0;
+          for (let i = 0; i < ch.length; i++) {
+            const chLow = ch[i].toLowerCase().replace(/[,.;:!?'"]/g, '').trim();
+            if (chLow === gapText) {
+              return { answer: i + 1, reasoning: `빈칸 원문대조(정확): "${gapText}" (ctx: "${bWords}")` };
+            }
+            if (chLow.includes(gapText) || gapText.includes(chLow)) {
+              const score = Math.min(chLow.length, gapText.length) / Math.max(chLow.length, gapText.length);
+              if (score > bestScore) {
+                bestScore = score;
+                bestMatch = i;
+              }
+            }
+          }
+          if (bestMatch >= 0 && bestScore > 0.5) {
+            return { answer: bestMatch + 1, reasoning: `빈칸 원문대조(부분): "${gapText}" (score: ${bestScore.toFixed(2)})` };
+          }
+        }
+        break; // 첫 매칭 시도에서 결과 없으면 다음 시도
+      }
+    }
+  }
+
+  // ═══════════════════════════════════════════
+  // 동의어/반의어: 에이전트 필요
+  // ═══════════════════════════════════════════
+  if (typeL.includes('동의어') || typeL.includes('반의어')) {
+    return { answer: 0, reasoning: '동의어/반의어 — 에이전트 풀이 필요' };
+  }
+
+  // ═══════════════════════════════════════════
+  // 내용일치/불일치, 주제/제목/요약 등: 에이전트 필요
+  // ═══════════════════════════════════════════
   return { answer: 0, reasoning: `${type || 'unknown'} — 에이전트 풀이 필요` };
 }
 
@@ -235,7 +528,7 @@ function solveFile(jsonPath) {
       type: q.type,
       myAnswer: result.answer,
       reasoning: result.reasoning,
-      needsAgent: result.answer === 0 || (q.fmt === 'written' && result.answer === '[서술형]')
+      needsAgent: result.answer === 0 || (q.fmt === 'written' && typeof result.answer === 'string' && result.answer.startsWith('['))
     };
 
     // 정답 대조 (자동 풀이 가능한 것만)

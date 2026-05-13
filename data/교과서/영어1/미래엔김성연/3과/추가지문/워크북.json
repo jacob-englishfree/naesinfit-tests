@@ -109,14 +109,14 @@
       "ans": 1,
       "ch": [
         "valid",
-        "invalid",
+        "accurate",
         "visible",
-        "invisible"
+        "reliable"
       ],
       "det": {
         "korean": "정보가 <b>유효하지(valid)</b> 않을 수 있다.",
-        "analysis": "✅ ① valid: 원문 일치. 'may not be valid'(유효하지 않을 수 있다). not이 이미 있으므로 valid가 맞음\n❌ ② invalid: 'may not be invalid'(무효하지 않을 수 있다)는 이중 부정. 어색\n❌ ③ visible(보이는): 정보의 유효성과 무관\n❌ ④ invisible(보이지 않는): 맥락과 무관",
-        "tip": "may not be valid = 유효하지 않을 수 있다. not + valid(긍정) ≠ not + invalid(이중 부정)"
+        "analysis": "✅ ① valid: 원문 일치. 'may not be valid'(유효하지 않을 수 있다). 겉보기와 달리 실제로는 유효하지 않을 수 있다는 역설\n❌ ② accurate(정확한): 정확성이 아닌 유효성이 핵심. 맥락상 빈칸에는 valid가 더 적합\n❌ ③ visible(보이는): 정보의 유효성과 무관한 개념\n❌ ④ reliable(신뢰할 수 있는): 맥락상 유사하나 원문 표현은 valid",
+        "tip": "may not be valid = 유효하지 않을 수 있다. valid(유효한/타당한) = 실제로 사실이거나 효력이 있는"
       }
     },
     {
@@ -125,7 +125,7 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Suppose that you find information about something on the internet. Among the many search results, which link will you click? Probably, the most attractive and eye-catching one. However, the information you have just found may not be valid even though it looks like it is. For example, assume that you have typed in \"piano tuner\" in the search engine. As a search result, you see a video of an adorable cat playing the piano. Would you click on it? You would, along with many others, even though it has nothing to do with piano tuning. The search engine then learns that the video is <u>relevant</u> to piano tuning and that it is okay to show a cat playing the piano when people are searching for piano tuners. This isn't just true for search engines, but also on social media platforms, which learn based on what you and others have clicked on before, not based on the <u>accuracy</u> of the information. In other words, the search engine learns that the link you previously clicked on is relevant to your search question, even though it is not. When this irrelevant information, however, is clicked frequently enough, it can appear to be relevant and then <u>mislead</u> internet users.",
+      "passage": "Suppose that you find information about something on the internet. Among the many search results, which link will you click? Probably, the most attractive and eye-catching one. However, the information you have just found may not be valid even though it looks like it is. For example, assume that you have typed in \"piano tuner\" in the search engine. As a search result, you see a video of an adorable cat playing the piano. Would you click on it? You would, along with many others, even though it has nothing to do with piano tuning. The search engine then learns that the video is ①<u>relevant</u> to piano tuning and that it is okay to show a cat playing the piano when people are searching for piano tuners. This isn't just true for search engines, but also on social media platforms, which learn based on what you and others have clicked on before, not based on the ②<u>accuracy</u> of the information. In other words, the search engine learns that the link you previously clicked on is ③<u>relevant</u> to your search question, even though it is not. When this irrelevant information, however, is clicked frequently enough, it can appear to be relevant and then ④<u>mislead</u> internet users.",
       "stem": "다음 글의 밑줄 친 단어 중 문맥상 부적절한 것은?",
       "ans": 3,
       "ch": [
@@ -134,10 +134,18 @@
         "③",
         "④"
       ],
+      "overlay": {
+        "markers": {
+          "①": "relevant",
+          "②": "accuracy",
+          "③": "relevant",
+          "④": "mislead"
+        }
+      },
       "det": {
-        "korean": "이 <b>무관한(irrelevant)</b> 정보가 자주 클릭되면.",
-        "analysis": "✅ ③ relevant → irrelevant: 원문은 'this irrelevant information'. 사실은 무관한 정보인데 자주 클릭되어 관련 있어 보인다는 역설\n❌ ① accuracy: 원문 일치. 정보의 정확성\n❌ ② relevant: 원문 일치. 검색 질문과 관련 있다고 학습\n❌ ④ mislead: 원문 일치. 인터넷 사용자를 오도",
-        "tip": "irrelevant(무관한) ↔ relevant(관련 있는). 이 문맥에서 '무관한' 정보가 핵심"
+        "korean": "이전에 클릭한 링크가 검색 질문과 <b>무관한(irrelevant)</b>데도 관련 있다고 학습한다.",
+        "analysis": "✅ ③ relevant → irrelevant: 원문은 'the link you previously clicked on is relevant to your search question, even though it is not.' 실제로는 무관한(irrelevant) 링크인데 관련 있다(relevant)고 학습하는 역설적 상황. 맥락상 ③은 irrelevant가 맞음\n❌ ① relevant: 'the video is relevant to piano tuning' — 검색 엔진이 관련 있다고 잘못 학습하는 첫 사례. 원문 일치\n❌ ② accuracy: 'not based on the accuracy of the information' — 정확성 기반이 아님. 원문 일치\n❌ ④ mislead: 'mislead internet users' — 오도한다. 원문 일치",
+        "tip": "맥락: 실제로는 무관한(irrelevant) 링크를 relevant라고 학습하는 검색 엔진의 오류. ③의 'relevant'는 irrelevant가 되어야 함"
       }
     },
     {
@@ -332,7 +340,7 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "written",
-      "passage": "For example, assume that you have typed in \"piano tuner\" in the search engine. As a search result, you see a video of an adorable cat playing the piano. Would you click on it? You would, along with many others, even though it has nothing to do with piano tuning. The search engine then learns that the video is relevant to piano tuning and that it is okay to show a cat playing the piano when people are searching for piano tuners. This isn't just true for search engines, but also on social media platforms, which learn based on what you and others have ____ on before, not based on the accuracy of the information. In other words, the search engine learns that the link you previously ____ on is relevant to your search question, even though it is not. When this irrelevant information, however, is clicked frequently enough, it can appear to be relevant and then mislead internet users.",
+      "passage": "For example, assume that you have typed in \"piano tuner\" in the search engine. As a search result, you see a video of an adorable cat playing the piano. Would you click on it? You would, along with many others, even though it has nothing to do with piano tuning. The search engine then learns that the video is relevant to piano tuning and that it is okay to show a cat playing the piano when people are searching for piano tuners. This isn't just true for search engines, but also on social media platforms, which learn based on what you and others have ____ on before, not based on the accuracy of the information. In other words, the search engine learns that the link you previously ____ on is relevant to your search question, even though it is not. When this irrelevant information, however, is ____ frequently enough, it can appear to be relevant and then mislead internet users.",
       "stem": "위 글에서 다음 빈칸에 들어갈 **영어** 단어를 찾아 (영어로) 쓰시오.\n\n\"소셜 미디어 플랫폼은 정보의 정확성이 아니라, 사용자들이 이전에 __________한 것에 기반하여 학습한다.\". (1단어)",
       "wa": "clicked",
       "accept": [

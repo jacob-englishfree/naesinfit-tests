@@ -1048,7 +1048,8 @@ function validate(jsonPath) {
       '(A)(B)(C) 조합형','어법','어법 오류','어법성 판단','오류 찾기','문법 오류','오류찾기',
       '내용일치','내용 일치','내용불일치','내용 불일치',
       '문장삽입','문장 삽입','순서배열','글의 순서','순서','어순배열','문맥상 부적절한 어휘','부적절한 어휘',
-      '어휘','부적절어휘','부적절'
+      '어휘','부적절어휘','부적절',
+      '무관한문장찾기','무관한 문장 찾기','무관한문장','무관한'
     ];
     const typeNoSpace = typeNorm.replace(/\s+/g, '');
     if (markerCount >= 2 && !markerAllowedTypes.some(t => typeNoSpace.includes(t.replace(/\s+/g,'')))) {
