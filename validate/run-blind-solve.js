@@ -539,7 +539,8 @@ function solveFile(jsonPath) {
     } else if (q.fmt === 'written') {
       solve.correctAnswer = q.wa;
       if (typeof result.answer === 'string' && !result.answer.startsWith('[')) {
-        solve.match = (result.answer.toLowerCase() === (q.wa || '').toLowerCase());
+        const waStr = Array.isArray(q.wa) ? q.wa[0] : (q.wa || '');
+        solve.match = (result.answer.toLowerCase() === waStr.toLowerCase());
         autoSolved++;
       } else {
         solve.match = null; // 에이전트 풀이 필요

@@ -1,29 +1,194 @@
 {
-  "testType": "단어",
-  "section": "수능특강/영어독해연습/1강/2번",
-  "title": "How Dynamic Changes Disrupt User Efficiency",
-  "solvedAt": "2026-04-15",
-  "solver": "blind-agent",
-  "answers": [
-    {"id": 1, "fmt": "mc", "answer": 1, "reason": "Changes are often useful / but they can disrupt / access menu items faster — 원문 도입 흐름과 일치"},
-    {"id": 2, "fmt": "mc", "answer": 2, "reason": "Rather than decreasing access time / slow their users down / where expected — 반전 결과 인과"},
-    {"id": 3, "fmt": "mc", "answer": 3, "reason": "relevant sentences / list was static / significantly slower to click — 두 번째·세 번째 예시 핵심 어휘"},
-    {"id": 4, "fmt": "mc", "answer": 4, "reason": "bubbling rare items → bubbling common items(흔한 항목을 상단으로)이어야 함"},
-    {"id": 5, "fmt": "mc", "answer": 1, "reason": "speed their users down → slow their users down(느리게 한다)이어야 반전 결론이 성립"},
-    {"id": 6, "fmt": "mc", "answer": 3, "reason": "sentence list was dynamic → static(고정된)이어야 dynamically reranked와 대비"},
-    {"id": 7, "fmt": "mc", "answer": 2, "reason": "but 역접 뒤 사용자의 ability를 방해한다는 의미 → disrupt"},
-    {"id": 8, "fmt": "mc", "answer": 4, "reason": "no longer appear where expected(예상되는 자리에 더 이상 나타나지 않는다)"},
-    {"id": 9, "fmt": "mc", "answer": 1, "reason": "when the sentence list was static(고정되었을 때) — dynamically reranked와 대비"},
-    {"id": 10, "fmt": "mc", "answer": 3, "reason": "disrupt = interfere with(방해하다)"},
-    {"id": 11, "fmt": "mc", "answer": 2, "reason": "research revealed = showed(드러내다/보여주다)"},
-    {"id": 12, "fmt": "mc", "answer": 4, "reason": "relevant = pertinent(관련 있는)"},
-    {"id": 13, "fmt": "mc", "answer": 1, "reason": "static(고정된) ↔ changing(변화하는)"},
-    {"id": 14, "fmt": "mc", "answer": 3, "reason": "significantly(상당히) ↔ slightly(약간)"},
-    {"id": 15, "fmt": "mc", "answer": 2, "reason": "(A) 숨겨진 원인을 밝혀내다 / (B) 커튼 올라가며 무대를 드러내 보이다"},
-    {"id": 16, "fmt": "mc", "answer": 4, "reason": "to interrupt the normal progress = disrupt(방해하다)"},
-    {"id": 17, "fmt": "written", "answer": "developed", "reason": "were + 과거분사 수동태 (주어 dynamic menus가 '개발된' 대상)"},
-    {"id": 18, "fmt": "written", "answer": "reranked", "reason": "were dynamically + 과거분사 수동태 (sentences가 '재배열된' 대상)"},
-    {"id": 19, "fmt": "mc", "answer": 2, "reason": "Rather than decreasing access time 뒤 반전 결과 — slow their users down"},
-    {"id": 20, "fmt": "mc", "answer": 3, "reason": "if the result's rank has changed — query logs 예시의 조건절"}
-  ]
+  "file": "data/부교재/수능특강/영어독해연습/1강/2번/단어.json",
+  "timestamp": "2026-05-14T07:57:21.972Z",
+  "totalQuestions": 20,
+  "solves": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 1,
+      "reasoning": "(A)(B)(C) 개별매칭: useful, disrupt, faster",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 2,
+      "reasoning": "(A)(B)(C) 개별매칭: decreasing, slow, expected",
+      "needsAgent": false,
+      "correctAnswer": 2,
+      "match": true
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 1,
+      "reasoning": "(A)(B)(C) 개별매칭: relevant, static, slower",
+      "needsAgent": false,
+      "correctAnswer": 3,
+      "match": false
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 4,
+      "reasoning": "마커 원문대조: ④\"rare\" ≠ 원문\"common\"",
+      "needsAgent": false,
+      "correctAnswer": 4,
+      "match": true
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 1,
+      "reasoning": "마커 원문대조: ①\"speed\" ≠ 원문\"slow\"",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 0,
+      "reasoning": "마커형 — 원문대조 실패, 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 3,
+      "match": null
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 2,
+      "reasoning": "빈칸 원문대조(정확): \"disrupt\" (ctx: \"stories — but they can\")",
+      "needsAgent": false,
+      "correctAnswer": 2,
+      "match": true
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 4,
+      "reasoning": "빈칸 원문대조(정확): \"expected\" (ctx: \"items no longer appear where\")",
+      "needsAgent": false,
+      "correctAnswer": 4,
+      "match": true
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 1,
+      "reasoning": "빈칸 원문대조(정확): \"static\" (ctx: \"when the sentence list was\")",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 3,
+      "match": null
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 2,
+      "match": null
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 4,
+      "match": null
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 1,
+      "match": null
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 3,
+      "match": null
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "myAnswer": 0,
+      "reasoning": "다의어 문맥적 의미 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 2,
+      "match": null
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "myAnswer": 0,
+      "reasoning": "영영풀이 매칭 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 4,
+      "match": null
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "myAnswer": "developed",
+      "reasoning": "어형변환 원문대조: (develop) → \"developed\"",
+      "needsAgent": false,
+      "correctAnswer": "developed",
+      "match": true
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "myAnswer": "reranked",
+      "reasoning": "어형변환 원문대조: (rerank) → \"reranked\"",
+      "needsAgent": false,
+      "correctAnswer": "reranked",
+      "match": true
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "myAnswer": 2,
+      "reasoning": "빈칸 원문대조(정확): \"slow their users down\" (ctx: \"research revealed dynamic menus actually\")",
+      "needsAgent": false,
+      "correctAnswer": 2,
+      "match": true
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "myAnswer": 3,
+      "reasoning": "빈칸 원문대조(정확): \"the results rank\" (ctx: \"result they've clicked before if\")",
+      "needsAgent": false,
+      "correctAnswer": 3,
+      "match": true
+    }
+  ],
+  "summary": {
+    "autoSolved": 12,
+    "needsAgent": 8,
+    "matched": 11,
+    "mismatched": 1,
+    "pending": 8
+  }
 }

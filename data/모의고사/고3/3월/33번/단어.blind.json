@@ -1,26 +1,194 @@
 {
-  "testFile": "data/모의고사/고3/3월/33번/단어.json",
-  "solverModel": "claude-opus-4-6",
+  "file": "data/모의고사/고3/3월/33번/단어.json",
+  "timestamp": "2026-05-14T07:56:34.527Z",
+  "totalQuestions": 20,
   "solves": [
-    {"id": 1, "pick": 1, "reason": "(A) assumed는 원문 동사, (B) perceived는 원문 동사, (C) related는 원문 동사. 전부 원문 일치하는 ① 선택"},
-    {"id": 2, "pick": 4, "reason": "(A) suggested는 Uexküll이 제안했다는 원문, (B) observed는 관찰된 사람이라는 원문, (C) common은 실제로 꽤 흔하다는 원문. ④ 선택"},
-    {"id": 3, "pick": 4, "reason": "(A) visible은 보이는 표면이라는 원문, (B) shrinking은 크기가 줄어든다는 원문, (C) exact는 정확한 거리라는 원문. ④ 선택"},
-    {"id": 4, "pick": 3, "reason": "③ closed: 원문은 'not open'인데 'not closed'로 바뀌면 '닫혀 있지 않다'가 되어 의미 반전. ①assumed, ②limitation, ④suggested는 모두 원문 그대로"},
-    {"id": 5, "pick": 2, "reason": "② within: 원문은 'walk beyond this farthest plane'(너머로)인데 within(안에서)으로 바뀌면 한계를 넘지 않는다는 뜻으로 원문 맥락과 모순"},
-    {"id": 6, "pick": 3, "reason": "③ impossibly: 원문은 presumably(아마도)인데 impossibly(불가능하게)로 바뀌면 추정의 논리적 흐름이 깨짐. ①common, ②appear, ④corresponds는 원문 그대로"},
-    {"id": 7, "pick": 4, "reason": "원문 'subject to some global ____'에서 limitation이 적합. observation/distance/surface는 문맥상 부적절"},
-    {"id": 8, "pick": 3, "reason": "원문 'this is ____ as a hard limit'에서 realized가 적합. 확고한 한계로 구현된다는 의미. assumed/observed/perceived는 실현의 의미와 다름"},
-    {"id": 9, "pick": 1, "reason": "원문 'provide a ____ point for calculating'에서 reference가 적합. 기준점을 제공한다는 의미"},
-    {"id": 10, "pick": 1, "reason": "assumed(가정되다)의 동의어는 supposed(추정되다). rejected/confirmed/observed는 의미가 다름"},
-    {"id": 11, "pick": 4, "reason": "suggested(제안하다)의 동의어는 proposed(제안하다). demanded/revealed/questioned은 의미가 다름"},
-    {"id": 12, "pick": 3, "reason": "corresponds(상응하다)의 동의어는 matches(일치하다). contrasts/interferes/transfers는 의미가 다름"},
-    {"id": 13, "pick": 4, "reason": "common(흔한)의 반의어는 rare(드문). frequent/ordinary는 유사어, familiar는 의미축이 다름"},
-    {"id": 14, "pick": 1, "reason": "exact(정확한)의 반의어는 approximate(대략적인). precise/definite/specific는 유사어"},
-    {"id": 15, "pick": 2, "reason": "(A) plane=비행기(조종사가 발표, 비행 중 난기류), (B) plane=평면/경계면(개념적 경계)"},
-    {"id": 16, "pick": 3, "reason": "'a point at which something ends or beyond which it does not extend'는 limit(한계)의 정의. reference/distance/surface는 부적합"},
-    {"id": 17, "pick": "limitation", "reason": "some global ____ (limit): 형용사 global 뒤 명사 자리. limit→limitation(명사 파생형)"},
-    {"id": 18, "pick": "observation", "reason": "This ____ (observe) is actually quite common: 주어 자리에 명사 필요. observe→observation(동사→명사 파생)"},
-    {"id": 19, "pick": 1, "reason": "'the moon, the stars, and the sun are all perceived at the sky; that is, ____'에서 'at about the same distance'가 원문 표현. 하늘에서 인지=같은 거리에서 인지"},
-    {"id": 20, "pick": 2, "reason": "'subtending ____'에서 'a visual angle that corresponds to a larger distance'가 원문. 시각이 더 먼 거리에 상응한다는 메커니즘 설명"}
-  ]
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 1,
+      "reasoning": "(A)(B)(C) 개별매칭: perceived, assumed, related",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 4,
+      "reasoning": "(A)(B)(C) 원문 대조: suggested — observed — common",
+      "needsAgent": false,
+      "correctAnswer": 4,
+      "match": true
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "myAnswer": 4,
+      "reasoning": "(A)(B)(C) 원문 대조: visible — shrinking — exact",
+      "needsAgent": false,
+      "correctAnswer": 4,
+      "match": true
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 3,
+      "reasoning": "마커 원문대조: ③\"closed\" ≠ 원문\"open\"",
+      "needsAgent": false,
+      "correctAnswer": 3,
+      "match": true
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 2,
+      "reasoning": "마커 원문대조: ②\"within\" ≠ 원문\"beyond\"",
+      "needsAgent": false,
+      "correctAnswer": 2,
+      "match": true
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "myAnswer": 3,
+      "reasoning": "마커 원문대조: ③\"impossibly\" ≠ 원문\"presumably\"",
+      "needsAgent": false,
+      "correctAnswer": 3,
+      "match": true
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 4,
+      "reasoning": "빈칸 원문대조(정확): \"limitation\" (ctx: \"be subject to some global\")",
+      "needsAgent": false,
+      "correctAnswer": 4,
+      "match": true
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 3,
+      "reasoning": "빈칸 원문대조(정확): \"realized\" (ctx: \"(1934) suggested that this is\")",
+      "needsAgent": false,
+      "correctAnswer": 3,
+      "match": true
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "myAnswer": 1,
+      "reasoning": "빈칸 원문대조(정확): \"reference\" (ctx: \"plane would thus provide a\")",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 1,
+      "match": null
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 4,
+      "match": null
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 3,
+      "match": null
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 4,
+      "match": null
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "myAnswer": 0,
+      "reasoning": "동의어/반의어 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 1,
+      "match": null
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "myAnswer": 0,
+      "reasoning": "다의어 문맥적 의미 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 2,
+      "match": null
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "myAnswer": 0,
+      "reasoning": "영영풀이 매칭 — 에이전트 풀이 필요",
+      "needsAgent": true,
+      "correctAnswer": 3,
+      "match": null
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "myAnswer": "limitation",
+      "reasoning": "어형변환 원문대조: (limit) → \"limitation\"",
+      "needsAgent": false,
+      "correctAnswer": "limitation",
+      "match": true
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "myAnswer": "observation",
+      "reasoning": "어형변환 원문대조: (observe) → \"observation\"",
+      "needsAgent": false,
+      "correctAnswer": "observation",
+      "match": true
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "myAnswer": 1,
+      "reasoning": "빈칸 원문대조(정확): \"at about the same distance\" (ctx: \"at the \"sky\"; that is,\")",
+      "needsAgent": false,
+      "correctAnswer": 1,
+      "match": true
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "myAnswer": 2,
+      "reasoning": "빈칸 원문대조(정확): \"a visual angle that corresponds to a larger distance\" (ctx: \"the farthest plane while subtending\")",
+      "needsAgent": false,
+      "correctAnswer": 2,
+      "match": true
+    }
+  ],
+  "summary": {
+    "autoSolved": 13,
+    "needsAgent": 7,
+    "matched": 13,
+    "mismatched": 0,
+    "pending": 7
+  }
 }
