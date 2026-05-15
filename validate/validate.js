@@ -557,7 +557,7 @@ function validate(jsonPath) {
         const waWords = q.wa.trim().split(/\s+/).filter(Boolean);
         if (waWords.length >= 2) {
           const stemText = q.stem || '';
-          const hasCond = /\(\d+\s*단어\)|\d+\s*단어로?\s*(쓸|올바른|작성)|한\s*단어|한\s*문장|[a-z]로\s*시작/i.test(stemText);
+          const hasCond = /\(\d+\s*단어\)|\d+\s*단어[로)(\s]|\d+\s*단어로?\s*(쓸|올바른|작성)|한\s*단어|한\s*문장|[a-z]로\s*시작/i.test(stemText);
           if (!hasCond) {
             result.add('V-WRITTEN-WORDCOUNT', SEV.A, `Q${qid}: 서술형 영작 stem에 단어 수 조건 누락 (wa: "${q.wa}")`);
           }
@@ -844,8 +844,10 @@ function validate(jsonPath) {
       ];
       // 서술형은 지문에서 답을 찾는 유형이 많음 → B급 경고로 완화
       // 진짜 위험한 정답 노출은 AI 풀이 검증(③)에서 판정
+      // "본문에서 찾아 쓰시오" 유형: passage에 정답 있는 것이 정상 (찾기 유형 본질)
+      const isFindType = /본문에서\s*찾아|지문에서\s*찾아|본문\s*속에서\s*찾아/.test(String(q.stem || ''));
       const severity = SEV.B;
-      if (wa.length >= 3 && !skipTypes.includes(typeNorm) && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
+      if (wa.length >= 3 && !skipTypes.includes(typeNorm) && !isFindType && passagePlain.toLowerCase().includes(wa.toLowerCase())) {
         result.add('EX-2', severity, `Q${qid}: 서술형 정답 "${wa}" 이 지문에 그대로 노출됨 — 정답 노출 금지`);
       }
     }

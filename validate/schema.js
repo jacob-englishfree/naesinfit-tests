@@ -245,7 +245,7 @@ function validateBySchema(q, qid) {
 
   // stem에 <b>target</b>
   if (schema.requireBoldInStem) {
-    if (!/<b>[^<]+<\/b>/.test(stem)) {
+    if (!/<b>[\s\S]+?<\/b>/.test(stem)) {
       errors.push({ id: 'SCHEMA-STEM-BOLD', sev: 'B', msg: `Q${qid}: ${type} stem에 <b>target</b> 필요` });
     }
   }
