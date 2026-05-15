@@ -1067,9 +1067,14 @@ function validate(jsonPath) {
     }
 
     // S-PASSAGE-1-SENTENCE: mc 문항 passage가 1문장
-    const noPassageOk = ['동의어','반의어','영영풀이','한영','어형변환','다의어'];
+    const noPassageOk = ['동의어','반의어','영영풀이','한영','어형변환','다의어','오류찾기'];
     if (isMc && passage && !noPassageOk.some(t => typeNorm.includes(t))) {
-      const sentCount = (passage.replace(/\s+/g, ' ').match(/[.!?]['")\]]?(\s|$)/g) || []).length;
+      // 마커(①②③④⑤)가 포함된 passage는 문장 수를 마커 수로 보완 카운트
+      const markerCount = (passage.match(/[①②③④⑤]/g) || []).length;
+      const sentCount = Math.max(
+        (passage.replace(/\s+/g, ' ').match(/[.!?]['")\]]?(\s|$)/g) || []).length,
+        markerCount
+      );
       if (sentCount <= 1 && passage.replace(/\s+/g,'').length > 20) {
         result.add('S-PASSAGE-1-SENTENCE', SEV.S, `Q${qid}: mc passage가 1문장 — 너무 짧음`);
       }
