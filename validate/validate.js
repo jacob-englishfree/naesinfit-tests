@@ -491,11 +491,13 @@ function validate(jsonPath) {
       }
     }
 
-    // V72: 서술형 핵심단어 — passage 6~10문장 필수
+    // V72: 서술형 핵심단어 — passage 6~10문장 필수 (단, 모의고사 짧은 지문 18~20,26번 제외)
     if (typeNorm.includes('서술형') && (typeNorm.includes('핵심') || typeNorm.includes('찾기'))) {
       const pText = (q.passage || '').replace(/<[^>]+>/g, '');
       const sentCount = (pText.match(/[.!?]+/g) || []).length;
-      if (sentCount > 0 && sentCount < 5) {
+      const _pubNumV72 = parseInt((ei && ei.pub) || '');
+      const _isShortPassageV72 = !isNaN(_pubNumV72) && [18, 19, 20, 26].includes(_pubNumV72);
+      if (sentCount > 0 && sentCount < 5 && !_isShortPassageV72) {
         result.add('V72', SEV.S, `Q${qid}: 서술형(찾기) passage가 ${sentCount}문장 — 최소 6문장 필요`);
       }
     }
