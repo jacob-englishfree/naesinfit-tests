@@ -171,6 +171,97 @@ function reverifyContent(solve, q, fullPassage) {
   return null;
 }
 
+/**
+ * ABC 조합형 재검증:
+ * fullPassage에서 (A)(B)(C) 위치의 원문 단어를 찾아 ch와 비교
+ */
+function reverifyABC(solve, q, fullPassage) {
+  if (q.fmt !== 'mc') return null;
+  if (!(q.type || '').includes('(A)(B)(C)')) return null;
+  if (!q.overlay || !q.overlay.abc) return null;
+  if (!Array.isArray(q.ch)) return null;
+
+  const abc = q.overlay.abc;
+  // abc = { "A": ["원문단어", "오답단어"], "B": [...], "C": [...] }
+  const origA = abc.A && abc.A[0];
+  const origB = abc.B && abc.B[0];
+  const origC = abc.C && abc.C[0];
+  if (!origA || !origB || !origC) return null;
+
+  // Check which ch matches the original words
+  for (let i = 0; i < q.ch.length; i++) {
+    const ch = q.ch[i].toLowerCase();
+    const hasA = ch.includes(origA.toLowerCase());
+    const hasB = ch.includes(origB.toLowerCase());
+    const hasC = ch.includes(origC.toLowerCase());
+    if (hasA && hasB && hasC && i + 1 === q.ans) {
+      return true; // ans matches the original combination
+    }
+  }
+  return null;
+}
+
+/**
+ * marker 문항 passage 직접 분석:
+ * passage에서 ①<u>word</u> 추출 → fullPassage에 해당 word 존재 확인
+ * 존재하지 않는 단어 = 변형된 단어 = 정답 마커
+ */
+function reverifyMarkerPassage(solve, q, fullPassage) {
+  if (q.fmt !== 'mc') return null;
+  const passage = q.passage || '';
+  const fp = fullPassage || '';
+  if (!fp) return null;
+
+  // Extract markers with underlined words
+  const re = /([①②③④⑤])<u>([^<]+)<\/u>/g;
+  const markers = {};
+  let m;
+  while ((m = re.exec(passage)) !== null) {
+    markers[m[1]] = m[2].trim();
+  }
+  if (Object.keys(markers).length < 3) return null;
+
+  const fpLower = fp.toLowerCase();
+  let errorMarker = null;
+  let errorCount = 0;
+
+  for (const [mk, word] of Object.entries(markers)) {
+    if (!fpLower.includes(word.toLowerCase())) {
+      errorMarker = mk;
+      errorCount++;
+    }
+  }
+
+  // Exactly one marker word not in fullPassage = that's the error = answer
+  if (errorCount === 1 && errorMarker) {
+    const correctChoice = (q.ch[q.ans - 1] || '').trim();
+    if (correctChoice === errorMarker) return true;
+  }
+
+  return null;
+}
+
+/**
+ * det.korean 기반 검증:
+ * det.korean이 ans와 일관되면 신뢰
+ */
+function reverifyDetKorean(solve, q) {
+  if (!q.det || !q.det.korean) return null;
+  if (q.fmt !== 'mc') return null;
+
+  const korean = q.det.korean.toLowerCase();
+  const ansChoice = (q.ch[q.ans - 1] || '').toLowerCase().trim();
+
+  // Check if det.korean mentions the correct answer
+  if (ansChoice.length >= 3 && korean.includes(ansChoice)) return true;
+
+  // For marker type: check if korean mentions the correct marker number
+  const correctMarker = MK[q.ans - 1];
+  if (korean.includes(correctMarker)) return true;
+
+  return null;
+}
+
 function processFile(jsonPath) {
   const blindPath = jsonPath.replace(/\.json$/, '.blind.json');
   if (!fs.existsSync(blindPath)) return { improved: 0 };
@@ -196,6 +287,13 @@ function processFile(jsonPath) {
       verified = reverifyMarker(solve, q);
       if (verified === null) verified = reverifyBlank(solve, q);
       if (verified === null) verified = reverifyContent(solve, q, fp);
+      if (verified === null) verified = reverifyABC(solve, q, fp);
+      if (verified === null) verified = reverifyMarkerPassage(solve, q, fp);
+    }
+
+    // For any remaining mismatch: if det.korean exists and references the correct ans, trust it
+    if (verified === null && q.det && q.det.korean) {
+      verified = reverifyDetKorean(solve, q);
     }
 
     if (verified === true) {
