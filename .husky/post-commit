@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# 트랙B Phase1 #5 — pre-commit 통과 마커를 보고 현재 commit을 검증 기록에 추가.
+# pre-commit이 --no-verify로 우회된 경우 .pre-commit-pass가 없어서 기록 안 됨.
+
+if [ -f .git/.pre-commit-pass ]; then
+  HEAD=$(git rev-parse HEAD)
+  echo "$HEAD" >> .git/.validated-commits
+  rm -f .git/.pre-commit-pass
+fi
