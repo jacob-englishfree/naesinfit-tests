@@ -718,9 +718,13 @@ function validate(jsonPath) {
         if (wrongWord) {
           const markers = ['①','②','③','④','⑤'];
           const ansIdx = q.ans - 1;
-          if (ansIdx >= 0 && ansIdx < markers.length) {
-            const ansPattern = new RegExp(markers[ansIdx] + '\\s*<u>([^<]+)</u>');
-            const ansMatch = passage.match(ansPattern);
+          if (ansIdx >= 0 && ansIdx < (q.ch || []).length) {
+            // ch가 셔플된 경우: ch[ans-1]에서 실제 마커 추출 (예: ch[2]="④" → ④ 마커 사용)
+            const chVal = (q.ch[ansIdx] || '').trim();
+            const chMarkerMatch = chVal.match(/^([①②③④⑤])/);
+            const actualMarker = chMarkerMatch ? chMarkerMatch[1] : markers[ansIdx];
+            const ansPattern = new RegExp(actualMarker.replace(/[①②③④⑤]/g, m => '\\' + m) + '\\s*<u>([^<]+)</u>');
+            const ansMatch = passage.match(new RegExp(actualMarker + '\\s*<u>([^<]+)</u>'));
             if (ansMatch) {
               const ansWord = ansMatch[1].trim();
               if (ansWord.toLowerCase() !== wrongWord.toLowerCase() && !ansWord.toLowerCase().includes(wrongWord.toLowerCase().split(/\s+/)[0])) {
