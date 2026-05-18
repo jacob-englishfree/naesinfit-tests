@@ -1,22 +1,22 @@
 {
   "file": "data/부교재/올림포스전국연합고2/2026/2강/Ex04/퀴즈.json",
-  "timestamp": "2026-05-14T07:57:22.425Z",
+  "timestamp": "2026-05-18T04:23:35.435637Z",
   "totalQuestions": 20,
   "solves": [
     {
       "id": 1,
       "type": "순서",
-      "myAnswer": 0,
-      "reasoning": "순서 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 1,
+      "reasoning": "순서 — det: ① (B) — (A) — (C): 불안+질문 → 답변 → 통과 ←정답\n② (A) — (B) — (C): 답변이 질문 앞에 옴 부자연\n③ (C) — (A) — (B): 통과가 먼저  → \"(B) — (A) — (C)\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 2,
-      "type": "순서",
+      "type": "문장삽입",
       "myAnswer": 2,
-      "reasoning": "마커형 — 원문대조 실패,  [det-marker-verified]",
+      "reasoning": "문장삽입 — det: ❌ ①: 아직 불안 느끼기 전\n✅ ②: 꼼꼼한 심사 직후 심사관의 첫 질문 ←정답\n❌ ③: 이미 답변 중\n❌ ④: 체류 기간 답변 뒤 → \"②\" ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -24,8 +24,8 @@
     {
       "id": 3,
       "type": "어법",
-      "myAnswer": 3,
-      "reasoning": "마커 원문대조(2개 차이): ③\"to\" ≠ \"tors\" [enhanced-verify: pass]",
+      "myAnswer": 4,
+      "reasoning": "어법 마커 — det분석: ✅ ① was: 주어 단수, 과거 ✓\n✅ ② looked: 2형식 동사 + 형용사(relaxed)\n✅ ③ to want: seem + to V\n ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -34,7 +34,7 @@
       "id": 4,
       "type": "어법",
       "myAnswer": 4,
-      "reasoning": "마커형 — 원문대조 실패,  [det-marker-verified]",
+      "reasoning": "어법 마커 — det분석: ✅ ① to prepare: 목적의 to부정사\n✅ ② considering: 분사구문\n✅ ③ asked: 과거형\n❌ ④ truthful: 동사  ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -43,7 +43,7 @@
       "id": 5,
       "type": "어법",
       "myAnswer": 3,
-      "reasoning": "마커 원문대조: ③\"weighing\" ≠ 원문\"vanished\"",
+      "reasoning": "어법 마커 — det분석: ✅ ① as: ~할 때(접속사)\n✅ ② had carried: 대과거\n❌ ③ weighing: 본동사 필요 → vanished (원문)\n✅ ④  ans=3",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -52,7 +52,7 @@
       "id": 6,
       "type": "어법 빈칸",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"studied\" (ctx: \"i felt uneasy when he\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=1 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -61,7 +61,7 @@
       "id": 7,
       "type": "어법 빈칸",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"to stay\" (ctx: \"was not against the rules\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=1 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -70,7 +70,7 @@
       "id": 8,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 2,
-      "reasoning": "마커 원문대조: ②\"humor\" ≠ 원문\"seriousness\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① relaxed: 원문 일치\n❌ ② humor: 원문은 seriousness\n✅ ③ uneasy: 원문 일치\n✅ ④ back: 원문 일치 ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -79,7 +79,7 @@
       "id": 9,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 3,
-      "reasoning": "마커 원문대조: ③\"pain\" ≠ 원문\"comfort\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① burden: 원문 일치\n✅ ② vanished: 원문 일치\n❌ ③ pain: 원문은 comfort\n✅ ④ free: 문맥 적절 ans=3",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -88,7 +88,7 @@
       "id": 10,
       "type": "빈칸추론",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"seriousness\" (ctx: \"to want to model the\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"seriousness\" det=① humor — 유머 (반대)\n② laziness — 게으름 (반대)\n③ seriousness — 진지함 ",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -97,7 +97,7 @@
       "id": 11,
       "type": "빈칸추론",
       "myAnswer": 2,
-      "reasoning": "빈칸 원문대조(정확): \"trembling\" (ctx: \"month,\" i replied with a\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"trembling\" det=① cheerful — 명랑한 (반대)\n② trembling — 떨리는 ←정답\n③ confident — 자신",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -106,7 +106,7 @@
       "id": 12,
       "type": "빈칸추론",
       "myAnswer": 3,
-      "reasoning": "빈칸 원문대조(정확): \"vanished\" (ctx: \"though i did nothing wrong,\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"vanished\" det=① grew — 자랐다 (반대)\n② fell — 떨어졌다 (무관)\n③ vanished — 사라졌다 ←정답\n④",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -114,62 +114,62 @@
     {
       "id": 13,
       "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 3,
+      "reasoning": "부적절 어휘 — det분석: ① tense — seriousness — uneasy (A 반대)\n② relaxed — carelessness — uneasy (B 반대)\n③ ans=3",
+      "needsAgent": false,
       "correctAnswer": 3,
-      "match": null
+      "match": true
     },
     {
       "id": 14,
       "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 4,
+      "reasoning": "부적절 어휘 — det분석: ① happiness — vanished — comfort (A 반대)\n② burden — grew — comfort (B 반대)\n③ burde ans=4",
+      "needsAgent": false,
       "correctAnswer": 4,
-      "match": null
+      "match": true
     },
     {
       "id": 15,
       "type": "내용일치",
-      "myAnswer": 0,
-      "reasoning": "내용일치 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 2,
+      "reasoning": "내용불일치 — passage 확인: \"화자는 심사관에게 거짓으로 답했다.\" ans=2",
+      "needsAgent": false,
       "correctAnswer": 2,
-      "match": null
+      "match": true
     },
     {
       "id": 16,
       "type": "함축의미 추론",
-      "myAnswer": 0,
-      "reasoning": "함축의미 추론 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 3,
+      "reasoning": "함축의미 — det: ① 오랜 여행으로 인한 근육통이 완전히 사라졌다는 뜻이다.\n② 새로운 여행의 피로가 막 시작되었다는 뜻이다.\n③ 심사 중 느꼈던 긴장과 압박에서 해방되어 편안함을 되찾았다는 뜻이다 → \"심사 중 느꼈던 긴장과 압박에서 해방되어 편안함을 되찾았다는 뜻이다.\" ans=3",
+      "needsAgent": false,
       "correctAnswer": 3,
-      "match": null
+      "match": true
     },
     {
       "id": 17,
       "type": "주제",
-      "myAnswer": 0,
-      "reasoning": "주제 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 2,
+      "reasoning": "주제 — passage 전체 흐름: \"anxiety during a strict passport check and relief after being approved\" ans=2",
+      "needsAgent": false,
       "correctAnswer": 2,
-      "match": null
+      "match": true
     },
     {
       "id": 18,
       "type": "내용일치",
-      "myAnswer": 0,
-      "reasoning": "내용일치 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 4,
+      "reasoning": "내용일치 — passage 확인: \"대부분의 심사관은 느긋해 보였다.\" ans=4",
+      "needsAgent": false,
       "correctAnswer": 4,
-      "match": null
+      "match": true
     },
     {
       "id": 19,
       "type": "서술형 — 핵심단어",
       "myAnswer": "regulations",
-      "reasoning": "본문 찾기 —  [written-find-in-passage]",
+      "reasoning": "본문 찾기 — passage 내 wa 확인 [written-find-in-passage]",
       "needsAgent": false,
       "correctAnswer": "regulations",
       "match": true
@@ -178,20 +178,21 @@
       "id": 20,
       "type": "서술형 — 영작",
       "myAnswer": "The burden I had carried vanished into the air",
-      "reasoning": "어순배열 —  [written-det-present]",
+      "reasoning": "어순배열 — [written-det-present] wa=The burden I had carried vanished into the air",
       "needsAgent": false,
       "correctAnswer": "The burden I had carried vanished into the air",
       "match": true
     }
   ],
+  "verified": true,
   "summary": {
-    "autoSolved": 9,
-    "needsAgent": 7,
-    "matched": 8,
-    "mismatched": 1,
-    "pending": 11,
-    "matches": 13,
+    "autoSolved": 20,
+    "needsAgent": 0,
+    "matched": 20,
+    "mismatched": 0,
+    "pending": 0,
+    "matches": 20,
     "mismatches": 0,
-    "auto": 13
+    "auto": 20
   }
 }

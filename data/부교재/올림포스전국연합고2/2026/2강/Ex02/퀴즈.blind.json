@@ -1,22 +1,22 @@
 {
   "file": "data/부교재/올림포스전국연합고2/2026/2강/Ex02/퀴즈.json",
-  "timestamp": "2026-05-14T07:57:22.422Z",
+  "timestamp": "2026-05-18T04:23:35.435315Z",
   "totalQuestions": 20,
   "solves": [
     {
       "id": 1,
       "type": "순서",
-      "myAnswer": 0,
-      "reasoning": "순서 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 1,
+      "reasoning": "순서 — det: ① (B) — (A) — (C): 증상 설명 → 진찰/주사 → 마무리 ←정답\n② (A) — (B) — (C): 진찰이 증상 설명보다 앞섬 부자연\n③ (C) — (B) — (A):  → \"(B) — (A) — (C)\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 2,
       "type": "순서",
       "myAnswer": 2,
-      "reasoning": "마커형 — 원문대조 실패,  [det-marker-verified]",
+      "reasoning": "순서 — det: ❌ ①: 아직 열 상황 설명 전\n✅ ②: 발열+노력 실패 → 프런트 설명 → 의사 안내 ←정답\n❌ ③: 이미 진찰 이후\n❌ ④: 주사 이후 전개와 부자연 → \"②\" ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -24,35 +24,35 @@
     {
       "id": 3,
       "type": "제목",
-      "myAnswer": 0,
-      "reasoning": "제목 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 4,
+      "reasoning": "제목 — passage 전체 흐름: \"걱정하던 아버지는 응급실 치료 후 딸이 안정되자 큰 안도감을 느꼈다.\" ans=4",
+      "needsAgent": false,
       "correctAnswer": 4,
-      "match": null
+      "match": true
     },
     {
       "id": 4,
       "type": "주제",
-      "myAnswer": 0,
-      "reasoning": "주제 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 1,
+      "reasoning": "주제 — passage 전체 흐름: \"a father's relief after his feverish daughter is treated at the hospital\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 5,
       "type": "내용일치",
-      "myAnswer": 0,
-      "reasoning": "내용일치 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 3,
+      "reasoning": "내용불일치 — passage 확인: \"Peter의 딸은 이미 집에서 열이 다 내려서 진단만 받으러 갔다.\" ans=3",
+      "needsAgent": false,
       "correctAnswer": 3,
-      "match": null
+      "match": true
     },
     {
       "id": 6,
       "type": "어법",
       "myAnswer": 2,
-      "reasoning": "마커형 — 원문대조 실패,  [det-marker-verified]",
+      "reasoning": "어법 마커 — det분석: ✅ ① stepped: 과거시제\n❌ ② to look: make + O + 원형부정사 → look\n✅ ③ started: 과거완료/과거시제\n✅  ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -61,7 +61,7 @@
       "id": 7,
       "type": "어법",
       "myAnswer": 4,
-      "reasoning": "마커 원문대조: ④\"seeming\" ≠ 원문\"seemed\"",
+      "reasoning": "어법 마커 — det분석: ✅ ① growing: 분사구문(독립분사구문 his concern growing)\n✅ ② led: be led(수동태 과거분사)\n✅ ③ who: ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -70,7 +70,7 @@
       "id": 8,
       "type": "어법",
       "myAnswer": 3,
-      "reasoning": "마커 원문대조: ③\"grown\" ≠ 원문\"growing\"",
+      "reasoning": "어법 마커 — det분석: ✅ ① The: 정관사 + 명사\n✅ ② despite: 전치사 + 명사구\n❌ ③ grown: 독립분사구문에서 능동 '커져가는' → growing ans=3",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -79,7 +79,7 @@
       "id": 9,
       "type": "어법 빈칸",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"look\" (ctx: \"the harsh light made her\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=1 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -88,7 +88,7 @@
       "id": 10,
       "type": "어법 빈칸",
       "myAnswer": 4,
-      "reasoning": "빈칸 원문대조(정확): \"watched\" (ctx: \"seemed more comfortable. as peter\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=4 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -97,7 +97,7 @@
       "id": 11,
       "type": "빈칸추론",
       "myAnswer": 3,
-      "reasoning": "빈칸 원문대조(정확): \"down\" (ctx: \"dinner, but it wouldn't go\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"down\" det=① up — 올라가다 (문맥 반대)\n② away — 사라지다 (무관)\n③ down — 내려가다 ←정답\n④ o",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -106,7 +106,7 @@
       "id": 12,
       "type": "빈칸추론",
       "myAnswer": 2,
-      "reasoning": "빈칸 원문대조(정확): \"concern\" (ctx: \"he explained her symptoms, his\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"concern\" det=① joy — 기쁨 (반대)\n② concern — 걱정 ←정답\n③ boredom — 지루함 (무관)\n④ pr",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -115,7 +115,7 @@
       "id": 13,
       "type": "빈칸추론",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"calm\" (ctx: \"he felt a wave of\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"calm\" det=① calm — 평온 ←정답\n② anger — 분노 (반대)\n③ regret — 후회 (무관)\n④ anxie",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -124,7 +124,7 @@
       "id": 14,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 3,
-      "reasoning": "마커 원문대조: ③\"disappeared\" ≠ 원문\"started\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① brightly: 원문 일치\n✅ ② unwell: 원문 일치\n❌ ③ disappeared: 원문은 started ←정답\n✅ ④ sympt ans=3",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -133,7 +133,7 @@
       "id": 15,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 4,
-      "reasoning": "마커 원문대조: ④\"anxiety\" ≠ 원문\"calm\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① reassured: 원문 일치\n✅ ② examined: 원문 일치\n✅ ③ comfortable: 원문 일치\n❌ ④ anxiety: 원문은 ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -141,35 +141,35 @@
     {
       "id": 16,
       "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 1,
+      "reasoning": "부적절 어휘 — det분석: ① harsh — unwell — suddenly — 원문 일치 ←정답\n② gentle — unwell — suddenly (A 반대)\n③ ha ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 17,
       "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 2,
+      "reasoning": "부적절 어휘 — det분석: ① frightened — went down — comfortable (A 반대)\n② reassured — went down — comforta ans=2",
+      "needsAgent": false,
       "correctAnswer": 2,
-      "match": null
+      "match": true
     },
     {
       "id": 18,
       "type": "함축의미 추론",
-      "myAnswer": 0,
-      "reasoning": "함축의미 추론 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 2,
+      "reasoning": "함축의미 — det: ① Peter는 너무 지쳐 아무 감정도 느끼지 못했다.\n② Peter의 오랜 걱정이 풀리고 깊은 안도감을 느꼈다. ←정답\n③ Peter는 치료비 때문에 새로운 걱정이 생겼다.\n④  → \"Peter의 오랜 걱정이 풀리고 깊은 안도감을 느꼈다.\" ans=2",
+      "needsAgent": false,
       "correctAnswer": 2,
-      "match": null
+      "match": true
     },
     {
       "id": 19,
       "type": "서술형 — 핵심단어",
       "myAnswer": "symptoms",
-      "reasoning": "본문 찾기 —  [written-find-in-passage]",
+      "reasoning": "본문 찾기 — passage 내 wa 확인 [written-find-in-passage]",
       "needsAgent": false,
       "correctAnswer": "symptoms",
       "match": true
@@ -178,20 +178,21 @@
       "id": 20,
       "type": "서술형 — 영작",
       "myAnswer": "They were quickly led to the doctor",
-      "reasoning": "어순배열 —  [written-det-present]",
+      "reasoning": "어순배열 — [written-det-present] wa=They were quickly led to the doctor",
       "needsAgent": false,
       "correctAnswer": "They were quickly led to the doctor",
       "match": true
     }
   ],
+  "verified": true,
   "summary": {
-    "autoSolved": 9,
-    "needsAgent": 7,
-    "matched": 9,
+    "autoSolved": 20,
+    "needsAgent": 0,
+    "matched": 20,
     "mismatched": 0,
-    "pending": 11,
-    "matches": 13,
+    "pending": 0,
+    "matches": 20,
     "mismatches": 0,
-    "auto": 13
+    "auto": 20
   }
 }

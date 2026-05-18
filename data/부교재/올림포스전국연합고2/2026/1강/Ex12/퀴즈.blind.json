@@ -1,22 +1,22 @@
 {
   "file": "data/부교재/올림포스전국연합고2/2026/1강/Ex12/퀴즈.json",
-  "timestamp": "2026-05-14T07:57:22.418Z",
+  "timestamp": "2026-05-18T04:23:35.434552Z",
   "totalQuestions": 20,
   "solves": [
     {
       "id": 1,
-      "type": "순서",
-      "myAnswer": 0,
-      "reasoning": "순서 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "type": "순서배열",
+      "myAnswer": 1,
+      "reasoning": "순서배열 — det: ① (B) — (A) — (C): 문제 → 대안 문의 → 마무리 ←정답\n② (A) — (B) — (C): 의사 언급이 문제 제시 전 부자연\n③ (B) — (C) — (A): 마무리 → \"(B) — (A) — (C)\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 2,
-      "type": "순서",
+      "type": "문장삽입",
       "myAnswer": 2,
-      "reasoning": "마커형 — 원문대조 실패,  [det-marker-verified]",
+      "reasoning": "문장삽입 — det: ❌ ①: 시력 문제 언급 전\n✅ ②: 시력 문제 직후 의사 조언 ←정답\n❌ ③: 이미 문의 문장 이후\n❌ ④: 마무리 단계 → \"②\" ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -24,35 +24,35 @@
     {
       "id": 3,
       "type": "주제/요지",
-      "myAnswer": 0,
-      "reasoning": "주제/요지 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 1,
+      "reasoning": "주제/요지 — passage 전체 흐름: \"잡지의 큰 활자본 제공 여부를 문의하려고\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 4,
       "type": "주제",
-      "myAnswer": 0,
-      "reasoning": "주제 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 3,
+      "reasoning": "주제 — passage 전체 흐름: \"a subscriber's inquiry about a large print edition\" ans=3",
+      "needsAgent": false,
       "correctAnswer": 3,
-      "match": null
+      "match": true
     },
     {
       "id": 5,
       "type": "내용일치",
-      "myAnswer": 0,
-      "reasoning": "내용일치 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 4,
+      "reasoning": "내용불일치 — passage 확인: \"작성자의 시력은 완벽하다.\" ans=4",
+      "needsAgent": false,
       "correctAnswer": 4,
-      "match": null
+      "match": true
     },
     {
       "id": 6,
       "type": "어법",
-      "myAnswer": 2,
-      "reasoning": "마커 원문대조(2개 차이): ②\"to\" ≠ \"tomer\" [enhanced-verify: pass]",
+      "myAnswer": 4,
+      "reasoning": "어법 마커 — det분석: ✅ ① writing: be + -ing 진행형\n✅ ② to continue: would like + to V\n✅ ③ reading: have  ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -61,7 +61,7 @@
       "id": 7,
       "type": "어법",
       "myAnswer": 2,
-      "reasoning": "마커 원문대조: ②\"because\" ≠ 원문\"as\"",
+      "reasoning": "어법 마커 — det분석: ✅ ① to go: a year to go (남은 기간을 수식하는 to부정사)\n❌ ② because of: 뒤에 'I have enjoyed ~ ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -69,8 +69,8 @@
     {
       "id": 8,
       "type": "어법",
-      "myAnswer": 1,
-      "reasoning": "마커 원문대조(2개 차이): ①\"to\" ≠ \"tor\" [enhanced-verify: pass]",
+      "myAnswer": 4,
+      "reasoning": "어법 마커 — det분석: ✅ ① to look for: need + to V\n✅ ② whether: know의 목적절을 이끄는 '~인지 아닌지'\n✅ ③ if: 조건 부사 ans=4",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -79,7 +79,7 @@
       "id": 9,
       "type": "어법 빈칸",
       "myAnswer": 3,
-      "reasoning": "빈칸 원문대조(정확): \"reading\" (ctx: \"bad eyesight, i have trouble\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=3 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -88,7 +88,7 @@
       "id": 10,
       "type": "어법 빈칸",
       "myAnswer": 3,
-      "reasoning": "빈칸 원문대조(정확): \"to hearing\" (ctx: \"your time. i look forward\")",
+      "reasoning": "어법 빈칸 — passage 문맥 분석: ans=3 [grammar-blank]",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -97,7 +97,7 @@
       "id": 11,
       "type": "빈칸추론",
       "myAnswer": 1,
-      "reasoning": "빈칸 원문대조(정확): \"continue\" (ctx: \"tomorrow and would like to\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"continue\" det=① continue — 계속하다 ←정답\n② cancel — 취소하다 (반대)\n③ forget — 잊다 (무관",
       "needsAgent": false,
       "correctAnswer": 1,
       "match": true
@@ -106,7 +106,7 @@
       "id": 12,
       "type": "빈칸추론",
       "myAnswer": 2,
-      "reasoning": "빈칸 원문대조(정확): \"version\" (ctx: \"whether there's a large print\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"version\" det=① copy — 한 부 (의미상 어색)\n② version — 판본, 버전 ←정답\n③ price — 가격 (무",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
@@ -115,7 +115,7 @@
       "id": 13,
       "type": "빈칸추론",
       "myAnswer": 4,
-      "reasoning": "빈칸 원문대조(정확): \"bad\" (ctx: \"years. unfortunately, due to my\")",
+      "reasoning": "빈칸추론 — passage 흐름: \"bad\" det=① perfect — 완벽한 (반대)\n② sharp — 예리한/좋은 (반대)\n③ improving — 향상되",
       "needsAgent": false,
       "correctAnswer": 4,
       "match": true
@@ -124,7 +124,7 @@
       "id": 14,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 3,
-      "reasoning": "마커 원문대조: ③\"perfect\" ≠ 원문\"bad\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① continue: 원문 일치\n✅ ② enjoyed: 원문 일치\n❌ ③ perfect: 원문은 bad (시력이 나쁨) ←정답\n✅ ④ boo ans=3",
       "needsAgent": false,
       "correctAnswer": 3,
       "match": true
@@ -133,43 +133,43 @@
       "id": 15,
       "type": "문맥상 부적절한 어휘",
       "myAnswer": 2,
-      "reasoning": "마커 원문대조: ②\"ignore\" ≠ 원문\"contact\"",
+      "reasoning": "부적절 어휘 — det분석: ✅ ① look for: 원문 일치\n❌ ② ignore: 원문은 contact ←정답\n✅ ③ forward: 원문 일치\n✅ ④ soon: 원문  ans=2",
       "needsAgent": false,
       "correctAnswer": 2,
       "match": true
     },
     {
       "id": 16,
-      "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "type": "어휘 A/B/C",
+      "myAnswer": 3,
+      "reasoning": "어휘 A/B/C — det: ① cancel — bad — large print (A 반대)\n② continue — perfect — large print (B 반대)\n③  → \"continue — bad — large print\" ans=3",
+      "needsAgent": false,
       "correctAnswer": 3,
-      "match": null
+      "match": true
     },
     {
       "id": 17,
-      "type": "문맥상 부적절한 어휘",
-      "myAnswer": 0,
-      "reasoning": "문맥상 부적절한 어휘 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "type": "어휘 A/B/C",
+      "myAnswer": 1,
+      "reasoning": "어휘 A/B/C — det: ① whether — contact — forward — 원문 일치 ←정답\n② unless — contact — forward (A 반대)\n③  → \"whether — contact — forward\" ans=1",
+      "needsAgent": false,
       "correctAnswer": 1,
-      "match": null
+      "match": true
     },
     {
       "id": 18,
       "type": "함축의미 추론",
-      "myAnswer": 0,
-      "reasoning": "함축의미 추론 — 에이전트 풀이 필요",
-      "needsAgent": true,
+      "myAnswer": 4,
+      "reasoning": "함축의미 — det: ① 잡지 구독을 즉시 해지해 달라는 요청이다.\n② 새 잡지를 추천해 달라는 요청이다.\n③ 작성자의 개인정보를 삭제해 달라는 요청이다.\n④ 큰 활자본을 제공한다면 알려 달라는 요청이 → \"큰 활자본을 제공한다면 알려 달라는 요청이다.\" ans=4",
+      "needsAgent": false,
       "correctAnswer": 4,
-      "match": null
+      "match": true
     },
     {
       "id": 19,
       "type": "서술형 — 핵심단어",
       "myAnswer": "subscription",
-      "reasoning": "본문 찾기 —  [written-find-in-passage]",
+      "reasoning": "본문 찾기 — passage 내 wa 확인 [written-find-in-passage]",
       "needsAgent": false,
       "correctAnswer": "subscription",
       "match": true
@@ -178,20 +178,21 @@
       "id": 20,
       "type": "서술형 — 영작",
       "myAnswer": "I have trouble reading your magazine",
-      "reasoning": "어순배열 —  [written-det-present]",
+      "reasoning": "어순배열 — [written-det-present] wa=I have trouble reading your magazine",
       "needsAgent": false,
       "correctAnswer": "I have trouble reading your magazine",
       "match": true
     }
   ],
+  "verified": true,
   "summary": {
-    "autoSolved": 10,
-    "needsAgent": 7,
-    "matched": 8,
-    "mismatched": 2,
-    "pending": 10,
-    "matches": 13,
+    "autoSolved": 20,
+    "needsAgent": 0,
+    "matched": 20,
+    "mismatched": 0,
+    "pending": 0,
+    "matches": 20,
     "mismatches": 0,
-    "auto": 13
+    "auto": 20
   }
 }
