@@ -2155,14 +2155,21 @@ function validate(jsonPath) {
       }
     }
 
-    // ── Q6: 빈칸형 오답 3개 이상이 fullPassage에 없으면 소거법으로 풀림 ──
+    // ── Q6: 빈칸형 오답 3개 이상이 fullPassage와 단어 연결 없으면 소거법으로 풀림 ──
     // 한국어 선지(빈칸추론 등)는 영어 fullPassage에 포함될 수 없으므로 제외
+    // 판정: 오답 선지의 content word(4자+) 중 1개라도 fullPassage에 있으면 연결 있음
     if (/빈칸/.test(qtype) && fmt === 'mc' && ch.length >= 4 && q.ans >= 1 && fullPassage) {
       const hasKoreanChoice = ch.some(c => /[\uAC00-\uD7A3]/.test(c));
       if (!hasKoreanChoice) {
-        const wrongNotInFp = ch.filter((c, i) => i !== q.ans - 1 && !fullPassage.includes(c.trim())).length;
-        if (wrongNotInFp >= 3) {
-          result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNotInFp}개가 fullPassage에 없음 — 소거법으로 풀림`);
+        const fpLower = fullPassage.toLowerCase();
+        const wrongNoConnection = ch.filter((c, i) => {
+          if (i === q.ans - 1) return false; // skip correct answer
+          // Check if any content word (4+ chars) appears in fullPassage
+          const words = c.trim().toLowerCase().split(/\s+/).filter(w => w.length >= 4);
+          return words.length > 0 && !words.some(w => fpLower.includes(w));
+        }).length;
+        if (wrongNoConnection >= 3) {
+          result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNoConnection}개가 fullPassage에 없음 — 소거법으로 풀림`);
         }
       }
     }
