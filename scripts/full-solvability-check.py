@@ -45,7 +45,8 @@ def check_question(q, fpath, fp):
             found.append(('CRITICAL', 'wa-없음', '서술형인데 정답(wa)이 없음'))
 
     # ===== 2. passage 존재 =====
-    if fmt == 'mc' and qtype not in ['영영풀이 매칭', '다의어 문맥적 의미']:
+    # 순서배열은 V63-B에 의해 passage=null, 텍스트는 stem에 포함 (의도적)
+    if fmt == 'mc' and qtype not in ['영영풀이 매칭', '다의어 문맥적 의미', '순서배열', '글순서']:
         if not passage or len(passage.strip()) < 30:
             found.append(('HIGH', 'passage-없음', 'mc인데 passage가 없거나 30자 미만'))
     
@@ -80,15 +81,17 @@ def check_question(q, fpath, fp):
         # stem에 삽입할 문장 필요
         if '<b>' not in stem and '주어진 문장' not in stem:
             found.append(('HIGH', '삽입-문장없음', '삽입할 문장이 stem에 없음'))
-        # passage에 위치마커 필요
-        pos_markers = re.findall(r'\([①②③④⑤]\)', passage)
+        # passage에 위치마커 필요 (bare ① or parenthesized (①) 둘 다 허용)
+        pos_markers = re.findall(r'[①②③④⑤]', passage)
         if len(pos_markers) < 3:
             found.append(('HIGH', '삽입-위치없음', f'passage에 위치마커 {len(pos_markers)}개'))
     
     # ===== 6. 순서배열 =====
+    # V63-B: 순서배열은 passage=null, 텍스트는 stem에 포함 (validate.js 정합)
     if qtype == '순서배열':
-        if '(A)' not in passage and '(B)' not in passage:
-            found.append(('HIGH', '순서-마커없음', 'passage에 (A)(B)(C) 없음'))
+        check_target = stem if (not passage or len(passage.strip()) < 10) else passage
+        if '(A)' not in check_target and '(B)' not in check_target:
+            found.append(('HIGH', '순서-마커없음', 'stem/passage에 (A)(B)(C) 없음'))
     
     # ===== 7. 어순배열 =====
     if qtype == '어순배열' and fmt == 'written':
