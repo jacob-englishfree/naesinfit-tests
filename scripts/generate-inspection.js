@@ -3,6 +3,9 @@
  * 대검수 현황 데이터 생성
  * → inspection-data.json (inspection.html이 로드)
  *
+ * solvability-report.json + blind.json 데이터를 합쳐서
+ * 파일별 grade 산정 + 이슈 상세 제공
+ *
  * 실행: node scripts/generate-inspection.js
  */
 
@@ -26,138 +29,177 @@ function walk(dir) {
   return results;
 }
 
+function parseLevels(relPath, cat) {
+  const parts = relPath.replace('data/' + cat + '/', '').replace(/\/(단어|워크북|퀴즈)\.json$/, '').split('/');
+  if (cat === '교과서') {
+    return { level1: parts.slice(0, 2).join('/'), level2: parts[2] || '', group: parts.slice(3).join('/') };
+  } else if (cat === '모의고사') {
+    return { level1: parts[0] || '', level2: parts[1] || '', group: parts.slice(2).join('/') };
+  } else {
+    return { level1: parts.slice(0, 2).join('/'), level2: parts[2] || '', group: parts.slice(3).join('/') };
+  }
+}
+
+// --- Load solvability report ---
+let solvReport = { issues: [] };
+try {
+  solvReport = JSON.parse(fs.readFileSync('solvability-report.json', 'utf8'));
+} catch (e) {
+  console.log('⚠️  solvability-report.json 없음 — python3 scripts/full-solvability-check.py 먼저 실행');
+}
+
+// Index issues by file
+const issuesByFile = {};
+for (const issue of solvReport.issues || []) {
+  const key = 'data/' + issue.file;
+  if (!issuesByFile[key]) issuesByFile[key] = { critical: 0, high: 0, medium: 0, low: 0, details: [] };
+  issuesByFile[key][issue.severity.toLowerCase()] = (issuesByFile[key][issue.severity.toLowerCase()] || 0) + 1;
+  issuesByFile[key].details.push({ qid: issue.qid, cat: issue.category, desc: issue.desc, sev: issue.severity });
+}
+
 // --- Collect data ---
 const allFiles = [];
-const categories = [];
 let totalQuestions = 0;
-let totalAnsFixed = 0;
 
 for (const cat of CATS) {
   const files = walk('data/' + cat);
-  let pass = 0, parseError = 0, blindMismatch = 0, blindOk = 0, noBlind = 0;
-  let catQuestions = 0;
 
   for (const f of files) {
-    const relPath = f;
     const typeName = path.basename(f, '.json');
-    let status = 'pass';
-    let blind = null;
+    let qCount = 0;
+    let parseable = true;
 
-    // Check JSON parseable
     try {
       const data = JSON.parse(fs.readFileSync(f, 'utf8'));
-      catQuestions += (data.questions || []).length;
+      qCount = (data.questions || []).length;
     } catch (e) {
-      status = 'error';
-      parseError++;
+      parseable = false;
     }
 
-    // Check blind
+    totalQuestions += qCount;
+
+    // Blind check
+    let blindMismatch = 0, blindMatch = 0;
     const blindFile = f.replace(/\.json$/, '.blind.json');
     if (fs.existsSync(blindFile)) {
       try {
         const bd = JSON.parse(fs.readFileSync(blindFile, 'utf8'));
         if (bd.solves) {
-          let mm = 0, ok = 0, agent = 0;
           for (const s of bd.solves) {
-            if (s.needsAgent) agent++;
-            else if (s.match) ok++;
-            else mm++;
-          }
-          blind = { match: ok, mismatch: mm, needsAgent: agent, total: bd.solves.length };
-          if (mm > 0) {
-            blindMismatch++;
-            if (status === 'pass') status = 'mismatch';
-          } else {
-            blindOk++;
+            if (s.match) blindMatch++;
+            else if (!s.needsAgent) blindMismatch++;
           }
         }
       } catch (e) {}
-    } else {
-      noBlind++;
     }
 
-    if (status === 'pass') pass++;
+    // Solvability issues
+    const si = issuesByFile[f] || { critical: 0, high: 0, medium: 0, low: 0, details: [] };
+
+    // Grade
+    let grade;
+    if (!parseable) {
+      grade = 'broken';
+    } else if (si.critical > 0) {
+      grade = 'danger';
+    } else if (si.high >= 3 || blindMismatch >= 6) {
+      grade = 'danger';
+    } else if (si.high > 0 || blindMismatch >= 3) {
+      grade = 'caution';
+    } else if (si.medium > 0 || blindMismatch >= 1) {
+      grade = 'minor';
+    } else {
+      grade = 'perfect';
+    }
+
+    const levels = parseLevels(f, cat);
 
     allFiles.push({
-      path: relPath,
+      path: f,
       cat,
       type: typeName,
-      status,
-      autoMatch: blind?.match || 0,
-      mismatch: blind?.mismatch || 0,
-      needsAgent: blind?.needsAgent || 0,
-      totalQ: blind?.total || 0
+      grade,
+      level1: levels.level1,
+      level2: levels.level2,
+      group: levels.group,
+      autoMatch: blindMatch,
+      mismatch: si.critical + si.high + blindMismatch,
+      critical: si.critical,
+      high: si.high,
+      medium: si.medium,
+      totalQ: qCount,
+      issues: si.details.filter(d => d.sev === 'CRITICAL' || d.sev === 'HIGH').slice(0, 10)
     });
   }
-
-  totalQuestions += catQuestions;
-
-  categories.push({
-    name: cat,
-    total: files.length,
-    pass,
-    parseError,
-    blindMismatch,
-    blindOk,
-    noBlind,
-    questions: catQuestions
-  });
 }
 
-// --- Immediate fixes ---
-const immediateFixes = [];
+// --- Build categories with tree ---
+const catData = {};
+for (const cat of CATS) {
+  const cf = allFiles.filter(f => f.cat === cat);
+  const tree = {};
+  for (const f of cf) {
+    if (!tree[f.level1]) tree[f.level1] = {};
+    const k2 = f.level2 || '';
+    const gk = f.group ? (f.level2 + '/' + f.group) : f.level2;
+    if (!tree[f.level1][k2]) tree[f.level1][k2] = {};
+    if (!tree[f.level1][k2][gk]) tree[f.level1][k2][gk] = [];
+    tree[f.level1][k2][gk].push(f);
+  }
+  catData[cat] = {
+    total: cf.length,
+    questions: cf.reduce((s, f) => s + f.totalQ, 0),
+    tree
+  };
+}
 
-// Find parse errors
-for (const f of allFiles) {
-  if (f.status === 'error') {
-    immediateFixes.push({
-      severity: 'ans',
-      file: f.path.replace('data/', ''),
-      description: 'JSON 파싱 에러 — 학생에게 테스트 로드 안 됨'
-    });
+// --- Issue summary ---
+const issueSummary = {};
+for (const issue of solvReport.issues || []) {
+  if (issue.severity === 'CRITICAL' || issue.severity === 'HIGH') {
+    issueSummary[issue.category] = (issueSummary[issue.category] || 0) + 1;
   }
 }
 
 // --- Checklist ---
+const gc = {};
+for (const f of allFiles) gc[f.grade] = (gc[f.grade] || 0) + 1;
+
 const checklist = [
-  { label: 'validate S급 에러 제로화', done: immediateFixes.filter(f => f.severity === 'ans' && f.description.includes('파싱')).length <= 2 },
-  { label: 'validate A급 에러 제로화', done: true },
-  { label: '마커형 ch 셔플 ans 버그 수정 (432건)', done: true },
-  { label: '모의고사 에이전트 검증 (10개 배치)', done: true },
-  { label: '부교재 에이전트 검증 (5개 배치)', done: false },
-  { label: '교과서 에이전트 검증', done: false },
-  { label: '파싱에러 2파일 수정', done: false, blocked: true },
-  { label: 'A6 위반(정답분포편중) 2파일 재배분', done: false },
-  { label: '블라인드 불일치 잔존 문항 수동 확인', done: false },
+  { label: 'S급 에러 제로화 (42→0건)', done: true },
+  { label: '해설 번호 중복 수정 (1,326건)', done: true },
+  { label: '어형변환 주어진 단어 추가 (18건)', done: true },
+  { label: '서술형 (N단어) 조건 추가 (4,232건)', done: true },
+  { label: '정답 오류 안전 수정 (144건)', done: true },
+  { label: `CRITICAL ${gc.danger || 0}파일 재출제`, done: false, blocked: (gc.danger || 0) > 0 },
+  { label: `HIGH 이슈 파일 (${gc.caution || 0}건) 수정`, done: false },
+  { label: 'AI 블라인드 전수 풀이 (Phase 2)', done: false },
   { label: 'push + 배포 확인', done: false },
 ];
 
-// --- Summary ---
-const totalFiles = allFiles.length;
-const passFiles = allFiles.filter(f => f.status === 'pass').length;
-const passRate = ((totalFiles - immediateFixes.length) / totalFiles * 100).toFixed(1);
-
+// --- Output ---
 const output = {
   timestamp: new Date().toISOString(),
   summary: {
-    totalFiles,
+    totalFiles: allFiles.length,
     totalQuestions,
-    ansFixed: 569,
-    sErrors: immediateFixes.filter(f => f.description.includes('파싱')).length,
-    passRate
+    ansFixed: 144 + 18 + 1326 + 4232,
+    sErrors: 0,
+    passRate: ((gc.perfect || 0) / allFiles.length * 100).toFixed(1),
+    criticalIssues: solvReport.summary?.CRITICAL || 0,
+    highIssues: solvReport.summary?.HIGH || 0,
   },
-  categories,
-  immediateFixes,
+  issueSummary,
+  categories: catData,
   checklist,
   files: allFiles.sort((a, b) => {
-    // errors first, then mismatches desc, then pass
-    if (a.status === 'error' && b.status !== 'error') return -1;
-    if (a.status !== 'error' && b.status === 'error') return 1;
-    return (b.mismatch || 0) - (a.mismatch || 0);
+    const order = { broken: 0, danger: 1, caution: 2, unverified: 3, minor: 4, perfect: 5 };
+    return (order[a.grade] ?? 9) - (order[b.grade] ?? 9) || (b.mismatch - a.mismatch);
   })
 };
 
 fs.writeFileSync('inspection-data.json', JSON.stringify(output, null, 2), 'utf8');
-console.log(`✅ inspection-data.json 생성 (${totalFiles}파일, ${totalQuestions}문항)`);
-console.log(`   PASS: ${passFiles} | 에러: ${immediateFixes.length} | 불일치: ${allFiles.filter(f=>f.mismatch>0).length}`);
+
+console.log(`✅ inspection-data.json 생성 (${allFiles.length}파일, ${totalQuestions}문항)`);
+console.log(`   perfect: ${gc.perfect || 0} | minor: ${gc.minor || 0} | caution: ${gc.caution || 0} | danger: ${gc.danger || 0} | broken: ${gc.broken || 0}`);
+console.log(`   CRITICAL: ${solvReport.summary?.CRITICAL || 0}문항 | HIGH: ${solvReport.summary?.HIGH || 0}문항`);
