@@ -2164,8 +2164,8 @@ function validate(jsonPath) {
         const fpLower = fullPassage.toLowerCase();
         const wrongNoConnection = ch.filter((c, i) => {
           if (i === q.ans - 1) return false; // skip correct answer
-          // Check if any content word (4+ chars) appears in fullPassage
-          const words = c.trim().toLowerCase().split(/\s+/).filter(w => w.length >= 4);
+          // Check if any content word (3+ chars) appears in fullPassage
+          const words = c.trim().toLowerCase().split(/\s+/).filter(w => w.length >= 3 && !/^(the|and|for|are|but|not|you|all|can|had|her|was|one|our|out|has|his|how|its|may|new|now|old|see|way|who|did|get|has|him|his|how|let|say|she|too|use)$/.test(w));
           return words.length > 0 && !words.some(w => fpLower.includes(w));
         }).length;
         if (wrongNoConnection >= 3) {
