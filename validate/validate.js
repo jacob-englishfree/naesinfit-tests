@@ -2256,7 +2256,7 @@ function validate(jsonPath) {
 
     // A-EOSUN-NO-WORDS: 어순배열 stem에 셔플 단어 목록 없음
     if (/어순/.test(qtype) && fmt === 'written') {
-      const hasWordList = /\[.*[a-zA-Z]+.*\/.*[a-zA-Z]+.*\]/.test(stem) || /[a-zA-Z]+,\s*[a-zA-Z]+,\s*[a-zA-Z]+/.test(stem) || /\[\s*단어\s*\]/.test(stem);
+      const hasWordList = /\[.*[a-zA-Z]+.*\/.*[a-zA-Z]+.*\]/.test(stem) || /[a-zA-Z]+,\s*[a-zA-Z]+,\s*[a-zA-Z]+/.test(stem) || /\[\s*단어\s*\]/.test(stem) || /<b>.*[a-zA-Z]+\s*\/\s*[a-zA-Z]+.*<\/b>/.test(stem);
       if (!hasWordList) {
         result.add('A-EOSUN-NO-WORDS', SEV.A, `Q${qid}: 어순배열 stem에 셔플 단어 목록 없음 — 학생이 뭘 배열할지 모름`);
       }
