@@ -367,7 +367,7 @@ function validate(jsonPath) {
     // V62: "빈칸에 들어갈"/"위 글의 빈칸"/"위 빈칸" stem인데 passage에 빈칸 없음
     // ⛔ 어법/어휘/추론 모두 포함. passage가 존재하는 경우만 (passage 자체가 없는 유형은 X40이 처리)
     // 서술형 "찾기" 유형은 stem에 빈칸이 있어도 passage에는 필요 없음 (stem 안 한국어 문장의 빈칸)
-    const isFindType = stem.includes('찾아 쓰시오') || stem.includes('찾아쓰시오') || stem.includes('본문에서 찾아');
+    const isFindType = stem.includes('찾아 쓰시오') || stem.includes('찾아쓰시오') || stem.includes('본문에서 찾아') || stem.includes('원문에서 찾아');
     if ((stem.includes('위 글의 빈칸') || stem.includes('위 빈칸') || stem.includes('빈칸에 들어갈') || stem.includes('빈 칸에 들어갈')) && passage.trim().length > 10 && !passage.includes('____') && !passage.includes('_____') && !isFindType) {
       result.add('V62', SEV.S, `Q${qid}: stem에 "빈칸"이라고 했는데 passage에 빈칸(____) 없음 — 풀 수 없음`);
     }
