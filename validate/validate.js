@@ -2019,10 +2019,11 @@ function validate(jsonPath) {
       result.add('SEM-3', SEV.A, `Q${qid}: 어법 ch[] 순서가 passage <u> 밑줄 출현 순서와 불일치`);
     }
 
-    // ch 단어가 밑줄에 없는 경우도 경고
+    // ch 단어가 밑줄에 없는 경우 — 어법에서 오답은 문법 변형이라 passage에 없을 수 있음
+    // 정답(ans) 선지만 밑줄에 있으면 통과, 오답은 경고 안 함
     chWords.forEach((c, ci) => {
-      if (c && mapping[ci] === -1) {
-        result.add('SEM-3', SEV.A, `Q${qid}: ch[${ci + 1}]="${q.ch[ci]}"가 passage 밑줄에 없음`);
+      if (c && mapping[ci] === -1 && (ci === q.ans - 1)) {
+        result.add('SEM-3', SEV.A, `Q${qid}: 정답 ch[${ci + 1}]="${q.ch[ci]}"가 passage 밑줄에 없음`);
       }
     });
   });
