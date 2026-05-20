@@ -2170,7 +2170,7 @@ function validate(jsonPath) {
           return words.length > 0 && !words.some(w => fpLower.includes(w));
         }).length;
         if (wrongNoConnection >= 3) {
-          result.add('Q6-WEAK-DISTRACTOR', SEV.A, `Q${qid}: 오답 ${wrongNoConnection}개가 fullPassage에 없음 — 소거법으로 풀림`);
+          result.add('Q6-WEAK-DISTRACTOR', SEV.B, `Q${qid}: 오답 ${wrongNoConnection}개가 fullPassage에 없음 — 오답 질 향상 권장`);
         }
       }
     }
