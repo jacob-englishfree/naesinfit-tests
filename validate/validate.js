@@ -2123,7 +2123,7 @@ function validate(jsonPath) {
 
     // ── Q3: 빈칸형 정답이 fullPassage에 존재해야 함 ──
     // 빈칸 어휘 완성만 적용 (정답이 fullPassage에서 가려진 단어). 빈칸추론은 추론형이라 정답이 본문에 없을 수 있음
-    if (/빈칸\s*어휘|빈칸\s*문맥/.test(qtype) && fmt === 'mc' && ch.length > 0 && q.ans >= 1 && q.ans <= ch.length) {
+    if (/빈칸\s*어휘/.test(qtype) && fmt === 'mc' && ch.length > 0 && q.ans >= 1 && q.ans <= ch.length) {
       const ansText = (ch[q.ans - 1] || '').trim();
       if (ansText && ansText.length >= 3 && fullPassage && !fullPassage.includes(ansText)) {
         result.add('Q3-ANS-NOT-IN-FP', SEV.S, `Q${qid}: 빈칸 정답 "${ansText}"이 fullPassage에 없음 — 지문과 무관한 정답`);
