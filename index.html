@@ -717,13 +717,19 @@ const SB_URL='https://enkewpvhaugcmyglifkc.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVua2V3cHZoYXVnY215Z2xpZmtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0OTQzMjksImV4cCI6MjA4OTA3MDMyOX0.JJvDYNbxSnsaE30tMFl5x1Daqyx2Wk8bQv6s19tNrY8';
 async function sbInsert(table,row){
   try{
-    const r=await fetch(`${SB_URL}/rest/v1/${table}`,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row)});
+    const ctrl=new AbortController();
+    const tid=setTimeout(()=>ctrl.abort(),5000);
+    const r=await fetch(`${SB_URL}/rest/v1/${table}`,{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(row),signal:ctrl.signal});
+    clearTimeout(tid);
     return r.ok;
   }catch(e){console.warn('DB insert fail:',e);return false;}
 }
 async function sbSelect(table,query){
   try{
-    const r=await fetch(`${SB_URL}/rest/v1/${table}?${query}`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+    const ctrl=new AbortController();
+    const tid=setTimeout(()=>ctrl.abort(),5000);
+    const r=await fetch(`${SB_URL}/rest/v1/${table}?${query}`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY},signal:ctrl.signal});
+    clearTimeout(tid);
     if(!r.ok)return[];return await r.json();
   }catch(e){console.warn('DB select fail:',e);return[];}
 }
@@ -1606,8 +1612,8 @@ async function ensureQuestionsLoaded(testType, selections) {
     return fetchTestQuestions(testType, sel);
   });
   await Promise.all(promises);
-  // Apply answer overrides from DB
-  await applyAnswerOverrides(testType, selections);
+  // Apply answer overrides from DB (non-blocking — 시험 시작 지연 방지)
+  applyAnswerOverrides(testType, selections).catch(()=>{});
 }
 async function applyAnswerOverrides(testType, selections){
   try{
