@@ -1,0 +1,38 @@
+{
+  "file": "data/교과서/공통영어1/YBM김은형/3과/본문/단어.json",
+  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-05-21T16:53:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "question": 1,
+      "issue": "EX-3 경고: (A)(B)(C) 정답 단어가 발췌 passage에도 원문 그대로 노출됨",
+      "impact": "교과서 특성상 불가피. 선지 조합으로 난이도 유지.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "question": 9,
+      "issue": "Q6-WEAK-DISTRACTOR: 오답 tradition/regulation/restriction이 fullPassage에 없음",
+      "impact": "문맥 추론으로 소거 가능. 오답이 본문 외 단어이나 같은 품사로 충분한 교란.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "question": 19,
+      "issue": "Q6-WEAK-DISTRACTOR: 오답 profitable/temporary/harmful이 fullPassage에 없음",
+      "impact": "renewable의 문맥적 의미를 추론해야 하므로 난이도 적절.",
+      "action": "ACCEPT"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "total": 3,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능."
+  }
+}
