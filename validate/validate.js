@@ -373,7 +373,7 @@ function validate(jsonPath) {
     }
 
     // V63: passage 2문장 이하 빈 화면 (서술형 영작/영영풀이 제외)
-    const noPassageOK = ['서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)', '영영풀이 매칭', '동의어 고르기', '반의어 고르기', '한영', '한→영', '어형 변환', '어형 변환 (서술형)', '어형변환', '어형변화', '어형변형'].includes(typeNorm);
+    const noPassageOK = ['서술형', '서술형 — 영작', '서술형 — 조건영작', '영작문 (서술형)', '영영풀이 매칭', '동의어 고르기', '반의어 고르기', '한영', '한→영', '어형 변환', '어형 변환 (서술형)', '어형변환', '어형변화', '어형변형', '다의어 문맥적 의미', '다의어 / 문맥적 의미', '어순배열'].includes(typeNorm);
     if (!noPassageOK && passageSentences > 0 && passageSentences <= 2 && passagePlainLen < 150) {
       result.add('V63', SEV.A, `Q${qid}: passage가 ${passageSentences}문장(${passagePlainLen}자) — 너무 짧아서 빈 화면`);
     }
