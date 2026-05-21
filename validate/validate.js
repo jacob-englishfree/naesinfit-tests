@@ -51,6 +51,17 @@ function validate(jsonPath) {
 
   const { testType, ei, fullPassage, questions } = data;
 
+  // Skip non-test files (e.g. passage metadata files like 전체.json)
+  if (!testType && !Array.isArray(questions)) {
+    result.pass = true;
+    return result;
+  }
+  // Skip artifact files (adversarial.json, cross-blind.json, blind.json — have testType but no questions array)
+  if (!Array.isArray(questions) && (data.issues || data.solves || data.reviewedAt)) {
+    result.pass = true;
+    return result;
+  }
+
   // ── S1: questions.length === 20 ──
   if (!Array.isArray(questions)) {
     result.add('S1', SEV.S, 'questions is not an array');
@@ -277,14 +288,21 @@ function validate(jsonPath) {
 
     // P28: 어법 4지선다 — ①②③④ 마커 일관성
     if (typeNorm === '어법' && q.fmt === 'mc' && Array.isArray(q.ch) && q.ch.length === 4) {
-      const hasCircled = passage.includes('①') || passage.includes('②');
-      if (hasCircled) {
-        const missingMarkers = ['①', '②', '③', '④'].filter(c => !passage.includes(c));
-        // ④만 누락 = 흔한 데이터 이슈 → B급, 여러 개 누락 = A급
-        const markerSev = missingMarkers.length >= 2 ? SEV.A : SEV.B;
-        missingMarkers.forEach(c => {
-          result.add('P28', markerSev, `Q${qid}: 어법 4지선다 — ${c} 마커 누락`);
-        });
+      // "어법 이유 설명형" — ch가 한국어 설명문이면 밑줄찾기 아님 → P28 면제 (① prefix 제거 후 내용이 5자 이상이면 설명형)
+      const isExplanationFormatP28 = q.ch.every(c => {
+        const content = (c || '').replace(/^[①②③④⑤]\s*/, '');
+        return content.length >= 5;
+      });
+      if (!isExplanationFormatP28) {
+        const hasCircled = passage.includes('①') || passage.includes('②');
+        if (hasCircled) {
+          const missingMarkers = ['①', '②', '③', '④'].filter(c => !passage.includes(c));
+          // ④만 누락 = 흔한 데이터 이슈 → B급, 여러 개 누락 = A급
+          const markerSev = missingMarkers.length >= 2 ? SEV.A : SEV.B;
+          missingMarkers.forEach(c => {
+            result.add('P28', markerSev, `Q${qid}: 어법 4지선다 — ${c} 마커 누락`);
+          });
+        }
       }
     }
 
@@ -484,9 +502,11 @@ function validate(jsonPath) {
       }
     }
 
-    // V71: passage가 fullPassage 전체이면 FAIL (발췌해야 함)
+    // V71: passage가 fullPassage 전체이면 FAIL (발췌해야 함) — 단, 모의고사/수능특강 등은 fullPassage가 원칙이므로 면제
     if (['빈칸 어휘 완성', '빈칸어휘', '빈칸추론', '빈칸 추론', '빈칸 문맥 완성', '빈칸문맥'].includes(typeNorm)) {
-      if (q.passage && fullPassage && q.passage.replace(/<[^>]+>/g,'').replace(/_{3,}/g,'').trim() === fullPassage.trim()) {
+      const subj71 = String((data.ei && data.ei.subject) || '');
+      const isMockOrSuppV71 = /모의|수능특강|수능완성|EBS|부교재/.test(subj71) || /모의고사|부교재/.test(String(data.ei && data.ei.pub || ''));
+      if (!isMockOrSuppV71 && q.passage && fullPassage && q.passage.replace(/<[^>]+>/g,'').replace(/_{3,}/g,'').trim() === fullPassage.trim()) {
         result.add('V71', SEV.S, `Q${qid}: ${typeNorm} passage가 fullPassage 전체와 동일 — 5~8문장으로 발췌해야 함`);
       }
     }
@@ -1712,7 +1732,16 @@ function validate(jsonPath) {
     if (['어법', '문맥상 부적절한 어휘', '부적절어휘', '부적절'].includes(t)) {
       const hasCircledCh = q.ch && q.ch.some(c => /^[①②③④⑤]/.test((c || '').trim()));
       if (!hasCircledCh) return; // "밑줄 고치기" 타입 — 1개 밑줄이면 OK
+      // "어법 이유 설명형" — ch가 긴 한국어 설명문이면 밑줄찾기 아님 (① prefix 제거 후 내용이 5자 이상이면 설명형)
+      const isExplanationFormat = q.ch && q.ch.every(c => {
+        const content = (c || '').replace(/^[①②③④⑤]\s*/, '');
+        return content.length >= 5;
+      });
+      if (isExplanationFormat) return; // 이유 설명형 — 1개 밑줄 OK
+      // "어법 단어선택형" — passage에 <u> 1개 있으면 단일 위치 선택 → 4마커 불필요
       const text = (q.passage || '') + (q.stem || '');
+      const uTagCount = (text.match(/<u>/g) || []).length;
+      if (uTagCount === 1) return; // 단일 <u> 밑줄 — 4마커 불필요
       const ulCount = (text.match(/①|②|③|④/g) || []).length;
       if (q.fmt === 'mc' && q.ch && q.ch.length === 4 && ulCount < 4) {
         result.add('P-UL4', SEV.A, `Q${q.id}: ${t} 밑줄찾기인데 마커 ${ulCount}개 — 4개 필수`);
@@ -2136,7 +2165,10 @@ function validate(jsonPath) {
       const stemText = String(q.stem || '');
       const boldMatch = stemText.match(/<b>(.*?)<\/b>/);
       const targetWord = boldMatch ? boldMatch[1].trim().toLowerCase() : '';
-      if (targetWord && !fullPassage.toLowerCase().includes(targetWord)) {
+      // 영영풀이 두 형식: (1) [<b>word</b>] 형식 — word가 fullPassage에 있어야 함
+      //                  (2) <b>"definition..."</b> 형식 — bold가 정의문(5단어 이상)이면 체크 면제
+      const isBoldDefinition = targetWord.split(/\s+/).length >= 5;
+      if (targetWord && !isBoldDefinition && !fullPassage.toLowerCase().includes(targetWord)) {
         result.add('Q4-EIYOUNG-NOT-IN-FP', SEV.S, `Q${qid}: 영영풀이 대상 단어 "${targetWord}"이 fullPassage에 없음`);
       }
     }
@@ -2461,6 +2493,7 @@ function findJsonFiles(dir) {
     } else if (entry.name.endsWith('.json')) {
       if (entry.name.startsWith('_')) continue;
       if (/\.(blind|blind-prompt|prompt|response)\.json$/.test(entry.name)) continue;
+      if (entry.name === '전체.json') continue; // passage metadata, not a test file
       results.push(full);
     }
   }
