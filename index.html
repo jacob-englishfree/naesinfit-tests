@@ -3914,7 +3914,7 @@ function rSel(){
       if(hasSubs){
         // 각 과마다 과 이름 + 섹션 chip을 한 줄로 표시
         lessonContent=info.lessons.map(l=>{
-          const lWithGwa=l.endsWith('과')?l:l+'과';
+          const ls=String(l);const lWithGwa=ls.endsWith('과')?ls:ls+'과';
           const subs=(info.subs[lWithGwa]||info.subs[l]||[]).slice().sort((a,b)=>{if(a==='본문')return-1;if(b==='본문')return 1;return a.localeCompare(b,'ko');});
           const lKey=subj+'/'+pub+'/'+lWithGwa;
           const subChips=subs.map(s=>{
