@@ -1,0 +1,11 @@
+# Audit Report: 단어 테스트
+- 교재: 공통영어1 능률민병천 Special Lesson1 본문
+- 제목: The Golden Windows
+- 총 문항: 20 | 총점: 100 | S급: 0
+- 배점: 쉬움5x4=20, 보통10x5=50, 어려움5x6=30
+- ans 분포: {1:4, 2:5, 3:5, 4:4}
+- validate: PASS (B-level warnings only)
+- blind: 20/20 일치
+- cross-blind: 20/20 일치
+- adversarial: HIGH 0, LOW 2
+- 유형: ABC조합x3, 부적절어휘x3, 빈칸어휘x3, 동의어x3, 반의어x2, 다의어x1, 영영풀이x1, 어형변환x2, 빈칸문맥x2
