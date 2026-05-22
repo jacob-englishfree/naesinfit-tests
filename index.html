@@ -3904,7 +3904,7 @@ function rSel(){
   if(S.mode==='모의고사') return rSelMock();
   if(S.mode==='부교재') return rSelBugyo();
   const data=MANIFEST['교과서'];let h='';
-  const SUBJ_ORDER=['공통영어1','영어1','공통영어2','영어2','중2','중3'];
+  const SUBJ_ORDER=['공통영어1','공통영어2','영어1','영어2','중2','중3'];
   const sortedSubjs=Object.entries(data).sort((a,b)=>{const ia=SUBJ_ORDER.indexOf(a[0]),ib=SUBJ_ORDER.indexOf(b[0]);return(ia<0?99:ia)-(ib<0?99:ib);});
   for(const[subj,pubs]of sortedSubjs){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
     const sortedPubs=Object.entries(pubs).sort((a,b)=>(a[1].dn||a[0]).localeCompare(b[1].dn||b[0],'ko'));
