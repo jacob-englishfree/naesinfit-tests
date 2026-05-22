@@ -3904,14 +3904,17 @@ function rSel(){
   if(S.mode==='모의고사') return rSelMock();
   if(S.mode==='부교재') return rSelBugyo();
   const data=MANIFEST['교과서'];let h='';
-  for(const[subj,pubs]of Object.entries(data)){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
-    for(const[pub,info]of Object.entries(pubs)){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
+  const SUBJ_ORDER=['공통영어1','공통영어2','영어1','영어2','중2','중3'];
+  const sortedSubjs=Object.entries(data).sort((a,b)=>{const ia=SUBJ_ORDER.indexOf(a[0]),ib=SUBJ_ORDER.indexOf(b[0]);return(ia<0?99:ia)-(ib<0?99:ib);});
+  for(const[subj,pubs]of sortedSubjs){const sk='s_'+subj,sc=S.sel.filter(s=>s.startsWith(subj+'/')).length;let inner='';
+    const sortedPubs=Object.entries(pubs).sort((a,b)=>(a[1].dn||a[0]).localeCompare(b[1].dn||b[0],'ko'));
+    for(const[pub,info]of sortedPubs){const pk='p_'+subj+'_'+pub,pc=S.sel.filter(s=>s.startsWith(subj+'/'+pub+'/')).length;const allS=info.lessons.every(l=>S.sel.includes(subj+'/'+pub+'/'+l+'과'));
       const hasSubs=!!info.subs;
       let lessonContent='';
       if(hasSubs){
         // 각 과마다 과 이름 + 섹션 chip을 한 줄로 표시
         lessonContent=info.lessons.map(l=>{
-          const subs=info.subs[l+'과']||[];
+          const subs=(info.subs[l+'과']||[]).slice().sort((a,b)=>{if(a==='본문')return-1;if(b==='본문')return 1;return a.localeCompare(b,'ko');});
           const lKey=subj+'/'+pub+'/'+l+'과';
           const subChips=subs.map(s=>{
             const sk=lKey+'/'+s;
@@ -3953,10 +3956,14 @@ function intTg(el,k){const i=S.sel.indexOf(k);if(i>=0){S.sel.splice(i,1);el.clas
 function rSelMock(){
   const cat=SCOPE_CATALOG['모의고사'];if(!cat||!cat.items)return;
   let h='';
-  for(const[grade,months]of Object.entries(cat.items)){
+  const GRADE_ORDER=['고1','고2','고3'];
+  const MONTH_ORDER=['3월','6월','9월','11월'];
+  const sortedGrades=Object.entries(cat.items).sort((a,b)=>{const ia=GRADE_ORDER.indexOf(a[0]),ib=GRADE_ORDER.indexOf(b[0]);return(ia<0?99:ia)-(ib<0?99:ib);});
+  for(const[grade,months]of sortedGrades){
     const sk='m_'+grade;const sc=S.sel.filter(s=>s.startsWith('모의고사/'+grade+'/')).length;
     let inner='';
-    for(const[month,info]of Object.entries(months)){
+    const sortedMonths=Object.entries(months).sort((a,b)=>{const ma=a[0].match(/(\d+)월_(\d+)/),mb=b[0].match(/(\d+)월_(\d+)/);if(!ma||!mb)return a[0].localeCompare(b[0],'ko');const mia=MONTH_ORDER.indexOf(ma[1]+'월'),mib=MONTH_ORDER.indexOf(mb[1]+'월');if(mia!==mib)return(mia<0?99:mia)-(mib<0?99:mib);return parseInt(ma[2])-parseInt(mb[2]);});
+    for(const[month,info]of sortedMonths){
       if(!info.lessons||!info.lessons.length){
         inner+=`<div style="padding:8px 0"><span class="chip" style="opacity:.5">${info.dn||month} <span style="font-size:9px;color:var(--hint)">준비중</span></span></div>`;
         continue;
@@ -3977,10 +3984,12 @@ function mockSelAll(grade,month){const info=SCOPE_CATALOG['모의고사'].items[
 function rSelBugyo(){
   const cat=SCOPE_CATALOG['부교재'];if(!cat||!cat.items)return;
   let h='';
-  for(const[series,books]of Object.entries(cat.items)){
+  const sortedSeries=Object.entries(cat.items).sort((a,b)=>a[0].localeCompare(b[0],'ko'));
+  for(const[series,books]of sortedSeries){
     const sk='b_'+series;const sc=S.sel.filter(s=>s.startsWith('부교재/'+series+'/')).length;
     let inner='';
-    for(const[book,info]of Object.entries(books)){
+    const sortedBooks=Object.entries(books).sort((a,b)=>(a[1].dn||a[0]).localeCompare(b[1].dn||b[0],'ko'));
+    for(const[book,info]of sortedBooks){
       if(!info.lessons||!info.lessons.length){
         inner+=`<div style="padding:8px 0"><span class="chip" style="opacity:.5">${info.dn||book} <span style="font-size:9px;color:var(--hint)">준비중</span></span></div>`;
         continue;
