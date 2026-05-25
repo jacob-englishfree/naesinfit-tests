@@ -29,6 +29,7 @@ function isMarkerCh(ch) {
 function canRotate(q) {
   if (q.fmt === 'written') return false;
   if (isTFCh(q.ch)) return false;
+  if (isMarkerCh(q.ch)) return false;  // 마커형은 순서 고정 — 회전 금지
   if (!Array.isArray(q.ch) || q.ch.length < 3) return false;
   return true;
 }
