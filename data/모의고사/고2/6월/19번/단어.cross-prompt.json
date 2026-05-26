@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Peter stepped out of the freezing night air and in",
+    "subject": "6월 고2 모의고사",
+    "pub": "19번",
+    "lesson": "Peter stepped out of the freezing night air and in",
+    "histKey": "wordtest_2_6_19_v3"
+  },
+  "fullPassage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the <b>(A)</b>[freezing / boiling] night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more <b>(B)</b>[unwell / healthy], her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more <b>(C)</b>[comfortable / restless]. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "boiling — unwell — comfortable",
+        "freezing — unwell — comfortable",
+        "freezing — healthy — comfortable",
+        "freezing — unwell — restless"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started <b>(A)</b>[suddenly / gradually], just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who <b>(B)</b>[reassured / alarmed] him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep <b>(C)</b>[peacefully / anxiously] that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "suddenly — reassured — peacefully",
+        "gradually — reassured — peacefully",
+        "suddenly — alarmed — peacefully",
+        "suddenly — reassured — anxiously"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The <b>(A)</b>[harsh / gentle] light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his <b>(B)</b>[concern / relief] growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of <b>(C)</b>[calm / panic] wash over him.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "gentle — concern — calm",
+        "harsh — relief — calm",
+        "harsh — concern — panic",
+        "harsh — concern — calm"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the ①<u>brightly</u> lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and ②<u>sweaty</u>. Her fever had started suddenly, just before dinner, but it wouldn't go down ③<u>because of</u> his efforts. At the front desk, he explained her ④<u>symptoms</u>, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the ①<u>freezing</u> night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and ②<u>carelessly</u> examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more ③<u>comfortable</u>. As Peter watched her sleep ④<u>peacefully</u> that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, ①<u>holding</u> his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started ②<u>suddenly</u>, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully ③<u>examined</u> his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of ④<u>anxiety</u> wash over him.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital __________, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "symptoms",
+        "efforts",
+        "lobby",
+        "concern"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his __________ growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "lobby",
+        "fever",
+        "shot",
+        "concern"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were __________ led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "brightly",
+        "quickly",
+        "suddenly",
+        "peacefully"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The <u>harsh</u> light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 <u>harsh</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "pleasant",
+        "natural",
+        "faint",
+        "intense"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who <u>reassured</u> him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 <u>reassured</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "comforted",
+        "frightened",
+        "ignored",
+        "confused"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully <u>examined</u> his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 <u>examined</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "inspected",
+        "neglected",
+        "entertained",
+        "dismissed"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the <u>freezing</u> night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 <u>freezing</u>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "chilly",
+        "icy",
+        "scorching",
+        "frigid"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more <u>comfortable</u>. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 밑줄 친 <u>comfortable</u>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "relaxed",
+        "cozy",
+        "distressed",
+        "content"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Her fever had started suddenly, just before dinner, but it wouldn't go <u>down</u> despite his efforts.\n(B) After the doctor gave her a shot, her fever went <u>down</u> and she seemed more comfortable.",
+      "stem": "다음 글의 밑줄 친 (A)와 (B)의 <b><u>down</u></b>이 의미하는 것으로 가장 적절한 것은?",
+      "ch": [
+        "(A) 아래로 — (B) 감소하다",
+        "(A) 감소하다 — (B) 감소하다",
+        "(A) 감소하다 — (B) 내려놓다",
+        "(A) 내려놓다 — (B) 아래로"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"the signs or indications of a disease or condition\"",
+      "ch": [
+        "efforts",
+        "treatments",
+        "symptoms",
+        "concerns"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, __________ (hold) his three-year-old daughter in his arms.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔\n<br><br><b>(hold)</b> 영어로 쓰시오. (1단어)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "At the front desk, he explained her symptoms, his concern __________ (grow) with every moment.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔\n<br><br><b>(grow)</b> 영어로 쓰시오. (1단어)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down __________. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt a wave of calm wash over him.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "after the shot",
+        "with every moment",
+        "before dinner",
+        "despite his efforts"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Peter stepped out of the freezing night air and into the brightly lit hospital lobby, holding his three-year-old daughter in his arms. The harsh light made her look even more unwell, her face all red and sweaty. Her fever had started suddenly, just before dinner, but it wouldn't go down despite his efforts. At the front desk, he explained her symptoms, his concern growing with every moment. They were quickly led to the doctor, who reassured him and carefully examined his daughter. After the doctor gave her a shot, her fever went down and she seemed more comfortable. As Peter watched her sleep peacefully that night, he felt __________ wash over him.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a wave of calm",
+        "front desk",
+        "brightly lit",
+        "three-year-old"
+      ]
+    }
+  ]
+}
