@@ -2444,8 +2444,9 @@ function normalizeQs(qs,fp){
     // ch 정규화
     if(!q.ch||!Array.isArray(q.ch))return;
     const allCircledOnly=q.ch.every(c=>/^[①②③④⑤⑥⑦⑧⑨⑩]$/.test(c.trim()));
-    if(allCircledOnly&&q.passage){
-      // ch가 ["①","②","③","④"] 같이 번호만 — passage에서 밑줄 단어 추출
+    const isOryuChatgi=/오류찾기/.test(q.type);
+    if(allCircledOnly&&q.passage&&!isOryuChatgi){
+      // ch가 ["①","②","③","④"] 같이 번호만 — passage에서 밑줄 단어 추출 (오류찾기 제외)
       const ms=[...q.passage.matchAll(/<u>([^<]+)<\/u>/g)];
       const words=ms.map(m=>m[1].replace(_CRE,'').trim());
       if(words.length>0){
