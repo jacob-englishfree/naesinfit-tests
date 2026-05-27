@@ -2351,6 +2351,12 @@ function validate(jsonPath) {
       }
     }
 
+    // S-ORYUCHATGI-UL: 오류찾기 passage에 <u> 태그 금지
+    // 렌더러가 <u> 내용을 선지로 추출하여 표시 깨짐 (2026-05-28 사고)
+    if (/오류찾기/.test(qtype) && passage && /<u>/.test(passage)) {
+      result.add('S-ORYUCHATGI-UL', SEV.S, `Q${qid}: 오류찾기 passage에 <u> 태그 있음 — 렌더러가 선지를 깨뜨림. 마커(①②③④)만 사용`);
+    }
+
     // S-QUIZ-WRITTEN-SHORT: 퀴즈 서술형 wa 최소 단어수 미달
     // 퀴즈=내신 예상문제 수준. 서술형 찾기형 7단어+, 조건영작 6단어+ 필수
     if (testType === '퀴즈' && fmt === 'written' && wa) {
