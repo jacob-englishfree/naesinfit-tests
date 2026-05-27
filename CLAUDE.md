@@ -111,7 +111,8 @@
 **상세 SOP: `~/Desktop/영어해방공식&내신핏/naesinfit-tests/TEST-SOP.md` 필수 참조**
 
 ```
-STEP 0: 원문 확보 (글자 단위 정확성)
+STEP 0: 원문 확보 + PDF↔fullPassage 대조 (글자 단위 정확성)
+STEP 0.5: 출제 완료 후 fullPassage↔PDF 재대조 (검수 시 반드시 다시 확인)
 STEP 1: 출제 (가이드라인 준수)
 STEP 2: 구조 검증 (validate 60체크 + auto-fix)
 STEP 3: 블라인드 풀이 (정답 가리고 20문항 직접 풀기 — 풀이 근거 필수)
