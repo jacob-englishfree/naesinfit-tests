@@ -2350,6 +2350,30 @@ function validate(jsonPath) {
         result.add('S-DET-NO-LINEBREAK', SEV.S, `Q${qid}: det.analysis에 줄바꿈 ${lineBreaks}개 — mc 4선지 분석은 최소 3개 줄바꿈 필수 (선지별 1줄)`);
       }
     }
+
+    // S-QUIZ-WRITTEN-SHORT: 퀴즈 서술형 wa 최소 단어수 미달
+    // 퀴즈=내신 예상문제 수준. 서술형 찾기형 7단어+, 조건영작 6단어+ 필수
+    if (testType === '퀴즈' && fmt === 'written' && wa) {
+      const waWords = wa.trim().split(/\s+/).length;
+      const isYakjak = /조건영작/.test(qtype);
+      const isMorph = /어형/.test(qtype);
+      if (!isMorph) {
+        const minWords = isYakjak ? 6 : 7;
+        if (waWords < minWords) {
+          result.add('S-QUIZ-WRITTEN-SHORT', SEV.S, `Q${qid}: 퀴즈 서술형 wa ${waWords}단어 — 최소 ${minWords}단어 필수 (퀴즈=내신 예상문제 수준)`);
+        }
+      }
+    }
+
+    // S-QUIZ-BLANK-SINGLE: 퀴즈 빈칸추론 정답이 단어 1개
+    // 퀴즈 빈칸추론은 구절/표현 단위(2단어+) 필수
+    if (testType === '퀴즈' && fmt === 'mc' && /빈칸/.test(qtype)) {
+      const overlay = q.overlay || {};
+      const blankText = overlay.blank || '';
+      if (blankText && blankText.trim().split(/\s+/).length < 2) {
+        result.add('S-QUIZ-BLANK-SINGLE', SEV.S, `Q${qid}: 퀴즈 빈칸추론 정답 "${blankText}" 1단어 — 퀴즈는 구절/표현 단위(2단어+) 필수`);
+      }
+    }
   }
 
   // ══════════════════════════════════════════════════════════════
