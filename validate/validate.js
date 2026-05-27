@@ -2301,6 +2301,55 @@ function validate(jsonPath) {
         result.add('A-EOSUN-NO-WORDS', SEV.A, `Q${qid}: 어순배열 stem에 셔플 단어 목록 없음 — 학생이 뭘 배열할지 모름`);
       }
     }
+    // ══════════════════════════════════════════════════════════════
+    // 2026-05-27 신규 3종 — 퀴즈 해설 품질 + stem↔passage 밑줄 정합성
+    // ══════════════════════════════════════════════════════════════
+
+    // S-STEM-UL-MISMATCH: stem에서 "밑줄 친 X"라고 참조하는데, passage <u> 범위가 X를 포함하지 않음
+    if (stem && passage && /밑줄\s*친/.test(stem)) {
+      // stem에서 "밑줄 친" 뒤의 텍스트 추출 (따옴표 안 또는 첫 영단어/구절)
+      const stemUlMatch = stem.match(/밑줄\s*친\s*(?:[""]([^""]+)[""]|"([^"]+)"|(\w[\w\s,.']+\w))/);
+      if (stemUlMatch) {
+        const stemRef = (stemUlMatch[1] || stemUlMatch[2] || stemUlMatch[3] || '').trim();
+        if (stemRef.length > 1) {
+          // passage에서 <u>...</u> 내용 추출
+          const ulMatches = [...passage.matchAll(/<u>([^<]+)<\/u>/g)].map(m => m[1]);
+          const fullUlText = ulMatches.join(' ');
+          // stemRef가 passage의 <u> 텍스트에 포함되는지 확인
+          const stemRefNorm = stemRef.toLowerCase().replace(/[""]/g, '');
+          const ulNorm = fullUlText.toLowerCase();
+          if (ulNorm.length > 0 && !ulNorm.includes(stemRefNorm)) {
+            result.add('S-STEM-UL-MISMATCH', SEV.S, `Q${qid}: stem "밑줄 친 ${stemRef.slice(0,30)}..."인데 passage <u> 범위와 불일치 — stem 참조 텍스트가 passage 밑줄에 포함되어야 함`);
+          }
+        }
+      }
+    }
+
+    // S-EN-CHOICE-NO-KR: 영어 선지(ch)인데 det.analysis에 한국어 해석 없음
+    // 내신 시험에서 영어 선지는 해설에 반드시 한국어 번역 포함
+    if (fmt === 'mc' && ch && ch.length >= 4 && det && det.analysis) {
+      const isEnglishChoice = ch.every(c => typeof c === 'string' && /[a-zA-Z]/.test(c) && c.length > 5);
+      const isMarkerChoice = ch.every(c => /^[①②③④⑤]$/.test(c));
+      const isTF = ch.some(c => /^[TF]$/.test(c));
+      if (isEnglishChoice && !isMarkerChoice && !isTF) {
+        // 해설에 한국어가 포함되어 있는지 확인 (각 선지별)
+        const krCount = (det.analysis.match(/[\uAC00-\uD7A3]/g) || []).length;
+        const choiceCount = ch.length;
+        // 영어 선지 4개에 대해 최소 한국어 20자 이상 (선지당 5자 해석)
+        if (krCount < choiceCount * 5) {
+          result.add('S-EN-CHOICE-NO-KR', SEV.S, `Q${qid}: 영어 선지인데 det.analysis에 한국어 해석 부족 (${krCount}자) — 각 선지별 한국어 번역 필수`);
+        }
+      }
+    }
+
+    // S-DET-NO-LINEBREAK: det.analysis에 선지별 줄바꿈(\\n) 없음
+    // mc 문항에서 ①②③④ 또는 선지 4개 분석은 줄바꿈으로 구분되어야 가독성 확보
+    if (fmt === 'mc' && ch && ch.length >= 4 && det && det.analysis) {
+      const lineBreaks = (det.analysis.match(/\n/g) || []).length;
+      if (lineBreaks < 3) {
+        result.add('S-DET-NO-LINEBREAK', SEV.S, `Q${qid}: det.analysis에 줄바꿈 ${lineBreaks}개 — mc 4선지 분석은 최소 3개 줄바꿈 필수 (선지별 1줄)`);
+      }
+    }
   }
 
   // ══════════════════════════════════════════════════════════════
