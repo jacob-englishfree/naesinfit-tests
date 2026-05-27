@@ -2357,6 +2357,36 @@ function validate(jsonPath) {
       result.add('S-ORYUCHATGI-UL', SEV.S, `Q${qid}: 오류찾기 passage에 <u> 태그 있음 — 렌더러가 선지를 깨뜨림. 마커(①②③④)만 사용`);
     }
 
+    // S-COND-REVERSE: 조건영작 [조건]에 있는 단어가 wa에 없음 (역방향)
+    // "모두 사용할 것"이면 조건 단어 전부가 wa에 포함되어야 함. 더미 단어 금지.
+    if (fmt === 'written' && /조건영작|어순/.test(qtype) && wa && /모두\s*사용/.test(stem)) {
+      const condBlock = stem.slice(stem.indexOf('[조건]') || 0);
+      const condWords = (condBlock.match(/[a-zA-Z][a-zA-Z''-]+/g) || []).filter(w => w.length > 1 && !/^[A-Z]$/.test(w));
+      const waLower = wa.toLowerCase();
+      const missing = condWords.filter(w => !waLower.includes(w.toLowerCase()));
+      if (missing.length > 0) {
+        result.add('S-COND-REVERSE', SEV.S, `Q${qid}: [조건]에 "${missing.join(', ')}" 있는데 wa에 없음 — "모두 사용"이면 더미 단어 금지`);
+      }
+    }
+
+    // S-WA-CONTRACTION: 서술형 wa에 축약형 + (N단어) 동시 사용 금지
+    // 축약형(I'll, don't, can't 등) 포함 시 학생이 단어 수 세기 혼란
+    if (fmt === 'written' && wa && /\d+\s*단어/.test(stem)) {
+      if (/\w+[''][a-zA-Z]+/.test(wa)) {
+        result.add('S-WA-CONTRACTION', SEV.S, `Q${qid}: wa에 축약형 "${wa.match(/\w+[''][a-zA-Z]+/)[0]}" + (N단어) 동시 사용 — 학생이 단어 수 혼란`);
+      }
+    }
+
+    // S-TYPE-TAG-WHITELIST: type별 허용 태그 검증
+    // 오류찾기: <u> 금지 (S-ORYUCHATGI-UL로 이미 체크)
+    // 내용일치/주제/요지/서술형: <b>(A)</b> 금지 (ABC 조합 전용)
+    if (passage && /<b>\(A\)/.test(passage)) {
+      const abcTypes = /조합|ABC|\(A\)\(B\)\(C\)/;
+      if (!abcTypes.test(qtype)) {
+        result.add('S-TYPE-TAG-MISMATCH', SEV.S, `Q${qid}: ${qtype}인데 passage에 <b>(A)</b> 태그 — ABC 조합형 전용 태그`);
+      }
+    }
+
     // S-QUIZ-WRITTEN-SHORT: 퀴즈 서술형 wa 최소 단어수 미달
     // 퀴즈=내신 예상문제 수준. 서술형 찾기형 7단어+, 조건영작 6단어+ 필수
     if (testType === '퀴즈' && fmt === 'written' && wa) {
