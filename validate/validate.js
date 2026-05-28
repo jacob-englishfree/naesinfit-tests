@@ -2357,15 +2357,25 @@ function validate(jsonPath) {
       result.add('S-ORYUCHATGI-UL', SEV.S, `Q${qid}: 오류찾기 passage에 <u> 태그 있음 — 렌더러가 선지를 깨뜨림. 마커(①②③④)만 사용`);
     }
 
-    // S-COND-REVERSE: 조건영작 [조건]에 있는 단어가 wa에 없음 (역방향)
-    // "모두 사용할 것"이면 조건 단어 전부가 wa에 포함되어야 함. 더미 단어 금지.
-    if (fmt === 'written' && /조건영작|어순/.test(qtype) && wa && /모두\s*사용/.test(stem)) {
-      const condBlock = stem.slice(stem.indexOf('[조건]') || 0);
-      const condWords = (condBlock.match(/[a-zA-Z][a-zA-Z''-]+/g) || []).filter(w => w.length > 1 && !/^[A-Z]$/.test(w));
-      const waLower = wa.toLowerCase();
-      const missing = condWords.filter(w => !waLower.includes(w.toLowerCase()));
-      if (missing.length > 0) {
-        result.add('S-COND-REVERSE', SEV.S, `Q${qid}: [조건]에 "${missing.join(', ')}" 있는데 wa에 없음 — "모두 사용"이면 더미 단어 금지`);
+    // S-COND-REVERSE: [조건]에 나열된 영단어가 wa에 없음 (역방향)
+    // "모두 사용" / "활용" / "사용할 것" 등 표현 무관 — [조건]에 영단어 리스트가 있으면 무조건 대조.
+    // 더미 단어 절대 금지. 학생은 조건의 모든 단어를 써야 한다고 생각함.
+    if (fmt === 'written' && wa && /\[조건\]/.test(stem)) {
+      const condBlock = stem.slice(stem.indexOf('[조건]'));
+      // [조건] 블록에서 영단어 추출 (2자 이상, 단독 대문자 제외)
+      const condWords = (condBlock.match(/[a-zA-Z][a-zA-Z''-]+/g) || [])
+        .filter(w => w.length > 1)
+        .filter(w => !/^(the|a|an|to|of|in|on|at|by|for|and|or|but|is|are|was|were|be|do|does|did|has|have|had|will|can|may|not|it|I|my|your|he|she|we|they|its|his|her|our|their|this|that|these|those|with|from|as|if|so|no|all|each|each|every|both|few|more|most|much|many|some|any|other|such|than|too|very|just|also|only|even|still|already|up|out|back|down|off|over|into|through|about|after|before|between|under|during|without|along)$/i.test(w));
+      // 기능어(관사/전치사/대명사)는 제외하고, 내용어만 체크
+      // BUT: stem에 명시적으로 나열된 단어는 전부 체크 (쉼표로 구분된 리스트)
+      const explicitList = condBlock.match(/\)\s*([a-zA-Z][a-zA-Z',\s]+?)를/);
+      if (explicitList) {
+        const listedWords = explicitList[1].split(/,\s*/).map(w => w.trim()).filter(w => w.length > 0 && /[a-zA-Z]/.test(w));
+        const waLower = wa.toLowerCase();
+        const missing = listedWords.filter(w => !waLower.includes(w.toLowerCase()));
+        if (missing.length > 0) {
+          result.add('S-COND-REVERSE', SEV.S, `Q${qid}: [조건]에 "${missing.join(', ')}" 나열했는데 wa에 없음 — 조건에 나열된 단어는 전부 wa에 포함 필수`);
+        }
       }
     }
 
