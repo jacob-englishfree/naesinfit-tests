@@ -313,6 +313,28 @@ STEP 8: jacob 확인 후 배포
 
 **참고본:** `~/.claude/projects/-Users-woobumpark/memory/reference_quiz_det_standard.md`
 
+### L. 출제 시 절대 금지 사항 (2026-05-28 추가 — 렌더러/학생UX 사고 기반)
+
+**1. 태그 규칙 (렌더러 호환):**
+- 오류찾기 passage에 `<u>` 태그 **절대 금지** → 렌더러가 선지를 깨뜨림 (S-ORYUCHATGI-UL)
+- 비ABC유형 passage에 `<b>(A)</b>` 태그 금지 (S-TYPE-TAG-MISMATCH)
+- `prompts/self-check.md` 태그 화이트리스트 참조
+
+**2. 서술형 단어수 규칙:**
+- wa에 축약형(I'll, don't, can't) + (N단어) **동시 사용 금지** (S-WA-CONTRACTION)
+- wa에 콤마 나열(A, B, C) + (N단어) 동시 사용 금지
+- [조건]에 더미 단어 **절대 금지** — 나열된 단어 전부 wa에 포함 필수 (S-COND-REVERSE)
+- 찾기형 서술형: stem을 Q→A 형식으로, 빈칸(___) 개수 = wa 단어수
+
+**3. 크로스파일 중복 금지:**
+- 같은 과의 워크북↔퀴즈 간 동일 wa/overlay.blank 금지 (N7)
+- 퀴즈는 워크북과 **다른 지문 영역, 다른 문법 포인트, 다른 답**으로 출제
+
+**4. 검수 필수 절차 (STEP 3, 5):**
+- STEP 3: 증적 자동생성이 아닌 **실제 풀이**. 각 문항을 학생처럼 읽고 풀이 근거 출력
+- STEP 5: 조건 단어수 vs wa 단어수 대조, stem 명확성, 오답 소거 가능성 점검
+- **수정 후 반드시 해당 문항 전체(stem+조건+wa+passage) 다시 읽기**
+
 ---
 
 ## 출제 절대 금지 11종 (S급 — 즉시 차단, 2026-04-08 추가)
