@@ -2560,6 +2560,32 @@ function main() {
         console.log(`  [A] N3: stem+ch 복붙 ${crossCopyCount}건 — ${sampleFiles.join(', ')} 등`);
       }
 
+      // N7: 같은 과 내 워크북↔퀴즈 wa/overlay 중복 탐지
+      // 학생이 워크북 풀고 퀴즈 풀면 같은 문제 반복 — 테스트 의미 상실
+      const waByFile = {};
+      group.forEach(g => {
+        const testType = g.data.testType || '';
+        const rel = path.relative(ROOT, g.path);
+        (g.data.questions || []).forEach(q => {
+          const wa = q.wa || '';
+          const blank = (q.overlay && q.overlay.blank) || '';
+          const key = wa || blank;
+          if (key && key.length > 3) {
+            if (!waByFile[key]) waByFile[key] = [];
+            waByFile[key].push({ file: rel, qid: q.id, type: testType });
+          }
+        });
+      });
+      Object.entries(waByFile).forEach(([wa, entries]) => {
+        const types = [...new Set(entries.map(e => e.type))];
+        if (entries.length >= 2 && types.length >= 2) {
+          // 다른 testType 간 동일 wa/blank → 중복
+          crossIssues++;
+          const desc = entries.map(e => `${e.type} Q${e.qid}`).join(' = ');
+          console.log(`  [S] N7: wa/blank 중복 "${wa.slice(0,40)}..." — ${desc}`);
+        }
+      });
+
       // N6: 시험 단위 ans 분포 편향
       const ansDist = { 1: 0, 2: 0, 3: 0, 4: 0 };
       let totalAns = 0;
