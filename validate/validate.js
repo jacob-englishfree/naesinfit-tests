@@ -2440,6 +2440,13 @@ function validate(jsonPath) {
       if (mismatched > 0) {
         result.add('A-BLIND-MISMATCH', SEV.A, `블라인드 풀이 불일치: ${mismatched}문항 — 정답 확인 필요`);
       }
+
+      // S-BLIND-NO-REASONING: blind.json에 풀이 근거(reasoning) 없음
+      // 자동생성 증적 차단 — 실제로 풀어본 증적만 배포 허용
+      const noReasoning = solves.filter(s => !s.reasoning || s.reasoning.length < 10).length;
+      if (noReasoning > 10) {
+        result.add('S-BLIND-NO-REASONING', SEV.S, `블라인드 풀이 근거 없음: ${noReasoning}/20문항에 reasoning 필드 없음 — 자동생성 증적 배포 금지`);
+      }
     } catch (e) {
       // blind.json 파싱 실패
     }
