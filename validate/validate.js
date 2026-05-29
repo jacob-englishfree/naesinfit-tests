@@ -2380,17 +2380,10 @@ function validate(jsonPath) {
       }
     }
 
-    // S-ORYUCHATGI-UL: 오류찾기 passage에 <u> 태그 금지
-    // 렌더러가 <u> 내용을 선지로 추출하여 표시 깨짐 (2026-05-28 사고)
-    if (/오류찾기/.test(qtype) && passage && /<u>/.test(passage)) {
-      result.add('S-ORYUCHATGI-UL', SEV.S, `Q${qid}: 오류찾기 passage에 <u> 태그 있음 — 렌더러가 선지를 깨뜨림. 마커(①②③④)만 사용`);
-    }
-
-    // S-ORYUCHATGI-STEM: 오류찾기인데 stem에 "밑줄" — 유형 혼동
-    // 오류찾기는 문장 단위 마커, 밑줄 없음. "밑줄 친"은 어법 stem.
-    if (/오류찾기/.test(qtype) && /밑줄/.test(stem)) {
-      result.add('S-ORYUCHATGI-STEM', SEV.S, `Q${qid}: 오류찾기 stem에 "밑줄" — 오류찾기는 밑줄 없음. type이 어법이어야 하거나 stem 수정 필요`);
-    }
+    // 오류찾기 <u> 허용 (2026-05-30 렌더러 수정 완료)
+    // 단어형: ①<u>단어</u> → 선지에 단어 표시 (어법과 동일)
+    // 문장형: ①문장. → <u> 없이 번호만 (문장 전체가 대상)
+    // S-ORYUCHATGI-UL, S-ORYUCHATGI-STEM 제거 — 오류찾기도 밑줄 사용 가능
 
     // S-GRAMMAR-NO-UNDERLINE: 어법인데 passage에 <u> 없음
     // 어법은 단어에 ①<u>word</u> 형태 필수. 밑줄 없으면 학생이 뭘 봐야 하는지 모름.
@@ -2442,7 +2435,7 @@ function validate(jsonPath) {
     }
 
     // S-TYPE-TAG-WHITELIST: type별 허용 태그 검증
-    // 오류찾기: <u> 금지 (S-ORYUCHATGI-UL로 이미 체크)
+    // 오류찾기: <u> 허용 (2026-05-30 렌더러 수정)
     // 내용일치/주제/요지/서술형: <b>(A)</b> 금지 (ABC 조합 전용)
     if (passage && /<b>\(A\)/.test(passage)) {
       const abcTypes = /조합|ABC|\(A\)\(B\)\(C\)/;
