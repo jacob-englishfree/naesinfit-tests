@@ -7,7 +7,7 @@
   ],
   "source": "교과서",
   "sourcePath": "공통영어1/능률민병천/3과/본문",
-  "testType": "퀴즈",
+  "testType": "워크북",
   "fullPassage": "Welcome back to Today's Health. Today we're going to be talking about exercise. Dr. Victoria Hill is here, and she is going to share some useful tips. So, Dr. Hill, let's start with a question about my experience last month. I worked out right after dinner and got a stomachache. Why did that happen?\n\nWell, the problem is that you exercised too soon after eating. This can cause various stomach issues. When you eat, blood rushes to the digestive system to help break down the food and absorb its nutrients. But when you start to exercise, blood moves from the digestive system to your muscles. This happens in order to supply your muscles with the oxygen and nutrients they require. As a result, the digestion process is paused until the blood returns. So, whether you're lifting weights or going for a jog, you shouldn't do it with a stomach full of food.\n\nI see. That makes sense. So, does that mean I should exercise on an empty stomach?\n\nNo, it doesn't. That can also be harmful and unpleasant. This is because the body needs energy to exercise. The fuel that provides this energy is glycogen. Carbohydrates in the food we eat are broken down into a kind of sugar called glucose. When this glucose is stored in parts of the body, such as the muscles and the liver, it is called glycogen. This is why exercising on a completely empty stomach — such as when you first wake up in the morning — can be such a challenge. Your blood sugar levels are low, and you don't have enough glycogen stored in your body. If you exercise on an empty stomach, you will most likely lack energy and feel unusually tired. There can also be more serious outcomes. Some people end up suffering from nausea and headaches, and others even faint. This is because intense exercise uses up all the glycogen in your muscles.\n\nSo, is it the loss of glycogen that causes us to have low levels of energy?\n\nThat's correct. For this reason, doctors recommend that people eat food containing carbohydrates within thirty minutes after working out. This replaces the muscle glycogen you have lost. Basically, you need between one and one and a half grams of carbohydrates for every kilogram you weigh. Let's do the math. If you weigh 60 kilograms, you should try to consume between 60 and 90 grams of carbohydrates after you exercise. This is equal to about one bowl of white rice or three bananas.\n\nThat's very interesting. But what about eating before we exercise? Can you explain how long we should wait after eating?\n\nWell, as I said before, exercising right after you eat will cause feelings of discomfort. But, if you wait too long to exercise after eating, you'll suffer from a lack of energy. The best time to eat before you exercise varies from one to three hours. Basically, it depends on several factors such as the type and amount of food as well as body size, age, and gender. The type of exercise also matters. For extremely active exercise like cycling, I suggest that you wait between one and a half and three hours after eating a moderate-sized meal. But for something more casual, such as golfing, waiting for one hour after a meal should be enough. Clearly, you can wait less after eating a snack.\n\nThank you very much for this fascinating information, Dr. Hill. I'm sure it will be very helpful for all of our viewers.",
   "title": "Timing Is Everything",
   "sentenceIndex": [
@@ -234,7 +234,7 @@
         "④"
       ]
     },
-    "문맥상 부적절한 어휘": {
+    "어휘": {
       "fmt": "mc",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
       "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
@@ -245,6 +245,17 @@
         "②",
         "③",
         "④"
+      ]
+    },
+    "내용이해 T/F": {
+      "fmt": "mc",
+      "stem": "한국어 진술문 (패러프레이징 필수, 직역 금지)",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "passageRule": "발췌 2~4문장",
+      "answerRule": "",
+      "ch": [
+        "T",
+        "F"
       ]
     },
     "빈칸추론": {
@@ -263,29 +274,13 @@
       "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
       "ch": "한국어 진술문 4개"
     },
-    "주제": {
+    "오류찾기": {
       "fmt": "mc",
       "stem": "",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 또는 fullPassage",
-      "answerRule": "",
-      "ch": "한국어 4개"
-    },
-    "함축의미 추론": {
-      "fmt": "mc",
-      "stem": "",
-      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
-      "passageRule": "발췌 + <u>비유표현</u>",
-      "answerRule": "",
-      "ch": "한국어 4개"
-    },
-    "지칭추론": {
-      "fmt": "mc",
-      "stem": "",
-      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
-      "passageRule": "발췌 5~8문장 + <u>대명사</u>",
-      "answerRule": "바로 앞 문장만으로 판단 불가하게",
-      "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "passageRule": "ALL: 4~5문장 (번호 마커 포함)",
+      "answerRule": "문법 오류 1개 찾기",
+      "ch": "4개"
     },
     "서술형": {
       "fmt": "written",
@@ -300,6 +295,14 @@
       "overlay": "overlay = {}",
       "passageRule": "발췌 6~10문장 (정답 포함 OK)",
       "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "주제/요지": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "발췌 또는 fullPassage",
+      "answerRule": "",
+      "ch": "한국어 4개"
     },
     "서술형 — 조건영작": {
       "fmt": "written",
@@ -328,6 +331,21 @@
     {
       "id": 2,
       "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "어법",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
@@ -341,7 +359,7 @@
       "choiceCount": 4
     },
     {
-      "id": 3,
+      "id": 4,
       "type": "어법",
       "diff": "어려움",
       "pts": 6,
@@ -356,25 +374,10 @@
       "choiceCount": 4
     },
     {
-      "id": 4,
-      "type": "문맥상 부적절한 어휘",
+      "id": 5,
+      "type": "어휘",
       "diff": "보통",
       "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 5,
-      "type": "문맥상 부적절한 어휘",
-      "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
       "suggestedAns": [
@@ -387,11 +390,11 @@
     },
     {
       "id": 6,
-      "type": "빈칸추론",
+      "type": "어휘",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
       "suggestedAns": [
         1,
         2,
@@ -402,6 +405,51 @@
     },
     {
       "id": 7,
+      "type": "내용이해 T/F",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 8,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 9,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 10,
       "type": "빈칸추론",
       "diff": "보통",
       "pts": 5,
@@ -416,57 +464,12 @@
       "choiceCount": 4
     },
     {
-      "id": 8,
-      "type": "내용 일치/불일치",
-      "diff": "쉬움",
-      "pts": 4,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 9,
-      "type": "내용 일치/불일치",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 10,
-      "type": "내용 일치/불일치",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
       "id": 11,
-      "type": "주제",
-      "diff": "보통",
-      "pts": 5,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "pts": 6,
       "fmt": "mc",
-      "overlay": "overlay = {}",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
       "suggestedAns": [
         1,
         2,
@@ -477,9 +480,9 @@
     },
     {
       "id": 12,
-      "type": "주제",
-      "diff": "어려움",
-      "pts": 6,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
       "fmt": "mc",
       "overlay": "overlay = {}",
       "suggestedAns": [
@@ -492,11 +495,11 @@
     },
     {
       "id": 13,
-      "type": "함축의미 추론",
-      "diff": "어려움",
-      "pts": 6,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,
@@ -507,11 +510,11 @@
     },
     {
       "id": 14,
-      "type": "지칭추론",
-      "diff": "쉬움",
-      "pts": 4,
+      "type": "오류찾기",
+      "diff": "어려움",
+      "pts": 6,
       "fmt": "mc",
-      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
       "suggestedAns": [
         1,
         2,
@@ -522,11 +525,11 @@
     },
     {
       "id": 15,
-      "type": "지칭추론",
+      "type": "서술형",
       "diff": "보통",
       "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "fmt": "written",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,
@@ -538,8 +541,8 @@
     {
       "id": 16,
       "type": "서술형",
-      "diff": "쉬움",
-      "pts": 4,
+      "diff": "어려움",
+      "pts": 6,
       "fmt": "written",
       "overlay": "overlay = {}",
       "suggestedAns": [
@@ -552,7 +555,7 @@
     },
     {
       "id": 17,
-      "type": "서술형",
+      "type": "서술형 — 핵심단어",
       "diff": "보통",
       "pts": 5,
       "fmt": "written",
@@ -567,10 +570,10 @@
     },
     {
       "id": 18,
-      "type": "서술형 — 핵심단어",
-      "diff": "어려움",
-      "pts": 6,
-      "fmt": "written",
+      "type": "주제/요지",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
       "overlay": "overlay = {}",
       "suggestedAns": [
         1,
@@ -582,11 +585,11 @@
     },
     {
       "id": 19,
-      "type": "서술형 — 조건영작",
-      "diff": "쉬움",
-      "pts": 4,
-      "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "type": "주제/요지",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,
@@ -598,8 +601,8 @@
     {
       "id": 20,
       "type": "서술형 — 조건영작",
-      "diff": "보통",
-      "pts": 5,
+      "diff": "어려움",
+      "pts": 6,
       "fmt": "written",
       "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
       "suggestedAns": [

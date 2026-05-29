@@ -7,7 +7,7 @@
   ],
   "source": "교과서",
   "sourcePath": "영어1/천재조수경/3과/본문",
-  "testType": "워크북",
+  "testType": "단어",
   "fullPassage": "Did you know that February 2nd is World Wetlands Day? Some may wonder whether wetlands are important enough to celebrate every year. They may think wetlands are useless and unpleasant places, but actually they are unique ecosystems that must be protected because they provide numerous benefits to both the environment and humans. For example, Upo is Korea's largest untouched wetland, covering an area as big as 210 soccer fields. First of all, Upo is a habitat for a number of threatened and endangered species. To name a few, there is the rare gasiyeon and the ttaogi, a bird which is nearly extinct. Furthermore, Upo prevents floods by absorbing water during the rainy season of July and August, and it supplies adequate water to local farmers during droughts. Like Upo, there are other wetlands in the world that help the environment and humans around them. Let's take a look at some of them.\n\nThe Camargue / France\nThe Camargue is a region in southern France where the Rhône River meets the Mediterranean Sea, just a few miles from the city of Arles. It functions as a natural sponge, absorbing and gradually releasing surface water such as rain, groundwater, and floodwater. Its ability to hold water aids in flood control. The Camargue is also an excellent place to observe more than 400 species of birds. Due to the fact that wetlands and lakes cover 35% of the area, the Camargue is an ideal place for flocks of birds to feed and cool off. The exotic pink flamingo is one of the most famous species found there. The area is also known historically for its white horses. The Camargue horses are a special breed, said to be one of the world's oldest, and they have spent thousands of years living in the unique environment of the Camargue and adapted to its salty wetlands. They have become powerful and strong as a result of surviving in the Camargue, where only reeds, thick grasses, and weeds are available. If you have ever seen a magnificent image of horses running through water, it is very likely that they are Camargue horses from this area.\n\nThe Everglades / USA\nThe Everglades is a wetland that stretches from Lake Okeechobee to Florida Bay. It functions as a \"biological supermarket.\" Many birds and mammal species rely on the Everglades for food, water, and shelter, particularly during the migration and breeding seasons. For example, the Florida panther has flourished in the Everglades. It was nearly extinct in 1995, with only a dozen adults estimated in the wild. But the whole population in the Everglades National Park had recovered to about 230 by 2017.\n\nWhat is more, the Everglades is the only place where American crocodiles and American alligators coexist. These animals typically inhabit different ecosystems: crocodiles live in salt water, whereas alligators live in fresh water. However, they are found living together where fresh water from Lake Okeechobee meets the salt water of Florida Bay. Besides, the Everglades provides drinking water to people in Florida, with one out of every three people relying on the Everglades for drinking water. Unless the Everglades is preserved, millions of people will suffer from a shortage of drinking water.\n\nThe Sudd / South Sudan\nThe Sudd wetland is the largest wetland in Africa, sustained by the flow of the White Nile from Lake Victoria in Uganda. In the Sudd, there are many endangered mammal species, including African elephants and antelopes. Additionally, one million people rely on the wetland for a living, primarily through cattle herding. For example, during the dry season, nomadic people move deeper into the wetland and build seasonal homes on naturally occurring islands to feed their herds like sheep, cows, and goats and catch the abundant fish. The name \"Sudd\" comes from an Arabic word for \"barriers,\" and the wetland historically protected the people from invaders. The Egyptians, Greeks, and Romans spent centuries searching for the starting point of the Nile River. Nero, the emperor of the Roman empire, sent the military to explore the White Nile in 61 AD, but his soldiers were unable to proceed beyond the Sudd.\n\nWetlands, no matter where they are found, clearly provide habitats for a variety of endangered plant and animal species, as well as humans. Unfortunately, wetlands are currently under threat. The Camargue, for example, is decreasing as sea levels rise due to climate change. The Everglades used to be much larger, but due to agriculture and urban development, less than half of the historic Everglades remains today. The Sudd has been contaminated by oil spills from oil extraction activities. It is estimated that 64% of the world's wetlands have disappeared. Now that we understand the importance of wetlands in maintaining our ecosystems, we should consider ways to live without destroying the wetlands that provide valuable benefits to animals, plants, and humans.",
   "title": "Wetlands Around the World",
   "sentenceIndex": [
@@ -189,20 +189,15 @@
     }
   ],
   "typeRules": {
-    "어법": {
+    "(A)(B)(C) 조합형": {
       "fmt": "mc",
-      "stem": "",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
-      "passageRule": "발췌 5~8문장 + ①<u>point</u>×4",
-      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
-      "ch": [
-        "①",
-        "②",
-        "③",
-        "④"
-      ]
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "passageRule": "발췌 5~8문장 + <b>(A)</b>[w1/w2] 마커",
+      "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
+      "ch": "4개"
     },
-    "어휘": {
+    "문맥상 부적절한 어휘": {
       "fmt": "mc",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
       "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
@@ -215,18 +210,7 @@
         "④"
       ]
     },
-    "내용이해 T/F": {
-      "fmt": "mc",
-      "stem": "한국어 진술문 (패러프레이징 필수, 직역 금지)",
-      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
-      "passageRule": "발췌 2~4문장",
-      "answerRule": "",
-      "ch": [
-        "T",
-        "F"
-      ]
-    },
-    "빈칸추론": {
+    "빈칸 어휘 완성": {
       "fmt": "mc",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
@@ -234,60 +218,62 @@
       "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
       "ch": "4개"
     },
-    "내용 일치/불일치": {
+    "동의어 고르기": {
       "fmt": "mc",
-      "stem": "",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 5~10문장",
-      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
-      "ch": "한국어 진술문 4개"
-    },
-    "오류찾기": {
-      "fmt": "mc",
-      "stem": "",
-      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
-      "passageRule": "ALL: 4~5문장 (번호 마커 포함)",
-      "answerRule": "문법 오류 1개 찾기",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "발췌 3~5문장 + <u>target</u>",
+      "answerRule": "",
       "ch": "4개"
     },
-    "서술형": {
-      "fmt": "written",
-      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 6~10문장 (정답 포함 OK)",
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    "반의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "발췌 3~5문장 + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
     },
-    "서술형 — 핵심단어": {
-      "fmt": "written",
-      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 6~10문장 (정답 포함 OK)",
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
-    },
-    "주제/요지": {
+    "다의어 문맥적 의미": {
       "fmt": "mc",
       "stem": "",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 또는 fullPassage",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
       "answerRule": "",
-      "ch": "한국어 4개"
+      "ch": "4개"
     },
-    "서술형 — 조건영작": {
+    "영영풀이 매칭": {
+      "fmt": "mc",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
+      "overlay": "overlay = {} (passage 없음)",
+      "passageRule": "ALL: passage 없음 (빈 문자열)",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "어형 변환": {
       "fmt": "written",
-      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
-      "passageRule": "발췌 + 정답자리 __________",
-      "answerRule": ""
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+    },
+    "빈칸 문맥 완성": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "발췌 5~8문장 + __________",
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "ch": "4개"
     }
   },
   "slots": [
     {
       "id": 1,
-      "type": "어법",
+      "type": "(A)(B)(C) 조합형",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
       "suggestedAns": [
         1,
         2,
@@ -298,11 +284,11 @@
     },
     {
       "id": 2,
-      "type": "어법",
-      "diff": "쉬움",
-      "pts": 4,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
       "suggestedAns": [
         1,
         2,
@@ -313,11 +299,11 @@
     },
     {
       "id": 3,
-      "type": "어법",
-      "diff": "보통",
-      "pts": 5,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "pts": 6,
       "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
       "suggestedAns": [
         1,
         2,
@@ -328,11 +314,11 @@
     },
     {
       "id": 4,
-      "type": "어법",
-      "diff": "어려움",
-      "pts": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
       "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
       "suggestedAns": [
         1,
         2,
@@ -343,9 +329,9 @@
     },
     {
       "id": 5,
-      "type": "어휘",
-      "diff": "보통",
-      "pts": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
       "fmt": "mc",
       "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
       "suggestedAns": [
@@ -358,7 +344,7 @@
     },
     {
       "id": 6,
-      "type": "어휘",
+      "type": "문맥상 부적절한 어휘",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
@@ -373,56 +359,56 @@
     },
     {
       "id": 7,
-      "type": "내용이해 T/F",
+      "type": "빈칸 어휘 완성",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
       "suggestedAns": [
         1,
         2,
         3,
         4
       ],
-      "choiceCount": 2
+      "choiceCount": 4
     },
     {
       "id": 8,
-      "type": "내용이해 T/F",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 2
-    },
-    {
-      "id": 9,
-      "type": "내용이해 T/F",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 2
-    },
-    {
-      "id": 10,
-      "type": "빈칸추론",
+      "type": "빈칸 어휘 완성",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
       "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
       "suggestedAns": [
         1,
         2,
@@ -433,9 +419,129 @@
     },
     {
       "id": 11,
-      "type": "빈칸추론",
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
       "diff": "어려움",
       "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage 없음)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "pts": 5,
       "fmt": "mc",
       "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
       "suggestedAns": [
@@ -447,132 +553,12 @@
       "choiceCount": 4
     },
     {
-      "id": 12,
-      "type": "내용 일치/불일치",
-      "diff": "쉬움",
-      "pts": 4,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 13,
-      "type": "내용 일치/불일치",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 14,
-      "type": "오류찾기",
-      "diff": "어려움",
-      "pts": 6,
-      "fmt": "mc",
-      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 15,
-      "type": "서술형",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "written",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 16,
-      "type": "서술형",
-      "diff": "어려움",
-      "pts": 6,
-      "fmt": "written",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 17,
-      "type": "서술형 — 핵심단어",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "written",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 18,
-      "type": "주제/요지",
-      "diff": "쉬움",
-      "pts": 4,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
-      "id": 19,
-      "type": "주제/요지",
-      "diff": "보통",
-      "pts": 5,
-      "fmt": "mc",
-      "overlay": "overlay = {}",
-      "suggestedAns": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "choiceCount": 4
-    },
-    {
       "id": 20,
-      "type": "서술형 — 조건영작",
+      "type": "빈칸 문맥 완성",
       "diff": "어려움",
       "pts": 6,
-      "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
       "suggestedAns": [
         1,
         2,
