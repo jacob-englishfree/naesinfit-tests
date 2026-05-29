@@ -2398,6 +2398,19 @@ function validate(jsonPath) {
       result.add('S-GRAMMAR-NO-UNDERLINE', SEV.S, `Q${qid}: 어법인데 passage에 <u> 밑줄 없음 — 어법은 ①<u>단어</u> 형태 필수`);
     }
 
+    // S-COND-BOGI-DUP: [조건]과 [보기] 영단어 목록이 완전 동일 — 학생 화면에 같은 단어 두 번 표시
+    if (/\[조건\]/.test(stem) && /\[보기\]/.test(stem)) {
+      const condM = stem.match(/\[조건\]([\s\S]*?)\[보기\]/);
+      const bogiM = stem.match(/\[보기\]([\s\S]*?)$/);
+      if (condM && bogiM) {
+        const condWords = (condM[1].match(/[a-zA-Z]{2,}/g) || []).sort().join(',');
+        const bogiWords = (bogiM[1].match(/[a-zA-Z]{2,}/g) || []).sort().join(',');
+        if (condWords && condWords === bogiWords) {
+          result.add('S-COND-BOGI-DUP', SEV.S, `Q${qid}: [조건]과 [보기] 영단어 완전 동일 — 학생에게 같은 단어 두 번 표시됨. [보기] 제거 필요`);
+        }
+      }
+    }
+
     // S-COND-REVERSE: [조건]에 나열된 영단어가 wa에 없음 (역방향)
     // "모두 사용" / "활용" / "사용할 것" 등 표현 무관 — [조건]에 영단어 리스트가 있으면 무조건 대조.
     // 더미 단어 절대 금지. 학생은 조건의 모든 단어를 써야 한다고 생각함.
