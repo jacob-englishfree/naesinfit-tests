@@ -1,1 +1,45 @@
-{"pass":true,"issues":0,"solver":"opus-4.6","ts":"2026-05-28"}
+{
+  "file": "data/교과서/공통영어1/천재강상구/3과/본문/워크북.json",
+  "timestamp": "2026-05-29T09:15:00.000Z",
+  "solver": "claude-opus-4-6",
+  "issues": [],
+  "checks": [
+    {
+      "check": "정답 2개 가능 여부",
+      "result": "PASS",
+      "detail": "20문항 모두 정답 1개만 유효. 어법 Q1-Q4: 각각 명확한 문법 오류 1개. 어휘 Q5-Q6: 반의어 교체 명확. T/F Q7-Q9: 원문 대조 명확. 빈칸 Q10-Q11: 원문 단어 유일. 일치/불일치 Q12-Q13: 패러프레이즈 확인. 오류 Q14: 내용 오류 명확. 서술형 Q15-Q17: 원문 substring 유일. 주제/요지 Q18-Q19: 부분적 선지 소거 가능. 영작 Q20: 조건+단어수 유일해."
+    },
+    {
+      "check": "선지 뻔함 여부",
+      "result": "PASS",
+      "detail": "Q5 오답(spinning, working, surprised)이 모두 원문 단어로 그럴듯함. Q12 오답이 세부 정보 변조(시간, 교통수단)로 학생이 꼼꼼히 읽어야 함. Q18-Q19 오답이 본문 부분 내용을 확대한 것이라 소거 가능하나 풀이 시 전체 맥락 파악 필요."
+    },
+    {
+      "check": "정답 passage 노출",
+      "result": "PASS",
+      "detail": "Q10 빈칸(rent a bike): passage에서 해당 자리 빈칸 처리됨. Q11 빈칸(great historical value): 해당 자리 빈칸 처리됨. Q20 영작(get the charming sights of): 해당 자리 빈칸 처리됨. 찾기형 서술형(Q15-Q17): 정답이 passage에 노출되나 찾기 유형이므로 정상."
+    },
+    {
+      "check": "조건 단어수 vs wa 단어수",
+      "result": "PASS",
+      "detail": "Q15: (4단어) vs 'took my breath away' = 4단어. Q16: (4단어) vs 'a sense of relaxation' = 4단어. Q17: (3단어) vs 'protects the feet' = 3단어. Q20: (5단어) vs 'get the charming sights of' = 5단어."
+    },
+    {
+      "check": "stem 명확성",
+      "result": "PASS",
+      "detail": "모든 서술형 stem에 (N단어) + (영어로) 명시. Q20 영작 stem에 [조건]으로 모든 단어 나열. 모호함 없음."
+    },
+    {
+      "check": "cross-leak with 단어.json",
+      "result": "PASS",
+      "detail": "단어.json과 겹치는 정답/overlay 없음. 단어.json: historical(빈칸), relaxation(빈칸), grinding(빈칸). 워크북: a sense of relaxation(서술형 찾기, 다른 유형), great historical value(빈칸추론, 구 단위). grinding 미사용."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "total_issues": 0,
+    "pass": true
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "testFile": "data/교과서/영어1/동아박용예/4과/본문/단어.json",
+  "reviewerModel": "sonnet",
+  "issues": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "issue": "[False positive] ABC 조합형은 passage에 정답+오답 병기가 유형 특성. 정답 노출이 아님.",
+      "suggestion": "수정 불필요"
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "issue": "[False positive] ABC 조합형은 passage에 정답+오답 병기가 유형 특성. 정답 노출이 아님.",
+      "suggestion": "수정 불필요"
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "issue": "[False positive] ABC 조합형은 passage에 정답+오답 병기가 유형 특성. 정답 노출이 아님.",
+      "suggestion": "수정 불필요"
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "issue": "정답 단어 'background'가 동일 passage 내 바로 다음 단락에 'background music, sound effects'로 직접 재등장. 빈칸 바로 옆 5단어 이내는 아니지만 같은 passage 내에서 시각적으로 찾을 수 있어 어휘 암기 측정 기능 저하. 단어테스트 목적상 암기 확인이 아닌 탐색 문제가 됨.",
+      "suggestion": "passage를 첫 단락만으로 축소하여 'such as background music...' 열거 문장이 보이지 않도록 하거나, 빈칸 단어를 passage 내 재등장하지 않는 단어(enthusiastic, suspended 등)로 교체."
+    },
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "issue": "오답 3개(confusion, resistance, discipline)가 'finds [오답] on social media and enjoys shopping online'과 결합 즉시 의미 붕괴. 소거가 너무 쉬워 보통(5점) 변별력 미달. 단어 자체 난이도는 inspiration이 쉬운 편이므로 이중으로 변별력 낮음.",
+      "suggestion": "오답을 inspiration의 유사어(imagination, motivation, ambition) 중 하나로 교체하여 정답 소거 가능성을 높임. 또는 문맥에서 실제로 어울릴 수 있는 단어를 오답에 포함시켜 신중한 판단을 요구."
+    },
+    {
+      "id": 9,
+      "severity": "MEDIUM",
+      "issue": "오답 3개(ambition, curiosity, creativity)가 부정적 결과 문맥에 전혀 맞지 않아 즉시 소거. depression 하나만 남는 구조. 보통(5점) 변별력 미달.",
+      "suggestion": "anxiety(불안)나 isolation(고립) 같이 같은 부정 맥락에 속하는 단어를 오답으로 포함시켜 더 정밀한 판단을 요구. 단, stem 앞 문장에 anxiety가 이미 등장하므로 anxiety를 오답으로 넣으면 passage 내 소거 단서가 생기는 점 주의."
+    },
+    {
+      "id": 11,
+      "severity": "MEDIUM",
+      "issue": "오답 boredom(지루함)은 passion의 반의어라 즉시 소거. hesitation과 patience는 passion과 의미축이 달라 어렵지 않게 소거. 실질적 변별력이 낮아 보통(5점)에 미달.",
+      "suggestion": "오답 중 하나를 passion과 같은 긍정-강도 의미축(ardor, zeal, fervor)이나 혼동 가능한 단어(ambition, aspiration)로 교체하여 소거 난이도 상승."
+    },
+    {
+      "id": 13,
+      "severity": "MEDIUM",
+      "issue": "오답 short(동의어), sudden(갑작스러움), frequent(빈번함)은 brief의 시간-길이 의미축과 달라 쉽게 소거. prolonged만 남는 구조. 보통(5점) 변별력 미달.",
+      "suggestion": "오답 중 하나를 extended(연장된) 또는 lengthy(긴)처럼 brief와 같은 시간 길이 의미축에서 정답과 헷갈릴 수 있는 단어로 교체."
+    },
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "issue": "영영풀이 정의가 consent를 매우 직접적으로 설명하고 있고, 오답 complaint/awareness/violation은 정의와 전혀 맞지 않아 즉시 소거. 보통(5점) 변별력 미달.",
+      "suggestion": "오답 중 하나를 permission(허락) 또는 approval(승인) 같이 consent와 의미가 일부 겹치는 단어로 교체하여 정밀 독해를 요구. 또는 영영풀이에 'especially as required by law'처럼 혼동 단서를 제거하고 더 압축된 정의로 교체."
+    },
+    {
+      "id": 19,
+      "severity": "MEDIUM",
+      "issue": "오답 passwords/surveys/advertisements가 'filter out content based on past purchases'와 결합 즉시 의미 부적합. 특히 advertisements는 filters/algorithms와 혼동될 여지가 약간 있으나 'filter out content'라는 표현과 결합하면 소거 가능. 보통(5점) 변별력 낮음.",
+      "suggestion": "오답 중 하나를 filters(필터), systems(시스템), criteria(기준) 같이 실제로 알고리즘과 혼동 가능한 단어로 교체."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "issue": "[False positive] motivation은 빈칸(____)으로 교체됨. 다른 곳 노출 없음.",
+      "suggestion": "수정 불필요"
+    }
+  ],
+  "totalIssues": 11,
+  "highIssues": 0,
+  "summary": "HIGH 0건 (4건 모두 false positive로 LOW 하향). ABC유형 정답노출은 유형특성, 빈칸은 정상 교체됨. MEDIUM 7건은 오답 개선 권장(차단 아님)."
+}

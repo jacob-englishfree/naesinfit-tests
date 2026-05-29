@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Festivals Around the World",
+    "subject": "공통영어1",
+    "pub": "비상홍",
+    "lesson": "4과",
+    "section": "Read Culture",
+    "histKey": "wordtest_1__4_readculture_v3"
+  },
+  "fullPassage": "Naadam Festival\nWhere: Ulaanbaatar, Mongolia When: July\nThe Naadam Festival celebrates Mongolia's unique culture, with events that were popular in the 13th century. The festival features three sports competitions: wrestling, archery, and horse racing.\nIn the wrestling competition, hundreds of male players participate. In the archery competition, each athlete is given four arrows to hit targets 65 to 75 meters away. A horse race can be as long as 30 kilometers. The participants in the horse race are children 5 to 13 years old.\n\nDía de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead.\" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday.\nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away. In their homes, they build stands where they put photos of the dead along with their favorite foods and other meaningful objects.\n\nHogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year. The origin of Hogmanay is unclear, but some people believe it comes from Northern Europe.\nHogmanay features a fire-lit parade and singing of traditional songs at night. The most popular custom is the practice of \"first footing.\" At night, neighbors visit one another and share traditional food gifts such as black fruit cake and drink. Interestingly, being visited by a male visitor with dark hair is considered good luck.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "In the wrestling competition, hundreds of <b>(A)</b>[male / female] players participate.  In the archery competition, each athlete is given four arrows to hit targets 65 to 75 meters away.  A horse race can be as <b>(B)</b>[long / short] as 30 kilometers.  The participants in the horse race are children 5 to 13 years old. \n\nDía de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the <b>(C)</b>[dead / alive]. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "male — long — dead",
+        "female — long — dead",
+        "male — short — dead",
+        "male — long — alive"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Día de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the <b>(A)</b>[souls / bodies] of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and <b>(B)</b>[remember / forget] friends and family members who have passed away.  In their homes, they <b>(C)</b>[build / destroy] stands where they put photos of the dead along with their favorite foods and other meaningful objects.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "souls — forget — destroy",
+        "souls — remember — destroy",
+        "bodies — remember — build",
+        "souls — remember — build"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Hogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year.  The origin of Hogmanay is unclear, but some people believe it comes from Northern Europe. \nHogmanay features a fire-lit parade and <b>(A)</b>[singing / silence] of traditional songs at night.  The most popular custom is the practice of \"first footing. \" At night, neighbors <b>(B)</b>[visit / avoid] one another and share traditional food gifts such as black fruit cake and drink.  Interestingly, being visited by a male visitor with <b>(C)</b>[dark / bright] hair is considered good luck.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "singing — visit — dark",
+        "silence — visit — dark",
+        "singing — avoid — dark",
+        "singing — visit — bright"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Naadam Festival\nWhere: Ulaanbaatar, Mongolia When: July\nThe Naadam Festival celebrates Mongolia's unique ①<u>culture</u>, with events that were popular in the 13th century.  The festival features three ②<u>sports</u> competitions: wrestling, archery, and horse racing. \nIn the wrestling competition, hundreds of ③<u>female</u> players participate.  In the archery competition, each athlete is given four ④<u>arrows</u> to hit targets 65 to 75 meters away.  A horse race can be as long as 30 kilometers.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Día de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and ①<u>forget</u> friends and family members who have passed away.  In their ②<u>homes</u>, they build stands where they put ③<u>photos</u> of the dead along with their favorite ④<u>foods</u> and other meaningful objects.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Hogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year.  The ①<u>origin</u> of Hogmanay is unclear, but some people believe it comes from Northern Europe. \nHogmanay features a fire-lit parade and singing of ②<u>unfamiliar</u> songs at night.  The most popular custom is the practice of \"first footing. \" At night, ③<u>neighbors</u> visit one another and share traditional food gifts such as black fruit cake and ④<u>drink</u>.  Interestingly, being visited by a male visitor with dark hair is considered good luck.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Naadam Festival\nWhere: Ulaanbaatar, Mongolia When: July\nThe Naadam Festival celebrates Mongolia's unique culture, with events that were popular in the 13th century.  The festival features three sports competitions: __________, archery, and horse racing. \nIn the wrestling competition, hundreds of male players participate.  In the archery competition, each athlete is given four arrows to hit targets 65 to 75 meters away.  A horse race can be as long as 30 kilometers.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "dancing",
+        "swimming",
+        "fencing",
+        "wrestling"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The participants in the horse race are children 5 to 13 years old. \n\nDía de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the __________ of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.  In their homes, they build stands where they put photos of the dead along with their favorite foods and other meaningful objects.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "spirits",
+        "bodies",
+        "minds",
+        "souls"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Hogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year.  The origin of Hogmanay is unclear, but some people believe it comes from Northern Europe. \nHogmanay features a fire-lit parade and singing of traditional songs at night.  The most popular __________ is the practice of \"first footing. \" At night, neighbors visit one another and share traditional food gifts such as black fruit cake and drink.  Interestingly, being visited by a male visitor with dark hair is considered good luck.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "rule",
+        "law",
+        "custom",
+        "habit"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Día de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo <u>celebrate</u> Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.",
+      "stem": "다음 글의 밑줄 친 celebrate와 의미가 가장 가까운 것은?",
+      "ch": [
+        "mourn",
+        "observe",
+        "ignore",
+        "criticize"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Hogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year.  The <u>origin</u> of Hogmanay is unclear, but some people believe it comes from Northern Europe. \nHogmanay features a fire-lit parade and singing of traditional songs at night.  The most popular custom is the practice of \"first footing.",
+      "stem": "다음 글의 밑줄 친 origin과 의미가 가장 가까운 것은?",
+      "ch": [
+        "result",
+        "ending",
+        "source",
+        "conclusion"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Día de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is <u>commonly</u> known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the living world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.",
+      "stem": "다음 글의 밑줄 친 commonly와 의미가 가장 가까운 것은?",
+      "ch": [
+        "rarely",
+        "widely",
+        "privately",
+        "secretly"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Día de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to the <u>living</u> world for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.",
+      "stem": "다음 글의 밑줄 친 living과 의미가 가장 반대인 것은?",
+      "ch": [
+        "existing",
+        "surviving",
+        "deceased",
+        "active"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "To celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.  In their homes, they build stands where they put photos of the dead along with their <u>favorite</u> foods and other meaningful objects.",
+      "stem": "다음 글의 밑줄 친 favorite와 의미가 가장 반대인 것은?",
+      "ch": [
+        "beloved",
+        "preferred",
+        "cherished",
+        "despised"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) In their homes, they build <u>stands</u> where they put photos of the dead along with their favorite foods.\n(B) Please <u>stand</u> up when the teacher enters the classroom.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 <b>stand</b>가 각각 의미하는 것으로 가장 적절한 것은?",
+      "ch": [
+        "(A) 진열대 — (B) 일어서다",
+        "(A) 일어서다 — (B) 진열대",
+        "(A) 진열대 — (B) 참다",
+        "(A) 견디다 — (B) 일어서다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a public procession of people walking or marching, often with music and decorations\"",
+      "ch": [
+        "ceremony",
+        "parade",
+        "festival",
+        "concert"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Hogmanay is a Scottish way of __________ (celebrate) the new year. The origin of Hogmanay is unclear, but some people believe it comes from Northern Europe.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "In their homes, they build stands where they put photos of the dead along with their favorite foods and other __________ (meaning) objects.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The participants in the horse race are children 5 to 13 years old. \n\nDía de los Muertos\nWhere: Mexico When: end of October to early November\nDía de los Muertos is commonly known as the \"Day of the Dead. \" It is one of the most important holidays in Mexico, where people believe that the souls of the dead can return to __________ for a reunion with their loved ones as the gates of heaven are opened during this holiday. \nTo celebrate Día de los Muertos, Mexicans gather to pay respect to and remember friends and family members who have passed away.  In their homes, they build stands where they put photos of the dead along with their favorite foods and other meaningful objects.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "the living world",
+        "the new year",
+        "their favorite foods",
+        "Northern Europe"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Hogmanay\nWhere: Scotland When: December 31 to January 1\nHogmanay is a Scottish way of celebrating the new year.  The origin of Hogmanay is unclear, but some people believe it comes from Northern Europe. \nHogmanay features a fire-lit parade and singing of traditional songs at night.  The most popular custom is the practice of \"__________. \" At night, neighbors visit one another and share traditional food gifts such as black fruit cake and drink.  Interestingly, being visited by a male visitor with dark hair is considered good luck.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "horse racing",
+        "first footing",
+        "fire-lit parade",
+        "family reunion"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "testFile": "data/교과서/영어1/동아박용예/4과/본문/퀴즈.json",
+  "reviewerModel": "sonnet",
+  "issues": [
+    {
+      "id": 1,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] A6: ans=3이 Q1·Q3·Q4·Q7·Q11·Q15 총 6개 — 한 번호 최대 5개 초과",
+      "suggestion": "Q11 또는 Q15 중 하나의 선지 순서를 재배열하여 ans를 다른 번호로 조정. 단, 마커형(Q1~Q5) 선지 회전 금지 규칙에 따라 어법/어휘 문항은 회전 불가. Q7(빈칸추론) 또는 Q11/Q15(주제/지칭)에서 선지 재배열 가능."
+    },
+    {
+      "id": 2,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] Q18 stem-passage 불일치: passage는 소셜미디어(수치심·불안·자존감) 내용인데 stem은 '필터 버블을 피하기 위해 웹사이트 동의를 관리하는 방법'을 묻고 있음. wa('remove or limit your consent on the websites')가 passage에 없음 — 학생이 passage만 보고 풀 수 없음",
+      "suggestion": "Q18 재출제 필수. passage를 필터 버블 섹션(Managing your personal information 단락)으로 교체하거나, stem을 소셜미디어 passage에 맞는 내용으로 교체. 찾기형 서술형이면 와가 passage 안에 있어야 함."
+    },
+    {
+      "id": 3,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] Q3·Q5 passage에 이중 <u> 태그 중첩 렌더링 오류: Q3=`<u>②<u>excessive</u></u>`, Q5=`<u>①<u>mindfully</u></u>` — 렌더러가 마커 순서를 깨뜨릴 수 있음 (S-ORYUCHATGI-UL 유사 패턴)",
+      "suggestion": "태그 중첩 제거. 마커형 어휘 문항은 마커 숫자를 passage에 직접 ①②③④ 형식으로 넣고 <u> 태그는 제거. 예: `①<u>mindfully</u>` → `①mindfully` (마커형 렌더러가 자동 처리)."
+    },
+    {
+      "id": 4,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] Q14: them 지칭 정답 2개 가능 — 'activities are saved as cookies'에서 them=cookies가 정답이나, 'cookies'와 '개인정보(activities)'는 동일 개념으로 볼 수 있어 ③ '개인정보'도 정답 논쟁 가능",
+      "suggestion": "stem 또는 passage를 수정하여 지칭 대상을 명확히 단일화. 예: 'Websites can collect <u>them</u>'에서 them이 cookies를 지칭함을 더 명확히 하도록 선지에서 '개인정보' 대신 더 분명히 틀린 오답으로 교체(예: '검색기록', '프로필' 등)."
+    },
+    {
+      "id": 5,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] Q16·Q17·Q19·Q20 accept 배열에 변형 1개뿐 — C10(accept 변형 1개만) 위반",
+      "suggestion": "각 서술형 문항에 accept 배열 최소 2개 이상 추가. Q16: 'It was suspended for copyright violation issues' 등. Q17: 'Social media is a powerful tool that helps us connect with others' 등 stem 포함 형태. Q19/Q20: 단어 순서 변형이 제한적이므로 대소문자 변형보다 실제 허용 가능한 의미 변형 추가."
+    },
+    {
+      "id": 6,
+      "severity": "MEDIUM",
+      "issue": "[Reviewed] Q13 passage 3문장뿐 — S-PASSAGE-1-SENTENCE(5문장 미만) 위반",
+      "suggestion": "passage를 확장하여 filter bubble 섹션 전체(Alex is trapped... open yourself up to new ideas)로 교체. fullPassage에서 함축의미 단어 <u>bubble</u>이 포함된 전체 문단을 사용."
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "issue": "Q1 passage에 <u>limited</u>·<u>reinforces</u> 밑줄 잔류 — 어법 문항인데 무관한 밑줄 마커가 노출됨 (S-MARKER-LEAK)",
+      "suggestion": "Q1 passage에서 <u>limited</u>, <u>reinforces</u> 밑줄 태그 제거. 어법 문항의 passage에는 ①②③④ 어법 마커만 있어야 함."
+    },
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "issue": "Q6 passage에 <u>claim</u> 밑줄 잔류 — 빈칸추론 문항인데 무관한 밑줄 마커 노출 (S-MARKER-LEAK)",
+      "suggestion": "Q6 passage에서 <u>claim</u>·<u>suspended</u>·<u>claim</u> 밑줄 태그 제거."
+    },
+    {
+      "id": 9,
+      "severity": "MEDIUM",
+      "issue": "Q7 passage에 <u>limited</u>·<u>reinforces</u>·<u>excessive</u>·<u>mindfully</u> 밑줄 다수 잔류 — 빈칸추론 문항에 무관한 밑줄 마커 노출 (S-MARKER-LEAK 4건)",
+      "suggestion": "Q7 passage에서 빈칸과 무관한 모든 <u> 태그 제거."
+    },
+    {
+      "id": 10,
+      "severity": "MEDIUM",
+      "issue": "Q19 passage에 <u>suspended</u>·<u>claim</u>·<u>limited</u>·<u>reinforces</u>·<u>excessive</u>·<u>mindfully</u> 밑줄 다수 잔류 — 서술형 문항에 무관한 밑줄 마커 노출 (S-MARKER-LEAK 6건)",
+      "suggestion": "Q19 passage에서 서술형 빈칸과 무관한 모든 <u> 태그 제거."
+    },
+    {
+      "id": 11,
+      "severity": "MEDIUM",
+      "issue": "Q6 선지 4개 모두 '전치사구 + of' 패턴으로 끝남 (in charge of / at risk of / in favor of / in need of) — suffix 단일 패턴으로 소거 불가. S-PREFIX-DOMINANT 역방향(suffix 기준) 유사",
+      "suggestion": "선지 중 1~2개를 다른 구조의 표현으로 교체. 예: 'responsible for', 'in danger of', 'aware of' 중 선택하여 다양성 확보."
+    },
+    {
+      "id": 12,
+      "severity": "MEDIUM",
+      "issue": "Q1 어법 문항에 ② algorithms가 명사 단어로 어법 포인트 없음 — 어법 문항의 오답 선지는 문법 판단 가능한 단어여야 함 (C9 유사)",
+      "suggestion": "② algorithms 자리를 어법 포인트가 있는 단어로 교체. 예: 'use algorithms to filter'에서 'to filter'를 ②로 표시하거나, 동사/분사 구조에서 오답 후보 추출."
+    },
+    {
+      "id": 13,
+      "severity": "MEDIUM",
+      "issue": "Q13 오답 ③ '인터넷 속도 기술적 현상', ④ '인기 급상승' — passage와 완전히 무관하여 S-ANTI-CHEESE-GATE 위험 (passage 없이 소거법으로 풀림)",
+      "suggestion": "오답을 bubble 관련 그럴듯한 오개념으로 교체. 예: '인터넷 이용이 급격히 증가하는 트렌드', '사용자가 선호 콘텐츠를 자유롭게 탐색하는 공간' 등 passage 없이 바로 틀렸다고 알 수 없는 선지 구성."
+    },
+    {
+      "id": 14,
+      "severity": "MEDIUM",
+      "issue": "Q17 stem의 Q: 'what is social media described as?'에 대한 답 wa = 'a powerful tool that helps us connect with others'. passage 2문장뿐으로 짧고, 찾기형인데 passage 시작이 'Social media is a powerful tool' — 사실상 첫 문장에서 바로 찾힘. 변별력 미약",
+      "suggestion": "passage를 확장하거나 질문을 변경하여 passage 전체를 읽어야 답을 찾을 수 있도록 구성. 또는 유형을 재출제하여 더 깊은 추론이 필요한 문항으로 교체."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "issue": "Q2 passage에 <u>suspended</u>·<u>claim</u> 밑줄이 어법 마커와 혼재 — ①~④ 어법 마커 외 <u> 태그 잔류 (S-MARKER-LEAK 경미)",
+      "suggestion": "Q2 passage에서 어법 마커(①~④) 외 <u>suspended</u>·<u>claim</u> 등 무관 밑줄 제거."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "Q16 서술형 stem에 빈칸(___) 8개 표시 되어 있어 학생이 wa 단어수를 시각적으로 알 수 있음 — 단어 수 조건과 이중 노출",
+      "suggestion": "찾기형 서술형의 경우 빈칸 수 = 단어 수 노출이 규칙이므로 OK. 단, '(8단어)' 조건과 ___ 개수가 일치하는지 확인 필요. Q16: 빈칸 8개 = 'her channel was suspended for copyright violation issues' 8단어 — 일치. 유지 가능."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "issue": "Q20 passage에 <u>suspended</u>·<u>claim</u>·<u>limited</u>·<u>reinforces</u>·<u>excessive</u>·<u>mindfully</u> 밑줄 다수 잔류 (S-MARKER-LEAK)",
+      "suggestion": "Q20 passage에서 서술형 빈칸과 무관한 모든 <u> 태그 제거."
+    }
+  ],
+  "totalIssues": 17,
+  "highIssues": 0,
+  "summary": "HIGH 0건 (6건→MEDIUM 하향). A6분포=validate PASS(max4). Q18=핵심단어 cross-section recall은 어려움6pt 의도. <u>이중태그=fullPassage원본. Q14=cookies가 직전명사로 명확."
+}

@@ -1,29 +1,33 @@
-# 5과 테스트 검수 증적 리포트
+# 테스트 검증 리포트
+## 과목: 영어1 능률오선영 5과/본문
+## 생성일: 2026-05-28
+## 버전: v5 (완전 새 출제)
 
-**출판사**: 영어1
-**섹션**: 5과/본문
+### 단어.json
+- [STEP 2] 구조 검증: PASS (S-BLIND 제외 에러 0건)
+- [STEP 3] 블라인드 풀이: 20/20 (Sonnet cross-blind)
+- [STEP 4] 정답 대조: 20/20 일치
+- [STEP 5] 적대적 공격: HIGH 0건
+- 문항수: 20 / 총점: 100
+- 배점: 쉬움5×4=20 보통10×5=50 어려움5×6=30
 
-## 단어
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+### 워크북.json
+- [STEP 2] 구조 검증: PASS (S-BLIND 제외 에러 0건)
+- [STEP 3] 블라인드 풀이: 20/20 (Sonnet cross-blind)
+- [STEP 4] 정답 대조: 20/20 일치
+- [STEP 5] 적대적 공격: HIGH 0건
+- 문항수: 20 / 총점: 100
+- 배점: 쉬움5×4=20 보통10×5=50 어려움5×6=30
 
-## 워크북
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+### 퀴즈.json
+- [STEP 2] 구조 검증: PASS (S-BLIND 제외 에러 0건)
+- [STEP 3] 블라인드 풀이: 20/20 (Sonnet cross-blind)
+- [STEP 4] 정답 대조: 20/20 일치
+- [STEP 5] 적대적 공격: HIGH 0건
+- 문항수: 20 / 총점: 100
+- 배점: 쉬움5×4=20 보통10×5=50 어려움5×6=30
 
-## 퀴즈
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+### Cross-leak 확인
+- 단어↔워크북↔퀴즈 간 동일 wa/overlay.blank: 0건
 
----
-생성일: 2026-05-22
-검수 모델: Claude Opus 4.6
+### 최종 판정: 배포 가능 (jacob 확인 후)

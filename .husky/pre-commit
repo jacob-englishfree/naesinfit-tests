@@ -82,7 +82,7 @@ if [ -n "$STAGED_TEST_JSON" ]; then
         ADV_MISSING="$ADV_MISSING\n  $f"
       else
         # adversarial HIGH 이슈 잔존 검사
-        H_COUNT=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$ADV_FILE','utf8'));console.log((d.issues||[]).filter(i=>(i.severity||'').toLowerCase()==='high').length)}catch(e){console.log(0)}" 2>/dev/null)
+        H_COUNT=$(node -e "try{const d=JSON.parse(require('fs').readFileSync('$ADV_FILE','utf8'));console.log((d.issues||[]).filter(i=>(i.severity||'').toLowerCase()==='high'&&!i.resolved).length)}catch(e){console.log(0)}" 2>/dev/null)
         if [ "$H_COUNT" -gt 0 ] 2>/dev/null; then
           HIGH_ISSUES="$HIGH_ISSUES\n  $f (HIGH $H_COUNT건 미해결)"
         fi

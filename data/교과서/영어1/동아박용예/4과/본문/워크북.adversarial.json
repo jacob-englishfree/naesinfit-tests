@@ -1,0 +1,122 @@
+{
+  "testFile": "data/교과서/영어1/동아박용예/4과/본문/워크북.json",
+  "reviewerModel": "sonnet",
+  "issues": [
+    {
+      "id": 1,
+      "qId": 15,
+      "severity": "HIGH",
+      "issue": "서술형 찾기형(1단어)인데 정답 후보가 복수. stem이 '저작권자에게 해야 하는 행동을 찾아 쓰시오'인데 본문에 contact / replace / remove 세 동사가 모두 저작권자에 대한 행동으로 제시됨. 학생이 replace 또는 remove를 써도 오채점 발생.",
+      "suggestion": "stem을 '저작권이 있는 콘텐츠를 발견했을 때 저작권 소유자에게 가장 먼저 해야 할 행동(contact)을 찾아 쓰시오'로 구체화하거나, Q→A 형식으로 'Q: What should creators do to the copyright owner when they come across copyrighted content?'로 변경하여 contact만 정답이 되도록 유도.",
+      "affectedField": "stem + accept",
+      "resolved": true,
+      "resolution": "stem에 \"사용 허가(permission)를 받기 위해\" 추가하여 contact만 정답으로 명확화"
+    },
+    {
+      "id": 2,
+      "qId": 1,
+      "severity": "MEDIUM",
+      "issue": "passage 문장수 4개로 5문장 미만(S-PASSAGE-1-SENTENCE 위반 가능). '①Managing ... ②challenging ... ③influenced ... ④constant checking' 4개 문장 확인됨.",
+      "suggestion": "어법 문항 passage 규칙은 '4~5문장'으로 오류찾기(14번) 기준 적용 가능하나 일반 어법(mc) 규칙은 5문장 이상. 도입부 1문장 추가('Tips and Tricks for a Healthier Digital Life' 또는 'Managing our digital lives can be challenging.' 앞 문장)하여 5문장 확보.",
+      "affectedField": "passage"
+    },
+    {
+      "id": 3,
+      "qId": 3,
+      "severity": "MEDIUM",
+      "issue": "passage 문장수 3개. S-PASSAGE-1-SENTENCE 위반(3 < 5). 'To stay away... / One way... / Compare...' 3문장뿐.",
+      "suggestion": "뒤에 'If there is a big difference between them, you may have been trapped in a filter bubble.' 등 2개 문장 추가하여 5문장 이상 확보.",
+      "affectedField": "passage"
+    },
+    {
+      "id": 4,
+      "qId": 4,
+      "severity": "MEDIUM",
+      "issue": "passage 문장수 4개. S-PASSAGE-1-SENTENCE 위반 가능(4 < 5). 'First, don't let... / A quick and easy way... / This will free up... / Second, keep in mind... / When you start...' — 실제로 세어보면 5문장이나 마지막 문장 'When you start to feel unpopular or inferior, remember that what you see online ④present only the highlights...'가 포함되어 5문장. 경계값이므로 재확인 필요.",
+      "suggestion": "passage를 직접 세어 5문장 이상 확인. 현재 경계값이므로 큰 문제 없을 수 있음.",
+      "affectedField": "passage"
+    },
+    {
+      "id": 5,
+      "qId": 10,
+      "severity": "MEDIUM",
+      "issue": "오답 소거가 너무 쉬움(C7). insurance(보험), punishment(처벌)는 저작권 맥락과 완전 무관 → 즉시 소거. 사실상 permission vs instruction 2지선다. 워크북 보통(5점) 난이도 문항으로 오답 수준이 낮음.",
+      "suggestion": "insurance → 'acknowledgment(인정)', punishment → 'approval(승인)' 등 맥락 관련 어휘로 교체하여 오답 변별력 강화.",
+      "affectedField": "ch"
+    },
+    {
+      "id": 6,
+      "qId": 10,
+      "severity": "MEDIUM",
+      "issue": "passage 내에 <u>suspended</u>, <u>claim</u>, <u>limited</u>, <u>reinforces</u> 밑줄 태그가 잔존. 빈칸추론 유형인데 무관한 <u> 태그가 렌더러에서 학생에게 밑줄로 표시될 수 있어 혼란 유발. S-MARKER-LEAK 유형.",
+      "suggestion": "빈칸추론 passage에서 <u> 태그 전부 제거 후 순수 텍스트 빈칸만 남기도록 수정. (Q7~Q9 T/F 문항도 동일한 passage를 사용하므로 해당 문항은 <u> 태그 유지 필요. 문항별 passage를 독립적으로 관리해야 함.)",
+      "affectedField": "passage"
+    },
+    {
+      "id": 7,
+      "qId": 11,
+      "severity": "MEDIUM",
+      "issue": "오답 'details'가 정답과 혼동 가능. 'presents only the details of other people's lives and does not reflect their entire story' 논리 구조상 details(세부사항만 보여주고 전체를 반영하지 않는다)도 어느 정도 통함. 완전 소거가 어려울 수 있음.",
+      "suggestion": "details 대신 'failures(실패)', 'problems(문제)', 'complaints(불평)' 등 명백히 틀린 어휘로 교체. 또는 stem 지문을 좁혀 highlights가 유일한 정답임을 더 명확히 함.",
+      "affectedField": "ch"
+    },
+    {
+      "id": 8,
+      "qId": 12,
+      "severity": "MEDIUM",
+      "issue": "오답 ③ 'Alex는 다양한 온라인 플랫폼을 사용한다'의 기준이 모호. 본문에서 'his preferred online platforms'는 복수이므로 '여러 플랫폼'으로 해석 가능. 학생이 일치로 볼 수 있음.",
+      "suggestion": "③ 선지를 'Alex는 로그아웃 상태에서 검색하면 동일한 결과를 얻는다' 등 명확히 불일치인 내용으로 교체.",
+      "affectedField": "ch"
+    },
+    {
+      "id": 9,
+      "qId": 18,
+      "severity": "MEDIUM",
+      "issue": "오답 소거 너무 쉬움(C7). ③경영전략, ④인터넷 속도는 passage와 완전 무관. 쉬움(4점) 문항이나 너무 뻔한 오답으로 변별력 없음.",
+      "suggestion": "③, ④를 '온라인 쇼핑 알고리즘의 작동 원리', '소셜 미디어 플랫폼의 수익 모델' 등 내용 관련 오답으로 교체하여 맥락 이해를 요구하도록 강화.",
+      "affectedField": "ch"
+    },
+    {
+      "id": 10,
+      "qId": 5,
+      "severity": "LOW",
+      "issue": "passage에 <u>limited</u>와 <u>reinforces</u> 밑줄 태그 잔존. 어휘/부적절 문항(①②③④ 마커 방식)인데 추가 밑줄이 있어 학생이 혼란스러울 수 있음.",
+      "suggestion": "어휘/부적절 passage에서 문항 마커(①②③④)와 무관한 <u> 태그는 제거.",
+      "affectedField": "passage"
+    },
+    {
+      "id": 11,
+      "qId": 14,
+      "severity": "LOW",
+      "issue": "오류찾기 ①Min's는 어법 포인트가 없음(단순 소유격). 학생이 ①을 의심할 근거가 없어 실제로는 3지선다처럼 작동. 워크북 어려움(6점) 문항으로 마커 ①의 변별력이 없음.",
+      "suggestion": "①마커 위치를 'Social media is a big part of ①her life'(her→she 변형 등 어법 포인트)로 변경하거나 ①에 어법 의심 요소를 부여하여 4선지 전부 변별력 갖추도록 수정.",
+      "affectedField": "passage + overlay"
+    },
+    {
+      "id": 12,
+      "qId": 17,
+      "severity": "LOW",
+      "issue": "서술형-핵심단어 accept가 1개뿐. 어순이 고정된 찾기형이므로 기술적으로 1개가 맞으나, 학생이 'free up your time and energy to engage in activities' 외에 'to engage in activities free up your time and energy' 등 잘못된 어순으로 써도 NORM이 완전 일치 요구. 채점 엣지케이스 존재.",
+      "suggestion": "accept 그대로 유지. 단, stem에 '올바른 어순으로 배열하여 쓰시오'가 명시되어 있으므로 현재 상태 OK. 추가 조치 불필요.",
+      "affectedField": "accept"
+    }
+  ],
+  "totalIssues": 12,
+  "highIssues": 0,
+  "mediumIssues": 8,
+  "lowIssues": 3,
+  "summary": "HIGH 0건 (Q15 stem 수정 완료). MEDIUM 8건은 오답 개선/패시지 참고(차단 아님).",
+  "passedChecks": [
+    "Q2: 어법 using→used 정답 확정",
+    "Q4: 어법 present→presents(수일치) 정답 확정",
+    "Q5: 어휘 unaware→aware 가정법 논리 정확",
+    "Q6: 어휘 deliberately→unconsciously 논리 정확",
+    "Q7: T/F CC라이선스 무료 — T 정답 확정",
+    "Q8: T/F Alex 새 스타일 어려움 — F 정답 확정",
+    "Q9: T/F 전체 반영 아님 — F 정답 확정",
+    "Q13: 내용불일치 Min 걱정함 — ④ 정답 확정",
+    "Q16: 서술형 self-esteem 단일 정답",
+    "Q19: 요지 문제 인식+대처 — ① 정답 확정",
+    "Q20: 조건영작 9단어+[조건]단어 전부 포함 일치"
+  ]
+}
