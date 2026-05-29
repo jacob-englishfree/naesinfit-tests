@@ -367,6 +367,35 @@ function validate(jsonPath) {
       }
     }
 
+    // S-MARKER-ORDER: passage에서 ①②③④ / (A)(B)(C) 등장 순서가 번호순이 아니면 FAIL
+    // 학생이 위에서부터 읽는데 ③이 먼저 나오면 혼란
+    if (passage && passage.length > 10 && !['문장삽입', '순서배열', '글순서'].includes(typeNorm)) {
+      // ①②③④ 순서 체크 (어법/부적절어휘/오류찾기 등 마커형)
+      const circleMarkers = ['①', '②', '③', '④'];
+      const circlePositions = circleMarkers.map(m => ({ m, pos: passage.indexOf(m) })).filter(x => x.pos >= 0);
+      if (circlePositions.length >= 2) {
+        const sortedByPos = [...circlePositions].sort((a, b) => a.pos - b.pos);
+        const sortedByMarker = [...circlePositions].sort((a, b) => circleMarkers.indexOf(a.m) - circleMarkers.indexOf(b.m));
+        const posOrder = sortedByPos.map(x => x.m).join('');
+        const expectedOrder = sortedByMarker.map(x => x.m).join('');
+        if (posOrder !== expectedOrder) {
+          result.add('S-MARKER-ORDER', SEV.S, `Q${qid}: passage 마커 순서 ${posOrder} ≠ 기대 ${expectedOrder} — 위에서부터 ①②③④ 순이어야 함`);
+        }
+      }
+      // (A)(B)(C) 순서 체크 (조합형)
+      const abcMarkers = ['(A)', '(B)', '(C)'];
+      const abcPositions = abcMarkers.map(m => ({ m, pos: passage.indexOf(m) })).filter(x => x.pos >= 0);
+      if (abcPositions.length >= 2) {
+        const sortedByPos = [...abcPositions].sort((a, b) => a.pos - b.pos);
+        const sortedByMarker = [...abcPositions].sort((a, b) => abcMarkers.indexOf(a.m) - abcMarkers.indexOf(b.m));
+        const posOrder = sortedByPos.map(x => x.m).join('');
+        const expectedOrder = sortedByMarker.map(x => x.m).join('');
+        if (posOrder !== expectedOrder) {
+          result.add('S-MARKER-ORDER', SEV.S, `Q${qid}: passage ABC 순서 ${posOrder} ≠ 기대 ${expectedOrder} — 위에서부터 (A)(B)(C) 순이어야 함`);
+        }
+      }
+    }
+
     // ── V60~V69: jacob 검수 기반 화면 레벨 체크 (2026-03-27) ──
     const stem = q.stem || '';
     const passagePlainLen = passage.replace(/<[^>]+>/g, '').trim().length;
@@ -2355,6 +2384,18 @@ function validate(jsonPath) {
     // 렌더러가 <u> 내용을 선지로 추출하여 표시 깨짐 (2026-05-28 사고)
     if (/오류찾기/.test(qtype) && passage && /<u>/.test(passage)) {
       result.add('S-ORYUCHATGI-UL', SEV.S, `Q${qid}: 오류찾기 passage에 <u> 태그 있음 — 렌더러가 선지를 깨뜨림. 마커(①②③④)만 사용`);
+    }
+
+    // S-ORYUCHATGI-STEM: 오류찾기인데 stem에 "밑줄" — 유형 혼동
+    // 오류찾기는 문장 단위 마커, 밑줄 없음. "밑줄 친"은 어법 stem.
+    if (/오류찾기/.test(qtype) && /밑줄/.test(stem)) {
+      result.add('S-ORYUCHATGI-STEM', SEV.S, `Q${qid}: 오류찾기 stem에 "밑줄" — 오류찾기는 밑줄 없음. type이 어법이어야 하거나 stem 수정 필요`);
+    }
+
+    // S-GRAMMAR-NO-UNDERLINE: 어법인데 passage에 <u> 없음
+    // 어법은 단어에 ①<u>word</u> 형태 필수. 밑줄 없으면 학생이 뭘 봐야 하는지 모름.
+    if (/^어법$/.test(qtype) && passage && passage.length > 10 && !/<u>/.test(passage)) {
+      result.add('S-GRAMMAR-NO-UNDERLINE', SEV.S, `Q${qid}: 어법인데 passage에 <u> 밑줄 없음 — 어법은 ①<u>단어</u> 형태 필수`);
     }
 
     // S-COND-REVERSE: [조건]에 나열된 영단어가 wa에 없음 (역방향)
