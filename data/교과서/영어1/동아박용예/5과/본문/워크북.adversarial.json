@@ -1,11 +1,122 @@
 {
   "testFile": "data/교과서/영어1/동아박용예/5과/본문/워크북.json",
-  "attackedBy": "opus-adversarial",
+  "attackedBy": "adversarial-agent-STEP5 (sonnet-4-6 재검수, 2026-05-30)",
+  "date": "2026-05-30",
   "issues": [
-    {"id": 10, "severity": "LOW", "issue": "EX-1 빈칸 정답 flip turn이 passage에 노출. 단, 빈칸 자리에 ____가 있으므로 학생이 문맥 추론 가능"},
-    {"id": 14, "severity": "LOW", "issue": "오류찾기 Q14 passage가 AI 직접 작성(오류찾기 유형 특성). 마커 overlay 미적용 경고는 유형 본질적 한계"}
+    {
+      "id": 4,
+      "severity": "HIGH",
+      "issue": "마커 ①이 제목('Faster, ①more highly, Stronger')에만 단독 위치하고 ②③④는 본문 후반(Fosbury 단락)에 집중 — 마커 클러스터링 + 제목 오버레이 구조 문제. 올림픽 표어 'Higher'는 이미 확정된 비교급 부사 표현으로, 이를 어법 오류로 삼으면 배경지식 없는 학생이 '표어니까 맞는 거 아닌가?'라고 혼동할 수 있음. CLAUDE.md 마커 분산 원칙 위반(제목에 ①, 본문 후반에 ②③④).",
+      "suggestion": "제목 대신 본문 내 'he could jump higher than anyone on his team' 문장에서 ①을 설정하고, 나머지 마커도 본문 앞/중/뒤에 고르게 분산 배치할 것."
+    },
+    {
+      "id": 7,
+      "severity": "HIGH",
+      "issue": "T/F stem은 'Al Vande Weghe는 대학생 때 플립턴을 고안했다'(F)인데, passage는 Burke 소개 첫 단락만 포함 — Al Vande Weghe가 등장하는 플립턴 단락이 없다. 학생이 passage를 읽어도 정답 근거를 찾을 수 없어 암기 문제로 전락. S-PASSAGE-NOT-FULL 실질 위반.",
+      "suggestion": "passage를 'This problem was resolved by an American high school student named Al Vande Weghe...' 단락으로 교체 필수."
+    },
+    {
+      "id": 8,
+      "severity": "HIGH",
+      "issue": "T/F stem은 'V 스타일은 처음부터 스키 커뮤니티에서 높은 스타일 점수를 받았다'(F)인데, passage는 Burke 첫 단락만 포함 — V 스타일 단락 없음. 근거 확인 불가 암기 문제.",
+      "suggestion": "passage를 'The V style was not immediately adopted...' 단락으로 교체 필수."
+    },
+    {
+      "id": 9,
+      "severity": "HIGH",
+      "issue": "T/F stem은 'Fosbury Flop은 뒤로 넘으면서 무게중심이 낮아져 에너지가 적게 든다'(T)인데, passage는 Burke 첫 단락만 포함 — Fosbury 단락 없음. id 7, 8, 9 세 문항이 모두 Burke 첫 단락을 passage로 공유하며 stem과 전혀 무관한 구조적 결함.",
+      "suggestion": "passage를 'arching the body backward keeps the jumper's center of gravity low to the ground...' 단락으로 교체 필수."
+    },
+    {
+      "id": 12,
+      "severity": "HIGH",
+      "issue": "내용 일치 문항의 passage가 Burke 첫 단락만 — 선지에는 플립턴/V스타일 28%/Fosbury 금메달 등 다른 단락 내용이 등장. 학생이 passage를 읽어도 선지 ①②④의 정오 여부 판단 근거 없음. 암기 4지선다로 전락.",
+      "suggestion": "passage를 fullPassage(전체 본문)로 교체 필수."
+    },
+    {
+      "id": 13,
+      "severity": "HIGH",
+      "issue": "내용 불일치 문항의 passage가 Burke 첫 단락만 — 선지 ④ 'Fosbury Flop 발표 8년 후 모든 높이뛰기 선수 채택' 관련 내용이 passage에 없어 학생이 본문 근거 없이 푸는 암기 문제.",
+      "suggestion": "passage를 fullPassage로 교체 필수."
+    },
+    {
+      "id": 15,
+      "severity": "HIGH",
+      "issue": "서술형 stem이 'Al Vande Weghe가 플립턴으로 무엇을 획득했나?'인데 passage는 Burke 첫 단락 — 플립턴 단락이 없어 학생이 passage를 읽어도 답(a silver medal)을 찾을 수 없음. 서술형 찾기형인데 찾을 곳이 passage에 없는 구조 오류.",
+      "suggestion": "passage를 'Using this technique, he won a silver medal in the 1936 Olympics.'가 포함된 플립턴 단락으로 교체 필수."
+    },
+    {
+      "id": 17,
+      "severity": "HIGH",
+      "issue": "서술형 — 핵심단어: stem에서 찾아 쓰라는 단어 'lift'는 스키점프 단락에 있는데, passage는 Burke 첫 단락이라 학생이 passage에서 찾을 수 없음. 핵심단어 유형은 passage에서 직접 찾아 쓰는 유형인데 해당 단어가 passage에 없어 출제 구조 자체가 성립 불가.",
+      "suggestion": "passage를 스키점프 단락('they are influenced by \"lift,\" an upward force produced by air on a fast-moving object')이 포함된 단락으로 교체 필수."
+    },
+    {
+      "id": 18,
+      "severity": "HIGH",
+      "issue": "주제 문항의 passage가 Burke 첫 단락만 — 선지 ② '스포츠 부상 방지'는 V스타일 부상 감소 내용을 모르면 소거 어렵고, ③ '훈련 방법'도 표면적으로 혼동 가능. passage만으로는 오답 3개를 소거할 충분한 맥락 제공 불가. 주제 문항은 글 전체를 읽어야 판단 가능.",
+      "suggestion": "passage를 fullPassage로 교체 필수."
+    },
+    {
+      "id": 19,
+      "severity": "HIGH",
+      "issue": "요지 문항의 passage가 Burke 첫 단락만 — 요지 ① '혁신은 자기 이해와 고유한 강점 발견에서 비롯된다'는 결론 단락('Innovation flourishes when individuals have a deep understanding of themselves...')에서 도출되는데 해당 단락이 passage에 없음. 학생이 passage만 보고 ①을 선택할 근거 없음.",
+      "suggestion": "passage를 결론 단락이 포함된 fullPassage로 교체 필수."
+    },
+    {
+      "id": 10,
+      "severity": "MEDIUM",
+      "issue": "빈칸 직후 문장에 정답 단어 노출 — CLAUDE.md '빈칸 바로 옆 5단어 이내 정답 직접 노출 금지' 경계선. passage에 '...keeps the jumper's __________ low to the ground. The lower the center of gravity...'로 빈칸 바로 다음 문장에 'center of gravity'가 그대로 등장. 학생이 다음 문장만 봐도 답을 베낄 수 있음.",
+      "suggestion": "빈칸 직후 문장의 'center of gravity'를 'it' 또는 'this'로 대체하거나, 빈칸 위치를 단락 중반으로 이동."
+    },
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "issue": "passage가 Burke 첫 단락 — Fosbury 관련 내용 없음(id 15와 동일한 구조 오류). 별도 HIGH로 분류하지 않으나 passage 교체 필수. 추가로 stem의 빈칸 구조 '___ ___ ___ and ___ ___ ___'가 두 절을 암시하여 정답이 'hit the bar / knock it down' 두 구절임을 사전 노출하는 효과.",
+      "suggestion": "passage를 Fosbury 단락으로 교체. 빈칸 구조는 '_______'로 단일 처리하거나 두 절 암시를 제거."
+    },
+    {
+      "id": 6,
+      "severity": "MEDIUM",
+      "issue": "passage 첫 문자가 '\"\\n\\n...'로 시작 — 불필요한 큰따옴표 1개가 앞에 붙어 있어 렌더링 시 화면에 홀따옴표 또는 이상한 문자가 표시될 수 있음. id 11도 동일.",
+      "suggestion": "passage의 앞 '\"' 제거 후 '\\n\\nAthletes often...'으로 시작하도록 수정."
+    },
+    {
+      "id": 11,
+      "severity": "MEDIUM",
+      "issue": "passage 첫 문자가 '\"\\n\\n...'로 시작 — id 6과 동일한 렌더링 오류 가능성.",
+      "suggestion": "passage의 앞 '\"' 제거."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "issue": "accept 배열에 완전히 동일한 문자열 2회 중복(accept[0] = accept[1] = 'Some of these athletes end up developing remarkable innovative techniques'). C10(accept 변형 불충분) 위반 + CLAUDE.md 'case/마침표 변형 수동 추가 금지' 원칙 위반(accept[2]는 마침표 버전으로 NORM이 처리).",
+      "suggestion": "accept = ['Some of these athletes end up developing remarkable innovative techniques'] 단일화. 중복 및 마침표 버전 제거."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "issue": "accept에 case 변형(A silver medal) 및 마침표 버전(a silver medal.) 수동 추가 — CLAUDE.md H 위반. NORM이 자동 처리하므로 불필요.",
+      "suggestion": "accept = ['a silver medal'] 단일화."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "accept에 case 변형 및 마침표 버전 수동 추가 — CLAUDE.md H 위반.",
+      "suggestion": "accept = ['hit the bar and knock it down'] 단일화."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "issue": "accept에 case 변형(Lift) 및 마침표 버전(lift.) 수동 추가 — CLAUDE.md H 위반.",
+      "suggestion": "accept = ['lift'] 단일화."
+    }
   ],
-  "totalIssues": 2,
-  "highCount": 0,
-  "summary": "HIGH 이슈 0건. 전체 20문항 출제 품질 양호. 어법 4문항 문법포인트 분산(지각동사/관계사/병렬/어형), 내용이해 T/F 적절, 서술형 찾기 유형 정상."
+  "summary": {
+    "HIGH": 9,
+    "MEDIUM": 5,
+    "LOW": 3,
+    "totalIssues": 17
+  },
+  "criticalPattern": "id 7, 8, 9, 12, 13, 15, 17, 18, 19 — T/F 3문항 + 내용일치/불일치 2문항 + 서술형 2문항 + 주제/요지 2문항, 총 9개 문항이 Burke 소개 첫 단락을 공통 passage로 사용하면서 stem과 전혀 무관한 구조. 학생이 passage를 읽어도 답을 찾을 수 없는 근본적 결함. 이전 adversarial이 HIGH 0건으로 통과시켰으나 전수 재검수 결과 HIGH 9건 발견. 각 문항의 passage를 stem에 대응하는 실제 본문 단락으로 교체 필수."
 }

@@ -1,0 +1,31 @@
+{
+  "testFile": "data/모의고사/고3/5월_2026/37번/단어.json",
+  "model": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "description": "EX-3: ABC 조합형 정답 단어가 원문 순서배열 지문에 그대로 노출. 순서배열 원문이므로 구조적으로 불가피. 학생은 선지 조합을 통해 3개를 동시에 판단해야 하므로 실질적 난이도 저하는 미미."
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionIds": [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19, 20],
+      "description": "S-ORDER-MARKER-LEAK: 순서배열 원문의 (A)(B)(C) 단락 표기가 비순서 유형에 잔류. 학생이 (A)(B)(C)를 단락 구분자로 인식하므로 혼동 가능성 매우 낮음. 구조적 한계로 strip 시 원문 훼손."
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionIds": [15],
+      "description": "P2: 다의어 문항 passage가 AI 직접 작성으로 fullPassage에 없음. 다의어 유형 규칙상 정상."
+    },
+    {
+      "id": "ADV-B4",
+      "severity": "LOW",
+      "questionIds": [14],
+      "description": "반의어 appropriate ↔ wrong: wrong이 다소 일반적이나, 선지 중 나머지 3개(relevant, fitting, proper)가 모두 동의어이므로 소거법으로도 명확. 정답에 모호함 없음."
+    }
+  ],
+  "summary": "HIGH 0건, MEDIUM 0건, LOW 4건. 전체 20문항 출제 품질 양호. 순서배열 원문 (A)(B)(C) 마커 잔류는 구조적 한계로 strip 불가. 재출제 불필요."
+}

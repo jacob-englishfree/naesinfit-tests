@@ -1,13 +1,102 @@
 {
   "testFile": "data/교과서/영어1/동아박용예/5과/본문/단어.json",
-  "attackedBy": "opus-adversarial",
+  "checkedAt": "2026-05-30",
+  "attackedBy": "sonnet-adversarial-step5",
   "issues": [
-    {"id": 1, "severity": "LOW", "issue": "EX-3 정답 단어 노출: innovative/standard/improvement가 교과서 본문에 자연 등장. 단, (A)(B)(C) 유형 특성상 불가피."},
-    {"id": 2, "severity": "LOW", "issue": "EX-3 정답 단어 노출: disadvantage/devised/momentum 본문에 등장. (A)(B)(C) 유형 특성상 불가피."},
-    {"id": 3, "severity": "LOW", "issue": "EX-3 정답 단어 노출: modification/increases/ridiculed 본문에 등장. (A)(B)(C) 유형 특성상 불가피."},
-    {"id": 12, "severity": "LOW", "issue": "선지 2번 'increase to the greatest extent' 다소 길어 정답 길이 편향 가능성. 단, S-LENGTH-BIAS 2.5배 미만이므로 통과."}
+    {
+      "id": 1,
+      "severity": "LOW",
+      "issue": "passage에 '11. 8 seconds' 오타. 원문 fullPassage는 '11.8 seconds'인데 passage에 불필요한 공백이 삽입됨.",
+      "suggestion": "'11. 8 seconds' → '11.8 seconds'로 수정."
+    },
+    {
+      "id": 3,
+      "severity": "HIGH",
+      "issue": "(A) adopted vs endorsed 정답 2개 가능. 원문은 'not immediately adopted'이나 'not immediately endorsed(즉시 지지받지 않았다)'도 문맥상 의미가 통함. det 설명에서 endorsed를 '적극 지지'로만 구분하는데 'not immediately endorsed' 역시 충분히 자연스러워 학생 오답 신고 가능.",
+      "suggestion": "(A) 선지를 'adopted vs abandoned' 또는 'adopted vs rejected'처럼 문맥상 완전히 틀리는 단어로 교체. endorsed는 정답과 뜻이 지나치게 유사함. 재출제 권장."
+    },
+    {
+      "id": 6,
+      "severity": "MEDIUM",
+      "issue": "det.analysis에서 레이블 오류. ③arching 선지 설명이 '④ arching(활처럼 휘는): ...'으로 잘못 표기됨. ③번 선지인데 ④번 레이블 부착.",
+      "suggestion": "det.analysis에서 '④ arching' → '③ arching'으로 수정."
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "issue": "오답 ① direction이 정답 가능성 있음. 'speed and direction'은 물리학 영어에서 자연스러운 표현(속도+방향). 문맥상 speed and momentum과 similarly 자연스럽게 읽힐 수 있어 학생 오답 신고 여지. det에서 '원문과 다름'만 근거로 제시하나, 이는 정답 배제 근거로 부족.",
+      "suggestion": "오답 direction을 'agility'(민첩성) 또는 'endurance'(지구력)처럼 speed와 조합이 이 맥락에서 명확히 부적합한 단어로 교체."
+    },
+    {
+      "id": 9,
+      "severity": "MEDIUM",
+      "issue": "passage가 닫는 따옴표 '\"'로 시작함. 이전 지문 인용 종료 부호가 잔류한 것으로 보임. S-META-LEAK 가능성. 렌더러에서 고립된 따옴표가 학생에게 노출될 수 있음.",
+      "suggestion": "passage 시작의 불필요한 따옴표 제거. 문항 12, 20도 동일 패턴이므로 함께 수정."
+    },
+    {
+      "id": 12,
+      "severity": "MEDIUM",
+      "issue": "passage가 닫는 따옴표 '\"'로 시작함. 문항 9와 동일 S-META-LEAK 패턴.",
+      "suggestion": "passage 시작의 불필요한 따옴표 제거."
+    },
+    {
+      "id": 14,
+      "severity": "MEDIUM",
+      "issue": "정답 단어 innovative가 같은 passage 내에 직접 등장('remarkable innovative techniques'). 반의어 고르기 유형에서 학생이 passage 독해 중 innovative를 발견하여 소거 없이 정답 선택 가능. C6(정답 passage 노출) 해당.",
+      "suggestion": "passage를 innovative가 등장하지 않는 구간(본문 도입부 또는 Flip Turn 단락 등)으로 교체. 또는 밑줄 단어를 conventional과 동일 passage에 반의어가 없는 다른 단어로 변경."
+    },
+    {
+      "id": 15,
+      "severity": "MEDIUM",
+      "issue": "(A) 'position of his body'에서 position을 '자세'와 '위치' 둘 다 해석 가능. 선지 ① (A)위치-(B)직위도 일부 수용될 수 있어 정답 2개 가능성 존재. 특히 한국어로 '몸의 위치'도 어색하지 않음.",
+      "suggestion": "det.analysis에 '위치(location)가 아닌 자세(pose/posture)인 이유'를 명시적으로 보강. 또는 (A) passage를 crouch start 자세를 더 명확히 묘사하는 문장으로 교체하여 '자세' 의미가 더 명확하게 드러나도록 수정."
+    },
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "issue": "오답 3개(momentum, gravity, advantage)가 '방법/기술'과 전혀 무관한 단어들이어서 영영풀이를 읽지 않아도 소거법으로 풀림. C7(뻔한 오답). technique를 모르더라도 정답 도달 가능.",
+      "suggestion": "오답 1~2개를 방법/기법 관련 단어로 교체. 예: strategy(전략), approach(접근법), procedure(절차) 중 하나 이상 포함하면 영영풀이 실제 독해 필요."
+    },
+    {
+      "id": 17,
+      "severity": "HIGH",
+      "issue": "S-WA-IN-PASSAGE 위반. wa인 'willingness'가 passage에 그대로 노출('His willingness to take a risk...'). 어형변환 유형에서 '찾기형' 예외 미적용. 학생이 passage를 읽으면 정답 단어를 그대로 볼 수 있어 어형변환 실력 측정 불가.",
+      "suggestion": "passage를 willingness가 등장하지 않는 다른 구간으로 교체하거나, 기저형이 다른 단어(예: innovate→innovation, adjust→adjustment)로 문항 재출제. accept 배열에서 'Willingness', 'willingness.' 등 case/마침표 변형 삭제 필요(CLAUDE.md H 규칙: NORM 자동 처리로 불필요)."
+    },
+    {
+      "id": 18,
+      "severity": "HIGH",
+      "issue": "S-WA-IN-PASSAGE 위반. wa인 'modification'이 fullPassage에 그대로 존재('This modification increases the surface area...'). passage도 해당 문장 그대로 사용. 학생이 (modify) 힌트가 없어도 passage에서 'modification'을 직접 읽을 수 있음. 어형변환 측정 불가.",
+      "suggestion": "passage를 modification이 등장하지 않는 구간으로 교체하거나, 다른 어형변환 타겟(예: adjust→adjustment, require→requirement)으로 문항 재출제. accept 배열에서 'Modification', 'modification.' 등 case/마침표 변형 삭제 필요."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "issue": "passage가 닫는 따옴표 '\"'로 시작함. 문항 9, 12와 동일 S-META-LEAK 패턴.",
+      "suggestion": "passage 시작의 불필요한 따옴표 제거."
+    }
   ],
-  "totalIssues": 4,
-  "highCount": 0,
-  "summary": "HIGH 이슈 0건. (A)(B)(C) 유형에서 교과서 원문 단어 노출은 유형 본질적 한계(교과서 source). Q12 선지 길이 약간 불균형이나 S급 기준 미달. 전체 20문항 출제 품질 양호."
+  "totalIssues": 12,
+  "highCount": 3,
+  "summary": {
+    "HIGH_3건_재출제_필요": [
+      "id 3: (A) adopted vs endorsed 정답 2개 가능 — endorsed 오답 교체 필요",
+      "id 17: S-WA-IN-PASSAGE — willingness가 passage에 직접 노출 — passage 교체 또는 타겟 단어 변경",
+      "id 18: S-WA-IN-PASSAGE — modification이 passage에 직접 노출 — passage 교체 또는 타겟 단어 변경"
+    ],
+    "MEDIUM_8건_수정_권장": [
+      "id 6: det.analysis ③/④ 레이블 오류",
+      "id 7: 오답 direction이 정답 가능성 있음",
+      "id 9: passage 시작 따옴표 잔류 (S-META-LEAK)",
+      "id 12: passage 시작 따옴표 잔류 (S-META-LEAK)",
+      "id 14: 정답 innovative가 passage 내 C6 노출",
+      "id 15: (A) 위치/자세 해석 모호",
+      "id 16: 오답 3개 모두 뻔함 (C7)",
+      "id 20: passage 시작 따옴표 잔류 (S-META-LEAK)"
+    ],
+    "LOW_1건_참고": [
+      "id 1: passage 오타 '11. 8 seconds'"
+    ],
+    "CLEAN_8건": [2, 4, 5, 8, 10, 11, 13, 19]
+  }
 }

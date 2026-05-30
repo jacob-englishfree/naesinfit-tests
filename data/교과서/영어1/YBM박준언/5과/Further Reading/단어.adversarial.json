@@ -1,18 +1,37 @@
 {
   "testFile": "data/교과서/영어1/YBM박준언/5과/Further Reading/단어.json",
+  "reviewer": "claude-opus-4-6",
+  "date": "2026-05-30",
   "issues": [
     {
-      "id": 11,
-      "severity": "MEDIUM",
-      "type": "AMBIGUOUS-SYNONYM",
-      "detail": "Q11 동의어: extremes의 동의어로 limits가 정답. extremes는 '극단/극한'이고 limits는 '한계/극한'으로 의미가 겹치기는 하나, limits의 1차적 의미는 '제한'이므로 완벽한 동의어라기보다 유사어. 학생이 혼란할 수 있으나, 4지선다에서 소거법으로 풀 수 있어 치명적이지는 않음."
+      "id": 1,
+      "severity": "LOW",
+      "issue": "EX-3: 짧은 FR 지문이라 ABC 정답 단어가 지문 다른 곳에도 등장. 단어 테스트 특성상 불가피.",
+      "action": "KEEP — 11문장 단일 지문이라 회피 불가. 학생이 문맥으로 풀어야 하는 점은 유지됨."
     },
     {
-      "id": 18,
-      "severity": "MEDIUM",
-      "type": "DERIVATION-MISMATCH",
-      "detail": "Q18 어형변환: inhabit → habitation. 'inhabit'에서 'habitation'으로의 변환은 접두사 in-을 제거하고 -ation을 붙이는 것으로, 일반적 어형변환(접미사만 변경)과 다름. inhabitation은 실제 영어 단어이지만 원문이 habitation이므로 학생이 inhabitation으로 쓸 가능성. accept에 inhabitation 추가 고려."
+      "id": 14,
+      "severity": "LOW",
+      "issue": "unique 반의어로 generic 사용. 학생에게 다소 생소할 수 있음.",
+      "action": "KEEP — 어려움 난이도(6점). generic은 고1 수준 적합. rare/exceptional/remarkable 동의어 오답으로 오답 질 우수."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "issue": "다의어 (B) 문맥이 AI 생성. 원문과 관계없지만 다의어 유형 규칙상 허용.",
+      "action": "KEEP — 다의어 문맥적 의미 유형은 AI가 (A)(B) 문맥을 작성하는 것이 규칙."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "issue": "carried out은 2단어 구동사. 빈칸 문맥 완성 선지로 적합하나 단어 테스트 취지에 구동사도 포함.",
+      "action": "KEEP — 구동사도 어휘 학습 범위. 4선지 모두 구동사(phrasal verb)로 통일되어 공정."
     }
   ],
-  "totalIssues": 2
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "verdict": "PASS — HIGH 이슈 없음. 배포 가능."
+  }
 }

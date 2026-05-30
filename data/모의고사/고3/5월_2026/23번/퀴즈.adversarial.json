@@ -1,0 +1,28 @@
+{
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-05-30T00:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "weak-distractor",
+      "description": "Q6 빈칸추론 오답 3개(originate beyond, evolve independently of, compete against)가 fullPassage에 없는 표현. 학생이 본문에서 해당 표현을 확인할 수 없어 소거법이 쉬울 수 있음. 하지만 빈칸 자체가 문맥 추론이므로 소거법보다 직접 추론이 주요 풀이 전략이라 LOW 판정.",
+      "action": "유지 — 빈칸추론 특성상 오답이 본문에 없어도 무방"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 20,
+      "type": "wa-partial-in-passage",
+      "description": "Q20 조건영작 wa 'has motivation and uses genes in its' — 'in its'로 끝나는 것이 부자연스러울 수 있으나, 빈칸 위치상 passage에서 'in its capacity to act'의 'in its' 이전까지가 빈칸이므로 구조적으로 정확함.",
+      "action": "유지 — passage 구조에 맞는 빈칸 범위"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능."
+  }
+}

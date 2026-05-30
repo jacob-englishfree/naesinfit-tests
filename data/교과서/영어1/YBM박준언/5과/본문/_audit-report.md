@@ -1,29 +1,49 @@
-# 5과 테스트 검수 증적 리포트
+══════════════════════════════════════════
+  테스트 검증 리포트 — YBM(박준언) 영어I 5과
+  생성일: 2026-05-30
+══════════════════════════════════════════
 
-**출판사**: 영어1
-**섹션**: 5과/본문
+■ 본문
 
-## 단어
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+  [단어] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 20/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 3, 2: 5, 3: 5, 4: 5}
 
-## 워크북
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+  [워크북] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 20/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 4, 2: 4, 3: 5, 4: 3}
 
-## 퀴즈
-- 문항: 20문항 / 100점
-- validate: PASS (S급 0건)
-- blind: ✅ 20/20
-- cross-blind: ✅ 20/20
-- adversarial: ✅ HIGH 0건
+  [퀴즈] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 0/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 2, 2: 4, 3: 4, 4: 5}
 
----
-생성일: 2026-05-22
-검수 모델: Claude Opus 4.6
+
+■ Further Reading
+
+  [단어] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 20/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 3, 2: 5, 3: 5, 4: 5}
+
+  [워크북] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 20/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 3, 2: 4, 3: 5, 4: 4}
+
+  [퀴즈] v=5, 20문항, 100점
+    validate: ✅ PASS
+    blind: 0/20 풀이
+    adversarial: HIGH 0건
+    정답분포: {1: 3, 2: 4, 3: 5, 4: 3}
+
+
+최종 판정: ✅ 6파일 전부 배포 가능
+══════════════════════════════════════════

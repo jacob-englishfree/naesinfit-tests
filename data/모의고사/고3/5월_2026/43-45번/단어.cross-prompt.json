@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Matthew loved tennis...",
+    "subject": "5월_2026 고3 모의고사",
+    "pub": "43-45번",
+    "lesson": "Matthew loved tennis...",
+    "histKey": "wordtest_3_5_2026_4345_v3"
+  },
+  "fullPassage": "(A)\nMatthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke!\n\n(B)\nMatthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip.\n\n(C)\nDespite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "(A)\nMatthew loved tennis. He had been <b>(A)</b>[practicing / resting] hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke!\n\n(B)\nMatthew <b>(B)</b>[hesitated / rushed]. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip.\n\n(C)\nDespite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked <b>(C)</b>[miserably / cheerfully] to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "practicing — hesitated — miserably",
+        "resting — hesitated — miserably",
+        "practicing — rushed — miserably",
+        "practicing — hesitated — cheerfully"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "(A)\nMatthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and <b>(A)</b>[precision / carelessness]. But then, SNAP! His racket strings broke!\n\n(B)\nMatthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as <b>(B)</b>[comfortable / awkward]. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip.\n\n(C)\nDespite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his <b>(C)</b>[defeat / victory]. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "precision — comfortable — victory",
+        "carelessness — comfortable — defeat",
+        "precision — comfortable — defeat",
+        "precision — awkward — defeat"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A)\nMatthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, <b>(A)</b>[cheering / jeering] him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke!\n\n(B)\nMatthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to <b>(B)</b>[adapt / surrender].\" He focused on his footwork and adjusted his grip.\n\n(C)\nDespite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart <b>(C)</b>[pounded / calmed] as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "jeering — adapt — pounded",
+        "cheering — adapt — pounded",
+        "cheering — surrender — pounded",
+        "cheering — adapt — calmed"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, ①<u>preparing</u> for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, ②<u>booing</u> him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he ③<u>grabbed</u> Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and ④<u>adjusted</u> his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was ①<u>heavier</u> than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent ②<u>scored</u> a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He ③<u>focused</u> on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was ④<u>frowning</u>, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the ①<u>loose</u> strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew ②<u>figured</u> out what to do. He was about to give up when he heard a voice. \"Use (e) my ③<u>broken</u>!\" He turned to see Larry holding out his ④<u>extra</u> racket.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and __________. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "precision",
+        "hesitation",
+        "confusion",
+        "frustration"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his __________ and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "strategy",
+        "opponent",
+        "breathing",
+        "footwork"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The __________ called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "audience",
+        "referee",
+        "teammate",
+        "spectator"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he <u>grabbed</u> Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 grabbed와 의미가 가장 가까운 것은?",
+      "ch": [
+        "released",
+        "seized",
+        "dropped",
+        "examined"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to <u>admit</u> (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 admit와 의미가 가장 가까운 것은?",
+      "ch": [
+        "deny",
+        "celebrate",
+        "acknowledge",
+        "challenge"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he <u>stared</u> at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 stared와 의미가 가장 가까운 것은?",
+      "ch": [
+        "glanced",
+        "ignored",
+        "avoided",
+        "gazed"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the <u>loose</u> strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 loose와 의미가 가장 반대인 것은?",
+      "ch": [
+        "tight",
+        "broken",
+        "soft",
+        "damaged"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked <u>miserably</u> to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 밑줄 친 miserably와 의미가 가장 반대인 것은?",
+      "ch": [
+        "reluctantly",
+        "cautiously",
+        "joyfully",
+        "gradually"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A)\nThe <u>match</u> started off great, and Matthew was hitting every ball perfectly.\n\n(B)\nShe lit a <u>match</u> to start the campfire, carefully holding it away from the wind.",
+      "stem": "다음 (A), (B)의 밑줄 친 <b>match</b>가 의미하는 것으로 가장 적절한 것은?",
+      "ch": [
+        "(A) 성냥 — (B) 경기",
+        "(A) 경기 — (B) 일치",
+        "(A) 경기 — (B) 성냥",
+        "(A) 짝 — (B) 성냥"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"to change or adjust oneself to new conditions or a new environment\"",
+      "ch": [
+        "adapt",
+        "compete",
+        "hesitate",
+        "celebrate"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "He had been practicing hard for weeks, __________ (prepare) for the biggest match of the year.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Matthew froze and his heart pounded as he stared at the loose strings __________ (hang) from his racket.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"__________.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about how you play the game.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "Winning is everything in life",
+        "Practice makes perfect always",
+        "Friends are your greatest rivals",
+        "Champions never give up"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": " Matthew loved tennis. He had been practicing hard for weeks, preparing for the biggest match of the year. Today was the day. He wanted to win. He had trained so much. His best friend and training partner Larry was on the sidelines, cheering him on. The match started off great. (a) He ran across the court, hitting ball after ball with power and precision. But then, SNAP! His racket strings broke! Matthew hesitated. It wasn't his racket. It wouldn't feel the same. But then he remembered something his coach always said, \"Champions never give up.\" Taking a deep breath, (b) he grabbed Larry's racket and returned to the court. The new racket was heavier than his own, and the grip wasn't as comfortable. He missed an easy ball, and his opponent scored a point. But instead of getting upset, Matthew told himself, \"It's okay. (c) I just need to adapt.\" He focused on his footwork and adjusted his grip. Despite his best efforts, things didn't go as Matthew hoped. And by the end of the match, he had lost. He had wanted to win so badly. As Matthew walked miserably to the net, he looked at his opponent. The boy was smiling, holding out his hand. He didn't want to admit (d) his defeat. But then, he remembered something Larry always said: \"Winning isn't about the score. It's about __________.\" Matthew realized he had done his best. Matthew smiled, shook the boy's hand and said, \"Congratulations. You played a great game.\"\n\n(D)\nMatthew froze and his heart pounded as he stared at the loose strings hanging from his racket. He had never had a string break during a match before, and now it had happened in his most important match. The referee called for a short break while Matthew figured out what to do. He was about to give up when he heard a voice. \"Use (e) my spare!\" He turned to see Larry holding out his extra racket.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "whether you beat your opponent",
+        "how you play the game",
+        "how many points you score",
+        "whether your equipment is perfect"
+      ]
+    }
+  ]
+}

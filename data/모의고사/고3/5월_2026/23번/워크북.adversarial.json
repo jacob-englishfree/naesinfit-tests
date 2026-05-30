@@ -1,0 +1,65 @@
+{
+  "file": "data/모의고사/고3/5월_2026/23번/워크북.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-05-30T03:22:00.000Z",
+  "role": "adversarial-reviewer",
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "20문항 전수 확인. 모든 mc 문항에서 정답은 1개뿐. 어법 Q1-Q4 각 1개 오류만 존재. 어휘 Q5-Q6 정답은 문맥상 명확한 반의어/모순. T/F Q7-Q9 본문 근거 명확. 빈칸 Q10-Q11 정답 유일. 일치/불일치 Q12-Q13 정답 명확. 오류찾기 Q14 former→latter 변경 유일."
+    },
+    {
+      "check": "선지 뻔함 (소거법으로 풀림)",
+      "result": "PASS",
+      "detail": "Q10 빈칸: 4선지 모두 본문에 등장하는 단어이나 맥락상 creativity만 적합. Q11 빈칸: 오답 3개(genetic prisoner, passive recipient, biological machine)가 모두 다른 구체적 개념이며 추상/메타 서술 아님. Q12-Q13 한국어 선지: 패러프레이즈 적용, 직역 회피."
+    },
+    {
+      "check": "정답 passage 직접 노출",
+      "result": "PASS",
+      "detail": "Q10: creativity가 빈칸이므로 passage에서 제거됨. Q11: self-organising entity가 빈칸이므로 passage에서 제거됨. 서술형 Q15-Q17: '본문에서 찾아 쓰시오' 유형이므로 노출 허용. Q20: locked in the organism이 빈칸으로 처리됨."
+    },
+    {
+      "check": "서술형 wa가 stem에 노출",
+      "result": "PASS",
+      "detail": "Q15 wa=genes, stem에 없음. Q16 wa=agency, stem에 없음. Q17 wa=altruism, stem에 없음. Q20 wa='locked in the organism', stem에 없음."
+    },
+    {
+      "check": "조건영작 단어수 vs wa",
+      "result": "PASS",
+      "detail": "Q20: stem에 '(4단어)', wa='locked in the organism' = 4단어 → 일치. 조건에 in, locked, organism, the 4개 모두 wa에 포함."
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q1 어법: ①앞부분/②중반/③후반/④마지막. Q2 어법: ①앞/②앞중간/③중반/④후반. Q3 어법: ①앞중간/②중후반/③후반/④마지막. Q4 어법: ①앞/②앞중간/③중후반/④후반. Q5 부적절: ①앞중간/②중반/③후반/④마지막. Q6 부적절: ①앞중간/②중간/③중간/④마지막. Q14 오류찾기: ①앞/②앞중간/③중반/④후반. 전체적으로 분산 양호."
+    },
+    {
+      "check": "det analysis 완결성",
+      "result": "PASS",
+      "detail": "모든 mc 문항 det.analysis에 ①~④ 각 선지별 해설 포함. 서술형 문항에 근거 제시. korean/analysis/tip 3필드 모두 존재."
+    },
+    {
+      "check": "S-ANTI-CHEESE-GATE",
+      "result": "PASS",
+      "detail": "Q10-Q11 빈칸추론 오답이 구체적 단어/표현이며 추상 메타 서술 아님. Q12-Q13 한국어 선지도 본문 내용 기반 구체 서술."
+    },
+    {
+      "check": "passage 원문 훼손",
+      "result": "PASS",
+      "detail": "모든 passage가 fullPassage 기반. 마커/밑줄/빈칸 외 원문 변경 없음. 어법 문항에서 오류 삽입은 overlay 규칙에 따라 1개 단어만 변형."
+    },
+    {
+      "check": "어법 문법 포인트 다양성",
+      "result": "PASS",
+      "detail": "Q1: 과거분사 vs 현재분사(수동/능동). Q2: 분사 병렬 구조. Q3: 강조 구문 수 일치(It is...that). Q4: 정형동사 vs 분사 병렬. 4문항 모두 다른 문법 포인트."
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "PASS"
+  }
+}

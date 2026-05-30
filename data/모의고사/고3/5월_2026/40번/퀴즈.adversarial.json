@@ -1,0 +1,38 @@
+{
+  "file": "data/모의고사/고3/5월_2026/40번/퀴즈.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-05-30T03:35:00.000Z",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": "ADV-001",
+      "severity": "LOW",
+      "questionId": 17,
+      "type": "stem-clarity",
+      "description": "Q17 stem '필자의 평가를 나타내는 문장'이라 했는데 정답은 평가가 아닌 사실 설명 문장. 다만 counter-intuitive 직후 나오는 문장이라 문맥으로 특정 가능. 학생이 'At first glance, that's counter-intuitive'를 답할 가능성 존재하지만 10단어 조건으로 차단됨.",
+      "action": "KEEP — (10단어) 조건이 가드 역할"
+    },
+    {
+      "id": "ADV-002",
+      "severity": "LOW",
+      "questionId": 16,
+      "type": "overlap-concern",
+      "description": "Q16(wa: becoming too familiar with the positive experience)과 Q18(wa: prevents us from becoming too familiar with the positive experience)이 부분 중복. 다만 Q16은 현상 자체, Q18은 방지 원리를 묻는 차이가 있고 단어수도 다름(7 vs 10).",
+      "action": "KEEP — 의미적 초점 다름 + 단어수 차별"
+    },
+    {
+      "id": "ADV-003",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "answer-exposure",
+      "description": "Q6 빈칸 정답 'a 20-second break between sessions'가 passage 후반 'those forced to take a 20-second break'에 부분 노출. 다만 빈칸 위치와 5단어 이상 떨어져 있고 정확한 표현이 다름.",
+      "action": "KEEP — 빈칸추론 유형이므로 문맥 추론이 핵심. 부분 노출은 수용 가능"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "verdict": "PASS — HIGH 0건. 배포 가능"
+  }
+}
