@@ -1,0 +1,38 @@
+{
+  "testFile": "data/교과서/영어1/YBM박준언/4과/본문/워크북.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 5,
+      "severity": "MEDIUM",
+      "type": "혼동 선지 구조",
+      "detail": "'get up close and personal'은 '직접 친밀하게 만나다'라는 관용구로서 close와 personal이 세트로 쓰이는 표현이다. ①close와 ②personal을 각각 독립 마커로 분리해 밑줄을 치면, 학생이 관용구 맥락에서 둘 중 하나가 정답인지 헷갈릴 수 있다. 관용구를 하나의 덩어리로 보는 시각에서는 ①②가 둘 다 '적절'로 보일 수 있어 정답 쏠림 유도 의심. 오답 소거는 결국 ③rare가 명확해 정답은 맞지만, 선지 구조 자체가 관용구 분해로 학생 혼란 유발 가능."
+    },
+    {
+      "id": 15,
+      "severity": "MEDIUM",
+      "type": "accept 배열 단어수 불일치",
+      "detail": "stem에 '(2단어)'를 조건으로 명시했으나, accept 배열에 'the political chaos'(3단어)가 포함되어 있다. 채점 시 학생이 'the political chaos'를 써도 accept에 있어 정답 처리될 수 있으나, stem 조건(2단어)과 충돌한다. 학생이 3단어를 써서 정답 처리되면 조건의 의미가 없어진다. accept에서 'the political chaos'를 제거하거나, stem 조건을 '2~3단어'로 수정 필요."
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "type": "정답 passage 노출 (빈칸 교과서 워크북)",
+      "detail": "빈칸 'he hoped to make it __________'에 대한 정답 'the new capital'이 fullPassage의 해당 문장에 그대로 등장한다. 교과서 워크북의 특성상 본문 재확인 목적으로 허용 범위이나, 학생이 passage를 단순 스캔하여 대입할 수 있어 추론보다 암기 확인에 가까운 문항이 됨. 워크북 난이도(보통) 기준으론 허용이지만 퀴즈였다면 차단 필요."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "type": "정답 passage 노출 (빈칸 교과서 워크북)",
+      "detail": "빈칸 'giving more people __________'에 대한 정답 'a shot at joining the government'가 fullPassage의 해당 문장에서 거의 그대로 등장한다. 교과서 워크북 허용 범위이나 Q10과 동일하게 추론보다 재확인에 가까운 구조. 어려움(6점) 배점 대비 난이도가 낮아 보임."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "오류찾기 난이도 미흡",
+      "detail": "'three days vs four days' — 오류가 단 하나(②)이고, 행차 기간 4일이 fullPassage에서 반복 강조되어 있어 지문을 한 번이라도 읽은 학생이라면 즉시 소거 가능. 어려움(6점) 배점 문항으로서 변별력이 낮을 수 있음. 나머지 ①③④가 명백히 사실과 일치해 적극 오답으로 기능하지 못함."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 0
+}

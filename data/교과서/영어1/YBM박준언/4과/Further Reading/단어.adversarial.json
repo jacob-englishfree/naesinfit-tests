@@ -1,0 +1,87 @@
+{
+  "testFile": "data/교과서/영어1/YBM박준언/4과/Further Reading/단어.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 4,
+      "severity": "MEDIUM",
+      "type": "Q7·Q19 동일 표현 중복 출제",
+      "detail": "Q7 빈칸=defense, Q19 빈칸=the final defense. 두 문항이 동일 지문 영역(sanseong served as the final defense against invaders)에서 출제됨. 학생이 Q7에서 defense를 맞히면 Q19 자동 힌트. 단어 테스트에서 동일 키워드 중복은 난이도 저하 및 redundancy 문제.",
+      "affectedQ": [
+        7,
+        19
+      ]
+    },
+    {
+      "id": 5,
+      "severity": "MEDIUM",
+      "type": "S-ANTI-CHEESE-GATE — Q13 반의어 고르기",
+      "detail": "Q13 오답 ①powerful ③sturdy ④robust 모두 strong의 유의어. passage 없이 단어 지식(strong의 유의어가 아닌 것=정답)으로 소거 가능. 오답 중 최소 1개는 strong과 의미축이 다른 단어(예: brief/quick 등)로 교체해야 passage 문맥 활용 유도.",
+      "affectedQ": [
+        13
+      ]
+    },
+    {
+      "id": 6,
+      "severity": "MEDIUM",
+      "type": "C6 정답 노출(소거법) — Q9 빈칸 어휘 완성",
+      "detail": "Q9 passage 끝: 'a center for __________, commerce, and housing'. 오답 ①commerce, ②housing이 빈칸 뒤 5단어 이내에 그대로 노출되어 즉시 소거됨. 나머지 오답 ③defenses도 문맥상 부자연스러워 정답①agriculture가 자동 도출. 과도한 정답 노출에 해당.",
+      "affectedQ": [
+        9
+      ]
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "type": "S-PREFIX-DOMINANT 위험 — Q19",
+      "detail": "Q19 오답 ①'a minor obstacle' ②'a temporary shelter' ③'a training center'가 모두 'a'로 시작, 정답④만 'the'로 시작. 3개 오답의 공통 prefix가 'a '(관사)로 동일하여 정답이 '관사 the로 시작하는 것'으로 좁혀짐. 선지 중 1개를 'the'로 시작하는 오답으로 교체하거나 정답을 'a'로 시작하는 표현으로 재설계 권장.",
+      "affectedQ": [
+        19
+      ]
+    },
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "type": "오답 의미축 이탈(뻔한 오답) — Q14",
+      "detail": "Q14 practical 반의어 문항. 오답 ③compact(소형의)는 practical(실용적인)과 의미축이 전혀 달라 즉시 소거됨. 의미축 내 단어(예: impractical, idealistic, unrealistic)로 교체해야 변별력 생김.",
+      "affectedQ": [
+        14
+      ]
+    },
+    {
+      "id": 9,
+      "severity": "MEDIUM",
+      "type": "정답 경계 모호 — Q15 다의어",
+      "detail": "Q15 선지④ '(A)복무했다 – (B)기여했다'. serve의 '기여하다' 의미는 'serve as'의 역할 수행과 유사하여 정답③과 경계가 모호함. 특히 고등학생 수준에서 '역할을 했다'와 '기여했다'를 명확히 구분하기 어려울 수 있음. 선지④의 (B)를 '보호했다/대응했다' 등 명확히 다른 표현으로 교체 권장.",
+      "affectedQ": [
+        15
+      ]
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "type": "어색한 선지 구성 — Q20",
+      "detail": "Q20 오답② 'the designs of only'. 'combined the designs of only the sanseong and the eupseong'으로 읽히면 'only'가 어색한 위치에 놓여 선지 자체가 비문에 가까워짐. 학생이 '이건 확실히 틀렸다'고 소거할 수 있어 실질 4지선다가 3지선다 효과. 'the designs of each'나 'the weaknesses of each' 등으로 교체 권장.",
+      "affectedQ": [
+        20
+      ]
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "type": "practical ↔ theoretical 반의어 논란 — Q14",
+      "detail": "practical의 가장 직접적 반의어는 'impractical'이며, theoretical은 '이론적'이라는 별도 의미축. practical ↔ theoretical은 학술적으로 쓰이지만 일반 문맥(scarce farmland, poor living conditions)에서는 다소 어색. 채점 이의 제기 가능성 있음. theoretical 대신 impractical이 없는 구조상 수용 가능하나 해설에 보충 설명 추가 권장.",
+      "affectedQ": [
+        14
+      ]
+    }
+  ],
+  "totalIssues": 8,
+  "highCount": 0,
+  "verdict": "HIGH 3건 — 배포 차단. 수정 후 재검수 필요.",
+  "requiredFixes": [
+    "ISSUE#1: 3번 정답 1개를 다른 번호로 교체 (A6 해소)",
+    "ISSUE#2: Q7 오답④ fortress를 배제 명확한 단어로 교체 또는 빈칸 위치 변경",
+    "ISSUE#3: Q1 det.analysis ①② 설명 순서 실제 선지와 일치하도록 수정"
+  ]
+}

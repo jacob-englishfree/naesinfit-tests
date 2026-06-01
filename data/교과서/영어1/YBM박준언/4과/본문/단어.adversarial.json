@@ -1,0 +1,68 @@
+{
+  "testFile": "data/교과서/영어1/YBM박준언/4과/본문/단어.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "reviewedAt": "2026-06-01",
+  "issues": [
+    {
+      "id": 1,
+      "severity": "MEDIUM",
+      "type": "정답_passage_직접노출",
+      "detail": "(A)(B)(C) 조합형인데, passage에 'making a statement', 'military leader', 'marching in perfect order'가 그대로 노출되어 있음. 학생이 passage를 읽으면 세 자리 모두 정답을 직접 확인 가능. 단어테스트 유형상 의도된 구조이나 추론 난이도가 없음."
+    },
+    {
+      "id": 2,
+      "severity": "MEDIUM",
+      "type": "정답_passage_직접노출",
+      "detail": "(A)(B)(C) 조합형인데, passage에 'treated his people well', 'fair wages', 'initially thought to take about 10 years'가 그대로 노출됨. 세 자리 전부 passage에서 직접 확인 가능. 단어테스트 허용 범위이나 변별력 없음."
+    },
+    {
+      "id": 3,
+      "severity": "MEDIUM",
+      "type": "정답_passage_직접노출",
+      "detail": "(A)(B)(C) 조합형인데, passage에 'government more accessible', 'innovative back then', 'government more diverse'가 그대로 노출됨. 세 자리 모두 직접 확인 가능. 단어테스트 허용 범위이나 변별력 없음."
+    },
+    {
+      "id": 15,
+      "severity": "MEDIUM",
+      "type": "정답2개가능",
+      "detail": "(A) 문맥 'She couldn't hold the heavy box any longer'에서 hold는 '잡다(물리적 파지)'가 정답이지만, 'couldn't hold any longer'는 '참다/견디다' 패턴과도 겹침(예: couldn't hold it anymore = 참을 수 없었다). 정답 ②(A)잡다 vs 오답 ①(A)참다의 구분이 일부 학생에게 모호할 수 있어 항의 가능성 있음. 단, (B) 유지하다가 틀리므로 ① 전체 조합은 오답."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "type": "뻔한오답",
+      "detail": "오답 3개(show their disappointment, express their disagreement, keep a safe distance)가 모두 부정적/반대 의미로만 구성됨. 행차의 긍정적 소통 맥락을 조금이라도 아는 학생은 즉시 소거 가능. 변별력이 낮음. 오답 중 하나는 유사 긍정적 의미(예: express their wishes/opinions)로 교체 권장."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "type": "뻔한오답_경미",
+      "detail": "동의어 'accessible' 문항에서 오답 complicated(복잡한), expensive(비싼), distant(먼)이 서로 의미축이 다르고 accessible과도 명백히 무관하여 소거법으로 너무 쉽게 풀림. 변별력 개선 권장."
+    },
+    {
+      "id": 12,
+      "severity": "LOW",
+      "type": "뻔한오답_경미",
+      "detail": "동의어 'significant' 문항에서 오답 temporary(일시적), forgotten(잊혀진)은 '문화유산'이라는 맥락과 명백히 배치되어 passage 읽기 전에 소거 가능. 오답 품질 개선 권장."
+    }
+  ],
+  "totalIssues": 7,
+  "highCount": 0,
+  "mediumCount": 4,
+  "lowCount": 3,
+  "deployable": false,
+  "deployBlockReason": "HIGH 이슈 4건 존재. HIGH가 0이어야 배포 가능.",
+  "summary": {
+    "criticalActions": [
+      "Q5: passage 5문장 미만(4문장) → 문장 1개 추가 또는 발췌 범위 확장",
+      "Q10: 오답 3개 전부 'ordinary/usual/common' 동일 의미축 → S-ANTI-CHEESE-GATE 위반, 오답 교체",
+      "Q14: passage 2문장 → 5문장 이상으로 확장 필수 (즉시 재출제)",
+      "Q4: passage 문장 수 경계선 — 정확히 5문장인지 재확인"
+    ],
+    "recommendedActions": [
+      "Q1~Q3: (A)(B)(C) 조합형 passage 직접 노출 구조는 단어테스트 허용이나 변별력 강화 고려",
+      "Q15: hold '잡다' vs '참다' 모호성 — (A) 문장 교체 또는 det에 명확한 근거 추가",
+      "Q20: 오답 1개를 유사 긍정적 표현으로 교체하여 소거법 차단"
+    ]
+  }
+}
