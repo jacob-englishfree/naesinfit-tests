@@ -1,0 +1,39 @@
+{
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-06-02",
+  "method": "적대적 공격: 정답 2개 가능, 선지 뻔함, 정답 노출, 모호한 문항 탐색",
+  "findings": [
+    {
+      "id": 10,
+      "severity": "LOW",
+      "issue": "빈칸 정답 'the interpretation of the data'가 passage 2번째 문장의 'the interpretation of the data or sensory states'에서 유래. 빈칸 자리에서 제거되었으나 학생이 앞문장 구조에서 추론 가능.",
+      "verdict": "PASS — 빈칸추론 유형은 본문 맥락 추론이 목적. 빈칸 자리 자체가 해당 구절이므로 정상."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "issue": "빈칸 정답 'at the core of everything we do'에서 마지막 문장 전체가 빈칸. 그러나 ch①이 원문 그대로이므로 정답 판별이 쉬울 수 있음.",
+      "verdict": "PASS — 어려움 난이도 문항이나, 오답(②③④)이 각각 한정됨/무관/외부의존으로 명확히 배제 가능. 지문 전체 이해 필요하므로 적절."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "issue": "오류찾기 Q14: heads→tails 교체. Q9(T/F)에서도 heads 관련 문항 출제 — 같은 세부정보 중복.",
+      "verdict": "PASS — Q9는 T/F 판별, Q14는 원문 대조. 유형이 다르고 접근 방식이 다름."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "서술형 Q16: 두 가지 방식 중 하나만 쓰면 정답. accept 배열에 2개 등록되어 있어 안전하나, (4단어) 조건에서 'clever and undetectable cheating'은 4단어이므로 둘 다 조건 충족.",
+      "verdict": "PASS — accept에 두 답 모두 등록. 학생이 어느 쪽을 써도 정답 처리."
+    },
+    {
+      "id": 20,
+      "severity": "CHECKED",
+      "issue": "조건영작 Q20: 조건 단어(at, the, core, of, everything)가 wa 단어와 정확히 일치. S-COND-WORD-MATCH 통과.",
+      "verdict": "PASS — 모든 단어 빠짐없이 나열됨."
+    }
+  ],
+  "overallVerdict": "PASS — HIGH severity 이슈 0건. 정답 2개 가능 문항 없음. 뻔한 오답만 있는 문항 없음. 심각한 정답 노출 없음. 20문항 전부 배포 가능.",
+  "highCount": 0
+}
