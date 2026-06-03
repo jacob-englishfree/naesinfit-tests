@@ -1,0 +1,53 @@
+{
+  "attacker": "claude-opus-4-6",
+  "date": "2026-06-02",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "target": "Q1",
+      "attack": "(A)(B)(C) 정답 단어가 passage 다른 곳에 노출 (EX-3 경고)",
+      "verdict": "LOW — 부교재 단어테스트에서 (A)(B)(C)형은 원문 단어를 사용하므로 구조적으로 불가피. 선지 조합이 달라 단순 베끼기 불가."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "target": "Q7",
+      "attack": "빈칸 정답 imitate가 passage 마지막 문장에 등장 (EX-1 경고)",
+      "verdict": "LOW — 빈칸 위치는 1번째 문장, 노출 위치는 6번째 문장으로 거리 충분. 문맥 추론 필요."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "target": "Q19",
+      "attack": "빈칸 정답 trial-and-error learning이 passage 마지막 문장에도 등장 (EX-1 경고)",
+      "verdict": "LOW — 빈칸 위치(2번째 문장)와 노출 위치(7번째 문장) 사이 거리 충분. 문맥 추론 문항."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "target": "Q13",
+      "attack": "efficient 반의어로 inefficient가 아닌 wasteful 선택. 학생이 혼동할 수 있는가?",
+      "verdict": "LOW — wasteful은 efficient의 정당한 반의어. inefficient는 in- 접두사형이라 S-ANTONYM-PREFIX 규칙에 의해 사용 금지. wasteful이 적절."
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "target": "Q14",
+      "attack": "sufficient 반의어로 insufficient가 아닌 inadequate 선택",
+      "verdict": "LOW — inadequate는 sufficient의 정당한 반의어이며 접두사형 insufficient을 회피한 올바른 선택."
+    },
+    {
+      "id": "ADV-06",
+      "severity": "LOW",
+      "target": "Q15",
+      "attack": "다의어 (B) 문장이 본문 외 별도 작성. 자연스러운 문맥인가?",
+      "verdict": "LOW — 다의어 유형은 AI 직접 passage 작성 허용. (B) 문장은 자연스러운 비즈니스 문맥이며 coordination의 '협력' 의미를 적절히 활용."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 6
+  }
+}
