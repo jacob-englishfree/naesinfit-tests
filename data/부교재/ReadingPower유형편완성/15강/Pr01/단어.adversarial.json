@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "file": "단어.json",
+    "subject": "ReadingPower유형편완성",
+    "pub": "15강",
+    "lesson": "Pr01",
+    "reviewedAt": "2026-06-04",
+    "model": "claude-opus-4-6",
+    "method": "adversarial (공격자 관점: 정답 2개 가능/정답 노출/오답 뻔함/passage 없이 풀림)"
+  },
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 3,
+    "LOW": 4,
+    "CLEAN": 13,
+    "totalIssues": 7
+  },
+  "issues": [
+    {
+      "id": 1,
+      "severity": "MEDIUM",
+      "code": "EX-3",
+      "desc": "(A)(B)(C) 정답 단어가 passage 나머지 부분에 그대로 노출됨. proud/afford/pleased가 변형 없이 passage에 보임. 학생이 선지를 안 봐도 passage만 읽으면 정답 유추 가능.",
+      "suggestion": "passage에서 (A)(B)(C) 위치 이외의 곳에 해당 단어가 등장하지 않도록 오버레이 조정 필요. 또는 다른 단어쌍 사용."
+    },
+    {
+      "id": 2,
+      "severity": "MEDIUM",
+      "code": "EX-3",
+      "desc": "(A)(B)(C) 정답 noticed/curious/duty가 passage 다른 곳에 노출. 동일 지문 반복 사용으로 정답 단어가 이미 보임.",
+      "suggestion": "단어 테스트 특성상 동일 지문 반복은 불가피하나, (A)(B)(C) 마커 위치 이외의 정답 노출은 난이도 저하."
+    },
+    {
+      "id": 3,
+      "severity": "MEDIUM",
+      "code": "EX-3",
+      "desc": "(A)(B)(C) 정답 attached/response/handed가 passage 다른 곳에 노출. Q1~Q3 모두 동일 문제.",
+      "suggestion": "단어 테스트 고유 한계로 수용 가능하나 기록."
+    },
+    {
+      "id": 9,
+      "severity": "LOW",
+      "code": "WEAK-DISTRACTOR",
+      "desc": "Q9: duty vs honor — honor(영광)도 문맥상 가능한 선지. 다만 원문이 duty이므로 정답은 명확.",
+      "suggestion": "honor를 더 부적절한 단어(예: hobby)로 교체하면 변별력 향상."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "code": "WEAK-DISTRACTOR",
+      "desc": "Q7: instrument/document/monument 오답 3개가 fullPassage에 없음. 문맥 무관 단어 나열이라 소거법으로 쉽게 풀림.",
+      "suggestion": "fullPassage에서 유래하거나 의미적으로 가까운 오답 사용 권장."
+    },
+    {
+      "id": 8,
+      "severity": "LOW",
+      "code": "WEAK-DISTRACTOR",
+      "desc": "Q8: wallet/button/ribbon 오답이 fullPassage 무관. 다만 button은 약간 그럴듯해서 변별력 있음.",
+      "suggestion": "수용 가능 수준."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "code": "PASSAGE-DISCONNECT",
+      "desc": "Q15(다의어): passage가 본문과 무관한 별도 문장 2개. fullPassage와 연결고리가 약함.",
+      "suggestion": "다의어 유형 특성상 불가피. 본문의 tell 용법과 연결되므로 수용."
+    }
+  ]
+}

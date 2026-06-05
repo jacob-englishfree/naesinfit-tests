@@ -1,0 +1,33 @@
+{
+  "testFile": "data/부교재/수능특강/영어독해연습/4강/6번/단어.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-06-02",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "description": "EX-3 warning: ABC correct words appear elsewhere in passage. However, this is inherent to the (A)(B)(C) type with fullPassage — unavoidable. Students must still identify which word fits each specific blank position.",
+      "action": "ACCEPT — structural limitation of ABC type with fullPassage"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9],
+      "description": "Q6-WEAK-DISTRACTOR: Distractors not from fullPassage. However, all distractors are real English words with similar morphological patterns (Q7: -tion endings; Q9: -ments endings), providing legitimate confusion without being nonsensical.",
+      "action": "ACCEPT — contextually appropriate distractors despite not being passage-sourced"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [15],
+      "description": "Q15 다의어: passage (B) is AI-generated (not from fullPassage). Verified that both contexts clearly distinguish 'mention' vs 'indicate' meanings of 'refer to'. No ambiguity between choices.",
+      "action": "ACCEPT — 다의어 type passage is always AI-generated per schema rules"
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — no HIGH issues. All 20 questions have unambiguous single correct answers."
+}

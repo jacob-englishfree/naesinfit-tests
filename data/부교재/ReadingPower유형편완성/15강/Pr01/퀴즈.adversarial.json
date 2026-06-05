@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "file": "퀴즈.json",
+    "subject": "ReadingPower유형편완성",
+    "pub": "15강",
+    "lesson": "Pr01",
+    "reviewedAt": "2026-06-04",
+    "model": "claude-opus-4-6",
+    "method": "adversarial (공격자 관점: 정답 2개 가능/정답 노출/오답 뻔함/passage 없이 풀림)"
+  },
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 2,
+    "LOW": 3,
+    "CLEAN": 15,
+    "totalIssues": 5
+  },
+  "issues": [
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "code": "AMBIGUOUS-WA",
+      "desc": "Q16 서술형 12단어: wa='he could not afford a watch he used to wear a bullet'. 이것은 두 절을 접속사 없이 이어 붙인 형태로, 문법적으로 부자연스러운 답. 학생이 'Because he could not afford a watch, he used to wear a bullet'(12단어 초과)을 쓰면 불일치.",
+      "suggestion": "stem에 '두 절을 이어서 쓸 것' 등 추가 안내 필요. 또는 단어 수를 조정."
+    },
+    {
+      "id": 17,
+      "severity": "MEDIUM",
+      "code": "WA-IN-PASSAGE",
+      "desc": "wa='so you may be able to tell the hour also'가 passage에 그대로 노출. 찾아쓰기 유형이므로 규칙상 허용이나 복사 수준.",
+      "suggestion": "워크북 Q16과 동일한 문항. 테스트 간 중복도 높음."
+    },
+    {
+      "id": 5,
+      "severity": "LOW",
+      "code": "DEBATABLE-DISTRACTOR",
+      "desc": "Q5 부적절어휘: ④ privilege(특권) vs duty(의무). 'it is my privilege to die for Your Majesty'도 문맥상 가능한 표현(영광). 다만 원문이 duty이므로 정답은 명확.",
+      "suggestion": "어려움 난이도로 의도된 변별력. 수용."
+    },
+    {
+      "id": 9,
+      "severity": "LOW",
+      "code": "CROSS-TEST-DUPLICATE",
+      "desc": "워크북 Q13과 동일한 문항 구조 (내용불일치, '즉시 건넴'이 정답). 워크북과 퀴즈 간 중복.",
+      "suggestion": "학생이 워크북 먼저 풀면 퀴즈에서 동일 문항 만남. 선지 변형 권장."
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "code": "AMBIGUOUS-WORDCOUNT",
+      "desc": "Q18 핵심표현 7단어: wa='it is my duty to die for'. 'for'로 끝나서 미완결 느낌. 학생이 'for Your Majesty'까지 쓸 수 있음. accept에 7단어 버전도 있으나 혼란 가능.",
+      "suggestion": "accept에 'my duty to die for Your Majesty'(7단어)도 포함되어 있으므로 수용 가능."
+    }
+  ]
+}

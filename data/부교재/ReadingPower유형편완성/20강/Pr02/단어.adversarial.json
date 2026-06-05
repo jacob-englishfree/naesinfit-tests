@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "solver": "adversarial",
+    "model": "claude-sonnet-4-6",
+    "timestamp": "2026-06-04",
+    "testPath": "data/부교재/ReadingPower유형편완성/20강/Pr02/단어.json"
+  },
+  "attacks": [
+    {
+      "id": 1,
+      "attack": "정답 단어(cooperate, repel, beneficial)가 passage에 모두 노출 — 선지 없이도 유추 가능",
+      "severity": "LOW",
+      "verdict": "허용 — 단어테스트 특성상 어휘 노출은 학습 목적. B급 경고(EX-3) 수준."
+    },
+    {
+      "id": 2,
+      "attack": "정답 단어(prosperous, potential, nutrition)가 passage에 노출",
+      "severity": "LOW",
+      "verdict": "허용 — 동일 이유."
+    },
+    {
+      "id": 3,
+      "attack": "정답 단어(thrive, protection, endless)가 passage에 노출",
+      "severity": "LOW",
+      "verdict": "허용 — 동일 이유."
+    },
+    {
+      "id": 4,
+      "attack": "passage에 'cooperate instead of cooperate'로 보여 ③이 바로 오류임이 너무 명백할 수 있음",
+      "severity": "LOW",
+      "verdict": "수용 — 쉬움 난이도 문항으로 적절. 정답 2개 가능성 없음."
+    },
+    {
+      "id": 5,
+      "attack": "②attract가 오류임이 문맥상 매우 명확 — 마리골드+해충 조합은 상식적으로도 repel",
+      "severity": "LOW",
+      "verdict": "수용 — 쉬움 난이도 적합. 정답 2개 없음."
+    },
+    {
+      "id": 6,
+      "attack": "④limited vs endless — 마지막 문장 결론이라 위치도 명확",
+      "severity": "LOW",
+      "verdict": "수용 — 보통 난이도, 문장 끝 positive 결론 파악 능력 측정."
+    },
+    {
+      "id": 7,
+      "attack": "오답 plant/attract/grow가 본문 어휘와 거리 있음 — 소거만으로 풀림",
+      "severity": "LOW",
+      "verdict": "수용 — 쉬움 난이도 적합. repel이 핵심 어휘."
+    },
+    {
+      "id": 8,
+      "attack": "오답 3개(harmful/small/wild)가 fullPassage에 없어 소거 쉬움",
+      "severity": "LOW",
+      "verdict": "B급 경고(Q6-WEAK-DISTRACTOR) 수준. 기능상 무방."
+    },
+    {
+      "id": 9,
+      "attack": "오답 3개(water/growth/space)가 fullPassage에 없어 소거 쉬움",
+      "severity": "LOW",
+      "verdict": "B급 경고 수준. 기능상 무방."
+    },
+    {
+      "id": 10,
+      "attack": "thriving이 동의어로 너무 명확 — 쉬움 난이도지만 오답 소거가 매우 쉬움",
+      "severity": "LOW",
+      "verdict": "수용 — 쉬움(4점) 문항으로 적절."
+    },
+    {
+      "id": 11,
+      "attack": "flourish가 thrive와 완전 동의어 — 어휘 수준에서 명확",
+      "severity": "LOW",
+      "verdict": "수용 — 보통(5점) 문항."
+    },
+    {
+      "id": 12,
+      "attack": "drive away가 repel의 정확한 동의어 — 오답 3개가 반의어라 소거 쉬움",
+      "severity": "LOW",
+      "verdict": "수용 — 보통(5점) 문항."
+    },
+    {
+      "id": 13,
+      "attack": "harmful이 beneficial의 반의어로 매우 명확 — useful/helpful은 오히려 동의어",
+      "severity": "LOW",
+      "verdict": "수용 — 오답이 동의어여서 오히려 혼동 가능성 있어 난이도 적절."
+    },
+    {
+      "id": 14,
+      "attack": "compete가 본문에 직접 등장('cooperate instead of compete') — 반의어가 노출됨",
+      "severity": "MEDIUM",
+      "verdict": "수용 — 반의어 고르기 유형에서 본문 노출은 허용 범위. 어려움(6점)이지만 compete 위치 파악 + 반의 관계 확인 능력 측정."
+    },
+    {
+      "id": 15,
+      "attack": "(B) 'do the hard work'를 '기능하다'로 해석 vs '(명사) 일하다'로 해석 모호 가능",
+      "severity": "LOW",
+      "verdict": "수용 — 선지 조합 구조상 (A)/(B) 동시 판단. (A) 명사 노동이 확실하므로 ①만 성립. 모호하나 최선 선택 가능."
+    },
+    {
+      "id": 16,
+      "attack": "companion이 본문 핵심어로 정의와 연결이 너무 명확",
+      "severity": "LOW",
+      "verdict": "수용 — 보통(5점). 영영풀이 이해 능력 측정 목적에 부합."
+    },
+    {
+      "id": 17,
+      "attack": "By + 동명사 규칙이 교과서적으로 명확 — 문법 포인트 단순",
+      "severity": "LOW",
+      "verdict": "수용 — 보통(5점). by+동명사 기본 규칙 확인."
+    },
+    {
+      "id": 18,
+      "attack": "benefit → beneficial 파생 변환이 단순 암기형일 수 있음",
+      "severity": "LOW",
+      "verdict": "수용 — 어려움(6점). -ial 접미사 형용사 파생은 고급 어형 변환."
+    },
+    {
+      "id": 19,
+      "attack": "오답들이 본문과 완전 무관 — 소거만으로 풀림",
+      "severity": "LOW",
+      "verdict": "수용 — 보통(5점). 문맥 내 wind/shade 어휘 확인 목적."
+    },
+    {
+      "id": 20,
+      "attack": "'companion planting'이 passage에 그대로 노출 — EX-1 B급 경고",
+      "severity": "LOW",
+      "verdict": "수용 — 빈칸이 문장 맨 앞이라 학생이 전체 글을 읽고 주제 파악 후 답하는 구조. 어려움(6점) 적절."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 1,
+    "LOW": 19,
+    "verdict": "PASS",
+    "notes": "HIGH 이슈 0건. MEDIUM 1건(Q14 반의어 compete 본문 노출)은 허용 범위. 전체 배포 가능."
+  }
+}

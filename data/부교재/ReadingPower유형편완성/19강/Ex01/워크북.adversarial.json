@@ -1,0 +1,44 @@
+{
+  "testFile": "워크북.json",
+  "checkedAt": "2026-06-04",
+  "issues": [
+    {
+      "id": 10,
+      "category": "정답노출",
+      "description": "빈칸 passage에서 'if they are not __________'의 정답 'legally controlled'가 S3 원문 그대로임. 빈칸 위치(S3)와 정답 단어(legally controlled)는 원문 복원이므로 찾기 유형 예외 대상에 해당하지만, 선지 ③ 'legally controlled'가 원문 구절 그대로라서 학생이 passage 맥락 없이 S3 기억만으로 소거법 풀이 가능. 단, 워크북 빈칸추론은 passage 포함이므로 규정상 허용 범위임. severity = low.",
+      "severity": "low"
+    },
+    {
+      "id": 11,
+      "category": "정답노출",
+      "description": "빈칸 위치가 S5 'a source of __________'이고 정답이 'correcting for existing market failure'. 선지 ②가 원문 구절 그대로여서 지문을 직접 찾으면 풀림. 빈칸추론 특성상 허용 범위이나 fullPassage에서 해당 구절이 완전 노출되어 변별력이 낮음.",
+      "severity": "low"
+    },
+    {
+      "id": 14,
+      "category": "유형명불일치",
+      "description": "Q14의 type이 '오류찾기'인데 stem이 '어법상 틀린 것은?'으로 되어 있음. 오류찾기 유형은 고유 포맷(①~④ 마커형 passage + find/display overlay)을 사용해야 하는데, passage 구조는 어법 유형과 동일. 실제로 validate에서 TW-TYPE 또는 S-TYPE-CONTENT-MISMATCH 위반 가능성 있음.",
+      "severity": "medium"
+    },
+    {
+      "id": 15,
+      "category": "단어수조건",
+      "description": "Q15 stem: '(영어로, 6단어)', wa: 'in the absence of appropriate laws' = 6단어 ✅. 일치 확인됨.",
+      "severity": "low"
+    },
+    {
+      "id": 20,
+      "category": "조건단어확인",
+      "description": "Q20 [조건] (1) many, employees, from, working, prevent 5개 단어 명시. wa: 'prevent many employees from working' = 5단어. 조건 단어 수와 wa 단어 수 일치 ✅. 이상 없음.",
+      "severity": "low"
+    }
+  ],
+  "highIssues": [],
+  "summary": {
+    "high": 0,
+    "medium": 1,
+    "low": 4
+  },
+  "totalIssues": 2,
+  "note": "HIGH 이슈 없음. Q14 오류찾기 유형명이 어법 유형과 혼용되어 있으나 실제 문항 내용은 어법 포인트(points to + 동명사)를 다루고 있어 학습 목표에는 적합. validate TW-TYPE 검사 시 오류찾기 허용 유형 여부 재확인 권장."
+}
