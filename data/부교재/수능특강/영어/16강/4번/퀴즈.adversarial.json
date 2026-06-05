@@ -1,0 +1,28 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/4번/퀴즈.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 2건(X42 det 오류 + overlay 스키마 오류). 배포 차단.",
+  "issues": [
+    {
+      "qid": 4,
+      "severity": "medium",
+      "code": "X42-DET-MISMATCH",
+      "description": "[RESOLVED] 어법 Q4: det.analysis가 '✅ ① to feel — 원문은 feel... ←정답'이라고 표시하지만, passage의 실제 마커는 ② 위치에 'to feel'이 있고 ans=2. det에서 ①이 정답이라고 했지만 실제 정답은 ②. det 레이블과 ans가 불일치(X42).",
+      "location": "questions[3].det.analysis vs ans, overlay.markers",
+      "recommendation": "det.analysis를 '✅ ② to feel ←정답'으로 수정. overlay.markers와 det 레이블 전체 재검토."
+    },
+    {
+      "qid": "1,2,3,4,5",
+      "severity": "medium",
+      "code": "OVERLAY-REPLACE-KEY",
+      "description": "[PRE-EXISTING] 어법 Q1~Q5의 overlay.markers 오답 객체가 {\"find\": \"원문\", \"replace\": \"오답\"} 형식. 올바른 스키마는 {\"find\": \"원문\", \"display\": \"오답\"}. 3번/4번 워크북과 동일 시스템 오류.",
+      "location": "어법 문항 Q1~Q5의 오답 마커 객체들",
+      "recommendation": "'replace' 키를 'display'로 일괄 변경."
+    }
+  ],
+  "verdict": "FAIL",
+  "deployBlock": true,
+  "notes": "X42 + overlay 스키마 2가지 고-심각도 이슈. 수정 전 배포 차단.",
+  "totalIssues": 2
+}

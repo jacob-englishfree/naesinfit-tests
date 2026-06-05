@@ -1,0 +1,28 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/3번/퀴즈.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 1건(어법 overlay 스키마 오류). 배포 차단 권장.",
+  "issues": [
+    {
+      "qid": "2,3,4,5,6",
+      "severity": "medium",
+      "code": "OVERLAY-REPLACE-KEY",
+      "description": "[PRE-EXISTING] 어법 Q2~Q6의 overlay.markers 오답 객체가 {\"find\": \"원문\", \"replace\": \"오답\"} 형식. 올바른 스키마는 {\"find\": \"원문\", \"display\": \"오답\"}. 3번/워크북.json과 동일한 시스템 오류. 렌더러가 어법 오류 단어를 화면에 표시하지 못하면 문항 자체가 성립 불가.",
+      "location": "Q2 ③, Q3 ③, Q4 ④, Q5 ②, Q6 ②의 overlay.markers 내 오답 객체",
+      "recommendation": "모든 해당 오답 객체에서 'replace' 키를 'display'로 일괄 변경."
+    },
+    {
+      "qid": null,
+      "severity": "low",
+      "code": "EI-SCHEMA-INCONSISTENCY",
+      "description": "3번/단어.json, 워크북.json과 동일한 ei 메타데이터 불일치.",
+      "location": "ei.subject, ei.pub, ei.lesson",
+      "recommendation": "다른 16강 파일과 일치하도록 수정."
+    }
+  ],
+  "verdict": "FAIL",
+  "deployBlock": true,
+  "notes": "어법 문항 5개 전부 overlay 스키마 오류. 수정 전 배포 차단.",
+  "totalIssues": 2
+}

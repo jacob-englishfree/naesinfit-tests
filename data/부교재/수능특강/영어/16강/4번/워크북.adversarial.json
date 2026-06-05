@@ -1,0 +1,28 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/4번/워크북.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 2건(overlay 스키마 오류 + det 마커 레이블 불일치).",
+  "issues": [
+    {
+      "qid": "1,2,3,4,5",
+      "severity": "medium",
+      "code": "OVERLAY-REPLACE-KEY",
+      "description": "[PRE-EXISTING] 어법 Q1~Q5의 overlay.markers 오답 객체가 {\"find\": \"원문\", \"replace\": \"오답\"} 형식. 올바른 스키마는 {\"find\": \"원문\", \"display\": \"오답\"}. 3번 파일들과 동일한 시스템 오류. 렌더러가 어법 오류 단어를 표시하지 못하면 문항 자체가 성립 불가.",
+      "location": "Q1 ②, Q2 ③, Q3 ②, Q4 ④, Q5 ①의 overlay.markers 내 오답 객체",
+      "recommendation": "모든 해당 오답 객체에서 'replace' 키를 'display'로 일괄 변경."
+    },
+    {
+      "qid": 7,
+      "severity": "medium",
+      "code": "DET-MARKER-LABEL-MISMATCH",
+      "description": "부적절어휘 Q7: det.analysis에서 '✅ ① low'라고 표시하지만, passage의 실제 마커 위치를 확인하면 ④ 위치에 'low'가 배치되고 ans=4. det 레이블 ①이 실제 마커 ④를 가리키고 있어 해설과 정답 위치가 불일치. 학생이 해설을 보며 혼란을 겪을 수 있음.",
+      "location": "questions[6].det.analysis vs overlay.markers 마커 위치",
+      "recommendation": "det.analysis를 '✅ ④ low ←정답' 형식으로 재작성하여 마커 번호가 overlay와 일치하도록 수정."
+    }
+  ],
+  "verdict": "FAIL",
+  "deployBlock": true,
+  "notes": "어법 문항 5개 overlay 스키마 오류. Q7 det 레이블 불일치. 수정 전 배포 차단.",
+  "totalIssues": 2
+}

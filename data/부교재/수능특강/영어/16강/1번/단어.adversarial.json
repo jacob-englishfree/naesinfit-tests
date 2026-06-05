@@ -1,0 +1,19 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/1번/단어.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 없음. 낮은 수준의 어형변환 힌트/정답 불일치 1건.",
+  "issues": [
+    {
+      "qid": 19,
+      "severity": "low",
+      "code": "FORM-HINT-MISMATCH",
+      "description": "어형변환 Q19: overlay.blank=\"at least the vast majority know what you've achieved\" (축약형 you've). wa=\"at least the vast majority know what you have achieved\" (비축약형 you have). 렌더러가 overlay.blank를 기준으로 passage 빈칸을 채운다면 학생이 보는 정답 기준과 실제 wa가 형태가 다름. NORM 정규화로 채점은 통과되지만, passage 표시 불일치 가능.",
+      "location": "overlay.blank vs wa",
+      "recommendation": "overlay.blank와 wa를 동일 형태로 통일. 추천: 둘 다 'at least the vast majority know what you have achieved'로 고정."
+    }
+  ],
+  "verdict": "CONDITIONAL_PASS",
+  "deployBlock": false,
+  "notes": "S급 차단 규칙 위반 없음. 낮은 심각도 이슈 1건 — 배포 차단 불필요하나 일관성 수정 권장."
+}

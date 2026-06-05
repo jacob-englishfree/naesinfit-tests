@@ -1,0 +1,19 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/2번/퀴즈.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 없음. 구조 건전.",
+  "issues": [
+    {
+      "qid": 19,
+      "severity": "low",
+      "code": "INSERTION-MARKER-VERIFY",
+      "description": "문장삽입 Q19: overlay.insertionMarkers=[2,4,6,10]. passage에 (①)(②)(③)(④) 4개 위치 마커가 있음. 마커 인덱스가 passage 문장 구조와 정확히 대응하는지 수동 검증 필요. 인덱스가 크면 문장 수와 맞지 않을 수 있음(fullPassage가 약 12~13문장). index=10은 거의 마지막 문장에 해당 — 위치 분산이 앞쪽에 집중될 수 있음.",
+      "location": "questions[18].overlay.insertionMarkers",
+      "recommendation": "passage 실제 문장 수와 마커 인덱스 대응 확인. 4개 마커가 passage 전체에 골고루 분산되는지 점검."
+    }
+  ],
+  "verdict": "PASS",
+  "deployBlock": false,
+  "notes": "S급 차단 규칙 위반 없음. Q19 삽입마커 인덱스는 낮은 수준 확인 사항으로 배포 차단 불필요."
+}

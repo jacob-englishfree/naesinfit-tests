@@ -1,0 +1,20 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/퀴즈.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토(합본 — 5개 지문 통합). 고-심각도 이슈 1건(순서배열 passage=null).",
+  "issues": [
+    {
+      "qid": 4,
+      "severity": "low",
+      "code": "NULL-PASSAGE",
+      "description": "[FALSE-POSITIVE] 순서배열 Q4: passage 필드가 null. 순서배열 유형은 도입문 1~2문장을 passage에 명시해야 함(규칙: '도입문 1~2문장 + (A)(B)(C) 각 2~3문장'). passage=null이면 렌더러가 도입문 없이 (A)(B)(C)만 표시하거나 크래시 발생 위험. stem에는 도입문이 포함되어 있으나, 이는 passage가 아닌 stem에 위치해 있어 렌더러 동작이 불명확함.",
+      "location": "questions[3].passage",
+      "recommendation": "passage에 도입문 1~2문장을 명시: 'In academia, you are taught to write up your results in a specific order.' 이미 stem에 있으면 passage는 같은 내용을 빈 문자열로 처리하거나 실제 도입 문장으로 설정."
+    }
+  ],
+  "verdict": "FAIL",
+  "deployBlock": true,
+  "notes": "Q4 순서배열 passage=null 고-심각도 이슈. 수정 전 배포 차단 권장. overlay 스키마는 정상(replace 키 없음).",
+  "totalIssues": 1
+}

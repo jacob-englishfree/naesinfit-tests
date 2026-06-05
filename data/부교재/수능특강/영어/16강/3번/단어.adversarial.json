@@ -1,0 +1,19 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/3번/단어.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "summary": "20문항 전수 검토. 고-심각도 이슈 없음. 메타데이터 스키마 불일치 낮은 수준 이슈 1건.",
+  "issues": [
+    {
+      "qid": null,
+      "severity": "low",
+      "code": "EI-SCHEMA-INCONSISTENCY",
+      "description": "ei 필드 구조가 다른 16강 파일과 다름. 다른 파일: subject='수능특강', pub='영어', lesson='16강', section='3번'. 이 파일: subject='2027학년도 EBS수능특강 영어', pub='16강', lesson='3번'. pub/lesson 필드 의미가 뒤바뀌고 subject에 연도가 포함되어 있음. histKey 생성 및 카탈로그 조회 시 불일치 발생 가능.",
+      "location": "ei.subject, ei.pub, ei.lesson",
+      "recommendation": "ei.subject='수능특강', ei.pub='영어', ei.lesson='16강', ei.section='3번'으로 다른 파일과 통일."
+    }
+  ],
+  "verdict": "CONDITIONAL_PASS",
+  "deployBlock": false,
+  "notes": "문항 내용은 이상 없음. 메타데이터 스키마 불일치는 앱 조회/카탈로그 생성에 영향 줄 수 있으나 렌더링은 정상."
+}
