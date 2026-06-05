@@ -1,0 +1,20 @@
+{
+  "testFile": "퀴즈.json",
+  "issues": [
+    {
+      "id": 1,
+      "category": "det 내부 메모 미삭제 / S-META-LEAK",
+      "description": "문장삽입 id:1. det.analysis 마지막 줄: '...사실 ③이 더 적절. ←정답을 ③으로 수정' — 이 문장은 출제자의 내부 검토 메모가 그대로 det에 남아 있음. 학생이 해설을 열면 '←정답을 ③으로 수정'이라는 출제자 메모를 그대로 읽게 됨. S-META-LEAK 규칙 위반. 또한 det에서 ④에 '...맥락상 적절'이라고 기술하다가 마지막에 '사실 ③이 더 적절'로 자기모순. ans=3으로 설정되어 있으나 해설 자체가 ④가 맞다고 쓴 후 마지막에 뒤집음. 즉시 det 정리 및 메모 삭제 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 1,
+      "category": "정답 논란 (③④ 동시 성립)",
+      "description": "삽입 문장 'However, there is a trade-off when biomass is used for energy production.' 위치 논란. ③ = 건강 이점(황산화물 감소) 설명 이후, 토양 박탈 설명 바로 앞. 장점(건강)→단점(토양박탈) 전환이므로 However가 가장 자연스러운 전환점. 실제로 ans=3이 맞음. 그러나 det이 ④를 먼저 설명하다 마지막에 번복하는 구조여서 학생이 ④를 골랐을 때 해설을 보고 혼란. 해설 재작성 필수.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    }
+  ],
+  "totalIssues": 0
+}

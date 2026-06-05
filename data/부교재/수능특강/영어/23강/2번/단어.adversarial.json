@@ -1,0 +1,59 @@
+{
+  "testFile": "단어.json",
+  "lesson": "23강 2번",
+  "checkedAt": "2026-06-06",
+  "issues": [
+    {
+      "id": "Q1-Q3",
+      "category": "overlay누락-ABC",
+      "description": "Q1~Q3 (A)(B)(C) 조합형 전체에 overlay.abc 필드 없음. 렌더러가 abc 분기 처리 시 overlay.abc를 참조하므로 렌더링 결과 불확실. 최소한 overlay:{} 존재 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q4-Q6",
+      "category": "overlay누락-markers",
+      "description": "Q4~Q6 문맥상 부적절한 어휘 유형에 overlay.markers 필드 없음. passage에 ①<u>...</u> 마커는 있으나 overlay.markers로 원문단어 정보가 없음. RENDER-MARKER-MISSING 해당.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q7-Q9",
+      "category": "overlay누락-blank",
+      "description": "Q7~Q9 빈칸 어휘 완성 유형에 overlay.blank 필드 없음. passage에 '__________ '로 빈칸은 있으나 overlay.blank 미설정.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q10-Q14",
+      "category": "overlay누락-underline",
+      "description": "Q10~Q14 동의어/반의어 고르기 유형에 overlay.underline 필드 없음. passage에 <u>...</u>는 있으나 overlay.underline에 밑줄칠 단어 미설정.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q17-Q18",
+      "category": "overlay누락-excerptSentences",
+      "description": "Q17~Q18 어형 변환 유형에 overlay.excerptSentences 필드 없음.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q19-Q20",
+      "category": "overlay누락-blank",
+      "description": "Q19~Q20 빈칸 문맥 완성 유형에 overlay.blank 필드 없음.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": "Q2",
+      "category": "X42",
+      "description": "Q2 ans=3, ch[2]='mathematician — devised — expand'. det.analysis에서 ④를 정답으로 서술('mathematician — devised — expand ←정답')하나 실제 ch 인덱스는 ans=3=ch[2]. ans와 det 번호 표기는 일치하지 않으나 ch 내용은 일치함. det.analysis의 번호 표기만 수정 필요.",
+      "severity": "medium"
+    }
+  ],
+  "highIssueCount": 6,
+  "mediumIssueCount": 1,
+  "totalIssues": 1,
+  "verdict": "FAIL_HIGH"
+}

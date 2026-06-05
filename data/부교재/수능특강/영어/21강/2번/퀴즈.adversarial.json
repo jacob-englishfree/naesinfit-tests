@@ -1,0 +1,19 @@
+{
+  "testFile": "퀴즈.json",
+  "issues": [
+    {
+      "id": 1,
+      "category": "정답노출",
+      "description": "순서배열 문제. fullPassage 필드에 '(C) He realized... (A) It might... (B) But Descartes...' 형태로 (A)(B)(C) 단락 순서 마커가 원문에 삽입되어 있음. passage가 렌더링되면 정답(C-A-B)이 그대로 노출됨. S-META-LEAK 해당. fullPassage에서 (A)(B)(C) 마커 제거 또는 도입문+단락 분리 구조로 수정 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 7,
+      "category": "정답2개가능",
+      "description": "어법 문제 (which→that 교체). 'one thing which he could be sure of' — 선행사 thing 뒤에 which 사용은 전통 ESL 교육에서는 오류로 가르치지만, 현대 영어(Cambridge Grammar, OALD)에서는 허용됨. 학생 이의 제기 가능성 있음. 어법 포인트를 보다 명확한 규칙(관계사 that vs. which in restrictive clauses with 'thing')으로 보강하거나 다른 어법 포인트로 교체 권장.",
+      "severity": "medium"
+    }
+  ],
+  "totalIssues": 1
+}

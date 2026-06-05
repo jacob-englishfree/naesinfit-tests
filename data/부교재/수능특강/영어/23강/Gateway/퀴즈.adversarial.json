@@ -1,0 +1,46 @@
+{
+  "testFile": "퀴즈.json",
+  "lesson": "23강 Gateway",
+  "checkedAt": "2026-06-06",
+  "issues": [
+    {
+      "id": 2,
+      "category": "passage=null",
+      "description": "Q2 type='순서배열'. passage=null. 순서배열 문항은 도입문+각 단락이 passage에 있어야 학생이 읽고 풀 수 있음. 렌더링 불가.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 3,
+      "category": "유형오류+passage=null",
+      "description": "Q3 type='순서배열'이지만 stem은 '주어진 문장이 들어가기에 가장 적절한 곳은?' 형식의 문장삽입. 또한 stem의 삽입 문장이 fullPassage의 2번째 문장 그대로('It has four magnets...' + (A) 단락 도입부)를 사용 — 원문을 다시 삽입 대상으로 쓰는 구조 오류. passage=null로 렌더링 불가. type과 stem 모두 수정 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 18,
+      "category": "accept채점파산",
+      "description": "Q18 어순배열 서술형. wa='the iteration has to be within a nonlinear system' (9단어). 그러나 accept=['nonlinear','Nonlinear','nonlinear.'] — 단 1단어 'nonlinear'만 입력해도 정답 처리됨. 채점 완전 파산. accept를 wa 전체로 수정 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 19,
+      "category": "accept채점파산",
+      "description": "Q19 서술형 조건영작. wa='it will visit an entirely different set of points' (9단어). accept=['generated','Generated','generated.'] — 전혀 무관한 단어 'generated'로만 채점됨. 학생이 'generated'라고 쓰면 정답, wa 전체를 써도 채점 안 됨. 채점 완전 파산.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 20,
+      "category": "accept부분채점",
+      "description": "Q20 서술형 영작. wa='though not all iteration leads to chaos' (7단어). accept=['not all iteration','Not all iteration','not all iteration.'] — 3단어만 써도 정답 처리. [조건]에 7단어를 요구하는데 3단어로 채점 통과. S-WORDCOUNT-MISMATCH 실질적 위반.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    }
+  ],
+  "highIssueCount": 5,
+  "mediumIssueCount": 0,
+  "totalIssues": 0,
+  "verdict": "FAIL_HIGH"
+}

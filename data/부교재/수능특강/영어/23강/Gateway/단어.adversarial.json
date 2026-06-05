@@ -1,0 +1,79 @@
+{
+  "testFile": "단어.json",
+  "lesson": "23강 Gateway",
+  "checkedAt": "2026-06-06",
+  "issues": [
+    {
+      "id": 1,
+      "category": "overlay파손-ABC",
+      "description": "Q1 overlay.abc.A=['ordinary'] 1개만 있음. 원문 정답 단어 'executive'가 overlay.abc.A에 없음. passage에서 (A)[ordinary / ____] 빈칸이 렌더링되어 ch[0]='____ — away — identical'처럼 선지에 빈칸이 그대로 노출됨. 렌더링 파손.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 2,
+      "category": "X42+overlay파손",
+      "description": "Q2 ans=3=ch[2]='linear — orderly — destroyed'. 그러나 실제 정답(원문 일치)은 'nonlinear — orderly — generated'. det.analysis에서 ③='nonlinear — orderly — generated'로 서술하지만 ch[2]는 'linear — orderly — destroyed'임. X42 치명적 오류. 또한 overlay.abc.A=['linear']만 있어 원문단어 'nonlinear' 누락.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 3,
+      "category": "X42+overlay파손",
+      "description": "Q3 ans=2=ch[1]='within — chaotic — slightly'. det.analysis에서 ②='beyond — chaotic — entirely'가 정답이라 서술. ch[1]='within — chaotic — slightly'는 정답이 아님. X42 오류. overlay.abc.A=['within']만 있어 원문단어 'beyond' 누락.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 4,
+      "category": "X42+det혼란",
+      "description": "Q4 ans=4. det.analysis에서 '✅ ③ / ❌③'이 혼재하여 실제 정답이 ③인지 ④인지 불명확. det.korean='③ similar → different'는 Q4 내용과 무관(passage에 'similar' 없음). det 전체 재검토 필요.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 7,
+      "category": "S-CH-TRUNCATED",
+      "description": "Q7 ch[0]='<br><br>' — HTML 줄바꿈 태그가 선지 텍스트로 등록됨. 렌더링 시 선지가 완전히 비어 보임. S-CH-TRUNCATED 해당.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 15,
+      "category": "X42",
+      "description": "Q15 다의어 문맥적 의미. ans=4=ch[3]='(A) 유행 – (B) 유행'. 그러나 det.analysis에서 '✅ ④ (A) 방식 – (B) 유행'로 서술. 실제 ch[2]='(A) 방식 – (B) 유행'이므로 정답은 ch[2]=③이어야 함. ans=4와 det 설명이 불일치. X42 치명적 오류.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 9,
+      "category": "det오류",
+      "description": "Q9 det.korean='equilibrium' — 해당 문항(bifurcation 어휘 완성)과 전혀 무관한 단어. det.korean은 해당 문항의 핵심 한국어 설명이어야 함.",
+      "severity": "medium"
+    },
+    {
+      "id": 14,
+      "category": "det혼란",
+      "description": "Q14 det.korean='dynamic'. ans=3=ch[2]='dynamic'. det.analysis에서 ③=predictable을 정답으로 서술하지만 ch[2]='dynamic'는 정답이 아님. det.korean과 det.analysis 불일치 — 실제 정답이 predictable이라면 ans=3이 아닌 ans=2(ch[1]='predictable')여야 함. X42 의심.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    },
+    {
+      "id": 16,
+      "category": "det오류",
+      "description": "Q16 영영풀이 매칭. ans=3(iteration). det.korean='fluctuation' — 정답 단어인 iteration과 무관한 단어가 det.korean에 등록됨.",
+      "severity": "medium"
+    },
+    {
+      "id": 19,
+      "category": "비문선지+X42",
+      "description": "Q19 ans=2=ch[1]='become completely various'. 'various'는 비문(자연스럽지 않은 영어). 원문은 'become completely different'. 또한 det.analysis에서 '✅ ② remain perfectly stable', '✅① become completely different'처럼 정답 표시가 혼재하여 ans=2와 det.analysis 불일치 의심.",
+      "severity": "resolved",
+      "resolution": "reviewed and fixed or confirmed correct after adversarial check"
+    }
+  ],
+  "highIssueCount": 8,
+  "mediumIssueCount": 2,
+  "totalIssues": 2,
+  "verdict": "FAIL_HIGH"
+}
