@@ -1,0 +1,286 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "퀴즈",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "어법 정확성 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "11강",
+    "section": "3번",
+    "histKey": "quizTest_suneung_eng_L11_ex3_v5"
+  },
+  "fullPassage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "순서배열",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?\n\nThere is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group.\n\n(A) Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black.\n\n(B) Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.\n\n(C) Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'.",
+      "ch": [
+        "(C)-(A)-(B)",
+        "(A)-(B)-(C)",
+        "(A)-(C)-(B)",
+        "(B)-(A)-(C)"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "어순배열",
+      "diff": "쉬움",
+      "fmt": "written",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where __________. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 빈칸에 주어진 단어를 올바르게 배열하시오. (영어로, 9단어)\n<b>create / does / essentially / exist / not / processes / social / something / that</b>"
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so ①<u>little</u> variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there ②<u>was</u> various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it ③<u>made</u> any difference. They thought more in terms of ④<u>judging</u> people as being civilized or a barbarian.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and ①<u>label</u> them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. ②<u>Historical</u> evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), ③<u>who</u> were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any ④<u>different</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific ①<u>bases</u> for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us ②<u>that</u> it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various ③<u>leading</u> figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is ④<u>said</u> of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to ①<u>draw</u> neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but ②<u>takes</u> on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard ③<u>finding</u>. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as ④<u>being</u> civilized or a barbarian.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, ①<u>where</u> social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence ②<u>that</u> race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts ③<u>writing</u> at the time, because the ancient Romans did not think it made ④<u>any</u> difference.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very ①<u>different</u> and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not ②<u>exist</u> but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any ③<u>difference</u>. They thought more in terms of judging people as being ④<u>civilized</u> or a barbarian.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat ①<u>boundaries</u> around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various ②<u>leading</u> figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any ③<u>difference</u>. They thought more in terms of judging people as being civilized or a ④<u>companion</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on ①<u>trivial</u> force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any ②<u>difference</u>. They thought more in terms of ③<u>judging</u> people as being ④<u>civilized</u> or a barbarian.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little ①<u>variation</u> amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an ②<u>achievement</u> is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any ③<u>difference</u>. They thought more in terms of judging people as being ④<u>civilized</u> or a barbarian.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but __________. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "remains permanently invisible",
+        "gradually loses its influence over time",
+        "takes on real force in people's lives",
+        "is widely accepted by geneticists"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to __________. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "prove that all humans share identical DNA sequences",
+        "identify significant genetic differences between races",
+        "understand the historical origins of racial terminology",
+        "draw neat boundaries around people and label them as a distinct racial group"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because __________. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "historians deliberately omitted racial descriptions",
+        "the ancient Romans did not think it made any difference",
+        "the concept of skin colour was unknown in ancient times",
+        "ancient records were too damaged to preserve such details"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "주제",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "the genetic research methods used to classify human races",
+        "the political history of racial discrimination in ancient Rome",
+        "the social construction of race and its lack of scientific basis",
+        "how sociologists study cultural differences between civilizations"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "함축의미 추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. <u>Little is said of their skin colour in accounts written at the time</u>, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 밑줄 친 부분이 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "당시 기록 기술이 부족하여 외모 묘사가 어려웠다.",
+        "고대 로마의 역사가들이 의도적으로 인종 정보를 검열했다.",
+        "흑인 지도자들이 자신의 피부색을 공개적으로 드러내지 않았다.",
+        "고대 로마 사회에서 피부색은 사람을 판단하는 중요한 기준이 아니었다."
+      ]
+    },
+    {
+      "id": 17,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. <u>They</u> thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글에서 밑줄 친 <u>They</u>가 가리키는 것으로 가장 적절한 것은?",
+      "ch": [
+        "고대 로마인들",
+        "현대 사회학자들",
+        "고대 로마의 흑인 지도자들",
+        "인종 개념을 연구하는 역사가들"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "서술형 — 핵심단어",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글에 따르면, 인종(race)은 본질적으로 존재하지 않지만 사람들의 삶에서 실제적인 힘을 갖게 된다고 한다. 이처럼 사회적 과정이 존재하지 않는 무언가를 만들어내는 현상을 설명하는 핵심 구문을 본문에서 찾아 영어로 쓰시오. (영어로, 7단어)\n\n[힌트] social processes가 주어인 구문"
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. __________ in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 우리말에 맞도록 빈칸에 들어갈 알맞은 말을 영어로 쓰시오.\n우리말: 그들의 피부색에 대해서는 거의 언급되지 않는다\n[조건] (1) colour, is, Little, of, said, skin, their를 모두 사용\n(2) 정확히 7단어로 쓸 것"
+    },
+    {
+      "id": 20,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "There is no scientific basis for the term 'race'. Most humans are genetically very similar and there is so little variation amongst us that it is not possible to draw neat boundaries around people and label them as a distinct racial group. Race is an example of social construction, where social processes create something that essentially does not exist but takes on real force in people's lives. Sociologists prefer to call these processes 'racialization'. Historical evidence that race has always been an issue is hard to find. For example, in ancient Rome there were various leading figures, such as Emperor Septimius Severus (ruled C.E. 193–211), who were black. Little is said of their skin colour in accounts written at the time, because the ancient Romans did not think it made any difference. They thought more in terms of judging people as being civilized or a barbarian.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "'인종'이라는 용어에 대한 과학적 근거는 없다.",
+        "사회학자들은 인종 구분 과정을 '인종화'라고 부른다.",
+        "셉티미우스 세베루스 황제는 기원전 193년에 즉위했다.",
+        "고대 로마인들은 사람을 문명인인지 야만인인지로 판단했다."
+      ]
+    }
+  ]
+}

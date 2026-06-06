@@ -1,0 +1,286 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "퀴즈",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "어법 정확성 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "11강",
+    "section": "4번",
+    "histKey": "quizTest_suneung_eng_L11_ex4_v5"
+  },
+  "fullPassage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어순배열",
+      "diff": "쉬움",
+      "fmt": "written",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. __________. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 빈칸에 들어갈 말을 주어진 단어를 올바르게 배열하여 영어로 쓰시오. (영어로, 12단어)\n[주어진 단어] offered, consume, Research, when, unintentionally, larger portions, more calories, that, shows, people"
+    },
+    {
+      "id": 2,
+      "type": "문장삽입",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. (①) Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? (②) In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. (③) We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. (④) Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글에서 주어진 문장이 들어가기에 가장 적절한 곳은?\n\n<b>This phenomenon is not limited to dining out; it extends to our everyday domestic settings as well.</b>",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with ①<u>increasing</u> portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now ②<u>confronted</u> by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily ③<u>increased</u> and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when ④<u>offering</u> larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they ①<u>did</u> in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, ②<u>that</u> are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent ③<u>since</u> 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, ④<u>leads</u> to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, ①<u>where</u> the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research ②<u>shows</u> that people unintentionally consume more calories when offered larger portions. ③<u>Consumed</u> larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can ④<u>result</u> in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day ①<u>than</u> they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent ②<u>larger</u> than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and ③<u>that</u> the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to ④<u>positive</u> energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, ①<u>created</u> an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily ②<u>increased</u> and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people ③<u>unintentionally</u> consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, ④<u>leads</u> to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a ①<u>coincidence</u>, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are ②<u>inappropriate</u>, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily ③<u>increased</u> and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in ④<u>obesity</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be ①<u>overlooked</u>: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion ②<u>distortion</u>. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people ③<u>intentionally</u> consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in ④<u>obesity</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by ①<u>huge</u> portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion ②<u>distortion</u>. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the ③<u>regular</u> portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to ④<u>negative</u> energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in ①<u>parallel</u> with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are ②<u>inconsistently</u> 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to ③<u>weight gain</u> and ultimately can result in ④<u>obesity</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating __________. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a foundation for healthy eating habits",
+        "an environment of portion distortion",
+        "an opportunity for weight reduction",
+        "a crisis in the food industry"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people __________ when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "consciously make healthier choices",
+        "naturally regulate their portions",
+        "tend to reduce their meal duration",
+        "unintentionally consume more calories"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to __________, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "positive energy balance",
+        "a decrease in metabolic rate",
+        "reduced digestive efficiency",
+        "a state of nutritional deficiency"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "주제",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "미국인들의 운동 부족이 초래하는 건강 위험",
+        "식품 가격 인상이 소비자에게 미치는 영향",
+        "학교에서의 영양 교육 강화의 필요성",
+        "양 왜곡과 비만 증가 사이의 관계"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "함축의미 추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or <u>\"a great value.\"</u> Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 밑줄 친 \"a great value\"가 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "큰 양의 음식이 제공하는 실질적인 건강상 이점",
+        "양이 많으면 돈값을 한다고 여기는 왜곡된 가치 인식",
+        "레스토랑에서 제공되는 음식의 영양학적 품질",
+        "미국 식문화에서 함께 먹는 행위의 전통적 가치"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with <u>it</u>? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글에서 밑줄 친 <u>it</u>이 가리키는 것으로 가장 적절한 것은?",
+      "ch": [
+        "성인들이 1985년보다 하루 300칼로리를 더 섭취하는 현상",
+        "미국의 비만 발생률이 감소하는 추세",
+        "식품 가격이 지속적으로 상승하는 문제",
+        "미국인들의 규칙적인 운동 습관"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "서술형 — 핵심단어",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글을 읽고, 비만 발생률과 1인분 양 크기 사이의 관계를 설명하는 표현을 본문에서 찾아 영어로 쓰시오. (영어로, 7단어)\n\n[힌트] 두 현상이 '나란히/병행하여' 증가했다는 표현이다."
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that __________. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 빈칸에 들어갈 말을 아래 조건에 맞게 영어로 쓰시오.\n[조건] (1) people, unintentionally, consume, more, calories, when, offered, larger, portions를 모두 사용할 것\n(2) 정확히 9단어로 쓸 것\n(3) 다음 우리말에 맞도록 영어로 쓰시오: 사람들이 더 큰 양을 제공받을 때 의도치 않게 더 많은 칼로리를 섭취한다"
+    },
+    {
+      "id": 20,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Many factors contribute to Americans' growing waistlines, but one observation in particular cannot be overlooked: The incidence of obesity has increased in parallel with increasing portion sizes. Consider this: Adults today consume an average of 300 more calories per day than they did in the year 1985. Is this just a coincidence, or do larger portion sizes have something to do with it? In almost every eating situation, we are now confronted by huge portions, which are perceived as \"normal\" or \"a great value.\" Americans have created the perception that large portion sizes are appropriate, creating an environment of portion distortion. We find portion distortions in restaurants, where the jumbo-sized portions are consistently 250 percent larger than the regular portions. We even find portion distortions in our homes, where the sizes of our bowls and glasses have steadily increased and where the surface area of the average dinner plate has increased 36 percent since 1960. Research shows that people unintentionally consume more calories when offered larger portions. Consuming larger portion sizes can contribute to positive energy balance, which, over time, leads to weight gain and ultimately can result in obesity.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "비만 발생률은 1인분 양 증가와 나란히 증가해 왔다.",
+        "현재 성인은 1985년에 비해 하루 평균 300칼로리를 더 섭취한다.",
+        "레스토랑의 점보 사이즈 양은 일반 양보다 일관되게 250% 더 크다.",
+        "평균 저녁 접시의 표면적은 1960년 이후 46% 증가했다."
+      ]
+    }
+  ]
+}

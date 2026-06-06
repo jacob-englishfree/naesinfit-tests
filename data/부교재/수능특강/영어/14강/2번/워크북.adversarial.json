@@ -1,0 +1,23 @@
+{
+  "file": "2번/워크북.json",
+  "testType": "워크북",
+  "section": "2번",
+  "reviewedAt": "2026-06-06",
+  "totalIssues": 0,
+  "issues": [
+    {
+      "id": "ADV-002",
+      "severity": "fixed",
+      "questionId": 18,
+      "type": "어순배열",
+      "category": "overlay.blank ↔ wa 불일치 (렌더링 오류)",
+      "description": "overlay.blank = '\"with which scientists struggle to produce order\"' (9단어)이나, wa = '\"a disordered array of observations with which scientists struggle\"' (8단어)로 완전히 다름. 렌더러가 overlay.blank 기준으로 passage에서 해당 텍스트를 찾아 ____로 교체하는데, passage에는 'with which scientists struggle to produce order'가 존재하지 않음(원문은 'with which scientists struggle to produce order'의 일부가 포함되어 있으나 빈칸 범위가 wa와 불일치). 학생이 보는 화면에서 빈칸 위치와 정답 범위가 어긋나 렌더링 오류 또는 채점 오류 발생 가능.",
+      "evidence": {
+        "wa": "a disordered array of observations with which scientists struggle",
+        "overlayBlank": "with which scientists struggle to produce order",
+        "passageContext": "consists of a disordered array of observations with which scientists struggle to produce order"
+      },
+      "verdict": "수정 필요 — overlay.blank를 wa와 일치하는 'a disordered array of observations with which scientists struggle'로 교체"
+    }
+  ]
+}

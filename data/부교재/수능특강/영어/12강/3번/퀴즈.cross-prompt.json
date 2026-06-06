@@ -1,0 +1,286 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "퀴즈",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "어휘 적절성 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "12강",
+    "section": "3번",
+    "histKey": "quizTest_suneung_eng_L12_ex3_v5"
+  },
+  "fullPassage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어순배열",
+      "diff": "쉬움",
+      "fmt": "written",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers __________. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 빈칸에 주어진 어구를 올바른 순서로 배열하여 영어로 쓰시오.\n\n<b>safer products / to put / on the shelves / and label / products / more clearly</b>\n\n[조건] (1) to put, safer products, on the shelves, and label, products, more clearly를 모두 사용할 것\n(2) 정확히 12단어로 쓸 것"
+    },
+    {
+      "id": 2,
+      "type": "문장삽입",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. (①)A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. (②)The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. (③)None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. (④)The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글에서 주어진 문장이 들어갈 위치로 가장 적절한 곳은?\n\n<b>In other words, the regulation of drugs is far stricter than that of dietary supplements.</b>",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. ①<u>A drug</u> is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it ②<u>removed</u> from the market. None of this is ③<u>truly</u> for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by ④<u>requiring</u> supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is ①<u>intended</u> to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it ②<u>possible</u> for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that ③<u>are</u> safe and ④<u>that</u> that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and ①<u>monitors</u> its safety after the drug is on the market. If a drug is subsequently ②<u>showing</u> to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it ③<u>possible</u> for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more ④<u>clearly</u>. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of ①<u>effectiveness</u>, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only ②<u>limiting</u> authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ③<u>ensure</u> that consumers can tell the difference between dietary supplements that are safe and ④<u>those</u> that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have ①<u>it removed</u> from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and ②<u>effectiveness</u> of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers ③<u>putting</u> safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and ④<u>those</u> that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket ①<u>rejection</u> to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be ②<u>dangerous</u>, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it ③<u>possible</u> for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more ④<u>clearly</u>. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, ①<u>mitigate</u>, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it ②<u>removed</u> from the market. None of this is true for dietary supplements. The current law gives the FDA only ③<u>limited</u> authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to ④<u>weaken</u> the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo ①<u>extensive</u> studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the ②<u>similarity</u> between dietary supplements that are ③<u>safe</u> and those that have potentially serious ④<u>side effects</u> or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. ①<u>None</u> of this is true for dietary supplements. The current law gives the FDA only ②<u>comprehensive</u> authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ③<u>ensure</u> that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious ④<u>side effects</u> or drug interactions.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate ____________________ before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "the safety and effectiveness of supplements",
+        "the business licenses of manufacturers",
+        "the advertising claims of supplements",
+        "consumer complaints about supplements"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives ____________________ and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a partial exemption to supplements",
+        "a food safety certification",
+        "formal premarket approval to a drug",
+        "financial support to manufacturers"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can ____________________.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "choose prescription drugs over dietary supplements",
+        "treat the side effects of supplements on their own",
+        "file formal complaints with the FDA about supplements",
+        "tell the difference between safe and potentially harmful supplements"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "주제",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "식이보충제 복용의 건강상 이점과 주의사항",
+        "FDA의 약물 승인 절차에 대한 상세한 분석",
+        "약물과 식이보충제의 규제 격차 및 법 개선 필요성",
+        "식이보충제 산업의 경제적 성장과 시장 전망"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "함축의미 추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. <u>None of this is true for dietary supplements.</u> The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 밑줄 친 <u>None of this is true for dietary supplements.</u>가 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "식이보충제가 약물보다 더 엄격한 규제를 받고 있다는 뜻이다.",
+        "식이보충제에는 부작용이 전혀 발생하지 않는다는 뜻이다.",
+        "식이보충제는 질병을 진단하거나 치료하는 기능이 없다는 뜻이다.",
+        "약물에 적용되는 엄격한 규제 절차가 식이보충제에는 적용되지 않는다는 뜻이다."
+      ]
+    },
+    {
+      "id": 17,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. <u>This</u> makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글에서 밑줄 친 <u>This</u>가 가리키는 것으로 가장 적절한 것은?",
+      "ch": [
+        "현행법이 FDA에 보충제에 대한 제한된 권한만 부여하는 상황",
+        "FDA가 약물에 시판 전 공식 승인을 부여하는 절차",
+        "식이보충제가 약물과 근본적으로 다르다는 사실",
+        "소비자가 안전한 보충제와 위험한 보충제를 구분하는 것"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "약물은 시판 전 효과성과 안전성에 대한 광범위한 연구를 거쳐야 한다.",
+        "FDA는 시판 후에도 약물의 안전성을 지속적으로 모니터링한다.",
+        "일부 의원들은 보충제 제조사에 더 안전한 제품 생산을 요구하려 한다.",
+        "FDA는 식이보충제의 안전성과 효과를 시판 전에 철저히 평가한다."
+      ]
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 핵심단어",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, drugs must undergo extensive studies of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글을 읽고, 입법자들이 보충제 관련법을 개선하려는 궁극적 목표를 나타내는 표현을 본문에서 찾아 영어로 쓰시오. (영어로, 7단어)\n\n[힌트] 소비자가 안전한 보충제와 위험한 보충제의 '____'를 구분할 수 있도록 하는 것이다."
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Dietary supplements are not drugs. A drug is intended to diagnose, cure, mitigate, treat, or prevent disease. Before marketing, __________ of effectiveness, safety, interactions with other substances, and dosing. The FDA gives formal premarket approval to a drug and monitors its safety after the drug is on the market. If a drug is subsequently shown to be dangerous, the FDA can act quickly to have it removed from the market. None of this is true for dietary supplements. The current law gives the FDA only limited authority over supplements. This makes it possible for the government to remove unsafe supplements from the marketplace. The FDA does not evaluate the safety and effectiveness of supplements before they hit the marketplace. There are some legislators in Congress who want to improve the law by requiring supplement makers to put safer products on the shelves and label products more clearly. The objective is to ensure that consumers can tell the difference between dietary supplements that are safe and those that have potentially serious side effects or drug interactions.",
+      "stem": "다음 글의 빈칸에 들어갈 말을 아래 조건에 맞게 영어로 쓰시오.\n[조건] (1) drugs, must, undergo, extensive, studies, of를 모두 사용할 것\n(2) 정확히 6단어로 쓸 것\n(3) 조동사 + 동사원형 + 명사구 + 전치사 구문을 사용할 것"
+    }
+  ]
+}

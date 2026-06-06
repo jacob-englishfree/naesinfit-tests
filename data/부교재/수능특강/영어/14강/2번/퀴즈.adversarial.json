@@ -1,0 +1,23 @@
+{
+  "file": "2번/퀴즈.json",
+  "testType": "퀴즈",
+  "section": "2번",
+  "reviewedAt": "2026-06-06",
+  "totalIssues": 0,
+  "issues": [
+    {
+      "id": "ADV-003",
+      "severity": "fixed",
+      "questionId": 19,
+      "type": "어순배열",
+      "category": "overlay.blank ↔ wa 불일치 (렌더링 오류 심각)",
+      "description": "overlay.blank = '\"describes how scientists arrived at the elucidation\"'이나, wa = '\"shows how difficult it is to assign credit\"'로 완전히 다른 구문. overlay.blank의 텍스트는 passage에 존재하기는 하나(Bruno Latour describes how scientists arrived~), 실제 빈칸이 되어야 할 부분은 wa인 'shows how difficult it is to assign credit'임. 렌더러가 overlay.blank 텍스트를 찾아 ____로 교체하면 완전히 엉뚱한 자리가 빈칸이 됨. 학생이 답을 쓰면 채점도 불일치. 출제 자체가 무효에 가까운 수준.",
+      "evidence": {
+        "wa": "shows how difficult it is to assign credit",
+        "overlayBlank": "describes how scientists arrived at the elucidation",
+        "passageContext": "A detailed anthropological study ... shows how difficult it is to assign credit and dates. Bruno Latour describes how scientists arrived at the elucidation of TRF"
+      },
+      "verdict": "수정 필요 — overlay.blank를 wa와 일치하는 'shows how difficult it is to assign credit'로 교체하고, passage 빈칸 위치도 재확인"
+    }
+  ]
+}

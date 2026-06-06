@@ -1,0 +1,39 @@
+{
+  "file": "data/부교재/수능특강/영어/12강/퀴즈.json",
+  "generatedAt": "2026-06-06",
+  "totalIssues": 4,
+  "issues": [
+    {
+      "id": "ADV-001",
+      "severity": "fixed",
+      "questionId": "id1",
+      "type": "RENDER-BREAK",
+      "description": "overlay.markers에 중첩 <u> 태그 → 학생 화면 마커 렌더링 파괴",
+      "detail": "markers.① 값이 '①<u>③<u>④<u>casting</u></u></u>' 형태로 중첩된 <u> 태그가 3겹 삽입되어 있음. 렌더러가 HTML로 파싱 시 구조 붕괴 → 선지 ①②③④ 정상 표시 불가."
+    },
+    {
+      "id": "ADV-002",
+      "severity": "fixed",
+      "questionId": "id3",
+      "type": "S-META-LEAK",
+      "description": "det.analysis에 출제 메타텍스트 노출 → 학생이 출제 의도를 볼 수 있음",
+      "detail": "det.analysis에 '이 문제는 틀린 것이 없는 경우를 대비해 재설계' 등 출제자 내부 메모가 포함됨. S-META-LEAK 규칙 위반. 학생 해설 화면에 출제 과정이 노출되므로 신뢰도 하락."
+    },
+    {
+      "id": "ADV-003",
+      "severity": "fixed",
+      "questionId": "id7",
+      "type": "C5",
+      "description": "ch 배열에 5번째 선지 'None of the above' 포함 → 5지선다 위반",
+      "detail": "ch: [..., 'None of the above']. 규칙 C5: 5지선다 금지. 학생 화면에 5번째 선지가 렌더링됨."
+    },
+    {
+      "id": "ADV-004",
+      "severity": "fixed",
+      "questionId": "id13",
+      "type": "RENDER-BREAK",
+      "description": "passage에 잔여 <u>the</u> 마커 + 긴 구절 이중 밑줄 → 학생 화면 혼란",
+      "detail": "passage에 '<u>the</u>' 잔여 마커가 존재하며, 별도로 긴 구절에 밑줄이 이중으로 설정되어 있음. 학생이 어느 부분에 밑줄이 그어진 것인지 혼동 가능. 렌더러가 두 <u> 태그를 처리하면서 중첩 렌더링 발생 우려."
+    }
+  ]
+}

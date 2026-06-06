@@ -1,0 +1,18 @@
+{
+  "file": "data/부교재/수능특강/영어/11강/3번/퀴즈.json",
+  "reviewedAt": "2026-06-06",
+  "reviewer": "adversarial-agent",
+  "issues": [
+    {
+      "id": "Q1",
+      "severity": "MEDIUM",
+      "code": "S-PASSAGE-1-SENTENCE",
+      "description": "순서배열 Q1: passage 필드가 빈 문자열(\"\"). 순서배열 유형의 지문 내용이 stem 안에 도입문+(A)(B)(C) 형태로 모두 들어가 있으므로 기능적으로는 정상이나, schema상 passage는 도입문 1~2문장이 와야 하고 빈 문자열은 S-PASSAGE-1-SENTENCE 규칙에 해당함. null과 구분 필요.",
+      "suggestion": "passage에 도입문('There is no scientific basis for the term race.')을 넣고 stem에서 도입문을 제거하거나, passage 필드를 null로 명시적으로 설정하여 영영풀이 예외를 명확히 적용."
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 1,
+  "lowCount": 0,
+  "verdict": "PASS-WITH-WARNINGS"
+}

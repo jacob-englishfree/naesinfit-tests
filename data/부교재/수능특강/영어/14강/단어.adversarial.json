@@ -1,0 +1,60 @@
+{
+  "file": "단어.json (합본)",
+  "testType": "단어",
+  "section": "전체",
+  "reviewedAt": "2026-06-06",
+  "totalIssues": 1,
+  "issues": [
+    {
+      "id": "ADV-010",
+      "severity": "fixed",
+      "questionId": 9,
+      "type": "빈칸 어휘 완성",
+      "category": "5지선다 금지 위반 (C5/TW-BAN)",
+      "description": "ch 배열에 5개 선지 '① experiences ② corporation ③ differences ④ absenteeism ⑤ None of the above' 포함. 4지선다 규칙 위반. 'None of the above'는 더미 선지로 C4+C5 동시 위반.",
+      "evidence": {
+        "ch": [
+          "experiences",
+          "corporation",
+          "differences",
+          "absenteeism",
+          "None of the above"
+        ],
+        "totalChoices": 5
+      },
+      "verdict": "수정 필요 — 'None of the above' 제거, 4지선다로 교체"
+    },
+    {
+      "id": "ADV-011",
+      "severity": "fixed",
+      "questionId": 14,
+      "type": "반의어 고르기",
+      "category": "5지선다 금지 위반 (C5/TW-BAN)",
+      "description": "ch 배열에 5개 선지 '① logical ② organized ③ consistent ④ disjointed ⑤ None of the above' 포함. 4지선다 규칙 위반.",
+      "evidence": {
+        "ch": [
+          "logical",
+          "organized",
+          "consistent",
+          "disjointed",
+          "None of the above"
+        ],
+        "totalChoices": 5
+      },
+      "verdict": "수정 필요 — 'None of the above' 제거, 4지선다로 교체"
+    },
+    {
+      "id": "ADV-012",
+      "severity": "medium",
+      "questionId": 15,
+      "type": "다의어 문맥적 의미",
+      "category": "passage (B) 문맥 AI 생성 의심",
+      "description": "Q15 다의어 문항의 passage (B) = '\"The word valuable can also mean something quite different in another context.\"' — 실제 지문에서 발췌한 것이 아닌 AI가 임의 생성한 것으로 보임. 다의어 유형의 (B) 문맥은 실제 다른 맥락의 실제 문장이어야 하며, '다른 문맥에서 다른 의미를 가질 수 있다'는 메타 설명 문장은 출제 품질 미달.",
+      "evidence": {
+        "passageB": "The word valuable can also mean something quite different in another context.",
+        "note": "실제 지문 발췌가 아닌 메타 설명 문장"
+      },
+      "verdict": "수정 필요 — (B) 문맥을 실제 다른 맥락에서 valuable이 사용된 실제 문장으로 교체"
+    }
+  ]
+}
