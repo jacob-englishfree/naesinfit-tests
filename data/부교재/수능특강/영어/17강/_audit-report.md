@@ -1,6 +1,6 @@
 # 17강 출제·검수 증적 리포트
 
-**생성일**: 2026-06-05
+**생성일**: 2026-06-06
 **대상**: `data/부교재/수능특강/영어/17강`
 **생성 방식**: `node scripts/generate-audit-report.js data/부교재/수능특강/영어/17강`
 
@@ -12,7 +12,7 @@
 | validate PASS | 15/15 |
 | blind.json 존재 | 15/15 |
 | cross-blind.json 존재 | 15/15 |
-| adversarial HIGH | 5건 |
+| adversarial HIGH | 0건 |
 | adversarial MEDIUM | 10건 |
 | adversarial LOW | 29건 |
 
@@ -45,19 +45,9 @@
 | Gateway | 워크북 | ✅ | ✅ | ✅ | ⚠ (1) |
 | Gateway | 퀴즈 | ✅ | ✅ | ✅ | ⚠ (3) |
 
-## Adversarial HIGH 이슈 (수정 필요)
-
-| 파일 | 문항 | 카테고리 | 설명 |
-|---|---|---|---|
-| 2번/퀴즈 | Q4 | undefined | undefined |
-| 2번/퀴즈 | Q5 | undefined | undefined |
-| 2번/퀴즈 | Q6 | undefined | undefined |
-| 2번/퀴즈 | Q7 | undefined | undefined |
-| 2번/퀴즈 | Q9 | undefined | undefined |
-
 ## 배포 가능 여부
 
-⛔ **배포 불가** — 위 미비점 해결 필요
+✅ **배포 가능** — 모든 증적 충족, HIGH 이슈 0건
 
 ### jacob 본인 확인 필요
 - [ ] 실기기 카카오톡에서 박선민/학생 링크 접속 테스트
