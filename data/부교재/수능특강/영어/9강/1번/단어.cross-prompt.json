@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "William Henry Perkin",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "9강",
+    "section": "1번",
+    "histKey": "wordtest__9_1_v3"
+  },
+  "fullPassage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was <b>(A)</b>[expected / reluctant] to follow the same path. However, his life changed when, at the age of twelve, a friend <b>(B)</b>[introduced / discouraged] him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he <b>(C)</b>[continued / abandoned] his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "expected — introduced — continued",
+        "reluctant — introduced — abandoned",
+        "expected — discouraged — continued",
+        "reluctant — discouraged — abandoned"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the <b>(A)</b>[distinguished / unknown] German chemist August Wilhelm von Hofmann. Perkin's <b>(B)</b>[curiosity / indifference] led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a <b>(C)</b>[costly / cheap] medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "unknown — curiosity — costly",
+        "distinguished — indifference — costly",
+        "distinguished — curiosity — cheap",
+        "distinguished — curiosity — costly"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and <b>(A)</b>[produced / consumed] only an ugly black substance, in which he became interested. When he <b>(B)</b>[dissolved / solidified] it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making <b>(C)</b>[vibrant / dull] colors more accessible and affordable around the world.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "produced — solidified — vibrant",
+        "consumed — dissolved — vibrant",
+        "produced — dissolved — dull",
+        "produced — dissolved — vibrant"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to ①<u>follow</u> the same path. However, his life changed when, at the age of twelve, a friend introduced him to a ②<u>simple</u> chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he ③<u>discontinued</u> his experiments. At eighteen, he ④<u>conducted</u> an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a ①<u>costly</u> medicine for malaria. He ②<u>succeeded</u> and produced only an ③<u>ugly</u> black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more ④<u>accessible</u> and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life ①<u>changed</u> when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small ②<u>laboratory</u> at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and ③<u>bright</u> purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and ④<u>expensive</u> around the world.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend __________ him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "prevented",
+        "confused",
+        "introduced",
+        "separated"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he __________ an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "observed",
+        "conducted",
+        "avoided",
+        "repeated"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the __________ of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "destruction",
+        "limitation",
+        "examination",
+        "creation"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the <u>distinguished</u> German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 distinguished와 의미가 가장 가까운 것은?",
+      "ch": [
+        "ordinary",
+        "renowned",
+        "mysterious",
+        "strict"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a <u>costly</u> medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 costly와 의미가 가장 가까운 것은?",
+      "ch": [
+        "effective",
+        "dangerous",
+        "expensive",
+        "common"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more <u>accessible</u> and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 accessible와 의미가 가장 가까운 것은?",
+      "ch": [
+        "available",
+        "invisible",
+        "dangerous",
+        "temporary"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an <u>ugly</u> black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 밑줄 친 ugly와 의미가 가장 반대인 것은?",
+      "ch": [
+        "harmful",
+        "heavy",
+        "attractive",
+        "ancient"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and <u>affordable</u> around the world.",
+      "stem": "다음 글의 밑줄 친 affordable와 의미가 가장 반대인 것은?",
+      "ch": [
+        "prohibitive",
+        "portable",
+        "renewable",
+        "flexible"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same <u>path</u>.\n\n(B) On any given day, the hiking <u>path</u> through the dense forest was filled with fallen leaves and twisted roots that made walking difficult.",
+      "stem": "다음 글에서 밑줄 친 (A)와 (B)의 <b>path</b>가 각각 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "career direction — road",
+        "road — career direction",
+        "method — road",
+        "road — method"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a room or building equipped for scientific experiments or research\"",
+      "ch": [
+        "factory",
+        "library",
+        "laboratory",
+        "observatory"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "He later studied at the Royal College of Chemistry, where he was taught by the __________ (distinguish) German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture __________ (blossom) into a rich and bright purple.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first __________, mauve. Perkin's discovery helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "natural fabric",
+        "synthetic dye",
+        "chemical weapon",
+        "organic compound"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "William Henry Perkin was born in London in 1838 to a family of builders and was expected to follow the same path. However, his life changed when, at the age of twelve, a friend introduced him to a simple chemistry set. He later studied at the Royal College of Chemistry, where he was taught by the distinguished German chemist August Wilhelm von Hofmann. Perkin's curiosity led him to build a small laboratory at home, where he continued his experiments. At eighteen, he conducted an experiment that would change his life. He tried to make quinine, a costly medicine for malaria. He failed and produced only an ugly black substance, in which he became interested. When he dissolved it in methylated spirit, the mixture blossomed into a rich and bright purple. This led to the creation of the first synthetic dye, mauve. Perkin's __________ helped start the synthetic dye industry, making vibrant colors more accessible and affordable around the world.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "recovery",
+        "mystery",
+        "delivery",
+        "discovery"
+      ]
+    }
+  ]
+}

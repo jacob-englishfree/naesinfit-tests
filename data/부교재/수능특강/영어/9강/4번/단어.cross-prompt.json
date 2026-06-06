@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Ivan Beltrami",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "9강",
+    "section": "4번",
+    "histKey": "wordtest__9_4_v3"
+  },
+  "fullPassage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family <b>(A)</b>[committed / indifferent] to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing <b>(B)</b>[compassion / hostility] and justice, particularly influenced by the <b>(C)</b>[discrimination / cooperation] faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "indifferent — compassion — cooperation",
+        "committed — hostility — discrimination",
+        "committed — compassion — discrimination",
+        "indifferent — hostility — cooperation"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while <b>(A)</b>[secretly / openly] <b>(B)</b>[aiding / opposing] the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by <b>(C)</b>[sheltering / exposing] Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "secretly — opposing — sheltering",
+        "secretly — aiding — sheltering",
+        "openly — aiding — exposing",
+        "openly — opposing — exposing"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also <b>(A)</b>[risked / secured] his life by sheltering Jewish individuals in his home, actions for which he was later <b>(B)</b>[honored / criticized] as Righteous Among the Nations by Yad Vashem in 1984. After the war, he <b>(C)</b>[dedicated / abandoned] himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "risked — criticized — dedicated",
+        "secured — honored — abandoned",
+        "risked — honored — abandoned",
+        "risked — honored — dedicated"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family ①<u>committed</u> to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing ②<u>compassion</u> and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while ③<u>publicly</u> aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and ④<u>courage</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up ①<u>valuing</u> compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also ②<u>protected</u> his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to ③<u>improving</u> healthcare access in underserved communities, ④<u>establishing</u> clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and ①<u>justice</u>, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical ②<u>assistance</u> to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in ③<u>underserved</u> communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of ④<u>cruelty</u> and courage.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing __________ and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "justice",
+        "compassion",
+        "courage",
+        "assistance"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided __________ to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "medical assistance",
+        "discrimination",
+        "kindness",
+        "courage"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving __________ in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "healthcare access",
+        "discrimination",
+        "military strength",
+        "religious influence"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family <u>committed</u> to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 밑줄 친 committed와 의미가 가장 가까운 것은?",
+      "ch": [
+        "assigned",
+        "confined",
+        "devoted",
+        "submitted"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly <u>aiding</u> the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 밑줄 친 aiding과 의미가 가장 가까운 것은?",
+      "ch": [
+        "avoiding",
+        "assisting",
+        "observing",
+        "joining"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, <u>establishing</u> clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 밑줄 친 establishing과 의미가 가장 가까운 것은?",
+      "ch": [
+        "closing",
+        "expanding",
+        "visiting",
+        "founding"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the <u>discrimination</u> faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 밑줄 친 discrimination과 의미가 가장 반대인 것은?",
+      "ch": [
+        "prejudice",
+        "separation",
+        "equality",
+        "judgment"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and <u>courage</u>.",
+      "stem": "다음 글의 밑줄 친 courage와 의미가 가장 반대인 것은?",
+      "ch": [
+        "cowardice",
+        "strength",
+        "patience",
+        "honesty"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) During the war, Beltrami <u>served</u> as a courier, delivering secret messages between resistance members.\n\n(B) The restaurant <u>served</u> traditional French dishes that reminded him of his childhood in Marseille.",
+      "stem": "다음 글에서 밑줄 친 <b>served</b>가 (A)와 (B)에서 각각 어떤 뜻으로 쓰였는지 고르시오.",
+      "ch": [
+        "(A) 제공하다 — (B) 복무하다",
+        "(A) 봉사하다 — (B) 복무하다",
+        "(A) 복무하다 — (B) 봉사하다",
+        "(A) 복무하다 — (B) 제공하다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a person who carries messages or documents from one place to another\"",
+      "ch": [
+        "guardian",
+        "diplomat",
+        "courier",
+        "surgeon"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Raised in a Catholic environment, he grew up __________ (value) compassion and justice, particularly influenced by the discrimination faced by his Jewish friends.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "After the war, he dedicated himself to __________ (improve) healthcare access in underserved communities, establishing clinics in rural areas of southern France.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as __________ by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, leaving behind a legacy of kindness and courage.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "Nobel Peace Prize winner",
+        "Righteous Among the Nations",
+        "French Legion of Honor member",
+        "Medal of Honor recipient"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Ivan Beltrami was born on June 14, 1920, in Marseille, France, to a family committed to medicine — his father was a doctor and his mother a nurse. Raised in a Catholic environment, he grew up valuing compassion and justice, particularly influenced by the discrimination faced by his Jewish friends. During World War II, Beltrami studied medicine while secretly aiding the French Resistance. From 1942, he served as a courier and provided medical assistance to those in need. He also risked his life by sheltering Jewish individuals in his home, actions for which he was later honored as Righteous Among the Nations by Yad Vashem in 1984. After the war, he dedicated himself to improving healthcare access in underserved communities, establishing clinics in rural areas of southern France. He passed away on November 12, 1991, __________ of kindness and courage.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "publishing his memoirs",
+        "receiving a generous pension",
+        "returning to medical practice",
+        "leaving behind a legacy"
+      ]
+    }
+  ]
+}
