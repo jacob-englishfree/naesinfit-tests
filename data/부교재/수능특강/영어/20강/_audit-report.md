@@ -1,0 +1,56 @@
+# 20강 출제·검수 증적 리포트
+
+**생성일**: 2026-06-06
+**대상**: `data/부교재/수능특강/영어/20강`
+**생성 방식**: `node scripts/generate-audit-report.js data/부교재/수능특강/영어/20강`
+
+## 최종 요약
+
+| 항목 | 결과 |
+|---|---|
+| 파일 수 | 15 |
+| validate PASS | 15/15 |
+| blind.json 존재 | 15/15 |
+| cross-blind.json 존재 | 15/15 |
+| adversarial HIGH | 0건 |
+| adversarial MEDIUM | 6건 |
+| adversarial LOW | 3건 |
+
+## 지문 구성
+
+| 섹션 | 제목 | 문장/단어 |
+|---|---|---|
+| 1번 | Elaine at the Animal Shelter | 18/406 |
+| 2번 | Little William and the Meatball Vendor | 24/337 |
+| 3번 | Sandy Robinson and Emma | 15/272 |
+| 4번 | Sarah and Margaret | 23/359 |
+| Gateway | Mia's Family Reading Club | 23/364 |
+
+## 파일별 검수 상태
+
+| 섹션 | 유형 | validate | blind | cross-blind | adversarial |
+|---|---|---|---|---|---|
+| 1번 | 단어 | ✅ | ✅ | ✅ | ✅ (0) |
+| 1번 | 워크북 | ✅ | ✅ | ✅ | ✅ (0) |
+| 1번 | 퀴즈 | ✅ | ✅ | ✅ | ✅ (0) |
+| 2번 | 단어 | ✅ | ✅ | ✅ | ✅ (0) |
+| 2번 | 워크북 | ✅ | ✅ | ✅ | ⚠ (1) |
+| 2번 | 퀴즈 | ✅ | ✅ | ✅ | ✅ (0) |
+| 3번 | 단어 | ✅ | ✅ | ✅ | ✅ (0) |
+| 3번 | 워크북 | ✅ | ✅ | ✅ | ✅ (0) |
+| 3번 | 퀴즈 | ✅ | ✅ | ✅ | ✅ (0) |
+| 4번 | 단어 | ✅ | ✅ | ✅ | ⚠ (2) |
+| 4번 | 워크북 | ✅ | ✅ | ✅ | ⚠ (2) |
+| 4번 | 퀴즈 | ✅ | ✅ | ✅ | ⚠ (1) |
+| Gateway | 단어 | ✅ | ✅ | ✅ | ⚠ (1) |
+| Gateway | 워크북 | ✅ | ✅ | ✅ | ⚠ (1) |
+| Gateway | 퀴즈 | ✅ | ✅ | ✅ | ⚠ (1) |
+
+## 배포 가능 여부
+
+✅ **배포 가능** — 모든 증적 충족, HIGH 이슈 0건
+
+### jacob 본인 확인 필요
+- [ ] 실기기 카카오톡에서 박선민/학생 링크 접속 테스트
+- [ ] 무작위 5% 스팟 풀이 (1파일)
+- [ ] 수업자료 PDF(합본) Dropbox 업로드 여부
