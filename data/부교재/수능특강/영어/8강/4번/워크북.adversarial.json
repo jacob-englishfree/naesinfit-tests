@@ -1,38 +1,11 @@
 {
   "testFile": "data/부교재/수능특강/영어/8강/4번/워크북.json",
-  "timestamp": "2026-06-06T15:15:00.000Z",
-  "model": "adversarial-reviewer",
+  "reviewedAt": "2026-06-07",
+  "model": "claude-opus-4-6",
   "issues": [
-    {
-      "id": "ADV-01",
-      "severity": "LOW",
-      "questionId": 10,
-      "category": "오답질",
-      "description": "Q10 빈칸추론: 오답 3개(the smallest margin, the weakest link, a minor difference)가 fullPassage에 없는 표현. 다만 문맥적으로 배제 가능한 어휘이며, the largest gap만 문맥에 부합하므로 정답 도출에 문제 없음.",
-      "action": "유지 — 빈칸추론은 문맥 추론이 본질. 오답이 본문에 없어도 OK"
-    },
-    {
-      "id": "ADV-02",
-      "severity": "LOW",
-      "questionId": 14,
-      "category": "난이도",
-      "description": "Q14 오류찾기: ①showing→shows 변조. 주절 동사 자리 구분이 핵심. 비교적 기본적인 포인트이나 도표 지문의 복잡한 문장 구조 속에서 찾아야 하므로 어려움 난이도에 적합.",
-      "action": "유지"
-    },
-    {
-      "id": "ADV-03",
-      "severity": "LOW",
-      "questionId": 4,
-      "category": "문법포인트",
-      "description": "Q4 어법: Despite vs Although 구분. 어려움 난이도에 적합한 문법 포인트. 학생이 Despite 뒤에 절이 올 수 없음을 알아야 풀 수 있음.",
-      "action": "유지"
-    }
+    {"id": 15, "severity": "LOW", "type": "answer-format-ambiguity", "detail": "Q15 wa='15 Mt' - 학생이 'approximately 15 Mt'(3단어)로 쓸 수 있으나 stem이 (2단어)를 명시하므로 문제 없음. 단, '15Mt'(공백없음) accept에 포함 확인됨."},
+    {"id": 7, "severity": "LOW", "type": "tf-too-easy", "detail": "T/F Q7 '소형 장비에서 차이 최대' - 원문 거의 직역. 쉬움 난이도 의도이므로 적정."}
   ],
-  "summary": {
-    "HIGH": 0,
-    "MEDIUM": 0,
-    "LOW": 3,
-    "total": 3,
-    "verdict": "PASS — HIGH 0건, 배포 가능"
-  }
+  "totalIssues": 2,
+  "highCount": 0
 }

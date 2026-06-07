@@ -1,23 +1,14 @@
 {
   "file": "data/부교재/수능특강/영어/9강/2번/워크북.json",
-  "model": "opus-adversarial",
-  "timestamp": "2026-06-06T15:56:00.000Z",
-  "issues": [],
-  "summary": {
-    "HIGH": 0,
-    "MEDIUM": 0,
-    "LOW": 0,
-    "total": 0
-  },
-  "checks": [
-    {"check": "정답 2개 가능", "result": "PASS", "detail": "20문항 전체 정답 유일"},
-    {"check": "선지 뻔함/소거법", "result": "PASS", "detail": "오답 선지 모두 그럴듯한 혼동 유발"},
-    {"check": "정답 passage 노출", "result": "PASS", "detail": "빈칸(Q10,Q11) 정답 빈칸처리됨, 찾기형(Q15-17) 의도적 노출"},
-    {"check": "마커 분산", "result": "PASS", "detail": "어법/어휘 마커 fullPassage 전체에 분산"},
-    {"check": "stem 명확성", "result": "PASS", "detail": "서술형 stem에 단어수+언어 명시"},
-    {"check": "조건 vs wa 일치", "result": "PASS", "detail": "Q20 조건 5단어(was,left,with,little,choice) = wa 5단어 일치"},
-    {"check": "오답 소거 가능성", "result": "PASS", "detail": "주제/요지(Q18,Q19) 오답이 본문과 충분히 다름"},
-    {"check": "T/F 근거 충분", "result": "PASS", "detail": "Q7(T),Q8(F),Q9(T) 각각 원문 근거 명확"},
-    {"check": "cross-leak 단어테스트", "result": "PASS", "detail": "단어테스트와 유형 겹침 없음, overlay 타겟 겹침 없음"}
-  ]
+  "reviewedAt": "2026-06-07",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "서술형 '3단어' 조건인데 stem에 '초상화를 관찰하여 얻은 것'이라고 했을 때, 학생이 'knowledge of costume'(3단어)과 'knowledge of costume history'(4단어) 중 혼동할 수 있음. accept에 둘 다 포함되어 있어 채점에는 문제 없음.",
+      "action": "유지. accept 배열에 4단어 버전도 포함되어 있어 실제 채점 시 문제 없음."
+    }
+  ],
+  "highCount": 0,
+  "summary": "20문항 전수 검토 완료. HIGH 이슈 0건. 어법 문항(1~4) 문법 포인트 명확, 어휘 문항(5~6) 원문 대조 정확, T/F 문항(7~9) 세부 사실 변별 적절, 빈칸추론(10~11) 원문 일치, 내용일치(12~13) 함정 선지 적절, 오류찾기(14) what/which 구별 명확, 서술형(15~17) 찾기 유형 passage 노출 정상, 주제/요지(18~19) 선지 차별화 양호, 조건영작(20) 단어수 조건 정확."
 }

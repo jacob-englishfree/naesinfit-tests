@@ -187,21 +187,21 @@ function buildEi(source, sourcePath, testType, passageData) {
     ei.pub = subject;
     ei.lesson = lesson;
     ei.section = section;
-    ei.histKey = `${testTypeMap[testType]}_${bookName}_${lesson}_${section}_v3`
+    ei.histKey = `${testTypeMap[testType]}_${bookName}_${lesson}_${section}_v5`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '모의고사') {
     const [grade, exam, num] = parts;
     ei.subject = `${exam} ${grade} 모의고사`;
     ei.pub = num;
     ei.lesson = passageData.title || num;
-    ei.histKey = `${testTypeMap[testType]}_${grade}_${exam}_${num}_v3`
+    ei.histKey = `${testTypeMap[testType]}_${grade}_${exam}_${num}_v5`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '교과서') {
     ei.subject = parts[0];
     ei.pub = parts[1];
     ei.lesson = parts[2];
     ei.section = parts[3] || '본문';
-    ei.histKey = `${testTypeMap[testType]}_${parts.join('_')}_v3`
+    ei.histKey = `${testTypeMap[testType]}_${parts.join('_')}_v5`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   }
 
@@ -259,10 +259,14 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
     if (overlayData.underline) {
       const underlines = Array.isArray(overlayData.underline) ? overlayData.underline : [overlayData.underline];
       for (const word of underlines) {
-        overlaid = overlaid.replace(
-          new RegExp(`\\b${escapeRegex(word)}\\b`, 'i'),
-          `<u>${word}</u>`
-        );
+        const escaped = escapeRegex(word);
+        // Try with word boundaries first, fall back to without (for parenthetical markers like "(a) him")
+        const withBoundary = new RegExp(`\\b${escaped}\\b`, 'i');
+        if (withBoundary.test(overlaid)) {
+          overlaid = overlaid.replace(withBoundary, `<u>${word}</u>`);
+        } else {
+          overlaid = overlaid.replace(new RegExp(escaped, 'i'), `<u>${word}</u>`);
+        }
       }
     }
     if (overlayData.abc) {
@@ -640,7 +644,7 @@ function assembleMode(responseFile) {
 
   // 4. 최종 JSON 조립
   const outputData = {
-    version: 3,
+    version: 5,
     testType,
     ei,
     fullPassage: passageData.fullPassage,
