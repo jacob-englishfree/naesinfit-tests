@@ -153,9 +153,11 @@ function main() {
     for (const [k, v] of Object.entries(unitDataRaw)) {
       unitData[k.normalize('NFC')] = v.map(s => s.normalize('NFC'));
     }
-    const units = Object.keys(unitData).filter(u => /^\d+과$/.test(u)).sort((a, b) =>
+    const numericUnits = Object.keys(unitData).filter(u => /^\d+과$/.test(u)).sort((a, b) =>
       parseInt(a) - parseInt(b)
     );
+    const otherUnits = Object.keys(unitData).filter(u => !/^\d+과$/.test(u)).sort();
+    const units = [...numericUnits, ...otherUnits];
     const sections = {};
     for (const u of units) {
       if (unitData[u] && unitData[u].length > 0) {
