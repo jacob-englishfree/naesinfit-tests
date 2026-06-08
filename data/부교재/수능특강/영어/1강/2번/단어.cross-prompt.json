@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "글의 목적 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "1강",
+    "section": "2번",
+    "histKey": "wordtest__1_2_v5"
+  },
+  "fullPassage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we <b>(A)</b>[apologize / congratulate] for contacting you during the <b>(B)</b>[holiday / workday] season. We understand that this is a <b>(C)</b>[busy / idle] time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "apologize — holiday — busy",
+        "apologize — holiday — idle",
+        "congratulate — holiday — busy",
+        "apologize — workday — busy"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully <b>(A)</b>[evaluated / neglected] your manuscript and provided <b>(B)</b>[insightful / shallow] and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are <b>(C)</b>[confident / doubtful] that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "neglected — insightful — confident",
+        "evaluated — shallow — confident",
+        "evaluated — insightful — confident",
+        "evaluated — insightful — doubtful"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that <b>(A)</b>[incorporating / excluding] these suggestions will significantly <b>(B)</b>[improve / deteriorate] the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will <b>(C)</b>[satisfy / displease] the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "incorporating — improve — satisfy",
+        "excluding — improve — satisfy",
+        "incorporating — deteriorate — satisfy",
+        "incorporating — improve — displease"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we ①<u>apologize</u> for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly ②<u>approaching</u>, we kindly ask for your ③<u>cooperation</u> in addressing the reviewers' comments as ④<u>superficially</u> as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the ①<u>revision</u> deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have ②<u>scattered</u> the key points raised by both reviewers. Please review these comments carefully and submit a ③<u>revised</u> version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be ④<u>accepted</u> in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided ①<u>insightful</u> and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are ②<u>confident</u> that incorporating these suggestions will significantly ③<u>undermine</u> the manuscript and provide stronger support for your main ④<u>claims</u>. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision __________ of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "deadline",
+        "celebration",
+        "extension",
+        "announcement"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have __________ the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "distorted",
+        "concealed",
+        "exaggerated",
+        "summarized"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that __________ these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "rejecting",
+        "overlooking",
+        "incorporating",
+        "postponing"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly <u>approaching</u>, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 <u>approaching</u>과 의미가 가장 가까운 것은?",
+      "ch": [
+        "nearing",
+        "departing",
+        "halting",
+        "retreating"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are <u>confident</u> that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 <u>confident</u>과 의미가 가장 가까운 것은?",
+      "ch": [
+        "uncertain",
+        "reluctant",
+        "certain",
+        "hesitant"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will <u>significantly</u> improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 <u>significantly</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "slightly",
+        "barely",
+        "marginally",
+        "considerably"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided <u>insightful</u> and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 <u>insightful</u>과 의미가 가장 반대인 것은?",
+      "ch": [
+        "perceptive",
+        "superficial",
+        "profound",
+        "thoughtful"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the <u>limited</u> time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 밑줄 친 <u>limited</u>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "abundant",
+        "restricted",
+        "scarce",
+        "finite"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The editor asked the professor to <u>address</u> the reviewers' comments as thoroughly as possible before the revision deadline.\n\n(B) Please write your full name and <u>address</u> on the envelope before mailing it to the office.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 address의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 다루다, 해결하다 — (B) 연설하다",
+        "(A) 연설하다 — (B) 주소",
+        "(A) 다루다, 해결하다 — (B) 주소",
+        "(A) 주소 — (B) 다루다, 해결하다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은?\n\n\"the act of working together with others to achieve a shared goal\"",
+      "ch": [
+        "competition",
+        "isolation",
+        "conflict",
+        "cooperation"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "The reviewers have carefully __________ (evaluate) your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers.",
+      "stem": "다음 괄호 안의 단어를 문맥에 맞게 변형하시오.\n\nThe reviewers have carefully __________ (evaluate) your manuscript and provided insightful and critical feedback. (1단어) (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Please review these comments carefully and submit a revised version of your manuscript. We are confident that __________ (incorporate) these suggestions will significantly improve the manuscript and provide stronger support for your main claims.",
+      "stem": "다음 괄호 안의 단어를 문맥에 맞게 변형하시오.\n\nWe are confident that __________ (incorporate) these suggestions will significantly improve the manuscript. (1단어) (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as __________ as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger support for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "carelessly",
+        "thoroughly",
+        "hastily",
+        "briefly"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Professor Langford,\nFirst of all, we apologize for contacting you during the holiday season. We understand that this is a busy time, but as the revision deadline of your manuscript (December 27th) is quickly approaching, we kindly ask for your cooperation in addressing the reviewers' comments as thoroughly as possible within the limited time available. The reviewers have carefully evaluated your manuscript and provided insightful and critical feedback. To help you revise, we have summarized the key points raised by both reviewers. Please review these comments carefully and submit a revised version of your manuscript. We are confident that incorporating these suggestions will significantly improve the manuscript and provide stronger __________ for your main claims. We hope that the revised manuscript will satisfy the reviewers and be accepted in our journal. Thank you for your attention and cooperation.\nBest regards,\nNora Ellison, Associate Editor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "opposition",
+        "support",
+        "criticism",
+        "objection"
+      ]
+    }
+  ]
+}

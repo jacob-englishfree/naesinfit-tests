@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "심경 변화 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "2강",
+    "section": "4번",
+    "histKey": "wordtest__2_4_v5"
+  },
+  "fullPassage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than <b>(A)</b>[initially / finally] expected. Unfortunately, that meant <b>(B)</b>[relying / avoiding] on the bus for her commute. To add to the <b>(C)</b>[cruel / pleasant] irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "initially — relying — cruel",
+        "finally — relying — cruel",
+        "initially — avoiding — cruel",
+        "initially — relying — pleasant"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and <b>(A)</b>[soaked / dry] to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a <b>(B)</b>[blanket / barrier], but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and <b>(C)</b>[unassuming / arrogant]. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "dry — blanket — unassuming",
+        "soaked — barrier — unassuming",
+        "soaked — blanket — arrogant",
+        "soaked — blanket — unassuming"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent <b>(A)</b>[wrapped / pushed] around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also <b>(B)</b>[polite / rude] enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to <b>(C)</b>[ease / intensify] the weight she carried.",
+      "stem": "다음 글의 빈칸 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "pushed — polite — ease",
+        "wrapped — rude — ease",
+        "wrapped — polite — ease",
+        "wrapped — polite — intensify"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to ①<u>require</u> longer than initially expected. Unfortunately, that meant relying on the bus for her ②<u>commute</u>. To add to the cruel irony, it hadn't stopped ③<u>shining</u> for the past three days. It was already past 7 PM when she stepped off the bus, cold and ④<u>soaked</u> to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The ①<u>warm</u>, floral scent wrapped around her like a blanket, but it was another kind of welcome that ②<u>surprised</u> her — a smile from the cafe owner, soft and unassuming. She was also ③<u>polite</u> enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a ④<u>hostile</u> face to ease the weight she carried.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't ①<u>hesitate</u> for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she ②<u>stepped</u> off the bus, cold and soaked to the bone, having left her ③<u>umbrella</u> at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so ④<u>tired</u>, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her __________. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "commute",
+        "exercise",
+        "adventure",
+        "vacation"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and __________ to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "chilled",
+        "soaked",
+        "warm",
+        "comfortable"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, __________ scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "stale",
+        "bitter",
+        "floral",
+        "chemical"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and <u>unassuming</u>. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "밑줄 친 <b>unassuming</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "arrogant",
+        "aggressive",
+        "bold",
+        "modest"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to <u>ease</u> the weight she carried.",
+      "stem": "밑줄 친 <b>ease</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "increase",
+        "ignore",
+        "relieve",
+        "create"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent <u>wrapped</u> around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "밑줄 친 <b>wrapped</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "scattered",
+        "enveloped",
+        "thrown",
+        "released"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the <u>cruel</u> irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "밑줄 친 <b>cruel</b>의 의미와 가장 <b>먼</b> 것은?",
+      "ch": [
+        "merciful",
+        "harsh",
+        "brutal",
+        "savage"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was <u>appreciated</u>. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "밑줄 친 <b>appreciated</b>의 의미와 가장 <b>먼</b> 것은?",
+      "ch": [
+        "valued",
+        "welcomed",
+        "resented",
+        "acknowledged"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Just a friendly face to ease the <u>weight</u> she carried.\n\n(B) The <u>weight</u> of the package was about five kilograms.",
+      "stem": "밑줄 친 (A)와 (B)의 <b>weight</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 부담 — (B) 무게",
+        "(A) 무게 — (B) 부담",
+        "(A) 부담 — (B) 부담",
+        "(A) 무게 — (B) 무게"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어는?<br><br>\"the regular journey that a person makes between home and work\"",
+      "ch": [
+        "irony",
+        "scent",
+        "blanket",
+        "commute"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. __________ (fortunate), that meant relying on the bus for her commute.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was __________ (appreciate).",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — a smile from the cafe owner, soft and unassuming. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to __________ what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "forget",
+        "deny",
+        "doubt",
+        "realize"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Vera couldn't wait for her car to get fixed, but that was going to require longer than initially expected. Unfortunately, that meant relying on the bus for her commute. To add to the cruel irony, it hadn't stopped raining for the past three days. It was already past 7 PM when she stepped off the bus, cold and soaked to the bone, having left her umbrella at the gym. Her place was just one block down the street, but it felt like ten miles in this weather. Her legs moved on their own, and suddenly, the Cups & Blossoms' bell was ringing above her head. The warm, floral scent wrapped around her like a blanket, but it was another kind of welcome that surprised her — __________. She was also polite enough not to ask why Vera looked so tired, which was appreciated. Vera now seemed to realize what she had truly needed. Just a friendly face to ease the weight she carried.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a cup of hot coffee on the house",
+        "a smile from the cafe owner, soft and unassuming",
+        "a dry towel and a warm coat",
+        "a loud greeting from the staff"
+      ]
+    }
+  ]
+}

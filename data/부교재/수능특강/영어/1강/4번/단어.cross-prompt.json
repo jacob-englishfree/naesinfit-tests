@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "글의 목적 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "1강",
+    "section": "4번",
+    "histKey": "wordtest__1_4_v5"
+  },
+  "fullPassage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as <b>(A)</b>[enthusiastic / indifferent] about it as you did at the beginning? Of course, any job has its <b>(B)</b>[tiresome / enjoyable] tasks, but all in all, from what you told us, it sounds like a good <b>(C)</b>[match / mismatch] for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "enthusiastic — tiresome — match",
+        "indifferent — tiresome — match",
+        "enthusiastic — enjoyable — match",
+        "enthusiastic — tiresome — mismatch"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect <b>(A)</b>[repayment / forgiveness] of the $1,500 loan for your car. We were <b>(B)</b>[glad / reluctant] to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to <b>(C)</b>[receive / donate] at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "forgiveness — glad — receive",
+        "repayment — reluctant — receive",
+        "repayment — glad — donate",
+        "repayment — glad — receive"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the <b>(A)</b>[purchase / sale] of your car so that you'd have <b>(B)</b>[transportation / entertainment] back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are <b>(C)</b>[satisfied / disappointed] with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "purchase — transportation — satisfied",
+        "sale — transportation — disappointed",
+        "purchase — entertainment — satisfied",
+        "purchase — transportation — disappointed"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as ①<u>enthusiastic</u> about it as you did at the beginning? Of course, any job has its ②<u>tiresome</u> tasks, but all in all, from what you told us, it sounds like a good ③<u>mismatch</u> for you. We're writing to ask when we can expect ④<u>repayment</u> of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were ①<u>glad</u> to help you with the purchase of your car so that you'd have ②<u>decoration</u> back and forth to your new job. You ③<u>agreed</u> to pay all, or at least half, of the loan by June. If you have decided that you cannot ④<u>repay</u> the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can ①<u>expect</u> repayment of the $1,500 loan for your car. We were glad to help you with the ②<u>purchase</u> of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have ③<u>decided</u> that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are ④<u>frustrated</u> with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good __________ for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "obstacle",
+        "match",
+        "burden",
+        "conflict"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have __________ back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "accommodation",
+        "medication",
+        "transportation",
+        "celebration"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are __________ with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "annoyed",
+        "satisfied",
+        "confused",
+        "exhausted"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as <u>enthusiastic</u> about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 enthusiastic과 의미가 가장 가까운 것은?",
+      "ch": [
+        "passionate",
+        "indifferent",
+        "cautious",
+        "weary"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect <u>repayment</u> of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 repayment와 의미가 가장 가까운 것은?",
+      "ch": [
+        "borrowing",
+        "donation",
+        "reimbursement",
+        "withdrawal"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are <u>satisfied</u> with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 satisfied와 의미가 가장 가까운 것은?",
+      "ch": [
+        "anxious",
+        "content",
+        "doubtful",
+        "furious"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its <u>tiresome</u> tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 tiresome과 의미가 가장 반대인 것은?",
+      "ch": [
+        "enjoyable",
+        "exhausting",
+        "tedious",
+        "wearisome"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were <u>glad</u> to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 밑줄 친 glad와 의미가 가장 반대인 것은?",
+      "ch": [
+        "pleased",
+        "delighted",
+        "cheerful",
+        "reluctant"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) We, too, thought it was a good <u>buy</u>. The price seemed quite reasonable for the condition of the car.\n\n(B) I don't <u>buy</u> his excuse for being late. It sounds completely made up.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 <b>buy</b>의 의미로 가장 적절한 것은?\n\n(A) / (B)",
+      "ch": [
+        "구매 / 수긍하다",
+        "매물 / 수긍하다",
+        "구매 / 획득하다",
+        "매물 / 획득하다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은?\n\n\"the act of paying back money that has been borrowed\"",
+      "ch": [
+        "loan",
+        "investment",
+        "repayment",
+        "interest"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "We were glad to help you with the __________ (purchasing) of your car so that you'd have transportation back and forth to your new job.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Have you \"settled into\" your new job by now, and do you still feel as __________ (enthusiasm) about it as you did at the beginning?",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect __________ of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that amount within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "extension",
+        "cancellation",
+        "forgiveness",
+        "repayment"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear Mr. Johnson,\nHave you \"settled into\" your new job by now, and do you still feel as enthusiastic about it as you did at the beginning? Of course, any job has its tiresome tasks, but all in all, from what you told us, it sounds like a good match for you. We're writing to ask when we can expect repayment of the $1,500 loan for your car. We were glad to help you with the purchase of your car so that you'd have transportation back and forth to your new job. You agreed to pay all, or at least half, of the loan by June. If you have decided that you cannot repay the total $1,500 at once, we understand. But we do need to receive at least half that __________ within the next 2 or 3 weeks. We hope you are satisfied with the car you chose. We, too, thought it was a good buy. Please let us know how things are going.\nSincerely,\nJoseph Brown\nFinancial Advisor",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "interest",
+        "penalty",
+        "amount",
+        "profit"
+      ]
+    }
+  ]
+}

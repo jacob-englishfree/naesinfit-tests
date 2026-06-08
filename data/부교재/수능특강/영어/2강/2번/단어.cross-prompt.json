@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "심경 변화 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "2강",
+    "section": "2번",
+    "histKey": "wordtest__2_2_v5"
+  },
+  "fullPassage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all <b>(A)</b>[experienced / amateur], so I couldn't understand why they were climbing so slowly — what I thought was a <b>(B)</b>[ridiculous / reasonable] pace. Having trained hard for this, I was in the best <b>(C)</b>[shape / danger] of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "amateur — ridiculous — shape",
+        "experienced — reasonable — shape",
+        "experienced — ridiculous — shape",
+        "experienced — ridiculous — danger"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my <b>(A)</b>[superior / mediocre] conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel <b>(B)</b>[dizzy / energetic]. Not long after, I was <b>(C)</b>[staggering / sprinting]. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "superior — dizzy — staggering",
+        "mediocre — dizzy — staggering",
+        "superior — energetic — staggering",
+        "superior — dizzy — sprinting"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the <b>(A)</b>[rookie / veteran], I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing <b>(B)</b>[assistance / applause] just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was <b>(C)</b>[guilt / pride] for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "rookie — applause — guilt",
+        "veteran — assistance — guilt",
+        "rookie — assistance — pride",
+        "rookie — assistance — guilt"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ①<u>ventured</u> out on a hike to 16,000 feet. The group members were all ②<u>experienced</u>, so I couldn't understand why they were climbing so slowly — what I thought was a ③<u>sensible</u> pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to ④<u>prove</u> myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so ①<u>slowly</u> — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior ②<u>conditioning</u>? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel ③<u>dizzy</u>. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was ④<u>pride</u> for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we ①<u>approached</u> 16,000 feet, I suddenly began to feel dizzy. Not long after, I was ②<u>staggering</u>. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a ③<u>blessing</u> to the group. I wished I hadn't ④<u>pushed</u> myself so hard.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "After a few nights, we __________ out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "retreated",
+        "hesitated",
+        "wandered",
+        "ventured"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the __________, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "rookie",
+        "veteran",
+        "expert",
+        "leader"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing __________ just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "encouragement",
+        "resistance",
+        "assistance",
+        "applause"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "After a few nights, we <u>ventured</u> out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "밑줄 친 <b>ventured</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "refused",
+        "dared",
+        "retreated",
+        "delayed"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to <u>prove</u> myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "밑줄 친 <b>prove</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "conceal",
+        "question",
+        "abandon",
+        "demonstrate"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was <u>guilt</u> for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "밑줄 친 <b>guilt</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "remorse",
+        "satisfaction",
+        "relief",
+        "excitement"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a <u>ridiculous</u> pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "밑줄 친 <b>ridiculous</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "foolish",
+        "absurd",
+        "sensible",
+        "laughable"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a <u>burden</u> to the group. I wished I hadn't pushed myself so hard.",
+      "stem": "밑줄 친 <b>burden</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "weight",
+        "blessing",
+        "hindrance",
+        "obstacle"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Having trained hard for this, I was in the best <u>shape</u> of my life.\n\n(B) The children cut the paper into a star <u>shape</u>.",
+      "stem": "밑줄 친 (A)와 (B)의 <b>shape</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 형태, 모양 — (B) 체력, 컨디션",
+        "(A) 체력, 컨디션 — (B) 체력, 컨디션",
+        "(A) 형태, 모양 — (B) 형태, 모양",
+        "(A) 체력, 컨디션 — (B) 형태, 모양"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어는?\n\n\"the act of helping or supporting someone\"",
+      "ch": [
+        "assistance",
+        "resistance",
+        "hindrance",
+        "absence"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was __________ (stagger). The group had to take my pack.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 (1단어) (영어로) 쓰시오."
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The group members were all __________ (experience), so I couldn't understand why they were climbing so slowly. Having trained hard for this, I was in the best shape of my life.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 (1단어) (영어로) 쓰시오."
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was guilt for becoming a burden to the group. I wished I hadn't __________.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "joined the group so late",
+        "pushed myself so hard",
+        "stayed at the hut all day",
+        "trained with the veterans"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "After a few nights, we ventured out on a hike to 16,000 feet. The group members were all experienced, so I couldn't understand why they were climbing so slowly — what I thought was a ridiculous pace. Having trained hard for this, I was in the best shape of my life. And, being the rookie, I wanted to prove myself to the group. Why not show off my superior conditioning? So up front I went. Then, as we approached 16,000 feet, I suddenly began to feel dizzy. Not long after, I was staggering. The group had to take my pack. In a matter of minutes, I became a basket case, needing assistance just to walk. On the way down to the hut, I could barely keep in a straight line because of the nausea, headache, and dizziness. Now all I felt was __________. I wished I hadn't pushed myself so hard.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "pride for leading the way ahead",
+        "guilt for becoming a burden to the group",
+        "satisfaction with my physical training",
+        "excitement about reaching the summit"
+      ]
+    }
+  ]
+}

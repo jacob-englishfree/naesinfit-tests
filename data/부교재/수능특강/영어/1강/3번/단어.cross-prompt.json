@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "글의 목적 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "1강",
+    "section": "3번",
+    "histKey": "wordtest__1_3_v5"
+  },
+  "fullPassage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding <b>(A)</b>[bouquet / invoice] from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received <b>(B)</b>[standard / premium] roses instead. Although I briefly considered filing a <b>(C)</b>[complaint / compliment] about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "bouquet — standard — complaint",
+        "invoice — standard — complaint",
+        "bouquet — premium — complaint",
+        "bouquet — standard — compliment"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to <b>(A)</b>[celebrate / mourn] our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were <b>(B)</b>[lifeless / vibrant], spotted, and browning upon arrival. This time, I believe it's only <b>(C)</b>[fair / unfair] to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "celebrate — vibrant — fair",
+        "mourn — lifeless — fair",
+        "celebrate — lifeless — unfair",
+        "celebrate — lifeless — fair"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for <b>(A)</b>[compensation / punishment] for the flowers from a year ago, but I do expect a <b>(B)</b>[refund / donation] for this order. To resolve this <b>(C)</b>[issue / celebration], I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "compensation — donation — issue",
+        "punishment — refund — issue",
+        "compensation — refund — celebration",
+        "compensation — refund — issue"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ①<u>ordered</u> my wedding bouquet from you, and my husband, Nicholas, had ②<u>promised</u> me David Austin roses. However, on my wedding day, I received ③<u>premium</u> roses instead. Although I briefly considered filing a ④<u>complaint</u> about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to ①<u>celebrate</u> our one-year wedding ②<u>anniversary</u>, my husband ordered David Austin roses from your store again. However, the flowers I received today were ③<u>lifeless</u>, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to ④<u>worsen</u> this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to ①<u>mention</u> a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on ②<u>ruining</u> my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, ③<u>spotted</u>, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would ④<u>appreciate</u> a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding __________ from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "bouquet",
+        "receipt",
+        "diploma",
+        "uniform"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon __________. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "departure",
+        "delivery",
+        "arrival",
+        "purchase"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for __________ for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "competition",
+        "compensation",
+        "celebration",
+        "combination"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I <u>briefly</u> considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 <u>briefly</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "permanently",
+        "momentarily",
+        "thoroughly",
+        "extensively"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to <u>resolve</u> this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 <u>resolve</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "complicate",
+        "worsen",
+        "ignore",
+        "settle"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would <u>appreciate</u> a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 <u>appreciate</u>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "despise",
+        "reject",
+        "value",
+        "neglect"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were <u>lifeless</u>, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 <u>lifeless</u>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "vibrant",
+        "faded",
+        "wilted",
+        "dried"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for <u>compensation</u> for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 밑줄 친 <u>compensation</u>과 의미가 가장 반대인 것은?",
+      "ch": [
+        "reimbursement",
+        "penalty",
+        "reparation",
+        "indemnity"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) I believe it's only <u>fair</u> to ask you to take action to resolve this matter.\n\n(B) We visited a local craft <u>fair</u> and bought handmade jewelry.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 fair의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 공정한 — (B) 박람회",
+        "(A) 아름다운 — (B) 시장",
+        "(A) 상당한 — (B) 맑은",
+        "(A) 공정한 — (B) 맑은"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은?\n\n\"the act of returning money to a buyer for a product or service they are not satisfied with\"",
+      "ch": [
+        "invoice",
+        "deposit",
+        "penalty",
+        "refund"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Although I briefly considered __________ (file) a complaint about the mistake, I chose to focus on enjoying my special day.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "However, the flowers I __________ (receive) today were lifeless, spotted, and browning upon arrival.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my __________ day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take action to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "ordinary",
+        "special",
+        "terrible",
+        "boring"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "To whom it may concern,\nBefore I get to my main point, I'd like to mention a past experience with your store. A year ago, I ordered my wedding bouquet from you, and my husband, Nicholas, had promised me David Austin roses. However, on my wedding day, I received standard roses instead. Although I briefly considered filing a complaint about the mistake, I chose to focus on enjoying my special day. Yesterday, to celebrate our one-year wedding anniversary, my husband ordered David Austin roses from your store again. However, the flowers I received today were lifeless, spotted, and browning upon arrival. This time, I believe it's only fair to ask you to take __________ to resolve this matter. I am not asking for compensation for the flowers from a year ago, but I do expect a refund for this order. To resolve this issue, I would appreciate a full refund. I look forward to your response.\nSincerely,\nCheryl",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "action",
+        "vacation",
+        "credit",
+        "notice"
+      ]
+    }
+  ]
+}

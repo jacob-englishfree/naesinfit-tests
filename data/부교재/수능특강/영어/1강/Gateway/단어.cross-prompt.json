@@ -1,0 +1,292 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "글의 목적 파악",
+    "subject": "수능특강",
+    "pub": "영어",
+    "lesson": "1강",
+    "section": "Gateway",
+    "histKey": "wordtest__1_gateway_v5"
+  },
+  "fullPassage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been <b>(A)</b>[requests / refusals] for more diverse school clubs. For this reason, the school decided to <b>(B)</b>[expand / reduce] the number of clubs for extracurricular activities. This provides students with an <b>(C)</b>[opportunity / obligation] to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "requests — expand — opportunity",
+        "requests — expand — obligation",
+        "refusals — expand — opportunity",
+        "requests — reduce — opportunity"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various <b>(A)</b>[interests / duties], such as hip-hop, K-pop dancing, or coding. Therefore, I am <b>(B)</b>[encouraging / discouraging] you to submit a <b>(C)</b>[proposal / complaint] for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "interests — encouraging — complaint",
+        "interests — discouraging — proposal",
+        "duties — encouraging — proposal",
+        "interests — encouraging — proposal"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more <b>(A)</b>[diverse / uniform] school clubs. For this reason, the school decided to expand the number of clubs for <b>(B)</b>[extracurricular / mandatory] activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to <b>(C)</b>[submit / withdraw] a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "diverse — mandatory — submit",
+        "diverse — extracurricular — submit",
+        "diverse — extracurricular — withdraw",
+        "uniform — extracurricular — submit"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am ①<u>discouraging</u> you to ②<u>submit</u> a proposal for a new club that you would like to ③<u>create</u>. Please turn this in to my office by the end of this week. I look forward to seeing your ④<u>great</u> ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more ①<u>diverse</u> school clubs. For this reason, the school decided to ②<u>expand</u> the number of clubs for extracurricular activities. This provides students with an opportunity to make ③<u>fewer</u> clubs. Students can make any type of club based on their various ④<u>interests</u>, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club ①<u>director</u>, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school ②<u>hesitated</u> to expand the number of clubs for extracurricular activities. This provides students with an ③<u>opportunity</u> to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a ④<u>proposal</u> for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to __________ the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "restrict",
+        "evaluate",
+        "advertise",
+        "expand"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a __________ for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "proposal",
+        "resignation",
+        "invoice",
+        "certificate"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for __________ activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "compulsory",
+        "disciplinary",
+        "extracurricular",
+        "remedial"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more <u>diverse</u> school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 diverse와 의미가 가장 가까운 것은?",
+      "ch": [
+        "identical",
+        "various",
+        "scarce",
+        "rigid"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am <u>encouraging</u> you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 encouraging과 의미가 가장 가까운 것은?",
+      "ch": [
+        "prohibiting",
+        "neglecting",
+        "opposing",
+        "urging"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to <u>expand</u> the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 expand와 의미가 가장 가까운 것은?",
+      "ch": [
+        "increase",
+        "diminish",
+        "maintain",
+        "abandon"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make <u>additional</u> clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 additional과 의미가 가장 반대인 것은?",
+      "ch": [
+        "extra",
+        "supplementary",
+        "fewer",
+        "further"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to <u>submit</u> a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 밑줄 친 submit과 의미가 가장 반대인 것은?",
+      "ch": [
+        "present",
+        "withdraw",
+        "deliver",
+        "forward"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The police officer used a <u>club</u> to break through the locked door during the emergency rescue operation.\n\n(B) I am Amanda Clark, the school <u>club</u> director, and I am writing to you about our school clubs.",
+      "stem": "(A)와 (B)의 밑줄 친 <b>club</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 동아리  (B) 곤봉",
+        "(A) 골프채  (B) 나이트클럽",
+        "(A) 곤봉  (B) 동아리",
+        "(A) 나이트클럽  (B) 골프채"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은?\n\n\"a formal plan or suggestion put forward for consideration\"",
+      "ch": [
+        "complaint",
+        "semester",
+        "interest",
+        "proposal"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "For this reason, the school decided to __________ (expansion) the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs.",
+      "stem": "다음 괄호 안의 단어를 문맥에 맞게 변형하시오. (1단어) (영어로)\n\nThe school decided to __________ (expansion) the number of clubs for extracurricular activities."
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Over the last few semesters, there have been requests for more __________ (diversity) school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities.",
+      "stem": "다음 괄호 안의 단어를 문맥에 맞게 변형하시오. (1단어) (영어로)\n\nThere have been requests for more __________ (diversity) school clubs."
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an __________ to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am encouraging you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "penalty",
+        "opportunity",
+        "obstacle",
+        "exemption"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Dear students,\nI am Amanda Clark, the school club director, and I am writing to you about our school clubs. Over the last few semesters, there have been requests for more diverse school clubs. For this reason, the school decided to expand the number of clubs for extracurricular activities. This provides students with an opportunity to make additional clubs. Students can make any type of club based on their various interests, such as hip-hop, K-pop dancing, or coding. Therefore, I am __________ you to submit a proposal for a new club that you would like to create. Please turn this in to my office by the end of this week. I look forward to seeing your great ideas.\nBest regards,\nAmanda Clark",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "forbidding",
+        "preventing",
+        "encouraging",
+        "punishing"
+      ]
+    }
+  ]
+}
