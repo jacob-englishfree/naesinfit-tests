@@ -1,0 +1,49 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/3번/워크북.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 7,
+      "severity": "low",
+      "code": "C7-OBVIOUS",
+      "description": "T/F 문항에서 진술이 본문 첫 문장과 한국어 직역 수준. 학생이 본문 읽지 않고 '상식'으로도 T를 고를 수 있음. 쉬움(4점) 배점으로 허용 범위 내이나, 학습 목적 관점에서는 패러프레이즈가 더 효과적.",
+      "field": "stem",
+      "suggestion": "허용 가능 — 쉬움 배점(4점)으로 적절한 난이도. 변경 불요."
+    },
+    {
+      "id": 14,
+      "severity": "low",
+      "code": "PASSAGE-CONDENSED",
+      "description": "오류찾기 passage가 4문장 요약문. fullPassage 통째가 아닌 paraphrase 발췌본. 부교재 S-PASSAGE-NOT-FULL 규칙 대상이나, 오류찾기 유형은 '4~5문장(번호 마커 포함)' 규칙이 별도 적용되어 예외 처리 가능. 단, ④번 오류 문장이 'more satisfied'로 반대 서술 — 학생이 쉽게 판별 가능한 수준.",
+      "field": "passage",
+      "suggestion": "오류찾기 특수 규칙(4~5문장) 적용으로 S-PASSAGE-NOT-FULL 예외 허용. 이슈 없음."
+    },
+    {
+      "id": 15,
+      "severity": "medium",
+      "code": "S-WA-IN-PASSAGE",
+      "description": "서술형(찾기 유형) id=15: wa='satisfactory salad vegetable'이 passage에 'previously __________'으로 빈칸 처리되어 있어 정답이 passage에 직접 노출되지 않음. 그러나 stem에 '이전에 만족스럽게 여겼던 것을 나타내는 영어 구절을 쓰시오'라고 명시되어 있어, 학생이 fullPassage의 다른 위치('the previously satisfactory salad vegetable at its handler' 원문)를 참조할 수 없는 상황. passage에서 빈칸 처리된 자리가 곧 정답 위치이므로 찾기형이 아닌 빈칸형에 가까움. type은 '서술형'으로 되어 있어 '서술형 — 찾기' 아님. stem에 '본문에서 찾아 쓰시오'가 없어서 찾기형 예외(S-WA-IN-PASSAGE 면제) 적용 불명확.",
+      "field": "type/stem",
+      "suggestion": "MEDIUM — stem에 '본문에서 찾아 쓰시오' 문구 추가하거나, type을 '서술형 — 핵심단어'로 변경 권고. 또는 passage에서 빈칸 제거하고 fullPassage 통째로 제공 후 찾기형으로 명시."
+    },
+    {
+      "id": 18,
+      "severity": "low",
+      "code": "C7-PREFIX-OBVIOUS",
+      "description": "주제 선지 ③'절대적 부의 축적이 행복에 미치는 긍정적 영향'은 본문의 'not on absolute wealth'와 정면으로 배치되어 소거가 너무 쉬움. 또한 ②'급여 투명성이 직장 만족에 미치는 영향'은 부분적으로 맞는 내용처럼 보여 혼동 유발 가능성이 있으나, 최종 정답 ④로의 수렴은 명확함.",
+      "field": "ch",
+      "suggestion": "쉬움(4점) 배점 내 허용 가능. 단, ③ 선지가 너무 뻔한 오답(본문이 반대임을 명시)이므로 사실상 3지선다 수준. 개선 여지 있으나 워크북 기준으로는 통과."
+    },
+    {
+      "id": 20,
+      "severity": "low",
+      "code": "S-WA-IN-PASSAGE-CHECK",
+      "description": "조건영작 id=20: wa='the resulting inequality brought only discontent'. passage에 빈칸 처리가 되어 있어 원문이 직접 보이지 않음. 조건에 6단어 전부 나열되어 있고 어순만 맞추면 됨. 조건과 wa가 1:1 대응으로 단어 배열 문제에 가까움. 단, 6단어로 완성하는 과정에서 어순 판단이 필요하므로 서술형 — 조건영작으로는 적절.",
+      "field": "stem",
+      "suggestion": "허용 가능 — 조건영작 기준 충족. 단어 순서 배열이 핵심 학습 포인트임."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 0,
+  "summary": "HIGH 이슈 없음. MEDIUM 1건(id=15 서술형 type 모호성). LOW 4건(id=7, 14, 18, 20 — 난이도/선지/passage 관련 개선 제안). id=15는 '서술형'으로 type이 설정되어 있으나 실제 동작은 빈칸 찾기형에 가까워 stem에 '본문에서 찾아 쓰시오' 문구 보강 또는 type 명시화 권고. 전반적으로 20문항 구조, 배점(100점), 어법/어휘/T-F/빈칸/내용일치/서술형 유형 분포 적절. ans와 det 정합성 이상 없음. 배포 가능 수준이나 id=15 stem 보강 후 배포 권장."
+}

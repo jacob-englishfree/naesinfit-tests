@@ -1,0 +1,65 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/Analysis/단어.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 1,
+      "qId": 14,
+      "severity": "RESOLVED",
+      "type": "S-ANTI-CHEESE-GATE",
+      "detail": "[해결됨] Q14 오답에 'simple'(단순한) 추가하여 소거법 차단. 현재 선지: effortless/simple/demanding/rigorous. effortless(수월한)와 simple(단순한)은 의미축이 달라 학생이 문맥에서 판단해야 함."
+    },
+    {
+      "id": 2,
+      "qId": 2,
+      "severity": "DISMISSED",
+      "type": "C6: 정답이 passage에 노출 (false positive)",
+      "detail": "[기각] ABC 포맷은 원래 [정답/오답] 두 단어를 bracket 안에 보여주고 학생이 문맥으로 선택하는 유형. passage에 원문 단어가 bracket 안에 표시되는 것은 정상 동작. 'failed'는 bracket 밖에 노출되지 않음."
+    },
+    {
+      "id": 3,
+      "qId": 1,
+      "severity": "MEDIUM",
+      "type": "S-PREFIX-DOMINANT (구조 암시)",
+      "detail": "Q1 (A)(B)(C) 조합형. 4개 선지 중 3개(①③④)가 'reluctant'를 포함한다(①reluctant—coach—mediocre, ③reluctant—mislead—mediocre, ④reluctant—coach—outstanding). 학생이 선지 패턴을 보면 'reluctant가 3번 등장 → (A)는 reluctant'라고 추론할 수 있다. (A) 자리를 다양하게 만들거나 eager가 포함된 선지 수를 늘려 패턴 노출을 줄일 것. EX-3 validate 경고도 이미 발생 중."
+    },
+    {
+      "id": 4,
+      "qId": 8,
+      "severity": "MEDIUM",
+      "type": "정답 2개 가능성",
+      "detail": "Q8 빈칸 어휘 완성. 빈칸: 'people who lack their __________'. 오답 ①ambition(야망)과 정답 ④motivation(동기)은 의미적으로 매우 유사하여 'lack their ambition'도 문맥상 자연스럽다. det.analysis에서 이를 'motivation과 유사하나 원문은 motivation'이라고 스스로 인정하고 있다. 원문 일치 여부만으로 차별화하는 것은 의미 학습이 아닌 암기 테스트가 된다. 오답 ①을 의미적으로 더 명확히 부적합한 단어(예: intelligence, talent)로 교체 권장."
+    },
+    {
+      "id": 5,
+      "qId": 13,
+      "severity": "MEDIUM",
+      "type": "S-ANTI-CHEESE-GATE (경계)",
+      "detail": "Q13 반의어 고르기(mediocre 반의어). 오답 3개(average/ordinary/decent)가 모두 mediocre와 유사하거나 같은 방향의 단어다. S-ANTI-CHEESE-GATE 기준에 정확히 해당한다. outstanding만 반대 방향이라 단어 지식 없이도 소거법으로 풀린다. Q14와 동일한 구조적 문제. 오답 중 최소 1개를 'remarkable', 'exceptional' 등 outstanding과 의미 중복되는 단어로 교체해 학생이 passage에서 문맥적 단서를 찾도록 유도할 것."
+    },
+    {
+      "id": 6,
+      "qId": 7,
+      "severity": "MEDIUM",
+      "type": "오답 소거 자명 (unwilling 단서)",
+      "detail": "Q7 빈칸 어휘 완성. 빈칸 자리 같은 문장 안에 'and they're unwilling to change themselves'가 있다. 선지 ③willing이 이 'unwilling'을 보고 바로 소거된다. 또한 unwilling이 reluctant의 동의어이므로 학생이 문맥 추론 없이 unwilling → reluctant 연결이 가능하다. 빈칸 위치가 정답 단서를 같은 문장에 갖는 구조이므로 쉬움 배점에서는 허용 가능하나, willing 선지는 설계상 단서가 과도하다."
+    },
+    {
+      "id": 7,
+      "qId": 4,
+      "severity": "LOW",
+      "type": "validate P2 경고 + 오답 자명",
+      "detail": "Q4 문맥상 부적절한 어휘. validate P2: passage 앞부분이 fullPassage에 없다는 경고가 발생 중 — 원문 대조 필요. 또한 'neglect or coach people'이라는 표현은 논리적으로 너무 자명하게 이상해 passage를 읽지 않아도 ③이 정답임을 알 수 있다. 쉬움(4점)이므로 배점상 허용 범위이나, neglect보다 passage 읽어야만 판단 가능한 단어(예: demotivate, distract)로 교체하면 품질 개선 가능."
+    },
+    {
+      "id": 8,
+      "qId": 19,
+      "severity": "LOW",
+      "type": "오답 소거 과다",
+      "detail": "Q19 빈칸 문맥 완성. 'how to __________ people who lack their motivation'. 오답 3개(compete with/agree with/keep up with)가 'people'을 목적어로 취했을 때 맥락상 너무 어색해 단어 지식 없이도 바로 소거된다. deal with만 '~을 다루다' 의미로 자연스럽다. 보통(5점)치고 소거가 쉬운 편. 오답 선지를 'cope with', 'engage with', 'connect with' 등 문맥상 어느 정도 그럴듯한 표현으로 교체하면 변별력이 높아진다."
+    }
+  ],
+  "totalIssues": 8,
+  "highCount": 0,
+  "summary": "HIGH 0건 (2건 해결: Q14 오답 재설계 완료, Q2 ABC포맷 false positive 기각). 원래 Q14(S-ANTI-CHEESE-GATE — 반의어 오답 3개 모두 difficult 유사어, passage 없이 소거 100%), Q2(C6 — (C) 빈칸 정답 'failed'가 passage 동일 문장 구조에 그대로 노출). MEDIUM 4건: Q1(reluctant 선지 3개 중복 → 구조 암시), Q8(ambition vs motivation 구분 불명확 → 정답 2개 가능성), Q13(S-ANTI-CHEESE-GATE 경계 — mediocre 유사어 3개), Q7(unwilling 단서 동일 문장 노출). LOW 2건: Q4(validate P2 경고 + neglect 자명), Q19(오답 선지 소거 과다). 배포 전 HIGH 2건 수정 필수: Q14 오답 재설계, Q2 (C) 빈칸 위치 변경."
+}

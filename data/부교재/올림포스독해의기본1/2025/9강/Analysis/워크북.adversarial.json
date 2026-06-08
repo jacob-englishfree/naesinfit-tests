@@ -1,0 +1,25 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/Analysis/워크북.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "code": "S-WORDCOUNT-MISMATCH-ACCEPT",
+      "description": "stem에 '3단어'라고 명시되어 있으나 accept 배열에 'previous success'(2단어) 포함. 채점 시 2단어 답안도 정답 처리되어 단어 수 조건이 무의미해짐.",
+      "location": "accept[1]: 'previous success'",
+      "suggestion": "accept에서 'previous success' 제거. wa='their previous success'(3단어)만 유지. 또는 stem 조건을 '2~3단어'로 수정."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "code": "S-WORDCOUNT-MISMATCH-ACCEPT",
+      "description": "stem에 '6단어'라고 명시되어 있으나 accept 배열에 'they never needed much coaching'(5단어) 포함. 의미상 축약이나 단어 수 조건과 불일치.",
+      "location": "accept[1]: 'they never needed much coaching'",
+      "suggestion": "accept에서 5단어 버전 제거. wa='they never needed much coaching themselves'(6단어)만 유지. 단어 수 조건 있을 때 accept는 같은 단어 수 변형만 허용."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 0,
+  "summary": "전체 20문항 중 HIGH 이슈 없음. MEDIUM 1건(Q16 accept 단어수 불일치), LOW 1건(Q15 accept 단어수 불일치). 어법 4문항/어휘 2문항/T-F 3문항/빈칸 2문항/일치·불일치 2문항/오류찾기 1문항/서술형 3문항/주제요지 2문항/조건영작 1문항 — 구조적 오류, 정답 모호성, passage 노출, 마커 오류 없음. accept 단어수 정합성 2건 수정 권고."
+}

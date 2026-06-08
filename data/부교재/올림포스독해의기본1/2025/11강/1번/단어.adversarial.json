@@ -1,0 +1,54 @@
+{
+  "file": "data/부교재/올림포스독해의기본1/2025/11강/1번/단어.json",
+  "attacker": "opus-4.6",
+  "timestamp": "2026-06-08T02:12:00.000Z",
+  "attacks": [
+    {
+      "id": "ADV-01",
+      "targetQ": [1, 2, 3],
+      "type": "정답노출",
+      "severity": "LOW",
+      "description": "ABC 조합형에서 정답 단어가 fullPassage 다른 곳에도 등장하나, ABC 유형 특성상 (A)(B)(C) 마커 위치의 단어 쌍에서 선택하는 것이므로 문제 풀이에 실질적 영향 없음. 짧은 지문이라 불가피.",
+      "resolution": "허용 — 짧은 지문(8문장)에서 ABC 조합형은 구조적으로 정답 단어가 다른 곳에 노출될 수밖에 없음."
+    },
+    {
+      "id": "ADV-02",
+      "targetQ": [7, 8, 9],
+      "type": "오답질",
+      "severity": "LOW",
+      "description": "빈칸 어휘 완성 오답 3개가 fullPassage에 없는 단어(minutes, months, centuries 등). 단어 테스트에서 문맥 추론 기반이므로 본문 외 단어를 오답으로 사용하는 것은 정상.",
+      "resolution": "허용 — 단어 테스트 빈칸형은 의미 추론이 핵심. 오답이 본문에 없어도 같은 품사/범주의 합리적 교란자."
+    },
+    {
+      "id": "ADV-03",
+      "targetQ": [15],
+      "type": "다의어정답모호성",
+      "severity": "LOW",
+      "description": "Q15 다의어 (B) 'heart was sound'에서 ①'건강한'과 ③'건전한'이 유사. 그러나 ①은 (A)가 '소리를 내다'로 부정확하므로 ③만 정답 가능.",
+      "resolution": "허용 — 선지 조합으로 유일한 정답 도출 가능. (A) 의미가 결정적 구분자."
+    },
+    {
+      "id": "ADV-04",
+      "targetQ": [18],
+      "type": "어형변환난이도",
+      "severity": "LOW",
+      "description": "Q18에서 pessimism → pessimistic 변환. 어형변환에서 자동풀이기가 pessimists로 오답을 냈으나, 문법적으로 관사A + 명사stance 사이에 형용사가 와야 하는 것은 명확.",
+      "resolution": "허용 — 문법 규칙(관사+형용사+명사)로 정답이 유일하게 결정됨. 어려움 난이도에 적합."
+    },
+    {
+      "id": "ADV-05",
+      "targetQ": [19, 20],
+      "type": "오답질",
+      "severity": "LOW",
+      "description": "빈칸 문맥 완성 오답이 fullPassage에 없는 관용구. 문맥 완성형은 구/표현 단위로 출제하므로 본문 외 관용구를 오답으로 사용하는 것은 유형 특성.",
+      "resolution": "허용 — 빈칸 문맥 완성은 표현 단위 추론. 오답은 유사 구조의 다른 관용구로 적절한 교란자."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "totalIssues": 5,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능."
+  }
+}

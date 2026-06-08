@@ -1,0 +1,30 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/10강/전체/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionId": 8,
+      "description": "Q8 memorabilia: 오답 3개(accessories, monuments, instruments)가 fullPassage에 없음. 본문 단어 활용 권장이나 열거 마지막 단어라 추론 가능하므로 LOW.",
+      "resolution": "허용 — 문맥상 pets/dolls/cars 다음 열거이므로 추론 가능"
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionId": 7,
+      "description": "Q7 reassured: 오답 3개(overwhelmed, neglected, confused)가 fullPassage에 없음. 단어 테스트 특성상 허용.",
+      "resolution": "허용 — 빈칸 앞 comforted와 병렬이므로 문맥 추론 충분"
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionId": 15,
+      "description": "Q15 다의어 passage가 fullPassage 원문이 아닌 AI 작성. 규칙상 다의어는 AI 작성 허용.",
+      "resolution": "규칙 내 허용 — 다의어는 (A)(B) 미니문장 직접 작성"
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 3건 모두 규칙 내 허용."
+}

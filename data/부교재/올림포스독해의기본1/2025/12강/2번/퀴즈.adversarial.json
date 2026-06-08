@@ -1,0 +1,22 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-08",
+  "method": "adversarial",
+  "checks": [
+    { "rule": "S-LENGTH-BIAS", "result": "PASS", "note": "정답 길이 편향 없음" },
+    { "rule": "S-PREFIX-DOMINANT", "result": "PASS", "note": "동일 접두사 3개+ 없음" },
+    { "rule": "S-META-CHOICE", "result": "PASS", "note": "선지에 메타서술 없음" },
+    { "rule": "S-ANTI-CHEESE-GATE", "result": "PASS", "note": "passage 없이 풀리는 문항 없음" },
+    { "rule": "S-ANTONYM-PREFIX", "result": "PASS", "note": "접두사 반의어 없음 (compelled/allowed는 의미적 반의어)" },
+    { "rule": "ANS-DISTRIBUTION", "result": "PASS", "note": "{1:3,2:3,3:5,4:4} 최대5 이내" },
+    { "rule": "ANS-CONSECUTIVE", "result": "PASS", "note": "최대 연속 2개(Q5-Q6=4)" },
+    { "rule": "WRITTEN-WORDCOUNT", "result": "PASS", "note": "Q16(10=10),Q17(7=7),Q18(7=7),Q19(8=8),Q20(8=8)" },
+    { "rule": "WRITTEN-COND-MATCH", "result": "PASS", "note": "Q19,Q20 조건단어 전부 wa에 포함" },
+    { "rule": "WA-IN-PASSAGE", "result": "PASS", "note": "Q19 passage에 빈칸 처리됨, Q20도 빈칸 처리됨" }
+  ],
+  "summary": {
+    "sGrade": 0,
+    "issues": [],
+    "verdict": "PASS"
+  }
+}

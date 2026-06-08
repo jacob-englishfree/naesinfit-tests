@@ -1,0 +1,54 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/Analysis/퀴즈.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": "ADV-Q16-WA-MISMATCH",
+      "questionId": 16,
+      "severity": "RESOLVED",
+      "rule": "S-WORDCOUNT-MISMATCH",
+      "description": "stem에는 '(9단어)'라고 명시되어 있으나 wa는 'the attitudes and practices they think produced their success' = 8단어. 단어 수 불일치.",
+      "detail": "wa 실제 단어 수 확인: the(1) attitudes(2) and(3) practices(4) they(5) think(6) produced(7) their(8) success(9) — 사실 9단어로 일치. 단, det.analysis에서는 'their success를 1단어로 세면 8단어'라고 모호하게 설명. det.analysis의 단어 수 설명이 부정확하여 혼동 가능. det 수정 권장.",
+      "fix": "det.analysis에서 'their success를 1단어로 세면'이라는 모호한 표현 제거. 'the(1) attitudes(2) and(3) practices(4) they(5) think(6) produced(7) their(8) success(9) = 9단어'로 명확히 수정."
+    },
+    {
+      "id": "ADV-Q17-PASSAGE-BLANK",
+      "questionId": 17,
+      "severity": "MEDIUM",
+      "rule": "S-WA-IN-PASSAGE 경계",
+      "description": "passage 빈칸 뒤에 'they think produced their success thus far'가 바로 이어져, 빈칸 근처에 wa 핵심 단어(attitudes, practices)가 나오지 않지만 문장 구조상 reluctant to give up의 목적어 자리임이 바로 드러남. 문법적으로 빈칸 유추가 너무 용이할 수 있음.",
+      "detail": "빈칸 위치: 'stars are understandably __ they think produced their success'. 빈칸 바로 뒤 'they think produced'가 관계사절이므로 앞에 명사구(목적어)가 오는 구조임을 문법 지식만으로 파악 가능. 의미 추론보다 문법 단서에 의존하는 문제가 될 수 있음.",
+      "fix": "퀴즈(내신예상문제) 난이도 기준에 맞게 빈칸 위치나 stem의 힌트를 조정 검토. 현재 수준에서는 허용 범위로 판단하나 jacob 최종 확인 권장."
+    },
+    {
+      "id": "ADV-Q9-Q10-TYPE-OVERLAP",
+      "questionId": 9,
+      "severity": "LOW",
+      "rule": "유형 중복 (내용 불일치 2문항)",
+      "description": "Q9, Q10 모두 '내용과 일치하지 않는 것은?' 유형. Q9 정답=④(더 높은 성과), Q10 정답=③(성찰 연습 풍부). 두 문항의 오답 선지들이 같은 본문 정보를 교차하여 재사용. 학생이 Q9 풀면서 Q10 오답 선지의 정보를 이미 습득할 수 있어 Q10 변별력 감소.",
+      "detail": "Q9 ①=동기부족 어려움, ②=코칭 부재, ③=실패→성찰 부정적. Q10 ①=높은성과→전환어려움, ②=성공방식고수, ④=성공→불리. 두 문항이 같은 지문의 정보를 나눠서 출제하여 앞 문항이 뒤 문항의 학습 힌트가 됨.",
+      "fix": "허용 범위 내이나 배치 순서 조정(사이에 다른 유형 배치)을 통해 힌트 효과 최소화 권장."
+    },
+    {
+      "id": "ADV-Q14-THEY-CAPITALIED",
+      "questionId": 14,
+      "severity": "LOW",
+      "rule": "지칭 명확성",
+      "description": "passage에서 'They'가 대문자로 시작하지만 문장 중간에 위치('practices <u>They</u> think'). 이는 문장 중간이므로 문법적으로 대문자 They가 어색함. 원문 확인 필요.",
+      "detail": "fullPassage 원문에는 'the attitudes and practices they think produced'로 소문자 they. passage에서 밑줄 표시를 위해 대문자 They로 표기한 것으로 추정되나, 원문 대비 대소문자 변형은 passage 무단 변형 규칙 위반 가능성.",
+      "fix": "원문 확인 후 passage의 'They'를 소문자 'they'로 수정하되 <u>they</u>로 밑줄 표기. 또는 stem에서 'They'를 'they'로 통일."
+    },
+    {
+      "id": "ADV-Q11-Q12-OVERLAP",
+      "questionId": 11,
+      "severity": "LOW",
+      "rule": "주제/요지 유형 중복 변별력",
+      "description": "Q11(주제), Q12(요지) 두 문항이 사실상 같은 글의 주제/핵심을 묻는 유형으로 정답 방향이 동일. Q11 정답②와 Q12 정답①이 표현만 다를 뿐 같은 내용. 연속 출제 시 한 문항 풀면 다른 문항이 더 쉬워지는 힌트 효과.",
+      "detail": "Q11 ②: 'challenges former high performers face when becoming managers' / Q12 ①: 'Past success as an individual performer can become an obstacle when transitioning to a management role' — 같은 핵심 메시지. 연속 배치되어 있어 힌트 효과 직접적.",
+      "fix": "Q11과 Q12 사이에 다른 유형 문항 배치하거나, 두 유형 중 하나를 다른 유형으로 대체 검토."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 1,
+  "summary": "HIGH 1건(Q16 det.analysis 단어수 설명 오류), MEDIUM 1건(Q17 빈칸 문법 단서 과다), LOW 3건(Q9-Q10 불일치유형 연속, Q14 They 대문자, Q11-Q12 주제/요지 연속 힌트). 실질적 배포 차단 수준의 S급 오류는 없음. Q16 det 단어수 설명 수정 권장. Q14 대문자 They → they 원문 확인 후 수정 필요."
+}

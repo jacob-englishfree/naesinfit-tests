@@ -1,0 +1,40 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-08",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "issue": "ABC 조합형에서 정답 단어가 원문에 이미 노출되어 있어 선지 비교 없이 유추 가능. 단어 테스트 특성상 원문 단어 확인이 목적이므로 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-2",
+      "severity": "LOW",
+      "questionIds": [8],
+      "issue": "Q8 빈칸 정답 structure가 같은 문장 뒤에 'that structure'로 다시 등장. 단어 테스트 수준에서는 문맥 단서로 허용 범위.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-3",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9],
+      "issue": "빈칸 어휘 오답이 fullPassage 외부 단어. 단어 테스트 특성상 같은 품사 동의어/반의어 활용이 적절하므로 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-4",
+      "severity": "LOW",
+      "questionIds": [15],
+      "issue": "다의어 Q15의 (B) 문장이 원문 외 생성 문장. 다의어 유형 규칙상 AI가 직접 작성하므로 정상.",
+      "action": "ACCEPT"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "total": 4
+  }
+}

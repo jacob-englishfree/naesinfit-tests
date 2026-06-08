@@ -1,0 +1,26 @@
+{
+  "_meta": "적대적 공격 검수 — 정답 2개 가능/선지 뻔함/정답 노출 등 점검",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-08",
+  "issues": [],
+  "checks": [
+    {"check": "정답 2개 가능성", "result": "PASS", "detail": "20문항 모두 정답 1개만 성립"},
+    {"check": "선지 뻔함 (C7)", "result": "PASS", "detail": "모든 오답이 문맥적으로 그럴듯함"},
+    {"check": "정답 노출 (C6)", "result": "PASS", "detail": "빈칸/영작 문항에서 정답이 passage 다른 곳에 직접 노출 없음. Q15(defer), Q16(two), Q17(snap decisions)는 찾기형이라 passage 노출 OK"},
+    {"check": "S-META-LEAK", "result": "PASS", "detail": "메타텍스트 노출 0건"},
+    {"check": "S-PREFIX-DOMINANT", "result": "PASS", "detail": "동일 prefix 3개+ 없음"},
+    {"check": "S-LENGTH-BIAS", "result": "PASS", "detail": "정답 길이 편향 없음"},
+    {"check": "S-ANTI-CHEESE-GATE", "result": "PASS", "detail": "passage 없이 풀리는 문항 없음"},
+    {"check": "cross-leak with 단어.json", "result": "PASS", "detail": "단어.json과 동일 wa/overlay 없음. 단어: disagreements/viewpoints/consideration/emerge 등 vs 워크북: defer/two/snap decisions/seek them out/good ideas about the project/play the lead role in resolving differences"},
+    {"check": "마커 분산", "result": "PASS", "detail": "어법/어휘 마커가 fullPassage 전체에 분산 배치됨"},
+    {"check": "조건영작 단어수 vs wa", "result": "PASS", "detail": "Q20: 조건 7단어 = wa 7단어 (동일). stem에 (7단어) 명시"},
+    {"check": "서술형 stem (N단어) 명시", "result": "PASS", "detail": "Q15(1단어), Q16(1단어), Q17(2단어), Q20(7단어) 모두 명시"},
+    {"check": "TF 패러프레이즈", "result": "PASS", "detail": "Q7/Q8/Q9 모두 직역 아닌 패러프레이즈 사용"}
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "totalIssues": 0
+  }
+}

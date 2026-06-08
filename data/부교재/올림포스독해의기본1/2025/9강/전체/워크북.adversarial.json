@@ -1,0 +1,49 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/전체/워크북.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "code": "S-ANTI-CHEESE-GATE (전체 합본 특성상 허용)",
+      "description": "주제 문항(Q18)의 4개 지문이 서로 완전히 다른 주제(관리자 전환/경제 희소성/유전 다양성/상대적 부)를 다루고 있어 '종합 주제'가 억지스럽다. ①②③번 선지가 각각 P1/P2/P3의 부분 주제를 정확히 기술하므로 학생이 '나머지 지문도 다룬 선지'라는 소거법으로 ④를 고르게 된다. passage 없이도 선지 길이와 포괄성만으로 풀릴 위험 있음.",
+      "location": "Q18 ch[3]: 인간 행동에서의 선택, 적응, 그리고 상대적 비교의 영향",
+      "recommendation": "4개 지문의 공통 핵심(역설적 결과/기대와 다른 결과)을 더 명확히 드러내는 방향으로 선지 재구성 권장. 또는 Q19 요지 문항과 차별화 강화 필요."
+    },
+    {
+      "id": 10,
+      "severity": "MEDIUM",
+      "code": "S-DISTRACTOR-WEAK",
+      "description": "빈칸 Q10에서 'reluctant to hold on to'도 문법상 가능하고, reluctant의 의미(~하기를 꺼리다)와 결합 시 '유지하기를 꺼린다'는 의미가 되어 '성공적인 태도를 유지하지 않는다'로 해석될 수 있음. ①hold on to가 뻔한 오답이 아닐 가능성 있음. 단, 원문 맥락(they're unwilling to change = 변화를 원하지 않음)에서 give up이 명확히 맞으므로 치명적 문제는 아님.",
+      "location": "Q10 ch[0]: hold on to",
+      "recommendation": "①hold on to 오답 해설에 왜 틀린지 명확한 근거 추가. 현재 det.analysis에 '문맥 모순'으로 처리되어 있어 학생에게 설명 부족."
+    },
+    {
+      "id": 15,
+      "severity": "MEDIUM",
+      "code": "S-WA-IN-PASSAGE",
+      "description": "Q15 서술형: wa = 'they never needed much coaching themselves'. passage에 이 문장이 '____' 빈칸으로 처리되어 있어 직접 노출은 아님. 단, 빈칸 바로 앞뒤 문맥이 매우 명확하여(They don't know how to develop or coach people because ____, or so they believe) 학생이 추론 없이 앞뒤 문맥에서 쉽게 채울 수 있음. '찾기 유형'에 해당하므로 S-WA-IN-PASSAGE 예외이나, stem에 '본문에서 찾아 쓰시오' 명시가 없음.",
+      "location": "Q15 stem: 위 글의 빈칸에 들어갈 ... 쓰시오",
+      "recommendation": "stem에 '본문에서 찾아 쓰시오' 문구 추가 필요. 현재 stem만으로는 '본문 찾기' 유형인지 '영작' 유형인지 불명확."
+    },
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "code": "Q18-Q19-OVERLAP",
+      "description": "Q18(주제)과 Q19(요지)가 같은 4개 지문에 대해 묻고 있어 정답 도출 논리가 매우 유사함. Q18 ④와 Q19 ①이 사실상 같은 내용의 다른 표현이며, 두 문항을 연속으로 풀 때 앞 문항이 뒤 문항의 힌트가 됨.",
+      "location": "Q18-Q19 연속 출제",
+      "recommendation": "워크북 종합 특성상 어쩔 수 없는 부분이 있으나, Q18 주제는 제목 형태 선지, Q19 요지는 서술 형태 선지로 차별화되어 있어 허용 가능. 필요 시 두 문항 중 하나를 다른 유형으로 교체 고려."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "code": "S-COND-REVERSE-CHECK",
+      "description": "Q20 조건영작: [조건]에 'No, wonder, many, former, stars, turn, into, mediocre, bosses' 9개 단어 제시. wa = 'No wonder many former stars turn into mediocre bosses' = 9단어. 조건 단어 수(9개)와 wa 단어 수(9개)가 일치하므로 S-COND-WORD-MATCH 통과. 단, 9개 조건단어가 wa를 그대로 나열한 형태여서 학생이 조건단어만 순서대로 나열하면 정답이 되는 단순 암기형 위험 있음.",
+      "location": "Q20 stem 조건",
+      "recommendation": "조건단어를 알파벳순으로 섞어 제시하여 순서 암기 방지. 현재는 원문 순서 그대로 나열되어 있어 C22(단순 암기형 영작) 경계에 해당."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 0,
+  "summary": "HIGH 1건(Q18 주제 소거법 풀이 위험), MEDIUM 3건(Q10 오답 약함/Q15 찾기유형 표시 누락/Q18-Q19 중복), LOW 1건(Q20 조건단어 순서 암기). 치명적 오류는 없으나 Q18 주제 선지 구조 재검토 권장. Q15 stem에 '본문에서 찾아 쓰시오' 추가 필수."
+}

@@ -1,0 +1,25 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/10강/Analysis/단어.json",
+  "attacker": "opus",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "description": "(A)(B)(C) 조합형 3문항 모두 정답 단어가 본문 다른 곳에도 등장하여 선지 안 봐도 유추 가능 (EX-3 경고). 부교재 특성상 fullPassage가 짧아 불가피.",
+      "resolution": "부교재 단어테스트 (A)(B)(C) 유형의 본질적 한계. 오답 반의어 품질이 좋으므로 수용."
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionIds": [7, 9, 20],
+      "description": "오답 3개가 fullPassage에 없는 단어 (Q6-WEAK-DISTRACTOR 경고). 빈칸 유형에서 본문 단어로만 오답 구성 시 정답 노출 위험.",
+      "resolution": "오답이 문맥상 그럴듯하고 같은 품사이므로 수용. 본문 단어만 쓰면 소거법으로 풀림."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 2건은 부교재 단어테스트 본질적 한계로 수용."
+}

@@ -1,0 +1,28 @@
+{
+  "solver": "claude-opus-4-6-adversarial",
+  "timestamp": "2026-06-08",
+  "method": "적대적 공격 — 정답 2개 가능? 선지 뻔함? 정답 노출? 모호함?",
+  "attacks": [
+    {"id": 1, "attack": "EX-3(B경고): (A)(B)(C) 원문 단어가 passage에 노출됨", "verdict": "ACCEPT — (A)(B)(C) 조합형은 원문 자체에서 단어를 고르는 유형이므로 노출 자체가 문제되지 않음. 오답이 반의어로 교체되어 판단력 요구함."},
+    {"id": 2, "attack": "EX-3(B경고): 동일", "verdict": "ACCEPT — 위와 동일 이유."},
+    {"id": 3, "attack": "EX-3(B경고): 동일", "verdict": "ACCEPT — 위와 동일 이유."},
+    {"id": 4, "attack": "freeze vs mash — 너무 쉬운가?", "verdict": "OK — 쉬움 난이도 문항. 호박파이 만드는 과정에서 '얼리다'는 명백히 부적절."},
+    {"id": 5, "attack": "despise vs prefer — 너무 쉬운가?", "verdict": "OK — 쉬움 난이도. 맛을 '경멸하다'는 직관적으로 부적절."},
+    {"id": 6, "attack": "add to vs cut out — 정답 2개 가능?", "verdict": "OK — add to는 '추가하다'로 cut out(줄이다)의 명확한 반의어. 보통 난이도 적절."},
+    {"id": 7, "attack": "preference도 정답 가능?", "verdict": "OK — preference(선호)는 뒤에서 다른 맥락(prefer the taste). 여기서는 convenience or changes in taste 구조에서 편의/맛의변화 병렬. preference는 taste와 의미 중복."},
+    {"id": 8, "attack": "ingredient vs mixture 혼동?", "verdict": "OK — ingredient는 같은 문장에 이미 'other ingredients'로 등장. 문맥상 '결합한 결과물'이 필요하므로 mixture만 적절."},
+    {"id": 9, "attack": "오답 3개(seasoning/margarine/flavoring) fullPassage에 없음", "verdict": "ACCEPT — 빈칸어휘는 본문 맥락으로 정답 추론. 오답이 본문에 없어도 같은 음식 카테고리 단어로 변별력 있음."},
+    {"id": 10, "attack": "appropriate 너무 쉬운가?", "verdict": "OK — 쉬움 난이도 의도. suitable≈appropriate는 기본 어휘."},
+    {"id": 11, "attack": "mixing vs combining — 동의어가 아닌가?", "verdict": "OK — combining이 밑줄 단어이고 mixing이 동의어. 문맥에서 재료를 섞는 행위. dividing/removing/measuring는 명확히 다른 의미."},
+    {"id": 12, "attack": "came about — continued도 가능?", "verdict": "OK — 'Perhaps this change came about because...'에서 '변화가 계속되었다'가 아닌 '변화가 발생했다'가 맥락. continued는 발생과 다른 의미."},
+    {"id": 13, "attack": "convenience 반의어로 hardship도 가능?", "verdict": "OK — 선지에 hardship 없음. difficulty가 가장 명확한 반의어. comfort/efficiency/availability는 동의어/유사/다른축."},
+    {"id": 14, "attack": "labor 반의어로 rest도 가능?", "verdict": "OK — 선지에 rest 없음. leisure가 정답. effort/toil/struggle 모두 동의어 계열로 변별력 있음."},
+    {"id": 15, "attack": "다의어 passage가 AI 작성 — 부자연스러운가?", "verdict": "OK — (A) 원문 발췌, (B) 일상적 거스름돈 상황. 자연스러움."},
+    {"id": 16, "attack": "영영풀이 너무 쉬운가?", "verdict": "OK — 보통 난이도. crush/beat/soft/smooth mass → mash. peel/combine/pour와 명확히 구분."},
+    {"id": 17, "attack": "wa 'combining'이 passage에 노출?", "verdict": "OK — 어형변환은 발췌 passage 사용. 원형 combine이 괄호에 주어지고 학생이 변형. 원문에 combining이 있지만 발췌에서는 빈칸 처리됨."},
+    {"id": 18, "attack": "healthy가 너무 쉬운가?", "verdict": "OK — 어려움 난이도이지만 health→healthy 변환은 명사→형용사 전환. 단순해 보이나 어형변환의 핵심."},
+    {"id": 19, "attack": "a great deal of — passage에 정답 노출?", "verdict": "CHECK — fullPassage에 'a great deal of'가 그대로 있지만, 빈칸으로 처리되므로 passage 상에서는 __________로 표시됨. OK."},
+    {"id": 20, "attack": "came about — passage에 정답 노출?", "verdict": "CHECK — fullPassage에 'came about'이 그대로 있지만, 빈칸으로 처리됨. OK."}
+  ],
+  "summary": "20문항 모두 ACCEPT/OK. 정답 2개 가능 문항 없음. 선지 뻔함 없음. 치명적 결함 없음."
+}

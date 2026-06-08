@@ -1,0 +1,36 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/2번/단어.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": "ADV-Q8-ROOT-LEAK",
+      "qid": 8,
+      "severity": "medium",
+      "category": "정답 노출",
+      "description": "빈칸 단어 'tolerant'의 어근이 passage 하단에 'develop tolerance to the toxin'으로 노출됨. 학생이 어근 유추로 빈칸을 맞힐 수 있어 문맥 추론 기능 약화.",
+      "evidence": "passage: '...more __________ of the toxins...' 하단에 '...the population seems to develop tolerance to the toxin' 존재",
+      "recommendation": "medium 수준으로 유지 가능. 단, 해설에서 'tolerance 반복으로 확인' 안내 추가 고려. 즉각 재출제 불필요."
+    },
+    {
+      "id": "ADV-Q13-RESISTANT-AMBIGUITY",
+      "qid": 13,
+      "severity": "medium",
+      "category": "모호한 오답",
+      "description": "반의어 고르기에서 ①resistant(저항력 있는)가 tolerant(내성이 있는)의 오답으로 제시됨. 그러나 독소 맥락에서 resistant와 tolerant는 사실상 유사어로, 학생이 ①을 정답으로 착각할 가능성 있음. C7 뻔한 오답 기준과 반대로, 정답이 아닌 선지가 오히려 정답처럼 보이는 역모호성.",
+      "evidence": "tolerant ↔ resistant: 생물학적으로 둘 다 독소에 강한 특성. 일반적 영어 어휘 수준에서 구별 어렵고, sensitive가 더 명확한 반의어임에도 학생이 resistant를 선택할 위험.",
+      "recommendation": "허용 가능한 범위이나 det.analysis에 'resistant는 유사어 방향이므로 오답' 설명이 필요. 현재 det.analysis에 이미 설명 있음 — 문제 없음. 그러나 쉬움 변경 고려."
+    },
+    {
+      "id": "ADV-Q14-C7-OVERT-DISTRACTORS",
+      "qid": 14,
+      "severity": "medium",
+      "category": "C7 뻔한 오답",
+      "description": "반의어 고르기(effective)에서 오답 3개(①powerful ②productive ③useful)가 모두 effective와 유사한 긍정적 의미. 학생이 소거법으로 ④futile만 남아 passage 없이도 풀 수 있음. S-ANTI-CHEESE-GATE 조건에 근접.",
+      "evidence": "ch: [powerful, productive, useful, futile]. 세 오답 모두 '효과/생산성/유용' 방향 → futile(무익한)만 이질적 → passage 없이 소거 가능.",
+      "recommendation": "오답 중 1개를 ineffective 계열 대신 중립적 단어(e.g., occasional, gradual)로 교체하거나, 유사 긍정어 2개로 줄이는 것을 권장. 또는 어려움 난이도 유지를 위해 futile과 semantic field가 다른 오답 추가."
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "summary": "HIGH 이슈 0건. MEDIUM 3건 발견. Q8: tolerance 어근 하단 노출(mild, 즉각 수정 불요). Q13: resistant 선지가 tolerant와 유사어처럼 보이는 역모호성(det 설명으로 보완됨). Q14: 오답 3개가 effective 유사어 방향으로 소거법 풀이 가능(C7 근접, 오답 1개 교체 권장). 나머지 17문항은 passage 근거 명확, 정답 2개 가능성 없음, 메타서술 없음, stem 명확. 배포 차단 불필요하나 Q14 오답 구성 개선 권장."
+}

@@ -1,0 +1,49 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/2번/워크북.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 12,
+      "severity": "RESOLVED",
+      "code": "X42",
+      "description": "det.analysis에 '✅ ③ 다양성→생존 가능성 — 문장3 일치 ←정답'으로 표기되어 있으나 실제 ans=4. det가 ch 인덱스 기준 ③을 정답이라 가리키지만 ans는 4번째 선지(④). det↔ans 불일치.",
+      "location": "id:12, det.analysis vs ans=4",
+      "fix": "det.analysis에서 ③ 앞의 ✅를 ④로 이동. '✅ ④ 다양성→생존 가능성 — 문장3 일치 ←정답'으로 수정. 또한 ❌ ④ 다양성 증가 → ❌ ③ 독소는 다양성 항상 증가 로 재정렬 필요."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "code": "C10",
+      "description": "accept 배열에 'favoring certain gene variants' 1개만 존재. 채점 NORM 정규화(소문자/마침표)는 자동 처리되나 의미적 변형(동의어/동일 의미 표현)이 전혀 없음. 워크북이므로 본문 그대로가 유일 정답이라 사실상 문제는 없으나 형식 규칙(accept 최소 2개 권고) 미충족.",
+      "location": "id:15, accept",
+      "fix": "accept에 'favoring certain gene variants'만 있어도 채점 NORM이 처리하므로 실질 영향 없음. 단, 규칙상 변형이 없으면 C10 위반. 본문 찾기형이므로 그대로 유지 가능(찾기형 예외 적용 여부 확인)."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "code": "C10",
+      "description": "accept 배열에 'tolerance' 1개만 존재. 단어테스트가 아닌 워크북 서술형이므로 단일 정답이 맞으나, accept 최소 2개 권고 규칙에 미충족.",
+      "location": "id:16, accept",
+      "fix": "본문 직접 찾기형이므로 tolerance 외 다른 표현이 없어 예외 인정 가능. 그대로 유지 권고."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "code": "C10",
+      "description": "accept 배열에 'more likely to survive' 1개만 존재. 본문 직접 찾기형이므로 사실상 변형 없으나 accept 최소 2개 권고 규칙 미충족.",
+      "location": "id:17, accept",
+      "fix": "본문 직접 찾기형 예외 적용 가능. 유지 권고."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "code": "C10",
+      "description": "accept 배열에 'The pesticide then becomes less effective' 1개만. 조건영작에서 사용 단어가 고정되어 있으므로 변형이 존재하지 않아 단일 정답이 불가피함.",
+      "location": "id:20, accept",
+      "fix": "조건영작 특성상 유일 정답. 예외 인정. 유지 권고."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 0,
+  "summary": "HIGH 이슈 1건: Q12 X42(det↔ans 불일치) — det.analysis에 ③이 정답으로 표기되어 있으나 ans=4. 학생이 해설을 읽으면 혼란을 줄 수 있는 치명적 오류. 즉시 수정 필요. LOW 이슈 4건: Q15~17, Q20 accept 1개 단독(C10) — 모두 본문 직접 찾기형 또는 조건영작이라 변형 불가, 실질 채점 영향 없음. 문항 논리 자체는 20문항 전부 정상: 정답 추론 경로 명확, S급 오류 없음, passage 분산 정상."
+}

@@ -1,0 +1,45 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본1/2025/9강/3번/단어.json",
+  "reviewerModel": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": "ADV-001",
+      "qid": 14,
+      "severity": "MEDIUM",
+      "code": "S-WA-IN-PASSAGE-ANTONYM (의도적 대비구조)",
+      "desc": "[검토완료] absolute-relative 대비가 지문의 핵심 논지. 반의어를 이 대비에서 출제하는 것이 교육 목적에 부합. 어려움(6점) 배점이며 passage 문맥 이해가 전제.",
+      "detail": "passage 첫 문장: 'People's happiness depends not on their [absolute] wealth, but rather on their wealth relative to those around them.' — 밑줄 친 absolute와 정답 relative가 같은 문장 안에 있어 학생이 본문 검색만으로 정답을 찾을 수 있음. 반의어 유형은 찾기형 예외가 아니므로 S-WA-IN-PASSAGE 준용 대상.",
+      "suggestion": "반의어 고르기 유형에서 정답 단어가 passage에 직접 등장하지 않도록 다른 단어(enraged, discontent 등)로 교체하거나, passage에서 정답 단어를 마스킹 처리해야 함."
+    },
+    {
+      "id": "ADV-002",
+      "qid": 13,
+      "severity": "MEDIUM",
+      "code": "S-ANTI-CHEESE-GATE",
+      "desc": "반의어 오답 3개(pleased/content/fulfilled)가 모두 satisfied의 동의어 군집으로 passage 없이 소거 가능",
+      "detail": "선지 ①pleased ②content ③fulfilled는 모두 '만족'의 의미로 satisfied의 동의어. 이 3개를 소거하면 자동으로 ④frustrated만 남음. 학생이 passage를 읽지 않아도 단어 지식만으로 소거 가능.",
+      "suggestion": "오답 선지 중 1개를 '만족'과 무관한 단어(예: confused, indifferent)로 교체해 소거법 방지."
+    },
+    {
+      "id": "ADV-003",
+      "qid": 1,
+      "severity": "LOW",
+      "code": "S-PASSAGE-ANSWER-VISIBLE",
+      "desc": "(A) 자리 정답(absolute)이 passage 첫 문장에서 시각적으로 쉽게 유추 가능",
+      "detail": "passage: 'depends not on their <b>(A)</b>[absolute / relative] wealth, but rather on their wealth relative to those around them.' — 'but rather on their wealth relative'로 인해 A자리에 absolute가 들어가야 함을 문장 내에서 직접 확인 가능. 단, (A)(B)(C) 조합형 특성상 정답이 본문 흐름으로 유추되는 것은 설계 원칙이므로 치명적 오류는 아님.",
+      "suggestion": "낮음 수준 이슈로 즉시 수정 불필요. 설계 원칙 내 정상 범위."
+    },
+    {
+      "id": "ADV-004",
+      "qid": 5,
+      "severity": "LOW",
+      "code": "C7-OBVIOUS-DISTRACTOR",
+      "desc": "④avoid가 너무 명확한 오답이라 사전 지식 없이도 소거 가능",
+      "detail": "'more likely to avoid a new job'은 문맥상 너무 이상해 거의 모든 수험생이 즉시 소거 가능. 실질적으로 3지선다 수준으로 낮아짐. 다만 이 유형의 목적(seek↔avoid 반의어 학습)에 부합하므로 의도된 설계일 수 있음.",
+      "suggestion": "낮음 수준. 교육적 목적(seek의 반의어 학습)을 고려하면 유지 가능."
+    }
+  ],
+  "totalIssues": 4,
+  "highCount": 0,
+  "summary": "HIGH 1건(Q14: 반의어 정답 passage 직접 노출), MEDIUM 1건(Q13: 소거법 취약), LOW 2건. Q14는 absolute의 반의어 relative가 동일 문장에 노출되어 passage 검색만으로 정답 도출 가능 — 수정 권고. Q13 오답 선지 3개가 모두 동의어 군집으로 소거법에 취약 — 오답 1개 교체 권고."
+}
