@@ -1,0 +1,393 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "수능특강/영어/5강",
+  "testType": "단어",
+  "fullPassage": "Many crises today, such as the Great Recession, are simply too big and too overwhelming for you to completely comprehend, much less control. Crises of this ilk are precisely the kind that can easily engulf you with destructive reactions that interfere with your ability to overcome them. Focusing on these oversized crises will exacerbate the natural psychological, emotional, and physical reactions you are going to experience. With these sorts of crises, your best chance is to identify those aspects that are within your control. Then, you can break down the bigger crisis into smaller, more manageable problems toward which you can direct your energy and find solutions. For example, think back to the Great Recession. Although you probably didn’t have the ability to influence economic policy, you were able to revisit the distribution of your investments and choose to create a more diverse portfolio.\n\nConsumer surveys indicate that the majority of Americans (91%) believe they have some control over their health, and 72% believe that food and nutrition play the greatest role. However, 75% of consumers rely on media outlets including the Internet as their major sources of health and nutrition information, and only half use medical sources. A Google search for “nutrition listservs” yielded over 100,000 sites, but it is likely that many of these writings are not reviewed by nutrition experts. Internet sites marketing herbs, drugs, and health devices are not monitored by government regulatory agencies and often contain misleading information. Reputable food companies provide helpful facts about the nutrient content of their products, but commercial sites devoted to sales often post misleading health claims. Internet sites maintained by government agencies, universities, state extension services, and medical facilities provide evidence-based information and should be the first source for public information on foods, nutrition, and health.\n\nMy business partner Charles and I embraced the servant leader’s way of doing things. In other words, nothing was beneath us. We led by example and did the work. When any new salesman came into the store, he would look around, notice Charles polishing some corner of the floor and me covered in flour, and assume the decision-maker was not present. He’d then hand off whatever he was selling to me and say, “Can you give this to the owner?” Now, if Charles and I had remained in the bakery for too long, we wouldn’t have been able to grow and scale, so I’m not saying you should be sweeping the floors forever. It’s more about modeling what’s important. If cleanliness and details are important, be sure you aren’t above doing the work and pitching in. Come into your workspace and ask how you can help. If it’s clear your team is in the weeds, jump in without asking.\n\nTraining and competition naturally speed the breath, which activates the sympathetic nervous system. In performance, this is acceptable because an athlete wants to produce adrenaline and compete in an aroused state. However, it is equally important for an athlete to learn how to mentally and physically downshift from the acute sympathetic activity experienced in sport, and outside of performance focus their attention on slow breathing to reduce the sympathetic activity and resolve the fight-or-flight state. In the Feinstein Institutes study, participants were able to use the pace of their breathing to activate specific regions of the brain. In a performance realm, this means athletes can use breathing pace to manage their state of arousal. During training and competition, the breathing rate increases with the introduction of adrenaline, and athletes must be able to control this to be able to adapt and recover. One way is to practice slower breathing protocols outside of training and competition.\n\nThe study of literature has repeatedly failed to recognize the influence of modern musical lyricists and their contributions to the evolution of language. Unlike Shakespeare, who has been studied and celebrated for his development of the English language, particularly in vocabulary and grammatical structure, modern songwriters have experienced restraints on the acknowledgement of their contributions and largely been ignored. Over the past century, we have witnessed an explosion of incredible literary works by these artists, who, through their music, have used linguistic manipulation and storytelling to enrich our language and literature. Producing lyrics of distinct and complex imagery, songwriters have had an incredible literary impact on our language. Their remarkable works, including influences on modern language development, must be recognized in the field of modern literature.",
+  "title": "Claim Analysis",
+  "typeRules": {
+    "(A)(B)(C) 조합형": {
+      "fmt": "mc",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "passageRule": "fullPassage + <b>(A)</b>[w1/w2] 마커",
+      "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
+      "ch": "4개"
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸 어휘 완성": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "동의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "반의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "다의어 문맥적 의미": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "영영풀이 매칭": {
+      "fmt": "mc",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
+      "overlay": "overlay = {} (passage 없음)",
+      "passageRule": "ALL: passage 없음 (빈 문자열)",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "어형 변환": {
+      "fmt": "written",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+    },
+    "빈칸 문맥 완성": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "ch": "4개"
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage 없음)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}
