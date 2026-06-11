@@ -1,32 +1,78 @@
 {
   "testFile": "data/부교재/올림포스독해의기본2/2025/10강/전체/워크북.json",
-  "attackerModel": "opus",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T14:00:00+09:00",
   "issues": [
     {
-      "id": 0,
-      "severity": "MED",
-      "category": "유형 편향 — 어법 9문항 집중",
-      "detail": "전체 20문항 중 어법 9문항(Q1,2,5,6,10,11,14,19,20) + 오류찾기 1(Q15) = 문법 평가 10문항으로 50%. 어휘 3, T/F 4, 주제/요지 2, 일치 1. 서술형 0. TW 화이트리스트에 서술형 필수는 아니지만 워크북 전형으로는 편향 심함. 학생이 문법 중심 단순 반복 피로."
+      "qid": 4,
+      "severity": "HIGH",
+      "type": "정답2개가능",
+      "detail": "어법 '적절한 것' 문제(stem: '어법상 적절한 것은?'). det에서 ① process만 정답이라 하지만, ② related(be related to), ③ they(관계사절 내 주어), ④ observable(형용사+명사 수식) 모두 원문 그대로이며 어법상 전혀 문제없음. overlay markers에서 4개 모두 find/display가 같은 값이라 변형이 없음. 즉 4개 모두 원문 그대로인데 '적절한 것 1개만 고르라'는 것은 성립 불가. det의 analysis에서도 '①만 적절, 나머지 변형'이라고 하면서 실제 overlay에는 변형이 없음. 출제 의도와 실제 구현이 불일치."
     },
     {
-      "id": 15,
-      "severity": "LOW",
-      "category": "오류찾기 passage 발췌 길이",
-      "detail": "오류찾기 유형은 SOP상 4~5문장이 표준. 전체 파일 Q15 passage 길이 888자 → fullPassage 전체 주입 확인 필요(부교재는 fullPassage 85% 이상). 현재 길이는 규정 충족."
+      "qid": 20,
+      "severity": "HIGH",
+      "type": "정답노출_서술형",
+      "detail": "서술형 조건영작: 'Many died standing and __________, never absorbing the lesson.' 정답 wa='looking'. stem 조건이 '(1) looking을 사용할 것 (2) 1단어로 쓸 것'. 조건에서 이미 정답 단어 'looking'을 알려줌. 학생은 아무 사고 없이 조건의 단어를 그대로 쓰면 정답. 서술형 문항의 변별력 제로."
     },
     {
-      "id": 8,
-      "severity": "LOW",
-      "category": "주제/요지 선지 분포 양호",
-      "detail": "Q8,12,19 등 주제/요지 선지는 본문 직역이 아닌 패러프레이즈로 구성. 큰 문제 없음."
+      "qid": 14,
+      "severity": "MEDIUM",
+      "type": "마커누락",
+      "detail": "오류찾기(Q14): ans=4(④)인데 passage의 ④ 텍스트에 <u>...</u> 태그가 없음(validate RENDER-ANS-NOT-UNDERLINED 경고). 학생 화면에서 ④ 위치가 시각적으로 구분되지 않을 수 있음."
     },
     {
-      "id": 11,
+      "qid": 7,
+      "severity": "MEDIUM",
+      "type": "뻔한오답",
+      "detail": "내용이해 T/F: '무의식이 감각 자극을 의식적 인식으로 처리하는 데 평균 0.5초가 걸린다.' 본문 첫 문장 그대로 번역. T/F 2지선다에서 본문 직역이 stem이면 사실상 맞추기 쉬움(T). 난이도 '쉬움'에 적합하나 변별력 의문."
+    },
+    {
+      "qid": 10,
+      "severity": "MEDIUM",
+      "type": "정답노출",
+      "detail": "빈칸 문맥 완성: 'it is related to our ____'. 빈칸 직후 'We generally don't mind sacrificing for the group, as long as we're all sacrificing equally'에서 fairness 단서가 직접적. 정답 ③ 'innate sense of fairness'는 원문 그대로이고, 오답 ①②④는 본문에 없는 표현이라 소거법으로 즉시 풀림."
+    },
+    {
+      "qid": 11,
+      "severity": "MEDIUM",
+      "type": "정답노출",
+      "detail": "빈칸 문맥 완성: 'scores of species reacted with ____'. 빈칸 직전 'did not associate us with a threat' + 직후 'biological first contact ... had to learn to be afraid' → 위협 비인식 + 사후학습 맥락에서 trust and tameness 외에 가능한 답이 없음. 오답 ①②③ 모두 부정적 반응이라 즉시 배제."
+    },
+    {
+      "qid": 1,
       "severity": "LOW",
-      "category": "어법 난이도 분포",
-      "detail": "ans 분포 1×5/2×5/3×5/4×5 균형. 연속 같은 번호 없음. A6 통과."
+      "type": "뻔한오답",
+      "detail": "어법: ③ was(→were) 수일치 오류. wolves가 복수임이 명백하여 was가 즉시 탐지됨. 난이도 '쉬움'에 적합."
+    },
+    {
+      "qid": 2,
+      "severity": "LOW",
+      "type": "뻔한오답",
+      "detail": "어법: ④ that(→whose) 소유격 관계대명사. 'expressions, that meaning'은 비문법적임이 명확. 난이도 '쉬움'에 적합."
+    },
+    {
+      "qid": 5,
+      "severity": "LOW",
+      "type": "뻔한오답",
+      "detail": "부적절 어휘: ③ unequally(→equally). 'as long as we're all sacrificing unequally'는 논리적으로 모순이라 즉시 탐지."
+    },
+    {
+      "qid": 15,
+      "severity": "LOW",
+      "type": "모호stem",
+      "detail": "서술형 핵심단어: stem '3단어, 영어로'에서 'an ingenious mechanism'이 정답. 'an'을 포함하면 3단어, 미포함하면 2단어. 학생이 관사를 빼고 'ingenious mechanism'만 쓸 가능성 있으나 accept에 포함되지 않음."
+    },
+    {
+      "qid": 17,
+      "severity": "LOW",
+      "type": "모호stem",
+      "detail": "서술형 핵심단어: stem '4단어'에서 wa='ordinary mechanism of thought'(3단어). accept에 'an ordinary mechanism of thought'(4단어)도 포함되어 있으나 wa 자체가 3단어. stem의 4단어 조건과 wa 불일치."
     }
   ],
-  "totalIssues": 4,
-  "highCount": 0
+  "totalIssues": 11,
+  "highCount": 2,
+  "mediumCount": 4,
+  "lowCount": 5,
+  "summary": "HIGH 2건 발견. (1) Q4 어법 '적절한 것' 문제: overlay에 변형이 없어 4개 모두 원문 그대로 적절 — 정답이 1개로 결정 불가. 즉시 재출제 필요. (2) Q20 서술형 조건영작: stem 조건에 정답 단어 'looking'이 그대로 제시되어 변별력 제로 — 즉시 재출제 필요. MEDIUM 4건: Q14 마커 렌더링 누락, Q7 T/F 직역 변별력 약, Q10/Q11 빈칸 정답 직접 유추."
 }

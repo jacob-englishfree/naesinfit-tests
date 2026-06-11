@@ -1,0 +1,59 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/11강/전체/단어.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T15:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-W-001",
+      "qId": 1,
+      "severity": "LOW",
+      "check": "정답 passage 노출",
+      "detail": "(A)(B)(C) 조합형에서 [extraordinary / ordinary] 등 대괄호 안에 정답이 이미 표시됨. 이는 조합형 유형의 기본 구조이나, 오답(ordinary, opaque, rare)이 모두 정답의 정확한 반의어라서 소거법 난이도가 낮음. diff=쉬움이므로 허용 범위."
+    },
+    {
+      "id": "ADV-W-002",
+      "qId": 7,
+      "severity": "LOW",
+      "check": "오답 뻔함 (소거법)",
+      "detail": "빈칸 어휘 완성: variable의 오답이 fixed/stable/constant로 세 개 모두 '변하지 않는'의 동의어. 학생이 글 전체의 '변한다' 맥락만 잡으면 소거법으로 즉답. diff=쉬움이므로 의도적 설계로 판단."
+    },
+    {
+      "id": "ADV-W-003",
+      "qId": 8,
+      "severity": "LOW",
+      "check": "오답 뻔함 (소거법)",
+      "detail": "빈칸 어휘 완성: highlight의 오답이 erase/ignore/minimize로 세 개 모두 부정적 의미. 'important parts'와 결합하면 긍정 동사만 가능. diff=보통이나 실질 난이도는 쉬움에 가까움."
+    },
+    {
+      "id": "ADV-W-004",
+      "qId": 9,
+      "severity": "MEDIUM",
+      "check": "정답 passage 직접 노출",
+      "detail": "빈칸 어휘 완성: 빈칸 뒤에 'the regretful group'이라는 표현이 나와서 빈칸=regret임을 거의 직접 알려줌. 빈칸 문장 바로 뒤 문맥에서 'regretful'이 정답을 노출. validate EX-1 경고와 일치. 학생 관점에서 지문을 읽지 않아도 regretful에서 역추론 가능."
+    },
+    {
+      "id": "ADV-W-005",
+      "qId": 10,
+      "severity": "LOW",
+      "check": "동의어 정확성",
+      "detail": "dissolved와 melted의 동의어 관계: 화학적으로 dissolve(용해)와 melt(녹다)는 다른 과정이나, 일반 영어 어휘 수준에서는 가장 가까운 유의어로 적절. evaporated가 혼동 요인이 될 수 있으나 det 해설이 잘 구분함."
+    },
+    {
+      "id": "ADV-W-006",
+      "qId": 15,
+      "severity": "LOW",
+      "check": "다의어 선지 구분",
+      "detail": "defined의 다의어: ①'제한된'과 ②'형태가 결정된'의 구분이 미묘할 수 있음. 그러나 물리적 형태 결정(shaped)과 제한(restricted)은 의미가 다르므로 정답 ②가 더 적확. ④는 (A)(B) 뒤바뀜으로 명확한 오답."
+    },
+    {
+      "id": "ADV-W-007",
+      "qId": 20,
+      "severity": "MEDIUM",
+      "check": "빈칸 문맥 완성 — 정답 길이 편향",
+      "detail": "deepen persistence(2단어)가 정답인데, 나머지 오답도 2단어(weaken motivation, eliminate effort, reduce performance)로 균일. 단, ④ reduce performance는 빈칸 바로 뒤 'elevates performance'와 직접 모순이라 즉시 소거 가능. 오답 질은 양호하나 ④가 너무 뻔한 오답."
+    }
+  ],
+  "totalIssues": 7,
+  "highCount": 0,
+  "summary": "HIGH 이슈 0건. MEDIUM 2건(Q9 정답 노출, Q20 뻔한 오답 1개), LOW 5건. Q9는 빈칸 뒤 'regretful'이 정답 regret을 거의 직접 알려주는 구조이나, 어휘 테스트 특성상 빈칸 주변 문맥 활용은 허용 범위. 전체적으로 출제 품질 양호."
+}

@@ -1,0 +1,66 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/11강/전체/워크북.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T15:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-WB-001",
+      "qId": 2,
+      "severity": "MEDIUM",
+      "check": "어법 정답 논란 가능성",
+      "detail": "③ was → were 가정법: 'If I was to show you'에서 was를 오류로 출제. 현대 영어(특히 구어)에서 'If I was'는 허용되는 경우가 있으나, 수능/내신 기준에서는 were가 정답으로 교육하므로 출제 의도는 적절. 다만 일부 학생이 'was도 가능하다'고 항의할 소지 있음. det 해설에서 '원칙'이라고 명시한 점은 좋음."
+    },
+    {
+      "id": "ADV-WB-002",
+      "qId": 4,
+      "severity": "MEDIUM",
+      "check": "어법 정답 논란 가능성 — 강조구문 vs 관계대명사",
+      "detail": "③ which → that: 'it is usually the novel, unexpected things in life which require the most attention'을 강조구문(It is ~ that)으로 보아 which를 오류로 처리. 그러나 이것을 강조구문이 아닌 일반 관계대명사절로 해석할 여지가 있음. 'things which require'로 읽으면 which도 문법적으로 성립. 다만 수능 기준에서는 It is ~ that 강조구문 패턴으로 출제 의도가 명확하고, det 해설도 이를 설명함. 논란 시 해설로 방어 가능하나 주의 필요."
+    },
+    {
+      "id": "ADV-WB-003",
+      "qId": 5,
+      "severity": "LOW",
+      "check": "overlay markers 불일치",
+      "detail": "overlay.markers에서 ②='visible'로 기록되어 있으나 passage에서 ②<u>invisible</u>로 표시. overlay는 원문 단어를, passage는 변형 단어를 담는 구조이므로 정상. overlay가 원문(visible)을 기록하고 passage가 부적절어(invisible)를 표시하는 것이 맞음."
+    },
+    {
+      "id": "ADV-WB-004",
+      "qId": 10,
+      "severity": "LOW",
+      "check": "빈칸추론 정답 직접 노출",
+      "detail": "빈칸='variable personality'인데, passage에서 빈칸 바로 뒤 'readily changing to assimilate its surroundings'가 강력한 단서. 글 전체가 물의 가변성을 설명하므로 variable personality는 상당히 직관적. diff=보통이나 실질 쉬움."
+    },
+    {
+      "id": "ADV-WB-005",
+      "qId": 14,
+      "severity": "LOW",
+      "check": "오류찾기 passage 마커 렌더링",
+      "detail": "validate에서 RENDER-ANS-NOT-UNDERLINED 경고 발생 — Q14 ans=4(④)인데 ④에 <u> 태그 없음. 오류찾기 유형에서 마커는 문장 번호(①②③④)로 표시되며, 밑줄은 어법/어휘 유형 전용. 오류찾기에서는 문장 단위 마커이므로 <u> 불필요. validate 규칙의 예외 케이스."
+    },
+    {
+      "id": "ADV-WB-006",
+      "qId": 20,
+      "severity": "MEDIUM",
+      "check": "서술형 조건영작 ans 필드 오류 (채점 무영향)",
+      "detail": "Q20 서술형 조건영작에서 wa='deepen persistence'이나, ans='the regretful group solved more puzzles and stuck with the task longer than anyone else in the experiment'로 설정됨. ans에 overlay.blank 값이 잘못 들어감. 채점 엔진(index.html)은 written 유형에서 accept/wa를 우선 사용하고 ans는 mc 전용이므로 채점에는 영향 없음. 그러나 데이터 정합성 문제이며, ans 필드를 참조하는 다른 스크립트(검수.html 정답표시 등)에서 오표시 가능."
+    },
+    {
+      "id": "ADV-WB-007",
+      "qId": 7,
+      "severity": "LOW",
+      "check": "T/F stem 너무 직접적",
+      "detail": "내용이해 T/F: '물은 고속으로 충격을 받으면 콘크리트처럼 단단해진다' — 원문 'hard as concrete when impacted at high speed'의 거의 직역. diff=쉬움이므로 의도적이나, T/F 문항의 변별력이 낮음."
+    },
+    {
+      "id": "ADV-WB-008",
+      "qId": 15,
+      "severity": "LOW",
+      "check": "서술형 핵심단어 wa가 passage에 노출",
+      "detail": "wa='assimilate'가 passage에 그대로 존재. '본문에서 찾아 쓰시오' 유형이므로 passage 노출은 의도적이며 정상. S-WA-IN-PASSAGE 규칙의 예외(찾기 유형)."
+    }
+  ],
+  "totalIssues": 8,
+  "highCount": 0,
+  "summary": "HIGH 0건. MEDIUM 3건(Q2 was/were 논란 소지, Q4 강조구문 vs 관계대명사 해석 논란, Q20 ans 필드에 overlay.blank 값 잘못 들어감 — 채점 무영향이나 데이터 정합성 문제). LOW 5건. 전체적으로 어법 문항의 정답 논란 가능성에 주의 필요."
+}
