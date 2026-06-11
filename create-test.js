@@ -491,7 +491,7 @@ function validateSingleQuestion(q, slot, fullPassage, source) {
 
   // 7. S-PASSAGE-NOT-FULL: 부교재/모의고사 passage 85% 미만
   if ((source === '부교재' || source === '모의고사') && fullPassage) {
-    const exemptTypes = ['영영풀이 매칭', '어형 변환', '서술형 — 조건영작', '다의어 문맥적 의미'];
+    const exemptTypes = ['영영풀이 매칭', '어형 변환', '서술형 — 조건영작', '다의어 문맥적 의미', '오류찾기'];
     if (!exemptTypes.includes(slot.type)) {
       const ratio = (q.passage || '').length / fullPassage.length;
       if (ratio < 0.85) {
