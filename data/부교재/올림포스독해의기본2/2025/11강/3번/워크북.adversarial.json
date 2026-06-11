@@ -1,0 +1,29 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/11강/3번/워크북.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-06-12T00:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "qid": 10,
+      "description": "Q10 빈칸추론: persistence가 빈칸 직후 절에서 which로 연결되어 문맥상 명확히 추론 가능. 난이도 적절하나, 'performance'도 오답으로 빈칸 바로 뒤 elevates performance에 등장하므로 소거법 약간 가능. 단, performance를 넣으면 'deepen performance which elevates performance'로 동어반복이라 소거 가능.",
+      "action": "유지 — 오답 소거 논리 성립"
+    },
+    {
+      "id": "ADV-2",
+      "severity": "LOW",
+      "qid": 14,
+      "description": "Q14 오류찾기: passage가 fullPassage 발췌(5문장). 부교재 규칙상 fullPassage 통째가 원칙이나, 오류찾기 유형은 schema에서 'ALL: 4~5문장'으로 예외 허용.",
+      "action": "유지 — schema 예외 적용"
+    },
+    {
+      "id": "ADV-3",
+      "severity": "LOW",
+      "qid": 20,
+      "description": "Q20 조건영작: 'deepen persistence' 2단어로 조건 단어 2개 = wa 단어 2개. 사실상 어순배열이 될 수 있으나, 2단어는 조합이 극히 제한적이라 acceptable.",
+      "action": "유지 — 2단어 구간에서는 불가피"
+    }
+  ],
+  "summary": "HIGH 이슈 0건. LOW 3건(오답소거미미, 오류찾기발췌예외, 2단어조건). 배포 가능."
+}

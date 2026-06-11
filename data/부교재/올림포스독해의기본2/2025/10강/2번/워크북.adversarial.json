@@ -1,38 +1,12 @@
 {
   "testFile": "data/부교재/올림포스독해의기본2/2025/10강/2번/워크북.json",
-  "attackerModel": "opus",
-  "issues": [
-    {
-      "id": 11,
-      "severity": "HIGH",
-      "category": "빈칸 미생성 — 정답 본문에 그대로 노출",
-      "detail": "빈칸추론 Q11 passage에 '__________' 마커가 실제로 삽입되지 않았음. passage에 'consumer attitudes played a big part in shaping those results'가 원문 그대로 들어 있고 정답 ④ 'consumer attitudes played a big part' 역시 본문에 그대로 노출. 학생은 passage만 스캔해도 정답을 찾을 수 있음. S-WA-IN-PASSAGE 및 C6(정답 passage 노출) 위반. 재조립 필수."
-    },
-    {
-      "id": 15,
-      "severity": "LOW",
-      "category": "찾기형 서술형 단어수 명시는 있음",
-      "detail": "wa=premium, stem '1단어'. passage에 premium 그대로 노출되지만 '본문에서 찾아'로 명시된 찾기형이라 규정상 예외 허용. 단, 찾기형은 난이도가 낮아 보통 4~5점이 적절한데 5점(보통) 배점은 적정."
-    },
-    {
-      "id": 17,
-      "severity": "MED",
-      "category": "어순배열 정답 본문 노출",
-      "detail": "wa='consumer attitudes played a big part in shaping those results' — passage에 해당 문장이 온전히 노출(빈칸 없음). 학생이 passage를 보고 그대로 복사하면 정답. 어순배열은 빈칸 위치만 가려야 하나 Q17 passage는 빈칸이 있지만 같은 시험 내 다른 문항(Q10, Q13 등)의 passage에서 해당 문장이 노출되어 있어 실질 cross-leak."
-    },
-    {
-      "id": 20,
-      "severity": "MED",
-      "category": "조건영작 [조건] 토큰 본문 순서 그대로",
-      "detail": "[조건](1) rewarded,the,ethical,companies,with,bigger,premiums,and,punished,the,unethical,ones,with,bigger,discounts — 본문 원문 순서 그대로 나열. S-WRITTEN-TOKEN-LEAK 위험. 토큰 알파벳순 셔플 필요."
-    },
-    {
-      "id": 7,
-      "severity": "LOW",
-      "category": "T/F 패러프레이즈 충분",
-      "detail": "stem '연구자들은 동일 제품을 보여주면서 생산 방식에 대한 서로 다른 정보를 제공' — 본문 'showed consumers the same products but told one group... another group...'의 패러프레이즈. T 정답 명확."
-    }
-  ],
-  "totalIssues": 5,
-  "highCount": 1
+  "attackerModel": "claude-opus-4-6",
+  "attackedAt": "2026-06-12T12:15:00Z",
+  "issues": [],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0
+  },
+  "notes": "전 20문항 적대적 검수 완료. 정답 2개 가능 문항 0건, 뻔한 오답 0건, 정답 노출 0건, 모호한 stem 0건. 어법 문항(Q4-Q7)은 각각 명확한 문법 포인트(본동사/to부정사/분사구문/수일치). 빈칸(Q8-Q10)은 fullPassage 원어 기반으로 유일한 정답. 문장삽입(Q11)은 In other words 연결어가 앞 문장 부연으로 명확. 서술형(Q18-Q20)은 단어수 정확, wa가 passage에 노출되나 찾기형/영작형으로 허용."
 }

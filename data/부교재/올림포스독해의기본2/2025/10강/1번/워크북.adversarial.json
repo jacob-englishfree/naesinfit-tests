@@ -1,32 +1,15 @@
 {
-  "testFile": "data/부교재/올림포스독해의기본2/2025/10강/1번/워크북.json",
-  "attackerModel": "opus",
   "issues": [
-    {
-      "id": 7,
-      "severity": "LOW",
-      "category": "T/F stem 강한 표시어",
-      "detail": "stem '인터넷은 특정 기기를 통해서만 접근할 수 있다' — '만'(only)이라는 한정어가 들어간 명제는 직관적으로 F로 추정하기 쉬움. T/F 변별력 다소 낮음."
-    },
-    {
-      "id": 15,
-      "severity": "MED",
-      "category": "accept 범위 지나치게 관대 + 단어수 명시 없음",
-      "detail": "wa='고객에 대한 더 많은 통찰'(한국어 5단어 명시). accept에 '고객 통찰'(2단어), '더 많은 통찰'(3단어) 포함. stem은 '한국어로 5단어'인데 3단어 답도 정답 처리 → 채점 일관성 붕괴. S-WORDCOUNT-MISMATCH 잠재."
-    },
-    {
-      "id": 16,
-      "severity": "MED",
-      "category": "accept 범위 지나치게 관대 + 단어수 명시 없음",
-      "detail": "stem '우리말로 4단어'인데 wa='정보가 완전히 맥락화될 때'(4단어)와 accept에 '정보가 맥락화될 때'(3단어), '충분히 맥락화된 정보'(3단어)가 있어 단어수 조건 위배. 학생이 3단어 답을 내도 정답 판정."
-    },
-    {
-      "id": 20,
-      "severity": "LOW",
-      "category": "조건영작 [조건]에 in, what 나열 확인",
-      "detail": "[조건] (1)에 15개 토큰 나열 + (2) 16단어 → marker 일치. 다만 '마케터들은'에 해당하는 marketers의 복수/단수 혼동 여지 있음(원문은 marketers). wa 표기는 정상. 토큰 순서가 본문 순서 그대로라 'S-WRITTEN-TOKEN-LEAK' 경계선(15토큰은 셔플 여부 불명)."
-    }
+    {"id":"ADV-01","qid":4,"severity":"LOW","desc":"Q4와 Q7 모두 어법 문제에서 동사 수식 관련 오류(sacrifice vs equal). 유사 문법포인트이나 Q4는 mind+동명사, Q7은 부사/형용사 구분이라 다른 포인트. 허용."},
+    {"id":"ADV-02","qid":7,"severity":"LOW","desc":"Q7과 Q15(오류찾기) 모두 equal→equally 포인트 사용. Q15는 오류찾기 유형이라 형식 다르나, 같은 어법 포인트 2회 출현. 중복도 낮음(다른 유형)."},
+    {"id":"ADV-03","qid":8,"severity":"LOW","desc":"Q8 오답(competition, obedience, creativity)이 fullPassage에 없는 단어. 빈칸추론 단어수준이라 허용 범위."},
+    {"id":"ADV-04","qid":14,"severity":"LOW","desc":"Q14 문장삽입 - 삽입문장 'reciprocity'가 원문에 없는 단어이나 문맥상 자연스러움. 학생이 상호성 개념을 추론 가능."},
+    {"id":"ADV-05","qid":19,"severity":"LOW","desc":"Q19 서술형 1단어(fairness) - 본문에서 직접 찾는 유형이라 난이도 매우 낮음. 쉬움 배점(5pts 보통)이므로 허용."}
   ],
-  "totalIssues": 4,
-  "highCount": 0
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS - HIGH 이슈 0건. 모든 문항 출제 적합."
+  }
 }

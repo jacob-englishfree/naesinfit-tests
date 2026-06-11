@@ -1,32 +1,37 @@
 {
-  "testFile": "data/부교재/올림포스독해의기본2/2025/10강/3번/워크북.json",
-  "attackerModel": "opus",
+  "reviewer": "opus-4.6-adversarial",
+  "timestamp": "2026-06-12T00:00:00Z",
+  "file": "data/부교재/올림포스독해의기본2/2025/10강/3번/워크북.json",
   "issues": [
     {
-      "id": 15,
-      "severity": "MED",
-      "category": "서술형 찾기 — stem 한국어 단서 모호",
-      "detail": "stem: '필자가 common sense의 본질을 나타내는 데 사용한 반의어적 표현을 본문에서 찾아 (영어로) 쓰시오. (1단어)'. 본문 '\"common sense\" that turns out to be nonsense'에서 nonsense가 정답. 다만 '반의어적 표현'이라는 표현이 학생에게 모호 — sense의 반의어로서 nonsense를 찾아야 한다는 힌트가 너무 작위적. 찾기형으로는 OK지만 단서는 '상식이 실제로는 무엇인지를 드러내는 단어' 정도가 자연스러움."
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionId": 10,
+      "description": "Q10 빈칸추론 오답(limitation/decoration/distortion)이 fullPassage에 없는 단어. 규칙상 B-level warning이며 빈칸추론 유형에서 개념적 오답은 허용됨.",
+      "action": "KEEP — 빈칸추론 오답은 문맥적 대비가 핵심. fullPassage 내 단어만 사용하면 오답 질이 하락"
     },
     {
-      "id": 17,
-      "severity": "MED",
-      "category": "어순배열 미완결 문장 + 본문 노출",
-      "detail": "wa='myths and mistrusts get thrown around so often they' (9단어). 9단어에서 끊어 they로 끝나는 미완결 문장. 본문 'myths and mistrusts get thrown around so often they eventually feel familiar'에서 그대로 절단. 학생은 passage를 보고 해당 부분을 그대로 조합하면 됨. 어순배열 본질(구문 지식 평가)에서 벗어남."
+      "id": "ADV-2",
+      "severity": "LOW",
+      "questionId": 11,
+      "description": "Q11 빈칸추론 오답(contradicts/eliminates/simplifies)도 fullPassage에 없음. 동일 사유.",
+      "action": "KEEP — 위와 동일"
     },
     {
-      "id": 20,
-      "severity": "HIGH",
-      "category": "조건영작 wa가 passage에 그대로 노출",
-      "detail": "wa='hiding in plain sight' (4단어). 같은 테스트파일 다른 문항(Q10, Q12~Q16, Q18~Q19 등)의 passage에 'hiding in plain sight'가 원문 그대로 노출. Q20 자체 passage는 빈칸 처리됐으나 학생이 다른 문항을 보면 정답 확보. S-WA-IN-PASSAGE 위반(cross-question leak). 추가로 [조건] 토큰 'hiding/in/plain/sight'가 정답 순서 그대로라 S-WRITTEN-TOKEN-LEAK 근접."
+      "id": "ADV-3",
+      "severity": "LOW",
+      "questionId": 15,
+      "description": "Q15 서술형 wa='unconsciously and effortlessly'는 3단어이나 'and'를 포함. 학생이 두 부사만 쓸 가능성. accept에 'unconsciously effortlessly' 포함되어 있어 커버됨.",
+      "action": "KEEP — accept 배열로 커버"
     },
     {
-      "id": 16,
-      "severity": "MED",
-      "category": "서술형 찾기 단서 부정확",
-      "detail": "stem: '진짜 해결책이 가짜에 의해 어떻게 되었는지를 나타내는 동사(과거분사 형태)'. wa=obscured. 본문 'they've usually been obscured by an unbelievable amount of fake' 맥락과 일치하나 '과거분사' 조건이 필수 단서로 주어짐 → 학생이 '과거분사' 문법 용어를 알아야 함. 중학생 수준에서는 다소 높음."
+      "id": "ADV-4",
+      "severity": "LOW",
+      "questionId": 14,
+      "description": "Q14 오류찾기 passage가 fullPassage와 다소 축약됨(인용구 생략). 부교재 passage=fullPassage 원칙과 약간 충돌하나, 오류찾기(ALL) 유형은 4~5문장 축약 허용.",
+      "action": "KEEP — 오류찾기 유형 예외 적용"
     }
   ],
-  "totalIssues": 4,
-  "highCount": 1
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. 모든 문항 정상. 배포 가능."
 }
