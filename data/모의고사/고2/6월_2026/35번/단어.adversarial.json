@@ -1,0 +1,62 @@
+{
+  "type": "adversarial",
+  "file": "단어.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 3,
+    "LOW": 4
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "qIds": [1, 2, 3],
+      "code": "EX-3-ABC-LEAK",
+      "detail": "(A)(B)(C) 조합형 3문항 모두: 정답 단어가 passage 다른 곳에 그대로 노출됨. 예: Q1에서 visual/identify/clues가 원문 전체에 이미 존재. 단어테스트 특성상 원문을 그대로 쓰는 구조이므로 불가피하나, 학생이 괄호 안만 보면 답을 유추할 수 있음. validate EX-3 경고와 동일.",
+      "action": "단어테스트 ABC 유형의 구조적 한계. 원문 변형 금지 규칙상 수정 불가. MEDIUM 유지하되 수정 불요."
+    },
+    {
+      "severity": "MEDIUM",
+      "qIds": [15],
+      "code": "PASSAGE-CRAFTED",
+      "detail": "Q15 다의어 문맥적 의미: passage가 fullPassage가 아닌 AI 생성 문맥 2개. (B) 'After finishing the long project, she felt deeply content with the results.'는 AI가 만든 문장. 규칙상 다의어 유형은 AI가 직접 passage를 작성하므로 허용이지만, 이 문장이 너무 단순하여 content=satisfied라는 힌트가 매우 노골적.",
+      "action": "규칙 범위 내이므로 수정 불요. 쉬운 난이도 의도라면 적절."
+    },
+    {
+      "severity": "MEDIUM",
+      "qIds": [8],
+      "code": "BLANK-ANSWER-NEAR-LEAK",
+      "detail": "Q8 빈칸어휘: 빈칸 정답 'context'가 passage 뒤쪽 'contextual information'에서 유추 가능. validate EX-1 경고와 동일. 단, 빈칸 위치와 contextual 위치가 떨어져 있고, context vs contextual은 다른 단어이므로 심각하지 않음.",
+      "action": "수정 불요. 학생이 contextual에서 context를 유추할 수 있으나, 난이도 '보통'에 적합한 수준."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [7],
+      "code": "SHORTCUT-NEGATION",
+      "detail": "Q7: 'not just a visual one. It is a _____ process as well'에서 visual의 대비 구조가 명확하여 mental을 쉽게 고를 수 있음. 난이도 '쉬움'이므로 의도된 것.",
+      "action": "수정 불요."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [16],
+      "code": "INTER-PREFIX-DISTRACTOR",
+      "detail": "Q16 영영풀이: 오답 3개(interact, interrupt, intervene)가 모두 inter- 접두사. 형태적 혼동을 노린 좋은 구성이나, 의미를 아는 학생에게는 너무 쉬움. 난이도 '보통' 적합.",
+      "action": "수정 불요."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [17, 18],
+      "code": "WRITTEN-SINGLE-FORM",
+      "detail": "Q17 gathered, Q18 largely: accept 배열에 변형이 1개뿐. 'Gathered'(대문자)도 accept에 넣을 필요 있으나, 채점 시스템이 case-insensitive NORM을 자동 적용하므로 실질적 문제 없음.",
+      "action": "수정 불요. 채점 NORM이 대소문자 무시."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [20],
+      "code": "BLANK-CONTEXT-TOO-OBVIOUS",
+      "detail": "Q20: 'It is a mental process _____'에서 빈칸 뒤에 largely가 이어지고, 앞 문장에서 'not just a visual one'이라고 했으므로 as well이 매우 자명. 난이도 '어려움'으로 표시되었으나 실제로는 '보통' 수준.",
+      "action": "난이도 라벨 검토 권장. 단, 배점 구조(쉬움5+보통10+어려움5)에 영향 주므로 변경 시 다른 문항도 조정 필요. 수정 보류."
+    }
+  ]
+}

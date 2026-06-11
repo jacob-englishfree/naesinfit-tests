@@ -1,21 +1,23 @@
 {
   "file": "data/부교재/수능특강/영어/30강/Gateway/단어.json",
-  "attacker": "opus-4.6",
-  "timestamp": "2026-06-11T12:10:00Z",
-  "issues": [],
-  "summary": {
-    "HIGH": 0,
-    "MEDIUM": 0,
-    "LOW": 0,
-    "total": 0
-  },
+  "attacker": "opus-4.6-1m",
+  "timestamp": "2026-06-11T18:10:00Z",
+  "issues": [
+    {
+      "id": 20,
+      "severity": "LOW",
+      "type": "det-ch-text-mismatch",
+      "description": "det.analysis ①번 설명이 'an important matter for those who make and sell honey'로 적혀 있으나, 실제 ch[0]은 'a key concern for those who produce and sell it'. 방향은 같으나 텍스트 불일치. validate 경고(SCHEMA-DET-ANS)도 동일 지적. 학생 풀이에는 영향 없음."
+    }
+  ],
+  "summary": {"HIGH": 0, "MEDIUM": 0, "LOW": 1, "total": 1},
   "checklist": {
     "dualAnswer": "PASS - 모든 문항 정답 유일",
-    "answerLeak": "PASS - 빈칸형에서 정답이 passage 다른 곳 노출 없음 (Q7 additives는 빈칸 자체)",
+    "answerLeak": "PASS - 빈칸형에서 정답이 passage 인접 5단어 이내 노출 없음",
     "metaLeak": "PASS - 출제 메타텍스트 노출 없음",
-    "weakDistractor": "PASS - 모든 오답이 소거 불가능한 수준",
+    "weakDistractor": "PASS - 오답이 소거 불가능한 수준",
     "truncation": "PASS - 선지 잘림 없음",
-    "markerSpread": "PASS - 마커 분산 적절",
-    "passageLength": "PASS - fullPassage 85% 이상 사용"
+    "grammarError": "PASS - stem/ch 문법 오류 없음",
+    "ambiguousStem": "PASS - stem 모호성 없음"
   }
 }

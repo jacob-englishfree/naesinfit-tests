@@ -1,0 +1,27 @@
+{
+  "file": "워크북.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "checks": {
+    "dualAnswer": "PASS — 20문항 모두 정답 1개 확정",
+    "answerLeak": "LOW — Q19 빈칸어휘 'promotion'이 passage에 다른 곳 노출 (빈칸은 있지만 동일 단어 다른 위치 존재). validate가 EX-1 경고 발생시킴.",
+    "obviousWrong": "PASS — 오답이 문맥적으로 매력적",
+    "passageFree": "PASS — passage 필요",
+    "stemAmbiguity": "PASS — stem 명확",
+    "waExposure": "PASS — 서술형 wa가 stem에 노출되지 않음"
+  },
+  "issues": [
+    {
+      "qid": 19,
+      "severity": "LOW",
+      "type": "answerLeak",
+      "detail": "빈칸어휘 정답 'promotion'이 passage 첫 문장 'Promotion deals with'에 노출. 단, 빈칸 위치와 다르고 대소문자 차이 있으며 validate는 EX-1(참고) 수준으로 처리"
+    }
+  ],
+  "severity": "LOW",
+  "validateWarnings": [
+    "V-DET-ANALYSIS-DUP-HEADER: Q10 det.analysis 헤더 중복 (LOW)",
+    "EX-1: Q19 빈칸 정답 promotion이 지문에 노출 (LOW/참고)",
+    "Q6-WEAK-DISTRACTOR: Q5/Q6/Q17/Q18/Q19 오답이 fullPassage에 없음 — 빈칸어휘 유형 특성 (LOW)"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "file": "퀴즈.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "checks": [
+    "double_answer",
+    "answer_leak",
+    "obvious_distractor",
+    "solvable_without_passage",
+    "ambiguous_stem",
+    "wa_exposure"
+  ],
+  "issues": [
+    {
+      "id": 8,
+      "severity": "FIXED",
+      "type": "det_korean_mislabel",
+      "desc": "det.korean이 '④ 생태학적 오류는...'으로 시작했으나 정답은 ①. ④→① 수정 완료",
+      "action": "det.korean 번호 수정"
+    },
+    {
+      "id": 17,
+      "severity": "FIXED",
+      "type": "wa_truncation",
+      "desc": "원래 wa 'eliminate stuff that is unused or not'(7단어)가 불완전 문장. 새 질문으로 교체: 슬픔 극복 문장 'this feeling will be overcome by the joy of clarity'(10단어)",
+      "action": "stem/wa/det 전면 교체"
+    }
+  ],
+  "summary": "Q8 det.korean 번호 오류 수정, Q17 불완전 wa 교체 완료. 나머지 18문항 CLEAN."
+}

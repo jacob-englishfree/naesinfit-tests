@@ -1,0 +1,30 @@
+{
+  "file": "data/부교재/올림포스전국연합고1_2026/12강/6번/퀴즈.json",
+  "model": "claude-opus-4-6",
+  "date": "2026-06-11",
+  "issues": [
+    {
+      "id": "FIX-1",
+      "severity": "MEDIUM",
+      "status": "FIXED",
+      "questions": [15, 16, 17, 18, 19, 20],
+      "description": "written 문항(Q15-Q20) 6개에 ans/ch 필드 누락. 워크북.json에는 있으나 퀴즈.json에만 빠져 있었음. ans=wa, ch=[] 추가 완료."
+    },
+    {
+      "id": "FIX-2",
+      "severity": "LOW",
+      "status": "FIXED",
+      "questions": [],
+      "description": "histKey가 'quiztest_'로 시작 (소문자). 다른 파일 패턴 'quizTest_'(camelCase)와 불일치. 수정 완료."
+    }
+  ],
+  "summary": "HIGH 이슈 0건. MEDIUM 1건(ans/ch 누락) FIXED. LOW 1건(histKey) FIXED. B-level 경고(T39 문항순서, EX-3 ABC노출)는 재구조화 불필요 수준.",
+  "checks": {
+    "duplicate_answer": "PASS — 정답 2개 가능한 문항 0건",
+    "answer_exposed": "PASS — 빈칸추론(Q8-10) passage에 빈칸 처리됨. 핵심단어(Q17-18)는 찾기형이라 passage 노출 정상",
+    "obvious_wrong": "PASS — 모든 오답이 문맥 기반 매력적 오답. Q8 '과거 기억 제거/두려움 강화/감정 무시' 모두 본문 취지 반대로 명확히 구분 가능하나 passage 읽어야 판별",
+    "solvable_without_passage": "PASS — 순서배열(Q1) stem에 passage 포함. 나머지 전 문항 passage 필수",
+    "ambiguous_stem": "PASS — stem 모호 0건",
+    "wa_exposed": "PASS — 조건영작(Q19-20) passage에 빈칸 처리 또는 wa 부분 미포함. 핵심단어(Q17-18)는 찾기형이라 정상"
+  }
+}

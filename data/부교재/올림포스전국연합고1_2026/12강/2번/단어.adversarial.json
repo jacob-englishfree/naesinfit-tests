@@ -1,0 +1,20 @@
+{
+  "file": "단어.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "checks": {
+    "dualAnswer": "PASS — 20문항 모두 정답 1개 확정",
+    "answerLeak": "PASS — passage에 정답 직접 노출 없음 (ABC 조합형은 bracket 안에 정답어 포함이 유형 특성)",
+    "obviousWrong": "PASS — 모든 오답이 문맥적으로 매력적",
+    "passageFree": "PASS — 모든 문항이 passage 없이는 풀 수 없음 (영영풀이 Q14-16은 passage 없음이 유형 규칙)",
+    "stemAmbiguity": "PASS — stem이 명확",
+    "waExposure": "PASS — 서술형 wa가 stem에 노출되지 않음"
+  },
+  "issues": [],
+  "severity": "NONE",
+  "validateWarnings": [
+    "EX-3: Q1/Q2/Q3 ABC 정답이 지문 다른 곳에도 노출 — ABC 유형 특성상 불가피 (LOW)",
+    "P2: Q1/Q5/Q19/Q20 passage 앞부분 fullPassage 불일치 — 다의어 유형은 별도 passage 작성이 규칙 (LOW)",
+    "Q6-WEAK-DISTRACTOR: Q6/Q7/Q8 오답 3개가 fullPassage에 없음 — 빈칸어휘 유형 특성 (LOW)"
+  ]
+}

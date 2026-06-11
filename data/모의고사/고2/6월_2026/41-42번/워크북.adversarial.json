@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "file": "data/모의고사/고2/6월_2026/41-42번/워크북.json",
+    "reviewer": "claude-opus-4-6",
+    "date": "2026-06-11",
+    "method": "adversarial (적대적 공격 검토)"
+  },
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "RESOLVED",
+      "questionIds": [
+        20
+      ],
+      "category": "subject-missing-in-wa",
+      "description": "Q20 조건영작: passage 빈칸이 '— __________.' 형태로 'they'가 빈칸에 포함되어야 하는데, wa에 'they' 없이 13단어(are currently racing...). 원문은 'they are currently racing...' 14단어. [조건]에도 'they' 미포함. 학생은 빈칸에 주어 없이 'are currently...'를 쓰게 되는데, 문법적으로 주어 없는 문장이 되어 혼란 유발.",
+      "action": "FIX — passage에 'they' 노출시키고 빈칸을 'they' 뒤로 조정하거나, wa에 they 포함하여 14단어로 수정",
+      "resolution": "Q20 passage 수정하여 주어 혼란 해소 완료"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [
+        15,
+        16
+      ],
+      "category": "answer-in-passage",
+      "description": "Q15/Q16 서술형 wa가 passage에 노출. 단, '찾아 쓰시오' 유형이므로 의도된 것. validate B-level warning 일치.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [
+        14
+      ],
+      "category": "render-marker",
+      "description": "Q14 오류찾기 passage ③에 <u> 없음. 오류찾기 유형은 <u> 금지 규칙이므로 정상. validate B-level.",
+      "action": "KEEP"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "verdict": "PASS — HIGH 1건 수정 완료 (Q20 passage에 'they' 노출 처리)",
+    "fixes_applied": [
+      "ADV-01: Q20 passage에서 'they'를 빈칸 앞에 노출. 'they __________.' 형태로 수정하여 학생이 13단어만 쓰면 됨."
+    ]
+  },
+  "highCount": 0
+}

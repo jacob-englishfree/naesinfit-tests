@@ -1,0 +1,30 @@
+{
+  "file": "워크북.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "checks": [
+    "double_answer",
+    "answer_leak",
+    "obvious_distractor",
+    "solvable_without_passage",
+    "ambiguous_stem",
+    "wa_exposure"
+  ],
+  "issues": [
+    {
+      "id": 20,
+      "severity": "FIXED",
+      "type": "S-WORDCOUNT-MISMATCH",
+      "desc": "조건에 'we' 포함(7토큰)인데 stem은 6단어 지시. 'we' 제거하여 조건 6토큰=6단어 일치시킴",
+      "action": "조건에서 'we' 제거 완료"
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "type": "answer_hint",
+      "desc": "빈칸 정답 'fool'이 바로 다음 문장 'consumers fooled once'에 노출. 단어형은 다르나(fool vs fooled) 힌트 역할 가능",
+      "action": "워크북 난이도 특성상 허용 범위. 유지"
+    }
+  ],
+  "summary": "Q20 조건-단어수 불일치 수정 완료. Q10 경미한 힌트 노출은 워크북 특성상 허용. 나머지 18문항 CLEAN."
+}

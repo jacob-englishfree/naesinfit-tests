@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "file": "data/모의고사/고2/6월_2026/41-42번/단어.json",
+    "reviewer": "claude-opus-4-6",
+    "date": "2026-06-11",
+    "method": "adversarial (적대적 공격 검토)"
+  },
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9],
+      "category": "weak-distractor",
+      "description": "빈칸 어휘 Q7/Q8/Q9의 오답 3개가 fullPassage에 없는 단어. 단어 테스트 난이도에서는 허용 범위이나, 오답 질 향상 여지 있음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "category": "answer-exposure",
+      "description": "(A)(B)(C) 조합형에서 정답 단어가 fullPassage 다른 위치에 노출. ABC 유형 특성상 불가피하며, 단어 테스트 수준에서 허용.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [19],
+      "category": "semantic-overlap",
+      "description": "Q19 ch[1] 'much less demand than supply'와 ch[2] 'more supply than demand'이 의미적으로 유사. 그러나 stem이 '가장 적절한 것'을 묻고 ch[1]이 원문 표현이므로 방어 가능.",
+      "action": "KEEP"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "verdict": "PASS"
+  }
+}

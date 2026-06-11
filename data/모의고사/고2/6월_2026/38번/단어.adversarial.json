@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "model": "claude-opus-4-6",
+    "date": "2026-06-11",
+    "file": "data/모의고사/고2/6월_2026/38번/단어.json"
+  },
+  "issues": [
+    {
+      "id": "ADV-V-01",
+      "severity": "LOW",
+      "qIds": [1, 2, 3],
+      "category": "정답 노출",
+      "description": "(A)(B)(C) 조합형 3문항 모두 fullPassage에 정답 단어가 다른 곳에 등장. 단어 테스트이므로 원문 확인 유형 특성상 불가피하나 validate EX-3 경고와 일치. 학생이 passage 전문을 보고 정답을 찾을 수 있음."
+    },
+    {
+      "id": "ADV-V-02",
+      "severity": "LOW",
+      "qIds": [7],
+      "category": "정답 노출",
+      "description": "Q7 빈칸 어휘: empathy가 passage 여러 곳에 노출. 빈칸 유형이지만 글 전체에서 반복적으로 empathy가 등장하여 난이도가 매우 낮음. 단어 테스트 쉬움 난이도이므로 의도된 수준."
+    },
+    {
+      "id": "ADV-V-03",
+      "severity": "LOW",
+      "qIds": [9],
+      "category": "오답 매력도",
+      "description": "Q9 빈칸 어휘: ②psychological은 physiological과 발음/철자 유사하여 교란 효과가 있지만, '보통' 난이도치고는 오답 ①emotional, ④problematic이 문맥상 너무 쉽게 배제됨."
+    },
+    {
+      "id": "ADV-V-04",
+      "severity": "LOW",
+      "qIds": [15],
+      "category": "passage 검증",
+      "description": "Q15 다의어: passage가 AI 작성(fullPassage 외). (B) 문맥은 원문에 없는 별도 예문이므로 validate P2 경고 발생. 다의어 유형 특성상 허용되나 기록."
+    },
+    {
+      "id": "ADV-V-05",
+      "severity": "LOW",
+      "qIds": [4, 5, 6],
+      "category": "유형 반복",
+      "description": "부적절 어휘 3문항 연속(Q4-Q6). 동일 유형 연속은 학생 피로도 증가. 배치 다양성 권장."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — HIGH 이슈 없음. 배포 가능."
+  }
+}

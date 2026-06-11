@@ -1,0 +1,29 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-11",
+  "file": "data/모의고사/고2/6월_2026/34번/단어.json",
+  "totalIssues": 3,
+  "high": 0,
+  "medium": 2,
+  "low": 1,
+  "issues": [
+    {
+      "severity": "MEDIUM",
+      "qIds": [1, 2, 3],
+      "type": "ABC-answer-exposed",
+      "desc": "ABC 3문항 모두 정답 단어가 passage의 ABC 괄호 밖에서 원문 그대로 노출됨 (validate EX-3 경고). 단어 테스트 특성상 원문 확인 학습 목적이므로 허용 범위이나, 선지 없이도 정답 유추 가능한 점 인지 필요."
+    },
+    {
+      "severity": "MEDIUM",
+      "qIds": [7, 8, 9],
+      "type": "weak-distractors",
+      "desc": "빈칸 어휘 Q7/Q8/Q9의 오답 3개가 전부 fullPassage에 등장하지 않는 외부 단어. 오답이 본문과 무관해 소거법으로 쉽게 배제 가능. 단어 테스트 난이도를 감안하면 수용 가능하나, 오답 중 1개는 본문에서 나온 단어를 배치하면 변별력 향상."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [19],
+      "type": "answer-length-hint",
+      "desc": "Q19 정답 'sidewalk vending carts'(3단어)가 오답보다 짧지만, S-LENGTH-BIAS 기준(2.5배) 미만이므로 PASS. 다만 오답들이 모두 3단어 구로 구성되어 형식적으로 균일함."
+    }
+  ]
+}

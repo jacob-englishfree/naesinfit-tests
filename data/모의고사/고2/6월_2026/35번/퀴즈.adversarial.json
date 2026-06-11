@@ -1,0 +1,41 @@
+{
+  "type": "adversarial",
+  "file": "퀴즈.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 1,
+    "LOW": 3
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "qIds": [8, 9, 10],
+      "code": "CONTENT-MATCH-CLUSTER",
+      "detail": "내용 일치/불일치 3문항(Q8, Q9, Q10)이 연속 배치. 모두 본문 직접 대조형. Q8과 Q10은 둘 다 '일치하는 것은?' 유형이고, Q9만 '일치하지 않는 것은?'. 3문항 연속 같은 유형 클러스터가 단조로움을 줄 수 있음.",
+      "action": "유형 다양성 측면에서 아쉬우나, 퀴즈(예상문제) 20문항 구성에서 내용 일치/불일치는 허용 유형. 수정 불요."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [19],
+      "code": "WRITTEN-CONDITION-ZERO-FREEDOM",
+      "detail": "Q19 조건영작: discover, what, it, means, or, symbolizes 6단어를 모두 사용+6단어 조건. 단어 수 = wa 단어 수이므로 순서 맞추기만 하면 정답. 어순배열과 사실상 동일.",
+      "action": "워크북 Q20과 동일 패턴. 수정 불요하나 향후 출제 시 조건 단어 < wa 단어로 자유도를 높이는 것 권장."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [1],
+      "code": "GRAMMAR-TOO-OBVIOUS",
+      "detail": "Q1 어법: ③ large -> largely. 'large based on'은 즉시 어색하게 들림. 난이도 '쉬움'이므로 의도된 것.",
+      "action": "수정 불요."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [16],
+      "code": "LONG-WRITTEN-ANSWER",
+      "detail": "Q16 서술형: 'to determine if we recognize and can make sense of its content' (12단어). stem에서 이미 'if we recognize and can make sense of its content를 포함하는 전체 to부정사구'라고 힌트를 줌. 학생이 stem만 읽고 앞에 'to determine'만 붙이면 정답. 너무 쉬움.",
+      "action": "stem이 정답 구조를 거의 제공하므로 변별력 낮음. 단, 난이도 '쉬움'(4점)이므로 의도 범위 내."
+    }
+  ]
+}

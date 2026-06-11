@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "file": "data/모의고사/고2/6월_2026/40번/단어.json",
+    "reviewer": "claude-opus-4-6",
+    "date": "2026-06-11",
+    "method": "adversarial (공격자 시점 검토)"
+  },
+  "issues": [
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "category": "정답노출",
+      "detail": "빈칸 정답 'emotionally'가 passage 뒷부분 'emotionally flat and robotic'에 그대로 노출. 단어 테스트 수준에서 학생이 스캔하면 즉시 발견 가능. validate EX-1 경고와 동일."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "category": "문맥단서과잉",
+      "detail": "빈칸 직후 'These violations'가 정답 'systematic violations of expectations'를 직접 지시. 4선지 중 'violations' 포함은 ch[3]뿐이라 소거법으로 즉시 풀림."
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "category": "EX-3(ABC원문노출)",
+      "detail": "ABC조합형 특성상 정답 단어가 fullPassage 다른 위치에 자연 노출. 단어 테스트 수준에서는 수용 가능."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "category": "길이편향",
+      "detail": "정답 'taking liberties with'(3단어)가 오답들(1-2단어)보다 길지만 2.5배 미만이라 S-LENGTH-BIAS 미해당."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 2,
+    "LOW": 2,
+    "verdict": "PASS — HIGH 이슈 0건. MEDIUM 2건은 단어 테스트 난이도 특성상 수용 가능."
+  }
+}

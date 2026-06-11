@@ -1,0 +1,48 @@
+{
+  "type": "adversarial",
+  "file": "워크북.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 2,
+    "LOW": 3
+  },
+  "findings": [
+    {
+      "severity": "MEDIUM",
+      "qIds": [5],
+      "code": "DUPLICATE-DISTRACTOR-CROSS-FILE",
+      "detail": "워크북 Q5(어휘, obstacles→clues)와 단어 Q4(부적절, barriers→clues)가 거의 동일한 포인트(clues 자리를 부정적 단어로 교체). 같은 35번 범위 내 단어+워크북을 연속으로 보는 학생이 중복감을 느낄 수 있음.",
+      "action": "구조적 한계. 같은 지문에서 출제하므로 일부 중복은 불가피. 수정 불요."
+    },
+    {
+      "severity": "MEDIUM",
+      "qIds": [7, 8, 9],
+      "code": "TF-BINARY-EASY",
+      "detail": "T/F 3문항이 모두 passage 직접 인용으로 풀림. 추론이 거의 필요 없어서 단순 독해력만 테스트. Q7(T), Q9(T)는 본문에서 거의 그대로 나오고, Q8(F)도 'scientific'이 명시적으로 나열되어 쉽게 판별. 워크북 전용 유형이므로 허용되나, 변별력 낮음.",
+      "action": "난이도 배분상 Q7=쉬움, Q8=보통, Q9=보통이므로 의도된 범위. 수정 불요."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [14],
+      "code": "ERROR-FINDING-OBVIOUS",
+      "detail": "Q14 오류찾기: ① category vs categorize. 동사 자리에 명사가 온 것이 매우 명백. 'we can identify and category'는 문법적으로 즉시 부자연스러움. 난이도 '어려움'(6점)에 비해 실제 난이도는 '보통' 수준.",
+      "action": "난이도 라벨 검토 권장하나 배점 구조 유지 위해 수정 보류."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [15, 16],
+      "code": "WRITTEN-FIND-IN-PASSAGE",
+      "detail": "Q15 '본문에서 찾아 쓰시오' + Q16 '본문에서 찾아 쓰시오': 둘 다 passage에 정답이 그대로 있음. 이는 '서술형 — 찾기' 유형이므로 S-WA-IN-PASSAGE 검사에서 제외되는 정상 케이스.",
+      "action": "수정 불요. 찾기 유형 정상."
+    },
+    {
+      "severity": "LOW",
+      "qIds": [20],
+      "code": "WRITTEN-CONDITION-GIVES-ANSWER",
+      "detail": "Q20 조건영작: [조건]에 all, the, contextual, information, we, have, gathered 7단어를 모두 사용+7단어 조건. 조건 단어 수 = wa 단어 수이므로 순서만 맞추면 됨. 이는 사실상 어순배열 문제와 동일. 난이도 '어려움'이지만 실제로는 단어를 나열하기만 하면 정답.",
+      "action": "조건 단어 수 = wa 단어 수이므로 자유도가 0. 문항의 변별력이 낮으나, 원문 구문 순서를 아는지 테스트하는 의도라면 허용 범위."
+    }
+  ]
+}

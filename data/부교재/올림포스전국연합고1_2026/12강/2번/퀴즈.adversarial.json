@@ -1,0 +1,44 @@
+{
+  "file": "퀴즈.json",
+  "date": "2026-06-11",
+  "model": "claude-opus-4-6",
+  "checks": {
+    "dualAnswer": "PASS — 20문항 모두 정답 1개 확정",
+    "answerLeak": "PASS — 정답 직접 노출 없음",
+    "obviousWrong": "PASS — 오답이 문맥적으로 매력적",
+    "passageFree": "PASS — passage 없이 풀 수 없음",
+    "stemAmbiguity": "PASS — stem 명확",
+    "waExposure": "PASS — 서술형 wa가 stem에 노출되지 않음"
+  },
+  "issues": [
+    {
+      "qid": 1,
+      "severity": "LOW",
+      "type": "missingPassage",
+      "detail": "순서배열 Q1의 passage가 null. stem에 도입문+ABC 블록이 있어 기능상 문제없지만, 다른 순서배열 문항은 passage에 넣는 것이 일반적"
+    },
+    {
+      "qid": "5,6,7",
+      "severity": "LOW",
+      "type": "missingOverlay",
+      "detail": "어법 Q5/Q6/Q7에 overlay.markers 없음. 워크북 어법 Q7/Q8/Q9는 overlay.markers 있음. 기능상 passage에 인라인 마커가 있어 렌더링은 정상이지만 일관성 부족"
+    },
+    {
+      "qid": 8,
+      "severity": "LOW",
+      "type": "missingOverlay",
+      "detail": "문맥상 부적절한 어휘 Q8에 overlay.markers 없음. 단어/워크북의 같은 유형은 overlay.markers 포함"
+    },
+    {
+      "qid": "10,11,12",
+      "severity": "LOW",
+      "type": "missingOverlay",
+      "detail": "빈칸추론 Q10/Q11/Q12에 overlay.blank 없음. passage에 빈칸(___) 자체는 있어 렌더링 정상"
+    }
+  ],
+  "severity": "LOW",
+  "validateWarnings": [
+    "RENDER-ANS-NOT-UNDERLINED: Q2 ans=2(②)인데 passage ②에 <u> 없음 (LOW)",
+    "EX-3: Q9 ABC 정답 지문 노출 — ABC 유형 특성 (LOW)"
+  ]
+}
