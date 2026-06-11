@@ -1,0 +1,20 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T12:00:00Z",
+  "testFile": "data/모의고사/고2/6월_2026/18번/단어.json",
+  "totalQ": 20,
+  "issues": [],
+  "summary": "HIGH 이슈 0건. 전체 20문항 검수 결과 치명적 문제 없음.",
+  "checks": [
+    { "check": "정답 2개 가능 여부", "result": "PASS", "detail": "모든 mc 문항 정답이 유일함. ABC 조합, 부적절어휘, 빈칸, 동의어, 반의어, 다의어, 영영풀이 모두 정답 1개만 성립" },
+    { "check": "선지 뻔함 여부", "result": "PASS", "detail": "모든 오답이 의미적 변별력 있음. 더미 선지 없음" },
+    { "check": "정답 노출 여부", "result": "MINOR", "detail": "Q1~Q3 ABC 조합형에서 정답 단어가 passage 다른 문장에도 노출되나, 단어 테스트 특성상 ABC 유형은 어차피 해당 위치의 원문 단어를 고르는 것이므로 문제 없음" },
+    { "check": "서술형 wa 노출 여부", "result": "PASS", "detail": "Q17 participation: fullPassage에 등장하나 passage는 발췌(1문장)이므로 다른 위치 노출 없음. Q18 environmental: passage 발췌 내 빈칸 자리만 사용" },
+    { "check": "단어수 조건 vs wa 일치", "result": "N/A", "detail": "어형변환 유형이라 단어수 조건 없음" },
+    { "check": "stem 명확성", "result": "PASS", "detail": "모든 stem이 명확. 모호한 발문 없음" },
+    { "check": "오답 소거 가능성", "result": "PASS", "detail": "passage 없이 소거 불가. 부적절 어휘(Q4~Q6)는 문맥 읽어야 판단. 빈칸(Q7~Q9)도 문맥 필수" },
+    { "check": "S-ANTONYM-PREFIX", "result": "PASS", "detail": "un-/in-/dis- 접두사 반의어 없음. higher/extensive/destruction 등 독립 반의어 사용" },
+    { "check": "S-META-CHOICE", "result": "PASS", "detail": "선지에 메타서술 없음" },
+    { "check": "ans 분포", "result": "PASS", "detail": "1:4, 2:5, 3:5, 4:4 (written 2개 제외). 최대 5개. 연속 최대 2개" }
+  ]
+}
