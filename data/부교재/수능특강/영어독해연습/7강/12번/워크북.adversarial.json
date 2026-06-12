@@ -1,0 +1,28 @@
+{
+  "model": "claude-opus-4-6",
+  "testFile": "data/부교재/수능특강/영어독해연습/7강/12번/워크북.json",
+  "summary": "20문항 적대적 검토 완료. HIGH 이슈 0건.",
+  "issues": [
+    {
+      "id": 6,
+      "severity": "LOW",
+      "issue": "Q6 ③ asleep/awake 교체가 단어.json Q6에서도 유사하게 사용됨 (asleep→awake). cross-leak은 완전 동일 wa가 아니므로 허용 범위 내이나, 같은 지문에서 유사 패턴 반복 인지.",
+      "action": "허용 — 어휘 문제의 마커 위치와 오답 단어가 다르고, 학생이 두 테스트를 동시에 보지 않으므로 문제 없음"
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "issue": "Q14 오류찾기 passage가 AI 생성 요약문이라 fullPassage와 다름. validate B-level P2 경고 발생하지만 오류찾기 유형 특성상 정상.",
+      "action": "허용 — 오류찾기 유형은 요약문 사용이 표준 형식"
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "issue": "Q17 wa='night-owl status'에서 하이픈 포함. NORM 정규화가 하이픈→공백 처리하므로 accept에 'night owl status' 포함 필요.",
+      "action": "이미 accept에 ['night-owl status', 'night owl status'] 둘 다 포함되어 있음. 조치 불필요"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3
+}
