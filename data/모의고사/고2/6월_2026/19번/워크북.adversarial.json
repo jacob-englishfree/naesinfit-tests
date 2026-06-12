@@ -1,10 +1,23 @@
 {
-  "model": "claude-opus-4-6", "timestamp": "2026-06-11T15:30:00Z",
+  "model": "claude-sonnet-4-6",
+  "timestamp": "2026-06-12T00:00:00.000Z",
   "testFile": "data/모의고사/고2/6월_2026/19번/워크북.json",
-  "totalQ": 20, "issues": [], "summary": "HIGH 이슈 0건.",
-  "checks": [
-    { "check": "정답 유일성", "result": "PASS" },
-    { "check": "어법 포인트", "result": "PASS", "detail": "what관계대명사/ask+O+to V/분사구문/능동vs수동분사 모두 명확" },
-    { "check": "ans 분포", "result": "PASS", "detail": "1:4, 2:5, 3:5, 4:5 (수정 후)" }
+  "totalIssues": 2,
+  "high": 2,
+  "medium": 0,
+  "low": 0,
+  "issues": [
+    {
+      "id": 17,
+      "severity": "HIGH",
+      "rule": "TW-TYPE",
+      "description": "Q17: type='서술형 — 핵심단어', wa='chocolate cake'. 19번은 짧은 지문(모의고사 18~20번)으로, 서술형 — 핵심단어 유형은 금지됨. CLAUDE.md 유형 화이트리스트에서 짧은 지문(18, 19, 20, 26번)에 서술형 — 핵심단어 출제 불가. 즉시 다른 유형으로 교체 또는 삭제 필요."
+    },
+    {
+      "id": 19,
+      "severity": "HIGH",
+      "rule": "TW-BAN + S-TYPE-CONTENT-MISMATCH",
+      "description": "Q19: type='주제/요지'로 등록되어 있으나 stem이 '이 글에서 Luna의 심경 변화로 가장 적절한 것은?'으로 심경변화 문항임. 심경변화는 TW-BAN(전면 금지 유형). 또한 type 라벨과 실제 문항 내용이 불일치하여 S-TYPE-CONTENT-MISMATCH도 해당. 해당 문항 즉시 삭제 또는 완전 재출제 필요."
+    }
   ]
 }

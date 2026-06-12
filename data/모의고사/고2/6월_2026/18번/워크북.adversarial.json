@@ -1,14 +1,17 @@
 {
-  "model": "claude-opus-4-6",
-  "timestamp": "2026-06-11T13:00:00Z",
+  "model": "claude-sonnet-4-6",
+  "timestamp": "2026-06-12T00:00:00.000Z",
   "testFile": "data/모의고사/고2/6월_2026/18번/워크북.json",
-  "totalQ": 20, "issues": [],
-  "summary": "HIGH 이슈 0건. 20문항 적대적 검수 통과.",
-  "checks": [
-    { "check": "정답 2개 가능 여부", "result": "PASS", "detail": "어법 4문항 모두 정답 유일. 어휘 2문항 반의어 명확. T/F 진위 명확. 빈칸/일치/불일치 모두 정답 유일" },
-    { "check": "선지 뻔함 여부", "result": "PASS", "detail": "모든 오답이 변별력 있음" },
-    { "check": "오류찾기 passage", "result": "PASS", "detail": "Q14: encourage+O+to V→taking part 오류 명확" },
-    { "check": "서술형 wa 노출", "result": "PASS", "detail": "Q17: June 25가 passage에 노출되나 '찾기' 유형이므로 정상" },
-    { "check": "ans 분포", "result": "PASS", "detail": "1:5, 2:5, 3:5, 4:4 (written 1개 제외). 균형 잡힘" }
+  "totalIssues": 1,
+  "high": 1,
+  "medium": 0,
+  "low": 0,
+  "issues": [
+    {
+      "id": 17,
+      "severity": "HIGH",
+      "rule": "TW-TYPE",
+      "description": "Q17: type='서술형 — 핵심단어', wa='June 25'. 18번은 짧은 지문(모의고사 18~20번)으로, 서술형 — 핵심단어 유형은 금지됨. CLAUDE.md 유형 화이트리스트에서 짧은 지문(18, 19, 20, 26번)에 서술형 — 핵심단어 출제 불가. 즉시 다른 유형으로 교체 또는 삭제 필요."
+    }
   ]
 }

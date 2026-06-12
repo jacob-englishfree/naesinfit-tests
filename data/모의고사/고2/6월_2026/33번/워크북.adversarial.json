@@ -1,25 +1,29 @@
 {
-  "model": "claude-opus-4-6",
-  "date": "2026-06-11",
-  "testType": "워크북",
-  "totalIssues": 2,
-  "highCount": 0,
-  "mediumCount": 0,
-  "lowCount": 2,
+  "model": "claude-sonnet-4-6",
+  "timestamp": "2026-06-12T00:00:00.000Z",
+  "testFile": "data/모의고사/고2/6월_2026/33번/워크북.json",
+  "totalIssues": 3,
+  "high": 0,
+  "medium": 1,
+  "low": 2,
   "issues": [
     {
-      "severity": "LOW",
-      "ids": [3],
-      "code": "DET-FIXED",
-      "description": "Q3 det.analysis에서 ②번 does를 '강조의 do(changes = 복수 → do)'로 잘못 설명. 실제로는 부정문 조동사 does(주어 evolution 단수). 수정 완료: '부정문 조동사 does(주어 evolution 단수) 적절'로 교정.",
-      "action": "FIXED"
+      "id": 20,
+      "severity": "MEDIUM",
+      "rule": "S-COND-WORD-MISMATCH (한국어 힌트 오해 유발)",
+      "description": "Q20: 서술형—조건영작. stem의 한국어 번역 '연이은 세대의 동물들은 꾸준한 선택 압력에 의해 추진될 것이다'에 '선택 압력(selection pressure)'이 포함되어 있으나, [조건]에는 [will, be, propelled, by, a, steady] 6단어만 제시되고 wa는 'will be propelled by a steady'(6단어)임. 한국어 힌트만 보면 'selection pressure'를 포함한 8단어 답을 쓸 수 있어 조건 위반으로 오채점됨. 한국어 번역에서 '선택 압력' 부분을 제거하거나, [조건]에 selection과 pressure를 추가해야 함."
     },
     {
+      "id": 3,
       "severity": "LOW",
-      "ids": [11],
-      "code": "Q6-WEAK-DISTRACTOR",
-      "description": "Q11 빈칸추론: 오답 3개가 fullPassage에 없는 구. 워크북 빈칸추론 어려움(6점)이라 패러프레이즈된 오답 허용.",
-      "action": "ACCEPT"
+      "rule": "DET-FIXED",
+      "description": "Q3 det.analysis에서 ②번 does를 '강조의 do(changes = 복수 → do)'로 잘못 설명. 실제로는 부정문 조동사 does(주어 evolution 단수). 이전 adversarial 리뷰에서 수정 완료 표시됨."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "rule": "Q6-WEAK-DISTRACTOR",
+      "description": "Q11 빈칸추론: 오답 3개가 fullPassage에 없는 구. 워크북 빈칸추론 어려움(6점)이라 패러프레이즈된 오답 허용 범위."
     }
   ]
 }
