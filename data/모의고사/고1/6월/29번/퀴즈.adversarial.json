@@ -1,16 +1,28 @@
 {
   "file": "data/모의고사/고1/6월/29번/퀴즈.json",
-  "timestamp": "2026-04-27T17:30:00.000Z",
+  "timestamp": "2026-06-12T12:00:00.000Z",
   "attacker": "claude-opus-4-6",
   "totalQuestions": 20,
   "issues": [
     {
       "id": "ADV-001", "severity": "LOW", "questionId": 16,
       "type": "WA_IN_PASSAGE",
-      "description": "Q16 서술형 wa 'domain'이 passage에 노출. 서술형 찾기 유형이므로 의도된 노출.",
+      "description": "Q16 서술형 wa 'deep, richly interconnected ideas about the world'가 passage에 노출. 서술형 찾기 유형이므로 의도된 노출.",
       "recommendation": "유지. 찾기 유형 본질."
+    },
+    {
+      "id": "ADV-002", "severity": "LOW", "questionId": 17,
+      "type": "WA_INCOMPLETE",
+      "description": "Q17 서술형 wa 'allows for greater flexibility in learning and'가 and로 끝남. 문법적으로 미완결이나 7단어 최소 요건 충족을 위한 것.",
+      "recommendation": "유지. 원문 자연스러운 7단어 추출."
+    },
+    {
+      "id": "ADV-003", "severity": "LOW", "questionId": 15,
+      "type": "JICHI_ABSTRACT",
+      "description": "Q15 지칭추론 the expert 선지 ④가 추상적(특정 분야에서 체계적으로 지식을 조직한 사람). 그러나 본문 맥락을 읽어야만 답할 수 있어 적절.",
+      "recommendation": "유지."
     }
   ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 1, "total": 1 },
-  "verdict": "PASS — HIGH 0건."
+  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 3, "total": 3 },
+  "verdict": "PASS — HIGH 0건. v5 재출제: Q14-15 지칭추론, Q16-18 서술형 7단어+, Q20 조건영작 6단어 적용."
 }
