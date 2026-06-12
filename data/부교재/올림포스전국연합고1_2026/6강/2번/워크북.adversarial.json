@@ -1,0 +1,50 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11",
+  "testFile": "data/부교재/올림포스전국연합고1_2026/6강/2번/워크북.json",
+  "issues": [],
+  "checks": [
+    {
+      "category": "정답 유일성",
+      "result": "PASS",
+      "detail": "모든 20문항 정답이 유일함. 복수 정답 가능 문항 없음"
+    },
+    {
+      "category": "오답 그럴듯함",
+      "result": "PASS",
+      "detail": "어법 Q1-4: 각 오답 포인트가 실제 학생이 헷갈릴 수 있는 문법 포인트. 어휘 Q5-6: 반의어가 명확하되 문맥 없이는 판단 어려움. 빈칸 Q10-11: 오답이 본문 단어 활용하여 매력적"
+    },
+    {
+      "category": "정답 노출",
+      "result": "PASS",
+      "detail": "빈칸추론(Q10,11): 빈칸 자리에 정답 미노출. 조건영작(Q20): 빈칸 처리. 서술형 찾기(Q15-17): 찾기 유형이므로 노출 정상"
+    },
+    {
+      "category": "선지 길이 편향",
+      "result": "PASS",
+      "detail": "모든 mc 문항에서 정답 길이가 오답 평균의 2.5배 미만"
+    },
+    {
+      "category": "passage 없이 풀기 시도",
+      "result": "PASS",
+      "detail": "Q10: passage 없이 'the hard part' 특정 불가(4선지 모두 가능). Q11: passage 없이 'lack of action' vs 'lack of knowledge' 구분 불가. Q12-13: 한국어 선지가 본문 세부정보 기반이라 passage 필수. Q18-19: 글 전체 논지 파악 필요"
+    },
+    {
+      "category": "마커 분산",
+      "result": "PASS",
+      "detail": "Q1 마커: 문장1(①②)+문장2(③)+문장3(④) 분산. Q2: 문장5(①②)+문장8(③)+문장10(④) 분산. Q3: 문장1(①)+문장3(②)+문장5(③)+문장11(④) 전체분산. Q4: 문장3(①)+문장4(②)+문장7(③)+문장10(④) 전체분산. Q5: 문장1(①)+문장4(②)+문장8(③)+문장10(④) 전체분산. Q6: 문장1(①)+문장5(②)+문장11(③④) 후반집중이나 ③④는 별도문장이라 허용"
+    },
+    {
+      "category": "조건영작 단어수",
+      "result": "PASS",
+      "detail": "Q20: 조건 8단어(the,knowledge,provided,by,science,and,use,it), wa=8단어 일치. 조건에 모든 단어 명시됨"
+    },
+    {
+      "category": "서술형 accept 다양성",
+      "result": "PASS",
+      "detail": "Q15: 3개 accept. Q16: 3개 accept. Q17: 3개 accept. Q20: 1개(영작이라 변형 없음)"
+    }
+  ],
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. 20문항 모두 adversarial 공격 통과."
+}

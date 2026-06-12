@@ -1,0 +1,31 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고1_2026/6강/7번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-06-11T09:05:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "questionId": 1,
+      "severity": "LOW",
+      "type": "passage_leak",
+      "description": "ABC 정답 단어(desirable, prejudiced, fictional)가 passage 다른 곳에도 등장하여 선지 없이 유추 가능. 단, 단어 테스트 특성상 원문 대조가 목적이므로 의도된 설계."
+    },
+    {
+      "id": "ADV-2",
+      "questionId": 5,
+      "severity": "LOW",
+      "type": "multiple_occurrence",
+      "description": "④ below→above 교체 위치가 인용문 내(children are above average)인데, 이후 문장에서도 above average 반복. 학생이 다른 위치의 above를 단서로 쉽게 풀 수 있음. 단어 테스트 쉬움 난이도이므로 적절."
+    },
+    {
+      "id": "ADV-3",
+      "questionId": 8,
+      "severity": "LOW",
+      "type": "weak_distractor",
+      "description": "오답 phenomena/prejudices/surveys가 fullPassage에 없는 단어. 본문 등장 단어 우선 원칙에 약간 위반이나, characteristics의 유사 의미 단어가 본문에 부족하여 불가피."
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. LOW 3건(ABC 정답노출=단어테스트 의도, below교체 쉬운 난이도 적합, Q8 오답 약간 약함). 20문항 전체 풀이 가능하고 정답 유일. 배포 가능."
+}

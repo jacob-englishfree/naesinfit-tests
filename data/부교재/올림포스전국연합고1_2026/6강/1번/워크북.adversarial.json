@@ -1,0 +1,27 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T00:00:00Z",
+  "summary": "20문항 전수 적대적 검수 완료. HIGH 이슈 0건.",
+  "issues": [
+    {
+      "id": 10,
+      "severity": "LOW",
+      "type": "오답 질",
+      "detail": "Q10 오답 basic/artificial/limited가 fullPassage에 없는 단어. 하지만 문맥 추론으로 current를 고를 수 있으므로 문제 없음. validate B-level warning과 동일."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "렌더링",
+      "detail": "Q14 오류찾기 ②에 <u> 태그 없음 (RENDER-ANS-NOT-UNDERLINED). 오류찾기는 원래 <u> 없이 번호 마커만 사용하므로 의도된 동작."
+    }
+  ],
+  "checks": {
+    "정답2개가능": "0건 — 모든 문항 정답 유일",
+    "선지뻔함": "0건 — 모든 오답이 문맥상 그럴듯함",
+    "정답노출": "0건 — 빈칸/서술형 정답이 passage 다른 곳에 직접 노출되지 않음 (Q15-17 찾기유형 제외)",
+    "단어수조건vs실제": "Q20: 조건 7단어, wa 7단어 — 일치",
+    "마커분산": "Q1: S1/S2/S4/S5, Q2: S1/S2/S4/S4, Q3: S2/S4/S4/S5, Q4: S1/S3/S4/S5 — 전체 분산 양호",
+    "S급11종": "전수 0건"
+  }
+}

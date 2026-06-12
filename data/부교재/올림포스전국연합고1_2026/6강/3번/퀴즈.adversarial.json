@@ -1,0 +1,53 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-11T00:02:00Z",
+  "file": "data/부교재/올림포스전국연합고1_2026/6강/3번/퀴즈.json",
+  "checks": [
+    {
+      "check": "정답 2개 가능 여부",
+      "result": "PASS",
+      "detail": "20문항 전부 정답 유일. 어법 3문항 모두 문법 오류가 명확(조동사+원형, 형용사/부사 구분). 부적절 어휘 2문항 반의어 교체 명확."
+    },
+    {
+      "check": "선지 뻔함/소거법",
+      "result": "PASS",
+      "detail": "Q6 오답(personal opinions, emotional reactions, statistical models)이 fullPassage에 없지만 모두 그럴듯한 연구 용어. Q12 영어 제목 선지 4개 모두 학술적으로 그럴듯. S-ANTI-CHEESE-GATE 해당 없음."
+    },
+    {
+      "check": "정답 passage 노출",
+      "result": "PASS",
+      "detail": "빈칸추론(Q6, Q7) 정답이 빈칸 처리됨. 조건영작(Q19, Q20) 정답자리 빈칸 처리 확인. 서술형 찾기(Q16-18)는 찾기 유형이므로 노출 정상."
+    },
+    {
+      "check": "stem 명확성",
+      "result": "PASS",
+      "detail": "서술형 stem에 Q→A 형식+빈칸 개수 표시. 조건영작에 [조건]+(N단어)+(영어로) 명시."
+    },
+    {
+      "check": "단어수 조건 vs wa",
+      "result": "PASS",
+      "detail": "Q16: 8단어=8단어OK. Q17: 7단어=7단어OK. Q18: 8단어=8단어OK. Q19: 11단어=11단어OK. Q20: 7단어=7단어OK."
+    },
+    {
+      "check": "마커/빈칸 분산",
+      "result": "PASS",
+      "detail": "어법 마커: Q1(앞-앞중-중-중후), Q2(앞-중-중-뒤), Q3(앞-중-중후-뒤). 부적절: Q4(앞-앞-중-중후), Q5(앞-중-중후-뒤). 전체 분산 양호."
+    },
+    {
+      "check": "모호한 문항 여부",
+      "result": "PASS",
+      "detail": "함축의미(Q13) call in sick 해석이 명확. 지칭추론(Q14) it이 가리키는 대상이 바로 앞 절로 명확. 지칭추론(Q15) them = utility bills 명확."
+    },
+    {
+      "check": "det 해설 품질",
+      "result": "PASS",
+      "detail": "mc 문항 det.analysis에 ✅❌ 마커+선지별 줄바꿈 확인. 영어 제목 선지(Q12) → 한국어 번역 포함. 서술형 구문 분석 포함."
+    }
+  ],
+  "highIssues": [],
+  "mediumIssues": [],
+  "lowIssues": [
+    "Q6: 오답 3개가 fullPassage에 없음 (weak distractor warning). 다만 모두 학술 용어로 그럴듯하여 실제 문제는 없음."
+  ],
+  "summary": "HIGH 0건, MEDIUM 0건, LOW 1건. 배포 가능."
+}

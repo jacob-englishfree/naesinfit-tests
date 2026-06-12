@@ -1,0 +1,33 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고1_2026/6강/4번/단어.json",
+  "timestamp": "2026-06-11T00:00:00Z",
+  "attacker": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "category": "정답 노출",
+      "description": "ABC 조합형에서 정답 단어가 지문 다른 위치에도 등장. 단, fullPassage가 7문장 짧은 지문이라 불가피. 단어 테스트 특성상 원문 단어 확인이 목적이므로 허용 범위."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [7],
+      "category": "오답 변별력",
+      "description": "Q7 빈칸(sustainable): 오답 original/special/healthy가 모두 본문 단어. 하지만 문맥상 'This type of farming is __'에 들어갈 형용사로 sustainable만 적절하므로 오답 소거 가능성 낮음."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [19, 20],
+      "category": "정답 노출",
+      "description": "Q19/Q20 빈칸 문맥 완성: 정답이 fullPassage 원문 그대로. 단어 테스트 특성상 본문 표현 확인이 목적이므로 허용."
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 3건은 짧은 지문(7문장) + 단어 테스트 특성상 불가피한 수준."
+}
