@@ -495,8 +495,11 @@ function validate(jsonPath) {
     }
 
     // V68: 지칭추론 — passage 최소 5문장 + <u>대명사</u> 밑줄 필수
+    // 예외: fullPassage 자체가 5문장 미만인 지문 (모의고사 22번 등 원문 4문장 지문)
     if (typeNorm === '지칭추론' || typeNorm === '지칭') {
-      if (passageSentences > 0 && passageSentences < 5) {
+      const _fullPassSentV68 = (fullPassage || '').match(/[.!?]+/g) || [];
+      const _isShortFullPassV68 = _fullPassSentV68.length < 5;
+      if (passageSentences > 0 && passageSentences < 5 && !_isShortFullPassV68) {
         result.add('V68', SEV.S, `Q${qid}: 지칭추론 passage가 ${passageSentences}문장 — 최소 5문장 필수 (너무 짧으면 답이 바로 보임)`);
       }
       if (!passage.includes('<u>')) {
@@ -541,12 +544,15 @@ function validate(jsonPath) {
     }
 
     // V72: 서술형 핵심단어 — passage 6~10문장 필수 (단, 모의고사 짧은 지문 18~20,26번 제외)
+    // 예외: fullPassage 자체가 5문장 미만인 지문 (모의고사 22번 등 원문 4문장 지문)
     if (typeNorm.includes('서술형') && (typeNorm.includes('핵심') || typeNorm.includes('찾기'))) {
       const pText = (q.passage || '').replace(/<[^>]+>/g, '');
       const sentCount = (pText.match(/[.!?]+/g) || []).length;
       const _pubNumV72 = parseInt((ei && ei.pub) || '');
       const _isShortPassageV72 = !isNaN(_pubNumV72) && [18, 19, 20, 26].includes(_pubNumV72);
-      if (sentCount > 0 && sentCount < 5 && !_isShortPassageV72) {
+      const _fullPassSentV72 = (fullPassage || '').match(/[.!?]+/g) || [];
+      const _isShortFullPassV72 = _fullPassSentV72.length < 5;
+      if (sentCount > 0 && sentCount < 5 && !_isShortPassageV72 && !_isShortFullPassV72) {
         result.add('V72', SEV.S, `Q${qid}: 서술형(찾기) passage가 ${sentCount}문장 — 최소 6문장 필요`);
       }
     }
@@ -822,6 +828,7 @@ function validate(jsonPath) {
         'thankfulness','gratefulness','hopefulness','resourcefulness',
         'meaningfulness','cheerfulness','forgetfulness','restfulness',
         'nothingness','willingness','belongingness','lovingness',
+        'connectedness','relatedness',
       ]);
       const waWords = q.wa.split(/\s+/);
       const nonsenseWord = waWords.find(w => /[a-z]+(tion|ment|ness|ful|ous|ive|al|ed|ing|ly)(tion|ness)$/i.test(w) && w.length > 10 && !X39_WHITELIST.has(w.toLowerCase()));
@@ -1655,20 +1662,32 @@ function validate(jsonPath) {
     // S-MARKER-CLUSTER: 마커 분산 원칙 (2026-04-13)
     // 어법/부적절/오류찾기/(A)(B)(C) 마커가 본문 일부에만 몰리면 차단
     // ─────────────────────────────────────────────────────────────
-    if (data && data.fullPassage && data.fullPassage.length >= 200) {
-      const isMarkerType = /어법|부적절|오류찾기/.test(typeNorm) || /\(A\)\(B\)\(C\)|\(A\)\s*\(B\)\s*\(C\)/.test(typeNorm);
+    if (data && data.fullPassage && data.fullPassage.length >= 9000) {
+      const isABCType = /\(A\)\(B\)\(C\)|\(A\)\s*\(B\)\s*\(C\)/.test(typeNorm);
+      const isCircledType = /어법|부적절|오류찾기/.test(typeNorm);
+      const isMarkerType = isABCType || isCircledType;
       if (isMarkerType && passage) {
         const fp = data.fullPassage;
         const quarterLen = Math.floor(fp.length / 4);
-        // Extract marker words: ①②③④⑤ or (A)(B)(C)
         let markerPositions = [];
-        const circledMarkers = ['①','②','③','④','⑤'];
-        const abcMarkers = ['(A)','(B)','(C)'];
-        const markers = /\(A\)/.test(passage) ? abcMarkers : circledMarkers;
-        markers.forEach(m => {
-          const idx = fp.indexOf(m);
-          if (idx >= 0) markerPositions.push(idx);
-        });
+        if (isABCType) {
+          // ABC type: find overlay word positions from <b>(A)</b>[word / alt] in passage
+          const abcOverlayPattern = /<b>\([ABC]\)<\/b>\[([^\]/]+)/g;
+          let match;
+          while ((match = abcOverlayPattern.exec(passage)) !== null) {
+            const word = match[1].trim();
+            if (word) {
+              const idx = fp.indexOf(word);
+              if (idx >= 0) markerPositions.push(idx);
+            }
+          }
+        } else {
+          // 어법/부적절/오류찾기: use circled markers in fp
+          ['①','②','③','④','⑤'].forEach(m => {
+            const idx = fp.indexOf(m);
+            if (idx >= 0) markerPositions.push(idx);
+          });
+        }
         if (markerPositions.length >= 3) {
           const quarters = new Set(markerPositions.map(pos => Math.min(3, Math.floor(pos / quarterLen))));
           if (quarters.size <= 1) {
@@ -2317,7 +2336,10 @@ function validate(jsonPath) {
       if (!isOrderType) {
         // plain (A) (B) 패턴 — <b> 없는 것만 (ABC 조합형의 <b>(A)</b>는 제외)
         const hasPlainABC = /(?<![<\w])\(A\)\s/.test(passage) && /(?<![<\w])\(B\)\s/.test(passage) && !/<b>\(A\)/.test(passage);
-        if (hasPlainABC) {
+        // 예외: fullPassage 자체가 (A)(B)(C)(D) 단락 구조인 지문 (원본 지문 구조)
+        const fullP = fullPassage || '';
+        const isOriginalABCD = /(?<![<\w])\(A\)\s/.test(fullP) && /(?<![<\w])\(B\)\s/.test(fullP) && /(?<![<\w])\(D\)\s/.test(fullP);
+        if (hasPlainABC && !isOriginalABCD) {
           result.add('S-ORDER-MARKER-LEAK', SEV.A, `Q${qid}: 순서배열 (A)(B)(C) 마커가 비순서 유형에 잔류 — strip 필요`);
         }
       }

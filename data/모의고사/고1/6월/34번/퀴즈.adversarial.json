@@ -1,26 +1,30 @@
 {
-  "file": "data/모의고사/고1/6월/34번/퀴즈.json",
-  "timestamp": "2026-04-27T00:00:00.000Z",
-  "attacker": "opus-4.6",
-  "issues": [
-    {
-      "id": "ADV-01", "severity": "LOW", "questionId": 16,
-      "category": "정답노출",
-      "description": "Q16 서술형 정답 'publish their'이 passage에 노출. 찾기 유형이므로 의도된 설계.",
-      "action": "KEEP"
-    },
-    {
-      "id": "ADV-02", "severity": "LOW", "questionId": 17,
-      "category": "정답노출",
-      "description": "Q17 서술형 정답 'depends'이 passage에 노출. 찾기 유형이므로 의도된 설계.",
-      "action": "KEEP"
-    },
-    {
-      "id": "ADV-03", "severity": "LOW", "questionId": 1,
-      "category": "유사문항",
-      "description": "Q1과 Q2 모두 ans=3이지만 문법 포인트가 다르고(5형식 보어 vs rather than+V-ing) 마커 위치가 다름. 2연속 허용 범위.",
-      "action": "KEEP"
-    }
-  ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 3, "totalIssues": 3, "verdict": "PASS — HIGH 0건. 배포 가능." }
+  "solver": "claude-opus-4-6-adversarial",
+  "date": "2026-06-13",
+  "totalChecked": 20,
+  "issues": {
+    "HIGH": [],
+    "MEDIUM": [],
+    "LOW": [
+      {
+        "id": 14,
+        "issue": "Q14 지칭추론 - 'that way'는 비교적 직관적. 쉬움 난이도에 적합하지만 지칭추론 치고는 너무 직접적.",
+        "severity": "LOW",
+        "action": "유지 — 쉬움 난이도 슬롯이므로 적합"
+      },
+      {
+        "id": 15,
+        "issue": "Q15 지칭추론 - 'another one' 역시 바로 앞 exercise를 대체하므로 추론 거리가 짧음.",
+        "severity": "LOW",
+        "action": "유지 — 보통 난이도이나 문맥은 명확. 오답 설계가 합리적이라 변별력 있음"
+      }
+    ]
+  },
+  "crossLeakCheck": {
+    "워크북_overlap": "없음 — 워크북 wa(changing behaviors, more promising, discomfort, give that exercise up)와 퀴즈 wa 전부 상이",
+    "단어_overlap": "없음 — 단어 blank(consequences, promising, reward, in light of, in favor of)와 퀴즈 blank(adapt and adjust, some kind of benefit) 전부 상이"
+  },
+  "ansDistribution": {"1":5,"2":4,"3":5,"4":1},
+  "ansDistributionNote": "ans=4가 1개로 편중. A6 규칙(최대5) 위반 아님. 연속 동일 번호 최대 2개(Q14-15 둘 다 1) — 3연속 없음.",
+  "summary": "HIGH 이슈 0건. 전 문항 출제 의도 명확, 정답 유일, 오답 합리적. 배포 가능."
 }

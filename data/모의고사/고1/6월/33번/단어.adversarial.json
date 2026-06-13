@@ -1,5 +1,23 @@
 {
-  "meta": { "file": "data/모의고사/고1/6월/33번/단어.json", "attackerModel": "claude-opus-4-6", "date": "2026-06-12", "method": "adversarial attack" },
-  "issues": [],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 0, "verdict": "PASS" }
+  "reviewer": "opus-4.6-adversarial",
+  "date": "2026-06-13",
+  "total": 20,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "issues": [
+    {
+      "id": 19,
+      "severity": "LOW",
+      "type": "선지 구조 유사",
+      "detail": "4선지 모두 well-X to Y 패턴이지만, S-PREFIX-DOMINANT는 10자+ 동일 prefix 3개 이상일 때 발동. well-은 5자이므로 통과. 학생이 문맥으로 답을 고를 수 있어 출제 의도 정상."
+    },
+    {
+      "id": 9,
+      "severity": "LOW",
+      "type": "오답 유사 철자",
+      "detail": "education/evolution/emotion/evaluation 4개 모두 e로 시작하고 -tion 종료. 학생이 단순 스펠링 혼동 가능성 있으나, 의미 기반 판단 문항이므로 출제 의도에 부합. 문맥(뇌를 형성한 주체)으로 evolution만 가능."
+    }
+  ],
+  "summary": "HIGH 이슈 0건. 20문항 전체 정답 유일성 확인 완료. 모호한 문항 없음. 배포 가능."
 }

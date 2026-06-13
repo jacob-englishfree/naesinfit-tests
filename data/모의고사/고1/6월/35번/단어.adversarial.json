@@ -1,10 +1,30 @@
 {
-  "file": "data/모의고사/고1/6월/35번/단어.json",
-  "timestamp": "2026-04-27T00:00:00.000Z",
-  "attacker": "opus-4.6",
-  "issues": [
-    { "id": "ADV-01", "severity": "LOW", "questionId": 1, "category": "정답노출", "description": "ABC 정답 단어 FP 내 재등장. 단어테스트 원문 대조 목적.", "action": "KEEP" },
-    { "id": "ADV-02", "severity": "LOW", "questionId": 20, "category": "오답변별력", "description": "Q20 오답이 FP 단어로 구성되어 있어 혼동 가능하나, 문맥상 building upon이 유일하게 적합.", "action": "KEEP" }
-  ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 2, "totalIssues": 2, "verdict": "PASS — HIGH 0건. 배포 가능." }
+  "testFile": "data/모의고사/고1/6월/35번/단어.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-13T14:15:00Z",
+  "totalIssues": 0,
+  "issues": [],
+  "checklist": {
+    "dualAnswer": "PASS — 모든 문항 정답 1개만 가능",
+    "answerExposed": "PASS — 빈칸/서술형 정답이 passage에 직접 노출되지 않음",
+    "obviousWrong": "PASS — 오답도 본문 단어 활용, 뻔한 오답 없음",
+    "ambiguousStem": "PASS — stem이 명확하고 모호하지 않음",
+    "grammarError": "PASS — 문법 오류 없음",
+    "passageIrrelevant": "PASS — 모든 문항이 passage 내용과 관련됨",
+    "markerDistribution": "PASS — 마커/빈칸이 fullPassage 전체에 분산",
+    "antonymPrefix": "PASS — prefix 조작 반의어 없음 (elevated, intermittent 등 독립 단어)",
+    "metaChoice": "PASS — 선지에 메타서술 없음",
+    "antiCheese": "PASS — passage 없이 소거법으로 풀리는 문항 없음"
+  },
+  "detailedReview": [
+    "Q1-3 (ABC): 정답 단어가 본문에 노출되나 ABC 유형 특성상 불가피. 오답이 반의어라 맥락 판단 필요.",
+    "Q4-6 (부적절): 마커 분산 양호. 교체어(higher/agitation/neglected)가 원문과 명확히 반대.",
+    "Q7-9 (빈칸어휘): 오답이 모두 본문 단어여서 단순 기억이 아닌 맥락 이해 필요.",
+    "Q10-12 (동의어): 오답에 반의어+무관어 혼합. 소거법만으로 풀 수 없음.",
+    "Q13-14 (반의어): Q13 lowered/diminished 동의어 배치로 함정 효과. Q14 intermittent은 고급 어휘로 난이도 적절.",
+    "Q15 (다의어): stream의 흐름/개울 구분 명확. 오답 배치 합리적.",
+    "Q16 (영영풀이): burnout 정의 정확. insomnia/anxiety와 혼동 가능하나 '신체적+정서적 소진+과로' 핵심 단서로 구분.",
+    "Q17-18 (어형변환): mean→meaningful, implementation→implemented 변환 명확.",
+    "Q19-20 (빈칸문맥): 맥락 추론 필요. Q20은 긴 구절 빈칸으로 난이도 적절."
+  ]
 }

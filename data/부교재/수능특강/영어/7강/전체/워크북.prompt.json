@@ -1,0 +1,407 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "수능특강/영어/7강/전체",
+  "testType": "워크북",
+  "fullPassage": "You've probably heard that it takes about ten thousand hours of practice to become an expert in anything — a musical instrument, a sport, chess, cooking, or a foreign language. The research by K. Anders Ericsson on this topic has been written about many times, and it was made even more famous when Malcolm Gladwell described it in his bestselling book Outliers. However, recently, a cohort of researchers reexamined the studies and research behind the 10K figure and said, quite dramatically, that the ten-thousand-hour rule was utter nonsense. Specifically, there is nothing particularly special about ten thousand hours, and while practice is clearly important to boost performance, other factors may play an even more important role. What are those other factors that get us to expert levels of performance? Pure innate talent? Intelligence? Luck of the draw? Perseverance? Hard work? Yes, it's all of that... and more. Age, experience, and environment all play a role. In other words, there's no one certain factor that can predict or ensure mastery or optimal performance of anything.\n\nIn the old Soviet Union, a famous U.S. beverage company wanted to set up a bottling plant and distribution network. The prevailing ideology in the old Soviet Union at the time stressed the importance of the group over the individual and the need to develop industrial capacity at the expense of consumer goods. Soft drinks hardly seemed to fit the country's ideological priorities. Indeed, one government official dismissed the product as a \"useless drink.\" Eventually, the two sides struck a deal, but not on the basis that the drink would quench the local population's thirst. Instead, the U.S. negotiators justified the project on the grounds that it would contribute to the country's industrial development. They restructured the project to include a heavy training component for local workers and managers, as well as a farm that would grow certain of the drink's ingredients. In addition, the company promised to make efforts to persuade other American companies to consider investments in the country.\n\nIn 2012, the Yale School of Architecture held a symposium called \"Is Drawing Dead?\" The bold title reflects a growing sense that the architect's freehand sketch is being displaced by the computer. The transition from sketchpad to screen entails, many architects believe, a loss of creativity, of adventurousness. Thanks to the precision and apparent completeness of screen renderings, a designer working at a computer has a tendency to lock in, visually and cognitively, on a design at an early stage. He bypasses much of the reflective and exploratory playfulness that springs from the uncertainty and ambiguity of sketching. Researchers term this phenomenon \"premature fixation\" and trace its cause to \"the disincentive for design changes once a large amount of detail and interconnectedness is built too quickly into a CAD (Computer-Aided Design) model.\" The designer at the computer also tends to emphasize formal experimentation at the expense of expressiveness. By weakening an architect's \"personal, emotional connection with the work,\" a renowned American architect and designer Michael Graves argues, CAD software produces designs that, \"while complex and interesting in their own way,\" often \"lack the emotional content of a design derived from hand.\"\n\nLimited animation is a process of making animated cartoons that does not follow a \"realistic\" approach. The short cartoons and feature films of Walt Disney from the 1930s and 1940s are widely acclaimed for depicting animated simulations of reality, with exquisite detail in every frame. However, this style of animation is very time-consuming and expensive. \"Limited\" animation creates an image that uses abstract art, symbolism, and limited movement to create the same effect, but at a much lower production cost. This style of animation depends more upon suspension of disbelief to tell a story; the story exists more in the viewer's imagination. It also encourages the animators to indulge in artistic styles that are not necessarily bound to the limits of the real world. The result is a new artistic style that could not have developed if animation was solely devoted to producing simulations of reality. Without limited animation, such ground-breaking films as Yellow Submarine, Chuck Jones' The Dot and the Line, and many others could never have been produced.",
+  "title": "7강 전체",
+  "typeRules": {
+    "어법": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>point</u>×4",
+      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "내용이해 T/F": {
+      "fmt": "mc",
+      "stem": "한국어 진술문 (패러프레이징 필수, 직역 금지)",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    "빈칸추론": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "내용 일치/불일치": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
+      "ch": "한국어 진술문 4개"
+    },
+    "오류찾기": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "passageRule": "ALL: 4~5문장 (번호 마커 포함)",
+      "answerRule": "문법 오류 1개 찾기",
+      "ch": "4개"
+    },
+    "서술형": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 핵심단어": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "주제/요지": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "서술형 — 조건영작": {
+      "fmt": "written",
+      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "passageRule": "fullPassage + 정답자리 __________",
+      "answerRule": ""
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "내용이해 T/F",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 8,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 9,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 10,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "오류찾기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "서술형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "서술형 — 핵심단어",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "주제/요지",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "주제/요지",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}

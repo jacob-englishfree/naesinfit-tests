@@ -1,7 +1,38 @@
 {
-  "meta": { "file": "data/모의고사/고1/6월/32번/단어.json", "attackerModel": "claude-opus-4-6", "date": "2026-04-27", "method": "adversarial attack" },
+  "testFile": "data/모의고사/고1/6월/32번/단어.json",
   "issues": [
-    { "id": "ADV-01", "severity": "LOW", "questionId": 6, "issue": "Q6 부적절 어휘에서 reluctant과 not willing이 의미적으로 가까워 오답 판별 어려울 수 있음", "resolution": "원문이 willing이므로 reluctant은 교체어. 문맥상 'not willing to drop' → 'not reluctant to drop'이면 의미 반전. 정상." }
+    {
+      "id": 3,
+      "severity": "LOW",
+      "type": "오답 변별",
+      "detail": "Q3 (C) consciously vs deliberately: 둘 다 '의도적으로'의 뉘앙스가 있어 혼동 가능. 그러나 'consciously thinking'이 원문이고, deliberately는 '신중하게/고의로'라는 의미 차이가 있어 문맥상 consciously가 명확히 적절. LOW."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "type": "정답 노출",
+      "detail": "Q7: 빈칸 정답 variety가 마지막 문장 'Variety creates...'에 노출됨. 그러나 빈칸 어휘 완성 유형에서 문맥 추론용 단서는 허용되며, 빈칸 바로 옆 5단어 이내는 아님. 단어 테스트 수준이므로 수용."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "오답 변별",
+      "detail": "Q14: rich 반의어. barren(메마른)이 정답. vivid(생생한)가 일부 학생에게 rich와 유사하게 느껴질 수 있으나, vivid는 시각적 생생함이지 풍부함의 동의어가 아님. abundant/fertile이 확실한 동의어로 소거 가능. LOW."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "type": "선지 구분",
+      "detail": "Q15 다의어: (A) 다채로운 vs 부유한 구분이 핵심. 경험이 부유할 수는 없으므로 다채로운이 맞음. 명확한 문맥 차이. LOW."
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "type": "어형변환 난이도",
+      "detail": "Q18: number → Numerous. number에서 numerous로의 변환이 비전형적(보통 number → numerical). 그러나 원문이 Numerous이고 문맥상 '수많은'이 필요하므로 정답은 명확. 어려움 난이도에 적합. LOW."
+    }
   ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 1, "verdict": "PASS" }
+  "totalIssues": 5,
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. 전 문항 정답이 명확하고 오답 소거 가능. Q3 consciously/deliberately 구분, Q14 barren 반의어, Q18 number→Numerous 변환이 변별력 있는 문항. 정답 2개 가능한 문항 없음. 배포 가능."
 }

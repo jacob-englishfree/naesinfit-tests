@@ -1,0 +1,407 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "수능특강/영어/3강/전체",
+  "testType": "워크북",
+  "fullPassage": "Even outdoors, although climate (including temperature) is usually regarded as beyond the control of man, localized temperature control is sometimes effective on a microclimate scale. Vancouver, Canada, is a few miles north of the 49th parallel, about 60 miles farther north than Minot, North Dakota, with its legendary harsh winter temperatures. But constant foehn winds off the Pacific Ocean make Vancouver winters mild and wet, although sunshine is scant. When I had a garden there in the late 1940s, a neighbor used to say that I \"cheated God\" to bring in my lettuce and tomatoes earlier than anyone else. The bed in which the vegetables grew was banked toward the south at approximately 50 degrees, and the area between the plants was covered with flat stones, gathered from the nearby beach, to maximize soil heating from the weak late winter–early spring sun.\n\nEnergy can always be injected into an organization to motivate people to do things. Bonuses, promotions, other carrots, and even a few sticks can get people to work harder, for sure, but the gains are, like all manipulations, short-term. Over time, such tactics cost more money and increase stress for employee and employer alike, and eventually will become the main reason people show up for work every day. That’s not loyalty. That’s the employee version of repeat business. Loyalty among employees is when they turn down more money or benefits to continue working at the same company. Loyalty to a company trumps pay and benefits. And unless you’re an astronaut, it’s not the work we do that inspires us either. It’s the cause that we come to work for. We don’t want to come to work to build a wall; we want to come to work to build a cathedral.\n\nIn the early 1960s the great American writer James Baldwin wrote: “People are trapped in history, and history is trapped in them.” He was speaking to race when he penned those words. But the statement is equally true if the word “people” is replaced with “all of life on Earth, present and past,” for each strand of DNA, in each of our cells, is an ancient record of biological history, written in simple code and passed down from generation to generation. One could say that DNA is nothing but history, one with a physical manifestation that was slowly blended and accumulated over countless eons by the most pitiless of all phenomena — natural selection. DNA is a history that is inside us — and yet one that is our master as well, the blueprint for our bodies, and dictator of what we will pass on to our children, gifts that can be blessings — or deadly time bombs. We are indeed trapped in this particular vehicle of history as much as it is trapped in us.\n\nPeople may not think critically for a variety of reasons, such as laziness and inability, but fear is a big one. Why is that? People don’t want to think not just because it’s hard, but also because they’re afraid it will make them question their long-held beliefs. Your students most likely do want to think about things that can be very controversial, like politics, ethics, and philosophy. But probe even deeper. Once we start thinking deeply, long-held assumptions are challenged. Thought makes us worry that we’ll lose our balance and have to look at the world in a different way. We worry about thinking because we care about what we and other people think. Even the most far-fetched ideas have an effect on the world. Non-Euclidean geometry and symbolic logic are about as abstract as thinking can get, but you can’t understand Einsteinian gravity without the first and run computers without the second. Thinking is important to us, to others, and to the world we live in. This is one reason why we are so afraid of it: it shakes us to the core.",
+  "title": "3강 전체 (함축적 의미 파악)",
+  "typeRules": {
+    "어법": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>point</u>×4",
+      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "내용이해 T/F": {
+      "fmt": "mc",
+      "stem": "한국어 진술문 (패러프레이징 필수, 직역 금지)",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    "빈칸추론": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "내용 일치/불일치": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
+      "ch": "한국어 진술문 4개"
+    },
+    "오류찾기": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "passageRule": "ALL: 4~5문장 (번호 마커 포함)",
+      "answerRule": "문법 오류 1개 찾기",
+      "ch": "4개"
+    },
+    "서술형": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 핵심단어": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "주제/요지": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "서술형 — 조건영작": {
+      "fmt": "written",
+      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "passageRule": "fullPassage + 정답자리 __________",
+      "answerRule": ""
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "내용이해 T/F",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 8,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 9,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 fullPassage 주입)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 2
+    },
+    {
+      "id": 10,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "오류찾기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": { \"find\": \"원문\", \"display\": \"오류형태\" }, \"②\": \"원문\", ... }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "서술형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "서술형 — 핵심단어",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "주제/요지",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "주제/요지",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}

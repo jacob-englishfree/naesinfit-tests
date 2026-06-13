@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "file": "data/모의고사/고1/6월_2026/24번/단어.json",
+    "model": "claude-opus-4-6",
+    "date": "2026-06-13",
+    "method": "adversarial (적대적 공격 — 정답 2개 가능/선지 뻔함/정답 노출 등 탐지)"
+  },
+  "issues": [],
+  "checks": [
+    { "check": "정답 2개 가능성", "result": "PASS", "detail": "20문항 모두 정답 1개만 가능. 다의어 Q15에서 (A)명사/(B)동사 구분 명확." },
+    { "check": "선지 뻔함 (소거법)", "result": "PASS", "detail": "모든 mc 문항에서 오답이 의미적으로 분산됨. 동의어/반의어 선지도 다양한 의미축 사용." },
+    { "check": "정답 노출", "result": "PASS", "detail": "Q8 homeostasis가 passage 뒤에 재등장하나, 빈칸 맥락으로 추론하는 구조이므로 B-level 허용." },
+    { "check": "반의어 접두사", "result": "PASS", "detail": "Q4 conflict, Q5 decrease, Q6 destabilize — 모두 접두사 제거형 아닌 별도 단어." },
+    { "check": "메타서술 선지", "result": "PASS", "detail": "선지에 '본문에서/관련 없는' 등 메타서술 없음." },
+    { "check": "서술형 wa 노출", "result": "PASS", "detail": "Q17 experienced, Q18 scrolling — passage에 원형(experience, scroll)만 있고 변형 답은 미노출." },
+    { "check": "단어수 조건", "result": "PASS", "detail": "Q17, Q18 모두 (1단어) 조건 = wa 1단어 일치." },
+    { "check": "마커 분산", "result": "PASS", "detail": "Q4 ①②③④ = 앞/앞/중간/뒤. Q5 = 앞/앞/중간/뒤. Q6 = 앞중간/중간/뒤/끝. 적절히 분산." },
+    { "check": "S-LENGTH-BIAS", "result": "PASS", "detail": "정답 길이가 오답 평균의 2.5배 이상인 문항 없음." },
+    { "check": "ans 분포", "result": "PASS", "detail": "1:4, 2:5, 3:5, 4:4 — 균등 분포, 최대 5개, 3연속 없음." }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "PASS"
+  }
+}

@@ -1,18 +1,39 @@
 {
-  "meta": { "file": "data/모의고사/고1/6월/33번/퀴즈.json", "attackerModel": "claude-opus-4-6", "date": "2026-06-12", "method": "adversarial attack" },
+  "testFile": "data/모의고사/고1/6월/33번/퀴즈.json",
+  "reviewer": "claude-opus-4-6",
+  "timestamp": "2026-06-13",
   "issues": [
     {
-      "id": 7,
+      "id": "ADV-B1",
       "severity": "LOW",
-      "issue": "빈칸 오답(mature, energy, reproduce)이 모두 품사 부적합으로 소거 가능",
-      "suggestion": "형용사 오답 추가 권장. 단, 현재도 본문 단어이므로 PASS."
+      "questionId": 6,
+      "description": "Q6 오답 3개(visual perception, daily routine, emotional response)가 fullPassage에 없는 외부 단어. 그러나 빈칸추론에서 오답이 본문 단어가 아닌 것은 정상적 출제 패턴.",
+      "action": "KEEP"
     },
     {
-      "id": 13,
+      "id": "ADV-B2",
       "severity": "LOW",
-      "issue": "함축의미 오답 3개가 모두 본문 무관한 내용이라 소거 가능성 있음.",
-      "suggestion": "본문 관련 오답 추가하면 변별력 상승. 어려움 난이도라 현재 OK."
+      "questionId": 7,
+      "description": "Q7 오답 3개(laboratory conditions, proper instruments, trained professionals)가 fullPassage에 없음. 빈칸추론 오답으로 적절.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionId": 3,
+      "description": "Q3 the majority + was/were 논쟁 가능. 현대 영어에서 the majority of + 복수명사 → were도 허용하는 문법서 존재. 그러나 원문이 was이므로 원문 기준 출제로 정당.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-B4",
+      "severity": "LOW",
+      "questionId": 17,
+      "description": "Q17 wa 'we talk about the source of the odor'는 워크북 Q15과 동일 답. cross-leak 주의 대상이나, 퀴즈 stem이 완전히 다르고 난이도 위계도 다르므로 허용.",
+      "action": "KEEP"
     }
   ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 2, "verdict": "PASS" }
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 4,
+  "pass": true
 }

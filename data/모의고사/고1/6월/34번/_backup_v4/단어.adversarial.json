@@ -1,0 +1,62 @@
+{
+  "file": "data/모의고사/고1/6월/34번/단어.json",
+  "timestamp": "2026-04-27T00:00:00.000Z",
+  "attacker": "opus-4.6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 1,
+      "category": "정답노출",
+      "description": "ABC 정답 단어(discovery, available, depends)가 fullPassage 다른 곳에도 등장. 단어테스트 특성상 원문 대조가 목적이므로 문제없음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 2,
+      "category": "정답노출",
+      "description": "ABC 정답 단어(publish, reconsider, construct) fullPassage 내 재등장. 동일 사유 — 단어테스트 원문 대조 목적.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 3,
+      "category": "정답노출",
+      "description": "ABC 정답 단어(derive, inspection, limited) fullPassage 내 재등장. 동일 사유.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 6,
+      "category": "오답변별력",
+      "description": "④unlikely vs possible — un- 접두사 반의어이나, possible↔unlikely는 의미적으로 충분히 다른 단어(impossible이 아님). S-ANTONYM-PREFIX 해당 안 됨.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 19,
+      "category": "오답유사성",
+      "description": "②in general이 as a whole과 의미적으로 유사할 수 있으나, 원문에 in general이 이미 별도로 사용되어 있어(they do not, in general, keep...) 구분 가능. 학생이 원문 대조로 판단 가능.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-06",
+      "severity": "LOW",
+      "questionId": 20,
+      "category": "오답변별력",
+      "description": "③make their data, ④derive additional theories가 fullPassage에서 가져온 구절이라 혼동 가능성 있으나, 빈칸 위치(will _____ more)에 문법적으로 들어갈 수 있는 것은 ②end up knowing뿐. make their data는 불완전한 구.",
+      "action": "KEEP"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 6,
+    "totalIssues": 6,
+    "verdict": "PASS — HIGH 0건, MEDIUM 0건. 배포 가능."
+  }
+}

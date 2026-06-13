@@ -1,0 +1,38 @@
+{
+  "testFile": "data/부교재/올림포스독해의기본2/2025/10강/4번/워크북.json",
+  "attackerModel": "opus",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "HIGH",
+      "category": "서술형 단어수 조건-wa 불일치 + accept 혼란",
+      "detail": "stem '두 번째 능력을 본문에서 찾아 영어로 쓰시오. (4단어)'. wa='critical thinking skills to' → 4단어 맞지만 'to'로 끝나 문법적으로 미완결 구. accept=['critical thinking skills to evaluate it'(6단어), 'the critical thinking skills to evaluate it'(7단어)]. stem '4단어'인데 accept에 6/7단어 병존 → S-WORDCOUNT-MISMATCH. 학생이 4단어로 답하면 'critical thinking skills to'라는 어색한 답이 되고, 6~7단어로 답하면 조건 위배인데 정답 처리되어 채점 일관성 파괴. 재출제 필요."
+    },
+    {
+      "id": 20,
+      "severity": "MED",
+      "category": "조건영작 wa — 원문 변형 + also 삽입",
+      "detail": "우리말: '비판적 사고 기술도 필요하다'. wa='if we are to avoid being misled we also need' (10단어). 본문 원문은 'if we are to avoid being misled, we need not only the ability... but also the critical thinking skills' → also 위치가 본문과 다름. 조건영작이라 변형 허용되나, 학생이 본문을 그대로 참고하면 오답 처리되는 혼란 야기. '비판적 사고 기술도 필요하다'는 우리말 자체가 [조건] 뒤 이어지는 문장을 요구하므로 stem 설계 재검토 필요."
+    },
+    {
+      "id": 17,
+      "severity": "MED",
+      "category": "어순배열 미완결 문장",
+      "detail": "wa='if we are to avoid being misled we need' (9단어). 본문 문장 중간에서 절단 → 미완결 부사절+주절 첫 두 단어만. 어순배열로는 '문장 완성'이 목적인데 'we need'에서 끝나 목적어 없는 불완전 형태. 본문의 'we need not only the ability...' 전체 구조를 평가하지 못함."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "category": "찾기형 단서 명확",
+      "detail": "wa=popularity. stem '페이지 순위가 결정되는 기준'. 본문 'page rankings are determined by popularity rather than truth' 명확. 찾기형으로 OK."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "category": "빈칸추론 매력오답 부족",
+      "detail": "빈칸 ④ 'critical thinking skills to evaluate it' 정답. 오답 ③'tools to filter fake news', ④'knowledge of search algorithms'는 본문에 전혀 없어 제거 쉬움. ②'ability to locate information'은 not only A 자리라서 제거. 실질 2지선다화."
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 1
+}
