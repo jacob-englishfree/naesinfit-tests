@@ -1,0 +1,12 @@
+{
+  "testFile": "data/모의고사/고2/11월_2021/37번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {"id": "ADV-B1", "severity": "LOW", "questionId": 1, "issue": "(A)(B)(C) Q1의 resilience가 본문에 3회 등장하여 맥락 없이도 유추 가능. 단어 테스트 특성상 원문 노출은 불가피하므로 허용 범위.", "resolution": "단어 테스트는 원문 어휘 학습 목적이므로 유지"},
+    {"id": "ADV-B2", "severity": "LOW", "questionId": 7, "issue": "빈칸 어휘 Q7 오답(identity, integrity, interest)이 fullPassage에 없음. 본문 단어 우선 권장이나 유사 철자 오답으로 변별력 확보.", "resolution": "유사 철자 오답으로 단어 변별 테스트 의도 유지"},
+    {"id": "ADV-B3", "severity": "LOW", "questionId": 15, "issue": "다의어 Q15의 (B) 문장이 AI 작성. fullPassage 외부 문장이나 다의어 유형 규칙에 따라 허용.", "resolution": "다의어 유형은 AI 직접 작성 허용 규칙 적용"}
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. LOW 3건 모두 단어 테스트 특성상 허용 범위. 20문항 모두 배포 가능."
+}

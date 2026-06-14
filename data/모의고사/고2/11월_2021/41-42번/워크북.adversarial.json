@@ -1,0 +1,29 @@
+{
+  "testFile": "data/모의고사/고2/11월_2021/41-42번/워크북.json",
+  "attacker": "opus-4.6",
+  "timestamp": "2026-06-14T02:50:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 10,
+      "issue": "빈칸추론 Q10의 오답 3개가 fullPassage에 없는 외부 생성 선지",
+      "detail": "오답 'a useless obstacle to survival', 'a product of modern civilization', 'a dangerous distraction from reality'는 모두 본문에 등장하지 않는 표현. 학생이 소거법으로 풀 가능성은 낮으나, 오답의 본문 연관성이 약함",
+      "recommendation": "본문 단어를 활용한 오답 권장이나, 현재 오답도 문맥적으로 합리적이므로 PASS 가능"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 5,
+      "issue": "어휘 Q5 정답(②harmful)이 원문(successful)과 단어 길이/첫글자가 달라서 시각적 단서 제공 가능성",
+      "detail": "harmful(7자) vs successful(10자). 하지만 마커가 4개 분산되어 있고 다른 마커도 원문 그대로이므로 시각적 단서만으로 풀기 어려움",
+      "recommendation": "현행 유지"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 없음. 배포 가능"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "testFile": "data/모의고사/고2/11월_2021/40번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionId": 7,
+      "type": "정답노출",
+      "description": "Q7: 빈칸 정답 forecast가 passage 뒷부분 'the forecast itself'에 노출됨. 단, 빈칸 위치와 노출 위치가 2문장 이상 떨어져 있고 단어테스트 특성상 본문 단어를 찾는 것이 목적이므로 LOW.",
+      "action": "허용 (단어테스트 빈칸 어휘 완성 = 본문 단어 찾기 성격)"
+    },
+    {
+      "id": "ADV-2",
+      "severity": "LOW",
+      "questionId": 8,
+      "type": "유사오답",
+      "description": "Q8: 오답 ② subjects도 문맥상 가능할 수 있음 (experimental subjects = 피험자). 단, 원문은 participants이고, subjects는 앞 문장에서 다른 맥락(experimental subjects)으로 사용되어 구분 가능.",
+      "action": "허용 (원문 기준 participants가 정답, subjects는 앞 문맥에서 다른 용법)"
+    },
+    {
+      "id": "ADV-3",
+      "severity": "LOW",
+      "questionId": 1,
+      "type": "정답노출",
+      "description": "Q1~Q3: ABC 정답 단어가 passage 다른 위치에도 등장. 단어테스트에서 ABC 조합형은 원문 단어를 찾는 것이 본질이므로 허용.",
+      "action": "허용 (validate EX-3 warning과 동일, 단어테스트 특성)"
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. 모든 이슈 LOW 수준. 20문항 전체 정답 명확, 복수 정답 가능성 없음."
+}
