@@ -1,0 +1,404 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "이투스유형독해S/03강/전체",
+  "testType": "퀴즈",
+  "fullPassage": "[P01] In a recent study, participants included both males and females ranging in age from 12 to 83. During the experiment, they were given a variety of breakfasts, and sometimes they had to skip breakfast completely. Special tests, including blood tests and endurance tests, were set up to analyze how well their bodies functioned when they had eaten a certain kind of breakfast. The results showed that if people eat an adequate breakfast, they will work more efficiently and more productively than if they skip breakfast or eat a very poor breakfast. This fact appears to be especially true if a person’s work involves mental activity. The study showed that if schoolchildren eat fruit, eggs, bread, and milk before going to school, they will learn more quickly and will be able to concentrate on their lessons for a longer period of time than if their breakfast diet is inadequate. [P02] In one fascinating study, the psychologists Stephanie Clancy and Stephen Dollinger recruited 201 college students and instructed them to collect 12 photographs that “describe who you are as you see yourself.” The students themselves could take the photographs, they could ask other people to take the photographs, or they could use photographs that had already been taken. Clancy and Dollinger found that male students were more likely to submit pictures that captured them engaged in an activity (such as playing a sport), displaying prized possessions (such as a car), or alone. Female students were more likely to submit pictures of themselves with other people. The authors concluded that women tend to define themselves more in terms of their relationships while men tend to define themselves more in terms of their abilities and accomplishments—terms reflective of their individuality, independence, and separateness. [C01] Habits provide a way to reduce the amount of mental energy that must be expended on routine tasks. Habits also form a mindset, which gives us cues on how to behave in certain settings. So when we enter a familiar setting, like the streets around our house, habitual behavior takes over. On the one hand, this is efficient: It frees us from having to gather all sorts of new information, from getting sidetracked. Yet on the other hand, because we are expending less energy on analyzing what is around us, we may be letting our mental guard down. If in three years there has never been a car coming out of the neighborhood’s driveway in the morning, what happens on the first day of the fourth year, when suddenly there is? Will we see it in time? Will we see it at all? Our feeling of safety and control is also a weakness. A study by a group of Israeli researchers found that drivers committed more traffic violations on familiar routes than on unfamiliar routes. [C02] People know knowledge is power and hence make their peers dependent on them. Sometimes people do not ask others for their knowledge as they feel guilty and they try to acquire the same by themselves. Some people do not know that whatever they know will be very useful for others for innovation and accomplishing tasks. People think that if they share knowledge with others, besides getting no recognition or acknowledgment from the beneficiaries, they may be blamed for no reason if application of their knowledge fails or does not provide good results. Also, people do not get time to talk to others. Each one is busy and pressurized by deadlines, milestones and targets. Functional silos, wrong methods of acquiring knowledge, lack of knowledge about technology, too much emphasis on information systems, competitive spirit, decision making process and individual attitudes, and values are some of the barriers of knowledge sharing.",
+  "title": "03강 주제",
+  "typeRules": {
+    "어법": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>point</u>×4",
+      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸추론": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "내용 일치/불일치": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
+      "ch": "한국어 진술문 4개"
+    },
+    "주제": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "함축의미 추론": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "passageRule": "fullPassage + <u>비유표현</u>",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "지칭추론": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "passageRule": "fullPassage + <u>대명사</u>",
+      "answerRule": "바로 앞 문장만으로 판단 불가하게",
+      "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
+    },
+    "서술형": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 핵심단어": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 조건영작": {
+      "fmt": "written",
+      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "passageRule": "fullPassage + 정답자리 __________",
+      "answerRule": ""
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "주제",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "주제",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "함축의미 추론",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "지칭추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "서술형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "서술형 — 핵심단어",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 조건영작",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}

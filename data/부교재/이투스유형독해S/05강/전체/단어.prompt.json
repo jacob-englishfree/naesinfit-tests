@@ -1,0 +1,393 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "이투스유형독해S/05강/전체",
+  "testType": "단어",
+  "fullPassage": "[P01] Why do we find it so ①difficult to slow down? We may, in part, be the inheritors of a Protestant ethic which encourages us ②to believe that time must be used ‘productively’ and ‘efficiently.’ We feel we should be getting things done, ticking them off a list. But it could be that many of us are driven by fear. We are so afraid of having longer, emptier hours ③that we fill them with distractions or strive to stay occupied. How often do we sit quietly on the sofa for half an hour without switching on the television, picking up a magazine or making a phone call, and instead just ④thinking? Within minutes we find ourselves channel-surfing and multitasking. What exactly are we afraid of? On some level we fear boredom. A deeper explanation is that we are afraid that an extended pause would give us the time to realize that our lives are not as meaningful and fulfilled as we would like them to ⑤do. The time for contemplation has become an object of fear. [P02] Everybody knows the population of the world is growing. But remarkably few people seem to know that the rate of increase in world population has been falling since the early 1960s and that the raw number of new people added each year (A) has / have been falling since the late 1980s. As the environmentalist Stewart Brand puts it, “Most environmentalists still haven’t got the word. Worldwide, birth rates are in free fall. On every part of every continent and in every culture, birth rates (B) are / being headed down. They reach replacement level and keep on dropping.” This is happening despite people living longer and thus increasing the numbers of the world population for longer, and despite the fact that babies are no longer dying as (C) frequent / frequently as they did in the early twentieth century. Population growth is slowing even while death rates are falling. [C01] Social psychologists have debated for decades the question of whether consistency is rooted in nature or nurture. Cultural variation would be one indication ①that it is learned. Some evidence indicates that the same basic drive for consistency can be found in very different cultures, but making choices does not seem to cause dissonance processes among East Asians the way it ②is for North Americans. On the other hand, the influence of social pressures toward consistency probably strengthens the drive. Either way, the root probably lies in the fact that groups of people can get along better if the people understand each other, and ③understanding each other is easier if people are somewhat consistent. People expect and pressure each other ④to be consistent, and people respond to these pressures and expectations by seeking to be consistent. Quite possibly the drive for consistency is rooted in our biological nature and ⑤strengthened by learning and socialization. [C02] Joost Smiers, director of the Centre for Research at the Utrecht School of the Arts, stated that it is important to discuss the abolition of copyrights, ①which are now mainly in the hands of the transnational cultural conglomerates. In his eyes, this economic concentration of power and rights ②damages free artistic and cultural developments, on both a local and global level. In general, art and culture are not an expression of the individual genius artist but have their roots in the historical developments of culture. If (Western) conglomerates claim their collected copyrights for profit reasons, they hinder artists and developing countries in processing existing cultural expressions and ③create new ones. One of the alternatives could be to establish a cultural fund, ④fed by tax from companies that use the expressions of artistic values for their own purpose. With the financial support of such a fund, artists and developing countries will be stimulated ⑤to contribute to free cultural living.",
+  "title": "05강 어법",
+  "typeRules": {
+    "(A)(B)(C) 조합형": {
+      "fmt": "mc",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "passageRule": "fullPassage + <b>(A)</b>[w1/w2] 마커",
+      "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
+      "ch": "4개"
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸 어휘 완성": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "동의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "반의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "다의어 문맥적 의미": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "영영풀이 매칭": {
+      "fmt": "mc",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
+      "overlay": "overlay = {} (passage 없음)",
+      "passageRule": "ALL: passage 없음 (빈 문자열)",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "어형 변환": {
+      "fmt": "written",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+    },
+    "빈칸 문맥 완성": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "ch": "4개"
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage 없음)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}

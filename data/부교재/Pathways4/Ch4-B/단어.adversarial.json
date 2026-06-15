@@ -1,0 +1,67 @@
+{
+  "reviewer": "opus-adversarial",
+  "timestamp": "2026-06-15",
+  "findings": [
+    {
+      "questionId": 2,
+      "severity": "HIGH",
+      "issue": "X42: det.analysis markers contradict ans. det says '❌ ① domestic — political — commercial — 원문 일치 ←정답' but ans=4. Also det describes ch[0] as 'domestic — political — commercial' when actual ch[0] is 'domestic — political — amateur'. The det.analysis choice descriptions do not match actual ch array ordering.",
+      "suggestion": "Rewrite det.analysis to match actual ch order: ① domestic-political-amateur, ② international-political-commercial, ③ domestic-personal-commercial, ④ domestic-political-commercial ←정답. Fix ✅/❌ markers accordingly."
+    },
+    {
+      "questionId": 9,
+      "severity": "HIGH",
+      "issue": "X42: det.analysis says '✅ ① model(모형) ←정답' but ans=4 and ch[0]='replica', ch[3]='model'. The det marker ① does not match ch index. det.analysis choice numbering is completely wrong.",
+      "suggestion": "Rewrite det.analysis: ❌ ① replica — 기존 비행기의 복제가 아닌 새 디자인, ❌ ② cartoon — 무관, ❌ ③ drone — 다른 유형, ✅ ④ model ←정답"
+    },
+    {
+      "questionId": 12,
+      "severity": "HIGH",
+      "issue": "X42: det.analysis says '✅ ① overturn ←정답' but ans=2 and ch[0]='support', ch[1]='overturn'. The det ① label points to support, not overturn. det numbering is misaligned with ch array.",
+      "suggestion": "Rewrite det.analysis: ❌ ① support(지지하다) — upend의 반의어, ✅ ② overturn(뒤집다) ←정답, ❌ ③ predict — 무관, ❌ ④ maintain — 반의어"
+    },
+    {
+      "questionId": 15,
+      "severity": "HIGH",
+      "issue": "X42: det.analysis has swapped ①② descriptions. det says '❌ ① 비행하다/날다' and '✅ ② 비행기를 타다/하지 말아야 한다' but ans=1. ch[0]='비행기를 타다 — 비행 자체를 하지 말아야 한다' matches det②'s description, not det①. The ✅/❌ markers and choice numbering are inverted.",
+      "suggestion": "Fix det.analysis: ✅ ① (A) 비행기를 타다 — (B) 비행 자체를 하지 말아야 한다 ←정답, ❌ ② (A) 비행하다 — (B) (비행기가) 날다 — 구분 안 됨"
+    },
+    {
+      "questionId": 16,
+      "severity": "HIGH",
+      "issue": "X42: det.analysis says '✅ ① kerosene ←정답' but ans=4 and ch[0]='hydrogen', ch[3]='kerosene'. The det ① label points to hydrogen, not kerosene. det numbering completely misaligned with ch.",
+      "suggestion": "Rewrite det.analysis: ❌ ① hydrogen(수소) — 기체, ❌ ② diesel(디젤) — 차량용, ❌ ③ ethanol(에탄올) — 생물 유래, ✅ ④ kerosene(케로신) ←정답"
+    },
+    {
+      "questionId": 20,
+      "severity": "MEDIUM",
+      "issue": "S-LENGTH-BIAS potential: Choice 2 'trade one environmental black eye for another' (49 chars) is significantly longer than choices 1 (49), 3 (37), 4 (35). Close to but may not trigger S-LENGTH-BIAS. Also, choice 2 contains the exact original phrase from fullPassage including 'environmental black eye' — making it identifiable even without full context reading.",
+      "suggestion": "Consider making other choices similar in length. The exact original phrase in the choice makes it identifiable by pattern matching rather than comprehension."
+    },
+    {
+      "questionId": 15,
+      "severity": "MEDIUM",
+      "issue": "Weak question design: Both (A) and (B) use 'fly' in essentially the same core meaning (traveling by airplane). The distinction is about attitude/context (enjoyment vs. moral obligation), not truly different word senses. For a 다의어 question, the two uses should have genuinely different meanings.",
+      "suggestion": "Consider using 'fly' with genuinely different meanings, e.g., (A) fly = travel by air vs (B) fly = move quickly/rush, or fly as a noun (insect). Current version tests attitude difference, not polysemy."
+    },
+    {
+      "questionId": 1,
+      "severity": "LOW",
+      "issue": "Very easy question — all three ABC words are directly obvious from context with clear binary opposites. No real distraction power.",
+      "suggestion": "Acceptable for 쉬움 difficulty. No change needed."
+    },
+    {
+      "questionId": 19,
+      "severity": "LOW",
+      "issue": "Choice 1 'a drop in the ocean' is very similar to correct answer 'a drop in the bucket'. Both mean the same thing idiomatically. A student who knows the meaning but not the exact phrase might pick 1.",
+      "suggestion": "This is actually good test design for 보통 difficulty — tests precise phrase knowledge. No change needed."
+    },
+    {
+      "questionId": 3,
+      "severity": "LOW",
+      "issue": "For 어려움 difficulty, the three words (gravel, friendly, homogeneous) are straightforward vocabulary. 'homogeneous' is the only challenging one.",
+      "suggestion": "Acceptable — 'homogeneous' provides sufficient difficulty for the 어려움 rating."
+    }
+  ],
+  "summary": {"HIGH": 5, "MEDIUM": 2, "LOW": 3}
+}

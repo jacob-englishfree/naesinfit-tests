@@ -1,0 +1,404 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "이투스유형독해S/06강/전체",
+  "testType": "퀴즈",
+  "fullPassage": "[P01] When a young man commits himself to a woman in the Sacrament of Marriage, he makes a vow to love her regardless of his feelings. What does this mean? As time passes and the trials of life weigh down, the couple may not feel the sentiments of love. Because many people have a wrong understanding of love, they feel ①justified to leave the marriage and look for those same feelings in another person. This makes sense if we ②reduce love to mere feelings. True marital love, however, understands that the commitment ③transcends subjective feelings. The feelings may have been necessary at the beginning of courtship, but if it evolves into true love, feelings become ④foremost. Marriage is about a choice to ⑤commit one’s life to another for their well-being regardless of emotions. [P02] One of the interesting examples of nonverbal communication in impression management is Goffman’s body gloss. In this process, individuals (A) conceal / exhibit behavior designed to cover or gloss over a potentially negative incident and thereby reduce observers’ unfavorable impressions. That is, body gloss frequently involves an actor playing to observers of a particular event. Thus, body gloss is (B) essential / unnecessary when there is no audience to impress. Unlike much of other nonverbal communication, however, this behavior is not necessarily interactive and conscious. Most of us have seen incidents of body gloss and, on occasion, have been actors in such performances, even if we were (C) aware / unaware of it. [C01] Fluorine is a chemical element that is present in the environment. When bones are formed, they do not contain much fluoride, but they ①absorb it from the environment over time. In other words, the older a bone is, the more fluoride it has, so by measuring that amount we can know its ②age. It was found that the Piltdown remains had minimal amounts of fluoride, so it was clear that they had been buried ③recently. The news was sensational, especially in countries such as France and Germany, although, it has to be said, also in Great Britain and the United States, the latter a country where there were scientists who had doubted the English ‘presapiens’. Yet many supporters of Piltdown Man—journalists and palaeontologists—④agreed to acknowledge the evidence provided by the fluoride. It was in 1953 that other analyses revealed that the remains had been dyed to give them an antique appearance and, ⑤worst of all, the teeth of the jaw, which turned out to be from an orangutan, had been filed down to give them a human look. [C02] Experiments are good for testing the effects of ‘treatments’; a treatment being the variable or stimulus that you are ①changing in order to test a differential response. For example, which web page configuration users prefer. This can be done covertly online by simply randomly ②exposing two groups to the two different configurations. If the dependent variable/objective is time on site then you can readily determine which website configuration leads to ③greater engagement. The overt/active lab-based experiment is most suited to studies seeking to determine ④psychological factors (though the lab can be virtual/online) and generally these are the preserve of academic inquiry. A company could employ a lab-based experiment to test differential reactions to two forms of packaging, for example. The problem with the lab experiment is that it tends to ⑤spread a stimulus or effect. People make decisions and buy things in the real, noisy world where various other things influence and distract you.",
+  "title": "06강 어휘",
+  "typeRules": {
+    "어법": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>point</u>×4",
+      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸추론": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "내용 일치/불일치": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "오답은 숫자/시기/인과 살짝 변조. 직역 금지 패러프레이즈",
+      "ch": "한국어 진술문 4개"
+    },
+    "주제": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "함축의미 추론": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "passageRule": "fullPassage + <u>비유표현</u>",
+      "answerRule": "",
+      "ch": "한국어 4개"
+    },
+    "지칭추론": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "passageRule": "fullPassage + <u>대명사</u>",
+      "answerRule": "바로 앞 문장만으로 판단 불가하게",
+      "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
+    },
+    "서술형": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 핵심단어": {
+      "fmt": "written",
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
+    },
+    "서술형 — 조건영작": {
+      "fmt": "written",
+      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "passageRule": "fullPassage + 정답자리 __________",
+      "answerRule": ""
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "주제",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "주제",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "함축의미 추론",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"비유표현/관용구\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "지칭추론",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "서술형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "서술형 — 핵심단어",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay = {}",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 조건영작",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}
