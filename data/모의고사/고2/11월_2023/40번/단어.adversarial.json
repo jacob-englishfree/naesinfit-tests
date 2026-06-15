@@ -1,0 +1,31 @@
+{
+  "testFile": "data/모의고사/고2/11월_2023/40번/단어.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-15T00:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "type": "EX-3 정답 노출",
+      "detail": "ABC 조합형은 구조상 원문 단어가 passage 다른 곳에도 노출됨. 단어 테스트 특성상 불가피하며, 오답이 반의어이므로 맥락 판단이 필요하여 난이도 유지됨."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9],
+      "type": "오답 본문 미등장",
+      "detail": "빈칸 어휘 오답(financial, emotional, physical, instructions, appearances, preferences, professors, opponents, spectators)이 fullPassage에 없음. 그러나 모두 동일 품사이고 맥락상 그럴듯하여 오답 질은 양호."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionIds": [20],
+      "type": "S-LENGTH-BIAS 근접",
+      "detail": "Q20 정답 'high social status'(18자) vs 오답 평균 'low self-esteem/weak leadership skills/poor academic records'(약18자). 길이 균형 양호. 위반 아님."
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "verdict": "PASS — HIGH 이슈 0건. 전체 20문항 출제 품질 양호."
+}

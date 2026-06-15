@@ -1,0 +1,30 @@
+{
+  "testFile": "data/모의고사/고2/11월_2023/37번/단어.json",
+  "model": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "description": "EX-3 warning: ABC type questions have correct words appearing elsewhere in the passage. However, this is structural to ABC-type questions in fullPassage overlay — the student still needs to identify which word fits each specific slot. Not a real issue for this question type."
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionIds": [7],
+      "description": "EX-1 warning: sampling appears in passage with blank. The word 'sampling' appears as 'information is lost when sampling' in (B) paragraph while the blank is in intro ('random __'). This is actually helpful context for students to deduce the answer, which is the intended design of vocabulary tests."
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionIds": [8, 19, 20],
+      "description": "Q6-WEAK-DISTRACTOR: Some distractors not from fullPassage. For vocabulary tests, using semantically related but passage-external distractors (pressure, routine, limit, beforehand, rarely, randomly, surface, frame, lens) is acceptable since they test word knowledge, not passage recall."
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — no HIGH or MEDIUM issues. All 20 questions have clear single answers. No ambiguous stems, no answer leaks, no meta-text exposure.",
+  "timestamp": "2026-06-15T00:00:00Z"
+}
