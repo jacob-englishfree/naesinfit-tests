@@ -1,0 +1,32 @@
+{
+  "testFile": "data/모의고사/고2/11월_2023/34번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "questionId": 8,
+      "severity": "LOW",
+      "type": "정답노출",
+      "description": "Q8 빈칸 정답 'species'가 후반부 'this animal species can survive'에 그대로 노출됨. 단 빈칸과 거리가 있고(같은 문장 내 반복 구조), 단어테스트 난이도에서는 허용 가능."
+    },
+    {
+      "id": "ADV-02",
+      "questionId": 1,
+      "severity": "LOW",
+      "type": "ABC정답노출",
+      "description": "Q1-3 ABC 유형 정답 단어(external, predators, starvation 등)가 지문 다른 위치에도 등장. ABC 유형 특성상 불가피하며, 오답 단어와의 의미 구분이 핵심이므로 허용."
+    },
+    {
+      "id": "ADV-03",
+      "questionId": 20,
+      "severity": "LOW",
+      "type": "길이편향",
+      "description": "Q20 정답 'cover longer distances'(3단어)와 오답도 모두 3단어 구. 길이 편향 없음. 다만 정답이 원문 그대로이므로 passage 암기 학생에게 유리. 단어테스트 목적에 부합."
+    }
+  ],
+  "totalIssues": 3,
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 3건은 단어테스트 특성상 허용 범위."
+}

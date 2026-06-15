@@ -1,0 +1,22 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-15T00:00:00Z",
+  "testPath": "data/모의고사/고2/11월_2023/33번/퀴즈.json",
+  "totalQuestions": 20,
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 0,
+  "issues": [],
+  "checks": [
+    { "category": "정답 유일성", "result": "PASS", "detail": "20문항 모두 정답 1개만 가능. 복수정답 0건" },
+    { "category": "오답 변별력", "result": "PASS", "detail": "오답이 뻔하지 않음. 어법(likelier/predicting/what) 실제 학생 오류패턴 반영. 어휘(negligible/set out) 고급 반의어 사용" },
+    { "category": "정답 노출", "result": "PASS", "detail": "빈칸형(Q6-7) 정답이 passage에 직접 노출되지 않음. 서술형 찾기(Q16-18)는 의도적 노출(찾기 유형)" },
+    { "category": "조건-답 일치", "result": "PASS", "detail": "Q19: 6조건단어=6답단어. Q20: 9조건단어=9답단어. 모두 일치" },
+    { "category": "마커 분산", "result": "PASS", "detail": "어법/어휘 마커가 passage 전체에 분산. 한 문단 집중 없음" },
+    { "category": "선지 길이 편향", "result": "PASS", "detail": "정답 길이가 오답 평균의 2.5배 미만" },
+    { "category": "메타서술 선지", "result": "PASS", "detail": "선지에 '본문에서/관련없는' 등 메타표현 0건" },
+    { "category": "크로스파일 중복", "result": "PASS", "detail": "단어.json/워크북.json과 동일 blank/wa 0건. Q19(take better care of their vehicles), Q20(more noticeable on the road and therefore less likely) 모두 기존 테스트 미사용" },
+    { "category": "퀴즈 난이도", "result": "PASS", "detail": "워크북보다 높은 난이도. 빈칸 2단어+(covered up, do well to). 서술형 7단어+. 함축의미/지칭 포함" },
+    { "category": "해설 품질", "result": "PASS", "detail": "이그잼포유 수준. 영어선지→한국어번역 포함. 선지별 줄바꿈 분리" }
+  ]
+}
