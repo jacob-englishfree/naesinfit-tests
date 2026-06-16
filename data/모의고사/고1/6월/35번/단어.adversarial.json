@@ -1,30 +1,41 @@
 {
-  "testFile": "data/모의고사/고1/6월/35번/단어.json",
-  "model": "claude-opus-4-6",
-  "timestamp": "2026-06-13T14:15:00Z",
-  "totalIssues": 0,
-  "issues": [],
-  "checklist": {
-    "dualAnswer": "PASS — 모든 문항 정답 1개만 가능",
-    "answerExposed": "PASS — 빈칸/서술형 정답이 passage에 직접 노출되지 않음",
-    "obviousWrong": "PASS — 오답도 본문 단어 활용, 뻔한 오답 없음",
-    "ambiguousStem": "PASS — stem이 명확하고 모호하지 않음",
-    "grammarError": "PASS — 문법 오류 없음",
-    "passageIrrelevant": "PASS — 모든 문항이 passage 내용과 관련됨",
-    "markerDistribution": "PASS — 마커/빈칸이 fullPassage 전체에 분산",
-    "antonymPrefix": "PASS — prefix 조작 반의어 없음 (elevated, intermittent 등 독립 단어)",
-    "metaChoice": "PASS — 선지에 메타서술 없음",
-    "antiCheese": "PASS — passage 없이 소거법으로 풀리는 문항 없음"
-  },
-  "detailedReview": [
-    "Q1-3 (ABC): 정답 단어가 본문에 노출되나 ABC 유형 특성상 불가피. 오답이 반의어라 맥락 판단 필요.",
-    "Q4-6 (부적절): 마커 분산 양호. 교체어(higher/agitation/neglected)가 원문과 명확히 반대.",
-    "Q7-9 (빈칸어휘): 오답이 모두 본문 단어여서 단순 기억이 아닌 맥락 이해 필요.",
-    "Q10-12 (동의어): 오답에 반의어+무관어 혼합. 소거법만으로 풀 수 없음.",
-    "Q13-14 (반의어): Q13 lowered/diminished 동의어 배치로 함정 효과. Q14 intermittent은 고급 어휘로 난이도 적절.",
-    "Q15 (다의어): stream의 흐름/개울 구분 명확. 오답 배치 합리적.",
-    "Q16 (영영풀이): burnout 정의 정확. insomnia/anxiety와 혼동 가능하나 '신체적+정서적 소진+과로' 핵심 단서로 구분.",
-    "Q17-18 (어형변환): mean→meaningful, implementation→implemented 변환 명확.",
-    "Q19-20 (빈칸문맥): 맥락 추론 필요. Q20은 긴 구절 빈칸으로 난이도 적절."
-  ]
+  "file": "data/모의고사/고1/6월/35번/단어.json",
+  "model": "opus-adversarial",
+  "timestamp": "2026-06-16T11:42:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "issue": "EX-3 경고: ABC 정답 단어가 지문 다른 곳에도 노출됨. 127단어 짧은 지문 특성상 불가피. 학생이 선지를 대조해야 하므로 실질적 문제 없음.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-2",
+      "severity": "LOW",
+      "questionIds": [7, 9],
+      "issue": "Q6-WEAK-DISTRACTOR 경고: 오답이 fullPassage에 없음. 단어 유형 특성상 본문 외 어휘도 오답으로 적절. compose/ignore/invent(Q7), patterns/methods/details(Q9) 모두 같은 품사의 합리적 오답.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-3",
+      "severity": "LOW",
+      "questionIds": [13],
+      "issue": "Q13 반의어: unfamiliar의 반의어로 well-known 선택. un- 접두사 제거형(familiar)이 아닌 well-known으로 출제되어 S-ANTONYM-PREFIX 규칙 준수. 오답 foreign/strange/unusual 모두 동의어 계열로 적절한 방해 선지.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "ADV-4",
+      "severity": "LOW",
+      "questionIds": [15],
+      "issue": "P2 경고: 다의어 passage가 fullPassage와 다름. 다의어 유형은 AI가 직접 (A)(B) 미니 문맥을 작성하므로 정상. 두 문맥 모두 자연스럽고 draw의 의미 구분이 명확.",
+      "action": "ACCEPT"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "verdict": "PASS — HIGH 이슈 0건. 배포 가능."
+  }
 }

@@ -1,26 +1,27 @@
 {
-  "solver": "claude-opus-4-6-adversarial",
-  "timestamp": "2026-06-13T",
+  "testFile": "data/모의고사/고1/6월/32번/퀴즈.json",
+  "model": "claude-opus-4-6",
   "issues": [
     {
-      "id": "ADV-1",
       "severity": "LOW",
-      "qId": 18,
-      "desc": "Q18 det.analysis에 '9단어'라고 적혀있으나 실제 wa는 8단어. det 텍스트 불일치지만 stem과 wa는 일치(8단어)하므로 학생 풀이에 영향 없음."
+      "id": 14,
+      "issue": "지칭추론 Q14의 them이 1문장 내에서 바로 앞에 위치하여 너무 가까운 지칭. 그러나 쉬움 난이도이므로 수용 범위.",
+      "action": "KEEP"
     },
     {
-      "id": "ADV-2",
       "severity": "LOW",
-      "qId": 5,
-      "desc": "Q5 부적절 어휘: totally↔partially는 정확히 반의어라기보다 정도 차이. 그러나 문맥에서 '완전히 의식 밖'을 '부분적으로'로 바꾸면 원문 의미 왜곡이 명확하여 정답 유일."
+      "id": [11, 12],
+      "issue": "Q11 주제와 Q12 제목이 유사한 내용을 다룸. 그러나 주제/제목은 관점이 달라 구분 가능.",
+      "action": "KEEP"
     },
     {
-      "id": "ADV-3",
       "severity": "LOW",
-      "qId": 12,
-      "desc": "Q12 요지(어려움): 영어 선지. ① 정답이 길고 상세하지만, 오답 ②③④도 각각 구체적 주장이라 길이 편향 없음. S-LENGTH-BIAS 해당 없음."
+      "id": [16, 17],
+      "issue": "Q16(failure구)와 Q17(market adoption구) 모두 본문 후반부에서 출제. 영역 분산이 중간~후반에 치우침. 그러나 서술형 특성상 핵심 문장에서 출제하는 것이 자연스러움.",
+      "action": "KEEP"
     }
   ],
-  "highCount": 0,
-  "summary": "HIGH 이슈 0건. LOW 3건(det 텍스트 오타, 부적절 어휘 변별력, 영어 선지 길이). 모두 학생 풀이에 영향 없는 수준. 배포 가능."
+  "totalIssues": 3,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 3건은 모두 수용 범위. 배포 가능."
 }

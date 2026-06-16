@@ -1,13 +1,42 @@
 {
-  "testFile": "data/모의고사/고1/6월/34번/단어.json",
+  "_": "적대적 공격 검수 — 2025 고1 6월 34번 단어",
+  "file": "data/모의고사/고1/6월/34번/단어.json",
   "reviewer": "claude-opus-4-6",
-  "reviewedAt": "2026-06-13",
-  "totalIssues": 0,
-  "issues": [],
-  "notes": [
-    "Q1-3: EX-3 warning (ABC 정답단어 지문 노출) — ABC 유형 특성상 [word1/word2] 형식으로 명확히 구분됨. 학생이 원문 단어를 보고 선택하는 것이 출제 의도.",
-    "Q8/Q19/Q20: 오답이 fullPassage 미존재 — 단어테스트 목적상 본문 외 어휘를 오답으로 사용하는 것이 적절. 본문 단어만 쓰면 오답 소거 너무 쉬움.",
-    "Q18: comfortable→discomfort 변환이 비표준적이나 어려움 난이도에 적합. 병렬구조(problem, ___, disadvantage)가 강한 문맥 단서 제공.",
-    "전체: 정답 2개 가능 0건, 정답 passage 노출 0건, 뻔한 오답만 0건, 모호한 stem 0건."
-  ]
+  "timestamp": "2026-06-16",
+  "attacks": [
+    {
+      "id": "ADV-01",
+      "target": "Q14",
+      "severity": "LOW",
+      "issue": "scattered(④)가 spread와 완전히 다른 축인지 애매. scattered=흩뿌린은 spread의 결과적 상태로도 해석 가능.",
+      "verdict": "PASS — contained(③)이 명확한 반의어로 정답이 유일. scattered는 '무질서하게 흩어진'이라 '의도적 확산'의 반대가 아님."
+    },
+    {
+      "id": "ADV-02",
+      "target": "Q16",
+      "severity": "LOW",
+      "issue": "assumption(③)과 hypothesis(④) 혼동 가능. 둘 다 '가정/추정' 의미.",
+      "verdict": "PASS — 영영 정의에 'limited evidence as a starting point for further investigation'이 핵심. assumption은 증거 없이 참으로 전제하는 것, hypothesis는 검증 목적의 잠정적 설명. 구분 가능."
+    },
+    {
+      "id": "ADV-03",
+      "target": "Q6",
+      "severity": "LOW",
+      "issue": "④accessible이 limited 자리에. 'rather than being accessible to a few people'도 문법적으로 성립.",
+      "verdict": "PASS — 원문은 'rather than being limited to a few people'. limited=제한된이 rather than 구문에 자연스러움. accessible to a few people는 의미상 '소수만 접근가능'이 되어 spread widely의 대비 구조에 적합하나, 원문은 limited. 문맥상 accessible은 부적절(소수에게만 접근가능하다는 표현은 부자연스러움)."
+    },
+    {
+      "id": "ADV-04",
+      "target": "Q19",
+      "severity": "LOW",
+      "issue": "오답 ③ in general도 'society in general'로 자연스러울 수 있음.",
+      "verdict": "PASS — 원문은 'as a whole'. society in general은 문법적으로 가능하나, 원문 대조 문제이므로 as a whole이 유일 정답. 또한 in general은 이미 지문 앞부분 'in general'에 사용되어 중복 구문."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "verdict": "PASS — HIGH 0건. 정답 모호성 없음. 배포 가능."
+  }
 }

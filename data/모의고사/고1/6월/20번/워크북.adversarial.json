@@ -1,15 +1,38 @@
 {
   "file": "data/모의고사/고1/6월/20번/워크북.json",
-  "timestamp": "2026-04-30T05:30:00Z",
-  "reviewer": "opus-4.6-adversarial",
+  "timestamp": "2026-06-16T14:25:00.000Z",
+  "model": "claude-opus-4-6",
+  "totalQuestions": 20,
   "issues": [
     {
-      "id": "ADV-01",
+      "id": "ADV-Q5-MARKER",
+      "questionId": 5,
       "severity": "LOW",
-      "questionId": 17,
-      "type": "answer-exposure",
-      "detail": "Q17 빈칸 정답 convenient이 지문 다른 곳에도 노출. 그러나 빈칸 위치에서 문맥 추론 필요하므로 유지"
+      "category": "marker-overlap",
+      "description": "Q5 ②influence와 원문 influenced는 어형이 다름(influence vs influenced). 어휘 유형이라 문맥 판단이므로 혼동 없으나, 자동 블라인드 솔버가 오탐할 수 있음.",
+      "recommendation": "유의 사항으로 기록. 학생 풀이에는 영향 없음."
+    },
+    {
+      "id": "ADV-Q15-DISTRACTOR",
+      "questionId": 15,
+      "severity": "LOW",
+      "category": "weak-distractor",
+      "description": "Q15 오답 3개(give up hope, take no notice, show little interest)가 fullPassage에 없는 표현. 다만 빈칸추론 유형에서 오답이 본문에 없는 것은 정상적이며, 오답들이 문맥상 소거 가능.",
+      "recommendation": "현재 수준 유지. 오답이 같은 품사(동사구)이고 문맥 반대/무관이므로 적절."
+    },
+    {
+      "id": "ADV-Q1-Q14-OVERLAP",
+      "questionId": [1, 14],
+      "severity": "LOW",
+      "category": "grammar-point-overlap",
+      "description": "Q1(어법)과 Q14(오류찾기)가 동일 문법 포인트(influenced 수동태)를 다룸. Q1은 influencing→influenced, Q14는 influence→influenced. 난이도 차이(쉬움 vs 어려움)로 구분되나 유사.",
+      "recommendation": "다른 문항에서 다양한 문법 포인트를 다루고 있으므로 허용 범위. 다만 향후 출제 시 중복 최소화 권장."
     }
   ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 1, "total": 1 }
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "total": 3
+  }
 }

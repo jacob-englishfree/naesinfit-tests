@@ -1,23 +1,42 @@
 {
-  "reviewer": "opus-4.6-adversarial",
-  "date": "2026-06-13",
-  "total": 20,
-  "highCount": 0,
-  "mediumCount": 0,
-  "lowCount": 2,
+  "testFile": "data/모의고사/고1/6월/33번/단어.json",
+  "timestamp": "2026-06-16T11:05:00Z",
+  "attackerModel": "claude-opus-4-6",
   "issues": [
     {
-      "id": 19,
+      "id": "ADV-01",
       "severity": "LOW",
-      "type": "선지 구조 유사",
-      "detail": "4선지 모두 well-X to Y 패턴이지만, S-PREFIX-DOMINANT는 10자+ 동일 prefix 3개 이상일 때 발동. well-은 5자이므로 통과. 학생이 문맥으로 답을 고를 수 있어 출제 의도 정상."
+      "questionId": 5,
+      "type": "weak-distractor",
+      "description": "Q5 ④comparison vs contrast 구분은 고1 수준에서 다소 미묘할 수 있으나, in contrast가 교과서에서 빈출 표현이고 쥐-침팬지 반대 구조가 명확하므로 정답 도출 가능. 유지 판단.",
+      "action": "KEEP"
     },
     {
-      "id": 9,
+      "id": "ADV-02",
       "severity": "LOW",
-      "type": "오답 유사 철자",
-      "detail": "education/evolution/emotion/evaluation 4개 모두 e로 시작하고 -tion 종료. 학생이 단순 스펠링 혼동 가능성 있으나, 의미 기반 판단 문항이므로 출제 의도에 부합. 문맥(뇌를 형성한 주체)으로 evolution만 가능."
+      "questionId": 7,
+      "type": "answer-exposure",
+      "description": "Q7 빈칸 정답 'strategy'가 본문 3번째 문장 'This unusual strategy succeeds'에 다시 등장. 단, 빈칸 유형 특성상 본문 다른 곳에서 단서를 얻는 것은 의도된 설계. B-level warning으로 이미 감지됨.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 8,
+      "type": "answer-exposure",
+      "description": "Q8 빈칸 정답 'offspring'이 본문 마지막 문장에 재등장. Q7과 동일 사유로 유지.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 19,
+      "type": "weak-distractor",
+      "description": "Q19 오답 3개(for example, in addition, as a result)가 fullPassage에 없는 연결사. 본문 맥락 대조가 명확하므로 정답 도출에 문제없음. 오답이 본문 단어가 아닌 것은 빈칸 문맥 완성 유형의 특성.",
+      "action": "KEEP"
     }
   ],
-  "summary": "HIGH 이슈 0건. 20문항 전체 정답 유일성 확인 완료. 모호한 문항 없음. 배포 가능."
+  "totalIssues": 4,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 4건은 단어 테스트 특성상 허용 범위."
 }

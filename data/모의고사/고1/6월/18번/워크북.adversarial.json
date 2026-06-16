@@ -1,45 +1,25 @@
 {
   "file": "data/모의고사/고1/6월/18번/워크북.json",
-  "timestamp": "2026-04-30T04:15:00Z",
-  "attacker": "opus-4.6-adversarial",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-16T14:10:00.000Z",
   "issues": [
     {
-      "id": "ADV-Q2-COULD",
+      "id": 11,
       "severity": "LOW",
-      "questionId": 2,
-      "type": "정답 논란 가능성",
-      "detail": "could는 과거 뿐 아니라 현재의 공손/약한 가능 표현으로도 쓰인다. 그러나 이 문맥에서는 recently opened + We have 등 확정적 현재 시제이므로 can이 확실히 적절. could가 완전한 오류라는 점에 이견 여지 미미.",
-      "resolution": "LOW — 문맥상 can이 명백히 우세. 유지"
+      "type": "weak-distractor",
+      "detail": "Q11 오답 3개(expensive, competitive, traditional)가 fullPassage에 없는 단어. 본문 단서로 소거 가능하지만 빈칸 난이도(어려움)에 부합"
     },
     {
-      "id": "ADV-Q3-REST",
+      "id": 15,
       "severity": "LOW",
-      "questionId": 3,
-      "type": "정답 논란 가능성",
-      "detail": "rest는 명사로도 사용 가능(for rest and staying cool). 그러나 staying(동명사)과 and로 병렬되므로 resting(동명사)이 문법적으로 일관성 있음. rest(명사) + staying(동명사) 병렬은 품사 불일치.",
-      "resolution": "LOW — 병렬 구조상 resting이 명백. 유지"
-    },
-    {
-      "id": "ADV-Q14-PASSAGE",
-      "severity": "LOW",
-      "questionId": 14,
-      "type": "오류찾기 passage 형식",
-      "detail": "오류찾기 유형은 4~5문장 발췌가 원칙인데, 이 문항은 fullPassage 전체에 마커를 삽입. 그러나 18번은 짧은 지문(5문장 내외)이므로 전체 사용이 사실상 4~5문장에 해당.",
-      "resolution": "LOW — 짧은 지문이라 전체=4~5문장. 유지"
-    },
-    {
-      "id": "ADV-Q6-MARKER-ORDER",
-      "severity": "LOW",
-      "questionId": 6,
-      "type": "마커 순서",
-      "detail": "어휘 마커가 ①opened → ②safety → ③cool → ④barren 순서인데, 본문 등장 순서는 opened → grassy/barren → safety → cool. 마커 번호와 본문 등장 순서가 약간 다름.",
-      "resolution": "LOW — 학생에게 혼동 주지 않음. 마커는 passage에 위치 표시되므로 순서 무관. 유지"
+      "type": "weak-distractor",
+      "detail": "Q15 오답 3개(fun, beauty, profit)가 fullPassage에 없는 단어. 그러나 to ensure _____ 문맥에서 safety만 자연스러워 출제 의도 성립"
     }
   ],
   "summary": {
     "HIGH": 0,
     "MEDIUM": 0,
-    "LOW": 4,
-    "verdict": "PASS — HIGH 0건, 배포 가능"
+    "LOW": 2,
+    "total": 2
   }
 }

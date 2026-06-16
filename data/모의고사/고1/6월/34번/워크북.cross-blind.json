@@ -1,38 +1,29 @@
 {
-  "meta": {
-    "solver": "claude-opus-4-6",
-    "date": "2026-06-13",
-    "comparedWith": "단어.json",
-    "score": "20/20",
-    "crossLeaks": 0,
-    "note": "워크북 vs 단어 교차 확인 — 유형 겹침 없음, 정답 노출 없음"
-  },
-  "analysis": {
-    "단어_types": ["(A)(B)(C) 조합형", "문맥상 부적절한 어휘", "빈칸 어휘 완성", "동의어 고르기", "반의어 고르기", "다의어 문맥적 의미", "영영풀이 매칭", "어형 변환", "빈칸 문맥 완성"],
-    "워크북_types": ["어법", "어휘", "내용이해 T/F", "빈칸추론", "내용 일치/불일치", "오류찾기", "서술형", "서술형 — 핵심단어", "주제/요지", "서술형 — 조건영작"],
-    "overlap": "유형 겹침 없음 (단어=어휘중심, 워크북=독해+문법중심)",
-    "answerLeaks": "단어 테스트 선지/정답이 워크북 정답에 직접 노출되는 경우 없음"
-  },
-  "results": [
-    { "id": 1, "leak": false, "note": "어법 문항 — 단어 테스트와 유형 겹침 없음" },
-    { "id": 2, "leak": false, "note": "어법 문항 — 단어 테스트와 유형 겹침 없음" },
-    { "id": 3, "leak": false, "note": "어법 문항 — 단어 테스트와 유형 겹침 없음" },
-    { "id": 4, "leak": false, "note": "어법 문항 — 단어 테스트와 유형 겹침 없음" },
-    { "id": 5, "leak": false, "note": "어휘 부적절 — 단어 Q4,5,6도 부적절이나 마커 위치/교체단어 다름(discouraging vs criticized/penalty/comfort)" },
-    { "id": 6, "leak": false, "note": "어휘 부적절 — discontinue는 단어 테스트에 미사용" },
-    { "id": 7, "leak": false, "note": "T/F — 단어 테스트에 없는 유형" },
-    { "id": 8, "leak": false, "note": "T/F — 단어 테스트에 없는 유형" },
-    { "id": 9, "leak": false, "note": "T/F — 단어 테스트에 없는 유형" },
-    { "id": 10, "leak": false, "note": "빈칸추론 consequences — 단어Q7도 consequences 빈칸이나 선지 구성 다름" },
-    { "id": 11, "leak": false, "note": "빈칸추론 in favor of — 단어Q19도 in favor of 빈칸이나 선지 구성 다름" },
-    { "id": 12, "leak": false, "note": "내용일치 — 단어 테스트에 없는 유형" },
-    { "id": 13, "leak": false, "note": "내용불일치 — 단어 테스트에 없는 유형" },
-    { "id": 14, "leak": false, "note": "오류찾기 — 단어 테스트에 없는 유형" },
-    { "id": 15, "leak": false, "note": "서술형 찾기 — 단어 테스트에 없는 유형" },
-    { "id": 16, "leak": false, "note": "서술형 찾기 — 단어 테스트에 없는 유형" },
-    { "id": 17, "leak": false, "note": "핵심단어 — 단어 테스트에 없는 유형" },
-    { "id": 18, "leak": false, "note": "주제 — 단어 테스트에 없는 유형" },
-    { "id": 19, "leak": false, "note": "요지 — 단어 테스트에 없는 유형" },
-    { "id": 20, "leak": false, "note": "조건영작 — 단어 테스트에 없는 유형" }
-  ]
+  "file": "data/모의고사/고1/6월/34번/워크북.json",
+  "solver": "claude-opus-4-6-cross",
+  "timestamp": "2026-06-16T11:30:00.000Z",
+  "totalQuestions": 20,
+  "solves": [
+    { "id": 1, "myAnswer": 2, "reasoning": "availably는 부사. make+O+C에서 C는 형용사 available", "match": true },
+    { "id": 2, "myAnswer": 3, "reasoning": "is spreading → is spread. 수동태 be+p.p. 필요", "match": true },
+    { "id": 3, "myAnswer": 2, "reasoning": "This making은 분사구문이 아닌 주절. 주절 동사 makes 필요", "match": true },
+    { "id": 4, "myAnswer": 4, "reasoning": "rather than be limited → being limited. if절 내 병렬구조", "match": true },
+    { "id": 5, "myAnswer": 3, "reasoning": "disregard(무시)는 reconsider(재고) 맥락에 반대. 문맥상 부적절", "match": true },
+    { "id": 6, "myAnswer": 4, "reasoning": "improves(향상)는 depends(의존) 맥락에 부적절", "match": true },
+    { "id": 7, "myAnswer": 2, "reasoning": "F. do not keep to themselves = 혼자 간직하지 않음", "match": true },
+    { "id": 8, "myAnswer": 1, "reasoning": "T. possibly refute their conclusions = 반박 가능", "match": true },
+    { "id": 9, "myAnswer": 2, "reasoning": "F. spread widely가 조건. 소수 제한은 반대", "match": true },
+    { "id": 10, "myAnswer": 2, "reasoning": "reconsider and possibly ___ = refute their conclusions", "match": true },
+    { "id": 11, "myAnswer": 3, "reasoning": "depends on ___ = the work of other scientists", "match": true },
+    { "id": 12, "myAnswer": 4, "reasoning": "마지막 문장 every scientist depends 일치", "match": true },
+    { "id": 13, "myAnswer": 1, "reasoning": "검토 어렵게 ≠ available for inspection. 불일치", "match": true },
+    { "id": 14, "myAnswer": 1, "reasoning": "do not keeping → do not keep. 조동사+원형", "match": true },
+    { "id": 15, "myAnswer": "keep that information to themselves", "reasoning": "본문에서 하지 않는 행동으로 명시", "match": true },
+    { "id": 16, "myAnswer": "use that data to construct new hypotheses and perform new experiments", "reasoning": "More important 이후 to부정사 구문", "match": true },
+    { "id": 17, "myAnswer": "spread as widely as possible", "reasoning": "if절 조건: information is spread as widely as possible", "match": true },
+    { "id": 18, "myAnswer": 3, "reasoning": "전체 주제: 과학 연구에서 정보 공유의 필요성", "match": true },
+    { "id": 19, "myAnswer": 1, "reasoning": "요지: 공유될 때 사회 전체에 이익", "match": true },
+    { "id": 20, "myAnswer": "it makes it possible for other scientists to use that data to construct new hypotheses", "reasoning": "make it possible for A to V 구문 15단어", "match": true }
+  ],
+  "summary": { "matched": 20, "mismatched": 0, "total": 20 }
 }
