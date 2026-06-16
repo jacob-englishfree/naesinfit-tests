@@ -1719,7 +1719,8 @@ function hasScopeData(path){
         const monthKey = pathParts.slice(1).join('/');  // "3월_2026" — 실제 폴더명
         if (!grade || !monthKey) continue;
         if (!mock[grade]) mock[grade] = {};
-        mock[grade][monthKey] = { dn: info.dn || id, lessons: info.items || [], isNew: !!info.items?.length };
+        const ym=id.match(/(\d{4})/);const mm=id.match(/(\d+)월/);
+        mock[grade][monthKey] = { dn: info.dn || id, lessons: info.items || [], isNew: !!info.items?.length, _y: ym?parseInt(ym[1]):0, _m: mm?parseInt(mm[1]):99 };
       }
       SCOPE_CATALOG['모의고사'].items = mock;
     }
@@ -3964,7 +3965,7 @@ function rSelMock(){
   for(const[grade,months]of sortedGrades){
     const sk='m_'+grade;const sc=S.sel.filter(s=>s.startsWith('모의고사/'+grade+'/')).length;
     let inner='';
-    const sortedMonths=Object.entries(months).sort((a,b)=>{const dnA=a[1].dn||a[0],dnB=b[1].dn||b[0];const yma=dnA.match(/(\d{4})/),ymb=dnB.match(/(\d{4})/);const ya=yma?parseInt(yma[1]):0,yb=ymb?parseInt(ymb[1]):0;if(ya!==yb)return yb-ya;const mma=dnA.match(/(\d+)월/),mmb=dnB.match(/(\d+)월/);const ma=mma?parseInt(mma[1]):99,mb=mmb?parseInt(mmb[1]):99;return ma-mb;});
+    const sortedMonths=Object.entries(months).sort((a,b)=>{const ya=a[1]._y||0,yb=b[1]._y||0;if(ya!==yb)return yb-ya;const ma=a[1]._m||99,mb=b[1]._m||99;return ma-mb;});
     for(const[month,info]of sortedMonths){
       if(!info.lessons||!info.lessons.length){
         inner+=`<div style="padding:8px 0"><span class="chip" style="opacity:.5">${info.dn||month} <span style="font-size:9px;color:var(--hint)">준비중</span></span></div>`;
