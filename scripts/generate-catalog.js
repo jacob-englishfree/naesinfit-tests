@@ -251,7 +251,7 @@ function main() {
       errors.push(`⛔ 모의고사 ${catalogKey}: textbooks.ts 년도=${expectedYear} ≠ 폴더 데이터 년도=${actualYear} (path: ${mock.path})`);
     }
 
-    catalog['모의고사'][catalogKey] = { path: mock.path, items };
+    catalog['모의고사'][catalogKey] = { path: mock.path, items, dn: mock.label };
   }
 
   // ─── 부교재 ───
