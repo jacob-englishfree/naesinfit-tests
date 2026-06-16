@@ -1,0 +1,70 @@
+{
+  "file": "data/부교재/올림포스독해의기본2/2025/4강/2번/퀴즈.json",
+  "solver": "claude-opus-4-6-adversarial",
+  "timestamp": "2026-06-16T12:10:00Z",
+  "checks": [
+    {
+      "check": "정답 2개 가능한 문항",
+      "result": "PASS",
+      "detail": "20문항 모두 정답 1개만 성립. 특히 Q3(between...or)은 명확한 문법 오류, Q5(undermine vs privilege)는 논리적으로 유일한 정답"
+    },
+    {
+      "check": "정답이 passage에 직접 노출",
+      "result": "PASS",
+      "detail": "빈칸형(Q6,Q7) 정답 위치가 빈칸으로 가려짐. 서술형 찾기(Q16~18)는 찾기 유형이므로 노출 정상. 조건영작(Q19,Q20) 빈칸 처리 정상"
+    },
+    {
+      "check": "뻔한 오답만 있는 문항",
+      "result": "PASS",
+      "detail": "Q6 오답들이 본문 어휘(competition, expensive) 활용하여 혼동 유발. Q12 영어 선지 오답들이 본문 세부 내용과 연관되어 소거 필요"
+    },
+    {
+      "check": "선지 길이 편향 (S-LENGTH-BIAS)",
+      "result": "PASS",
+      "detail": "Q6~Q7 빈칸추론 선지 길이 비교: 정답과 오답 길이 차이 2.5배 미만"
+    },
+    {
+      "check": "stem에 wa 노출 (S-CIRCULAR-STEM)",
+      "result": "PASS",
+      "detail": "Q16~Q20 서술형: stem에 wa 영어 그대로 노출 없음. 한국어 패러프레이즈로 단서 제공"
+    },
+    {
+      "check": "단어수 조건 vs wa 불일치",
+      "result": "PASS",
+      "detail": "Q16(8단어=8), Q17(7단어=7), Q18(7단어=7), Q19(6단어=6), Q20(6단어=6) 모두 일치"
+    },
+    {
+      "check": "조건 단어 누락 (S-COND-WORD-MATCH)",
+      "result": "PASS",
+      "detail": "Q19: tends,to,privilege,age,and,experience 전부 조건에 명시. Q20: for,young,talent,to,be,recognized 전부 명시"
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q1 마커: ①S2 entering, ②S3 working, ③S4 refused, ④S5 recognized — 전체 분산. Q2 마커: ①S2, ②S4, ③S5, ④S6 — 전체 분산. Q3 마커: ①S4, ②S5, ③S6, ④S7 — 중후반 집중이나 문법포인트 위치상 불가피"
+    },
+    {
+      "check": "크로스파일 중복",
+      "result": "PASS",
+      "detail": "워크북 미생성 상태. 단어테스트와 비교: 단어는 (A)(B)(C)조합/동의어/반의어/영영/빈칸어휘 등. 퀴즈는 어법/부적절/빈칸추론/내용일치/주제/함축/지칭/서술형으로 유형 완전 분리"
+    },
+    {
+      "check": "메타서술 선지 (S-META-CHOICE)",
+      "result": "PASS",
+      "detail": "한국어 선지에 '본문에서/다루지 않은' 등 메타서술 없음"
+    },
+    {
+      "check": "접두사 반의어 (S-ANTONYM-PREFIX)",
+      "result": "PASS",
+      "detail": "Q5의 undermine은 접두사 제거형이 아닌 독립 단어. privilege와 완전히 다른 어원"
+    }
+  ],
+  "issues": {
+    "HIGH": [],
+    "MEDIUM": [],
+    "LOW": [
+      "Q18 wa(7단어)가 Q6 빈칸(같은 구절)과 겹침. 단, Q18은 서술형 찾기이고 Q6는 빈칸추론으로 출제 방식이 다르므로 허용 범위"
+    ]
+  },
+  "verdict": "PASS — HIGH 이슈 0건. 배포 가능"
+}

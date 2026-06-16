@@ -1,0 +1,46 @@
+{
+  "file": "data/부교재/올림포스독해의기본2/2025/4강/Analysis/워크북.json",
+  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-06-16T00:00:00Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 15,
+      "category": "정답 노출",
+      "description": "Q15 서술형 wa='diverse'가 passage에 노출됨. 단, 이 문항은 '찾아 쓰시오' 유형이므로 passage 노출이 의도된 것. validate EX-2 경고는 false positive.",
+      "action": "ACCEPT — 찾기 유형 정상 동작"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 16,
+      "category": "정답 노출",
+      "description": "Q16 서술형 wa='gambling'이 passage에 노출됨. Q15와 동일하게 '찾아 쓰시오' 유형이므로 정상.",
+      "action": "ACCEPT — 찾기 유형 정상 동작"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 18,
+      "category": "선지 유사성",
+      "description": "Q18(주제)과 Q19(요지) 정답 선지가 의미적으로 유사함 ('무작위성+분산투자' vs '분산투자가 현명'). 하지만 주제와 요지는 출제 의도가 다르고(주제=what, 요지=claim), 오답 선지가 전부 다르므로 문제 없음.",
+      "action": "ACCEPT — 유형별 출제 의도 구분됨"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 11,
+      "category": "빈칸 난이도",
+      "description": "Q11 빈칸 'the notion of randomness' — 바로 다음 문장에서 'random'이 등장하여 힌트가 강함. 어려움 난이도치고 추론이 쉬울 수 있음. 하지만 선지가 모두 'the X of Y' 패턴이라 소거법 필요하므로 acceptable.",
+      "action": "ACCEPT — 선지 구조가 소거법 요구"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "totalIssues": 4,
+    "recommendation": "PASS — HIGH/MEDIUM 이슈 없음. 배포 가능."
+  }
+}

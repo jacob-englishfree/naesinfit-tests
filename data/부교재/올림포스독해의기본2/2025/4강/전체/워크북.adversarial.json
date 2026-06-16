@@ -1,0 +1,58 @@
+{
+  "file": "data/부교재/올림포스독해의기본2/2025/4강/전체/워크북.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-16T00:00:00Z",
+  "checks": [
+    {
+      "check": "dual-answer",
+      "description": "모든 MC 문항에 정답이 2개 이상 가능한가?",
+      "result": "PASS",
+      "detail": "16 MC 문항 전수 검토. 모든 문항 정답 1개만 가능."
+    },
+    {
+      "check": "obvious-distractors",
+      "description": "오답이 너무 뻔한가? (소거법으로 풀림)",
+      "result": "PASS",
+      "detail": "Q10/Q11 빈칸추론 오답이 다른 지문 표현이라 약간 쉬울 수 있으나, 워크북 난이도로 적절. Q12/Q13 내용일치 오답은 세부 사실 변조로 구분 가능."
+    },
+    {
+      "check": "answer-leak",
+      "description": "정답이 passage나 stem에 노출되는가?",
+      "result": "PASS",
+      "detail": "Q15/Q16/Q17은 찾기형 서술형으로 passage에 정답 노출 의도. Q20 영작은 passage에서 해당 문장이 빈칸 처리됨. 빈칸추론(Q10/Q11)도 빈칸 처리 완료."
+    },
+    {
+      "check": "word-count-mismatch",
+      "description": "서술형 단어수 조건 vs wa 불일치?",
+      "result": "PASS",
+      "detail": "Q15: 2단어 wa='essentially random' (2 OK). Q16: 2단어 wa='innocent bystanders' (2 OK). Q17: 2단어 wa='young talent' (2 OK). Q20: 9단어 wa='Their unconscious mind had worked out what was happening' (9 OK)."
+    },
+    {
+      "check": "condition-word-match",
+      "description": "Q20 영작 [조건] 단어가 wa에 모두 포함되는가?",
+      "result": "PASS",
+      "detail": "조건: had, happening, mind, out, Their, unconscious, was, what, worked (9개). wa 분해: Their, unconscious, mind, had, worked, out, what, was, happening (9개). 전부 일치."
+    },
+    {
+      "check": "marker-distribution",
+      "description": "마커가 4개 지문에 골고루 분산되었는가?",
+      "result": "PASS",
+      "detail": "Q1: 지문1(①②③④), Q2: 지문2(①②③④), Q3: 지문3(①②③④), Q4: 지문4(①②③④), Q5: 지문1(①②③④), Q6: 지문3(①②③④). 4개 지문 모두 사용."
+    },
+    {
+      "check": "stem-clarity",
+      "description": "stem이 모호하거나 다중 해석 가능한가?",
+      "result": "PASS",
+      "detail": "20문항 전수 검토. 모든 stem이 명확. Q15/Q16/Q17 찾기형은 패러프레이즈된 설명으로 대상 특정. Q18/Q19 지문 범위를 stem에 명시."
+    },
+    {
+      "check": "meta-leak",
+      "description": "passage에 출제 메타텍스트가 노출되는가?",
+      "result": "PASS",
+      "detail": "20문항 전수 검토. passage에 '정답', '출제', 'answer' 등 메타텍스트 없음."
+    }
+  ],
+  "issues": [],
+  "highIssues": 0,
+  "verdict": "PASS — 배포 가능"
+}
