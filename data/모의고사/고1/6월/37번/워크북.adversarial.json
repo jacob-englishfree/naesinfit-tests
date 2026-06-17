@@ -1,23 +1,26 @@
 {
   "file": "data/모의고사/고1/6월/37번/워크북.json",
-  "timestamp": "2026-04-27T13:15:00.000Z",
-  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-06-16T10:10:00.000Z",
+  "attacker": "opus-4-6-adversarial",
   "totalQuestions": 20,
   "issues": [
     {
       "id": "ADV-B-EX2",
       "severity": "LOW",
       "qIds": [15, 16],
-      "description": "서술형 '찾기' 유형에서 정답이 passage에 노출됨. 이는 찾기 유형의 본질이므로 허용.",
-      "action": "ACCEPT — 찾기 유형은 passage에서 답을 찾는 것이 목적."
+      "description": "서술형 찾기 유형: wa가 passage에 노출. EX-2 예외 적용 — 찾기 유형은 정답 노출 의도.",
+      "action": "ACCEPT"
     },
     {
-      "id": "ADV-B-Q14",
+      "id": "ADV-INFO-SHORT-PASSAGE",
       "severity": "LOW",
       "qIds": [14],
-      "description": "오류찾기 passage가 AI 직접 작성(4문장). fullPassage와 다르지만 오류찾기 유형 스펙상 허용.",
-      "action": "ACCEPT — 오류찾기는 4~5문장 발췌/재작성 허용."
+      "description": "오류찾기 Q14 passage는 4문장 발췌 — 오류찾기 유형 규칙(4~5문장) 충족.",
+      "action": "ACCEPT"
     }
   ],
-  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 2, "total": 2 }
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "verdict": "PASS — HIGH/MEDIUM 0건. 배포 가능."
 }

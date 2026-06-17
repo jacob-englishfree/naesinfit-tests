@@ -9,7 +9,7 @@
       "overlay": { "abc": { "A": ["truth", "lies"], "B": ["assume", "deny"], "C": ["believe", "reject"] } },
       "ans": 2,
       "ch": ["lies — assume — believe", "truth — assume — believe", "truth — deny — believe", "truth — assume — reject"],
-      "det": { "korean": "(A) truth: 진실, (B) assume: 추정하다, (C) believe: 믿다", "analysis": "① lies — (A)오답\n② truth — assume — believe ← 정답\n③ deny — (B)오답\n④ reject — (C)오답", "tip": "truth, assume, believe" }
+      "det": { "korean": "(A) truth: 진실, lies: 거짓말 / (B) assume: 추정하다, deny: 부정하다 / (C) believe: 믿다, reject: 거부하다", "analysis": "① lies(거짓말) — assume(추정하다) — believe(믿다): (A)가 오답. 진실 편향이므로 truth가 맞음\n② truth(진실) — assume(추정하다) — believe(믿다) ← 정답: 진실에 대한 자연스러운 가정, 안전하게 추정, 믿는 것이 기본값\n③ truth(진실) — deny(부정하다) — believe(믿다): (B)가 오답. 문맥상 부정이 아닌 추정\n④ truth(진실) — assume(추정하다) — reject(거부하다): (C)가 오답. 거부가 아닌 믿음", "tip": "truth, assume, believe" }
     },
     {
       "id": 2,
@@ -17,7 +17,7 @@
       "overlay": { "abc": { "A": ["automatic", "deliberate"], "B": ["lie", "agree"], "C": ["additional", "minimal"] } },
       "ans": 4,
       "ch": ["deliberate — lie — additional", "automatic — agree — additional", "automatic — lie — minimal", "automatic — lie — additional"],
-      "det": { "korean": "(A) automatic: 자동적인, (B) lie: 거짓말하다, (C) additional: 추가적인", "analysis": "① deliberate — (A)오답\n② agree — (B)오답\n③ minimal — (C)오답\n④ automatic — lie — additional ← 정답", "tip": "automatic, lie, additional" }
+      "det": { "korean": "(A) automatic: 자동적인, deliberate: 의도적인 / (B) lie: 거짓말하다, agree: 동의하다 / (C) additional: 추가적인, minimal: 최소한의", "analysis": "① deliberate(의도적인) — lie(거짓말하다) — additional(추가적인): (A)가 오답. 의도적이 아닌 자동적 가정\n② automatic(자동적인) — agree(동의하다) — additional(추가적인): (B)가 오답. 동의가 아닌 거짓말하지 않음\n③ automatic(자동적인) — lie(거짓말하다) — minimal(최소한의): (C)가 오답. 최소한이 아닌 추가적 정신 단계 필요\n④ automatic(자동적인) — lie(거짓말하다) — additional(추가적인) ← 정답: 자동적 가정, 거짓말 안 함, 추가적 정신 단계", "tip": "automatic, lie, additional" }
     },
     {
       "id": 3,
@@ -25,7 +25,7 @@
       "overlay": { "abc": { "A": ["expend", "conserve"], "B": ["necessary", "optional"], "C": ["fake", "genuine"] } },
       "ans": 1,
       "ch": ["expend — necessary — fake", "conserve — necessary — fake", "expend — optional — fake", "expend — necessary — genuine"],
-      "det": { "korean": "(A) expend: 소비하다, (B) necessary: 필요한, (C) fake: 가짜의", "analysis": "① expend — necessary — fake ← 정답\n② conserve — (A)오답\n③ optional — (B)오답\n④ genuine — (C)오답", "tip": "expend, necessary, fake" }
+      "det": { "korean": "(A) expend: 소비하다, conserve: 보존하다 / (B) necessary: 필요한, optional: 선택적인 / (C) fake: 가짜의, genuine: 진짜의", "analysis": "① expend(소비하다) — necessary(필요한) — fake(가짜의) ← 정답: 정신적 노력을 소비하지 않고, 필요한 것 이상, 가짜라도 믿음\n② conserve(보존하다) — necessary(필요한) — fake(가짜의): (A)가 오답. 보존이 아닌 소비\n③ expend(소비하다) — optional(선택적인) — fake(가짜의): (B)가 오답. 선택적이 아닌 필요한\n④ expend(소비하다) — necessary(필요한) — genuine(진짜의): (C)가 오답. 진짜가 아닌 가짜", "tip": "expend, necessary, fake" }
     },
     {
       "id": 4,
@@ -46,10 +46,10 @@
     {
       "id": 6,
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "overlay": { "markers": { "①": { "find": "necessary", "display": "unnecessary" }, "②": "expend", "③": "online", "④": "default" } },
-      "ans": 1,
+      "overlay": { "markers": { "①": "expend", "②": { "find": "necessary", "display": "unnecessary" }, "③": "online", "④": "default" } },
+      "ans": 2,
       "ch": ["①", "②", "③", "④"],
-      "det": { "korean": "① unnecessary → necessary. 필요 이상의 노력을 쓰지 않는다는 맥락.", "analysis": "① unnecessary → necessary: 반의어 ← 정답\n② expend: 소비하다 ✅\n③ online: 온라인 ✅\n④ default: 기본값 ✅", "tip": "necessary(필요한) ↔ unnecessary(불필요한)" }
+      "det": { "korean": "② unnecessary → necessary. 필요 이상의 노력을 쓰지 않는다는 맥락.", "analysis": "① expend(소비하다): 정신적 노력을 '소비하다' — 문맥상 적절 ✅\n② unnecessary(불필요한) → necessary(필요한): 반의어 교체 — 필요 이상의 노력을 쓰지 않는다는 맥락에서 필요한이 맞음 ← 정답\n③ online(온라인에서): 온라인에서 뭔가를 볼 때 — 문맥상 적절 ✅\n④ default(기본값): 우리의 기본값은 믿는 것 — 문맥상 적절 ✅", "tip": "necessary(필요한) ↔ unnecessary(불필요한)" }
     },
     {
       "id": 7,
@@ -81,7 +81,7 @@
       "overlay": { "underline": "assumption" },
       "ans": 2,
       "ch": ["conclusion", "presumption", "denial", "statement"],
-      "det": { "korean": "assumption = presumption (추정).", "analysis": "① conclusion: 결론 ❌\n② presumption: 추정 ← 정답\n③ denial: 부정 ❌\n④ statement: 진술 ❌", "tip": "assumption = presumption" }
+      "det": { "korean": "assumption(가정, 추정)과 의미가 가장 가까운 것은 presumption(추정, 짐작)이다.", "analysis": "① conclusion(결론): 근거를 바탕으로 내린 판단 — assumption은 확인 없이 받아들이는 것이므로 다름 ❌\n② presumption(추정, 짐작): 확인하지 않고 사실로 여기는 것 — assumption과 가장 유사 ← 정답\n③ denial(부정, 거부): 사실을 인정하지 않는 것 — assumption과 반대 방향 ❌\n④ statement(진술, 발언): 말로 표현한 내용 — 가정과 다른 개념 ❌", "tip": "assumption = presumption (확인 없이 사실로 여기는 것)" }
     },
     {
       "id": 11,
@@ -122,7 +122,7 @@
       "overlay": {},
       "ans": 3,
       "ch": ["(A) 떠맡다 — (B) 추정하다", "(A) 떠맡다 — (B) 떠맡다", "(A) 추정하다 — (B) 떠맡다", "(A) 추정하다 — (B) 추정하다"],
-      "det": { "korean": "(A) assume = 추정하다, (B) assume = 떠맡다.", "analysis": "① (A)오답\n② (B)오답\n③ 맞음 ← 정답\n④ (A)오답", "tip": "assume: 추정하다 / 떠맡다" }
+      "det": { "korean": "(A) assume = 추정하다 (거짓말하지 않을 것이라고 추정) / (B) assume = 떠맡다 (책임을 떠맡다)", "analysis": "① (A) 떠맡다 — (B) 추정하다: (A)에서 '추정하다'가 맞으므로 '떠맡다'는 오답. (B)에서 '떠맡다'가 맞으므로 '추정하다'는 오답 ❌\n② (A) 떠맡다 — (B) 떠맡다: (A)에서 거짓말하지 않을 것이라고 '떠맡다'는 문맥에 맞지 않음 ❌\n③ (A) 추정하다 — (B) 떠맡다 ← 정답: (A) 안전하게 추정할 수 있다는 문맥, (B) 새 관리자가 책임을 떠맡는다는 문맥\n④ (A) 추정하다 — (B) 추정하다: (B)에서 책임을 '추정하다'는 문맥에 맞지 않음 ❌", "tip": "assume: 추정하다(suppose) / 떠맡다(take on)" }
     },
     {
       "id": 16,
@@ -152,9 +152,9 @@
       "id": 19,
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "overlay": { "blank": "cognitive misers" },
-      "ans": 2,
-      "ch": ["mental steps", "cognitive misers", "truth bias", "automatic assumption"],
-      "det": { "korean": "빈칸: humans are \"_____\" → cognitive misers.", "analysis": "① mental steps: 정신 단계 ❌\n② cognitive misers: 인지 구두쇠 ← 정답\n③ truth bias: 진실 편향 ❌\n④ automatic assumption: 자동 가정 ❌", "tip": "cognitive misers" }
+      "ans": 1,
+      "ch": ["cognitive misers", "mental steps", "truth bias", "automatic assumption"],
+      "det": { "korean": "cognitive misers: 인지적 구두쇠 (필요 이상의 정신적 노력을 하지 않는 사람들)", "analysis": "① cognitive misers(인지적 구두쇠) ← 정답: '필요 이상의 정신적 노력을 소비하지 않는다'는 뒤 설명과 정확히 일치\n② mental steps(정신적 단계): 인간의 특성이 아닌 과정을 나타내는 표현 — 빈칸 뒤 which means 이하와 연결 안 됨 ❌\n③ truth bias(진실 편향): 글 앞부분에서 이미 설명된 개념 — 빈칸은 인간의 다른 특성을 설명 ❌\n④ automatic assumption(자동적 가정): 앞 문장에서 이미 언급된 개념 — 새로운 설명이 아님 ❌", "tip": "cognitive misers = 인지적 구두쇠 (정신적 에너지 절약)" }
     },
     {
       "id": 20,

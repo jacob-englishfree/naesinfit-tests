@@ -8,7 +8,7 @@
   "source": "모의고사",
   "sourcePath": "고1/6월/36번",
   "testType": "퀴즈",
-  "fullPassage": "History, people often say, repeats itself. And looking at the historical records of the ancient civilizations, some things do seem to happen again and again.\n\n(A) If so, archaeology would be pretty boring: one thing would happen again and again. But that's not what archaeologists see. Some civilizations end suddenly, like the Aztec and Inca, conquered by invaders in the 1520s AD.\n\n(B) Civilizations expand, get overextended, and then collapse as in the cases of Rome, which went under in 476 AD, and the British Empire, which fell apart more than a thousand years later in the post-World War II era. But is this always the case?\n\n(C) Those empires never had the chance to collapse as a result of overexpansion. So in the case of civilizations, \"history repeats itself\" seems to be an oversimplification.",
+  "fullPassage": "History, people often say, repeats itself. And looking at the historical records of the ancient civilizations, some things do seem to happen again and again. If so, archaeology would be pretty boring: one thing would happen again and again. But that's not what archaeologists see. Some civilizations end suddenly, like the Aztec and Inca, conquered by invaders in the 1520s AD. Civilizations expand, get overextended, and then collapse as in the cases of Rome, which went under in 476 AD, and the British Empire, which fell apart more than a thousand years later in the post-World War II era. But is this always the case? Those empires never had the chance to collapse as a result of overexpansion. So in the case of civilizations, \"history repeats itself\" seems to be an oversimplification.",
   "title": "36번 — History Repeats Itself",
   "typeRules": {
     "어법": {
@@ -69,6 +69,14 @@
       "answerRule": "",
       "ch": "한국어 4개"
     },
+    "지칭추론": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "passageRule": "fullPassage + <u>대명사</u>",
+      "answerRule": "바로 앞 문장만으로 판단 불가하게",
+      "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
+    },
     "서술형": {
       "fmt": "written",
       "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
@@ -76,12 +84,12 @@
       "passageRule": "fullPassage (정답 포함 OK)",
       "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
     },
-    "어순배열": {
+    "서술형 — 핵심단어": {
       "fmt": "written",
-      "stem": "주어진 단어를 올바른 순서로 배열하시오 + 단어 목록 (8~15개, 정답 순서 아닌 셔플)",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
-      "passageRule": "fullPassage + __________",
-      "answerRule": ""
+      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
+      "overlay": "overlay = {}",
+      "passageRule": "fullPassage (정답 포함 OK)",
+      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
     },
     "서술형 — 조건영작": {
       "fmt": "written",
@@ -289,11 +297,11 @@
     },
     {
       "id": 14,
-      "type": "내용 일치/불일치",
+      "type": "지칭추론",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "overlay": "overlay = {}",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
       "suggestedAns": [
         1,
         2,
@@ -304,11 +312,11 @@
     },
     {
       "id": 15,
-      "type": "빈칸추론",
+      "type": "지칭추론",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
       "suggestedAns": [
         1,
         2,
@@ -349,11 +357,11 @@
     },
     {
       "id": 18,
-      "type": "어순배열",
+      "type": "서술형 — 핵심단어",
       "diff": "어려움",
       "pts": 6,
       "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,

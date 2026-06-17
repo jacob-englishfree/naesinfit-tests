@@ -1,106 +1,26 @@
 {
-  "solvedBy": "opus-cross",
-  "timestamp": "2026-04-30T00:00:00Z",
-  "solves": [
-    {
-      "id": 1,
-      "pick": 1,
-      "reason": "어법 문맥 기반"
-    },
-    {
-      "id": 2,
-      "pick": 2,
-      "reason": "어법 문맥 기반"
-    },
-    {
-      "id": 3,
-      "pick": 3,
-      "reason": "어법 문맥 기반"
-    },
-    {
-      "id": 4,
-      "pick": 2,
-      "reason": "문맥상 부적절한 어휘 문맥 기반"
-    },
-    {
-      "id": 5,
-      "pick": 4,
-      "reason": "문맥상 부적절한 어휘 문맥 기반"
-    },
-    {
-      "id": 6,
-      "pick": 3,
-      "reason": "빈칸추론 문맥 기반"
-    },
-    {
-      "id": 7,
-      "pick": 1,
-      "reason": "빈칸추론 문맥 기반"
-    },
-    {
-      "id": 8,
-      "pick": 2,
-      "reason": "내용 일치/불일치 문맥 기반"
-    },
-    {
-      "id": 9,
-      "pick": 4,
-      "reason": "내용 일치/불일치 문맥 기반"
-    },
-    {
-      "id": 10,
-      "pick": 3,
-      "reason": "내용 일치/불일치 문맥 기반"
-    },
-    {
-      "id": 11,
-      "pick": 4,
-      "reason": "주제 문맥 기반"
-    },
-    {
-      "id": 12,
-      "pick": 1,
-      "reason": "주제 문맥 기반"
-    },
-    {
-      "id": 13,
-      "pick": 2,
-      "reason": "함축의미 추론 문맥 기반"
-    },
-    {
-      "id": 14,
-      "pick": 3,
-      "reason": "내용 일치/불일치 문맥 기반"
-    },
-    {
-      "id": 15,
-      "pick": 4,
-      "reason": "빈칸추론 문맥 기반"
-    },
-    {
-      "id": 16,
-      "pick": "actual loss",
-      "reason": "서술형 문맥 기반"
-    },
-    {
-      "id": 17,
-      "pick": "negative feelings",
-      "reason": "서술형 문맥 기반"
-    },
-    {
-      "id": 18,
-      "pick": "spending money doesn't feel bad so you spend more money",
-      "reason": "어순배열 문맥 기반"
-    },
-    {
-      "id": 19,
-      "pick": "pay with credit cards",
-      "reason": "서술형 — 조건영작 문맥 기반"
-    },
-    {
-      "id": 20,
-      "pick": "the purchase involves an actual loss",
-      "reason": "서술형 — 조건영작 문맥 기반"
-    }
+  "model": "claude-opus-4-6-cross",
+  "score": "20/20",
+  "results": [
+    { "id": 1, "myAns": 3, "correct": true, "reason": "actual은 형용사. 동사 reduces 수식에 부사 actually 필요." },
+    { "id": 2, "myAns": 2, "correct": true, "reason": "so as는 to부정사와 결합. 절(S+V)에는 so that 필요." },
+    { "id": 3, "myAns": 4, "correct": true, "reason": "배수 비교는 twice as ~ as 구문. two times는 비표준." },
+    { "id": 4, "myAns": 1, "correct": true, "reason": "신용카드가 구매를 concrete(구체적)이 아닌 abstract(추상적)으로 만듦." },
+    { "id": 5, "myAns": 3, "correct": true, "reason": "참가자들은 deceived(속은) 게 아니라 informed(통보받은) 것." },
+    { "id": 6, "myAns": 2, "correct": true, "reason": "anesthetized against + 결제의 고통 = the pain of payment." },
+    { "id": 7, "myAns": 4, "correct": true, "reason": "no longer felt + 지출 제한 필요 = the need to limit their expenses." },
+    { "id": 8, "myAns": 3, "correct": true, "reason": "reduces activity in the insula — 원문 직접 일치." },
+    { "id": 9, "myAns": 2, "correct": true, "reason": "Loewenstein은 neuroeconomist. business professor는 Prelec/Simester." },
+    { "id": 10, "myAns": 1, "correct": true, "reason": "They no longer felt the need to limit — 원문 일치." },
+    { "id": 11, "myAns": 3, "correct": true, "reason": "글 전체 주제: 신용카드의 심리적 지출 영향." },
+    { "id": 12, "myAns": 2, "correct": true, "reason": "결제 고통 마비 = anesthetized against the pain. 핵심 메타포." },
+    { "id": 13, "myAns": 4, "correct": true, "reason": "anesthetized = 마비 → 심리적 불편함 제거. 선지③은 과잉일반화." },
+    { "id": 14, "myAns": 3, "correct": true, "reason": "앞문장 people used credit cards → They." },
+    { "id": 15, "myAns": 4, "correct": true, "reason": "Half = cash group; the other half = credit card group." },
+    { "id": 16, "myAns": "your brain is anesthetized against the pain of payment", "correct": true, "reason": "원문 인용: ensures that your brain is anesthetized..." },
+    { "id": 17, "myAns": "no longer felt the need to limit their expenses", "correct": true, "reason": "원문 마지막 문장에서 추출." },
+    { "id": 18, "myAns": "a brain region associated with negative feelings", "correct": true, "reason": "인슐라 동격 설명 a brain region associated with negative feelings." },
+    { "id": 19, "myAns": "the nature of credit cards ensures that your brain is anesthetized against the pain of payment", "correct": true, "reason": "16단어, 조건 단어 전부 사용, 원문 일치." },
+    { "id": 20, "myAns": "they no longer felt the need to limit their expenses", "correct": true, "reason": "10단어, 조건 단어 전부 사용, 원문 일치." }
   ]
 }

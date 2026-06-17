@@ -1,7 +1,34 @@
 {
-  "reviewedBy": "opus",
-  "timestamp": "2026-04-30T00:00:00Z",
-  "issues": [],
-  "highCount": 0,
-  "summary": "HIGH 0건."
+  "testFile": "data/모의고사/고1/6월/41-42번/워크북.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-06-16T17:36:00Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 2,
+      "issue": "Q1과 Q2 모두 ans=2(수일치 문법). 학생이 패턴을 눈치챌 수 있으나, 서로 다른 문법 포인트(단수명사 vs 동명사 주어)이므로 수용 가능.",
+      "recommendation": "유지"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 20,
+      "issue": "Q20 조건영작 wa가 10단어로 긴 편. 학생이 조건 단어 나열만으로 답을 조립할 수 있으나, 어순 판단이 필요하므로 문제 없음.",
+      "recommendation": "유지"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 11,
+      "issue": "Q11 빈칸추론 정답 'make the purchase abstract'가 passage에서 빈칸 처리되지만, 빈칸 주변 문맥으로 충분히 추론 가능. 정답 노출 없음.",
+      "recommendation": "유지"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "total": 3
+  }
 }
