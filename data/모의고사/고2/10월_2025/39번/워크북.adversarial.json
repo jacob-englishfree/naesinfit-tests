@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "file": "data/모의고사/고2/10월_2025/39번/워크북.json",
+    "checkedAt": "2026-06-19",
+    "model": "claude-opus-4-6",
+    "method": "adversarial (적대적 공격 — 오류/모호성/정답 2개 가능성 검수)"
+  },
+  "issues": [],
+  "checks": [
+    {
+      "category": "정답 2개 가능성",
+      "result": "CLEAR",
+      "detail": "모든 mc 문항에서 정답이 유일. 어법 4문항 모두 명확한 문법 오류 1개만 존재."
+    },
+    {
+      "category": "선지 뻔함 (소거법)",
+      "result": "CLEAR",
+      "detail": "어휘 Q5 preventable vs inevitable, Q6 forfeit vs maintain — 각각 반의어 교체로 문맥 모순 명확하되 헷갈리는 수준 유지."
+    },
+    {
+      "category": "정답 노출",
+      "result": "CLEAR",
+      "detail": "빈칸추론 Q10 planned obsolescence — 빈칸 자리에만 공백, 주변에 정답 직접 노출 없음. Q11 a different kind of demand — 콜론 뒤 'products as a service'가 힌트이나 빈칸 자체는 아님."
+    },
+    {
+      "category": "서술형 wa 노출",
+      "result": "CLEAR",
+      "detail": "Q15/Q16/Q17 모두 '찾기' 유형이므로 passage에 정답 노출 허용. Q20은 overlay.blank으로 정답 자리가 빈칸 처리됨."
+    },
+    {
+      "category": "마커 분산",
+      "result": "CLEAR",
+      "detail": "어법 Q1(S1-S4), Q2(S2-S5), Q3(S4-S6), Q4(S2,S4,S7,S8) — 전체 지문에 분산. 어휘 Q5(S1,S3,S4,S5), Q6(S6,S7,S8) — 후반부 포함."
+    },
+    {
+      "category": "오류찾기 <u> 태그",
+      "result": "CLEAR",
+      "detail": "Q14 오류찾기에 <u> 태그 미사용. 마커 번호만 사용."
+    },
+    {
+      "category": "조건영작 단어수",
+      "result": "CLEAR",
+      "detail": "Q20: [조건] 8단어(the,demand,for,more,products,will,be,sustained) = wa 8단어. 일치."
+    },
+    {
+      "category": "단어.json 중복",
+      "result": "CLEAR",
+      "detail": "단어.json overlay와 비교: 워크북은 다른 문법 포인트(wasting/direct/creating/what)와 다른 어휘(preventable/forfeit)를 사용. 빈칸도 planned obsolescence/a different kind of demand로 단어.json과 미중복."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "PASS — 적대적 검수 통과. 배포 가능."
+  }
+}

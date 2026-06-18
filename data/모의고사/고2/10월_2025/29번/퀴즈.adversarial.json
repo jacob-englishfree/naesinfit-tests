@@ -1,0 +1,38 @@
+{
+  "reviewer": "opus-4.6-adversarial",
+  "date": "2026-06-19",
+  "summary": "20문항 적대적 검수 완료. HIGH 이슈 0건. MEDIUM 0건. LOW 1건 (P2 false positive).",
+  "highIssues": [],
+  "mediumIssues": [],
+  "lowIssues": [
+    {
+      "id": "Q3",
+      "issue": "P2 경고 — passage 앞부분이 fullPassage에 없다는 validate 경고",
+      "severity": "LOW",
+      "detail": "Q3 어법 문항의 passage는 fullPassage 전체에 마커(①its, ②whether, ③them, ④given)를 오버레이한 것. 마커 삽입으로 인해 validate의 prefix 비교에서 불일치 탐지되나, 실제 passage 내용은 fullPassage와 동일. 렌더링 상 문제 없음. false positive.",
+      "action": "무시 가능 (B-level 경고)"
+    }
+  ],
+  "questionReview": [
+    { "id": 1, "verdict": "PASS", "note": "어법 쉬움. will+원형 명확. 오답 포인트(형용사보어/수동태/원형) 모두 학생이 고민할 수 있는 수준" },
+    { "id": 2, "verdict": "PASS", "note": "어법 보통. of+동명사 vs of+원형. that(지시대명사)/by+동명사/부사 오답 포인트 적절" },
+    { "id": 3, "verdict": "PASS", "note": "어법 어려움. 분사구문 능동/수동 구별(giving vs given). 고난도 문법 포인트. 오답(its/whether/them) 헷갈릴 수 있음" },
+    { "id": 4, "verdict": "PASS", "note": "부적절 보통. represent↔conceal 반의어. 접두사형이 아닌 진정한 반의어" },
+    { "id": 5, "verdict": "PASS", "note": "부적절 어려움. exploit↔neglect 반의어. 문맥상 진화 이점 맥락에서 판단 필요" },
+    { "id": 6, "verdict": "PASS", "note": "빈칸 보통. 2단어+ 구절(a change for the better). 대조구조(rare↔more probably) 파악 필요" },
+    { "id": 7, "verdict": "PASS", "note": "빈칸 보통. 구절(the coding sequence for a key protein). for example 단서. 오답 그럴듯함" },
+    { "id": 8, "verdict": "PASS", "note": "내용일치 쉬움. 패러프레이즈 적절. 오답 '항상/반드시/빠르게'로 정도 변조" },
+    { "id": 9, "verdict": "PASS", "note": "내용불일치 보통. '가장 빈번'이 핵심 오류. in some cases vs more probably 구별" },
+    { "id": 10, "verdict": "PASS", "note": "내용일치 보통. ④ 환경 활용 정답. 오답 '소멸/모든/항상' 변조 적절" },
+    { "id": 11, "verdict": "PASS", "note": "주제 보통. 선지 패러프레이즈 적절. 정답 외 선지 그럴듯하나 본문과 불일치" },
+    { "id": 12, "verdict": "PASS", "note": "요지 어려움. 글 전체 논리 종합 필요. 오답이 부분적 진실이라 소거법 어려움" },
+    { "id": 13, "verdict": "PASS", "note": "함축의미 어려움. lead nowhere 비유적 해석. 오답이 문자적 해석으로 매력적" },
+    { "id": 14, "verdict": "PASS", "note": "지칭 쉬움. them = changes. 선행사 파악 명확" },
+    { "id": 15, "verdict": "PASS", "note": "지칭 보통. itself = the altered cell. 재귀대명사 선행사 파악. 오답 그럴듯" },
+    { "id": 16, "verdict": "PASS", "note": "서술형 쉬움. 찾기형 10단어. 진화 과정 핵심 표현" },
+    { "id": 17, "verdict": "PASS", "note": "서술형 보통. 찾기형 8단어. for example 단서로 위치 특정" },
+    { "id": 18, "verdict": "PASS", "note": "핵심단어 어려움. 찾기형 9단어. because절 전체 파악 필요" },
+    { "id": 19, "verdict": "PASS", "note": "조건영작 쉬움. 6단어. 관계대명사절 구성. 조건 단어 전부 wa에 포함 확인" },
+    { "id": 20, "verdict": "PASS", "note": "조건영작 보통. 6단어. to부정사+전치사구. 조건 단어 전부 wa에 포함 확인" }
+  ]
+}

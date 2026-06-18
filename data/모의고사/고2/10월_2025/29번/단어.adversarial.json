@@ -1,0 +1,41 @@
+{
+  "attackerModel": "claude-opus-4-6",
+  "attackedAt": "2026-06-19T03:25:00+09:00",
+  "summary": "20문항 전수 공격. HIGH 이슈 0건. MEDIUM 2건(경고). LOW 3건.",
+  "issues": [
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "type": "정답 노출",
+      "detail": "빈칸 정답 'damage'가 같은 passage 뒤쪽 'serious damage lead nowhere'에 노출. 단, 빈칸 위치와 노출 위치가 3문장 떨어져 있고 'cause serious __________'의 맥락 추론이 핵심이므로 풀이에 실질적 영향 제한적. EX-1 경고 수준."
+    },
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "type": "오답 변별력",
+      "detail": "오답 ③ dividing이 reproducing과 유사. 그러나 원문이 'reproducing itself'이고 dividing은 세포 분열(첫 문장 'a cell divides')과 대응하지만 'itself'와의 결합에서 reproducing이 더 적합. 변별 가능하나 고난도 학생에겐 혼동 가능."
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "type": "난이도 적합성",
+      "detail": "쉬움 문항인데 (A)(B)(C) 모두 원문 그대로 노출. 의도대로 쉬움."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "접두사 반의어 확인",
+      "detail": "unchanged는 un- 접두사이나 altered의 반의어로 changed가 아닌 altered↔unchanged 관계. altered 자체가 change 계열이므로 S-ANTONYM-PREFIX 해당 아님 (altered ≠ changed). 단어 쌍 자체가 다르므로 허용."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "type": "다의어 passage 출처",
+      "detail": "(A)는 fullPassage 발췌이고 (B)는 AI 작성 문장. 다의어 유형 규칙상 AI 직접 작성 허용. 정상."
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 2,
+  "lowCount": 3,
+  "verdict": "PASS — HIGH 0건. 배포 가능."
+}

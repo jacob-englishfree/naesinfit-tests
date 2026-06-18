@@ -1,0 +1,33 @@
+{
+  "testFile": "data/모의고사/고2/10월_2025/21번/단어.json",
+  "reviewer": "claude-opus-4-6-adversarial",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "questionId": 1,
+      "severity": "LOW",
+      "category": "정답노출",
+      "description": "EX-3 경고: (A)(B)(C) 정답 단어(various, thoroughly, balanced)가 본문 다른 곳에도 등장. 그러나 ABC 유형 특성상 선지 자체에 단어가 제시되어 있어 노출이 아닌 확인의 역할. 지문이 짧아 불가피.",
+      "action": "허용 — ABC 유형은 본문 단어를 직접 넣는 것이 기본 구조"
+    },
+    {
+      "id": "ADV-02",
+      "questionId": 8,
+      "severity": "LOW",
+      "category": "오답질",
+      "description": "Q8 오답(affordable, substantial, traditional)이 fullPassage에 없어 본문 기반 소거 불가. 그러나 'depriving of a __ diet' 문맥에서 balanced가 유일하게 자연스럽고, 오답들도 각각 다른 의미 축(가격/양/전통)으로 구분 가능.",
+      "action": "허용 — 짧은 지문이라 본문 단어 오답 확보 한계. 의미 축 구분은 충분"
+    },
+    {
+      "id": "ADV-03",
+      "questionId": 19,
+      "severity": "LOW",
+      "category": "정답노출",
+      "description": "Q19 빈칸 'more than just __'에서 정답 taste preferences가 원문 그대로. 그러나 빈칸 문맥 완성 유형은 원문 표현 복원이 본질. 빈칸 바로 옆 5단어 이내 직접 노출도 아님(빈칸 자리가 원래 표현 위치).",
+      "action": "허용 — 빈칸 문맥 완성의 정상 구조"
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "summary": "HIGH 이슈 0건. LOW 3건은 모두 짧은 지문(152단어)의 구조적 한계로 인한 것이며, 문항 품질에 영향 없음. 20문항 전체적으로 정답이 1개로 명확하고, 오답 소거가 불가능한 구조. 서술형(Q17, Q18)의 wa도 stem에 노출되지 않으며, passage에도 빈칸 처리됨. 반의어(Q13, Q14) 오답에 의미축 다른 단어 포함(reject/delay/ignore, demanding/restricting/exhausting) 확인."
+}
