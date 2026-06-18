@@ -1,0 +1,63 @@
+{
+  "testFile": "data/모의고사/고1/3월_2020/37번/단어.json",
+  "model": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 17,
+      "severity": "RESOLVED",
+      "desc": "S-WA-IN-PASSAGE: 어형변환 문항. passage='The Amondawa tribe, __________ (live) in Brazil...'에서 wa='living'이 원문 그대로 포함되어 있음. fullPassage에 'living in Brazil'이 그대로 있어 변환 지식 없이 복사 가능. 학생이 passage를 보면 정답을 즉시 볼 수 있음.",
+      "resolution": "수정 완료 후 validate PASS 확인"
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "desc": "빈칸 문맥 완성(어려움). 정답 'being rooted in time'이 passage에 그대로 노출됨. 빈칸 위치 주변에서 원문을 보면 즉시 확인 가능. 어려움 난이도에 부적합."
+    },
+    {
+      "id": 8,
+      "severity": "MEDIUM",
+      "desc": "빈칸 어휘 완성(보통). 'position within their __________' 빈칸에 'family'도 매우 자연스러운 영어 표현으로 문맥상 허용 가능. 정답 2개 가능성 있음 (society vs family 모두 '위치' 맥락에서 자연스러움)."
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "desc": "빈칸 어휘 완성(쉬움). 'does not have a __________ of time that can be measured or counted'에서 'theory of time'도 문법·맥락상 허용 가능. concept이 원문 단어이지만 단어 테스트 특성에서는 문제 없으나 추론형 빈칸으로 볼 때 정답 후보가 2개."
+    },
+    {
+      "id": 13,
+      "severity": "MEDIUM",
+      "desc": "반의어 고르기(보통). 오답 3개(fixed, planted, settled)가 모두 rooted의 유의어로 구성. 정답 detached만 반의어 계열이라 소거법으로 즉시 풀림. S-ANTI-CHEESE-GATE 수준에 근접."
+    },
+    {
+      "id": 14,
+      "severity": "MEDIUM",
+      "desc": "반의어 고르기(어려움). 오답 3개(continuous, sequential, regular)가 모두 serial의 유의어. random만 반의어. 어려움 난이도인데 소거법으로 즉시 풀림. 난이도 표기 부적합."
+    },
+    {
+      "id": 2,
+      "severity": "MEDIUM",
+      "desc": "(A)(B)(C) 조합형(보통). 오답 선지 구조: ①predicted→명확히 틀림, ②lost→rooted 반의어, ③emotional→objective 반의어. 3개 오답 모두 반의어/무관어로 구성되어 소거법으로 쉽게 접근 가능."
+    },
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "desc": "어형 변환(어려움). fullPassage에 'to reflect their stage'가 그대로 있어 학생이 fullPassage를 참조하면 wa를 직접 찾을 수 있음. 단, 문항 passage(발췌 1문장)에는 노출되지 않으므로 LOW~MEDIUM 경계."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "desc": "다의어 문맥적 의미. ③번 선지 '(A) 공연 — (B) 수준'에서 stage의 '공연' 의미도 존재하므로 혼동 가능성 있음. 정답은 '무대'가 더 정확하지만 설명 없으면 학생이 혼동할 수 있음."
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "desc": "(A)(B)(C) 조합형(어려움). serial, position, passing이 fullPassage에 그대로 있어 원문 복사로 풀 수 있음. 어려움 난이도 표기 대비 실제 난이도 낮을 수 있음. 단어 테스트 특성상 의도된 구조일 수 있음."
+    }
+  ],
+  "totalIssues": 10,
+  "highCount": 1,
+  "mediumCount": 7,
+  "lowCount": 2,
+  "timestamp": "2026-06-18",
+  "summary": "HIGH 1건 (Q17 어형변환 wa 노출), MEDIUM 7건 (Q8/Q7 정답 2개 가능성, Q13/Q14 반의어 오답 전부 유의어, Q2/Q20 소거법 과도), LOW 2건 (Q15 다의어 혼동, Q3 원문 복사 가능)"
+}

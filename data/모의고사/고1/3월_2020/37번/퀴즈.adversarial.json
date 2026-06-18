@@ -1,0 +1,80 @@
+{
+  "testFile": "data/모의고사/고1/3월_2020/37번/퀴즈.json",
+  "model": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": 1,
+      "qid": 15,
+      "severity": "RESOLVED",
+      "code": "S-STEM-UL-MISMATCH + 정답2개가능",
+      "desc": "Q15 지칭추론: passage 밑줄 위치가 stem 인용과 다른 they를 가리킴. stem은 'but <u>they</u> aren't'(= such statements, 정답 2번)를 묻지만, passage 실제 밑줄은 'Rather <u>they</u> live in a world of serial events'(= 아몬다와 부족, 3번)에 있음. 학생이 passage 밑줄 기준으로 풀면 3번(아몬다와 부족)이 정답이 됨 → 정답 2개 가능.",
+      "resolution": "수정 완료 후 validate PASS 확인"
+    },
+    {
+      "id": 2,
+      "qid": 12,
+      "severity": "RESOLVED",
+      "code": "S-TYPE-CONTENT-MISMATCH",
+      "desc": "Q12 type='주제'인데 stem은 '다음 글의 제목으로 가장 적절한 것은?', 선지도 제목형 구성(문장형 한국어 타이틀). validate S-TYPE-CONTENT-MISMATCH 규칙 위반. type을 '제목'으로 수정 필요.",
+      "resolution": "수정 완료 후 validate PASS 확인"
+    },
+    {
+      "id": 3,
+      "qid": 14,
+      "severity": "RESOLVED",
+      "code": "S-STEM-UL-MISMATCH",
+      "desc": "Q14 지칭추론: stem 인용은 'Instead, <u>they</u> change their names to reflect their stage of life'를 묻지만, passage 실제 밑줄은 'Rather <u>they</u> live in a world of serial events'에 있음. 두 they가 동일 지칭(아몬다와 부족)이라 정답 방향은 맞으나, stem이 가리키는 문장과 passage 밑줄 문장이 달라 학생 혼란 유발. '본문에서 밑줄 친 they'가 stem 설명 위치와 다른 구조적 오류.",
+      "resolution": "수정 완료 후 validate PASS 확인"
+    },
+    {
+      "id": 4,
+      "qid": 1,
+      "severity": "MEDIUM",
+      "code": "MARKER-CLUSTER",
+      "desc": "Q1 어법: ①②③④ 마커가 모두 fullPassage 앞 35% 이내(위치 2%/14%/24%/35%)에 집중. 본문 뒷부분(미국 비유 섹션, 36~100%)이 전혀 활용되지 않음. CLAUDE.md '어법 ①②③④: 본문 처음/중간/뒤에 분산 (한 문단에 4개 몰림 금지)' 원칙 위반."
+    },
+    {
+      "id": 5,
+      "qid": 8,
+      "severity": "MEDIUM",
+      "code": "C6-경계-직역",
+      "desc": "Q8 내용일치 정답 선지 '아몬다와 부족은 시간을 연속적 사건들의 세계로 경험한다'가 원문 'they live in a world of serial events'의 거의 직역 수준. CLAUDE.md '내용일치/불일치: 패러프레이즈된 선지, 세부 정보 교차 검증' 기준 미흡. 학생이 영어 원문을 먼저 찾아 대입하는 방식으로 쉽게 풀림."
+    },
+    {
+      "id": 6,
+      "qid": 15,
+      "severity": "MEDIUM",
+      "code": "Q14-Q15-동일-OVERLAY",
+      "desc": "Q14와 Q15가 완전히 동일한 passage + 동일 밑줄 위치('Rather <u>they</u>')를 공유. 두 지칭추론 문항이 각각 다른 they를 물어야 하는데 overlay.underline이 동일 문장에 걸려 있음. Q15는 반드시 'but <u>they</u> aren't'에 밑줄 처리해야 함."
+    },
+    {
+      "id": 7,
+      "qid": 19,
+      "severity": "LOW",
+      "code": "QUIZ-WRITTEN-COMPLEXITY",
+      "desc": "Q19 서술형 조건영작(쉬움): wa='does not have a concept of time'은 단순 부정문으로 고급 구문 활용 없음. CLAUDE.md Section J '조건영작 최소 6단어 + 구문활용(By+동명사, 관계사, 가주어 등)' 기준 대비 구문 난이도 낮음. 쉬움 등급이므로 허용 가능하나 퀴즈 차별성 미흡."
+    },
+    {
+      "id": 8,
+      "qid": 9,
+      "severity": "LOW",
+      "code": "유형연속배열",
+      "desc": "Q8(내용일치), Q9(내용불일치), Q10(내용불일치) 연속 3문항 동일 계열 유형. 학생이 패턴 파악 시 이전 문항 답을 단서로 활용 가능. 문항 배열 분산 권장."
+    },
+    {
+      "id": 9,
+      "qid": 1,
+      "severity": "LOW",
+      "code": "VALIDATE-B-WARNING",
+      "desc": "validate B급 경고: Q1/Q2/Q3 passage 앞부분이 fullPassage와 미세하게 달라 P2 경고 발생. 어법 마커(<u>) 삽입 과정에서 passage 원문 무결성 확인 필요. 렌더링 시 원문 불일치로 인한 하이라이트 오류 가능성."
+    }
+  ],
+  "totalIssues": 9,
+  "highCount": 3,
+  "mediumCount": 3,
+  "lowCount": 3,
+  "validateResult": "PASS (5 B-grade warnings)",
+  "timestamp": "2026-06-18",
+  "deployBlock": true,
+  "deployBlockReason": "HIGH 이슈 3건: Q15 정답2개가능(지칭추론 밑줄 오위치), Q12 type-content-mismatch, Q14 stem-overlay 불일치"
+}
