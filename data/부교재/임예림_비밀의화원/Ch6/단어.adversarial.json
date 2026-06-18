@@ -1,0 +1,41 @@
+{
+  "testFile": "data/부교재/임예림_비밀의화원/Ch6/단어.json",
+  "issues": [
+    {
+      "id": 9,
+      "severity": "LOW",
+      "category": "answer-leak",
+      "detail": "빈칸 정답 'ill'이 fullPassage에 그대로 있음. 단, 빈칸 위치와 동일 문장이므로 빈칸 처리 자체가 답을 가림. passage에서는 빈칸으로 대체되어 있어 학생 화면에서는 노출 안 됨. validate EX-1 경고와 일치하나 실질 문제 없음."
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "category": "passage-source",
+      "detail": "Q15 다의어 (B) 문장 'The clock face showed it was already half past ten...'은 fullPassage에 없는 AI 작성 문장. 다의어 유형은 AI 직접 작성 허용(규칙 예외)이므로 정상. validate P2 경고와 일치."
+    },
+    {
+      "id": "general-1",
+      "severity": "LOW",
+      "category": "answer-distribution",
+      "detail": "ans 분포: 1=4개(Q8,16,17,20), 2=5개(Q5,7,9,11,12), 3=5개(Q1,4,6,13,19), 4=5개(Q2,10,14,15,18). 약간 1번 적지만 최대5개 규칙 내. 연속 동일번호 최대 2개(Q11-12=둘다 다름). 정상."
+    },
+    {
+      "id": "general-2",
+      "severity": "LOW",
+      "category": "difficulty-monotony",
+      "detail": "단어 테스트로서 전반적 난이도 적절. ABC 3문항+부적절 3문항+빈칸어휘 3문항+동의어 3문항+반의어 2문항+다의어 1문항+영영풀이 1문항+어형변환 2문항+빈칸문맥 2문항. 유형 다양성 양호."
+    },
+    {
+      "id": "general-3",
+      "severity": "LOW",
+      "category": "weak-distractors",
+      "detail": "Q7(curious/excited/confused), Q8(pleased/bored/relieved), Q9(brave/strong/happy), Q19(feared/ignored/doubted): 오답이 fullPassage에 없는 일반 어휘. 단어 테스트 특성상 어휘력 측정이 목적이므로 허용 범위."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — HIGH 이슈 없음. 수정 불요."
+  }
+}
