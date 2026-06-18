@@ -1,0 +1,38 @@
+{
+  "testFile": "data/부교재/수능특강/영어/Test2/5번/단어.json",
+  "attackedAt": "2026-06-17",
+  "attacker": "claude-sonnet-4-6 (adversarial)",
+  "issues": [
+    {
+      "id": "ADV-GLOBAL",
+      "severity": "LOW",
+      "description": "B급 경고: histKey 패턴 불일치 (wordtest__test2_5_v5). 기능 영향 없음.",
+      "affectedQ": [],
+      "verdict": "SKIP"
+    },
+    {
+      "id": "ADV-Q8-DISTRACTOR",
+      "severity": "LOW",
+      "description": "Q8 빈칸어휘: 오답 3개(traditions/inventions/fabrics)가 fullPassage에 등장. 단, 문맥 추론으로 innovations가 명확히 선택 가능. 소거법 의존 가능성 낮음.",
+      "affectedQ": [8],
+      "verdict": "PASS"
+    },
+    {
+      "id": "ADV-Q15-PASSAGE",
+      "severity": "LOW",
+      "description": "Q15 다의어: AI 직접 작성 passage. (B)의 두 번째 문장이 원문 일부를 활용하여 작성됨. 원문에 없는 문장이지만 다의어 유형 규칙상 AI 직접 작성 허용 예외.",
+      "affectedQ": [15],
+      "verdict": "PASS"
+    },
+    {
+      "id": "ADV-Q9-OVERLAP",
+      "severity": "LOW",
+      "description": "Q9(빈칸어휘) vs Q1(ABC조합형): 동일 타겟 단어 'collective'. Q1에서 이미 (C)collective가 정답으로 나왔으므로 Q9에서 힌트가 될 수 있음. 단, 단어테스트는 다양한 유형으로 같은 어휘 반복 학습이 목적이므로 허용 범위.",
+      "affectedQ": [1, 9],
+      "verdict": "PASS"
+    }
+  ],
+  "highCount": 0,
+  "verdict": "PASS",
+  "summary": "HIGH 이슈 0건. LOW 경고 4건 전부 허용 범위. 배포 가능."
+}
