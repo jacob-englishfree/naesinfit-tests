@@ -1,6 +1,6 @@
 {
   "inspector": "opus-4.6-adversarial",
-  "timestamp": "2026-06-17",
+  "timestamp": "2026-06-18",
   "issues": [],
   "summary": "No HIGH issues found. All 20 questions pass adversarial inspection.",
   "checks": [
@@ -22,12 +22,12 @@
     {
       "check": "cross_leak",
       "result": "PASS",
-      "detail": "No overlap with 단어.json or 워크북.json blanks/wa"
+      "detail": "No 워크북↔퀴즈 wa/overlay.blank overlap. 단어 cross-leak도 wa 중복 없음"
     },
     {
       "check": "wordcount_conditions",
       "result": "PASS",
-      "detail": "All written stem (N단어) match wa word count"
+      "detail": "Q16(7w), Q17(7w), Q18(9w), Q19(7w), Q20(10w) 전부 stem 조건과 wa 단어수 일치"
     },
     {
       "check": "stem_clarity",
@@ -37,12 +37,22 @@
     {
       "check": "marker_distribution",
       "result": "PASS",
-      "detail": "Markers distributed across full passage"
+      "detail": "Q1: ①②③④ 1-2문장에 분산, Q2: 4문장 분산, Q3: 3-5문장 분산, Q4-5: 전문 분산"
     },
     {
       "check": "answer_distribution",
       "result": "PASS",
-      "detail": "ans distribution {1:3, 2:4, 3:5, 4:3}, max 5, no 3+ consecutive"
+      "detail": "ans distribution {1:3, 2:4, 3:5, 4:3}, max 5, no 3+ consecutive same ans"
+    },
+    {
+      "check": "meta_choice",
+      "result": "PASS",
+      "detail": "선지에 메타서술(본문에서/다루지않은) 없음"
+    },
+    {
+      "check": "antonym_prefix",
+      "result": "PASS",
+      "detail": "부적절 어휘 교체어가 un-/in-/dis- 접두사 제거형이 아님 (endorse, disregard)"
     }
   ]
 }
