@@ -1,0 +1,31 @@
+{
+  "testFile": "data/부교재/수능특강/영어/Test3/3번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-06-17T09:43:00.000Z",
+  "checks": {
+    "dualAnswer": "20문항 전수 검토. 정답 2개 가능한 문항 없음",
+    "answerExposed": "빈칸형(Q7-9,19-20) 정답이 passage 다른 곳에 직접 노출되지 않음. 빈칸 위치 5단어 이내에 정답 없음",
+    "obviousDistractors": "모든 mc 문항의 오답이 본문 단어 또는 유의미한 단어. 더미 선지 없음",
+    "ambiguousStem": "stem이 모두 명확. 무엇을 묻는지 즉시 파악 가능",
+    "grammarErrors": "passage/stem/ch 문법 오류 없음",
+    "passageIrrelevance": "모든 문항이 fullPassage 내용과 직결",
+    "antonymPrefix": "Q13(transparent→secretive), Q14(confusion→clarity) 모두 prefix 조작 아닌 의미적 반의어",
+    "metaChoice": "선지에 메타서술(본문에서/다루지 않은) 없음",
+    "cheeseable": "Q20 오답이 모두 구체적 표현(less important/completely unnecessary/partially relevant). 소거법만으로 정답 도출 불가능"
+  },
+  "issues": [
+    {
+      "id": 15,
+      "severity": "LOW",
+      "description": "Q15 다의어: ②legal process와 ③hiring process 모두 '절차'의 의미이나, 본문의 'process for reporting'은 체계적 방법론을 강조하므로 ③이 더 적합. ②는 법률 특화 절차로 구별 가능. 출제 의도 유효."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "description": "Q19 빈칸문맥: 오답 3개(for example/in addition/as a result)가 fullPassage에 없음. 단, 연결사는 본문 외 일반 어휘로 오답 질 자체는 양호."
+    }
+  ],
+  "totalIssues": 2,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 2건(Q15 다의어 미세 모호성, Q19 오답 출처). 배포 가능."
+}

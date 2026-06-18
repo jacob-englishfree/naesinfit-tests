@@ -1,0 +1,21 @@
+{
+  "testFile": "data/부교재/수능특강/영어/Test3/14번/워크북.json",
+  "attackerModel": "claude-opus-4-6",
+  "totalIssues": 0,
+  "high": 0,
+  "medium": 0,
+  "low": 0,
+  "issues": [],
+  "checks": [
+    {"check": "정답 2개 가능 문항", "result": "PASS", "detail": "전 문항 정답 유일"},
+    {"check": "선지 뻔함/소거 가능", "result": "PASS", "detail": "오답 선지 모두 문맥적으로 그럴듯함"},
+    {"check": "정답 passage 노출", "result": "PASS", "detail": "빈칸형(Q10,Q11)은 해당 단어가 빈칸 처리됨. 서술형(Q15-17)은 찾기 유형이므로 노출 허용"},
+    {"check": "stem 모호성", "result": "PASS", "detail": "전 문항 stem 명확"},
+    {"check": "조건 단어수 vs wa 단어수", "result": "PASS", "detail": "Q20: 조건 7단어 = wa 7단어 일치"},
+    {"check": "마커 분산", "result": "PASS", "detail": "어법(Q1-4), 어휘(Q5-6), 오류찾기(Q14) 마커가 passage 전체에 분산"},
+    {"check": "S-META-LEAK", "result": "PASS", "detail": "passage/stem/ch에 출제 메타텍스트 없음"},
+    {"check": "S-PREFIX-DOMINANT", "result": "PASS", "detail": "4선지 동일 prefix 3개 이상 없음"},
+    {"check": "오답 소거 가능성", "result": "PASS", "detail": "Q12 ④ '모든 동물' = Only cultural animals와 명확히 대비. Q13 오답도 본문 세부 변조로 난이도 적절"},
+    {"check": "서술형 wa passage 노출", "result": "PASS", "detail": "Q15-17 찾기 유형이므로 정답 노출 허용. Q20 빈칸 처리됨"}
+  ]
+}

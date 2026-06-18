@@ -1,0 +1,69 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-17",
+  "totalQ": 20,
+  "issues": [],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "total": 0
+  },
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "모든 문항에서 정답이 유일하게 결정됨. ABC 조합형은 원문 기반 명확. 부적절 어휘는 반의어 교체로 명확. 동의어/반의어 선지 간 의미 중복 없음."
+    },
+    {
+      "check": "정답 길이 편향 (S-LENGTH-BIAS)",
+      "result": "PASS",
+      "detail": "모든 mc 문항에서 정답 길이가 오답 평균의 2.5배 미만."
+    },
+    {
+      "check": "선지 prefix 중복 (S-PREFIX-DOMINANT)",
+      "result": "PASS",
+      "detail": "동일 prefix 3개 이상인 문항 없음."
+    },
+    {
+      "check": "passage 정답 노출",
+      "result": "PASS",
+      "detail": "빈칸 문항(Q7-9, Q19-20)에서 정답 단어가 빈칸 위치에만 제거됨. 빈칸 5단어 이내 직접 노출 없음."
+    },
+    {
+      "check": "반의어 prefix 조작 (S-ANTONYM-PREFIX)",
+      "result": "PASS",
+      "detail": "Q13: typical↔exceptional (접두사 조작 아닌 별개 단어). Q14: reinforce↔undermine (접두사 조작 아닌 별개 단어). 모두 의미적으로 유효한 반의어."
+    },
+    {
+      "check": "오답 소거법 풀이 가능성 (S-ANTI-CHEESE-GATE)",
+      "result": "PASS",
+      "detail": "모든 문항이 passage 읽기를 요구. 영영풀이(Q16)도 정의 자체가 문맥 역할. 추상/메타 서술 오답 없음."
+    },
+    {
+      "check": "서술형 wa 노출",
+      "result": "PASS",
+      "detail": "Q17: 'automated'가 passage 발췌에서 빈칸으로 처리됨. Q18: 'employability'가 빈칸으로 처리됨. stem에 wa 노출 없음."
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q4: ①1문장-②2문장-③4문장-④6문장 분산. Q5: ①3문장-②4문장-③5문장-④8문장 분산. Q6: ①5문장-②5문장-③6문장-④7문장 분산. 전체적으로 고루 분포."
+    },
+    {
+      "check": "다의어 passage 품질",
+      "result": "PASS",
+      "detail": "Q15: (A)(B) 모두 pool을 '집합' 의미로 사용. 선지 4개 중 3개가 물리적 '수영장/웅덩이' 의미로 명확한 대비. 정답 ③만 동일 의미."
+    },
+    {
+      "check": "어형변환 난이도 적정성",
+      "result": "PASS",
+      "detail": "Q17(보통): automate→automated 표준 과거분사. Q18(어려움): employ→employability 파생명사로 난이도 차이 적절."
+    },
+    {
+      "check": "ans 분포 + 연속",
+      "result": "PASS",
+      "detail": "분포: {1:5, 2:4, 3:5, 4:4}. 최대 연속: Q6(1)-Q7(1)=2연속, Q14(2) 단독. 3연속 없음."
+    }
+  ]
+}

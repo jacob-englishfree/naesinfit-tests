@@ -1,0 +1,34 @@
+{
+  "testFile": "data/부교재/수능특강/영어/Test3/22번/워크북.json",
+  "timestamp": "2026-06-17T13:15:00.000Z",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 10,
+      "type": "passage-leak",
+      "detail": "Q10 빈칸추론: sensory register가 빈칸이지만 passage 뒷부분에 'your sensory register at work'와 마지막 문장 'in your sensory register'에 2회 등장. 그러나 빈칸 위치(두 번째 문장)와 노출 위치(네 번째/마지막 문장)가 충분히 떨어져 있고, 한국어 선지라서 직접 매칭이 어려움. 워크북 수준에서 수용 가능."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 17,
+      "type": "ambiguity",
+      "detail": "Q17 핵심단어: 'sense-specific areas of' 3단어에서 'of'를 포함할지 혼동 가능. 그러나 stem에 '뇌의 여러 ___ ___ ___을(를) 통해 작동한다'로 빈칸 3개 명시되어 있고, 'several [sense-specific] [areas] [of] the brain'에서 3단어가 유일하게 맞음. 수용 가능."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "context-mismatch",
+      "detail": "Q6 어휘: 'as you stare at it about'에서 'about'이 stare at과 어색하게 남아 있음. swish it about(흔들어 대다)의 about이 stare at 뒤에 오면 어법적으로도 부자연스러워 어법 오류처럼 보일 수 있음. 그러나 어휘 유형(문맥상 부적절)으로 출제되어 있어 문맥 부적절함이 더 핵심. 수용 가능."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "verdict": "PASS"
+  }
+}

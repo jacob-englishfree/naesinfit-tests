@@ -1,0 +1,68 @@
+{
+  "attacker": "opus-4.6-adversarial",
+  "date": "2026-06-17",
+  "file": "data/부교재/수능특강/영어/Test3/13번/단어.json",
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 1,
+    "totalIssues": 1
+  },
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "20문항 전수 확인. 모든 문항에서 정답이 유일하게 결정됨"
+    },
+    {
+      "check": "정답 노출 (passage에 답 직접 보임)",
+      "result": "PASS",
+      "detail": "빈칸형(Q7-9,19-20): 빈칸 처리 정상. 어형변환(Q17-18): 원형 제공 정상. 다의어(Q15): passage에 load 자체는 있으나 선지 문맥이 달라서 노출 아님"
+    },
+    {
+      "check": "뻔한 오답만 있는 문항",
+      "result": "PASS",
+      "detail": "Q13: routine/reflexive/conventional은 stale의 유의어라 매력적 오답. Q14: restrict/suppress/prevent 모두 inhibit 유의어라 함정 효과 있음"
+    },
+    {
+      "check": "prefix 조작 반의어",
+      "result": "PASS",
+      "detail": "Q13(stale↔novel), Q14(inhibit↔promote): un-/in-/dis- 접두사 제거형 아님"
+    },
+    {
+      "check": "S-LENGTH-BIAS",
+      "result": "PASS",
+      "detail": "Q15 선지 길이 편차 확인. 4선지 모두 8-12단어 범위로 균등"
+    },
+    {
+      "check": "S-ANTI-CHEESE-GATE",
+      "result": "PASS",
+      "detail": "모든 MC 문항에 passage 있음 (영영풀이 Q16 제외, 규칙상 OK). passage 없이 소거법 풀이 불가"
+    },
+    {
+      "check": "S-META-CHOICE",
+      "result": "PASS",
+      "detail": "선지에 메타서술(본문에서/다루지 않은/관련 없는) 없음"
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q4: ①앞/②앞/③중간/④중간. Q5: ①중간/②중간/③중간/④뒤. Q6: ①중간/②중간/③뒤/④뒤 — 전체 분산 양호"
+    },
+    {
+      "check": "어형변환 답 passage 노출",
+      "result": "PASS",
+      "detail": "Q17: 발췌문에 originality 미포함(빈칸 처리). Q18: 발췌문에 creative 미포함(빈칸 처리)"
+    }
+  ],
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionId": 18,
+      "type": "어형 변환",
+      "issue": "Q1 passage에 creative가 선택지로 등장하여 Q18 답의 간접 힌트 가능",
+      "recommendation": "Q18은 별도 발췌문이므로 학생이 Q1과 교차참조할 가능성 낮음. 유지 가능"
+    }
+  ]
+}
