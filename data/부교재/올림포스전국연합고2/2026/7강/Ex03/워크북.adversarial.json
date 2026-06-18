@@ -1,0 +1,40 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-17T09:50:00Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 11,
+      "type": "정답 길이 편향 가능성",
+      "description": "Q11 정답 'in favor of staying current with trends'(7단어)가 오답(5~6단어)보다 약간 길다. 그러나 validate S-LENGTH-BIAS 기준(2.5배)에는 미달하고, 전체 선지가 전치사구 + 동명사구로 유사한 구조라 길이 단서로 소거 어려움.",
+      "resolution": "유지. 길이 차이가 2.5배 미만이고 구조가 유사하여 문제 없음."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 5,
+      "type": "어휘 반의어 선택",
+      "description": "Q5 genuine→artificial 교체. artificial은 genuine의 명확한 반의어이나 'a artificial need'는 관사 불일치(an artificial)가 힌트가 될 수 있음. 그러나 어휘 유형은 의미 적절성을 묻는 것이므로 관사 불일치는 부차적.",
+      "resolution": "유지. 어휘 유형은 문맥상 의미 판단이 핵심이며, 관사 불일치는 출제 의도와 무관."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 10,
+      "type": "빈칸 오답 질",
+      "description": "Q10 오답 3개(growing uncertainty, minor inconvenience, simple pleasure)가 fullPassage에 없는 표현. 그러나 각각 문맥에서 논리적으로 부적합한 이유가 명확하여 소거법이 아닌 문맥 추론으로 정답 도출 가능.",
+      "resolution": "유지. 오답이 모두 문맥상 부적합한 근거가 있어 정당."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 4,
+      "type": "어법 난이도",
+      "description": "Q4 shifted→shifting 분사구문 오류. 어려움 난이도에 적합. 분사구문의 의미적 역할(동시동작)을 이해해야 풀 수 있어 단순 수일치보다 고차원.",
+      "resolution": "유지. 어려움 난이도에 적합."
+    }
+  ],
+  "highCount": 0,
+  "summary": "HIGH 이슈 0건. 전 20문항 품질 양호. 정답 2개 가능한 문항 없음. 정답 노출/메타 서술 없음. ans 분포 적정(1:4, 2:5, 3:5, 4:2). 마커 fullPassage 전체 분산 확인."
+}

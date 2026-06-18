@@ -1,0 +1,35 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-17",
+  "source": "올림포스전국연합고2/2026/7강/학평",
+  "testType": "워크북",
+  "method": "adversarial (적대적 공격 검수)",
+  "summary": {
+    "total": 20,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 1,
+    "PASS": 19
+  },
+  "issues": [
+    {
+      "id": 10,
+      "severity": "LOW",
+      "type": "오답 질",
+      "detail": "Q10 오답 3개가 fullPassage에 없는 표현. 단, 문맥 추론형이므로 학생이 본문 흐름으로 판단 가능. 오답도 문법적으로 make O C 구조에 맞아 소거법만으로는 풀 수 없음. 정답은 명확.",
+      "action": "유지 (validate B-level 경고와 동일, 차단 불필요)"
+    }
+  ],
+  "checks": [
+    {"check": "정답 2개 가능 문항", "result": "0건 — 모든 mc 문항 정답 유일"},
+    {"check": "선지 뻔함/메타서술", "result": "0건 — 모든 오답이 그럴듯하고 메타서술 없음"},
+    {"check": "정답 passage 노출", "result": "0건 — 빈칸형(Q10,Q11,Q20)에서 정답 자리가 빈칸 처리됨"},
+    {"check": "서술형 wa stem 노출", "result": "0건 — Q15,Q16,Q17은 찾기형(정당), Q20은 조건영작"},
+    {"check": "마커 분산", "result": "OK — 어법(Q1~Q4) 마커가 S1~S5 전체에 분산"},
+    {"check": "cross-leak (단어.json)", "result": "0건 — 단어테스트와 overlay/wa 겹침 없음"},
+    {"check": "조건 단어수 vs wa", "result": "Q20: 조건 4단어(acceptance,encourage,of,to) = wa 4단어. 일치"},
+    {"check": "T/F 분포", "result": "Q7=T, Q8=F, Q9=T — 다양"},
+    {"check": "Q12-Q13 연속 ans=4", "result": "2연속 (허용 한도). 위반 아님"},
+    {"check": "오류찾기(Q14) passage <u> 태그", "result": "없음 — S-ORYUCHATGI-UL 규칙 준수"}
+  ]
+}

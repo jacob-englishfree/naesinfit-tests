@@ -1,0 +1,18 @@
+{
+  "model": "claude-opus-4-6",
+  "totalIssues": 0,
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 0,
+  "issues": [],
+  "summary": "20문항 전체 적대적 검증 완료. HIGH 이슈 0건. 어법 3문항(to부정사/조건접속사/동명사병렬) 모두 문법 포인트 명확. 부적절 어휘 2문항(remote↔immediate, better↔worse) 반의어 관계 명확. 빈칸추론 2문항(구절 단위) 퀴즈 난이도 충족. 내용일치/불일치 3문항 패러프레이즈 적절. 주제 2문항 영어/한국어 혼합 선지 변별력 양호. 함축의미(jump into action) 비유적 표현 해석 명확. 지칭추론(it/That way) 선행사 식별 난이도 적절. 서술형 5문항 모두 7단어 이상, 워크북과 cross-leak 없음. 조건영작 2문항 조건 단어 완전 일치. 정답 분포 1:2 2:5 3:5 4:3 — 규정 내. 연속 동일 정답 최대 2개(Q13-14 = 3,3).",
+  "checks": [
+    {"check":"정답 2개 가능성","result":"PASS","detail":"15개 mc 전부 정답 유일. 어법 포인트 명확, 부적절 반의어 관계 명확."},
+    {"check":"선지 뻔함","result":"PASS","detail":"모든 오답이 본문 관련 어휘 사용. 메타서술 없음."},
+    {"check":"정답 노출","result":"PASS","detail":"빈칸형(Q6,Q7) 정답 구절이 passage에서 빈칸 처리됨. 서술형 찾기형은 의도적 노출."},
+    {"check":"단어수 조건 vs wa","result":"PASS","detail":"Q16:7단어=7, Q17:10단어=10, Q18:8단어=8, Q19:9단어=9, Q20:13단어=13 전부 일치."},
+    {"check":"cross-leak 회피","result":"PASS","detail":"단어.json(remote/imminent/manageable 동의어, break 다의어, deadline/timeframe/chance 빈칸어휘 등)와 워크북.json(What절 are/is, likelier, what/that, that imminent, put together, nearby, hesitant, overwhelming, stopping, this winter, be less ready, challenge, find another way to think about 등)의 wa/overlay.blank와 퀴즈 wa/blank 중복 없음."},
+    {"check":"stem 명확성","result":"PASS","detail":"모든 stem에 응답 언어(영어로), 단어 수 명시. 모호한 표현 없음."},
+    {"check":"오답 소거 가능성","result":"PASS","detail":"주제/내용일치 선지가 본문 구체적 내용 기반. 메타서술 배제로 소거법 차단."}
+  ]
+}

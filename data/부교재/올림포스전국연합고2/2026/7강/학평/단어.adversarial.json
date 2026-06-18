@@ -1,0 +1,43 @@
+{
+  "testFile": "data/부교재/올림포스전국연합고2/2026/7강/학평/단어.json",
+  "issues": [
+    {
+      "id": "INFO-1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "description": "(A)(B)(C) 조합형에서 정답 단어가 fullPassage에 그대로 노출됨. 단어 테스트 특성상 원문 단어를 활용하는 것이 본질이므로 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "INFO-2",
+      "severity": "LOW",
+      "questionIds": [7],
+      "description": "빈칸 정답 humour가 본문 마지막 문장에도 등장. 그러나 빈칸 위치(2번째 문장)와 다른 문장이므로 문맥 추론은 가능.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "INFO-3",
+      "severity": "LOW",
+      "questionIds": [8, 9],
+      "description": "오답 선지가 fullPassage에 없는 외부 단어(reformer, activist, moderate / rejection, criticism, awareness). 단어 테스트에서 어휘력 측정 목적상 허용 범위.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "CHECK-4",
+      "severity": "LOW",
+      "questionIds": [19],
+      "description": "cost-effective 오답(time-consuming, short-lived, old-fashioned)이 모두 하이픈 복합형용사. 형태적 유사성으로 오답 패턴이 보일 수 있으나, 의미 판별이 핵심이므로 허용.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": "CHECK-5",
+      "severity": "LOW",
+      "questionIds": [20],
+      "description": "정답 evolving conceptions of the family가 5단어로 오답(3~5단어)보다 길 수 있으나, S-LENGTH-BIAS 2.5배 기준 미달이므로 통과.",
+      "action": "ACCEPT"
+    }
+  ],
+  "totalIssues": 5,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. 모든 20문항 정답 명확, 복수 정답 가능성 없음, 정답 직접 노출 없음(단어 테스트 특성 내), 선지 뻔한 오답 패턴 없음."
+}

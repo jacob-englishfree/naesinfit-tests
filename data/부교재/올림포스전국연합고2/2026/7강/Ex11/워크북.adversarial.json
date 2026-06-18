@@ -1,0 +1,18 @@
+{
+  "attacker": "claude-opus-4-6",
+  "date": "2026-06-17",
+  "issues": [],
+  "checks": [
+    {"check": "정답 2개 가능성", "result": "PASS", "detail": "20문항 전부 정답이 유일하게 결정됨"},
+    {"check": "선지 뻔함", "result": "PASS", "detail": "어법 오류형태 자연스러움. 어휘 교체 합리적 반의어. 내용 선지 패러프레이즈 적절"},
+    {"check": "정답 passage 노출", "result": "PASS", "detail": "빈칸/서술형 정답 자리 적절히 가려짐"},
+    {"check": "cross-leak 단어테스트", "result": "PASS", "detail": "단어.json과 겹치는 overlay/정답 없음 (단어=ABC조합형/부적절어휘/빈칸어휘/동의어/반의어/다의어/영영풀이/어형변환/빈칸문맥, 워크북=어법/어휘/TF/빈칸추론/내용/오류/서술형/주제 — 유형 분리)"},
+    {"check": "마커 분산", "result": "PASS", "detail": "어법·어휘 마커 fullPassage 전체 분산 확인"},
+    {"check": "오류찾기 <u> 태그", "result": "PASS", "detail": "오류찾기(Q14) passage에 <u> 태그 없음"},
+    {"check": "서술형 wa passage 노출", "result": "PASS", "detail": "Q15/Q16/Q17=찾기형(passage 노출 의도), Q20=빈칸 처리됨"},
+    {"check": "조건영작 단어수", "result": "PASS", "detail": "Q20: wa=14단어, 조건=(2) 14단어 일치"},
+    {"check": "ans 분포", "result": "PASS", "detail": "mc: 1→3, 2→5, 3→3, 4→5. 최대5, 3연속 없음"},
+    {"check": "배점", "result": "PASS", "detail": "쉬움5×4=20, 보통10×5=50, 어려움5×6=30 = 100점"}
+  ],
+  "summary": {"HIGH": 0, "MEDIUM": 0, "LOW": 0}
+}

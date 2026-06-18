@@ -1,0 +1,53 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-17",
+  "totalIssues": 0,
+  "highIssues": 0,
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "20문항 전부 정답 유일. Q4 forfeit/deserve 명확 반의어, Q5 undermine/embrace 명확 반의어"
+    },
+    {
+      "check": "선지 뻔함 (소거법 가능)",
+      "result": "PASS",
+      "detail": "Q6/Q7 빈칸추론 오답이 윤리/환경 맥락에서 합리적으로 혼동 가능. Q12 영어 선지 4개 모두 기업/소비자 관련"
+    },
+    {
+      "check": "정답 passage 노출",
+      "result": "PASS",
+      "detail": "빈칸형(Q6,Q7) 정답이 빈칸으로 가려져 passage에 미노출. 서술형 찾기(Q16~18) 의도적 노출 OK"
+    },
+    {
+      "check": "서술형 조건 vs wa 단어수",
+      "result": "PASS",
+      "detail": "Q19: 9단어 조건 9단어 wa ✅ / Q20: 7단어 조건 7단어 wa ✅"
+    },
+    {
+      "check": "서술형 wa passage 노출 (찾기 외)",
+      "result": "PASS",
+      "detail": "Q19 조건영작: passage에 wa 자리가 __로 가림 ✅ / Q20 조건영작: passage에 wa 자리가 __로 가림 ✅"
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q1 마커 앞(what)/앞중(research)/중(committed)/중후(producing) 분산. Q4 앞(political)/앞중(deserve)/중후(conscience)/후(sustainable) 분산"
+    },
+    {
+      "check": "크로스파일 중복",
+      "result": "PASS",
+      "detail": "단어.json overlay: mindful/wallet/conscience/fair-trade/committed→indifferent/encourage→discourage. 워크북.json overlay: careful/building/who/finding/irrelevant/withhold. 퀴즈: research/finding/embracing/forfeit/undermine — 모두 다른 타겟"
+    },
+    {
+      "check": "stem 명확성",
+      "result": "PASS",
+      "detail": "모든 서술형 stem에 응답 언어(영어로) 명시. 조건영작에 단어수(N단어) 명시. 찾기형에 '본문에서 찾아 쓰시오' 명시"
+    },
+    {
+      "check": "퀴즈 난이도 적합성",
+      "result": "PASS",
+      "detail": "빈칸추론 2단어+(bringing about good/an end-of-life plan) ✅, 서술형 7단어+ ✅, 풀해설 포함 ✅"
+    }
+  ]
+}
