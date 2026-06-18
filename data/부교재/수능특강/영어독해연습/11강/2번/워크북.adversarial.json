@@ -1,0 +1,49 @@
+{
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-06-17",
+  "issues": [],
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "20문항 모두 정답이 유일함. 어법 4문항은 각각 명확한 문법 오류 1개만 포함. 어휘 2문항은 반의어/문맥 부적합이 명확."
+    },
+    {
+      "check": "선지 뻔함/소거법",
+      "result": "PASS",
+      "detail": "오답 선지들이 본문에서 실제로 사용된 단어여서 모두 그럴듯함. 메타서술 없음."
+    },
+    {
+      "check": "정답 노출",
+      "result": "PASS",
+      "detail": "빈칸(Q10,Q11)의 정답 단어가 빈칸 인접 5단어 내에 노출 안 됨. 서술형 찾기(Q15-17)는 passage에 정답 노출이 의도적(찾기 유형). 조건영작(Q20)은 passage에서 해당 문장이 빈칸 처리."
+    },
+    {
+      "check": "모호한 문항",
+      "result": "PASS",
+      "detail": "T/F 3문항(Q7-9) 모두 본문 직접 대조 가능. 내용일치(Q12-13) 선지가 충분히 패러프레이즈되어 있고 오답 구분 명확."
+    },
+    {
+      "check": "조건 단어수 vs wa",
+      "result": "PASS",
+      "detail": "Q20: [조건] 9단어(The,mistakenness,of,this,idea,is,becoming,increasingly,clear) = wa 9단어. 일치."
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "어법(Q1-4): 마커가 문장 2~7에 걸쳐 분산. 어휘(Q5-6): 마커가 문장 2~8에 분산. 오류찾기(Q14): 문장 3~6에 분산."
+    },
+    {
+      "check": "stem 명확성",
+      "result": "PASS",
+      "detail": "서술형 stem에 (영어로) + (N단어) 명시. 찾기형 Q15-17은 단서가 충분하여 정답 특정 가능."
+    },
+    {
+      "check": "오답 품질",
+      "result": "PASS",
+      "detail": "Q10 오답: new methods(본문 어휘), academic thinking(본문 어휘), coastal resources(use up 대상이라 매력적 함정). Q11 오답: 모두 본문 실제 표현이지만 나열 위치가 다름."
+    }
+  ],
+  "verdict": "PASS",
+  "summary": "20문항 전수 적대적 검토 완료. HIGH/MEDIUM 이슈 0건. 정답 유일성, 선지 품질, 마커 분산, 조건-답 일치 모두 통과."
+}

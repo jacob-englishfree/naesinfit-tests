@@ -1,0 +1,32 @@
+{
+  "testFile": "data/부교재/수능특강/영어독해연습/11강/5번/워크북.json",
+  "attacker": "opus-4.6",
+  "timestamp": "2026-06-17T00:00:00Z",
+  "summary": "20문항 전수 점검. HIGH 이슈 0건. MEDIUM 이슈 0건. LOW 이슈 2건.",
+  "issues": [
+    {
+      "id": "L1",
+      "severity": "LOW",
+      "questionId": 12,
+      "description": "Q12와 Q13이 모두 내용 일치/불일치 유형으로 연속 배치. 오답 패턴(사실 왜곡)이 유사하나, Q12는 '일치' Q13은 '불일치'로 질문 방향이 다르고 선지 내용도 다른 영역을 다루므로 허용 범위.",
+      "action": "유지"
+    },
+    {
+      "id": "L2",
+      "severity": "LOW",
+      "questionId": 14,
+      "description": "Q14 오류찾기와 Q6 어휘 문항이 동일하게 fragility→stability/prosperity 교체를 다룸. 그러나 Q6은 어휘(부적절 찾기), Q14는 오류찾기(문맥/어법 오류)로 유형이 다르고, Q6은 stability, Q14는 prosperity로 교체 단어도 다름. 중복 학습 효과가 있으나 문제가 되는 수준은 아님.",
+      "action": "유지"
+    }
+  ],
+  "checks": {
+    "doubleAnswer": "0건 — 모든 MC 정답 유일, 서술형 wa 명확",
+    "obviousDistractor": "0건 — 모든 오답이 본문 표현 활용하여 그럴듯함",
+    "answerExposure": "0건 — 빈칸형(Q10,Q11)에서 정답이 빈칸 외 위치에 직접 노출 없음",
+    "stemClarity": "20/20 — 모든 stem이 명확하고 모호함 없음",
+    "conditionWordMatch": "Q20 검증 완료 — [조건]의 6단어(initiatives,introduce,sought,teamwork,these,to) 모두 wa에 포함",
+    "wordCountMatch": "Q15(2단어)=shock absorbers(2), Q16(1단어)=expendable(1), Q17(3단어)=develop multi-skilled staff(3), Q20(6단어)=these initiatives sought to introduce teamwork(6) — 전부 일치",
+    "markerSpread": "어법(Q1~Q4) 마커 S1/S2/S4/S5/S7/S10/S11 분산, 어휘(Q5~Q6) 마커 S1/S2/S3/S4/S6/S7/S10/S11 분산 — 양호",
+    "passageFullness": "모든 MC passage = fullPassage 100% — S-PASSAGE-NOT-FULL 위반 없음"
+  }
+}

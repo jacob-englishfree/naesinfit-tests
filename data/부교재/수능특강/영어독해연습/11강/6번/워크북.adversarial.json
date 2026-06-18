@@ -1,0 +1,27 @@
+{
+  "file": "data/부교재/수능특강/영어독해연습/11강/6번/워크북.json",
+  "timestamp": "2026-06-17T07:28:00.000Z",
+  "model": "claude-opus-4-6",
+  "role": "adversarial-reviewer",
+  "totalQuestions": 20,
+  "issues": [],
+  "checks": [
+    { "check": "정답 2개 가능성", "result": "PASS", "detail": "20문항 모두 정답이 유일하게 결정됨. 어법 4문항은 각각 명확한 문법 오류 1개. 어휘 2문항은 반의어 교체로 문맥 불일치 명확. T/F 3문항은 본문과 대조 시 명확. 빈칸 2문항은 원문 표현과 정확히 일치. 내용일치/불일치는 본문 사실관계로 판단 가능. 오류찾기는 형용사/부사 구분 명확. 서술형 3문항은 본문에서 직접 추출 가능. 주제/요지 2문항은 글 전체 구조에서 판단. 영작은 조건 단어와 정확히 일치." },
+    { "check": "선지 뻔함 (C7)", "result": "PASS", "detail": "오답이 모두 본문 단어를 활용하여 매력적. Q12 오답들은 각각 본문 내용을 살짝 왜곡(미래데이터, 균등감시, 폐지). Q18/Q19 오답도 본문 일부를 과장/왜곡한 형태." },
+    { "check": "정답 passage 직접 노출 (C6)", "result": "PASS", "detail": "빈칸 Q10/Q11은 해당 부분이 ____로 가려져 있어 정답 노출 없음. 서술형 Q15/Q16/Q17은 찾기형으로 정답 노출 의도적(규칙 적합). 영작 Q20은 해당 부분이 ____로 가려져 있음." },
+    { "check": "메타텍스트 노출 (S-META-LEAK)", "result": "PASS", "detail": "20문항 passage/stem/ch에 출제 메타텍스트 없음" },
+    { "check": "선지 메타서술 (S-META-CHOICE)", "result": "PASS", "detail": "선지에 '본문에서/다루지 않은' 등 메타서술 없음" },
+    { "check": "서술형 wa passage 노출 (S-WA-IN-PASSAGE)", "result": "PASS", "detail": "Q15 bias discrimination: 찾기형이므로 노출 의도적. Q16 existing inequalities: 찾기형이므로 노출 의도적. Q17 fairness: 찾기형이므로 노출 의도적. Q20: overlay.blank으로 가려져 있음" },
+    { "check": "조건영작 단어수 (S-WORDCOUNT-MISMATCH)", "result": "PASS", "detail": "Q20: 8단어 조건, wa 'predictive policing aims to allocate law enforcement resources' = 8단어 일치" },
+    { "check": "조건영작 단어 누락 (S-COND-WORD-MATCH)", "result": "PASS", "detail": "Q20: 조건 단어 predictive, policing, aims, to, allocate, law, enforcement, resources 모두 wa에 포함" },
+    { "check": "마커 분산", "result": "PASS", "detail": "어법/어휘/오류 마커가 passage 전체에 골고루 분산. 한 문단에 4개 몰림 없음" },
+    { "check": "passage 없이 풀림 (S-ANTI-CHEESE-GATE)", "result": "PASS", "detail": "모든 mc 문항이 passage 문맥 필요. 주제/요지도 글 전체 구조 파악 필요" },
+    { "check": "오류찾기 <u> 태그", "result": "PASS", "detail": "Q14 오류찾기 passage에 <u> 태그 사용됨 — 이것은 마커형이므로 정상(오류찾기는 ①<u>word</u> 형식 사용)" }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0,
+    "verdict": "PASS — 배포 가능"
+  }
+}

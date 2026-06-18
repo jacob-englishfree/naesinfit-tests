@@ -1,0 +1,46 @@
+{
+  "file": "data/부교재/수능특강/영어독해연습/11강/3번/퀴즈.json",
+  "timestamp": "2026-06-17T03:10:00.000Z",
+  "attacker": "opus-4.6-adversarial",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "questionId": 2,
+      "severity": "LOW",
+      "category": "marker-clarity",
+      "description": "Q2 ②is: 원문에서 is는 existence의 뒤에 나오므로 auto-solver가 substring matching에서 혼란. 하지만 passage에서 ②<u>is</u>가 명확히 표시되어 학생에게는 문제 없음.",
+      "resolution": "유지 — 학생 화면에서는 ②<u>is</u>로 명확히 밑줄 표시됨"
+    },
+    {
+      "id": "ADV-02",
+      "questionId": 6,
+      "severity": "LOW",
+      "category": "answer-proximity",
+      "description": "Q6 빈칸 'a social construct' 바로 뒤에 created and maintained이 이어지므로 빈칸 자리가 명확. 하지만 빈칸추론은 문맥 추론이 핵심이며, 4선지 중 a social construct만 created/maintained와 의미적으로 연결되므로 적절한 난이도.",
+      "resolution": "유지 — 선지 간 변별력 충분"
+    },
+    {
+      "id": "ADV-03",
+      "questionId": 13,
+      "severity": "LOW",
+      "category": "distractors",
+      "description": "Q13 함축의미: '동물 복지를 위한 사회적 안전장치'와 '인간과 동물 간 감정 교류의 매개체'가 buffer의 다른 해석으로 그럴듯함. 하지만 S2의 나열 맥락(동물이 이용되는 방식)이 명확하여 ①만 적절.",
+      "resolution": "유지 — 오답도 문맥적으로 소거 가능"
+    },
+    {
+      "id": "ADV-04",
+      "questionId": 17,
+      "severity": "LOW",
+      "category": "word-count",
+      "description": "Q17 wa 'a direct flow-on effect on their life experiences'에서 flow-on이 하이픈 단어. 채점 시 NORM이 하이픈→공백 변환하므로 'flow on'으로 9단어가 될 수 있음. stem은 (8단어).",
+      "resolution": "유지 — NORM 정규화로 채점에 영향 없음. 학생은 원문 그대로 쓰면 정답"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "total": 4,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}

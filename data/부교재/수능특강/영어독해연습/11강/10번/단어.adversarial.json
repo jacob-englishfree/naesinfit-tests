@@ -1,0 +1,30 @@
+{
+  "testFile": "data/부교재/수능특강/영어독해연습/11강/10번/단어.json",
+  "attackerModel": "claude-opus-4-6",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 9,
+      "description": "Q9 오답 3개(mourns, invokes, delivers)가 fullPassage에 직접 등장하지 않음. 본문에는 mourned/invoked/delivered 변형이 있으나 원형 그대로는 아님. 단어 테스트 특성상 변형어도 본문 연관 어휘로 충분히 기능하므로 LOW.",
+      "recommendation": "현행 유지 가능. 오답이 본문 어휘의 변형이므로 문맥 연관성 충분."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 19,
+      "description": "Q19 오답 3개(in favor of, in addition to, on behalf of)가 fullPassage에 없는 숙어. 빈칸 문맥 완성 유형에서 전치사구 오답은 본문 외에서 가져오는 것이 일반적이므로 LOW.",
+      "recommendation": "현행 유지. 전치사구 빈칸 유형에서 본문 외 관용구 오답은 표준적."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 7,
+      "description": "Q7의 det.korean이 '교양 있는' 3글자로 짧음(D46 warning). 의미 전달은 충분하지만 validate B등급 경고 발생.",
+      "recommendation": "korean을 '교양 있는, 세련된' 등으로 확장하면 경고 해소 가능하나 필수는 아님."
+    }
+  ],
+  "totalIssues": 3,
+  "highIssues": 0,
+  "timestamp": "2026-06-17T00:00:00Z"
+}
