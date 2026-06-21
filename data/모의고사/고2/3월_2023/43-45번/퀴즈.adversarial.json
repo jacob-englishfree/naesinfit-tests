@@ -1,0 +1,68 @@
+{
+  "_": "적대적 공격 — 오류 찾기 역할로 20문항 검수",
+  "attacker": "claude-opus-4-6",
+  "attackedAt": "2026-06-21",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "빈칸추론",
+      "issue": "오답 3개(avoid confrontation, increase competition, assign positions)가 본문에 없는 표현",
+      "resolution": "빈칸추론 특성상 문맥 추론형 오답은 본문에 없어도 무방. 오답들이 본문 맥락과 관련된 개념(대면, 경쟁, 배정)이라 허용 범위. B급 워닝으로 이미 감지됨.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 2,
+      "type": "어법",
+      "issue": "Q2 ③ mixing vs mixed — make sure that 절에서 mixing이 진행형(were mixing)으로 가능한지 검토",
+      "resolution": "make sure (that) S + V 구조에서 they 뒤에 were 없이 mixing만 오면 비문. were mixing이 되려면 were가 필요. 원문은 mixed(과거형)이므로 mixing은 명확한 오류.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 3,
+      "type": "어법",
+      "issue": "Q3 ④ started walked — start + to V도 가능한지 확인 (started to walk)",
+      "resolution": "start + V-ing 또는 start + to V 모두 가능하지만, started walked는 어느 패턴에도 해당하지 않는 명확한 비문. started walking 또는 started to walk이 맞음.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 8,
+      "type": "내용 일치/불일치",
+      "issue": "Q8 ④ '한 명씩 지목했다' — 원문은 pointing이지 '한 명씩'이 명시적이지 않음",
+      "resolution": "원문: 'He started pointing, making sure they mixed together. ... McGraw continued to point, calling each player out' — calling each player out이 '한 명씩 지목'에 해당. 적절한 패러프레이즈.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 12,
+      "type": "주제",
+      "issue": "Q12 제목 ③ 'Why New Players Should Sit Separately' — 본문과 반대 내용이지만 너무 뻔한 오답",
+      "resolution": "다른 오답(① 첫 훈련 생존, ② 준비운동)도 본문과 거리가 멀어 오답 간 난이도 균형 유지됨. ③이 본문 반대이지만 '어려움' 난이도에서 의도적 함정으로 작동 가능.",
+      "action": "KEEP"
+    },
+    {
+      "id": "ADV-06",
+      "severity": "LOW",
+      "questionId": 16,
+      "type": "서술형",
+      "issue": "Q16 wa 'come over here in the middle and sit' — 본문에 그대로 노출 (찾기 유형)",
+      "resolution": "서술형 찾기 유형은 정답이 본문에 노출되는 것이 정상. stem에 '본문에서 찾아'가 명시되어 있어 의도된 설계.",
+      "action": "KEEP"
+    }
+  ],
+  "summary": {
+    "totalIssues": 6,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 6,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능."
+  }
+}
