@@ -1,0 +1,40 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "summary": "20문항 전수 적대적 검수 완료. HIGH 이슈 0건.",
+  "issues": [
+    {
+      "id": 5,
+      "severity": "LOW",
+      "issue": "competition은 conversation과 음성적으로 유사하지만 의미가 완전히 다르므로 난이도 '어려움'에 비해 다소 쉬울 수 있음",
+      "action": "유지 — 어려움 난이도는 다른 3개 마커의 적절성 판단 복합성에서 확보"
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "issue": "오답 3개(emotional responses, physical activities, social interactions)가 fullPassage에 없는 단어 조합 — 약한 오답 가능성",
+      "action": "유지 — such ____ as 구문에서 예시(experiment, hypothesis-testing)가 과학적 방법론이므로 emotional/physical/social은 충분히 혼동 가능"
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "issue": "정답 선지가 가장 길어 S-LENGTH-BIAS 근접 가능",
+      "action": "유지 — 다른 오답도 5~7단어 길이로 극단적 차이 아님. validate에서 S-LENGTH-BIAS 미검출"
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "wa가 9단어로 퀴즈 서술형 최소(7단어) 충족하지만, passage에 정답 그대로 노출(찾기 유형이므로 OK)",
+      "action": "유지 — 서술형(찾기) 유형은 passage에 정답 노출이 정상"
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "issue": "stem이 다소 추상적('풀어왔지만 인식하지 못한다고 한 부분')이나 빈칸 형식이 아니라 구절 찾기이므로 범위가 좁혀짐",
+      "action": "유지 — stem 힌트가 충분하고 본문 마지막 문장에서 명확히 도출 가능"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 5
+}

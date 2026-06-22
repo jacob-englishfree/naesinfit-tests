@@ -1,0 +1,80 @@
+{
+  "file": "data/모의고사/고1/6월_2020/39번/워크북.json",
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-22T07:50:00.000Z",
+  "checks": [
+    {
+      "category": "정답 유일성",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "20문항 모두 정답이 유일하게 결정됨. 복수 정답 가능 문항 없음."
+    },
+    {
+      "category": "정답 노출",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "빈칸추론(Q10,Q11): 빈칸 자리의 정답이 passage 다른 곳에 직접 노출되지 않음. Q10 problem-solving은 빈칸 처리됨. Q11 make sense of the contexts도 빈칸 처리됨. 서술형 찾기(Q15,Q16,Q17): 찾기 유형이므로 passage에 정답 노출 정상."
+    },
+    {
+      "category": "선지 품질",
+      "issues": [
+        {
+          "id": 10,
+          "severity": "LOW",
+          "detail": "Q10 오답 communication/memorization/socialization이 fullPassage에 없음. 하지만 모두 언어학습과 관련된 그럴듯한 개념이므로 학생 관점에서 적절한 오답."
+        }
+      ],
+      "severity": "LOW",
+      "detail": "Q10 오답이 본문 밖 단어이나 문맥상 그럴듯하여 LOW."
+    },
+    {
+      "category": "문법 포인트 중복",
+      "issues": [
+        {
+          "id": [1, 14],
+          "severity": "LOW",
+          "detail": "Q1(어법)과 Q14(오류찾기) 모두 extending 분사구문을 다룸. 하지만 Q1은 extended(과거형), Q14는 extends(3인칭)로 오류 형태가 다르고, Q14는 오류찾기 유형으로 분리됨."
+        }
+      ],
+      "severity": "LOW",
+      "detail": "extending 포인트가 2회 출현하나 오류 형태와 유형이 다름."
+    },
+    {
+      "category": "서술형 wa 노출",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q15(rarely): 찾기 유형이므로 passage 노출 정상. Q16(learning by experiment): 찾기 유형 정상. Q17(contexts): 찾기 유형 정상. Q20(make sense of something): passage에 'make sense of something'이 그대로 있으나 빈칸 처리됨."
+    },
+    {
+      "category": "조건영작 검증",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q20: 조건 단어 make,sense,of,something = wa 'make sense of something' 4단어. stem에 (4단어) 명시. 모두 일치."
+    },
+    {
+      "category": "T/F 진술문 명확성",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q7: '잘 가르쳐 주지 않는다' = rarely explain. 명확. Q8: '문제 해결로 간주' = characterized as problem-solving. 명확. Q9: '잘 인식하고 있다' vs without awareness. 반전이 명확."
+    },
+    {
+      "category": "소거법 가능성",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q18,Q19: 주제/요지 선지가 모두 구체적이고 본문 내용 기반. passage 없이 소거법으로 풀 수 없음."
+    },
+    {
+      "category": "마커 분산",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q1: ①문장1, ②문장3, ③문장6, ④문장7. Q2: ①문장1, ②문장2, ③문장4, ④문장5. Q3: ①문장3, ②문장4, ③문장5, ④문장6. Q4: ①문장2, ②문장3, ③문장5, ④문장6. 전체적으로 고르게 분산."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "NONE": 6,
+    "verdict": "PASS — HIGH 이슈 0건. LOW 2건(오답품질, 문법포인트 유사)은 수용 가능 수준."
+  }
+}
