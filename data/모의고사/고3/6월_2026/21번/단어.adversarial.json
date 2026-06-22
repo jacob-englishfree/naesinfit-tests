@@ -1,0 +1,33 @@
+{
+  "reviewer": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "summary": "20문항 전수 적대적 검토 완료. HIGH 0건, MEDIUM 0건, LOW 3건.",
+  "highIssues": [],
+  "issues": [
+    {
+      "id": "L1",
+      "severity": "LOW",
+      "qIds": [1, 2, 3],
+      "type": "EX-3 정답 노출",
+      "detail": "(A)(B)(C) 유형 특성상 정답 단어가 본문 다른 위치에 노출됨. 그러나 이는 유형 고유 특성이며, 선지 조합(3개 단어 동시 판단)이 필요하므로 난이도 저하 미미.",
+      "action": "허용 — (A)(B)(C) 유형 고유 특성"
+    },
+    {
+      "id": "L2",
+      "severity": "LOW",
+      "qIds": [19, 20],
+      "type": "빈칸 문맥 완성 정답 길이",
+      "detail": "Q19 정답(something you can take credit for)이 다른 선지보다 길지만, S-LENGTH-BIAS 2.5배 기준 통과. Q20도 유사. 오답도 본문 실제 구절이라 소거법으로만 풀기 어려움.",
+      "action": "허용 — LENGTH-BIAS 미달 + 오답 본문 구절"
+    },
+    {
+      "id": "L3",
+      "severity": "LOW",
+      "qIds": [14],
+      "type": "반의어 오답 동질성",
+      "detail": "Q14(fiction 반의어) 오답 3개(fantasy, fabrication, myth)가 모두 허구/비현실 계열 동의어. 소거법으로 reality를 찾을 수 있으나, 반의어 유형의 본질(동의어 vs 반의어 구분)에 부합하며 S-ANTI-CHEESE-GATE에 해당하지 않음(passage 있음).",
+      "action": "허용 — 반의어 유형 정상 패턴"
+    }
+  ],
+  "verdict": "PASS — HIGH 0건. 배포 가능."
+}

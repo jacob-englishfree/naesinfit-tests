@@ -1,0 +1,45 @@
+{
+  "testFile": "data/모의고사/고3/6월_2026/39번/단어.json",
+  "reviewedAt": "2026-06-22",
+  "model": "claude-sonnet-4-6",
+  "issues": [
+    {
+      "id": "ADV-Q15-AMBIGUITY",
+      "severity": "low",
+      "qid": 15,
+      "description": "(B) 'took a step back to reconsider'에서 step의 의미를 '과정' 대신 '행동/단계'로 해석할 여지가 있음. 그러나 정답 ②(A발걸음—B과정)가 가장 자연스러운 해석이며, 오답 소거도 명확하여 출제 의도 훼손 없음.",
+      "verdict": "허용 — 정답 ② 유지"
+    },
+    {
+      "id": "ADV-Q7-WEAK-DISTRACTOR",
+      "severity": "low",
+      "qid": 7,
+      "description": "오답 obstacle/symbol/equation이 fullPassage에 없는 외부 단어. validate B급 경고(Q6-WEAK-DISTRACTOR). 그러나 각 오답의 의미가 빈칸 문맥에 충분히 부적합하여 소거 가능하고, 정답 metaphor는 본문에서 추론 가능.",
+      "verdict": "허용 — B급 경고, 배포 차단 아님"
+    },
+    {
+      "id": "ADV-Q8-WEAK-DISTRACTOR",
+      "severity": "low",
+      "qid": 8,
+      "description": "오답 avoid/reduce/replace가 fullPassage에 없음. 그러나 '경험이 이해에 ___한다'는 문맥에서 contribute(기여)가 유일하게 긍정적 방향이므로 소거 명확.",
+      "verdict": "허용 — B급 경고, 배포 차단 아님"
+    },
+    {
+      "id": "ADV-Q9-ANSWER-IN-PASSAGE",
+      "severity": "low",
+      "qid": 9,
+      "description": "빈칸 정답 'step'이 지문에 여러 번 노출(B급 EX-1). 그러나 빈칸 위치는 'every ___ takes them 1 unit further'이고, 지문에서 step이 여러 맥락에서 등장하여 단순 암기가 아닌 문맥 판단이 필요.",
+      "verdict": "허용 — 문맥 추론 가능"
+    },
+    {
+      "id": "ADV-Q1-3-EX3",
+      "severity": "low",
+      "qid": "1,2,3",
+      "description": "(A)(B)(C) 조합형 Q1~Q3 모두 정답 단어가 지문에 노출됨(B급 EX-3). 단어 테스트 특성상 원문 단어를 맞추는 구조이므로 불가피. 오답은 명확한 반의어로 구성되어 소거 가능.",
+      "verdict": "허용 — 단어 테스트 구조상 불가피"
+    }
+  ],
+  "totalIssues": 5,
+  "highCount": 0,
+  "summary": "S급 이슈 0건. B급 경고 5건 모두 배포 차단 수준 아님. Q15 다의어 모호성은 허용 범위 내. Q7/Q8 오답 강도 약함은 validate에서 이미 경고됨. 전체 20문항 validate PASS + blind/cross-blind 일치. 배포 적합."
+}

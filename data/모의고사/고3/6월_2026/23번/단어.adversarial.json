@@ -1,0 +1,50 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "source": "고3/6월_2026/23번/단어",
+  "description": "STEP 5 적대적 공격 — 오류 찾기 역할",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 7,
+      "issue": "빈칸 정답 'participant'가 본문 다른 곳('if you are an active participant')에 노출됨",
+      "verdict": "허용 — 단어 테스트 빈칸 어휘 완성에서 본문 내 동일 단어 재출현은 문맥 추론 단서로 의도된 것. validate도 EX-1 (info)로 처리. 학생이 문맥 흐름으로 추론해야 하므로 정답 직접 베끼기 수준은 아님."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": [1, 2, 3],
+      "issue": "(A)(B)(C) 정답 단어가 지문 다른 곳에도 노출됨 (EX-3 경고)",
+      "verdict": "허용 — 168단어 짧은 지문에서 핵심 어휘(active, manageable 등)가 반복 사용되는 것은 원문 특성. ABC 유형은 3개 조합을 맞춰야 하므로 단순 노출만으로 정답 확정 불가."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 14,
+      "issue": "반의어 Q14: 오답 3개(substantially, remarkably, significantly)가 모두 '상당히' 계열 동의어 — 소거법 쉬움",
+      "verdict": "허용 — '어려움' 난이도 문항이지만 considerably의 반의어를 아는지 직접 테스트. 오답이 모두 동의어인 것은 반의어 유형의 표준 패턴. 학생이 slightly를 반의어로 인식해야 풀 수 있음."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 20,
+      "issue": "빈칸 문맥 완성 Q20: 정답 'it can prepare you to speak'가 원문 그대로",
+      "verdict": "허용 — 빈칸 문맥 완성 유형은 원문 구절을 빈칸으로 만들고 복원하는 유형. 정답이 원문 일치는 유형 본질. 오답들이 본문 표현과 교차하여 혼동 가능하므로 난이도 유지."
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 18,
+      "issue": "어형변환 Q18: 발췌 passage에서 'considerably' 정답이 원문 문장 그대로 노출 차단 확인",
+      "verdict": "확인 완료 — passage에 '__________ (considerable)'로 빈칸 처리되어 정답 노출 없음."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "totalIssues": 5,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 모든 이슈 LOW 수준으로 출제 품질 양호."
+  }
+}

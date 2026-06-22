@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "model": "claude-opus-4-6",
+    "date": "2026-06-22",
+    "testPath": "data/모의고사/고3/6월_2026/18번/퀴즈.json",
+    "method": "adversarial (적대적 공격 — 오류/모호성/복수정답/정답노출 탐색)"
+  },
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "qId": 6,
+      "type": "정답노출",
+      "detail": "빈칸은 'volunteer positions' 자리이나, 같은 passage 앞부분 'volunteer guide positions available'에 이미 등장. 다만 빈칸이 마지막 문장의 'availability of _____ as a guide' 위치이고, 앞 문장에 이미 나왔으므로 학생이 맥락으로 추론 가능. 빈칸추론 본질에 부합.",
+      "action": "유지 — 97단어 짧은 지문에서 핵심어 반복은 불가피. 빈칸 위치가 다르고 문맥 추론 요구."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "qId": 1,
+      "type": "난이도",
+      "detail": "Q1(쉬움): arrived vs arriving이 헷갈릴 수 있으나, to Qukkon과의 결합이 단서. 쉬움 난이도에 적합.",
+      "action": "유지"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "qId": 5,
+      "type": "문법단서",
+      "detail": "Q5(어려움): prevented me 'of' → remind A 'of' B 전치사가 그대로 남아 prevent A 'from' B와 불일치. 전치사 단서로 쉽게 풀릴 수 있음.",
+      "action": "유지 — 어려움 난이도이나 어휘 유형이므로 전치사 단서는 부가 힌트일 뿐. 핵심은 문맥 의미 역전 파악."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "qId": 8,
+      "type": "선지중복",
+      "detail": "Q8/Q10 모두 '내용 일치' 유형으로 정답이 극한 추위/경험 관련. 유사 테마이나 선지 표현이 다름(혹한 속 근무 vs 혹독한 환경 경험 공유).",
+      "action": "유지 — 패러프레이즈 차이 존재. 같은 지문이므로 테마 겹침은 불가피."
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "qId": 18,
+      "type": "선지모호",
+      "detail": "Q18 ③ '자원봉사 경험을 바탕으로 전시 기획에 참여': '자원봉사 경험'이 아닌 '광업 경험'이 원문. 두 가지 오류(경험 출처 + 역할)가 있어 불일치 근거가 충분.",
+      "action": "유지 — 이중 오류로 오히려 더 명확한 불일치."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — HIGH 0건, MEDIUM 0건. 모든 이슈 LOW(경미). 배포 가능."
+  }
+}

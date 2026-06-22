@@ -1,0 +1,26 @@
+{
+  "testFile": "data/모의고사/고3/6월_2026/18번/단어.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-06-22T00:00:00+09:00",
+  "issues": [
+    {
+      "id": "ADV-1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "type": "정답노출",
+      "description": "(A)(B)(C) 조합형에서 원문 단어가 passage 다른 곳에도 등장 (97단어 짧은 지문 특성). B-level 경고로 validate 이미 감지. 단어 테스트 특성상 수용.",
+      "action": "수용 — 짧은 지문에서 ABC 유형의 구조적 한계"
+    },
+    {
+      "id": "ADV-2",
+      "severity": "LOW",
+      "questionIds": [7],
+      "type": "정답노출",
+      "description": "빈칸 정답 volunteer가 마지막 문장에 다시 등장. B-level 경고. 짧은 지문(97단어)에서 동일 키워드 반복은 불가피.",
+      "action": "수용 — 빈칸과 노출 위치가 5단어 이상 떨어져 있고, 문맥 추론 학습 목적 달성"
+    }
+  ],
+  "totalIssues": 2,
+  "highIssues": 0,
+  "verdict": "PASS — HIGH 이슈 0건. LOW 2건은 97단어 짧은 지문(18번)의 구조적 특성으로 수용."
+}

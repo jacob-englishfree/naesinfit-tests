@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "model": "claude-opus-4-6",
+    "date": "2026-06-22",
+    "method": "adversarial — 오류 찾기 역할, 모호/정답2개/선지뻔함/정답노출 공격",
+    "file": "data/모의고사/고3/6월_2026/20번/단어.json"
+  },
+  "attacks": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "issue": "EX-3 경고(ABC 정답 단어 본문 노출) — ABC 유형 특성상 불가피. 학생은 선지 조합을 판단해야 하므로 단독 노출이 직접 정답을 주지 않음.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "issue": "EX-3 경고(ABC 정답 단어 본문 노출) — Q1과 동일. ABC 유형 구조적 한계.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "issue": "EX-3 경고(ABC 정답 단어 본문 노출) — Q1과 동일.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": 4,
+      "severity": "NONE",
+      "issue": "부적절 어휘 — damaging↔helpful 대비 명확. 나머지 마커 원문 일치.",
+      "action": "PASS"
+    },
+    {
+      "id": 5,
+      "severity": "NONE",
+      "issue": "부적절 어휘 — reckless↔conscious 대비 명확. 마커 4개 분산 양호.",
+      "action": "PASS"
+    },
+    {
+      "id": 6,
+      "severity": "NONE",
+      "issue": "부적절 어휘 — undermine↔exceed. 'undermine our control'이 문법적으로 가능한 문장이지만, 문맥상 '걱정이 통제를 초과'해야 고통이 유발되므로 undermine은 부적절. 정답 명확.",
+      "action": "PASS"
+    },
+    {
+      "id": 7,
+      "severity": "NONE",
+      "issue": "빈칸 — survival 정답 명확. 오답 3개 모두 fullPassage 미등장(Q6-WEAK-DISTRACTOR 경고) 이지만 entertainment/competition/punishment 모두 문맥 단서로 소거 가능.",
+      "action": "PASS"
+    },
+    {
+      "id": 8,
+      "severity": "NONE",
+      "issue": "빈칸 — potential 정답 명확. imaginary가 약간 유사하나 'thinking through imaginary scenarios'보다 'potential scenarios'가 원문이고 문맥상 더 적절.",
+      "action": "PASS"
+    },
+    {
+      "id": 9,
+      "severity": "NONE",
+      "issue": "빈칸 — suffering 정답 명확. 'unnecessary suffering' 자연스러움. relief/comfort 반대, control 부자연스러움.",
+      "action": "PASS"
+    },
+    {
+      "id": 10,
+      "severity": "NONE",
+      "issue": "동의어 — anticipation ≈ expectation 교과서적 동의어. 선지 4개 의미축 모두 다름.",
+      "action": "PASS"
+    },
+    {
+      "id": 11,
+      "severity": "NONE",
+      "issue": "동의어 — exceed ≈ surpass 교과서적 동의어. 선지 변별력 적절.",
+      "action": "PASS"
+    },
+    {
+      "id": 12,
+      "severity": "NONE",
+      "issue": "동의어 — occurred ≈ happened 기본 동의어. 쉽지만 보통 난이도에 적합.",
+      "action": "PASS"
+    },
+    {
+      "id": 13,
+      "severity": "NONE",
+      "issue": "반의어 — helpful ↔ detrimental. 오답 3개(beneficial/constructive/supportive) 모두 유사어. 학생이 반의어를 골라야 하므로 함정 효과 있음.",
+      "action": "PASS"
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "issue": "반의어 — endlessly ↔ temporarily. continuously(④)가 '지속적으로'라 endlessly와 유사하지만, 반의어가 아닌 유사어이므로 혼동 가능성 있음. 그러나 temporarily가 명확한 반의어이므로 정답 유일.",
+      "action": "ACCEPT"
+    },
+    {
+      "id": 15,
+      "severity": "NONE",
+      "issue": "다의어 — take place vs place. 의미 구분 명확. 선지 4개 혼동 가능하나 정답 유일.",
+      "action": "PASS"
+    },
+    {
+      "id": 16,
+      "severity": "NONE",
+      "issue": "영영풀이 — exceed 정의 정확. 선지 변별력 양호.",
+      "action": "PASS"
+    },
+    {
+      "id": 17,
+      "severity": "NONE",
+      "issue": "어형변환 — survive → survival. for + 명사 기본 문법. 정답 단어가 passage 다른 곳에 등장하지 않음(발췌 1문장).",
+      "action": "PASS"
+    },
+    {
+      "id": 18,
+      "severity": "NONE",
+      "issue": "어형변환 — anticipate → anticipation. in ___ of 구조. 정답 단어가 passage 다른 곳에 등장하지 않음(발췌 1문장).",
+      "action": "PASS"
+    },
+    {
+      "id": 19,
+      "severity": "NONE",
+      "issue": "빈칸문맥 — 오답 3개 모두 긍정적 상황이라 소거 쉬움. 보통 난이도에 적합.",
+      "action": "PASS"
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "issue": "빈칸문맥 — 정답 길이(did nothing to prevent it from happening = 8단어)가 오답보다 긴 편. 그러나 S-LENGTH-BIAS 기준(2.5배) 미달이므로 통과. 오답도 5~6단어로 비교적 유사.",
+      "action": "ACCEPT"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "NONE": 16,
+    "verdict": "PASS — HIGH 0건, 배포 가능"
+  }
+}

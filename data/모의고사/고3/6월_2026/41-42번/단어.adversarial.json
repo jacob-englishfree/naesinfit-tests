@@ -1,0 +1,44 @@
+{
+  "testFile": "data/모의고사/고3/6월_2026/41-42번/단어.json",
+  "issues": [
+    {
+      "id": 2,
+      "category": "마커누락",
+      "description": "(A)(B)(C) 조합형인데 passage에 (C) 마커가 삽입되지 않았음. 학생이 (C) 위치를 passage에서 확인할 수 없어 혼란 가능. B급 경고(SCHEMA-ABC-PASSAGE)와 일치.",
+      "severity": "medium"
+    },
+    {
+      "id": 3,
+      "category": "마커누락",
+      "description": "(A)(B)(C) 조합형인데 passage에 (C) 마커가 삽입되지 않았음. Q2와 동일 이슈.",
+      "severity": "medium"
+    },
+    {
+      "id": 7,
+      "category": "정답노출",
+      "description": "빈칸 정답 'seamlessness'가 passage 다른 위치에 그대로 노출됨('seamlessness in humanoid robotic design' 등). 학생이 단순 검색으로 답을 찾을 수 있음. 단, 빈칸 직전 문맥과 구분되므로 추론 능력 일부 평가 가능.",
+      "severity": "medium"
+    },
+    {
+      "id": 9,
+      "category": "정답노출",
+      "description": "빈칸 정답 'interface'가 passage 다른 위치에 그대로 노출됨('in interface design' 등). 학생이 단순 검색으로 답을 찾을 수 있음.",
+      "severity": "medium"
+    },
+    {
+      "id": 13,
+      "category": "의미축뭉치오답",
+      "description": "seamless 반의어 문항의 오답 3개(smooth, fluid, continuous)가 모두 'seamless'의 유사어/동의어 축. 소거법으로 오답을 쉽게 제거할 수 있어 변별력 약화.",
+      "severity": "medium"
+    },
+    {
+      "id": 14,
+      "category": "의미축뭉치오답",
+      "description": "[해결됨] 초기 오답 3개(yearned, craved, desired)가 모두 동의어 축이었으나 yearned를 avoided(피했다)로 교체하여 의미축 분산. 현재 오답: avoided(다른의미축)/craved(동의어)/desired(동의어) — 완전 분산은 아니지만 소거법 패턴 약화. 허용 수준으로 개선됨.",
+      "severity": "low"
+    }
+  ],
+  "totalIssues": 6,
+  "highCount": 0,
+  "summary": "HIGH 0건(Q14 수정완료: yearned→avoided로 의미축 분산). MEDIUM 4건(Q2/Q3 마커누락, Q7/Q9 정답노출), LOW 1건(Q13 오답분산 권장), LOW 1건(Q14 개선완료). 배포 가능 상태."
+}

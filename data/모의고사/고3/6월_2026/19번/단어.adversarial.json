@@ -1,0 +1,62 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "totalIssues": 0,
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 0,
+  "summary": "20문항 전수 적대적 검수 완료. HIGH 이슈 0건.",
+  "checks": [
+    {
+      "check": "정답 2개 가능성",
+      "result": "PASS",
+      "detail": "전 문항 정답 유일. 동의어/반의어 오답이 정답과 혼동될 여지 없음."
+    },
+    {
+      "check": "선지 뻔함 (소거법)",
+      "result": "PASS",
+      "detail": "Q13 반의어(fading): 오답 3개(disappearing/weakening/decreasing)가 fading 유사어로 구성되어 소거법 적절. Q14 반의어(wildly): 오답 3개(fiercely/violently/roughly) 동의어로 소거법 적절. S-ANTI-CHEESE-GATE 해당 없음(passage 있는 문항)."
+    },
+    {
+      "check": "정답 노출",
+      "result": "PASS",
+      "detail": "빈칸형(Q7-9,19-20) 정답 단어가 passage 빈칸 자리에서 제거됨. 어형변환(Q17-18) 원형만 제시, 변환형은 미노출."
+    },
+    {
+      "check": "S-ANTONYM-PREFIX",
+      "result": "PASS",
+      "detail": "반의어 문항(Q13: growing, Q14: calmly) 모두 접두사 조작형 아님."
+    },
+    {
+      "check": "S-META-CHOICE",
+      "result": "PASS",
+      "detail": "선지에 메타서술(본문에서/다루지 않은) 없음."
+    },
+    {
+      "check": "마커 분산",
+      "result": "PASS",
+      "detail": "Q4: ①앞/②앞중간/③중간/④뒤 — 분산됨. Q5: ①앞/②중간/③뒤/④뒤 — 분산됨. Q6: ①중간/②중간/③뒤/④뒤 — 허용 범위."
+    },
+    {
+      "check": "어형변환 wa 노출",
+      "result": "PASS",
+      "detail": "Q17 passage에 excitedly 미포함(빈칸). Q18 passage에 excitement 미포함(빈칸)."
+    },
+    {
+      "check": "S-LENGTH-BIAS",
+      "result": "PASS",
+      "detail": "전 문항 정답 길이가 오답 평균의 2.5배 이내."
+    },
+    {
+      "check": "짧은 지문 금지 유형",
+      "result": "PASS",
+      "detail": "19번(짧은 지문): 순서배열/문장삽입/어순배열 미사용."
+    },
+    {
+      "check": "ans 분포",
+      "result": "PASS",
+      "detail": "분포: {1:4, 2:5, 3:5, 4:4}. 최대 동일번호 5개(허용), 연속 최대 2개."
+    }
+  ],
+  "issues": []
+}

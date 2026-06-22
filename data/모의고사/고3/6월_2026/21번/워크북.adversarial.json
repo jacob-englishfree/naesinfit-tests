@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "model": "claude-opus-4-6",
+    "date": "2026-06-22",
+    "method": "adversarial attack — 오류 찾기 역할, 모호/정답2개/정답노출/뻔한오답 탐색",
+    "totalIssues": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0
+  },
+  "checks": [
+    {
+      "category": "정답 2개 가능성",
+      "result": "CLEAR",
+      "detail": "Q1~Q20 모두 정답 유일. 어법 문항(Q1-Q4)은 각각 명확한 문법 오류 1개만 존재. 어휘(Q5-Q6) 반의어 교체 명확. T/F(Q7-Q9) 원문 근거 분명. 빈칸(Q10-Q11) 연어/문맥으로 유일한 답. 내용일치(Q12-Q13) 선지별 원문 대조 명확. 오류찾기(Q14) conclude→concluded 시제 변환 명확. 서술형(Q15-Q17) 원문에서 직접 찾기. 주제/요지(Q18-Q19) 핵심 메시지 명확. 조건영작(Q20) 6단어 배열 유일."
+    },
+    {
+      "category": "선지 뻔함 (C7)",
+      "result": "CLEAR",
+      "detail": "Q10 오답(performance/strength/humidity)은 모두 본문 어휘지만 빈칸 위치 문맥에 맞지 않음. Q11 오답(blame/illusion/comparison) 모두 본문 어휘 활용. Q12 오답 3개 모두 원문의 세부 내용을 교묘하게 왜곡(반대/불일치). Q18/Q19 오답은 부분적 내용이나 원문과 반대되는 서술. 메타서술 오답 없음."
+    },
+    {
+      "category": "정답 passage 노출",
+      "result": "CLEAR",
+      "detail": "Q10: illusion이 빈칸으로 처리됨. Q11: credit이 빈칸으로 처리됨. Q20: passage에 정답 자리가 ____로 가려짐. Q15-Q17은 '찾기' 유형이므로 passage 노출 허용."
+    },
+    {
+      "category": "stem에 wa 노출 (S-CIRCULAR-STEM)",
+      "result": "CLEAR",
+      "detail": "Q15(fiction), Q16(illusion), Q17(external factors): stem에 한국어 단서만 있고 영어 정답 미노출. Q20: stem에 한국어 번역 + [조건] 단어 나열(알파벳순) — 조건영작이므로 정상."
+    },
+    {
+      "category": "단어수 조건 vs wa 일치 (S-WORDCOUNT-MISMATCH)",
+      "result": "CLEAR",
+      "detail": "Q15: (1단어) → fiction(1단어) OK. Q16: (1단어) → illusion(1단어) OK. Q17: (2단어) → external factors(2단어) OK. Q20: (6단어) → the boost is grounded in fiction(6단어) OK."
+    },
+    {
+      "category": "마커 분산",
+      "result": "CLEAR",
+      "detail": "Q1: ①앞부(Basing)→②앞부(mislead)→③중간(performed)→④끝(grounded) 전체 분산. Q2: ①앞(puts)→②중간(having)→③중간(slightly)→④중후반(involving) 분산. Q3: ①앞중(feeling)→②중간(difficult)→③중후(objectively)→④후반(based) 분산. Q4: ①앞(climbing)→②앞(external)→③중후(favorably)→④끝(fiction) 앞에 약간 몰리나 전체 커버."
+    },
+    {
+      "category": "오류찾기 passage <u> 태그 금지",
+      "result": "CLEAR",
+      "detail": "Q14: passage에 <u> 태그 없음. 마커 ①②③④만 사용. 규칙 준수."
+    },
+    {
+      "category": "조건영작 [조건] 단어 완전성 (S-COND-WORD-MATCH)",
+      "result": "CLEAR",
+      "detail": "Q20: wa='the boost is grounded in fiction' (6단어). [조건]에 boost, fiction, grounded, in, is, the 6개 전부 나열. 누락 없음."
+    },
+    {
+      "category": "조건영작 토큰 정답순 나열 (S-WRITTEN-TOKEN-LEAK)",
+      "result": "CLEAR",
+      "detail": "Q20: [조건] 나열순=boost, fiction, grounded, in, is, the (알파벳순). wa순=the, boost, is, grounded, in, fiction. 순서 불일치 → 정답 순서 노출 없음."
+    },
+    {
+      "category": "어휘 접두사 반의어 (S-ANTONYM-PREFIX)",
+      "result": "CLEAR",
+      "detail": "Q6: unfavorable(un- 접두사). 다만 favorable↔unfavorable은 의미적으로 명확한 반의어 관계이고 문맥 판단이 필요한 문항. 단순 접두사 제거만으로 풀 수 없음 (mastered due to → 유리한 조건이어야 논리적). LOW 이하."
+    }
+  ],
+  "issues": []
+}

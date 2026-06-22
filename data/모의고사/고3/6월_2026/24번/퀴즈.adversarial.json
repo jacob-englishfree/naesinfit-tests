@@ -1,0 +1,39 @@
+{
+  "_": "적대적 검수 — 2026 고3 6월 24번 퀴즈",
+  "model": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "totalIssues": 0,
+  "high": 0,
+  "medium": 0,
+  "low": 2,
+  "issues": [
+    {
+      "id": "ADV-L1",
+      "severity": "LOW",
+      "questionId": 12,
+      "type": "제목",
+      "issue": "Q12 선지 ③ 'From Sustenance to Culture: The Transformation of Food'가 정답으로 매우 명확. 제목 유형 특성상 포괄적 선지가 정답인 패턴이 예측 가능할 수 있음.",
+      "verdict": "KEEP — 퀴즈 어려움 난이도. 오답도 각각 글의 부분적 내용을 반영하여 혼동 유도. 소거법으로 풀더라도 문맥 이해가 필요."
+    },
+    {
+      "id": "ADV-L2",
+      "severity": "LOW",
+      "questionId": 6,
+      "type": "빈칸추론",
+      "issue": "Q6 오답 3개가 모두 추상적 표현(economic growth, agricultural production, institutional reform). 정답만 구체적 표현(dining choices and table service).",
+      "verdict": "KEEP — 오답이 각각 본문 속 단어(agriculture, economic, institution)를 활용하여 본문 읽기 없이 소거 불가. 'dining choices'도 본문에 직접 노출되므로 동일 조건."
+    }
+  ],
+  "adversarialChecks": {
+    "doubleAnswer": "0건 — 모든 문항에서 정답이 유일하게 결정됨",
+    "passageLeakage": "0건 — 서술형 찾기(Q16-18)는 의도적 노출(찾기 유형). 조건영작(Q19-20)은 빈칸 처리됨",
+    "trivialDistractors": "0건 — 오답이 본문 내용과 관련되어 세밀한 독해 필요",
+    "metaDescription": "0건 — 선지에 메타서술 없음",
+    "answerPattern": "분포 1:3 2:4 3:5 4:3. 최대 연속 2개(Q12-13). 규칙 내",
+    "wordCountMismatch": "0건 — Q19(8단어), Q20(9단어) 조건 일치 확인",
+    "conditionWordMatch": "0건 — Q19: but/eventually/France/in/in/initially/nations/other 전부 wa에 포함. Q20: a/and/as/economic/food/human/involved/those/with 전부 wa에 포함",
+    "stemWaExposure": "0건 — 서술형 stem에 wa 노출 없음",
+    "markerSpread": "Q1: ①②③④ 1문장/2문장/3문장/4문장 분산. Q2: 6문장/6문장/6문장/8문장 분산. Q3: 3문장/3문장/7문장/8문장 분산. Q4: 1문장/3문장/6문장/6문장 분산. Q5: 1문장/2문장/6문장/8문장 분산. 적절.",
+    "quizDifficulty": "퀴즈 수준 충족 — 빈칸추론 2단어+ (Q6: 5단어, Q7: 2단어), 서술형 7단어+ (Q16-18), 조건영작 6단어+ (Q19: 8단어, Q20: 9단어)"
+  }
+}

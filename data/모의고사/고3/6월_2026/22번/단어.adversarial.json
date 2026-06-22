@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "reviewer": "opus-4.6-adversarial",
+    "date": "2026-06-22",
+    "method": "adversarial review (find errors, ambiguity, exploits)",
+    "file": "data/모의고사/고3/6월_2026/22번/단어.json"
+  },
+  "issues": [],
+  "checks": {
+    "dual_answer_possible": {
+      "status": "CLEAR",
+      "detail": "All 20 questions have exactly one defensible answer. No ambiguous cases found."
+    },
+    "answer_leakage": {
+      "status": "LOW",
+      "detail": "Q7 interpretation appears as 'Interpretation' in last sentence (capitalized), and Q8 outcome appears later in 'interpret the outcome'. Both are inherent to fullPassage-based questions; blanks are correctly placed and students must still identify the right word from context. Acceptable for 단어 test."
+    },
+    "choice_exploits": {
+      "status": "CLEAR",
+      "detail": "No length bias (S-LENGTH-BIAS). No prefix dominance (S-PREFIX-DOMINANT). No obvious elimination patterns. ABC choices properly shuffled with one error per distractor."
+    },
+    "marker_distribution": {
+      "status": "CLEAR",
+      "detail": "Q4 markers: ①2nd sentence, ②2nd sentence, ③3rd sentence, ④5th sentence — distributed across passage. Q5 markers: ①2nd sentence, ②2nd sentence, ③5th sentence, ④5th sentence — slight clustering but acceptable. Q6 markers: ①1st sentence, ②2nd sentence, ③4th sentence, ④5th sentence — well distributed."
+    },
+    "antonym_prefix_check": {
+      "status": "CLEAR",
+      "detail": "Q13 desired↔dreaded: semantic antonym (not prefix manipulation). Q14 former↔latter: classical pair (not prefix). No S-ANTONYM-PREFIX violation."
+    },
+    "written_answer_check": {
+      "status": "CLEAR",
+      "detail": "Q17 wa=interpretation, not in passage (passage is excerpt). Q18 wa=consistently, not in passage (passage is excerpt). No S-WA-IN-PASSAGE issue."
+    },
+    "meta_choice_check": {
+      "status": "CLEAR",
+      "detail": "No choices contain meta-descriptive language (본문에서/다루지 않은/관련 없는). All choices are concrete words or phrases."
+    },
+    "cheese_gate_check": {
+      "status": "CLEAR",
+      "detail": "All MC questions require passage reading to answer. No question solvable by elimination alone without passage context."
+    }
+  },
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 1,
+  "summary": "No HIGH or MEDIUM issues. 1 LOW note about inherent word repetition in fullPassage (Q7/Q8 answer words appear elsewhere in passage — unavoidable with short 153-word passage, blanks correctly placed). Test is ready for deployment."
+}

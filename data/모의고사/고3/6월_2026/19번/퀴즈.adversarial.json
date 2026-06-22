@@ -1,0 +1,48 @@
+{
+  "model": "claude-opus-4-6",
+  "date": "2026-06-22",
+  "method": "Adversarial review: 정답 2개 가능성, 선지 뻔함, 정답 노출, 메타 서술, passage 문제 점검",
+  "issues": [
+    {
+      "id": "ALL",
+      "severity": "LOW",
+      "category": "P2-passage",
+      "detail": "Q1 P2 경고 — 마커형 어법 문항에서 passage 앞부분에 ①<u>known</u>이 삽입되어 raw comparison 불일치. 학생 화면에서는 정상 렌더링. 기존 모의고사 파일들에서도 동일 패턴 발생하는 알려진 false positive."
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "category": "어법-난이도",
+      "detail": "faded vs fading — was + p.p. vs was + -ing 구별은 보통 난이도에 적합. 다만 'was faded'가 수동태로 해석 가능하다는 점에서 학생에게 혼동 가능성 있으나, 이것이 출제 의도이므로 적절."
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "category": "빈칸-오답변별력",
+      "detail": "빈칸 'With ___' — 오답 중 'about to give up'은 'With about to give up'이 되어 문법적으로도 불가하므로 소거 쉬움. 하지만 나머지 오답 'a big fish', 'the biggest fish'도 문맥상 시점 불일치로 변별 가능. 보통 난이도로서 적절."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "category": "지칭-밑줄위치",
+      "detail": "passage에서 밑줄 친 it(cast it back)의 선행사가 the line으로 매우 가까움 → 쉬움 난이도에 부합. 단, 'it'이 본문에 여러 번 나오므로 학생이 다른 it과 혼동할 수 있으나, 밑줄이 정확한 위치에 있어 문제 없음."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "category": "빈칸-오답문법",
+      "detail": "오답 ① 'was fading' — 'began to was fading'은 문법 오류. 문법 소거로 풀릴 수 있으나, 나머지 오답 ② beat faster, ④ give up and leave도 문맥 오답이므로 문법 소거만으로는 풀 수 없음."
+    }
+  ],
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 5,
+  "verdict": "HIGH 0건, MEDIUM 0건. 배포 가능.",
+  "checklist": {
+    "정답2개가능": "0건 — 모든 문항 단일 정답 확실",
+    "선지뻔함": "0건 — 오답 모두 합리적 혼동 유발",
+    "정답노출": "0건 — 빈칸형에서 정답 단어가 passage 다른 곳에 직접 노출되지 않음",
+    "메타서술": "0건 — 선지에 메타텍스트 없음",
+    "passage무결성": "0건 — fullPassage 100% 활용"
+  }
+}
