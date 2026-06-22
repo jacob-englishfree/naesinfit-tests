@@ -1,0 +1,52 @@
+{
+  "file": "data/모의고사/고3/6월_2026/32번/퀴즈.json",
+  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-06-22T16:42:00+09:00",
+  "totalQuestions": 20,
+  "issues": [],
+  "checks": [
+    {
+      "category": "정답 2개 가능",
+      "result": "PASS",
+      "detail": "모든 mc 문항에서 정답이 유일함. 특히 Q6(빈칸추론)에서 ①a self-denying ordinance가 혼동 가능하나, 빈칸 위치가 인용문 내 'but' 뒤이므로 'the effect it produces'만 적절."
+    },
+    {
+      "category": "오답 뻔함",
+      "result": "PASS",
+      "detail": "모든 문항에서 오답이 본문 표현을 활용하여 혼동 유발. Q8 내용일치에서 ①~③ 오답이 모두 본문과 유사하나 세부 왜곡(단편→걸작, 사물자체→효과, 세밀한→없음)."
+    },
+    {
+      "category": "정답 노출",
+      "result": "PASS",
+      "detail": "Q16(찾기형)은 의도적 노출. Q19/Q20(조건영작)은 overlay.blank으로 passage에서 정답 자리를 가림. Q6/Q7(빈칸추론)은 blank 처리."
+    },
+    {
+      "category": "단어수 조건 vs wa 일치",
+      "result": "PASS",
+      "detail": "Q16(7단어=7), Q17(8단어=8), Q18(8단어=8), Q19(6단어=6), Q20(9단어=9) 모두 일치."
+    },
+    {
+      "category": "stem 명확성",
+      "result": "PASS",
+      "detail": "모든 서술형에 (영어로) 명시. 조건영작에 단어 목록 + 단어수 조건 모두 포함."
+    },
+    {
+      "category": "워크북/단어 중복",
+      "result": "PASS",
+      "detail": "overlay.blank/markers/wa가 단어.json, 워크북.json과 동일한 것 없음. 부분 겹침(rather clever way out)은 있으나 전체 wa가 다르므로 N7 미해당."
+    },
+    {
+      "category": "마커 분산",
+      "result": "PASS",
+      "detail": "어법 Q1(앞-앞-앞중-중), Q2(앞-앞중-중-뒤), Q3(앞-앞중-중뒤-뒤). 부적절 Q4(앞-앞중-중-뒤), Q5(앞-앞중-뒤-뒤). 전체적으로 분산."
+    },
+    {
+      "category": "퀴즈 난이도 (워크북 대비)",
+      "result": "PASS",
+      "detail": "빈칸추론 2단어+ 구절(an outline to fill in, the effect it produces). 서술형 7단어+. 어법 복합 포인트(Q3 능동/수동+시제)."
+    }
+  ],
+  "highIssues": 0,
+  "mediumIssues": 0,
+  "lowIssues": 0
+}

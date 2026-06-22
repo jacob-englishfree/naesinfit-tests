@@ -1,0 +1,55 @@
+{
+  "model": "claude-opus-4-6",
+  "timestamp": "2026-06-22T14:10:00+09:00",
+  "file": "data/모의고사/고3/6월_2026/35번/퀴즈.json",
+  "checks": [
+    {
+      "check": "정답 2개 가능 여부",
+      "result": "CLEAR",
+      "detail": "20문항 모두 정답이 1개로 명확. 어법 문항에서 문법 오류 1개만 존재, 부적절 어휘 문항에서 반의어 교체 1개만 존재."
+    },
+    {
+      "check": "선지 뻔함 (오답 소거로 풀림)",
+      "result": "CLEAR",
+      "detail": "모든 mc 오답이 본문 맥락에서 그럴듯하게 구성됨. Q5의 predictable이 다소 뻔할 수 있으나 sudden과의 의미 관계를 파악해야 하므로 수용 범위."
+    },
+    {
+      "check": "정답 노출 (passage에 답이 그대로 보임)",
+      "result": "CLEAR",
+      "detail": "빈칸추론(Q6,Q7) 정답 위치가 빈칸 처리됨. 서술형 찾기(Q16-18) 정답이 passage에 보이는 것은 찾기 유형 의도."
+    },
+    {
+      "check": "서술형 조건 vs wa 불일치",
+      "result": "CLEAR",
+      "detail": "Q19: 6단어 조건, wa 6단어. Q20: 10단어 조건, wa 10단어. 조건 단어 전부 wa에 포함."
+    },
+    {
+      "check": "stem 모호성",
+      "result": "CLEAR",
+      "detail": "모든 stem이 무엇을 묻는지 명확. 지칭추론 문항에 문맥 인용 포함."
+    },
+    {
+      "check": "마커/빈칸 클러스터링",
+      "result": "CLEAR",
+      "detail": "Q1 마커: permanent(s1)/sufficient(s2)/depending(s2)/accelerating(s3) — s2에 2개 집중이나 문단이 길어 수용 가능. Q3 마커: to offset(s2)/where(s4)/show(s5)/unless(s7) — 전체 분산. Q4-5 마커: 전체 분산."
+    },
+    {
+      "check": "단어/워크북과 동일 wa/overlay 중복 (N7)",
+      "result": "CLEAR",
+      "detail": "단어 wa(climatic, spectacularly)와 중복 없음. 워크북 wa(fresh, sketches and photographs, completely, has occurred in the Andes)와 중복 없음. Q16의 wa가 'sketches and'를 포함하나 워크북의 'sketches and photographs'와 다른 문자열."
+    },
+    {
+      "check": "T/F 유형 사용 여부",
+      "result": "CLEAR",
+      "detail": "퀴즈에 내용이해 T/F 유형 미사용."
+    }
+  ],
+  "issues": {
+    "HIGH": [],
+    "MEDIUM": [],
+    "LOW": [
+      "Q14: overlay가 2번째 문장의 'this'(소문자)에 밑줄을 놓았을 수 있음. stem에서 문맥 인용으로 4번째 문장의 'This'임을 명확히 해 둠."
+    ]
+  },
+  "summary": "HIGH 0건, MEDIUM 0건, LOW 1건. 배포 가능."
+}

@@ -1,0 +1,35 @@
+{
+  "file": "data/모의고사/고3/6월_2026/32번/단어.json",
+  "attacker": "opus-4.6-adversarial",
+  "timestamp": "2026-06-22T07:15:00+09:00",
+  "totalQuestions": 20,
+  "issues": [
+    {
+      "id": 19,
+      "severity": "LOW",
+      "type": "정답노출",
+      "description": "Q19: 빈칸 정답 'appearance'가 같은 문장 뒤쪽 'that appearance'에 노출. 단어 테스트 특성상 원문 문맥 보고 추론하는 것이 의도이므로 허용 가능하나, 시각적으로 바로 보이는 점 참고.",
+      "action": "유지 — 빈칸 문맥 완성 유형에서 동일 문장 내 반복은 문맥 추론 단서로 기능"
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "type": "정답노출",
+      "description": "Q1-3: ABC 유형에서 원문 단어가 passage 다른 곳에도 등장 (EX-3 warning). ABC 유형 특성상 불가피 — 선지에서 원문/반의어 조합을 고르는 것이 목적.",
+      "action": "유지 — ABC 유형은 원문 대조가 본질"
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "반의어접두사",
+      "description": "Q14: intractable ↔ manageable. in-tractable에서 in- 접두사 제거로 tractable ≈ manageable이라 볼 수 있으나, manageable은 별개 어근(manage)이므로 접두사 조작형 반의어에 해당하지 않음.",
+      "action": "유지 — S-ANTONYM-PREFIX 해당 없음 (다른 어근)"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "total": 3
+  }
+}
