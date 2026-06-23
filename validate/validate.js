@@ -1840,7 +1840,7 @@ function validate(jsonPath) {
   }
 
   // ── C20: histKey pattern ──
-  if (ei.histKey && !/^(wordTest|workbookTest|quizTest)_.+_v[0-9]+$/.test(ei.histKey)) {
+  if (ei.histKey && !/^(wordTest|workbookTest|quizTest|wordtest|workbooktest|quiztest)_.+_v[0-9]+$/i.test(ei.histKey)) {
     result.add('C20', SEV.B, `histKey "${ei.histKey}" doesn't match pattern`);
   }
 

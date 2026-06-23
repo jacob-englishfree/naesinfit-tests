@@ -1,0 +1,64 @@
+{
+  "file": "data/부교재/수능특강/영어/16강/5번/워크북.json",
+  "timestamp": "2026-06-21T01:00:00.000Z",
+  "model": "claude-opus-4-6",
+  "checks": [
+    {
+      "category": "정답 2개 가능",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "20문항 전수 검토. 모든 문항에서 정답이 유일함. 어법 Q1-Q4는 각각 하나의 문법 오류만 존재. 어휘 Q5-Q6은 원문 대조로 정답 확실. T/F Q7-Q9는 원문 직접 인용으로 판단 명확. 빈칸 Q10-Q11은 문맥상 유일한 답. 내용 일치/불일치 Q12-Q13은 원문 대조로 명확. 오류찾기 Q14는 who→that 유일 오류. 서술형 Q15-Q17, Q20은 원문에서 직접 찾기/영작."
+    },
+    {
+      "category": "선지 뻔함 (소거법)",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "Q10 오답 keyboard/string/piano 모두 그럴듯하지만 violinist 단서로 violin 확정. Q11 오답들이 passage 무관이 아니라 그럴듯한 대안 제시. Q12 오답들이 원문 세부사항 변형. Q13 오답들이 모두 원문 일치. Q18-Q19 오답들이 부분적으로 합리적이나 전체 주제/요지에 미흡."
+    },
+    {
+      "category": "정답 노출",
+      "issues": [
+        {
+          "id": 10,
+          "detail": "Q10: 빈칸 정답 'violin'이 fullPassage에서 'solo music for violin'에 등장. 다만 빈칸 자리가 정확히 해당 위치이므로 빈칸으로 가려져 있어 직접 노출은 아님. passage에서 빈칸 외 위치에 violin이 추가로 등장하지 않음. B-level 참고 사항.",
+          "severity": "LOW",
+          "action": "유지 — 빈칸 자리에서만 등장, 다른 위치 노출 없음"
+        }
+      ],
+      "severity": "LOW",
+      "detail": "Q10 외 정답 노출 없음. 서술형 Q15-Q17은 찾기 유형이므로 passage 노출 OK."
+    },
+    {
+      "category": "stem 모호성",
+      "issues": [
+        {
+          "id": 15,
+          "detail": "Q15: '두 가지 역할을 찾아 쓰시오'인데 wa는 'bass line' 하나만. stem이 두 가지를 요구하는 것처럼 보일 수 있음.",
+          "severity": "LOW",
+          "action": "stem이 '두 가지 역할 중 하나'라는 의미로 해석 가능하나 모호함. 단일답 원칙(S-MULTI-ITEM-WRITTEN)에 따라 하나만 답으로 설정한 것은 적절."
+        }
+      ],
+      "severity": "LOW",
+      "detail": "Q15 stem 약간 모호하나 답은 유일하게 결정됨."
+    },
+    {
+      "category": "cross-leak (단어.json 겹침)",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "단어.json 사용 단어(proximity, closeness, melody, accompaniment, simultaneously, separately, emerging, fading, essentially, fundamentally, approximately, roughly, similar, distinct, polyphonic, streams, respect, spatial, perceptually, vanishing 등)와 워크북 정답/overlay 겹침 체크: Q16 wa=polyphonic(단어.json에 있음), Q10 blank=violin(단어.json에 없음). polyphonic은 단어.json의 선지에 사용되었으나 워크북에서는 서술형 찾기 유형이므로 유형이 다르고 cross-leak 문제 없음."
+    },
+    {
+      "category": "마커 분산",
+      "issues": [],
+      "severity": "NONE",
+      "detail": "어법 Q1-Q4: 마커가 본문 전체에 분산됨. Q1(문장1,3,4,5), Q2(문장1,6,7,8), Q3(문장3,4,8,9), Q4(문장2,5,8,9). 어휘 Q5(문장1,3,5,8), Q6(문장4,5,6,8). 오류찾기 Q14(문장1,3,5,7). 모두 적절하게 분산."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 2,
+    "NONE": 4,
+    "conclusion": "HIGH 0건. 배포 가능. LOW 2건은 Q10 빈칸 정답 위치 노출(빈칸으로 가려짐)과 Q15 stem 모호성(단일답 설정 적절)으로 문제 없음."
+  }
+}

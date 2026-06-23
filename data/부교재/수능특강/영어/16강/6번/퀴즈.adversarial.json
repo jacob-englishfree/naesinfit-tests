@@ -1,0 +1,56 @@
+{
+  "_meta": {
+    "model": "claude-opus-4-6",
+    "type": "adversarial",
+    "timestamp": "2026-06-21",
+    "highCount": 0,
+    "mediumCount": 0,
+    "lowCount": 2
+  },
+  "checks": [
+    {
+      "category": "정답 2개 가능성",
+      "issues": []
+    },
+    {
+      "category": "선지 뻔함 (소거법)",
+      "issues": []
+    },
+    {
+      "category": "정답 노출",
+      "issues": []
+    },
+    {
+      "category": "stem 모호성",
+      "issues": []
+    },
+    {
+      "category": "조건 vs wa 불일치",
+      "issues": []
+    },
+    {
+      "category": "cross-leak (단어/워크북 중복)",
+      "issues": [
+        {
+          "id": "Q20",
+          "severity": "LOW",
+          "detail": "워크북 Q20의 wa도 'because many people benefit from these services'로 동일. 단, 워크북은 조건영작이고 퀴즈도 조건영작이지만 stem 한국어 문장과 조건 단어가 동일하므로 학생이 이미 풀어본 문제로 느낄 수 있음. 그러나 워크북→퀴즈 순서상 복습 효과로 볼 수 있어 LOW 판정."
+        },
+        {
+          "id": "Q7-빈칸",
+          "severity": "LOW",
+          "detail": "워크북 Q10 빈칸(huge)과 동일 passage 마지막 문장 영역이지만 빈칸 위치와 정답이 다름(Q7=how much...undervalued vs Q10=huge). 실제 중복은 아니므로 LOW."
+        }
+      ]
+    },
+    {
+      "category": "passage 원문 일치",
+      "issues": []
+    },
+    {
+      "category": "det↔ans 정합성",
+      "issues": []
+    }
+  ],
+  "summary": "HIGH 0건. 전체 20문항 모두 정상. Q20의 워크북 cross-leak은 LOW(복습 효과 범주). 배포 가능."
+}

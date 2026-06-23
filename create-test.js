@@ -233,6 +233,14 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
 
   // 1단계: fullPassage에 overlay 적용 (교과서 발췌 전에 먼저 적용해야 마커가 발췌본에 포함됨)
   let overlaid = fullPassage;
+
+  // 문장삽입 이외 유형: fullPassage에 내재된 ( ① )~( ⑤ ) 마커를 strip
+  // (38번 등 문장삽입 원문 지문에서 동의어/반의어/빈칸 출제 시 S-MARKER-LEAK 방지)
+  const insertionMarkerTypes = ['문장삽입', '문장 삽입'];
+  if (!insertionMarkerTypes.some(t => questionType.includes(t))) {
+    overlaid = overlaid.replace(/\s*\(\s*[①②③④⑤]\s*\)/g, '');
+  }
+
   if (overlayData) {
     if (overlayData.markers) {
       for (const [marker, val] of Object.entries(overlayData.markers)) {
