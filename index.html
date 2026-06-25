@@ -3935,26 +3935,124 @@ function rSel(){
 }
 
 function rSelIntegrated(){
-  // 통합 모드: 교과서/부교재/모의고사 혼합 선택 표시
+  // 통합 모드: 교과서/부교재/모의고사 — 강>번호 계층 구조
+  const SUB_ORDER=['Gateway','본문','Part1','Part2','Part3'];
+  function subSort(a,b){
+    const na=parseInt(a),nb=parseInt(b);
+    if(!isNaN(na)&&!isNaN(nb))return na-nb;
+    const ia=SUB_ORDER.indexOf(a),ib=SUB_ORDER.indexOf(b);
+    if(ia>=0&&ib>=0)return ia-ib;
+    if(ia>=0)return-1;if(ib>=0)return 1;
+    return a.localeCompare(b,'ko');
+  }
+
+  // 선택된 항목을 부모(강/시험) 단위로 그룹핑
+  function groupByParent(items){
+    const map={};
+    items.forEach(k=>{
+      const p=k.split('/');
+      const parent=p.slice(0,-1).join('/');
+      const child=p[p.length-1];
+      if(!map[parent])map[parent]={children:[],allKeys:[]};
+      map[parent].children.push(child);
+      map[parent].allKeys.push(k);
+    });
+    return map;
+  }
+
+  // 해당 부모의 전체 가용 번호 조회
+  function getAllSubs(parentKey){
+    const p=parentKey.split('/');
+    if(p[0]==='부교재'){
+      const cat=SCOPE_CATALOG['부교재'];
+      if(!cat||!cat.items)return null;
+      // 부교재/시리즈/책/강 or 부교재/시리즈/강
+      if(p.length===4){
+        const info=cat.items[p[1]]&&cat.items[p[1]][p[2]];
+        if(info&&info.subs&&info.subs[p[3]])return info.subs[p[3]].filter(x=>x!=='전체').sort(subSort);
+      } else if(p.length===3){
+        for(const bk of Object.values(cat.items[p[1]]||{})){
+          if(bk.subs&&bk.subs[p[2]])return bk.subs[p[2]].filter(x=>x!=='전체').sort(subSort);
+        }
+      }
+    } else if(p[0]==='모의고사'){
+      const cat=SCOPE_CATALOG['모의고사'];
+      if(!cat||!cat.items)return null;
+      if(p.length===3&&cat.items[p[1]]&&cat.items[p[1]][p[2]]){
+        return(cat.items[p[1]][p[2]].lessons||[]).slice().sort(subSort);
+      }
+    } else if(p[0]==='교과서'){
+      const cat=SCOPE_CATALOG['교과서'];
+      if(!cat||!cat.items)return null;
+      if(p.length===3&&cat.items[p[1]]&&cat.items[p[1]][p[2]]){
+        const info=cat.items[p[1]][p[2]];
+        if(info.subs&&info.subs[p[2]])return info.subs[p[2]].filter(x=>x!=='전체').sort(subSort);
+      }
+    }
+    return null;
+  }
+
+  function parentLabel(parentKey){
+    const p=parentKey.split('/');
+    if(p[0]==='부교재')return p.slice(1).join(' › ');
+    if(p[0]==='모의고사')return p.slice(1).join(' › ');
+    if(p[0]==='교과서')return p.slice(1).join(' › ');
+    return parentKey;
+  }
+
+  function renderHierGroup(title,icon,items){
+    if(!items.length)return'';
+    const groups=groupByParent(items);
+    const selCount=items.length;
+    let inner='';
+    const sortedParents=Object.keys(groups).sort((a,b)=>{
+      const pa=a.split('/'),pb=b.split('/');
+      const na=parseInt((pa[pa.length-1]||'').replace(/[^\d]/g,'')),nb=parseInt((pb[pb.length-1]||'').replace(/[^\d]/g,''));
+      if(!isNaN(na)&&!isNaN(nb))return na-nb;
+      return a.localeCompare(b,'ko');
+    });
+    for(const parentKey of sortedParents){
+      const g=groups[parentKey];
+      const allSubs=getAllSubs(parentKey);
+      const pLabel=parentLabel(parentKey);
+      const selectedSet=new Set(g.children);
+
+      if(allSubs&&allSubs.length>0){
+        // 계층: 부모 + 전체 번호 (선택된 것 on, 나머지 off)
+        const parentSelCount=g.children.length;
+        const allSelected=allSubs.every(s=>selectedSet.has(s));
+        inner+=`<div style="margin-bottom:12px;padding:10px 12px;border-radius:10px;background:var(--g50);border:1px solid var(--g200)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--g900)">${pLabel}</span>
+            <span style="font-size:11px;color:var(--blue);font-weight:600;cursor:pointer" onclick="intTgAll('${parentKey}',${JSON.stringify(allSubs).replace(/'/g,"\\'")})">${allSelected?'전체 해제':'전체 선택'}</span>
+          </div>
+          <div class="chips" style="gap:6px">${allSubs.map(sub=>{
+            const fullKey=parentKey+'/'+sub;
+            const on=S.sel.includes(fullKey);
+            return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${fullKey}')">${sub}</div>`;
+          }).join('')}</div>
+        </div>`;
+      } else {
+        // 하위 없음: 부모 자체가 칩
+        inner+=`<div style="margin-bottom:4px"><div class="chips" style="gap:6px">${g.allKeys.map(k=>{
+          const on=S.sel.includes(k);
+          return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${k}')">${parentLabel(k)}</div>`;
+        }).join('')}</div></div>`;
+      }
+    }
+    return`<div style="margin-bottom:20px"><div class="sec-label">${icon} ${title} <span class="badge">${selCount}</span></div>${inner}</div>`;
+  }
+
   const tbItems=S.sel.filter(k=>k.startsWith('교과서/'));
   const supItems=S.sel.filter(k=>k.startsWith('부교재/'));
   const mockItems=S.sel.filter(k=>k.startsWith('모의고사/'));
-  function label(k){
-    const p=k.split('/');
-    if(k.startsWith('교과서/'))return p.slice(1).join(' › ');
-    if(k.startsWith('부교재/'))return p.slice(1).join(' › ');
-    if(k.startsWith('모의고사/'))return p.slice(1).join(' › ');
-    return k;
-  }
-  function renderGroup(title,icon,items){
-    if(!items.length)return'';
-    return`<div style="margin-bottom:16px"><div class="sec-label">${icon} ${title} <span class="badge">${items.length}</span></div><div class="chips" style="gap:8px">${items.map(k=>{const on=S.sel.includes(k);return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${k}')">${label(k)}</div>`;}).join('')}</div></div>`;
-  }
-  let h=renderGroup('교과서','📚',tbItems)+renderGroup('부교재','📖',supItems)+renderGroup('모의고사','📝',mockItems);
+  let h=renderHierGroup('교과서','📚',tbItems)+renderHierGroup('부교재','📖',supItems)+renderHierGroup('모의고사','📝',mockItems);
   app.innerHTML=`<div class="page"><div class="nav"><button class="nav-back" onclick="goHome()">←</button><div class="nav-title">통합테스트 범위</div></div>${h}<div class="bottom-spacer"></div></div>`;
   setBottom(`<button class="btn btn-blue" id="selBtn" ${S.sel.length===0?'disabled':''} onclick="toSet()">${S.sel.length?S.sel.length+'개 범위 · 시작하기':'범위를 선택해주세요'}</button>`);
 }
-function intTg(el,k){const i=S.sel.indexOf(k);if(i>=0){S.sel.splice(i,1);el.classList.remove('on');}else{S.sel.push(k);el.classList.add('on');}const btn=$('selBtn');if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 범위 · 시작하기':'범위를 선택해주세요';}}
+function intTg(el,k){const i=S.sel.indexOf(k);if(i>=0){S.sel.splice(i,1);el.classList.remove('on');}else{S.sel.push(k);el.classList.add('on');}intUpdBtn();}
+function intTgAll(parentKey,allSubs){const allIn=allSubs.every(s=>S.sel.includes(parentKey+'/'+s));allSubs.forEach(s=>{const k=parentKey+'/'+s,i=S.sel.indexOf(k);if(allIn){if(i>=0)S.sel.splice(i,1);}else{if(i<0)S.sel.push(k);}});rSelIntegrated();}
+function intUpdBtn(){const btn=$('selBtn');if(btn){btn.disabled=S.sel.length===0;btn.textContent=S.sel.length?S.sel.length+'개 범위 · 시작하기':'범위를 선택해주세요';}}
 
 function rSelMock(){
   const cat=SCOPE_CATALOG['모의고사'];if(!cat||!cat.items)return;
