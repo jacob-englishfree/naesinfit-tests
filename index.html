@@ -4017,27 +4017,23 @@ function rSelIntegrated(){
       const pLabel=parentLabel(parentKey);
       const selectedSet=new Set(g.children);
 
-      if(allSubs&&allSubs.length>0){
-        // 계층: 부모 + 전체 번호 (선택된 것 on, 나머지 off)
-        const parentSelCount=g.children.length;
-        const allSelected=allSubs.every(s=>selectedSet.has(s));
+      // 전체 가용 번호 = SCOPE_CATALOG + 이미 선택된 항목 합치기
+      const catalogSubs=allSubs||[];
+      const allItems=[...new Set([...catalogSubs,...g.children])].sort(subSort);
+
+      if(allItems.length>0){
+        const allSelected=allItems.every(s=>S.sel.includes(parentKey+'/'+s));
         inner+=`<div style="margin-bottom:12px;padding:10px 12px;border-radius:10px;background:var(--g50);border:1px solid var(--g200)">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
             <span style="font-size:13px;font-weight:700;color:var(--g900)">${pLabel}</span>
-            <span style="font-size:11px;color:var(--blue);font-weight:600;cursor:pointer" onclick="intTgAll('${parentKey}',${JSON.stringify(allSubs).replace(/'/g,"\\'")})">${allSelected?'전체 해제':'전체 선택'}</span>
+            <span style="font-size:11px;color:var(--blue);font-weight:600;cursor:pointer" onclick="intTgAll('${parentKey}',${JSON.stringify(allItems).replace(/'/g,"\\'")})">${allSelected?'전체 해제':'전체 선택'}</span>
           </div>
-          <div class="chips" style="gap:6px">${allSubs.map(sub=>{
+          <div class="chips" style="gap:6px">${allItems.map(sub=>{
             const fullKey=parentKey+'/'+sub;
             const on=S.sel.includes(fullKey);
             return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${fullKey}')">${sub}</div>`;
           }).join('')}</div>
         </div>`;
-      } else {
-        // 하위 없음: 부모 자체가 칩
-        inner+=`<div style="margin-bottom:4px"><div class="chips" style="gap:6px">${g.allKeys.map(k=>{
-          const on=S.sel.includes(k);
-          return`<div class="chip ${on?'on':''}" onclick="intTg(this,'${k}')">${parentLabel(k)}</div>`;
-        }).join('')}</div></div>`;
       }
     }
     return`<div style="margin-bottom:20px"><div class="sec-label">${icon} ${title} <span class="badge">${selCount}</span></div>${inner}</div>`;
