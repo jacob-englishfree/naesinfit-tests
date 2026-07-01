@@ -1,0 +1,75 @@
+{
+  "file": "data/부교재/빠른독해유형독해/02-01/P04/단어.json",
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-07-01",
+  "attacks": [
+    {
+      "id": 1, "attack": "정답 노출 체크",
+      "finding": "ABC 유형 특성상 [w1/w2] 형식으로 후보가 모두 보이므로 정답 노출은 아님. 단, 지문이 짧아 원문 대조가 쉬울 수 있으나, 단어 테스트 목적에 부합.",
+      "severity": "ok"
+    },
+    {
+      "id": 4, "attack": "부적절 어휘 마커 분산 확인",
+      "finding": "Q4 마커: ①improved(1문장), ②eliminated(2문장), ③effectiveness(3문장), ④decline(5문장). 분산 양호.",
+      "severity": "ok"
+    },
+    {
+      "id": 5, "attack": "부적절 어휘 마커 분산 확인",
+      "finding": "Q5 마커: ①efficiency(1문장), ②volume(4문장), ③prefer(5문장), ④reduced(6문장). 분산 양호.",
+      "severity": "ok"
+    },
+    {
+      "id": 6, "attack": "부적절 어휘 마커 분산 확인",
+      "finding": "Q6 마커: ①introduced(1문장), ②faster(2문장), ③losing(3문장), ④increasingly(6문장). 분산 양호.",
+      "severity": "ok"
+    },
+    {
+      "id": 7, "attack": "빈칸 정답 지문 노출 체크",
+      "finding": "communication이 지문 3, 5, 6문장에 반복 등장. 단어 테스트에서는 원문 단어를 빈칸으로 만드는 것이 목적이므로 허용 범위. B-level 경고와 일치.",
+      "severity": "minor"
+    },
+    {
+      "id": 9, "attack": "오답 매력도 체크",
+      "finding": "④efficiency가 매력적 오답. 1문장에서 efficiency, 3문장에서 effectiveness 사용. 학생이 구분해야 하므로 적절한 난이도.",
+      "severity": "ok"
+    },
+    {
+      "id": 12, "attack": "동의어 선지 모호성 체크",
+      "finding": "①steadily가 increasingly와 유사할 수 있으나, steadily는 '일정한 속도로 꾸준히', increasingly는 '증가하며 점점 더'. progressively가 '점진적으로 증가'의 의미로 더 정확한 동의어.",
+      "severity": "ok"
+    },
+    {
+      "id": 14, "attack": "반의어 prefix 조작 체크 (S-ANTONYM-PREFIX)",
+      "finding": "reduced ↔ amplified. 접두사 조작(un-/in-/dis-) 아님. amplified는 독립 단어. 규칙 준수.",
+      "severity": "ok"
+    },
+    {
+      "id": 15, "attack": "다의어 passage 검증",
+      "finding": "(A) 문맥에서 place가 take its place 관용구로 '역할/자리' 의미. (B)에서 물리적 장소. 두 의미가 명확히 구분됨. 선지도 한국어라 모호성 없음.",
+      "severity": "ok"
+    },
+    {
+      "id": 16, "attack": "영영풀이 정답 유일성 체크",
+      "finding": "efficiency(자원 낭비 최소화)와 effectiveness(원하는 결과 도출)의 구분. 정의가 'producing the desired result'이므로 effectiveness가 유일한 정답.",
+      "severity": "ok"
+    },
+    {
+      "id": 19, "attack": "빈칸 문맥 완성 오답 매력도",
+      "finding": "②instant messaging, ③phone conversations, ④social networking은 모두 지문에 등장하는 표현이라 매력적 오답. 하지만 빈칸 위치(much of which is __)가 이메일의 많은 양 중 대부분을 가리키므로 junk mail만 적합.",
+      "severity": "ok"
+    },
+    {
+      "id": 20, "attack": "빈칸 문맥 완성 정답 노출",
+      "finding": "take its place가 원문 마지막 부분. 빈칸 처리로 학생이 문맥 추론해야 함. 정답이 빈칸 외에 노출되지 않음.",
+      "severity": "ok"
+    }
+  ],
+  "summary": {
+    "total_attacks": 12,
+    "critical": 0,
+    "major": 0,
+    "minor": 1,
+    "ok": 11,
+    "verdict": "PASS"
+  }
+}

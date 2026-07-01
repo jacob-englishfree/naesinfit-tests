@@ -1,0 +1,54 @@
+{
+  "testFile": "data/부교재/빠른독해유형독해/02-01/P05/워크북.json",
+  "attackerModel": "claude-opus-4-6",
+  "timestamp": "2026-07-01T03:20:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 11,
+      "type": "선지 길이 편차",
+      "detail": "Q11 빈칸추론: 정답(②)이 다른 선지보다 길지만 S-LENGTH-BIAS 기준(2.5배) 미달. 학생에게 유의미한 힌트 되지 않음",
+      "action": "유지"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 15,
+      "type": "정답 노출(의도적)",
+      "detail": "Q15 서술형: 정답 'take a closer look at'이 passage에 그대로 노출. 그러나 '찾기' 유형이므로 의도적 노출. stem에 '본문에서 찾아 쓰시오' 명시",
+      "action": "유지 (EX-2 예외)"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 16,
+      "type": "정답 노출(의도적)",
+      "detail": "Q16 서술형: 정답 'harmful'이 passage에 노출. '찾기' 유형이므로 의도적. stem에 '본문에서 찾아 쓰시오' 명시",
+      "action": "유지 (EX-2 예외)"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 14,
+      "type": "P2 passage 앞부분 불일치",
+      "detail": "Q14 오류찾기: passage 앞부분이 fullPassage와 약간 다름 (마커 삽입으로 인한 차이). 학생 풀이에 영향 없음",
+      "action": "유지"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 20,
+      "type": "조건영작 난이도",
+      "detail": "Q20 서술형 조건영작: 7단어 배열이 구동사(come up with) 지식 필요. 워크북 어려움 난이도에 적합",
+      "action": "유지"
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "totalIssues": 5,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 없음. 배포 가능."
+  }
+}

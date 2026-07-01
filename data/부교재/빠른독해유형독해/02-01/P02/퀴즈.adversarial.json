@@ -1,0 +1,93 @@
+{
+  "attacker": "claude-opus-4-6",
+  "timestamp": "2026-07-01T14:10:00+09:00",
+  "file": "data/부교재/빠른독해유형독해/02-01/P02/퀴즈.json",
+  "checks": [
+    {
+      "check": "정답 2개 이상 가능한 문항",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "오답 소거만으로 풀리는 문항 (뻔한 오답)",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "정답이 passage에 직접 노출 (찾기 유형 제외)",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "stem 모호성 / 복수 해석 가능",
+      "severity": "MEDIUM",
+      "findings": []
+    },
+    {
+      "check": "워크북과 동일 wa/overlay.blank 중복",
+      "severity": "HIGH",
+      "findings": [
+        {
+          "id": "N7-check",
+          "detail": "워크북 wa: bridge, spinal cord, automatic reflexes, cause you to react / 워크북 blank: a bridge, automatic reflexes, cause you to react. 퀴즈 wa: a bridge that connects the brain to, telling the muscles in your arm to pull, nerves in your skin send a message to, connects the brain to the body, before your brain even notices the pain. 퀴즈 blank: conscious thought, on its own, connects the brain to the body, before your brain even notices the pain. 모두 다름. 중복 없음."
+        }
+      ]
+    },
+    {
+      "check": "선지 길이 편향 (S-LENGTH-BIAS)",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "조건영작 단어수 vs wa 일치",
+      "severity": "HIGH",
+      "findings": [
+        {
+          "id": 19,
+          "detail": "Q19: [조건] connects,the,brain,to,the,body = 6 tokens. wa 'connects the brain to the body' = 6 words. 일치 확인."
+        },
+        {
+          "id": 20,
+          "detail": "Q20: [조건] even,notices,before,your,brain,the,pain = 7 tokens. wa 'before your brain even notices the pain' = 7 words. 일치 확인."
+        }
+      ]
+    },
+    {
+      "check": "서술형 wa가 stem에 노출 (S-CIRCULAR-STEM)",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "마커 분산 확인",
+      "severity": "MEDIUM",
+      "findings": [
+        {
+          "id": "marker-spread",
+          "detail": "Q1: ①1번째문장 ②2번째문장 ③3번째문장 ④4번째문장 — 앞부분에 집중되나 전체 6문장 중 4개이므로 허용 범위. Q2: ①②③④ 각각 2,4,5,7번째 문장 — 골고루 분산. Q3: ①②③④ 각각 2,3,6,7번째 문장 — 잘 분산됨. Q4: ①②③④ 각각 1,3,5,7번째 문장 — 잘 분산됨. Q5: ①②③④ 각각 5,6,7,7번째 문장 — 후반 집중이나 짧은 지문 특성상 허용."
+        }
+      ]
+    },
+    {
+      "check": "det ↔ ans 정합성",
+      "severity": "HIGH",
+      "findings": []
+    },
+    {
+      "check": "퀴즈 난이도 적정성 (워크북보다 어려운가)",
+      "severity": "MEDIUM",
+      "findings": [
+        {
+          "id": "difficulty-check",
+          "detail": "어법: Q1(쉬움)전치사+동명사, Q2(보통)by+동명사, Q3(어려움)부사vs형용사 — 적절한 단계적 난이도. 부적절 어휘: Q4(보통)conscious↔unconscious, Q5(어려움)react↔relax — 워크북의 deliberate↔automatic, ignores↔notices와 차별화됨. 빈칸추론: Q6,Q7 모두 구절 단위(2단어+) — 퀴즈 기준 충족. 서술형: Q16(7단어), Q17(8단어), Q18(8단어) — 최소 7단어 기준 충족."
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalChecks": 11,
+    "highIssues": 0,
+    "mediumIssues": 0,
+    "lowIssues": 0,
+    "verdict": "PASS — HIGH 이슈 0건. 배포 가능."
+  }
+}

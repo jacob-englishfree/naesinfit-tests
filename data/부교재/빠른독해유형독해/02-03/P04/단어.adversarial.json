@@ -1,0 +1,38 @@
+{
+  "model": "claude-opus-4-6-adversarial",
+  "timestamp": "2026-07-01T04:10:00+09:00",
+  "testFile": "data/부교재/빠른독해유형독해/02-03/P04/단어.json",
+  "issues": [
+    {
+      "id": "ADV-B1",
+      "severity": "LOW",
+      "questionIds": [1, 2, 3],
+      "category": "EX-3",
+      "description": "(A)(B)(C) 조합형에서 정답 단어가 fullPassage 다른 곳에도 노출됨. 단, 이 지문은 짧아서(8문장) 모든 단어가 지문 내에 있을 수밖에 없음. ABC 유형 특성상 불가피.",
+      "action": "ACCEPT — 짧은 지문에서 ABC 유형의 구조적 한계. 학생은 문맥 판단이 핵심이므로 문제 없음."
+    },
+    {
+      "id": "ADV-B2",
+      "severity": "LOW",
+      "questionIds": [7, 8, 9, 19],
+      "category": "Q6-WEAK-DISTRACTOR",
+      "description": "빈칸 어휘/문맥 완성 오답이 fullPassage에 없음. 단, 오답은 같은 품사·어미의 그럴듯한 어휘이며 문맥상 명확히 구분 가능.",
+      "action": "ACCEPT — 빈칸 유형에서 오답이 본문에 없는 것은 정상. 본문 단어만 오답으로 쓰면 오히려 소거법으로 풀림."
+    },
+    {
+      "id": "ADV-B3",
+      "severity": "LOW",
+      "questionIds": [15],
+      "category": "P2",
+      "description": "Q15 다의어 passage가 fullPassage와 다름. 이는 다의어 유형 특성상 AI가 직접 (A)(B) 두 문맥을 작성하므로 정상.",
+      "action": "ACCEPT — 다의어 유형은 passage 직접 작성이 규칙. fullPassage와 달라야 정상."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 3,
+    "totalIssues": 3,
+    "verdict": "PASS — HIGH/MEDIUM 이슈 0건. 배포 가능."
+  }
+}
