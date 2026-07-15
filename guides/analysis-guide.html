@@ -58,6 +58,24 @@
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:16px;height:11px;border-radius:3px;display:inline-block}
   .caption{font-size:12px;color:var(--t4);text-align:center;margin-top:9px;font-weight:600}
+  /* 지문 + 여백 단어정리 2단 */
+  .sheet{display:grid;grid-template-columns:1fr 210px;gap:0;margin-top:2px}
+  @media (max-width:640px){.sheet{grid-template-columns:1fr}}
+  .pg{padding-right:16px}
+  .margin{border-left:2px dashed #DDD3B4;padding:2px 0 2px 15px;position:relative}
+  @media (max-width:640px){.margin{border-left:none;border-top:2px dashed #DDD3B4;margin-top:12px;padding:12px 0 0}}
+  .margin .mh{font-family:var(--pen);font-size:19px;color:#8A6D2B;margin-bottom:6px;transform:rotate(-1deg)}
+  .wl{font-family:var(--pen);font-size:23px;line-height:1.5;color:#1D5FD6}
+  .wl .row{display:block;white-space:nowrap;transform:rotate(-.6deg)}
+  .wl .k{color:#20242e}
+  .wl .star{color:#E0322E}
+  /* 영어 선지 + 분석 메모 */
+  .opt-an{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#20242e;font-weight:600;line-height:1.4;margin-top:2px}
+  .opt-an .mk{font-family:var(--pen);font-size:22px;flex:none;width:22px;text-align:center}
+  .opt-an .mk.x{color:#E0322E}
+  .opt-an .cn{font-family:var(--pen);font-size:17px;color:#E0322E;margin-left:2px;white-space:nowrap}
+  .opt-an .cn.b{color:#1D5FD6}
+  .opt-cor{background:#FFFDF4;border:2.5px solid #E0322E;border-radius:14px 40px 16px 42px/30px 16px 34px 18px;padding:7px 12px;transform:rotate(-.6deg);margin-top:4px}
   /* step */
   .step{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:20px 20px 22px;margin-top:16px}
   .step .top{display:flex;align-items:center;gap:13px;margin-bottom:12px}
@@ -108,35 +126,48 @@
   <!-- ===== 실제 문제지 목업 ===== -->
   <div class="paper-wrap">
     <div class="paper-lbl">📄 실제 문제지엔 이렇게 표시하며 푸세요</div>
-    <div class="paper-sub">형광펜·밑줄·여백 손글씨 메모로 — 아래처럼! (예시)</div>
+    <div class="paper-sub">지문 표시 + <b>여백에 단어-뜻 정리</b> + <b>영어 선지 분석</b> — 아래처럼! (실제 기출)</div>
     <div class="paper">
-      <span class="num">📄 2027 고3 6월 · 23번 (글의 구조)</span>
-      <div class="passage">
-        <span class="grade" style="float:right;margin:-6px 0 0 6px">O</span>
-        <span class="memo b" style="display:block;margin:0 0 2px 6px">↖ 통념 (사람들 생각)</span>
-        It might be thought that, <span class="hg">as they grow towards adolescence,</span>
-        <span class="memo b">(~함에 따라)</span>
-        people <span class="u">give up</span> <span class="memo b">give up = 포기하다 ★</span> childhood play,
-        <span class="hy">but this is not so.</span>
-        <span class="memo r">← 반전! but 뒤가 진짜 주장 ✔</span>
-        Instead, the interests of this activity <span class="u">develop</span> into playing and watching sports.
-        <span class="memo-line r">→ 통념 제시 → but으로 반박 = 통념→반박 구조!</span>
+      <span class="num">📄 2022 수능 23번 · 주제 [실제 기출]</span>
+      <div class="sheet">
+        <div class="pg">
+          <span class="grade" style="float:right;margin:-4px 0 0 6px">O</span>
+          It might be thought that, as they grow towards <span class="u">adolescence</span>, people <span class="u">give up</span> childhood play, <span class="hy">but this is not so.</span>
+          <span class="memo r">← 반전! 놀이 안 버림 ✔</span>
+          Instead, the bases and <span class="u">interests</span> of this activity <span class="hg">change and develop</span> <span class="memo r">← 핵심! 형태만 바뀜</span> to playing and watching sports, to the <span class="u">fiction</span> of plays, novels, and movies.
+        </div>
+        <div class="margin">
+          <div class="mh">✍️ 여백 단어정리</div>
+          <div class="wl">
+            <span class="row">give up <span class="k">= 포기하다</span> <span class="star">★</span></span>
+            <span class="row">adolescence <span class="k">= 청소년기</span></span>
+            <span class="row">interest <span class="k">= 흥미·관심</span></span>
+            <span class="row">change &amp; develop</span>
+            <span class="row" style="margin-left:16px"><span class="k">= 바뀌어 발전</span> <span class="star">★</span></span>
+            <span class="row">altered <span class="k">= 변화된</span></span>
+            <span class="row">engagement <span class="k">= 참여</span></span>
+            <span class="row">fiction <span class="k">= 허구·소설</span></span>
+          </div>
+        </div>
       </div>
       <div class="ansline">
-        <div class="qstem">Q. 위 글의 글쓰기 구조로 가장 적절한 것은?</div>
-        <div><span class="opt correct"><span class="circle">① 통념 → 반박</span></span></div>
-        <div class="opt"><span class="tri">△</span>② 문제 → 해결</div>
-        <div class="opt">③ 원인 → 결과</div>
-        <div class="opt">④ 비교 → 대조</div>
+        <div class="qstem">Q. 다음 글의 주제로 가장 적절한 것은?　<span style="font-weight:600;color:#8A6D2B">← 선지도 해석·분석!</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>① relationship between play types and emotional stability <span class="cn">감정 안정? 미언급</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>② reasons for identifying with imaginary characters in childhood <span class="cn">지엽</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>③ ways of helping adolescents develop good reading habits <span class="cn">독서? 무관</span></div>
+        <div class="opt-cor">
+          <div class="opt-an" style="margin:0"><span class="mk" style="color:#E0322E">◎</span><b>④ continued engagement in altered forms of play after childhood</b></div>
+          <div class="memo-line b" style="margin:5px 0 0 26px">change&amp;develop → <b style="color:#1D5FD6">altered forms + 계속 참여</b>! = 정답 ✔</div>
+        </div>
       </div>
       <div class="legend">
-        <span><i class="sw" style="background:#FFE68A"></i>형광펜 = 핵심·반전 신호</span>
-        <span><i class="sw" style="background:#B7EAC6"></i>형광펜 = 문법·구문</span>
+        <span><i class="sw" style="background:#FFE68A"></i>형광펜 = 핵심·반전</span>
+        <span><i class="sw" style="background:#B7EAC6"></i>형광펜 = 정답 근거</span>
         <span><i class="sw" style="background:#2563EB"></i>밑줄 = 모르는 단어</span>
         <span><i class="sw" style="background:#E0322E"></i>빨강펜 = 채점·메모</span>
       </div>
     </div>
-    <div class="caption">↑ 이렇게 <b>표시하고 메모한 상태</b>를 사진 찍어 제출하면 됩니다.</div>
+    <div class="caption">↑ 지문 표시 + <b>여백 단어정리</b> + <b>영어 선지 분석</b>까지 한 상태를 사진 찍어 제출!</div>
   </div>
 
   <div class="step">
