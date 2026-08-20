@@ -1,4 +1,4 @@
-# 내신핏 테스트 제작 SOP (Standard Operating Procedure)
+# 내신해방공식 테스트 제작 SOP (Standard Operating Procedure)
 
 > **이 문서는 절대 규칙이다. 어떤 Claude 세션이든 테스트 출제 요청을 받으면 반드시 이 순서를 따른다.**
 > 우회, 생략, "나중에 하겠다" 절대 금지.

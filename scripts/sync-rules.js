@@ -122,8 +122,8 @@ function main() {
     md = md.slice(0, startIdx) + newSection + md.slice(endIdx + SECTION_END.length);
     console.log('✅ CLAUDE.md 기존 sync-rules 섹션 교체 완료');
   } else {
-    // 섹션 마커가 없으면 "내신핏 테스트 작업 시" 앞에 삽입
-    const insertBefore = '## 내신핏 테스트 작업 시';
+    // 섹션 마커가 없으면 "내신해방공식 테스트 작업 시" 앞에 삽입
+    const insertBefore = '## 내신해방공식 테스트 작업 시';
     const insertIdx = md.indexOf(insertBefore);
     if (insertIdx >= 0) {
       md = md.slice(0, insertIdx) + newSection + '\n\n' + md.slice(insertIdx);

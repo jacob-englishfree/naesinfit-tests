@@ -189,11 +189,11 @@ function auditSync() {
     const srcContent = fs.readFileSync(src, 'utf8');
 
     if (!fileExists(appDst)) {
-      err(`내신핏 앱에 없음: ${f}`);
+      err(`내신해방공식 앱에 없음: ${f}`);
     } else if (fs.readFileSync(appDst, 'utf8') !== srcContent) {
-      err(`내신핏 앱 불일치: ${f} → sync.sh 필요`);
+      err(`내신해방공식 앱 불일치: ${f} → sync.sh 필요`);
     } else {
-      ok(`내신핏 앱 동기화: ${f}`);
+      ok(`내신해방공식 앱 동기화: ${f}`);
     }
 
     if (!fileExists(ehgDst)) {
@@ -428,7 +428,7 @@ async function main() {
   localOnlyMode = localOnly;  // Audit 1 파일누락 → warn 모드
 
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  log(`  내신핏 전체 시스템 점검 (full-audit)${localOnly ? ' [로컬 전용]' : ''}`);
+  log(`  내신해방공식 전체 시스템 점검 (full-audit)${localOnly ? ' [로컬 전용]' : ''}`);
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
   // test-deploy.ts 파싱

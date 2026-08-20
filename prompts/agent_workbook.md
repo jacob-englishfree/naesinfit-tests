@@ -4,7 +4,7 @@
 
 ---
 
-내신핏 테스트 출제 파이프라인 실행. **{{subject}}** 출제 대상: **{{path}}** / 유형: **워크북**.
+내신해방공식 테스트 출제 파이프라인 실행. **{{subject}}** 출제 대상: **{{path}}** / 유형: **워크북**.
 
 ## 작업 파일
 - 프롬프트: `{{promptPath}}` (prompt.json)
@@ -43,6 +43,12 @@
 - wa/blank는 fullPassage 정확 substring (한 글자 변형 금지)
 - 마커(①~④) fullPassage 전체 분산
 - cross-leak: 단어.json의 정답·선지와 겹치지 않게 (유형/접근각 분리)
+
+## 내용일치/불일치 선지 규칙 (S-CHOICE-NOT-IN-PASSAGE)
+- 선지(ch)에 언급된 모든 고유명사·숫자·사건은 반드시 **passage 발췌 범위 내**에 포함되어야 한다.
+- 발췌 범위 밖(fullPassage에만 있는) 내용은 선지로 쓰지 말 것.
+- 교과서 지문이 길어서 발췌하는 경우, 선지에 나오는 인물/장소/숫자가 발췌된 passage에 없으면 학생이 풀 수 없다.
+- validate `S-CHOICE-NOT-IN-PASSAGE` 위반 시 해당 선지를 passage 범위 내 내용으로 교체 후 재출제.
 
 ## 서술형 stem 규칙
 - 단어 수 조건 명시: "(N단어)"

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * generate.js — 내신핏 테스트 출제 (잠긴 프롬프트 + 즉시 검증 + 중복 차단 + 셔플)
+ * generate.js — 내신해방공식 테스트 출제 (잠긴 프롬프트 + 즉시 검증 + 중복 차단 + 셔플)
  *
  * Usage:
  *   npm run generate -- --original originals/교과서/영어1/비상홍/2과/본문.txt --types 단어,워크북,퀴즈 --ei "영어I,비상홍,2과,본문"
@@ -426,7 +426,7 @@ async function main() {
   }
 
   console.log(`\n${'═'.repeat(50)}`);
-  console.log(`  내신핏 출제 — ${types.join(', ')}`);
+  console.log(`  내신해방공식 출제 — ${types.join(', ')}`);
   console.log(`  ${eiInfo.subject} / ${eiInfo.pub} / ${eiInfo.lesson}`);
   console.log(`${'═'.repeat(50)}\n`);
 

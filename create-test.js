@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 내신핏 테스트 자동 생성기 v1.0
+ * 내신해방공식 테스트 자동 생성기 v1.0
  *
  * 천재 개발자 접근: 1문항씩 생성 + 즉시 검증 + AI는 판단만 + 스크립트가 조립
  *
@@ -234,11 +234,16 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
   // 1단계: fullPassage에 overlay 적용 (교과서 발췌 전에 먼저 적용해야 마커가 발췌본에 포함됨)
   let overlaid = fullPassage;
 
-  // 문장삽입 이외 유형: fullPassage에 내재된 ( ① )~( ⑤ ) 마커를 strip
+  // 문장삽입 이외 유형: fullPassage에 내재된 마커를 strip
   // (38번 등 문장삽입 원문 지문에서 동의어/반의어/빈칸 출제 시 S-MARKER-LEAK 방지)
+  // (35번 등 무관한문장 원문 지문: ①문장 형태(괄호 없음)도 함께 제거)
   const insertionMarkerTypes = ['문장삽입', '문장 삽입'];
   if (!insertionMarkerTypes.some(t => questionType.includes(t))) {
+    // 괄호형 ( ① ) 제거
     overlaid = overlaid.replace(/\s*\(\s*[①②③④⑤]\s*\)/g, '');
+    // 괄호없는 ①②③④⑤ (무관한문장 등 원문 번호 마커)도 제거
+    // 마커형 유형(부적절어휘/어법/오류찾기)은 overlay.markers로 재삽입하므로 먼저 제거해도 무방
+    overlaid = overlaid.replace(/[①②③④⑤]/g, '');
   }
 
   if (overlayData) {
@@ -828,7 +833,7 @@ function main() {
 
   if (!args.source || !args.path || !args.type) {
     console.log(`
-내신핏 테스트 자동 생성기 v1.0
+내신해방공식 테스트 자동 생성기 v1.0
 
 사용법:
   프롬프트 생성:

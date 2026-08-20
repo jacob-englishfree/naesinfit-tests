@@ -13,7 +13,7 @@ import re
 import sys
 from difflib import SequenceMatcher
 
-PDF_PATH = "/Users/woobumpark/Desktop/영어해방공식&내신핏/데이터/영어해방공식,내신핏/2026내신핏/2027학년도 EBS수능특강/원본/2027학년도 EBS수능특강 영어.pdf"
+PDF_PATH = "/Users/woobumpark/Desktop/영어해방공식&내신핏/데이터/영어해방공식,내신해방공식/2026내신해방공식/2027학년도 EBS수능특강/원본/2027학년도 EBS수능특강 영어.pdf"
 DATA_ROOT = "/Users/woobumpark/Desktop/영어해방공식&내신핏/naesinfit-tests/data/부교재/수능특강/영어"
 
 def extract_pdf_passages(pdf_path):

@@ -101,8 +101,8 @@ async function main() {
     }
   }
 
-  // 4. 내신핏 앱 접속 확인
-  console.log('\n4️⃣  내신핏 앱 접속 확인');
+  // 4. 내신해방공식 앱 접속 확인
+  console.log('\n4️⃣  내신해방공식 앱 접속 확인');
   try {
     const r = await fetch(APP_URL + '/');
     if (r.status === 200) {

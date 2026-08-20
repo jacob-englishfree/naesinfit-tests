@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * qa.js — 내신핏 테스트 QA 파이프라인 오케스트레이터
+ * qa.js — 내신해방공식 테스트 QA 파이프라인 오케스트레이터
  *
  * Usage:
  *   npm run qa -- data/.../단어.json           # 단일 파일
@@ -202,7 +202,7 @@ async function main() {
     }
   }
 
-  console.log(`\n내신핏 QA 파이프라인 v1 — ${files.length}파일`);
+  console.log(`\n내신해방공식 QA 파이프라인 v1 — ${files.length}파일`);
 
   let pass = 0, fail = 0;
   for (const f of files) {
