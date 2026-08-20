@@ -1,0 +1,252 @@
+<title>실전 모의고사 채점·분석법 · 숙제제출예시</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F8F9FE; --card:#fff; --line:#EBEEF5; --div:#F0F2F8;
+    --t1:#1E1B4B; --t2:#374151; --t3:#6B7280; --t4:#9CA3AF;
+    --blue:#2563EB; --blueL:#EFF6FF; --green:#00C471; --greenL:#EEFBF4;
+    --red:#F04452; --redL:#FFF0F1; --amber:#F59E0B; --amberL:#FFF8F0; --purple:#8B5CF6;
+    --sh:0 4px 20px rgba(37,99,235,.06),0 2px 6px rgba(37,99,235,.03);
+    --font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
+    --pen:"Nanum Pen Script","Apple SD Gothic Neo",cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--t1);font-family:var(--font);line-height:1.6;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px}
+  b{font-weight:800;color:var(--t1)}
+  .hl{background:linear-gradient(transparent 58%,#FDE68A 58%);padding:0 2px;font-weight:800;color:var(--t1)}
+  .hlg{background:linear-gradient(transparent 58%,#B8E9D3 58%);padding:0 2px;font-weight:800;color:#046a48}
+  /* hero */
+  .hero{background:linear-gradient(145deg,#1E40AF 0%,#2563EB 45%,#3B82F6 80%,#60A5FA 100%);color:#fff;padding:34px 22px 30px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+  .hero .orb{position:absolute;border-radius:99px;background:rgba(255,255,255,.08)}
+  .hero .eb{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+  .hero h1{font-size:clamp(24px,6vw,32px);font-weight:900;line-height:1.22;margin:10px 0 8px;letter-spacing:-.03em}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.82);font-weight:500;max-width:34ch}
+  .hero .tag{display:inline-block;margin-top:16px;font-size:12px;font-weight:800;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px}
+  .why{background:var(--amberL);border:1px solid #F7DDA6;border-radius:16px;padding:16px 18px;margin-top:22px;font-size:14.5px;color:#8A5300;font-weight:600}
+  .why b{color:#6b4200;font-weight:900}
+  /* ===== 실제 문제지 목업 ===== */
+  .paper-wrap{margin-top:22px}
+  .paper-lbl{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:900;color:var(--t1);margin-bottom:4px}
+  .paper-sub{font-size:13px;color:var(--t3);font-weight:600;margin-bottom:12px}
+  .paper{background:#FFFDF7;border:1px solid #ECE6D3;border-radius:14px;box-shadow:0 10px 30px rgba(60,50,20,.10),0 2px 6px rgba(60,50,20,.06);padding:20px 20px 18px;position:relative;overflow:hidden}
+  .paper::before{content:"";position:absolute;left:0;top:0;bottom:0;width:34px;background:repeating-linear-gradient(#fff 0 27px,#F1ECDC 27px 28px);border-right:1px solid #F0E9D6;opacity:.5}
+  .paper .num{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#8A6D2B;background:#FBF3DC;border:1px solid #EBDCB0;padding:3px 10px;border-radius:7px;margin-bottom:12px}
+  .paper .passage{font-size:15px;line-height:2.05;color:#20242e;font-weight:500;position:relative}
+  .paper .passage .u{border-bottom:2px solid #2563EB;padding-bottom:1px;font-weight:700}
+  .paper .passage .hy{background:linear-gradient(transparent 52%,#FFE68A 52%);padding:1px 2px;font-weight:700;border-radius:2px}
+  .paper .passage .hg{background:linear-gradient(transparent 52%,#B7EAC6 52%);padding:1px 2px;font-weight:700;border-radius:2px}
+  /* 손글씨 메모 */
+  .pen{font-family:var(--pen);font-weight:400;line-height:1.1}
+  .memo{font-family:var(--pen);font-size:19px;color:#E0322E;display:inline-block;transform:rotate(-3deg);white-space:nowrap;vertical-align:middle;margin:0 2px}
+  .memo.b{color:#1D5FD6}
+  .memo-line{display:block;font-family:var(--pen);font-size:20px;line-height:1.25;margin:3px 0 2px 8px}
+  .memo-line.b{color:#1D5FD6}.memo-line.r{color:#E0322E}
+  .arrow{font-family:var(--pen);font-size:18px}
+  /* 채점 마크 */
+  .grade{font-family:var(--pen);font-size:30px;color:#E0322E;line-height:.8;font-weight:400}
+  /* 정답 동그라미 */
+  .ansline{display:flex;flex-direction:column;gap:7px;margin-top:14px;padding-top:14px;border-top:1px dashed #E7DEC4}
+  .qstem{font-size:14.5px;font-weight:800;color:#20242e;margin-bottom:3px}
+  .opt{font-size:14.5px;color:#20242e;font-weight:600;position:relative;display:inline-block}
+  .opt.correct{color:#20242e}
+  .circle{display:inline-block;padding:2px 12px 3px;border:2.5px solid #E0322E;border-radius:48% 52% 50% 50%/60% 55% 45% 40%;transform:rotate(-2deg)}
+  .tri{font-family:var(--pen);color:#E0322E;font-size:20px;margin-right:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12px;font-weight:700;color:var(--t3)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:16px;height:11px;border-radius:3px;display:inline-block}
+  .caption{font-size:12px;color:var(--t4);text-align:center;margin-top:9px;font-weight:600}
+  /* 지문 + 여백 단어정리 2단 */
+  .sheet{display:grid;grid-template-columns:1fr 210px;gap:0;margin-top:2px}
+  @media (max-width:640px){.sheet{grid-template-columns:1fr}}
+  .pg{padding-right:16px}
+  .margin{border-left:2px dashed #DDD3B4;padding:2px 0 2px 15px;position:relative}
+  @media (max-width:640px){.margin{border-left:none;border-top:2px dashed #DDD3B4;margin-top:12px;padding:12px 0 0}}
+  .margin .mh{font-family:var(--pen);font-size:19px;color:#8A6D2B;margin-bottom:6px;transform:rotate(-1deg)}
+  .wl{font-family:var(--pen);font-size:23px;line-height:1.5;color:#1D5FD6}
+  .wl .row{display:block;white-space:nowrap;transform:rotate(-.6deg)}
+  .wl .k{color:#20242e}
+  .wl .star{color:#E0322E}
+  /* 영어 선지 + 분석 메모 */
+  .opt-an{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#20242e;font-weight:600;line-height:1.4;margin-top:2px}
+  .opt-an .mk{font-family:var(--pen);font-size:22px;flex:none;width:22px;text-align:center}
+  .opt-an .mk.x{color:#E0322E}
+  .opt-an .cn{font-family:var(--pen);font-size:17px;color:#E0322E;margin-left:2px;white-space:nowrap}
+  .opt-an .cn.b{color:#1D5FD6}
+  .opt-cor{background:#FFFDF4;border:2.5px solid #E0322E;border-radius:14px 40px 16px 42px/30px 16px 34px 18px;padding:7px 12px;transform:rotate(-.6deg);margin-top:4px}
+  /* step */
+  .step{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh);padding:20px 20px 22px;margin-top:16px}
+  .step .top{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+  .step .n{width:38px;height:38px;border-radius:11px;background:var(--blue);color:#fff;font-weight:900;font-size:17px;display:grid;place-items:center;flex:none}
+  .step .n.g{background:var(--green)}.step .n.p{background:var(--purple)}.step .n.a{background:var(--amber)}
+  .step h2{font-size:clamp(17px,4.4vw,20px);font-weight:900;letter-spacing:-.02em}
+  .step .lead{font-size:13px;color:var(--t3);font-weight:600;margin-top:2px}
+  .step ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px}
+  .step li{position:relative;padding-left:20px;font-size:14.5px;color:var(--t2);font-weight:500}
+  .step li::before{content:"";position:absolute;left:3px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .step li b{color:var(--t1);font-weight:800}
+  .mock{margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .mock .bar{background:var(--div);padding:8px 14px;font-size:11px;font-weight:800;color:var(--t3)}
+  .mock .body{padding:14px 16px;background:#fff;font-size:13px}
+  .voca-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+  .voca-row:last-child{border-bottom:none}
+  .voca-row .w{font-weight:800;color:var(--blue);min-width:96px}
+  .voca-row .m{color:var(--t2)}
+  .voca-row .hi{color:var(--amber);font-size:11px;font-weight:800;margin-left:auto}
+  .gpt{background:#0f1420;border-radius:16px;padding:16px 16px 18px;margin-top:14px;color:#e6ebf5}
+  .gpt .h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#9fb4d6;margin-bottom:11px}
+  .gpt .h .d{width:20px;height:20px;border-radius:6px;background:#10a37f;display:grid;place-items:center;font-size:12px}
+  .prompt{background:#1a2233;border:1px solid #2a3550;border-radius:11px;padding:11px 13px;font-size:13px;line-height:1.55;color:#dbe4f5;margin-bottom:9px}
+  .prompt .lbl{display:block;font-size:10px;font-weight:800;color:#7f93b8;letter-spacing:.08em;margin-bottom:5px;text-transform:uppercase}
+  .prompt .you{color:#c3e8db}
+  .prompt b{color:#fff;font-weight:800}
+  .gpt .note{font-size:12px;color:#93a3c0;margin-top:4px}
+  .warn{background:var(--redL);border:1px solid #F6C3C4;border-radius:12px;padding:12px 15px;font-size:13px;color:#A5292D;font-weight:700;margin-top:12px}
+  .submit{background:var(--greenL);border:1px solid #B8E9D3;border-radius:18px;padding:20px;margin-top:18px}
+  .submit h2{font-size:18px;font-weight:900;color:#046a48;display:flex;align-items:center;gap:8px}
+  .submit ol{margin:12px 0 0;padding-left:20px;font-size:14.5px;color:#0a6a4c;font-weight:600;display:flex;flex-direction:column;gap:7px}
+  .foot{text-align:center;font-size:12px;color:var(--t4);font-weight:600;margin-top:30px;line-height:1.7}
+  .pill{display:inline-block;font-size:11px;font-weight:800;padding:4px 11px;border-radius:999px;background:var(--blueL);color:var(--blue)}
+</style>
+
+<div class="hero">
+  <div class="orb" style="width:180px;height:180px;top:-60px;right:-50px"></div>
+  <div class="orb" style="width:120px;height:120px;bottom:-40px;left:-30px"></div>
+  <div class="eb">숙제제출예시 · 실전문제풀이</div>
+  <h1>실전 모의고사,<br>이렇게 채점·분석하세요</h1>
+  <p>문제를 푸는 것보다 <b>푼 다음이 진짜 공부</b>예요. 아래 순서 그대로만 하면 됩니다.</p>
+  <span class="tag">📝 풀이 → 채점 → 분석 → 정리 → 제출</span>
+</div>
+
+<div class="wrap">
+  <div class="why">💡 <b>왜 분석까지 해야 하나요?</b> 채점만 하고 넘기면 틀린 이유가 그대로 남아 다음에 또 틀려요. <b>모르는 단어·문법·구문을 그때그때 잡아야</b> 점수가 오릅니다.</div>
+
+  <!-- ===== 실제 문제지 목업 ===== -->
+  <div class="paper-wrap">
+    <div class="paper-lbl">📄 실제 문제지엔 이렇게 표시하며 푸세요</div>
+    <div class="paper-sub">지문 표시 + <b>여백에 단어-뜻 정리</b> + <b>영어 선지 분석</b> — 아래처럼! (실제 기출)</div>
+    <div class="paper">
+      <span class="num">📄 2022 수능 23번 · 주제 [실제 기출]</span>
+      <div class="sheet">
+        <div class="pg">
+          <span class="grade" style="float:right;margin:-4px 0 0 6px">O</span>
+          It might be thought that, as they grow towards <span class="u">adolescence</span>, people <span class="u">give up</span> childhood play, <span class="hy">but this is not so.</span>
+          <span class="memo r">← 반전! 놀이 안 버림 ✔</span>
+          Instead, the bases and <span class="u">interests</span> of this activity <span class="hg">change and develop</span> <span class="memo r">← 핵심! 형태만 바뀜</span> to playing and watching sports, to the <span class="u">fiction</span> of plays, novels, and movies.
+        </div>
+        <div class="margin">
+          <div class="mh">✍️ 여백 단어정리</div>
+          <div class="wl">
+            <span class="row">give up <span class="k">= 포기하다</span> <span class="star">★</span></span>
+            <span class="row">adolescence <span class="k">= 청소년기</span></span>
+            <span class="row">interest <span class="k">= 흥미·관심</span></span>
+            <span class="row">change &amp; develop</span>
+            <span class="row" style="margin-left:16px"><span class="k">= 바뀌어 발전</span> <span class="star">★</span></span>
+            <span class="row">altered <span class="k">= 변화된</span></span>
+            <span class="row">engagement <span class="k">= 참여</span></span>
+            <span class="row">fiction <span class="k">= 허구·소설</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="ansline">
+        <div class="qstem">Q. 다음 글의 주제로 가장 적절한 것은?　<span style="font-weight:600;color:#8A6D2B">← 선지도 해석·분석!</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>① relationship between play types and emotional stability <span class="cn">감정 안정? 미언급</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>② reasons for identifying with imaginary characters in childhood <span class="cn">지엽</span></div>
+        <div class="opt-an"><span class="mk x">✕</span>③ ways of helping adolescents develop good reading habits <span class="cn">독서? 무관</span></div>
+        <div class="opt-cor">
+          <div class="opt-an" style="margin:0"><span class="mk" style="color:#E0322E">◎</span><b>④ continued engagement in altered forms of play after childhood</b></div>
+          <div class="memo-line b" style="margin:5px 0 0 26px">change&amp;develop → <b style="color:#1D5FD6">altered forms + 계속 참여</b>! = 정답 ✔</div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:#FFE68A"></i>형광펜 = 핵심·반전</span>
+        <span><i class="sw" style="background:#B7EAC6"></i>형광펜 = 정답 근거</span>
+        <span><i class="sw" style="background:#2563EB"></i>밑줄 = 모르는 단어</span>
+        <span><i class="sw" style="background:#E0322E"></i>빨강펜 = 채점·메모</span>
+      </div>
+    </div>
+    <div class="caption">↑ 지문 표시 + <b>여백 단어정리</b> + <b>영어 선지 분석</b>까지 한 상태를 사진 찍어 제출!</div>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n">1</div><div><h2>실전처럼 풀기</h2><div class="lead">시간 재고 한 번에</div></div></div>
+    <ul>
+      <li>주교재의 해당 회차를 <b>실제 시험처럼 한 번에</b> 푸세요. 중간에 멈추지 않기!</li>
+      <li>답은 <b>교재(또는 프린트)에 직접 표시</b>합니다.</li>
+      <li>헷갈린 문제는 옆에 <span class="hl">△ 표시</span>해두면 나중에 분석할 때 좋아요.</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n g">2</div><div><h2>채점하기</h2><div class="lead">정답표로 O / X</div></div></div>
+    <ul>
+      <li>정답표로 채점하고, <b>맞은 건 O, 틀린 건 X</b>로 표시.</li>
+      <li>틀린 문제 <b>번호를 따로 적어두기</b> (예: 4, 7, 12번).</li>
+      <li>찍어서 맞은 것도 <span class="hl">△로 구분</span> — 사실상 모르는 문제니까요.</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n a">3</div><div><h2>해설지와 대조하기</h2><div class="lead">모르는 단어·해석 재점검</div></div></div>
+    <ul>
+      <li>틀린 문제 + △ 문제를 <b>해설지와 한 문장씩 대조</b>합니다.</li>
+      <li>“왜 이 답이 정답이지?” <b>내 생각과 해설의 차이</b>를 찾으세요.</li>
+      <li>해석이 막혔던 문장은 <b>해설 해석과 비교</b>하며 어디서 끊겼는지 확인.</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n">4</div><div><h2>모르는 단어 정리 + 암기</h2><div class="lead">여백 or 나만의 단어노트</div></div></div>
+    <ul>
+      <li>모르는 단어는 <b>교재 여백</b>에 뜻을 적거나, <span class="hlg">나만의 단어노트</span>에 옮겨 적기.</li>
+      <li>단어만 적지 말고 <b>그 단어가 들어간 문장(구문)도 함께</b> — 문맥으로 외워야 안 까먹어요.</li>
+      <li><b>틈틈이 반복 암기</b>. 이 단어들이 줌테스트·다음 시험에 또 나옵니다.</li>
+    </ul>
+    <div class="mock">
+      <div class="bar">✍️ 단어노트 예시</div>
+      <div class="body">
+        <div class="voca-row"><span class="w">give up</span><span class="m">포기하다 — people <u>give up</u> childhood play</span><span class="hi">★</span></div>
+        <div class="voca-row"><span class="w">adolescence</span><span class="m">청소년기 — grow towards <u>adolescence</u></span></div>
+        <div class="voca-row"><span class="w">interest</span><span class="m">관심(사) — the <u>interests</u> of this activity</span><span class="hi">★</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n p">5</div><div><h2>모르는 문법·구문 학습</h2><div class="lead">형광펜 → ChatGPT로 개념까지</div></div></div>
+    <ul>
+      <li>해석이 안 되던 문장·문법은 <span class="hlg">형광펜으로 표시</span>하고 따로 모아둡니다.</li>
+      <li>그 문장을 <b>ChatGPT에 넣고 문법 개념을 물어보세요</b> — 왜 그렇게 해석되는지까지 이해!</li>
+    </ul>
+    <div class="gpt">
+      <div class="h"><span class="d">🤖</span> ChatGPT 이렇게 활용하세요</div>
+      <div class="prompt"><span class="lbl">복사해서 문장만 바꾸기</span><span class="you">아래 영어 문장의 <b>문법 구조를 분석</b>하고, 핵심 문법 개념(예: 분사구문, 관계대명사, 도치 등)을 <b>고등학생도 이해되게</b> 설명해줘. 그리고 왜 그렇게 해석되는지 <b>직독직해</b>로 끊어서 알려줘.<br>👉 문장: “It might be thought that people give up childhood play, but this is not so.”</span></div>
+      <div class="prompt"><span class="lbl">단어·표현이 막힐 때</span><span class="you">이 문장에서 내가 모를 만한 <b>단어·숙어의 뜻과 쉬운 예문</b>을 알려줘: [문장]</span></div>
+      <div class="prompt"><span class="lbl">내 해석이 맞는지 확인</span><span class="you">내가 이 문장을 “[내 해석]”이라고 해석했는데 <b>맞는지, 틀렸다면 어디가 왜 틀렸는지</b> 알려줘.</span></div>
+      <div class="note">✅ 팁: 배운 문법 이름(관계대명사·분사구문 등)을 같이 물으면 개념 정리까지 됩니다.</div>
+    </div>
+    <div class="warn">⚠️ ChatGPT는 <b>문법·해석 이해용 도구</b>예요. 답을 그냥 베끼지 말고, <b>이해한 걸 내 노트에 다시 정리</b>해야 진짜 실력이 됩니다.</div>
+  </div>
+
+  <div class="step">
+    <div class="top"><div class="n p">6</div><div><h2>영어 선지(보기)도 분석</h2><div class="lead">선지가 영어면 선지까지 해석·단어 정리</div></div></div>
+    <ul>
+      <li>보기 ①②③④⑤가 영어라면, <b>선지 하나하나도 해석</b>해보세요.</li>
+      <li>정답 선지가 <b>본문을 어떻게 바꿔 말했는지</b>(동의어·요약) 확인 = 정답 만드는 원리.</li>
+      <li>오답 선지의 <b>함정 포인트</b>(한 단어만 왜곡 등)와 <b>모르는 단어</b>도 같이 정리.</li>
+    </ul>
+  </div>
+
+  <div class="submit">
+    <h2>📤 제출은 이렇게</h2>
+    <ol>
+      <li>위 <b>표시·정리한 문제지(형광펜·밑줄·여백 메모)</b>를 사진으로 찍기</li>
+      <li>숙제 탭 → 해당 <b>실전문제풀이</b> 항목 → <b>사진 업로드</b> (여러 장 가능)</li>
+      <li><b>밤 12시 전</b>까지 제출 — 채점·분석 흔적이 보이게!</li>
+    </ol>
+  </div>
+
+  <p class="foot"><span class="pill">영어해방공식 · 일관적코드</span><br>실전문제는 풀고 끝이 아니라, <b>분석하고 정리해야</b> 내 것이 됩니다. 화이팅!</p>
+</div>

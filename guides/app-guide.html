@@ -1,0 +1,1420 @@
+<title>영해공 학생앱 완전정복 · 일관적코드 OT</title>
+<style>
+  :root{
+    --blue:#2563EB; --blue-deep:#1D4ED8; --blue-dk:#0B1B3A; --blue-mid:#12306E;
+    --tint:#EEF3FF; --tint2:#E1EAFF;
+    --ink:#0E1726; --ink2:#3B475C; --mut:#6B7789;
+    --bg:#FBFCFE; --card:#FFFFFF; --line:#E3E8F0; --line2:#D3DBE8;
+    --pass:#00A870; --pass-bg:#E3F7EF;
+    --warn:#E38A00; --warn-bg:#FFF3DE;
+    --danger:#E5484D; --danger-bg:#FDE7E7;
+    --yellow:#F5C518;
+    --font:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
+    --shadow:0 1px 2px rgba(14,23,38,.04),0 8px 24px rgba(14,23,38,.06);
+    --shadow-lg:0 12px 40px rgba(14,23,38,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--font); color:var(--ink); background:#0A1526;
+    -webkit-font-smoothing:antialiased; overflow:hidden;
+    line-height:1.5; letter-spacing:-.01em;
+  }
+  /* ---------- deck shell ---------- */
+  .deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--blue),#5B8DEF);width:0;z-index:50;transition:width .35s cubic-bezier(.4,0,.2,1)}
+  .slide{
+    position:absolute;inset:0;display:none;
+    padding:clamp(28px,5vh,64px) clamp(20px,5vw,80px);
+    flex-direction:column;overflow-y:auto;
+    background:var(--bg);
+  }
+  .slide.active{display:flex;animation:in .45s cubic-bezier(.2,.7,.3,1)}
+  @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.slide.active{animation:none}.progress{transition:none}}
+  .wrap{width:100%;max-width:1040px;margin:auto}
+
+  /* ---------- typography ---------- */
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:clamp(11px,1.4vw,13px);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--blue);border-radius:2px}
+  h1{font-size:clamp(30px,5.4vw,58px);font-weight:900;line-height:1.08;letter-spacing:-.03em;text-wrap:balance;margin:.35em 0 .3em}
+  h2{font-size:clamp(24px,4vw,42px);font-weight:900;line-height:1.12;letter-spacing:-.03em;text-wrap:balance}
+  .lead{font-size:clamp(15px,2vw,20px);color:var(--ink2);font-weight:500;max-width:46ch;text-wrap:pretty}
+  .sub{font-size:clamp(13px,1.6vw,16px);color:var(--mut);font-weight:600}
+  strong{font-weight:800;color:var(--ink)}
+  .hl{background:linear-gradient(transparent 58%,var(--tint2) 58%);padding:0 2px;font-weight:800}
+  .blue{color:var(--blue)}
+
+  /* ---------- cover & dividers (blue ground) ---------- */
+  .slide.cover,.slide.divider{background:radial-gradient(120% 120% at 80% -10%,var(--blue-mid) 0%,var(--blue-dk) 55%,#071227 100%);color:#fff}
+  .slide.cover *,.slide.divider *{color:#fff}
+  .slide.cover .eyebrow,.slide.divider .eyebrow{color:#9FC0FF}
+  .slide.cover .eyebrow::before,.slide.divider .eyebrow::before{background:#9FC0FF}
+  .grid-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1.2px,transparent 1.2px);background-size:26px 26px;opacity:.7;pointer-events:none}
+  .cover .lead{color:#C4D6FF;max-width:40ch}
+  .cover-badge{display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;font-weight:800;font-size:14px;letter-spacing:.02em;background:rgba(255,255,255,.06)}
+  .cover-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font-weight:600;color:#9FC0FF;font-size:14px}
+  .cover-meta span{display:inline-flex;align-items:center;gap:8px}
+  .big-num{font-size:clamp(60px,13vw,150px);font-weight:900;line-height:.9;letter-spacing:-.05em;color:rgba(255,255,255,.16);-webkit-text-stroke:1px rgba(255,255,255,.35)}
+  .divider .part-row{display:flex;align-items:center;gap:clamp(18px,4vw,44px)}
+
+  /* ---------- layout helpers ---------- */
+  .head{margin-bottom:clamp(18px,3vh,30px)}
+  .cols{display:grid;gap:clamp(12px,1.8vw,20px)}
+  .c2{grid-template-columns:1fr 1fr}
+  .c3{grid-template-columns:repeat(3,1fr)}
+  @media (max-width:720px){.c2,.c3{grid-template-columns:1fr}}
+  .row{display:flex;gap:clamp(12px,2vw,24px);align-items:flex-start;flex-wrap:wrap}
+  .grow{flex:1 1 320px;min-width:0}
+
+  /* ---------- card ---------- */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:clamp(16px,2vw,24px);box-shadow:var(--shadow)}
+  .card h3{font-size:clamp(16px,1.9vw,20px);font-weight:800;letter-spacing:-.02em;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  .card p{font-size:clamp(13px,1.5vw,15.5px);color:var(--ink2);font-weight:500}
+  .card .ic{width:34px;height:34px;border-radius:10px;background:var(--tint);color:var(--blue);display:grid;place-items:center;font-size:18px;flex:none}
+  .kv{font-size:clamp(13px,1.5vw,15px);color:var(--ink2);font-weight:600}
+
+  /* ---------- steps ---------- */
+  .steps{display:flex;flex-direction:column;gap:12px;counter-reset:s}
+  .step{display:flex;gap:15px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow)}
+  .step::before{counter-increment:s;content:counter(s);flex:none;width:32px;height:32px;border-radius:9px;background:var(--blue);color:#fff;font-weight:900;font-size:15px;display:grid;place-items:center}
+  .step .st{font-weight:800;font-size:clamp(14px,1.6vw,17px);letter-spacing:-.01em}
+  .step .sd{font-size:clamp(12.5px,1.4vw,14.5px);color:var(--mut);font-weight:500;margin-top:2px}
+  .step.warn::before{background:var(--danger)}
+
+  /* ---------- callout ---------- */
+  .call{display:flex;gap:13px;align-items:flex-start;border-radius:14px;padding:15px 18px;font-weight:600;font-size:clamp(13px,1.5vw,15.5px);border:1px solid}
+  .call .cic{font-size:20px;flex:none;line-height:1.2}
+  .call.info{background:var(--tint);border-color:var(--tint2);color:var(--blue-deep)}
+  .call.warn{background:var(--warn-bg);border-color:#F7DDA6;color:#8A5300}
+  .call.danger{background:var(--danger-bg);border-color:#F6C3C4;color:#A5292D}
+  .call.pass{background:var(--pass-bg);border-color:#B8E9D3;color:#046a48}
+  .call b{font-weight:900}
+
+  /* ---------- pills / chips ---------- */
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;font-weight:800;font-size:13px;background:var(--tint);color:var(--blue-deep);border:1px solid var(--tint2)}
+  .pill.g{background:var(--pass-bg);color:#046a48;border-color:#B8E9D3}
+  .pill.r{background:var(--danger-bg);color:#A5292D;border-color:#F6C3C4}
+  .pill.y{background:var(--warn-bg);color:#8A5300;border-color:#F7DDA6}
+  .pills{display:flex;flex-wrap:wrap;gap:8px}
+  .kbd{display:inline-block;padding:3px 9px;border-radius:7px;background:#fff;border:1px solid var(--line2);border-bottom-width:2px;font-weight:800;font-size:13px;color:var(--ink2);font-family:var(--font)}
+
+  /* ---------- flow diagram ---------- */
+  .flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+  .fnode{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow);position:relative}
+  .fnode .fi{font-size:26px}
+  .fnode .ft{font-weight:900;font-size:clamp(15px,1.7vw,18px);margin-top:6px;letter-spacing:-.02em}
+  .fnode .fs{font-size:12.5px;color:var(--mut);font-weight:600;margin-top:3px}
+  .farr{display:grid;place-items:center;color:var(--blue);font-size:22px;font-weight:900;flex:none}
+  @media (max-width:720px){.farr{transform:rotate(90deg)}}
+
+  /* ---------- phone mock ---------- */
+  .phone{width:270px;max-width:74vw;flex:none;background:#0E1726;border-radius:34px;padding:11px;box-shadow:var(--shadow-lg)}
+  .phone .scr{background:var(--bg);border-radius:24px;overflow:hidden;height:520px;max-height:60vh;display:flex;flex-direction:column}
+  .ph-top{background:#fff;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .ph-logo{font-weight:900;color:var(--blue);font-size:16px}
+  .ph-body{flex:1;overflow:hidden;padding:14px;display:flex;flex-direction:column;gap:10px}
+  .ph-tabs{display:flex;background:#fff;border-top:1px solid var(--line);padding:8px 4px 10px}
+  .ph-tab{flex:1;text-align:center;font-size:9.5px;font-weight:700;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:3px}
+  .ph-tab .dot{width:26px;height:26px;border-radius:9px;background:var(--tint);display:grid;place-items:center;font-size:13px}
+  .ph-tab.on{color:var(--blue)}
+  .ph-tab.on .dot{background:var(--blue);color:#fff}
+  .mini-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;font-size:12px;font-weight:700;color:var(--ink2)}
+  .mini-hero{background:linear-gradient(135deg,var(--blue),var(--blue-deep));color:#fff;border-radius:14px;padding:14px;font-weight:800}
+  .mini-hero small{opacity:.8;font-weight:800;letter-spacing:.1em;font-size:9px}
+  .mini-hero .n{font-size:19px;margin-top:4px}
+  .daygrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .day{background:#fff;border:1.5px solid var(--line);border-radius:11px;padding:9px 2px;text-align:center;font-weight:800;font-size:12px}
+  .day .d{font-size:9px;color:var(--mut);font-weight:700;margin-top:2px}
+  .day.on{border-color:var(--blue);background:var(--tint);color:var(--blue-deep)}
+  .day.full{opacity:.45}.day.full .d{color:var(--danger)}
+  .weekdots{display:flex;gap:5px;justify-content:space-between}
+  .wd{flex:1;text-align:center;font-size:9px;font-weight:800;color:var(--mut)}
+  .wd .b{height:22px;border-radius:7px;background:var(--pass-bg);color:var(--pass);display:grid;place-items:center;margin-top:3px;font-size:11px}
+  .wd.x .b{background:var(--danger-bg);color:var(--danger)}
+  .wd.today .b{outline:2px solid var(--blue);outline-offset:1px}
+  .ringwrap{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .ring{width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--pass) 0 84%,#E7ECF3 84% 100%);display:grid;place-items:center}
+  .ring::before{content:"";position:absolute;width:70px;height:70px;border-radius:50%;background:#fff}
+  .ring span{position:relative;font-weight:900;font-size:22px;color:var(--pass)}
+
+  /* ---------- checklist ---------- */
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  @media (max-width:720px){.checks{grid-template-columns:1fr}}
+  .chk{display:flex;gap:11px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 15px;box-shadow:var(--shadow)}
+  .chk .box{width:24px;height:24px;border-radius:7px;background:var(--pass);color:#fff;display:grid;place-items:center;font-weight:900;font-size:14px;flex:none}
+  .chk.must .box{background:var(--danger)}
+  .chk .ct{font-weight:700;font-size:clamp(13px,1.5vw,15px)}
+  .chk .cs{font-size:12px;color:var(--mut);font-weight:600}
+
+  /* ---------- stat row ---------- */
+  .stats{display:flex;gap:12px;flex-wrap:wrap}
+  .stat{flex:1 1 140px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 18px;box-shadow:var(--shadow)}
+  .stat .sn{font-size:clamp(22px,3vw,32px);font-weight:900;letter-spacing:-.03em;color:var(--blue);font-variant-numeric:tabular-nums}
+  .stat .sl{font-size:12.5px;font-weight:700;color:var(--mut);margin-top:2px}
+
+  /* faq */
+  .faq{display:flex;flex-direction:column;gap:10px}
+  .qa{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 18px;box-shadow:var(--shadow)}
+  .qa .q{font-weight:800;font-size:clamp(14px,1.6vw,16px);display:flex;gap:9px;align-items:flex-start}
+  .qa .q::before{content:"Q";flex:none;width:24px;height:24px;border-radius:7px;background:var(--blue);color:#fff;font-weight:900;font-size:13px;display:grid;place-items:center}
+  .qa .a{font-size:clamp(12.5px,1.4vw,14.5px);color:var(--ink2);font-weight:500;margin-top:7px;padding-left:33px;text-wrap:pretty}
+
+  /* ========== 실제 앱 화면 재현 (yhg-home 디자인 토큰) ========== */
+  .app{
+    --ab:#F8F9FE;--ac:#fff;--aln:#EBEEF5;--adv:#F0F2F8;--abd:#E0E4ED;
+    --a1:#1E1B4B;--a2:#374151;--a3:#6B7280;--a4:#9CA3AF;
+    --abl:#2563EB;--ablL:#EFF6FF;--agr:#00C471;--agrL:#EEFBF4;
+    --ard:#F04452;--ardL:#FFF0F1;--aam:#F59E0B;--aamL:#FFF8F0;--apu:#8B5CF6;--aor:#F97316;
+    --ash:0 4px 20px rgba(37,99,235,.06),0 2px 6px rgba(37,99,235,.03);
+    --afont:"Pretendard Variable","SUITE Variable",-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif;
+  }
+  .phone{width:302px;max-width:80vw;flex:none;background:#0E1726;border-radius:40px;padding:10px;box-shadow:var(--shadow-lg)}
+  .phone .scr{background:var(--ab);border-radius:32px;overflow:hidden;height:560px;max-height:62vh;position:relative;font-family:var(--afont);color:var(--a1);letter-spacing:-.02em}
+  .phone .scr.scroll{overflow-y:auto}
+  .phone .scr::-webkit-scrollbar{display:none}
+  .phone .scr{scrollbar-width:none}
+  /* nav */
+  .anav{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--ab);position:sticky;top:0;z-index:5}
+  .anav.bd{border-bottom:1px solid var(--aln)}
+  .anav .lg{font-size:19px;font-weight:900;color:var(--abl);letter-spacing:-.5px}
+  .anav .h1{font-size:18px;font-weight:900;color:var(--a1);letter-spacing:-.5px}
+  .anav .bell{position:relative;font-size:19px}
+  .anav .bdg{position:absolute;top:-3px;right:-4px;min-width:16px;height:16px;border-radius:8px;background:var(--ard);color:#fff;font-size:9px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+  .aback{font-size:19px;color:var(--a1);font-weight:700}
+  /* hero */
+  .ahero{margin:12px 16px 0;border-radius:26px;padding:22px 20px 18px;position:relative;overflow:hidden;color:#fff;background:linear-gradient(145deg,#1E40AF 0%,#2563EB 40%,#3B82F6 70%,#60A5FA 100%);box-shadow:0 12px 40px rgba(37,99,235,.2)}
+  .ahero .orb{position:absolute;border-radius:99px;background:rgba(255,255,255,.07)}
+  .ahero .eb{font-size:11px;letter-spacing:1px;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.55)}
+  .ahero .gr{font-size:23px;font-weight:900;line-height:1.25;margin-top:8px;letter-spacing:-.5px}
+  .ahero .sl{font-size:12px;color:rgba(255,255,255,.5);margin-top:7px;font-weight:500}
+  .ahero .ava{position:absolute;top:20px;right:20px;width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.14);display:grid;place-items:center;font-size:30px;backdrop-filter:blur(8px)}
+  .aglass{display:flex;gap:10px;margin-top:20px}
+  .aglass .g{flex:1;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:12px 14px;display:flex;align-items:center;gap:11px}
+  .aglass .gi{font-size:26px;line-height:1}
+  .aglass .gv{font-size:17px;font-weight:900;line-height:1.1;white-space:nowrap}
+  .aglass .gl{font-size:10px;color:rgba(255,255,255,.55);margin-top:3px;font-weight:500;white-space:nowrap}
+  .aglass .g{padding:12px 12px}.aglass .gi{font-size:24px}
+  /* generic app card */
+  .acard{margin:18px 16px 0;background:var(--ac);border-radius:22px;box-shadow:var(--ash);padding:20px}
+  .acard.tight{padding:0;overflow:hidden}
+  .ast{font-size:18px;font-weight:900;color:var(--a1);letter-spacing:-.5px}
+  .ast .sub{font-size:12px;color:var(--a3);font-weight:500;margin-top:3px}
+  .amut{font-size:13px;color:var(--a3);font-weight:500}
+  /* banner */
+  .aban{margin:14px 16px 0;border-radius:18px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .aban .bt{font-size:13px;font-weight:800}
+  .aban .bs{font-size:11px;font-weight:600;margin-top:2px}
+  .aban .bp{font-size:12px;font-weight:700;padding:8px 16px;border-radius:99px;color:#fff}
+  /* mission item */
+  .amsn{display:flex;align-items:center;gap:14px;background:var(--ac);border-radius:22px;box-shadow:var(--ash);padding:16px 18px;margin-top:12px}
+  .amsn .ci{width:50px;height:50px;border-radius:16px;background:var(--ablL);display:grid;place-items:center;font-size:24px;flex:none}
+  .amsn .ci.done{background:var(--agrL);color:var(--agr)}
+  .amsn .mt{font-size:14px;font-weight:700;color:var(--a1);line-height:1.35}
+  .amsn .ml{font-size:11px;color:var(--a3);margin-top:3px}
+  .amsn .done-t{color:var(--a4);text-decoration:line-through}
+  .apill{font-size:11px;font-weight:700;padding:7px 13px;border-radius:99px;flex:none;white-space:nowrap}
+  .apill.bl{background:var(--abl);color:#fff}.apill.blw{background:var(--ablL);color:var(--abl)}
+  .apill.gr{background:var(--agrL);color:var(--agr)}.apill.rd{background:var(--ard);color:#fff}
+  .apill.gm{background:#ECFDF5;color:#059669}.apill.pk{background:#FCE7F3;color:#EC4899}
+  .apill.grad{background:linear-gradient(135deg,#EF4444,#7C3AED);color:#fff}
+  /* week dots */
+  .awk{display:flex;justify-content:space-between;margin-top:16px}
+  .awd{display:flex;flex-direction:column;align-items:center;gap:7px}
+  .awd .wl{font-size:11px;color:var(--a4);font-weight:500}
+  .awd.t .wl{color:var(--abl);font-weight:700}
+  .awd .d{width:34px;height:34px;border-radius:99px;background:var(--adv);display:grid;place-items:center;font-size:13px;font-weight:800}
+  .awd.done .d{background:var(--abl);color:#fff}
+  .awd.miss .d{background:var(--ardL);color:var(--ard)}
+  .awd.t .d{background:#fff;border:2.5px solid var(--abl);box-shadow:0 0 0 4px rgba(37,99,235,.09)}
+  /* menu list */
+  .amenu{margin:18px 16px 0;background:var(--ac);border-radius:22px;box-shadow:var(--ash);overflow:hidden}
+  .amrow{display:flex;align-items:center;gap:14px;padding:15px 20px;position:relative}
+  .amrow+.amrow::before{content:"";position:absolute;top:0;left:74px;right:20px;height:1px;background:var(--aln)}
+  .amrow .mi{width:42px;height:42px;border-radius:14px;background:var(--ablL);display:grid;place-items:center;font-size:20px;flex:none}
+  .amrow .mn{font-size:14px;font-weight:700;color:var(--a1)}
+  .amrow .ms{font-size:11px;color:var(--a3);margin-top:2px}
+  .amrow .chev{margin-left:auto;color:var(--a4);font-size:17px;font-weight:800}
+  /* progress bar */
+  .aprog{height:11px;border-radius:6px;background:var(--adv);overflow:hidden;margin-top:8px}
+  .aprog i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#2563EB,#60A5FA)}
+  /* xp/rate badges */
+  .arate{font-size:14px;font-weight:800;padding:4px 13px;border-radius:99px}
+  .arate.gr{color:var(--agr);background:var(--agrL)}.arate.am{color:var(--aam);background:var(--aamL)}.arate.bl{color:var(--abl);background:var(--ablL)}
+  /* tab bar */
+  .atab{position:sticky;bottom:0;display:flex;background:#fff;border-top:1px solid var(--aln);padding:8px 2px 12px}
+  .atab .t{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;color:var(--a4)}
+  .atab .t .ic{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:14px}
+  .atab .t.on{color:var(--abl)}.atab .t.on .ic{background:var(--abl);color:#fff}
+  /* onboarding checklist */
+  .aob{display:flex;align-items:center;gap:13px;padding:13px 20px;position:relative}
+  .aob+.aob::before{content:"";position:absolute;top:0;left:53px;right:20px;height:1px;background:var(--aln)}
+  .aob .cb{width:24px;height:24px;border-radius:12px;flex:none;display:grid;place-items:center;font-weight:900;font-size:13px}
+  .aob .cb.un{border:2px solid var(--abl);color:transparent}
+  .aob .cb.unr{border:2px solid var(--ard)}
+  .aob .cb.ok{background:var(--agr);color:#fff}
+  .aob .ol{flex:1;font-size:14px;font-weight:600;color:var(--a1)}
+  .aob.done .ol{color:var(--a4);text-decoration:line-through;font-weight:400}
+  .aob .oa{font-size:12px;font-weight:700;color:var(--abl)}
+  .aob .oa.r{color:var(--ard)}
+  /* dark tutorial */
+  .atut{background:#0f0f0f;height:100%;display:flex;flex-direction:column;padding:0}
+  .atut .pg{display:flex;gap:4px;padding:16px 22px}
+  .atut .pg i{flex:1;height:3px;border-radius:2px;background:#333}
+  .atut .pg i.on{background:#2563EB}
+  .atut .bd{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 26px}
+  .atut .em{font-size:52px;margin-bottom:16px}
+  .atut .tt{font-size:24px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:14px}
+  .atut .tp{font-size:14px;color:#9CA3AF;line-height:1.7;white-space:pre-line}
+  .atut .ch{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+  .atut .cc{padding:16px 18px;border-radius:16px;text-align:left}
+  .atut .cc.sel{background:#2563EB;color:#fff}
+  .atut .cc.idle{background:#1F2937;color:#9CA3AF}
+  .atut .cc .cct{font-size:16px;font-weight:800;margin-bottom:4px}
+  .atut .cc .ccs{font-size:12px;opacity:.85;line-height:1.55}
+  .atut .nav{padding:20px 26px 26px;display:flex;gap:11px}
+  .atut .nav .b{padding:15px;border-radius:16px;font-size:15px;font-weight:800;text-align:center}
+  .atut .nav .prev{flex:1;background:#1F2937;color:#9CA3AF}
+  .atut .nav .next{flex:2;background:#2563EB;color:#fff}
+  .atut .ind{text-align:center;font-size:12px;color:#4B5563;padding-bottom:12px}
+  /* modal (popup) inside phone */
+  .amod{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:8}
+  .amod .box{background:#fff;border-radius:22px;width:100%;padding:22px 20px;max-height:92%;overflow-y:auto}
+  .amod .box::-webkit-scrollbar{display:none}
+  .amod .mem{font-size:40px;text-align:center;margin-bottom:10px}
+  .amod .mh{font-size:20px;font-weight:900;color:#191F28;text-align:center;margin-bottom:14px}
+  .abox{border-radius:14px;padding:14px 16px;margin-bottom:10px}
+  .abox .bh{font-size:14px;font-weight:800;margin:0 0 6px}
+  .abox p{font-size:12px;margin:0;line-height:1.7}
+  .abtn{display:block;width:100%;padding:13px;border-radius:14px;color:#fff;font-size:14px;font-weight:800;text-align:center;margin-top:8px}
+  /* zoom day picker */
+  .aday{display:flex;gap:7px;margin-top:18px}
+  .aday .d{flex:1;padding:11px 0;border-radius:15px;text-align:center;font-size:14px;font-weight:700;background:#fff;color:var(--a2);box-shadow:var(--ash)}
+  .aday .d .dt{font-size:9px;color:var(--a4);margin-top:2px;font-weight:600}
+  .aday .d .cp{font-size:10px;font-weight:700;margin-top:3px;color:var(--a3)}
+  .aday .d.sel{background:var(--abl);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,.3)}
+  .aday .d.sel .dt,.aday .d.sel .cp{color:rgba(255,255,255,.75)}
+  .aday .d.full{background:#F0F0F0;color:#C0C0C0;opacity:.7}
+  .aday .d.full .cp{color:var(--ard)}
+  .abtn-pill{width:100%;padding:15px;border-radius:99px;color:#fff;font-size:15px;font-weight:700;text-align:center;margin-top:26px;background:var(--abl)}
+  /* stat boxes row */
+  .astats{display:flex;gap:8px;margin-top:16px}
+  .astats .s{flex:1;text-align:center;padding:13px 6px;border-radius:14px;background:#fff;box-shadow:var(--ash)}
+  .astats .s .sl{font-size:10px;color:var(--a3);margin-bottom:4px}
+  .astats .s .sv{font-size:15px;font-weight:800;color:var(--a1)}
+  /* mode buttons */
+  .amode{width:100%;padding:18px;border-radius:18px;text-align:left;margin-top:12px;display:flex;align-items:center;gap:14px}
+  .amode.prac{background:#fff;border:2px solid var(--abl);box-shadow:0 2px 12px rgba(37,99,235,.06)}
+  .amode.real{background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 4px 20px rgba(37,99,235,.25);color:#fff}
+  .amode .mic{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:21px;flex:none}
+  .amode.prac .mic{background:var(--ablL)}
+  .amode.real .mic{background:rgba(255,255,255,.15)}
+  .amode .mmt{font-size:16px;font-weight:800}
+  .amode.prac .mmt{color:var(--abl)}
+  .amode .mms{font-size:12px;margin-top:2px}
+  .amode.prac .mms{color:var(--a3)}.amode.real .mms{color:rgba(255,255,255,.75)}
+  /* score ring */
+  .aring{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;margin:8px auto 0;position:relative}
+  .aring.pass{background:conic-gradient(var(--agr) 0 84%,var(--adv) 84% 100%)}
+  .aring.fail{background:conic-gradient(var(--ard) 0 62%,var(--adv) 62% 100%)}
+  .aring::before{content:"";position:absolute;width:96px;height:96px;border-radius:50%;background:#fff}
+  .aring .rn{position:relative;font-size:30px;font-weight:900}
+  .aring.pass .rn{color:var(--agr)}.aring.fail .rn{color:var(--ard)}
+  .abadge{display:inline-block;padding:9px 22px;border-radius:99px;font-size:17px;font-weight:900;margin-top:14px}
+  .abadge.pass{background:var(--agrL);border:2px solid var(--agr);color:var(--agr)}
+  .abadge.fail{background:var(--ardL);border:2px solid var(--ard);color:var(--ard)}
+  /* resources pills + rows */
+  .arpills{display:flex;gap:7px;overflow-x:auto;padding:6px 16px 12px}
+  .arpills::-webkit-scrollbar{display:none}
+  .arp{flex:none;padding:8px 16px;border-radius:99px;font-size:12px;font-weight:500;background:#fff;color:var(--a3);white-space:nowrap}
+  .arp.on{font-weight:700;background:var(--abl);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.15)}
+  .arrow{display:flex;align-items:center;gap:14px;padding:16px 20px;position:relative}
+  .arrow+.arrow::before{content:"";position:absolute;top:0;left:70px;right:20px;height:1px;background:var(--aln)}
+  .arrow .ri{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:19px;flex:none}
+  .arrow .rt{font-size:14px;font-weight:600;color:var(--a1)}
+  .arrow .rm{font-size:11px;color:var(--a4);margin-top:3px;display:flex;gap:7px;align-items:center}
+  .arrow .rb{font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px}
+  /* vocab choices */
+  .avq{background:#fff;border-radius:22px;box-shadow:var(--ash);padding:22px;text-align:center;margin:16px}
+  .avq .qp{font-size:12px;color:var(--a3)}
+  .avq .qw{font-size:28px;font-weight:900;color:var(--a1);margin-top:6px}
+  .achoice{padding:14px 18px;border-radius:18px;border:1.5px solid var(--aln);background:#fff;font-size:14px;font-weight:600;color:var(--a2);margin-top:11px;text-align:left;box-shadow:var(--ash)}
+  .achoice .no{font-weight:800;color:var(--a4);margin-right:9px}
+  .achoice.ok{background:var(--agrL);border-color:var(--agr);color:#15803D}
+  .achoice.no-sel{background:var(--ardL);border-color:var(--ard);color:#DC2626}
+  /* bottom sheet */
+  .asheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 22px;z-index:8;box-shadow:0 -8px 30px rgba(0,0,0,.15)}
+  .asheet .grab{width:38px;height:4px;border-radius:2px;background:#E5E7EB;margin:0 auto 14px}
+  .asheet .sht{font-size:17px;font-weight:900;color:#191F28;margin-bottom:14px}
+  .asheet .slab{font-size:12px;font-weight:700;color:var(--a2);margin-bottom:8px}
+  .acap{display:flex;gap:10px;margin-bottom:14px}
+  .acap .c{flex:1;padding:18px 10px;border-radius:16px;border:2px dashed #D1D5DB;color:var(--a4);font-size:12px;font-weight:600;text-align:center}
+  .acap .c .ci{font-size:22px;display:block;margin-bottom:5px}
+  .asheet .ftr{display:flex;gap:10px;margin-top:4px}
+  .asheet .ftr .b{padding:13px;border-radius:14px;font-size:14px;font-weight:800;text-align:center}
+  .asheet .ftr .cancel{flex:1;border:1.5px solid #E5E7EB;color:var(--a3)}
+  .asheet .ftr .ok{flex:2;background:var(--abl);color:#fff}
+  .screencap{font-size:11px;color:var(--mut);font-weight:700;text-align:center;margin-top:9px}
+
+  /* ---------- nav ui ---------- */
+  .foot{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(16px,4vw,34px);pointer-events:none;z-index:40}
+  .brand{font-weight:900;font-size:13px;letter-spacing:-.01em;color:var(--mut);pointer-events:auto}
+  .brand.on{color:rgba(255,255,255,.7)}
+  .navbtns{display:flex;align-items:center;gap:9px;pointer-events:auto}
+  .nb{width:38px;height:38px;border-radius:11px;border:1px solid var(--line2);background:rgba(255,255,255,.9);backdrop-filter:blur(6px);color:var(--ink2);font-size:18px;font-weight:900;cursor:pointer;display:grid;place-items:center;transition:.15s}
+  .nb:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .nb:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .counter{font-weight:800;font-size:13px;color:var(--mut);min-width:56px;text-align:center;font-variant-numeric:tabular-nums}
+  .counter.on{color:rgba(255,255,255,.85)}
+  .menu-btn{pointer-events:auto}
+  /* overview */
+  .ov{position:fixed;inset:0;background:rgba(8,17,30,.9);backdrop-filter:blur(10px);z-index:60;display:none;padding:clamp(20px,5vh,50px);overflow-y:auto}
+  .ov.open{display:block}
+  .ov h4{color:#fff;font-size:15px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:18px;opacity:.7}
+  .ovg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-width:1100px;margin:0 auto}
+  .ovc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:13px 14px;cursor:pointer;color:#fff;transition:.15s;text-align:left}
+  .ovc:hover{background:var(--blue);border-color:var(--blue)}
+  .ovc .on{font-size:11px;font-weight:900;color:#8FB4FF;letter-spacing:.05em}
+  .ovc:hover .on{color:#cfe0ff}
+  .ovc .ot{font-size:13px;font-weight:700;margin-top:4px;line-height:1.3}
+  .ov-close{position:fixed;top:20px;right:24px;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:20px;cursor:pointer}
+  .hint{position:fixed;bottom:64px;left:50%;transform:translateX(-50%);font-size:11.5px;color:var(--mut);font-weight:600;pointer-events:none;z-index:30;opacity:.7;background:rgba(251,252,254,.7);padding:3px 12px;border-radius:999px;backdrop-filter:blur(4px)}
+  .hint.on{color:rgba(255,255,255,.6)}
+  @media (max-width:720px){.hint{display:none}}
+</style>
+
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide cover">
+    <div class="grid-dots"></div>
+    <div class="wrap">
+      <span class="cover-badge">📱 영어해방공식 학생앱</span>
+      <h1>학생앱 완전정복<br>이 앱 하나로 8주가 굴러갑니다</h1>
+      <p class="lead">접속부터 줌테스트까지 — 오늘 다 알려드릴게요. 이해하고 시작하면 8주가 훨씬 수월합니다.</p>
+      <div class="cover-meta">
+        <span>🎯 일관적코드 · 오리엔테이션</span>
+        <span>🗓️ 개강 D-Day</span>
+        <span>🔵 패턴 = 확신 = 안정화 = 점수</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 목차 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">오늘의 OT</span><h2>이 6가지만 알면 끝</h2></div>
+      <div class="cols c3">
+        <div class="card"><h3><span class="ic">1</span>시작하기</h3><p>내 링크로 접속 · 첫 진입 튜토리얼 · 온보딩 체크</p></div>
+        <div class="card"><h3><span class="ic">2</span>화면 둘러보기</h3><p>하단 7개 탭 · 홈 화면 구성</p></div>
+        <div class="card"><h3><span class="ic">3</span>매주 공부 루프</h3><p>라이브 · 주교재 · 강의 · 숙제 · 단어테스트</p></div>
+        <div class="card"><h3><span class="ic">4</span>줌테스트</h3><p>설문 신청 → 응시 → 주차별 테스트</p></div>
+        <div class="card"><h3><span class="ic">5</span>규칙 · 성적</h3><p>경고 시스템 · 성적 확인 · 리포트 · 수강권</p></div>
+        <div class="card"><h3><span class="ic">6</span>오늘 할 일</h3><p>자주 묻는 질문 · 개강일 체크리스트</p></div>
+      </div>
+      <div class="call info" style="margin-top:20px"><span class="cic">💡</span><div>왼쪽 위 <span class="kbd">☰</span> 버튼이나 <span class="kbd">←</span> <span class="kbd">→</span> 방향키로 언제든 원하는 곳으로 이동할 수 있어요.</div></div>
+    </div>
+  </section>
+
+  <!-- 3 DIVIDER PART1 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">1</div><div><span class="eyebrow">PART 1</span><h2>시작하기<br>접속 · 첫 진입</h2></div></div></div>
+  </section>
+
+  <!-- 4 접속법 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">접속 방법</span><h2>내 대시보드는 “내 링크”로 열어요</h2></div>
+      <div class="row">
+        <div class="grow">
+          <div class="steps">
+            <div class="step"><div><div class="st">카톡으로 받은 내 링크가 열쇠예요</div><div class="sd">yhg-home.vercel.app/s/<b>내토큰</b> — 나만의 주소입니다</div></div></div>
+            <div class="step"><div><div class="st">아이디·비밀번호 입력 화면 없음</div><div class="sd">링크를 여는 것 자체가 로그인이에요</div></div></div>
+            <div class="step"><div><div class="st">폰 홈 화면에 추가 / 즐겨찾기 필수</div><div class="sd">매일 들어와야 하니 꼭 저장해두세요</div></div></div>
+          </div>
+        </div>
+        <div class="grow" style="max-width:360px">
+          <div class="call danger"><span class="cic">🔒</span><div><b>링크는 나만의 것!</b> 남에게 공유하지 마세요. 링크를 잃어버렸으면 카카오톡 채널로 문의하면 다시 받을 수 있어요.</div></div>
+          <div class="call info" style="margin-top:12px"><span class="cic">👤</span><div>홈 하단 <b>“로그인 계정 만들기”</b>로 계정을 만들면 강의 시청·수강 연장이 더 편해져요 (선택).</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 첫 진입 튜토리얼 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">첫 진입</span><h2>처음 들어오면 뜨는 안내 6단계</h2><p class="sub" style="margin-top:8px">전부 확인해야 넘어갑니다 — 특히 2번 “수업 방식”은 필수 선택!</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c2" style="gap:10px">
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">👋</span>1. 환영</h3></div>
+            <div class="card" style="padding:13px 15px;border-color:var(--blue)"><h3 style="font-size:15px"><span class="ic">📹</span>2. 수업 방식 <span class="pill r" style="margin-left:auto">필수</span></h3></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">💬</span>3. 카톡 관리방</h3></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📚</span>4. 주교재 다운로드</h3></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📝</span>5. 숙제 &amp; 단어테스트</h3></div>
+            <div class="card" style="padding:13px 15px;border-color:#F6C3C4"><h3 style="font-size:15px"><span class="ic" style="background:var(--danger-bg);color:var(--danger)">🚨</span>6. 경고 시스템</h3></div>
+          </div>
+          <div class="call warn" style="margin-top:14px"><span class="cic">📼</span><div><b>녹화본 수강생</b>은 담당쌤에게 미리 알리고, 개강 다음날부터 숙제에 녹화본 시청 + <b>필기 인증샷</b>이 포함돼요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr">
+              <div class="atut">
+                <div class="pg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+                <div class="bd">
+                  <div class="em">📹</div>
+                  <div class="tt">수업 방식을<br>선택해주세요</div>
+                  <div class="tp">매주 목요일 저녁 8시에 JACOB 선생님이
+직접 줌 라이브로 수업합니다.
+
+라이브 참석이 어려운 경우
+녹화본으로 수강할 수 있어요.</div>
+                  <div class="ch">
+                    <div class="cc sel"><div class="cct">🔴 라이브로 수강</div><div class="ccs">매주 목요일 저녁 8시 줌 접속<br>카메라 ON 필수 (얼굴 또는 공부 화면)</div></div>
+                    <div class="cc idle"><div class="cct">📼 녹화본으로 수강</div><div class="ccs">담당선생님에게 반드시 미리 알리기<br>녹화본 시청 후 필기 인증샷 제출 필수</div></div>
+                  </div>
+                </div>
+                <div class="nav"><div class="b prev">이전</div><div class="b next">다음</div></div>
+                <div class="ind">2 / 6</div>
+              </div>
+            </div>
+          </div>
+          <div class="screencap">실제 첫 진입 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 온보딩 체크리스트 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">수업 시작 전</span><h2>온보딩 체크리스트 6개</h2><p class="sub" style="margin-top:8px">홈 “시작해볼까요?” 카드 — 모두 완료해야 수업이 시작돼요</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="checks">
+            <div class="chk"><div class="box">✓</div><div><div class="ct">줌 입장 링크 확인</div><div class="cs">매주 목 저녁 8시</div></div></div>
+            <div class="chk"><div class="box">✓</div><div><div class="ct">카톡 관리방 확인</div><div class="cs">학생+학부모+멘토+JACOB</div></div></div>
+            <div class="chk"><div class="box">✓</div><div><div class="ct">주교재 다운로드</div><div class="cs">자료실 탭에서</div></div></div>
+            <div class="chk"><div class="box">✓</div><div><div class="ct">숙제 제출 방법 확인</div><div class="cs">숙제 탭에서</div></div></div>
+            <div class="chk"><div class="box">✓</div><div><div class="ct">단어테스트 시작</div><div class="cs">라이브 다음날부터</div></div></div>
+            <div class="chk must"><div class="box">!</div><div><div class="ct">경고 시스템 확인 <span class="pill r">필독</span></div><div class="cs">반드시 읽고 체크</div></div></div>
+          </div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav"><span class="lg">영해공</span><span class="bell">🔔<span class="bdg">2</span></span></div>
+              <div class="acard tight" style="margin-top:14px">
+                <div style="padding:18px 20px 14px;display:flex;justify-content:space-between;align-items:center"><span class="ast">시작해볼까요?</span><span style="font-size:13px;font-weight:700;color:var(--a4)">2/6</span></div>
+                <div class="aob done"><span class="cb ok">✓</span><span class="ol">줌 입장 링크 확인 (매주 목 저녁 8시)</span></div>
+                <div class="aob done"><span class="cb ok">✓</span><span class="ol">카톡 관리방 확인 (학생+학부모+멘토+JACOB)</span></div>
+                <div class="aob"><span class="cb un"></span><span class="ol">주교재 다운로드 (자료실)</span><span class="oa">이동</span></div>
+                <div class="aob"><span class="cb un"></span><span class="ol">숙제 제출 방법 확인</span><span class="oa">이동</span></div>
+                <div class="aob"><span class="cb un"></span><span class="ol">단어테스트 시작 (라이브 다음날부터)</span><span class="oa">이동</span></div>
+                <div class="aob"><span class="cb unr"></span><span class="ol" style="color:var(--ard)">경고 시스템 확인 (필독!)</span><span class="oa r">확인</span></div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 온보딩 카드</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 DIVIDER PART2 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">2</div><div><span class="eyebrow">PART 2</span><h2>화면 둘러보기</h2></div></div></div>
+  </section>
+
+  <!-- 8 하단 7탭 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">주 메뉴</span><h2>화면 아래 7개 탭이 전부예요</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:280px">
+          <div class="cols c2" style="gap:10px">
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">🏠</span>홈</h3><p>오늘 할 일 · 미션 · 진도</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📝</span>숙제</h3><p>매일 숙제 제출</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">✅</span>테스트</h3><p>줌테스트 · 단어학습</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">🎬</span>강의</h3><p>녹화본 시청</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📁</span>자료실</h3><p>주교재 PDF</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">💬</span>소통</h3><p>공지 · 소통</p></div>
+          </div>
+          <div class="card" style="padding:13px 15px;margin-top:10px"><h3 style="font-size:15px"><span class="ic">👤</span>MY</h3><p>내 정보 · 수강권 · 설정</p></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr" style="display:flex;flex-direction:column">
+              <div style="flex:1;overflow:hidden">
+                <div class="anav"><span class="lg">영해공</span><span class="bell">🔔<span class="bdg">2</span></span></div>
+                <div class="ahero">
+                  <div class="orb" style="width:150px;height:150px;top:-50px;right:-40px"></div>
+                  <div class="eb">WEEK 1</div>
+                  <div class="gr">민서님,<br>오늘도 파이팅!</div>
+                  <div class="sl">일관고 고3 · 김지수쌤</div>
+                  <div class="ava">🧑🏻</div>
+                  <div class="aglass">
+                    <div class="g"><span class="gi">🔥</span><div><div class="gv">3일</div><div class="gl">연속 출석</div></div></div>
+                    <div class="g"><span class="gi">💎</span><div><div class="gv">240 XP</div><div class="gl">Lv.2 탈출자</div></div></div>
+                  </div>
+                </div>
+                <div class="amsn" style="margin:16px"><span class="ci">📝</span><div style="flex:1"><div class="mt">단어테스트 Day 1-33</div><div class="ml">단어 · 자세히 보기</div></div><span class="apill bl">응시하기</span></div>
+              </div>
+              <div class="atab">
+                <div class="t on"><span class="ic">🏠</span>홈</div>
+                <div class="t"><span class="ic">📝</span>숙제</div>
+                <div class="t"><span class="ic">✅</span>테스트</div>
+                <div class="t"><span class="ic">🎬</span>강의</div>
+                <div class="t"><span class="ic">📁</span>자료실</div>
+                <div class="t"><span class="ic">💬</span>소통</div>
+                <div class="t"><span class="ic">👤</span>MY</div>
+              </div>
+            </div>
+          </div>
+          <div class="screencap">실제 학생 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 홈 화면 구성 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">홈 탭</span><h2>홈은 “오늘 할 일” 중심이에요</h2></div>
+      <div class="row" style="align-items:flex-start">
+        <div class="grow" style="min-width:280px">
+          <div class="cols c2" style="gap:11px">
+            <div class="card"><h3><span class="ic">🎯</span>오늘의 미션</h3><p><b>“오늘은 이것만 하면 돼요!”</b> 오늘 할 것만 카드로. 완료하면 XP 획득.</p></div>
+            <div class="card"><h3><span class="ic">📅</span>주간 진도</h3><p>월~일 7일 도트로 출석·완료를 한눈에. 파란 체크=완료, 빨강 ✕=미완료.</p></div>
+            <div class="card"><h3><span class="ic">🏆</span>레벨 &amp; XP</h3><p>숙제·테스트로 XP를 모아 <b>수감자→탈출자→해방자→정복자→전설</b>로 레벨업.</p></div>
+            <div class="card"><h3><span class="ic">📋</span>아래 메뉴</h3><p>줌테스트 결과 · 리포트 · 랭킹 · 나의 수강권으로 바로 이동.</p></div>
+          </div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav"><span class="lg">영해공</span><span class="bell">🔔<span class="bdg">2</span></span></div>
+              <div class="acard" style="margin-top:12px;padding:18px 20px 16px">
+                <div class="ast">오늘은 이것만 하면 돼요! <span style="float:right;font-size:12px;color:var(--a3);font-weight:600">1/3 완료</span></div>
+              </div>
+              <div class="amsn" style="margin:12px 16px 0"><span class="ci done">✓</span><div style="flex:1"><div class="mt done-t">단어테스트 Day 1-33</div><div class="ml">단어 · 자세히 보기</div></div><span class="apill gr">완료</span></div>
+              <div class="amsn" style="margin:12px 16px 0"><span class="ci">🎬</span><div style="flex:1"><div class="mt">강의 시청 — 온도(극성) 1강</div><div class="ml">강의 · 자세히 보기</div></div><span class="apill gm">🎬 강의보기</span></div>
+              <div class="amsn" style="margin:12px 16px 0"><span class="ci">📷</span><div style="flex:1"><div class="mt">숙제 필기 인증</div><div class="ml">사진 · 자세히 보기</div></div><span class="apill pk">제출</span></div>
+              <div class="acard" style="margin-top:18px">
+                <div class="ast">1주차 <span class="arate bl" style="float:right">33%</span></div>
+                <div class="awk">
+                  <div class="awd done"><span class="wl">월</span><span class="d">✓</span></div>
+                  <div class="awd done"><span class="wl">화</span><span class="d">✓</span></div>
+                  <div class="awd done"><span class="wl">수</span><span class="d">✓</span></div>
+                  <div class="awd t"><span class="wl">목</span><span class="d"></span></div>
+                  <div class="awd"><span class="wl">금</span><span class="d"></span></div>
+                  <div class="awd"><span class="wl">토</span><span class="d"></span></div>
+                  <div class="awd"><span class="wl">일</span><span class="d"></span></div>
+                </div>
+              </div>
+              <div class="amenu">
+                <div class="amrow"><span class="mi">📊</span><div style="flex:1"><div class="mn">줌테스트 결과</div><div class="ms">점수 확인</div></div><span class="chev">›</span></div>
+                <div class="amrow"><span class="mi">📋</span><div style="flex:1"><div class="mn">리포트</div><div class="ms">선생님 피드백</div></div><span class="chev">›</span></div>
+                <div class="amrow"><span class="mi">🏆</span><div style="flex:1"><div class="mn">랭킹</div><div class="ms">우리 반 순위 확인</div></div><span class="chev">›</span></div>
+                <div class="amrow"><span class="mi">🎟️</span><div style="flex:1"><div class="mn">나의 수강권</div><div class="ms">수강권 현황 · 결제 내역</div></div><span class="chev">›</span></div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 홈 화면 (스크롤)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 DIVIDER PART3 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">3</div><div><span class="eyebrow">PART 3</span><h2>매주 이렇게<br>공부해요</h2></div></div></div>
+  </section>
+
+  <!-- 11 한 주 흐름 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">한 주 흐름</span><h2>매주 이 사이클이 반복돼요</h2></div>
+      <div class="flow">
+        <div class="fnode"><div class="fi">🔴</div><div class="ft">목 8시 라이브</div><div class="fs">줌 수업 (녹화본 가능)</div></div>
+        <div class="farr">→</div>
+        <div class="fnode"><div class="fi">📝</div><div class="ft">매일 숙제</div><div class="fs">자정 12시 마감</div></div>
+        <div class="farr">→</div>
+        <div class="fnode"><div class="fi">🔤</div><div class="ft">단어테스트</div><div class="fs">매일 33개</div></div>
+        <div class="farr">→</div>
+        <div class="fnode"><div class="fi">🎯</div><div class="ft">줌테스트</div><div class="fs">주 1회 · 80점 통과</div></div>
+      </div>
+      <div class="call pass" style="margin-top:22px"><span class="cic">🔁</span><div>라이브로 배우고 → 매일 숙제·단어로 다지고 → 주 1회 줌테스트로 점검. 이 리듬을 8주 반복하면 실력이 쌓입니다.</div></div>
+    </div>
+  </section>
+
+  <!-- 12 라이브 수업 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">라이브 수업</span><h2>매주 목 저녁 8시, 줌 라이브</h2></div>
+      <div class="cols c3">
+        <div class="card"><h3><span class="ic">🕗</span>언제</h3><p>매주 <b>목요일 저녁 8시</b>, JACOB 선생님 직접 줌 수업</p></div>
+        <div class="card" style="border-color:#F6C3C4"><h3><span class="ic" style="background:var(--danger-bg);color:var(--danger)">📹</span>카메라 ON</h3><p><b>얼굴</b>이 어렵다면 <b>책상·필기 화면</b>이라도 꼭 보이게</p></div>
+        <div class="card"><h3><span class="ic">📼</span>못 들으면</h3><p><b>녹화본 무제한</b> — 강의 탭에서 다시보기</p></div>
+      </div>
+      <div class="call danger" style="margin-top:18px"><span class="cic">📹</span><div><b>왜 화면을 켜야 하나요?</b> 라이브는 함께 집중하는 시간이라 참여 확인이 필요해요. 얼굴이 부담되면 <b>공부하는 책상·필기하는 손·화면</b>이 보이게만 해주세요.</div></div>
+      <div class="call info" style="margin-top:12px"><span class="cic">🚀</span><div>홈 바로가기에서 <b>“라이브 입장”</b>(라이브 수강생) 또는 <b>“녹화본 보기”</b>(녹화본 수강생) 버튼으로 바로 접속해요.</div></div>
+    </div>
+  </section>
+
+  <!-- 13 자료실 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">자료실 탭</span><h2>필요한 자료가 다 여기 있어요</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c2" style="gap:10px">
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📕</span>주교재</h3><p>매주 수업 전 PDF 다운로드</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📝</span>필기본</h3><p>수업 판서 — 숙제 필기 대조용</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📖</span>고단끝 단어장</h3><p>단어테스트 교재 (YES24 구매)</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📹</span>숙제제출예시</h3><p>영상촬영숙제 등 제출 방법 영상</p></div>
+          </div>
+          <div class="call warn" style="margin-top:12px"><span class="cic">🛒</span><div><b>고단끝 단어장은 꼭 구매</b>하세요 (자료실 → YES24 링크). 예문까지 같이 보는 게 단어 암기의 핵심이에요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">학습 자료</span><span class="arp on" style="padding:4px 12px">일관적코드</span></div>
+              <div class="arpills">
+                <span class="arp on">전체 13</span><span class="arp">공지 2</span><span class="arp">주교재 2</span><span class="arp">부교재 3</span><span class="arp">필기본 1</span><span class="arp">숙제제출예시 3</span>
+              </div>
+              <div class="amenu" style="margin-top:2px">
+                <div class="arrow"><span class="ri" style="background:#00C47112;color:#00C471">📕</span><div style="flex:1"><div class="rt">주교재 다운로드 (구글드라이브)</div><div class="rm"><span>주교재</span><span class="rb" style="background:var(--ablL);color:var(--abl)">고정</span></div></div><span class="chev">›</span></div>
+                <div class="arrow"><span class="ri" style="background:#F59E0B12;color:#F59E0B">📖</span><div style="flex:1"><div class="rt">고단끝 단어장 안내 (필독!)</div><div class="rm"><span>부교재</span><span class="rb" style="background:var(--ablL);color:var(--abl)">고정</span></div></div><span class="chev">›</span></div>
+                <div class="arrow"><span class="ri" style="background:#F9731612;color:#F97316">📝</span><div style="flex:1"><div class="rt">수업필기본 다운로드</div><div class="rm"><span>필기본</span><span class="rb" style="background:var(--ablL);color:var(--abl)">고정</span></div></div><span class="chev">›</span></div>
+                <div class="arrow"><span class="ri" style="background:#8B5CF612;color:#8B5CF6">📹</span><div style="flex:1"><div class="rt">영상숙제 제출 예시본</div><div class="rm"><span>숙제제출예시</span><span class="rb" style="background:var(--ablL);color:var(--abl)">고정</span></div></div><span class="chev">›</span></div>
+                <div class="arrow"><span class="ri" style="background:#F59E0B12;color:#F59E0B">🛒</span><div style="flex:1"><div class="rt">고단끝 단어장 구매하기 (YES24)</div><div class="rm"><span>부교재</span></div></div><span class="chev">›</span></div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 자료실 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 매일 숙제 한눈에 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">숙제 탭</span><h2>매일 숙제는 이렇게 나가요</h2><p class="sub" style="margin-top:8px">하루에 여러 항목 — 카테고리별로 정리돼 있어요</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c2" style="gap:10px">
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic" style="background:#22C55E15;color:#22C55E">📺</span>녹화본+필기인증</h3><p>강의 보고 필기 → 사진 인증</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic">📖</span>단어테스트</h3><p>고단끝 Day별 · 80점 통과</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic" style="background:#F0445215;color:#F04452">📕</span>주교재 복습</h3><p>대본 정리 · 사진 제출</p></div>
+            <div class="card" style="padding:13px 15px"><h3 style="font-size:15px"><span class="ic" style="background:#8B5CF615;color:#8B5CF6">🎥</span>영상촬영숙제</h3><p>지문 해설 영상 촬영</p></div>
+          </div>
+          <div class="call info" style="margin-top:12px"><span class="cic">🏷️</span><div>각 숙제는 <b>사진·영상 업로드</b> 또는 <b>단어테스트 응시</b>로 완료돼요. 뒤에서 하나씩 볼게요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">주차별 숙제</span></div>
+              <div class="ahero" style="background:linear-gradient(145deg,#2563EB 0%,#3B82F6 60%,#60A5FA 100%);padding:16px 18px;margin:12px 16px 0">
+                <div class="gr" style="font-size:19px;margin:0">1주차 <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.2)">이번 주</span></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><span style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600">완료 8/12</span><span style="font-size:15px;font-weight:900">67%</span></div>
+                <div class="aprog" style="background:rgba(255,255,255,.15);margin-top:7px"><i style="width:67%;background:linear-gradient(90deg,#FCD34D,#FBBF24)"></i></div>
+              </div>
+              <div style="padding:14px 18px 4px;font-size:14px;font-weight:700;color:var(--abl)">화요일 <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--ablL)">오늘</span></div>
+              <div class="amsn" style="margin:6px 16px 0"><span class="ci done">✓</span><div style="flex:1"><div class="mt done-t">📺 녹화본 1강 + 📝필기인증</div><div class="ml">강의</div></div><span class="apill gr">✓ 완료</span></div>
+              <div class="amsn" style="margin:10px 16px 0"><span class="ci"><span style="font-size:19px">📖</span></span><div style="flex:1"><div class="mt">📖 단어테스트 day1 (80점 통과)</div><div class="ml">단어</div></div><span class="apill bl">응시하기</span></div>
+              <div class="amsn" style="margin:10px 16px 0"><span class="ci" style="background:#F0445215"><span style="font-size:19px">📕</span></span><div style="flex:1"><div class="mt">📕 주교재 p1-23 복습 + 단어 암기</div><div class="ml">분석</div></div><span class="apill pk">제출</span></div>
+              <div class="amsn" style="margin:10px 16px 0"><span class="ci" style="background:#8B5CF615"><span style="font-size:19px">🎥</span></span><div style="flex:1"><div class="mt">🎥 영상촬영숙제 (103p~111p)</div><div class="ml">사진</div></div><span class="apill pk">제출</span></div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 숙제 목록 (제로코드 예시)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14b 녹화본 + 필기인증 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">숙제 · 강의</span><h2>📺 녹화본 시청 + 📝 필기인증</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="steps">
+            <div class="step"><div><div class="st">라이브 수강자 → 복습 후 필기 인증</div><div class="sd">수업 내용 복습하고 필기 사진 제출</div></div></div>
+            <div class="step"><div><div class="st">녹화본 수강자 → 저녁 12시 전 인증</div><div class="sd">녹화본 듣고 필기해서 그날 자정 전 제출</div></div></div>
+            <div class="step"><div><div class="st">자료실 <b>#필기본</b>과 대조 → 빠짐없이!</div><div class="sd">필기가 빠지면 “미제출”로 다시 제출해야 해요</div></div></div>
+          </div>
+          <div class="call warn" style="margin-top:14px"><span class="cic">📊</span><div><b>강의 수강률·정지/이탈 횟수가 모두 기록</b>돼요. 대충 틀어놓기 X — 제대로 보고 필기해야 인정됩니다.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">주차별 숙제</span></div>
+              <div class="acard" style="margin-top:14px;padding:18px">
+                <div style="display:flex;align-items:center;gap:13px"><span class="ci" style="background:#22C55E15;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:20px">📺</span><div><div style="font-size:15px;font-weight:700;color:var(--a1)">📺 녹화본 1강 + 📝필기인증</div><div style="font-size:11px;color:var(--a3);margin-top:2px">강의 · 사진 제출</div></div></div>
+                <div style="margin-top:12px;padding:12px 14px;background:var(--ab);border-radius:12px;font-size:12px;color:var(--a2);line-height:1.7">✅ 라이브 수강자: 복습 후 필기인증<br>✅ 미참여자: 녹화본 듣고 12시 전 제출<br>⚠️ 수강률·정지/이탈 기록<br>📋 <span style="color:var(--abl);font-weight:700">#필기본</span> 클릭하여 대조 필수!</div>
+                <div style="display:flex;gap:8px;margin-top:12px"><span class="apill gm" style="padding:9px 14px">🎬 강의보기</span><span class="apill pk" style="padding:9px 14px">필기 제출</span></div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 녹화본+필기 숙제</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14c 영상촬영숙제 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">숙제 · 영상</span><h2>🎥 영상촬영숙제</h2><p class="sub" style="margin-top:8px">지문을 내가 선생님처럼 해설하는 영상을 찍어요</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="steps">
+            <div class="step"><div><div class="st">대본을 한 문장씩 직접 해설·설명</div><div class="sd">단어·해석을 선생님처럼 소리 내어 설명하며 촬영</div></div></div>
+            <div class="step"><div><div class="st">필기는 지우고 원문 위에 설명</div><div class="sd">패드는 필기 지우기 / 프린트는 해당 페이지 새로 출력</div></div></div>
+            <div class="step"><div><div class="st">실수해도 OK — 쭉 이어서 촬영</div><div class="sd">막히는 지점 = 내가 모르는 포인트. 그걸 찾는 게 목적</div></div></div>
+            <div class="step"><div><div class="st">숙제 탭에서 <b>영상</b>으로 제출 (🔊소리 녹화 필수)</div><div class="sd">자료실 <b>#숙제제출예시</b>의 영상 예시 먼저 보기!</div></div></div>
+          </div>
+          <div class="call pass" style="margin-top:14px"><span class="cic">💡</span><div><b>왜 이렇게 하나요?</b> 직접 설명하다 <b>막히는 순간 = 내가 진짜 공부해야 할 부분</b>이에요. 그때 다시 찾아보는 게 실력이 됩니다.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">주차별 숙제</span></div>
+              <div class="acard" style="margin-top:14px;padding:18px">
+                <div style="display:flex;align-items:center;gap:13px"><span class="ci" style="background:#8B5CF615;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:20px">🎥</span><div><div style="font-size:15px;font-weight:700;color:var(--a1)">🎥 영상촬영숙제 (103p~111p)</div><div style="font-size:11px;color:var(--a3);margin-top:2px">사진 · 영상 제출</div></div></div>
+                <div style="margin-top:12px;padding:12px 14px;background:var(--ab);border-radius:12px;font-size:12px;color:var(--a2);line-height:1.7">영어대본 보며 직접 해설/설명해보기<br>한 문장씩 선생님처럼 단어·해석 설명<br>📹 방법은 자료실 → <span style="color:var(--abl);font-weight:700">#숙제제출예시</span></div>
+                <div class="asheet" style="position:static;box-shadow:none;border-radius:16px;margin-top:12px;padding:14px;border:1px solid var(--aln)">
+                  <div class="slab">사진 / 영상 첨부</div>
+                  <div class="acap" style="margin-bottom:0"><div class="c"><span class="ci">📷</span>카메라로 촬영</div><div class="c"><span class="ci">🎬</span>영상 선택</div></div>
+                </div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 영상촬영숙제</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 숙제 제출 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">숙제 탭</span><h2>숙제는 사진·영상으로 매일 제출</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="steps">
+            <div class="step"><div><div class="st">숙제 탭에서 오늘 숙제 열기</div><div class="sd">주차·카테고리별로 정리돼 있어요</div></div></div>
+            <div class="step"><div><div class="st">푼 걸 사진(또는 영상) 촬영</div><div class="sd">“숙제 제출” → 카메라 / 앨범 선택, 여러 장 가능</div></div></div>
+            <div class="step"><div><div class="st">제출 → 선생님이 승인 / 반려</div><div class="sd">반려되면 알림이 와요. 다시 제출!</div></div></div>
+          </div>
+          <div class="call danger" style="margin-top:14px"><span class="cic">⏰</span><div><b>매일 자정 12시가 마감</b>이에요. 미제출이 쌓이면 경고를 받을 수 있으니 그날 걸 그날 올리세요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">주차별 숙제</span></div>
+              <div class="ahero" style="background:linear-gradient(145deg,#2563EB 0%,#3B82F6 60%,#60A5FA 100%);padding:18px 20px">
+                <div style="display:flex;justify-content:space-between;align-items:center"><div class="gr" style="font-size:20px;margin:0">1주차 <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.2);vertical-align:middle">이번 주</span></div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px"><span style="font-size:12px;color:rgba(255,255,255,.6);font-weight:600">완료 8/12</span><span style="font-size:15px;font-weight:900">67%</span></div>
+                <div class="aprog" style="background:rgba(255,255,255,.15);margin-top:8px"><i style="width:67%;background:linear-gradient(90deg,#FCD34D,#FBBF24)"></i></div>
+              </div>
+              <div style="padding:14px 18px 0"><span style="font-size:14px;font-weight:700;color:var(--abl)">목요일</span> <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--ablL);color:var(--abl)">오늘</span></div>
+              <div class="amsn" style="margin:10px 16px 0"><span class="ci" style="background:#EC489915"><span style="font-size:18px">📷</span></span><div style="flex:1"><div class="mt">풀이 분석 숙제</div><div class="ml">분석 · 사진 제출</div></div><span class="apill pk">제출</span></div>
+              <!-- bottom sheet -->
+              <div class="asheet">
+                <div class="grab"></div>
+                <div class="sht">숙제 제출</div>
+                <div class="slab">사진 / 영상 첨부</div>
+                <div class="acap"><div class="c"><span class="ci">📷</span>카메라로 촬영</div><div class="c"><span class="ci">🖼</span>앨범 · 파일 선택</div></div>
+                <div class="slab">메모 (선택)</div>
+                <div style="border:1.5px solid #E5E7EB;border-radius:12px;padding:12px;font-size:12px;color:var(--a4);margin-bottom:14px">추가로 적을 내용이 있으면 적어주세요</div>
+                <div class="ftr"><div class="b cancel">취소</div><div class="b ok">제출하기</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="screencap">실제 숙제 제출 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17b 제출 예시 & 주의사항 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">숙제 · 예시</span><h2>이렇게 제출하면 돼요</h2><p class="sub" style="margin-top:8px">자료실 <b>#숙제제출예시</b>에 실제 예시 영상이 있어요 — 꼭 먼저 보기!</p></div>
+      <div class="row" style="align-items:flex-start">
+        <div class="grow" style="min-width:300px">
+          <div class="card" style="padding:16px 18px"><h3 style="font-size:16px"><span class="ic">📤</span>숙제 제출 방법</h3>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:9px">
+              <div class="kv">1. 대시보드에서 해당 <b>날짜 클릭</b></div>
+              <div class="kv">2. 숙제 <b>항목별로 사진 촬영 후 업로드</b></div>
+              <div class="kv">3. <b>밤 12시 전</b>까지 제출 완료</div>
+            </div>
+          </div>
+          <div class="card" style="padding:16px 18px;margin-top:12px;border-color:#F6C3C4"><h3 style="font-size:16px"><span class="ic" style="background:var(--danger-bg);color:var(--danger)">⚠️</span>숙제 공통 주의사항</h3>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:9px">
+              <div class="kv">• 제출 기한 <b>당일 저녁 12시</b></div>
+              <div class="kv">• 늦으면 <b>미리 사유 + 인증</b> 필요 (예: 학원증)</div>
+              <div class="kv">• 미제출 시 경고 · <b>필기가 빠지면 미제출</b>로 간주</div>
+            </div>
+          </div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">학습 자료</span></div>
+              <div style="padding:16px 16px 0"><span class="arp on" style="padding:5px 14px">📹 숙제제출예시</span></div>
+              <div class="acard" style="margin-top:12px;padding:0;overflow:hidden">
+                <div style="position:relative"><img src="data:image/jpeg;base64,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" alt="영상촬영숙제 예시" style="width:100%;display:block"><div style="position:absolute;inset:0;display:grid;place-items:center"><div style="width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,.6);display:grid;place-items:center;font-size:20px;color:#fff">▶</div></div></div>
+                <div style="padding:14px 16px"><div style="font-size:14px;font-weight:800;color:var(--a1)">🎬 영상촬영숙제 제출 예시</div><div style="font-size:12px;color:var(--a3);margin-top:4px;line-height:1.6">선생님처럼 지문을 직접 설명하는 영상.<br>🔊 소리 녹화 필수 · 틀려도 수정하며 OK!</div></div>
+              </div>
+              <div class="acard" style="margin-top:12px;padding:13px 16px;display:flex;align-items:center;gap:12px"><span style="font-size:22px">📝</span><div><div style="font-size:13px;font-weight:700;color:var(--a1)">숙제 제출 예시 (영상 1·2)</div><div style="font-size:11px;color:var(--a3)">가이드 · 사진 숙제 제출 방법</div></div></div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 #숙제제출예시 (예시 영상)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15c 단어테스트 시작하기 (연습 vs 실전) -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">테스트 탭 · 단어학습</span><h2>단어테스트, 어떻게 시작해요?</h2><p class="sub" style="margin-top:8px">과(Day) 선택 → 학습 · 연습 · 실전 중 선택</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="call info"><span class="cic">👆</span><div><b>어디서?</b> 하단 <b>테스트 탭 → 📖 단어학습</b> · 또는 <b>숙제 탭 → 단어테스트 “응시하기”</b></div></div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-top:12px">
+            <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:14px"><span style="font-size:24px;flex:none">📚</span><div><div style="font-weight:800;font-size:16px;color:var(--ink)">학습 모드</div><div class="kv" style="margin-top:2px">플래시카드·듣기·스피드로 <b>외우기</b> (점수 없음)</div></div></div>
+            <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:14px"><span style="font-size:24px;flex:none">🎯</span><div><div style="font-weight:800;font-size:16px;color:var(--ink)">연습하기</div><div class="kv" style="margin-top:2px">시험처럼 풀되 <b>점수는 기록 안 됨</b> — 부담 없이 연습</div></div></div>
+            <div class="card" style="padding:14px 18px;display:flex;align-items:center;gap:14px;border-color:var(--blue);box-shadow:0 0 0 3px var(--tint)"><span style="font-size:24px;flex:none">🔵</span><div><div style="font-weight:800;font-size:16px;color:var(--blue)">테스트 시작 = 실전!</div><div class="kv" style="margin-top:2px"><b>점수 기록 · 80점 통과 → 그날 단어 숙제 자동 완료</b></div></div></div>
+          </div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">단어 테스트</span></div>
+              <div style="padding:16px 18px 0"><div style="font-size:13px;font-weight:800;color:var(--a2);margin-bottom:9px">과(Day) 선택</div>
+                <div style="display:flex;gap:7px;flex-wrap:wrap"><span class="arp on" style="padding:7px 14px">Day 1</span><span class="arp">Day 2</span><span class="arp">중학만</span><span class="arp">고등만</span></div>
+              </div>
+              <div class="acard" style="margin-top:12px;padding:14px;text-align:center;font-size:14px;color:var(--a2);font-weight:600"><b style="color:var(--abl)">1개 과</b> 선택 | <b>33</b>단어</div>
+              <div style="padding:14px 16px 0;display:flex;flex-direction:column;gap:11px">
+                <div style="padding:14px;border-radius:99px;background:#fff;box-shadow:var(--ash);color:var(--abl);font-size:15px;font-weight:700;text-align:center">📚 학습 모드</div>
+                <div style="padding:14px;border-radius:99px;background:#fff;box-shadow:var(--ash);color:var(--abl);font-size:15px;font-weight:700;text-align:center">🎯 연습하기</div>
+                <div style="padding:14px;border-radius:99px;background:linear-gradient(135deg,#2563EB,#06B6D4);color:#fff;font-size:15px;font-weight:800;text-align:center;box-shadow:0 4px 16px rgba(37,99,235,.25)">테스트 시작</div>
+              </div>
+              <div class="acard" style="margin-top:14px;padding:14px 16px"><div style="font-size:14px;font-weight:800;color:var(--a1)">📊 시험 기록</div><div style="display:flex;align-items:center;gap:10px;margin-top:10px"><span style="width:34px;height:34px;border-radius:10px;background:#F0FDF4;color:var(--agr);display:grid;place-items:center;font-weight:800;font-size:12px">100</span><div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--a1)">1과 · 5/5문제</div></div><span style="font-size:11px;font-weight:700;color:var(--agr)">통과</span></div></div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 단어테스트 시작 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 단어테스트 문제 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">테스트 탭 · 단어학습</span><h2>단어 문제는 이렇게 생겼어요</h2><p class="sub" style="margin-top:8px">영어 단어를 보고 → 뜻 4개 중 정답 고르기</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="call pass"><span class="cic">🎯</span><div>단어테스트는 <b>영어 단어 → 뜻(4지선다)</b>. 고단끝 단어장 기준 매일 <b>33개</b>씩.</div></div>
+          <div class="call info" style="margin-top:10px"><span class="cic">💬</span><div>연습 모드에서 고르면 <b>즉시 “정답/오답” + 뜻</b>이 떠서 바로 확인돼요.</div></div>
+          <div class="call danger" style="margin-top:10px"><span class="cic">⏰</span><div><b>실전은 80점 이상 통과</b> · 저녁 <b>12시까지 불통과 시 자동 경고!</b> 통과하면 그날 단어 숙제 자동 완료.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr">
+              <div class="anav" style="padding-top:8px"><span class="aback">‹</span><span style="font-size:15px;font-weight:800;color:var(--a2)">7 / 33</span><span class="arp on" style="padding:3px 11px;font-size:11px">연습 모드</span></div>
+              <div style="display:flex;align-items:center;gap:10px;padding:6px 20px 0"><div class="aprog" style="flex:1;background:var(--ablL);margin-top:0;height:11px"><i style="width:21%;background:linear-gradient(90deg,#2563EB,#06B6D4)"></i></div><div style="width:34px;height:34px;border-radius:17px;background:var(--ablL);color:var(--abl);display:grid;place-items:center;font-size:15px;font-weight:900">3</div></div>
+              <div class="avq">
+                <div class="qp">다음 영어 단어의 뜻은?</div>
+                <div class="qw">normal</div>
+              </div>
+              <div style="padding:0 16px">
+                <div class="achoice"><span class="no">1</span>회의, 모임</div>
+                <div class="achoice ok"><span class="no">2</span>정상인, 보통의</div>
+                <div class="achoice"><span class="no">3</span>껴안다, 포옹하다</div>
+                <div class="achoice"><span class="no">4</span>특별한, 예외적인</div>
+              </div>
+              <div style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);padding:10px 30px;border-radius:99px;color:#fff;font-weight:800;font-size:16px;background:linear-gradient(135deg,#00C471,#16A34A);box-shadow:0 8px 24px rgba(0,0,0,.2)">정답!</div>
+            </div>
+          </div>
+          <div class="screencap">실제 단어테스트 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 DIVIDER PART4 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">4</div><div><span class="eyebrow">PART 4</span><h2>줌테스트<br>설문 → 응시</h2></div></div></div>
+  </section>
+
+  <!-- 18 줌테스트란 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">줌테스트</span><h2>일주일 공부를 점검하는 시간</h2></div>
+      <div class="stats">
+        <div class="stat"><div class="sn">주 1회</div><div class="sl">내가 요일을 선택</div></div>
+        <div class="stat"><div class="sn">80점</div><div class="sl">통과 기준</div></div>
+        <div class="stat"><div class="sn">📹 ON</div><div class="sl">카메라 필수</div></div>
+      </div>
+      <div class="call warn" style="margin-top:20px"><span class="cic">2️⃣</span><div>줌테스트는 <b>①설문으로 요일 신청</b> → <b>②그 요일 밤에 응시</b> 두 단계예요. 다음 장에서 하나씩!</div></div>
+    </div>
+  </section>
+
+  <!-- 19 설문 신청 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">① 설문 신청</span><h2>원하는 요일을 골라 신청해요</h2></div>
+      <div class="row" style="align-items:flex-start">
+        <div class="grow">
+          <div class="steps">
+            <div class="step"><div><div class="st">일요일 밤 10시, 설문 오픈</div><div class="sd">그 전엔 카운트다운만 보여요</div></div></div>
+            <div class="step"><div><div class="st">월~금 중 원하는 요일 하나 탭</div><div class="sd">요일마다 정원이 있어요 — 여석 / 마감 / 불가</div></div></div>
+            <div class="step"><div><div class="st">“○요일 신청하기” 누르면 끝</div><div class="sd">선생님이 시간을 잡아드려요</div></div></div>
+            <div class="step warn"><div><div class="st">화요일 자정까지 마감</div><div class="sd">안 하면 자동 마감 → 담당 선생님에게 문의</div></div></div>
+          </div>
+          <div class="call danger" style="margin-top:14px"><span class="cic">🏃</span><div><b>선착순!</b> 인기 요일은 금방 마감돼요. 일요일 밤에 바로 신청하세요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="margin-left:12px">줌테스트 일정</span></div>
+              <div style="padding:24px 20px 0">
+                <div style="font-size:21px;font-weight:900;color:var(--a1);letter-spacing:-.5px">이번 주 줌테스트</div>
+                <div style="font-size:13px;color:var(--a3);margin-top:8px;line-height:1.5">원하는 요일을 선택하세요.<br>선생님이 시간을 잡아드려요.</div>
+                <div class="aday">
+                  <div class="d sel">월<div class="dt">7/14</div><div class="cp">여석 8</div></div>
+                  <div class="d full">화<div class="dt">7/15</div><div class="cp">마감</div></div>
+                  <div class="d">수<div class="dt">7/16</div><div class="cp">여석 5</div></div>
+                  <div class="d">목<div class="dt">7/17</div><div class="cp">여석 9</div></div>
+                  <div class="d">금<div class="dt">7/18</div><div class="cp">여석 3</div></div>
+                </div>
+                <div class="abtn-pill">월요일 신청하기</div>
+                <div style="font-size:12px;color:var(--a3);text-align:center;margin-top:16px">담당 선생님 김지수</div>
+              </div>
+            </div>
+          </div>
+          <div class="screencap">실제 줌테스트 설문 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20 응시법 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">② 응시</span><h2>선택한 요일 밤 10~12시, 이렇게 진행돼요</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:320px">
+          <div class="steps">
+            <div class="step"><div><div class="st">그 요일 저녁, 줌 입장 · 📹 화면 켜기</div><div class="sd">담당 선생님에게 인사 → 출석 확인</div></div></div>
+            <div class="step"><div><div class="st">대시보드 → “주차별 테스트” 응시</div><div class="sd">앱에서 바로 문제를 풀어요</div></div></div>
+            <div class="step"><div><div class="st">다 풀면 <b>결과 화면을 캡쳐</b></div><div class="sd">점수가 나온 마지막 결과 화면 그대로</div></div></div>
+            <div class="step"><div><div class="st">캡쳐를 <b>개인관리방(카톡)</b>에 올리기</div><div class="sd">학생+학부모+멘토+JACOB 단톡방</div></div></div>
+            <div class="step"><div><div class="st">담당 선생님이 확인 → <b>통과 처리</b></div><div class="sd">피드백 받고 퇴장</div></div></div>
+          </div>
+          <div class="call danger" style="margin-top:14px"><span class="cic">🎯</span><div><b>그날 밤 12시까지 80점 통과</b>(결과 캡쳐를 카톡에 올려 확인까지)해야 해요. 마감까지 통과 못 하면 <b>경고</b>가 나갑니다.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr" style="background:#eef1f7">
+              <div class="amod" style="position:absolute">
+                <div class="box">
+                  <div class="mem">🎯</div>
+                  <div class="mh">줌테스트 입장 안내</div>
+                  <div class="abox" style="background:#FEF2F2"><p class="bh" style="color:#DC2626">📹 카메라 ON 필수!</p><p style="color:#7F1D1D">카메라를 반드시 켜고 입장하세요.<br>얼굴이 확인되지 않으면 테스트 무효 처리됩니다.</p></div>
+                  <div class="abox" style="background:#F0F9FF"><p class="bh" style="color:#1E40AF;font-size:13px">📋 테스트 진행 순서</p><p style="color:#1E3A5F;line-height:2">1. 아래 버튼으로 줌 입장<br>2. 카메라 켜고 대기<br>3. 선생님 안내에 따라 테스트 시작<br>4. 대시보드 → 주차별 테스트에서 응시</p></div>
+                  <div class="abox" style="background:#FFFBEB;margin-bottom:16px"><p class="bh" style="color:#D97706;font-size:13px">⚠️ 충분히 준비하고 응시하세요!</p><p style="color:#92400E">줌테스트 점수에 따라 선생님이 경고를 부여할 수 있습니다.</p></div>
+                  <div class="abtn" style="background:#DC2626">줌테스트 입장하기</div>
+                  <div class="abtn" style="background:#2563EB">주차별 테스트 응시하기</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screencap">실제 줌테스트 입장 팝업</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20b 카메라 / 컨닝 방지 규칙 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">줌테스트 화면 규칙</span><h2>화면은 이렇게 보여주세요</h2><p class="sub" style="margin-top:8px">집중도 관리 &amp; 컨닝 방지를 위한 약속이에요</p></div>
+      <div class="cols c3">
+        <div class="card" style="border-color:#B8E9D3"><h3><span class="ic" style="background:var(--pass-bg);color:var(--pass)">🙂</span>1순위 · 얼굴</h3><p>얼굴이 보이게 카메라를 켜면 가장 좋아요</p></div>
+        <div class="card" style="border-color:#B8E9D3"><h3><span class="ic" style="background:var(--pass-bg);color:var(--pass)">🖥️</span>2순위 · 화면</h3><p>얼굴이 부담되면 <b>테스트 푸는 화면</b>이 보이게</p></div>
+        <div class="card" style="border-color:#B8E9D3"><h3><span class="ic" style="background:var(--pass-bg);color:var(--pass)">📖</span>3순위 · 책상</h3><p>최소한 <b>공부하는 책상</b>이라도 보이게</p></div>
+      </div>
+      <div class="call warn" style="margin-top:18px"><span class="cic">🚫</span><div><b>왜 이렇게 하나요?</b> 스스로 집중하도록 돕고, <b>컨닝을 막기 위해</b>서예요. 얼굴·화면·책상 중 아무것도 안 보이면 테스트가 인정되지 않을 수 있어요.</div></div>
+    </div>
+  </section>
+
+  <!-- 20d 줌테스트 문제 예시 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">줌테스트 · 문제 예시</span><h2>문제는 이렇게 생겼어요</h2><p class="sub" style="margin-top:8px">지문(또는 단어) + 문두 + 4지선다 → 정답 고르기</p></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="steps">
+            <div class="step"><div><div class="st">지문·문두를 읽고 <b>정답 1개 선택</b></div><div class="sd">문항마다 유형·배점·난이도가 표시돼요</div></div></div>
+            <div class="step"><div><div class="st">연습 모드 → 고르면 <b>즉시 정답·해설</b></div><div class="sd">틀린 이유·개념을 바로 확인</div></div></div>
+            <div class="step"><div><div class="st">실전 모드 → 다 풀고 <b>제출하면 채점</b></div><div class="sd">20문항 · 25분 · 80점 통과</div></div></div>
+          </div>
+          <div class="call pass" style="margin-top:14px"><span class="cic">🧬</span><div>아래는 실제 <b>독해논리 문제</b>예요. <b>“통념 → 반박”</b> 구조를 찾는 건 일관적코드의 <b>‘반전(but)’ 코드</b>와 똑같아요. 배운 코드가 그대로 문제로 나옵니다.</div></div>
+          <div class="call info" style="margin-top:10px"><span class="cic">📚</span><div>문제 유형은 <b>어휘 · 어법 · 독해(대의파악·빈칸·요약)</b> 등 다양하게 섞여 나와요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr">
+              <div class="anav" style="padding-top:8px"><span class="aback">‹</span><span style="font-size:15px;font-weight:800;color:var(--a2)">3 / 20</span><span class="arp on" style="padding:3px 11px;font-size:11px">연습 모드</span></div>
+              <div style="display:flex;align-items:center;gap:10px;padding:6px 20px 0"><div class="aprog" style="flex:1;background:var(--ablL);margin-top:0;height:11px"><i style="width:15%;background:linear-gradient(90deg,#2563EB,#06B6D4)"></i></div></div>
+              <div style="display:flex;gap:6px;padding:12px 18px 0"><span class="arp" style="padding:3px 10px;font-size:10px;background:var(--ablL);color:var(--abl);font-weight:700">독해 · 글 구조</span><span class="arp" style="padding:3px 10px;font-size:10px;background:var(--adv);color:var(--a3)">난이도 중 · 5점</span></div>
+              <div class="acard" style="margin:10px 16px 0;padding:15px 16px">
+                <div style="font-size:12px;color:var(--a3);margin-bottom:6px">지문</div>
+                <div style="font-size:12.5px;color:var(--a1);line-height:1.65;font-weight:500">It might be thought that people give up childhood play, <b style="color:var(--abl)">but this is not so.</b></div>
+                <div style="font-size:13px;color:var(--a2);font-weight:700;margin-top:12px">위 문장의 글쓰기 구조는?</div>
+              </div>
+              <div style="padding:12px 16px 0">
+                <div class="achoice ok" style="margin-top:8px"><span class="no">1</span>통념 → 반박</div>
+                <div class="achoice"><span class="no">2</span>문제 → 해결</div>
+                <div class="achoice"><span class="no">3</span>원인 → 결과</div>
+                <div class="achoice"><span class="no">4</span>비교 → 대조</div>
+              </div>
+              <div style="position:absolute;bottom:16px;left:16px;right:16px;background:var(--agrL);border:1px solid #B8E9D3;border-radius:12px;padding:11px 14px;font-size:11.5px;color:#046a48;line-height:1.5">💡 <b>정답 ① 통념 → 반박</b> — ‘might be thought ~ <b>but this is not so</b>’ = 통념 제시 후 반박(반전 코드!)</div>
+            </div>
+          </div>
+          <div class="screencap">실제 주차별 테스트 문제 (독해)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 주차별 테스트 화면 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">줌테스트 · 결과</span><h2>다 풀면 결과가 이렇게 나와요</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c2">
+            <div class="card"><h3><span class="ic">📝</span>연습 모드</h3><p>전체 문항 · <b>즉시 해설</b> · 시간 제한 없음. 몇 번이든 반복!</p></div>
+            <div class="card"><h3><span class="ic">📋</span>실전 모드</h3><p>랜덤 20문항 · <b>25분 제한</b> · 제출하면 채점.</p></div>
+          </div>
+          <div class="call info" style="margin-top:14px"><span class="cic">📌</span><div>합격선 <b>80점</b>. 결과에 <b>PASS / FAIL</b>, 유형별 분석, 틀린 문제는 <b>오답노트</b>에 자동 저장돼요.</div></div>
+          <div class="call pass" style="margin-top:12px"><span class="cic">📸</span><div>줌테스트 땐 <b>이 결과 화면을 캡쳐</b>해서 개인관리방(카톡)에 올리면 선생님이 통과를 확인해줘요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="margin-left:12px;flex:1">일관적코드 1주차</span></div>
+              <div style="padding:26px 20px 0;text-align:center">
+                <div class="aring pass"><span class="rn">84</span></div>
+                <div style="font-size:12px;color:var(--a3);margin-top:6px">/ 100</div>
+                <div class="abadge pass">🎉 PASS</div>
+              </div>
+              <div class="astats" style="margin:22px 16px 0">
+                <div class="s"><div class="sl">정답</div><div class="sv" style="color:var(--agr)">17개</div></div>
+                <div class="s"><div class="sl">오답</div><div class="sv" style="color:var(--ard)">3개</div></div>
+                <div class="s"><div class="sl">미응답</div><div class="sv" style="color:var(--a4)">0개</div></div>
+                <div class="s"><div class="sl">소요시간</div><div class="sv" style="color:var(--abl)">14:20</div></div>
+              </div>
+              <div class="acard" style="margin-top:16px;padding:16px 18px">
+                <div style="font-size:14px;font-weight:700;color:var(--a1);margin-bottom:12px">유형별 분석</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:12px"><span style="color:var(--a2);font-weight:500;width:52px">대의파악</span><div style="flex:1;height:8px;border-radius:4px;background:var(--adv);overflow:hidden"><i style="display:block;width:88%;height:100%;background:var(--agr)"></i></div><span style="font-weight:700;color:var(--agr)">88%</span></div>
+              </div>
+              <div class="acard" style="margin-top:16px;padding:15px 18px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:14px;font-weight:700;color:var(--a1)">오답 리뷰 (3문항)</span><span class="chev" style="color:var(--a3)">⌄</span></div>
+              <div style="display:flex;gap:10px;margin:20px 16px 24px"><div style="flex:1;padding:14px;border-radius:14px;border:2px solid var(--abl);color:var(--abl);font-size:14px;font-weight:700;text-align:center">다시 풀기</div><div style="flex:1;padding:14px;border-radius:14px;background:var(--abl);color:#fff;font-size:14px;font-weight:700;text-align:center">돌아가기</div></div>
+            </div>
+          </div>
+          <div class="screencap">실제 결과 화면 (캡쳐 대상)</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 22 DIVIDER PART5 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">5</div><div><span class="eyebrow">PART 5</span><h2>규칙 · 성적<br>수강권</h2></div></div></div>
+  </section>
+
+  <!-- 23 경고 시스템 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">필독</span><h2>🚨 경고 시스템</h2><p class="sub" style="margin-top:8px">끝까지 미루지 않고 하도록 끌어주는 장치예요</p></div>
+      <div class="flow">
+        <div class="fnode" style="border-color:#F7DDA6;background:var(--warn-bg)"><div class="fi">⚠️</div><div class="ft">경고 2회</div><div class="fs">= 옐로카드 1장 (학부모 알림)</div></div>
+        <div class="farr">→</div>
+        <div class="fnode" style="border-color:#F5C518;background:#FFF9E0"><div class="fi">🟨</div><div class="ft">옐로카드 2장</div><div class="fs">= 레드카드</div></div>
+        <div class="farr">→</div>
+        <div class="fnode" style="border-color:#F6C3C4;background:var(--danger-bg)"><div class="fi">🟥</div><div class="ft">레드카드</div><div class="fs">= 퇴원 조치</div></div>
+      </div>
+      <div class="row" style="margin-top:18px;align-items:flex-start">
+        <div class="grow">
+          <div class="card" style="border-color:#F6C3C4"><h3><span class="ic" style="background:var(--danger-bg);color:var(--danger)">📋</span>경고를 받는 이유</h3>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+              <div class="kv">• 숙제 미제출 (자정 12시 마감을 넘김)</div>
+              <div class="kv">• 줌테스트를 그날 12시까지 통과 못 함</div>
+              <div class="kv">• 무단 결석 등 담당 선생님 판단</div>
+            </div>
+          </div>
+        </div>
+        <div class="grow" style="max-width:360px">
+          <div class="call pass"><span class="cic">🕊️</span><div>경고는 <b>14일 후 자동 소멸</b>해요. 실수했어도 다시 잘하면 회복됩니다.</div></div>
+          <div class="call info" style="margin-top:12px"><span class="cic">🙋</span><div>피치 못할 사정은 <b>“미리” 담당 선생님에게</b> 알려주면 조정돼요. 사전 연락이 핵심!</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 24 성적 확인 3갈래 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">내 성적</span><h2>성적은 3가지로 확인해요</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c3" style="gap:10px">
+            <div class="card" style="padding:14px 13px"><h3 style="font-size:15px;flex-direction:column;align-items:flex-start;gap:6px"><span class="ic">📈</span>내 성적</h3><p style="font-size:12px">모의·내신 등급 추이</p></div>
+            <div class="card" style="padding:14px 13px"><h3 style="font-size:15px;flex-direction:column;align-items:flex-start;gap:6px"><span class="ic">🔮</span>성적 예측</h3><p style="font-size:12px">예상 등급 분석</p></div>
+            <div class="card" style="padding:14px 13px"><h3 style="font-size:15px;flex-direction:column;align-items:flex-start;gap:6px"><span class="ic">🏆</span>랭킹</h3><p style="font-size:12px">우리 반 XP 순위</p></div>
+          </div>
+          <div class="call pass" style="margin-top:12px"><span class="cic">🏆</span><div><b>랭킹</b>은 우리 반 익명 순위예요. 숙제·테스트로 <b>XP</b>를 모으면 순위가 올라가고 레벨업! (전국 등수 아님)</div></div>
+          <div class="call info" style="margin-top:10px"><span class="cic">💡</span><div>성적 예측의 <b>“올리는 방법”</b>대로 숙제율·강의율을 올리면 예상 등급이 올라요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">랭킹</span></div>
+              <div style="display:flex;gap:8px;padding:14px 16px 6px"><span class="arp on">이번 주</span><span class="arp">전체</span></div>
+              <div class="amenu" style="margin-top:2px">
+                <div class="amrow"><span style="font-size:20px;width:28px;text-align:center">🥇</span><div style="flex:1"><div class="mn">김OO</div><div class="ms">🔓 해방자</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:900;color:var(--abl)">640</div><div style="font-size:9px;color:var(--a4);font-weight:700">XP</div></div></div>
+                <div class="amrow"><span style="font-size:20px;width:28px;text-align:center">🥈</span><div style="flex:1"><div class="mn">이OO</div><div class="ms">🏃 탈출자</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:900;color:var(--abl)">420</div><div style="font-size:9px;color:var(--a4);font-weight:700">XP</div></div></div>
+                <div class="amrow" style="background:var(--ablL)"><span style="font-size:15px;width:28px;text-align:center;font-weight:900;color:var(--abl)">3</span><div style="flex:1"><div class="mn">나 <span class="apill blw" style="padding:2px 8px;font-size:10px">나</span></div><div class="ms">🏃 탈출자</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:900;color:var(--abl)">240</div><div style="font-size:9px;color:var(--a4);font-weight:700">XP</div></div></div>
+                <div class="amrow"><span style="font-size:15px;width:28px;text-align:center;font-weight:900;color:var(--a4)">4</span><div style="flex:1"><div class="mn">박OO</div><div class="ms">🔒 수감자</div></div><div style="text-align:right"><div style="font-size:15px;font-weight:900;color:var(--abl)">90</div><div style="font-size:9px;color:var(--a4);font-weight:700">XP</div></div></div>
+              </div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 랭킹 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 25 리포트 & 수강권 -->
+  <section class="slide app">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">리포트 · 수강권</span><h2>선생님 피드백과 수강권 관리</h2></div>
+      <div class="row" style="align-items:center">
+        <div class="grow" style="min-width:300px">
+          <div class="cols c2" style="gap:10px">
+            <div class="card" style="padding:14px 15px"><h3 style="font-size:15px"><span class="ic">💬</span>선생님 한마디</h3><p>매주 담당쌤 피드백이 홈·리포트에</p></div>
+            <div class="card" style="padding:14px 15px"><h3 style="font-size:15px"><span class="ic">🎟️</span>나의 수강권</h3><p>현황·홀딩·변동이력·영수증</p></div>
+            <div class="card" style="padding:14px 15px"><h3 style="font-size:15px"><span class="ic">🔄</span>수강권 연장</h3><p>만료 D-7부터 쿠폰·결제</p></div>
+            <div class="card" style="padding:14px 15px"><h3 style="font-size:15px"><span class="ic">🎁</span>친구 초대</h3><p>결제 시 양쪽 5만원 할인</p></div>
+          </div>
+          <div class="call info" style="margin-top:12px"><span class="cic">💬</span><div>연장·결제·수강권 관련 <b>모든 문의는 카카오톡 채널</b>로 하면 돼요.</div></div>
+        </div>
+        <div style="flex:none">
+          <div class="phone" aria-hidden="true">
+            <div class="scr scroll">
+              <div class="anav bd"><span class="aback">‹</span><span class="h1" style="flex:1;margin-left:12px">나의 수강권</span></div>
+              <div class="acard" style="margin-top:14px;padding:18px">
+                <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:15px;font-weight:800;color:var(--a1)">민서 · 일관적코드</span><span class="apill gr" style="padding:4px 11px">수강 중</span></div>
+                <div style="display:flex;align-items:baseline;gap:8px;margin-top:14px"><span style="font-size:30px;font-weight:900;color:var(--abl)">D-30</span><span style="font-size:13px;color:var(--a3);font-weight:600">수강권 남음</span></div>
+                <div style="font-size:12px;color:var(--a3);margin-top:6px">수강 기간 7/14 ~ 9/7</div>
+              </div>
+              <div class="acard" style="margin-top:14px;padding:16px 18px">
+                <div style="font-size:14px;font-weight:800;color:var(--a1);margin-bottom:12px">수강권 변동 이력</div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px">💳</span><div><div style="font-size:13px;font-weight:700;color:var(--a1)">결제 · 4주 수강권</div><div style="font-size:11px;color:var(--a4)">2026.7.14</div></div></div>
+                  <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px">▶️</span><div><div style="font-size:13px;font-weight:700;color:var(--a1)">수강 시작</div><div style="font-size:11px;color:var(--a4)">2026.7.14</div></div></div>
+                </div>
+              </div>
+              <div class="acard" style="margin-top:14px;padding:14px 18px;text-align:center;font-size:12px;color:var(--a3)">수강권·결제 문의는 카카오톡 채널로</div>
+              <div style="height:16px"></div>
+            </div>
+          </div>
+          <div class="screencap">실제 나의 수강권 화면</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 26 DIVIDER PART6 -->
+  <section class="slide divider">
+    <div class="grid-dots"></div>
+    <div class="wrap"><div class="part-row"><div class="big-num">6</div><div><span class="eyebrow">PART 6</span><h2>마무리<br>오늘 할 일</h2></div></div></div>
+  </section>
+
+  <!-- 27 FAQ -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">자주 묻는 질문</span><h2>이건 이렇게 하세요</h2></div>
+      <div class="faq">
+        <div class="qa"><div class="q">링크를 잃어버렸어요</div><div class="a">카카오톡 채널로 문의하면 내 링크를 다시 받을 수 있어요. 받으면 폰 홈 화면에 저장!</div></div>
+        <div class="qa"><div class="q">줌테스트 때 얼굴 꼭 보여야 하나요?</div><div class="a">얼굴이 부담되면 테스트 푸는 화면이나 공부하는 책상이라도 보이게 해주세요. 집중도 관리와 컨닝 방지를 위한 약속이에요.</div></div>
+        <div class="qa"><div class="q">줌테스트 결과는 어떻게 인정받나요?</div><div class="a">앱에서 나온 결과 화면을 캡쳐해 개인관리방(카톡)에 올리면 담당 선생님이 확인 후 통과 처리해줘요.</div></div>
+        <div class="qa"><div class="q">숙제 마감은 언제예요?</div><div class="a">매일 자정 12시. 그날 숙제는 그날 올리는 습관을 들이세요.</div></div>
+        <div class="qa"><div class="q">줌테스트에서 80점 못 넘으면요?</div><div class="a">당일 밤 12시까지 다시 도전할 수 있어요. 마감까지 통과(카톡 캡쳐 확인까지) 못 하면 경고가 부여돼요.</div></div>
+        <div class="qa"><div class="q">라이브 대신 녹화본만 봐도 되나요?</div><div class="a">담당 선생님에게 미리 알리면 가능해요. 대신 개강 다음날부터 녹화본 시청 + 필기 인증샷 제출이 숙제에 포함돼요.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 28 개강일 체크리스트 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">개강일 오늘</span><h2>지금 당장 이것부터 ✅</h2></div>
+      <div class="checks">
+        <div class="chk"><div class="box">1</div><div><div class="ct">내 링크 폰 홈 화면에 저장</div></div></div>
+        <div class="chk"><div class="box">2</div><div><div class="ct">첫 진입 튜토리얼 6단계 완료</div></div></div>
+        <div class="chk"><div class="box">3</div><div><div class="ct">수업 방식(라이브/녹화본) 선택</div></div></div>
+        <div class="chk"><div class="box">4</div><div><div class="ct">온보딩 체크리스트 6개 완료</div></div></div>
+        <div class="chk"><div class="box">5</div><div><div class="ct">자료실에서 주교재 PDF 다운로드</div></div></div>
+        <div class="chk"><div class="box">6</div><div><div class="ct">목 저녁 8시 라이브 입장 · 내일부터 단어테스트</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 29 마무리 -->
+  <section class="slide cover">
+    <div class="grid-dots"></div>
+    <div class="wrap">
+      <span class="cover-badge">🔵 일관적코드</span>
+      <h1>패턴 = 확신 = 안정화 = 점수</h1>
+      <p class="lead">앱은 여러분을 매일 끌고 가는 도구예요. 오늘 배운 대로만 하면 8주 뒤 실력이 달라져 있을 겁니다.</p>
+      <div class="cover-meta">
+        <span>💬 궁금한 건 언제든 카카오톡 채널로</span>
+        <span>🔥 오늘부터, 화이팅!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 30 치트시트 -->
+  <section class="slide">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">한 장 요약</span><h2>캡처해두면 좋은 핵심 규칙</h2></div>
+      <div class="cols c2">
+        <div class="card"><h3><span class="ic">🕗</span>일정</h3><p>라이브 <b>매주 목 저녁 8시</b> · 줌테스트 설문 <b>일요일 밤 10시 오픈~화요일 마감</b></p></div>
+        <div class="card"><h3><span class="ic">⏰</span>마감</h3><p>숙제 <b>매일 자정 12시</b> · 줌테스트 <b>응시 당일 자정</b>까지 통과</p></div>
+        <div class="card"><h3><span class="ic">✅</span>통과 기준</h3><p>단어테스트·주차별 테스트·줌테스트 모두 <b>80점 이상</b></p></div>
+        <div class="card" style="border-color:#F6C3C4"><h3><span class="ic" style="background:var(--danger-bg);color:var(--danger)">🚨</span>경고</h3><p>경고 2회 → 옐로카드 · 옐로카드 2장 → 레드카드(퇴원) · <b>14일 후 소멸</b></p></div>
+        <div class="card"><h3><span class="ic">📹</span>필수</h3><p>라이브·줌테스트 <b>화면 켜기</b>(얼굴·화면·책상) · 줌테스트 결과 <b>카톡 캡쳐 제출</b></p></div>
+        <div class="card"><h3><span class="ic">💬</span>문의</h3><p>링크 분실·수강권·모든 문의는 <b>카카오톡 채널</b></p></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="foot">
+  <button class="nb menu-btn" id="menuBtn" aria-label="목차 열기">☰</button>
+  <span class="brand" id="brand">영어해방공식 · 일관적코드 OT</span>
+  <div class="navbtns">
+    <span class="counter" id="counter">1 / 30</span>
+    <button class="nb" id="prev" aria-label="이전">‹</button>
+    <button class="nb" id="next" aria-label="다음">›</button>
+  </div>
+</div>
+<div class="hint" id="hint">← → 방향키 · 스페이스 · 스와이프 · ☰ 목차</div>
+
+<!-- overview -->
+<div class="ov" id="ov">
+  <button class="ov-close" id="ovClose" aria-label="닫기">✕</button>
+  <h4>목차 — 눌러서 이동</h4>
+  <div class="ovg" id="ovg"></div>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var total=slides.length, i=0;
+  var prog=document.getElementById('prog'),counter=document.getElementById('counter');
+  var brand=document.getElementById('brand'),hint=document.getElementById('hint');
+  var titles=slides.map(function(s){
+    var h=s.querySelector('h1,h2'); return h?h.textContent.replace(/\s+/g,' ').trim():'슬라이드';
+  });
+  var eyebrows=slides.map(function(s){var e=s.querySelector('.eyebrow');return e?e.textContent.trim():'';});
+
+  function render(){
+    slides.forEach(function(s,n){s.classList.toggle('active',n===i);});
+    prog.style.width=((i)/(total-1)*100)+'%';
+    counter.textContent=(i+1)+' / '+total;
+    var dark=slides[i].classList.contains('cover')||slides[i].classList.contains('divider');
+    brand.classList.toggle('on',dark);
+    counter.classList.toggle('on',dark);
+    hint.classList.toggle('on',dark);
+    slides[i].scrollTop=0;
+  }
+  function go(n){i=Math.max(0,Math.min(total-1,n));render();}
+  function next(){go(i+1);} function prev(){go(i-1);}
+
+  document.getElementById('next').onclick=next;
+  document.getElementById('prev').onclick=prev;
+
+  document.addEventListener('keydown',function(e){
+    if(document.getElementById('ov').classList.contains('open')){
+      if(e.key==='Escape')closeOv(); return;
+    }
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(total-1);}
+    else if(e.key==='o'||e.key==='O'){openOv();}
+  });
+
+  // click zones (ignore taps on buttons/links)
+  document.getElementById('deck').addEventListener('click',function(e){
+    if(e.target.closest('button,a,input')) return;
+    var x=e.clientX/window.innerWidth;
+    if(x>0.62)next(); else if(x<0.38)prev();
+  });
+
+  // swipe
+  var sx=0,sy=0;
+  document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)){ dx<0?next():prev(); }
+  },{passive:true});
+
+  // overview
+  var ov=document.getElementById('ov'),ovg=document.getElementById('ovg');
+  titles.forEach(function(t,n){
+    var c=document.createElement('button');c.className='ovc';
+    c.innerHTML='<div class="on">'+String(n+1).padStart(2,'0')+(eyebrows[n]?' · '+eyebrows[n]:'')+'</div><div class="ot">'+t+'</div>';
+    c.onclick=function(){go(n);closeOv();};
+    ovg.appendChild(c);
+  });
+  function openOv(){ov.classList.add('open');}
+  function closeOv(){ov.classList.remove('open');}
+  document.getElementById('menuBtn').onclick=openOv;
+  document.getElementById('ovClose').onclick=closeOv;
+  ov.addEventListener('click',function(e){if(e.target===ov)closeOv();});
+
+  // deep-link via hash
+  if(location.hash){var h=parseInt(location.hash.slice(1),10);if(h>=1&&h<=total)i=h-1;}
+  render();
+  setTimeout(function(){hint.style.transition='opacity .6s';hint.style.opacity='0';},4200);
+})();
+</script>
