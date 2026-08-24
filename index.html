@@ -6,7 +6,7 @@
 <title>내신해방공식 — 고등 영어 내신 시험</title>
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:title" content="내신해방공식 — 나만의 1:1 맞춤 내신 영어 테스트">
-<meta property="og:description" content="교과서별 단어·워크북·퀴즈로 내신 영어 완벽 대비! 지금 바로 풀어보세요.">
+<meta property="og:description" content="교과서별 단어·워크북·예상문제로 내신 영어 완벽 대비! 지금 바로 풀어보세요.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://naesinfit-tests.vercel.app/og-image.png">
 <meta property="og:url" content="https://naesinfit-tests.vercel.app/">
@@ -2553,7 +2553,7 @@ function rLogin(){setBottom(null);
         <div id="obSlide" style="transition:all .4s var(--ease)">
           <div style="font-size:56px;margin-bottom:20px" id="obEmoji">📝</div>
           <div style="font-size:24px;font-weight:800;color:var(--g900);line-height:1.4" id="obTitle">교과서 범위에 딱 맞는<br>나만의 시험</div>
-          <div style="font-size:15px;color:var(--sub);margin-top:12px;line-height:1.7" id="obDesc">원하는 과를 골라서<br>단어 · 워크북 · 퀴즈 테스트를 바로 시작</div>
+          <div style="font-size:15px;color:var(--sub);margin-top:12px;line-height:1.7" id="obDesc">원하는 과를 골라서<br>단어 · 워크북 · 예상문제 테스트를 바로 시작</div>
         </div>
       </div>
       <div style="padding:0 20px 20px">
@@ -2638,7 +2638,7 @@ function rLogin(){setBottom(null);
 // Onboarding slides data
 let obStep=0;
 const obSlides=[
-  {emoji:'📝',title:'교과서 범위에 딱 맞는<br>나만의 시험',desc:'원하는 과를 골라서<br>단어 · 워크북 · 퀴즈 테스트를 바로 시작'},
+  {emoji:'📝',title:'교과서 범위에 딱 맞는<br>나만의 시험',desc:'원하는 과를 골라서<br>단어 · 워크북 · 예상문제 테스트를 바로 시작'},
   {emoji:'📊',title:'AI가 분석해주는<br>나의 취약 유형',desc:'유형별 정답률 · 레벨 시스템 · 맞춤 피드백<br>성적 향상의 지름길'}
 ];
 
@@ -4232,7 +4232,7 @@ function tg(k){const i=S.sel.indexOf(k);if(i>=0)S.sel.splice(i,1);else S.sel.pus
 function sAll(subj,pub,ls,all){ls.forEach(l=>{const k=subj+'/'+pub+'/'+l,i=S.sel.indexOf(k);if(all&&i>=0)S.sel.splice(i,1);if(!all&&i<0)S.sel.push(k);});R();}
 
 // ━━ SETTINGS ━━
-const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합',cat:'test'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심',cat:'test'},{k:'퀴즈테스트',i:'🎯',n:'퀴즈테스트',d:'빠른 복습 퀴즈',cat:'test'},{k:'본문암기',i:'📖',n:'본문 암기',d:'빈칸 채우기로 본문 완전 암기',cat:'practice'}];
+const SET_TYPES=[{k:'단어테스트',i:'📝',n:'단어테스트',d:'어휘·어형·문맥 종합',cat:'test'},{k:'워크북테스트',i:'📘',n:'워크북테스트',d:'문법·구문·서술형 중심',cat:'test'},{k:'퀴즈테스트',i:'🎯',n:'예상문제 테스트',d:'내신 예상문제 실전',cat:'test'},{k:'본문암기',i:'📖',n:'본문 암기',d:'빈칸 채우기로 본문 완전 암기',cat:'practice'}];
 
 // ━━ Passage Memorization Question Generator ━━
 function generatePassageQuestions(passage){
@@ -5099,7 +5099,7 @@ function setUnderstand(idx,val){
   haptic('tap');
 }
 
-function cpRes(){const r=S.res,p=profile,l=r.lv;let t=`━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신해방공식 ${S.tt} 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 ${p.name} · ${p.school||''} · ${p.grade||''}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n📊 점수: ${r.score}/100\n✅ ${r.ok} ❌ ${r.no} ⬜ ${r.sk}\n🏅 ${l.i} ${l.n} · ⏱ ${ftk(S.te)}\n\n`;Object.entries(r.tM).forEach(([k,v])=>t+=`${k}: ${v.ok}/${v.total} (${Math.round(v.ok/v.total*100)}%)\n`);t+=`━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(t).then(()=>toast('📋 결과를 복사했어요')).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('📋 결과를 복사했어요');});}
+function cpRes(){const r=S.res,p=profile,l=r.lv;let t=`━━━━━━━━━━━━━━━━━━━━━━━━━\n🎯 내신해방공식 ${S.tt==='퀴즈테스트'?'예상문제 테스트':S.tt} 결과\n━━━━━━━━━━━━━━━━━━━━━━━━━\n👤 ${p.name} · ${p.school||''} · ${p.grade||''}\n📅 ${new Date().toLocaleDateString('ko-KR')}\n📊 점수: ${r.score}/100\n✅ ${r.ok} ❌ ${r.no} ⬜ ${r.sk}\n🏅 ${l.i} ${l.n} · ⏱ ${ftk(S.te)}\n\n`;Object.entries(r.tM).forEach(([k,v])=>t+=`${k}: ${v.ok}/${v.total} (${Math.round(v.ok/v.total*100)}%)\n`);t+=`━━━━━━━━━━━━━━━━━━━━━━━━━`;navigator.clipboard.writeText(t).then(()=>toast('📋 결과를 복사했어요')).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);toast('📋 결과를 복사했어요');});}
 
 // ━━ IMAGE ━━
 function svImg(){
