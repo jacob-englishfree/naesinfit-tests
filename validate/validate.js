@@ -557,6 +557,17 @@ function validate(jsonPath) {
       }
     }
 
+    // S-QUIZ-WRITTEN-SAFE-TYPE: 예상문제 서술형은 자동채점 수렴형(조건영작/어순배열/어형변환)만.
+    // 찾기형·핵심단어형은 정답 스팬이 복수라 자동채점 오판(억울한 감점) 위험 → 금지 (jacob 결정 2026-08-25)
+    if (testType === '퀴즈' && q.fmt === 'written') {
+      const _wst = (q.stem || '');
+      const _isFindW = /찾아\s*쓰시오|본문에서\s*찾아|원문에서\s*찾아|지문에서\s*찾아|글에서\s*찾아|본문\s*속|찾아\s*고르/.test(_wst);
+      const _isHaek = typeNorm.includes('핵심');
+      if (_isFindW || _isHaek) {
+        result.add('S-QUIZ-WRITTEN-SAFE-TYPE', SEV.S, `Q${qid}: 예상문제 서술형은 조건영작/어순배열/어형변환만 허용 — 찾기·핵심단어형은 자동채점 복수정답 위험으로 금지`);
+      }
+    }
+
     // V73: 2026-04-08 보정 — 영작 서술형도 passage 필수 (새 원칙)
     // 검사 비활성화. S-NO-PASSAGE + S-ANS-NEAR-BLANK로 대체
 
@@ -960,6 +971,43 @@ function validate(jsonPath) {
         if (matchedInPassage.length === keywords.length) {
           result.add('EX-4', SEV.B, `Q${qid}: 내용일치 정답 선지 키워드가 지문에 전부 동일하게 존재 — 너무 쉬울 수 있음`);
         }
+      }
+    }
+    // EX-6: 내용일치/불일치 선지 키워드가 passage에 없고 fullPassage에만 있는 경우 — 발췌 잘림
+    // 학생은 passage(발췌본)를 보고 푸는데, 선지에 fullPassage에만 있는 고유명사·숫자가 등장하면 풀 수 없음
+    // 적용: 내용일치/불일치/내용이해/내용이해 T/F 유형 mc 문항
+    if (['내용일치', '내용불일치', '내용이해', '내용 일치/불일치', '내용이해 T/F'].includes(typeNorm) &&
+        q.fmt === 'mc' && Array.isArray(q.ch) && fullPassage && passage && passage.length > 10) {
+      const passageLower = passage.replace(/<[^>]+>/g, '').toLowerCase();
+      const fullPassageLower = (fullPassage || '').toLowerCase();
+      // 영어 고유명사: 대문자로 시작하는 4글자+ 단어
+      // 한국어 고유명사: 2글자+ 한국어 토큰 (선지가 한국어인 경우)
+      const extractKeywords = (text) => {
+        const keywords = [];
+        // 영어 고유명사 (대문자 시작 4글자+, 문장 첫 단어 제외 — 첫 단어는 항상 대문자이므로 오탐)
+        const engProper = text.match(/(?<![.!?]\s)(?<![.!?]\n)\b([A-Z][a-z]{3,})\b/g) || [];
+        keywords.push(...engProper.map(w => w.toLowerCase()));
+        // 한국어 2글자+ 토큰 (주로 선지가 한국어인 경우 고유명사)
+        const koTokens = text.match(/[가-힣]{2,}/g) || [];
+        keywords.push(...koTokens);
+        return [...new Set(keywords)];
+      };
+      const leakChoices = [];
+      q.ch.forEach((c, ci) => {
+        const cText = String(c || '').replace(/<[^>]+>/g, '');
+        const keywords = extractKeywords(cText);
+        const leakWords = keywords.filter(kw => {
+          const kl = kw.toLowerCase();
+          // passage에 없고 + fullPassage에는 있는 키워드
+          return !passageLower.includes(kl) && fullPassageLower.includes(kl);
+        });
+        if (leakWords.length >= 1) {
+          leakChoices.push({ ci: ci + 1, words: leakWords });
+        }
+      });
+      if (leakChoices.length >= 1) {
+        const detail = leakChoices.map(lc => `ch[${lc.ci}]: "${lc.words.slice(0, 2).join(',')}"`).join(' / ');
+        result.add('S-CHOICE-NOT-IN-PASSAGE', SEV.S, `Q${qid}: 내용일치/불일치 선지 키워드가 passage에 없고 fullPassage에만 있음 — 발췌 잘림. 학생이 passage만 보고 풀 수 없음. ${detail}`);
       }
     }
     // end EX block
@@ -1811,7 +1859,7 @@ function validate(jsonPath) {
   // ── P-TF: T/F는 워크북 전용 ──
   questions.forEach(q => {
     const t = (q.type || '').trim();
-    if ((t === 'T/F' || t === 'TF') && testType !== '워크북') {
+    if ((t.includes('T/F') || t.includes('TF')) && testType !== '워크북') {
       result.add('P-TF', SEV.S, `Q${q.id}: T/F는 워크북 전용 — ${testType}에서 사용 금지`);
     }
   });
@@ -1954,7 +2002,6 @@ function validate(jsonPath) {
       '빈칸', '빈칸(구)', '빈칸(문장)', '빈칸 추론', '빈칸추론', '빈칸 어휘 완성',
       '서술', '서술형요약', '서술형영작', '서술형어형', '서술형(요약)', '서술형(영작)', '서술형(어형)', '영작문 (서술형)', '서술형 — 핵심단어', '서술형 — 배열영작', '서술형 — 어형변환', '서술형 — 문장완성', '서술형 — 영작',
       '일치', '불일치', '내용이해', '내용일치', '내용불일치', '내용 일치/불일치',
-      'TF', 'TF 판별', 'T/F', '내용이해 T/F',
       '어형 변환 (서술형)', '어형변화', '어형변형',
       '다의어 / 문맥적 의미',
       '주제/요지', '주제빈칸', '제목', '대의', '시사점', '무관문장', '무관', '함축', '요약', '요약문', '추론',
@@ -2472,7 +2519,9 @@ function validate(jsonPath) {
       const waWords = wa.trim().split(/\s+/).length;
       const isYakjak = /조건영작/.test(qtype);
       const isMorph = /어형/.test(qtype);
-      if (!isMorph) {
+      // 어법고쳐쓰기: 틀린 형태를 바르게 고치는 유형 → 정답이 단일 단어/짧은 형태가 정상 (어형변환과 동일 성격)
+      const isGrammarFix = /어법\s*고쳐/.test(qtype);
+      if (!isMorph && !isGrammarFix) {
         const minWords = isYakjak ? 6 : 7;
         if (waWords < minWords) {
           result.add('S-QUIZ-WRITTEN-SHORT', SEV.S, `Q${qid}: 퀴즈 서술형 wa ${waWords}단어 — 최소 ${minWords}단어 필수 (퀴즈=내신 예상문제 수준)`);
