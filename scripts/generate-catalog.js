@@ -163,7 +163,10 @@ function main() {
       if (unitData[u] && unitData[u].length > 0) {
         const kept = unitData[u].filter(s => {
           const key = `${tb.path.normalize('NFC')}/${u}/${s}`.normalize('NFC');
-          return !BLOCKED_TB_SECTIONS.has(key);
+          if (BLOCKED_TB_SECTIONS.has(key)) return false;
+          // 실제 테스트 json이 있는 섹션만 포함 (_passage.json만 있는 미제작 폴더 제외 → 빈화면 방지)
+          const secDir = path.join(DATA, '교과서', tb.path.normalize('NFC'), u, s);
+          return ['단어.json', '워크북.json', '퀴즈.json'].some(f => fs.existsSync(path.join(secDir, f)));
         });
         if (kept.length > 0) sections[u] = kept;
       }
