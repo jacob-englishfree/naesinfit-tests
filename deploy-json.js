@@ -303,10 +303,14 @@ function validateSchema(jsonPath) {
   });
 
   // ⛔ 8. 교차 누설 검사 (같은 파일 내 다른 문항 해설이 정답 누설)
+  const fullPassageLC = (data.fullPassage || '').replace(/<[^>]*>/g, '').toLowerCase();
   data.questions.forEach((q, i) => {
     if (q.fmt !== 'mc' || !q.ch || q.ans < 1 || q.ans > q.ch.length || !q.ch[q.ans - 1]) return;
     const correctText = q.ch[q.ans - 1].replace(/<[^>]*>/g, '').trim().toLowerCase();
     if (correctText.length < 20) return; // 짧은 단어는 자연스럽게 겹칠 수 있음
+    // 정답이 fullPassage에 그대로 존재하는 구절이면 학생이 지문에서 이미 봄 + 해설은 제출 후에만 표시 → 누설 아님
+    // (validate S-WA-IN-PASSAGE 찾기형 예외와 동일 논리. 지문 밖 추상정답=주제/제목 등은 계속 차단)
+    if (fullPassageLC && fullPassageLC.includes(correctText)) return;
     // 다른 문항의 passage/stem에 이 정답이 그대로 나오는지
     data.questions.forEach((other, j) => {
       if (i === j) return;

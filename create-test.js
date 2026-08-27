@@ -173,6 +173,8 @@ function buildEi(source, sourcePath, testType, passageData) {
   const sourceConfig = SCHEMA.sourceTypes[source];
   const parts = sourcePath.split('/');
   const testTypeMap = { '단어': 'wordTest', '워크북': 'workbookTest', '퀴즈': 'quizTest' };
+  // 생성/재출제 세대 마커. 기존 v5는 무접촉(재응시 방지), 이 파이프라인으로 새로 만드는 것만 v6.
+  const HIST_VER = 'v6';
 
   let ei = {
     total: 100,
@@ -187,21 +189,21 @@ function buildEi(source, sourcePath, testType, passageData) {
     ei.pub = subject;
     ei.lesson = lesson;
     ei.section = section;
-    ei.histKey = `${testTypeMap[testType]}_${bookName}_${lesson}_${section}_v5`
+    ei.histKey = `${testTypeMap[testType]}_${bookName}_${lesson}_${section}_${HIST_VER}`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '모의고사') {
     const [grade, exam, num] = parts;
     ei.subject = `${exam} ${grade} 모의고사`;
     ei.pub = num;
     ei.lesson = passageData.title || num;
-    ei.histKey = `${testTypeMap[testType]}_${grade}_${exam}_${num}_v5`
+    ei.histKey = `${testTypeMap[testType]}_${grade}_${exam}_${num}_${HIST_VER}`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '교과서') {
     ei.subject = parts[0];
     ei.pub = parts[1];
     ei.lesson = parts[2];
     ei.section = parts[3] || '본문';
-    ei.histKey = `${testTypeMap[testType]}_${parts.join('_')}_v5`
+    ei.histKey = `${testTypeMap[testType]}_${parts.join('_')}_${HIST_VER}`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   }
 
@@ -218,8 +220,8 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
   // 영영풀이: passage 없음
   if (questionType === '영영풀이 매칭') return '';
 
-  // 어형변환: 2~4문장 발췌
-  if (questionType === '어형 변환') {
+  // 어형변환: 2~4문장 발췌 (prompt 생성기는 '서술형 — 어형변환' 라벨을 emit하므로 alias 처리)
+  if (questionType === '어형 변환' || questionType === '서술형 — 어형변환') {
     if (overlayData && overlayData.excerptSentences) {
       return overlayData.excerptSentences;
     }
@@ -504,7 +506,7 @@ function validateSingleQuestion(q, slot, fullPassage, source) {
 
   // 7. S-PASSAGE-NOT-FULL: 부교재/모의고사 passage 85% 미만
   if ((source === '부교재' || source === '모의고사') && fullPassage) {
-    const exemptTypes = ['영영풀이 매칭', '어형 변환', '서술형 — 조건영작', '다의어 문맥적 의미', '오류찾기'];
+    const exemptTypes = ['영영풀이 매칭', '어형 변환', '서술형 — 어형변환', '서술형 — 조건영작', '다의어 문맥적 의미', '오류찾기'];
     if (!exemptTypes.includes(slot.type)) {
       const ratio = (q.passage || '').length / fullPassage.length;
       if (ratio < 0.85) {
