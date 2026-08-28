@@ -86,9 +86,9 @@ def main():
         print(f"  [{name}] '{title[:45]}' {len(text)}자 한글{ko}"
               + (f"  ⚠️헤더잔재" if leak else ""))
         if not dry:
-            d = os.path.join(outdir, name, '본문' if name == '본문' else '')
-            # 본문은 {outdir}/본문/, 섹션은 {outdir}/{섹션}/본문/ 구조로 통일
-            d = os.path.join(outdir, name, '본문')
+            # 본문 → {과}/본문/_passage.json, 섹션 → {과}/{섹션}/_passage.json
+            # (create-test.js가 --path {과}/{섹션}로 읽는 구조. 공통영어1 기존과 동일)
+            d = os.path.join(outdir, name)
             os.makedirs(d, exist_ok=True)
             json.dump({"fullPassage": text, "title": title},
                       open(os.path.join(d, '_passage.json'), 'w'),
