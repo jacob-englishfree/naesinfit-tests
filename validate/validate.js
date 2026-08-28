@@ -142,6 +142,24 @@ function validate(jsonPath) {
     if (!noPassageTypes.includes(alias)) noPassageTypes.push(alias);
   }
 
+  // S-SECTION-LEAK (S급): 교과서 '본문' 테스트인데 fullPassage에 딴 섹션(Read More/Further
+  // Reading/Culture Notes/Deep Learning)이 섞임 = 오염. 본문/섹션 분리 추출 필요.
+  // ⛔ 2026-08-28 사고: 이그잼 본문PDF에 부가섹션 합쳐짐→통째추출→본문 오염. scripts/extract_textbook.py로 분리.
+  // 대소문자 구분(i 플래그 없음)으로 소문자 본문단어(deep learning=AI용어, read on=관용구) 오탐 방지.
+  {
+    // ei 부실(구버전 파일) 대비: 경로로도 교과서/본문 판별 (fallback)
+    const pathStr = String(jsonPath || '');
+    const isTextbook = /^(공통영어|영어I{1,2}\b|영어[12]|중\d)/.test((ei && ei.subject) || '')
+      || /(^|\/)교과서\//.test(pathStr);
+    const isBody = (ei && ei.section === '본문') || /\/본문\/[^/]+\.json$/.test(pathStr);
+    const SEC_HDR = /\b(Read\s?More|READ\s?MORE|Further\s?Reading|Culture\s?Notes?|Deep\s?Learning)\b/;
+    if (isTextbook && isBody && fullPassage) {
+      const m = fullPassage.match(SEC_HDR);
+      if (m) result.add('S-SECTION-LEAK', SEV.S,
+        `본문 fullPassage에 '${m[0]}' 섹션이 섞임 — 본문/섹션 분리 추출 필요(scripts/extract_textbook.py)`);
+    }
+  }
+
   questions.forEach((q, i) => {
     const qid = q.id || (i + 1);
 
