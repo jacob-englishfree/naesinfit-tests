@@ -444,6 +444,11 @@ function assembleQuestion(slot, passageText, aiDecision) {
   if (slot.fmt === 'mc') {
     q.ans = aiDecision.ans;
     q.ch = aiDecision.ch;
+    // T/F 문항은 verdict 필드 필수 (validate-ans L1). ans=1→T, ans=2→F
+    if (Array.isArray(q.ch) && q.ch.length === 2 &&
+        q.ch.map(c => String(c).trim().toUpperCase()).join('') === 'TF') {
+      q.verdict = aiDecision.verdict || (q.ans === 1 ? 'T' : 'F');
+    }
   } else {
     q.wa = aiDecision.wa;
     q.accept = aiDecision.accept || [aiDecision.wa, aiDecision.wa.charAt(0).toUpperCase() + aiDecision.wa.slice(1), aiDecision.wa + '.'];
