@@ -1,1 +1,273 @@
-{"model": "claude-sonnet-4-6", "timestamp": "2026-06-12T09:00:00.000Z", "purpose": "Tier 2 cross-model validation"}
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "워크북",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "The Future-Proof Nature of City Spaces",
+    "subject": "6월_2026 고2 모의고사",
+    "pub": "31번",
+    "lesson": "The Future-Proof Nature of City Spaces",
+    "histKey": "workbooktest_2_6_2026_31_v6"
+  },
+  "fullPassage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena ①<u>is</u> still places where stuff is sold every day, even if the stuff itself ②<u>has</u> changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, ③<u>made</u> much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she ④<u>pointed</u> out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places ①<u>where</u> stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store ②<u>that</u> once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, ③<u>included</u> The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those ④<u>who</u> predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square ①<u>is</u> its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places ②<u>which</u> stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store ③<u>that</u> once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those ④<u>who</u> predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is ①<u>its</u> \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store ②<u>that</u> once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made ③<u>much</u> of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who ④<u>predicting the rise</u> of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient ①<u>medieval</u> squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged ②<u>phones</u> and sell bubble tea. The ③<u>different infrastructure</u> supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her ④<u>books</u>, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are ①<u>never</u> places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof ②<u>technology</u>, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and ③<u>typewriters</u> might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city ④<u>economy</u>, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "내용이해 T/F",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.<br><br><b>\"마라케시와 시에나 같은 곳의 오래된 광장은 오늘날에도 매일 물건이 거래되는 장소로 남아 있다.\"</b>",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.<br><br><b>\"온라인 쇼핑 시대가 되면서 도시 광장과 상점가는 더 이상 미래 대비형 기술로 여겨지지 않는다.\"</b>",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "내용이해 T/F",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.<br><br><b>\"같은 물리적 상점이 예전에는 타자기를 팔았지만 지금은 손상된 휴대폰을 고치기도 한다.\"</b>",
+      "ch": [
+        "T",
+        "F"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in __________. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a time of heavy rain",
+        "a season of festivals",
+        "a period of new laws",
+        "an age of online shopping"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "빈칸추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now __________. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "close down for good permanently",
+        "repair damaged phones and sell bubble tea",
+        "double all of its old prices",
+        "stay exactly the same forever"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "도시의 거리나 광장은 용도가 바뀌어도 오래 살아남는 '미래 대비형' 특성을 지닌다.",
+        "마라케시와 시에나의 중세 광장에서는 지금도 매일 물건이 거래된다.",
+        "같은 물리적 상점이 취급하는 상품은 500년 동안 늘 똑같이 유지되어 왔다.",
+        "제인 제이콥스는 도시가 사라질 것이라 본 사람들과 달리 도시의 지속을 예측했다."
+      ]
+    },
+    {
+      "id": 13,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "온라인 쇼핑 시대에도 상점가는 미래 대비형 기술로 여겨진다.",
+        "동일한 기반시설이 시간이 지나며 변화하는 용도들을 뒷받침한다.",
+        "제인 제이콥스는 인터넷의 부상이 곧 도시의 죽음을 의미할 것이라고 보았다.",
+        "도시 건축의 큰 장점은 용도 변화를 수용하는 능력에 있다."
+      ]
+    },
+    {
+      "id": 14,
+      "type": "오류찾기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "① A city square is a fairly future-proof technology. ② The same physical store that once sold typewriters now repair damaged phones. ③ Jane Jacobs made much of this fact in her books. ④ The great advantage of a city architecture is its ability to support change.",
+      "stem": "다음 글의 ①~④ 중, 어법상 <b>틀린</b> 문장을 고르시오.",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "서술형",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "위 글에서, 중세 광장이 있는 장소로 시에나(Siena)와 함께 언급된 도시의 이름을 본문에서 찾아 쓰시오. (1단어) (영어로)"
+    },
+    {
+      "id": 16,
+      "type": "서술형",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "위 글에서, 온라인 쇼핑 시대에도 도시 광장과 나란히 미래 대비형 기술로 언급된 두 단어 표현을 본문에서 찾아 쓰시오. (2단어) (영어로)"
+    },
+    {
+      "id": 17,
+      "type": "서술형 — 어형변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "The same infrastructure supports evolving uses. Jacobs correctly predicted the __________ (persist) of the city itself, unlike those who predicted that the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 어법에 맞게 변형하여 (1단어) (영어로) 쓰시오."
+    },
+    {
+      "id": 18,
+      "type": "주제/요지",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "온라인 쇼핑이 전통적인 물리적 상점을 완전히 대체했다는 점",
+        "중세 도시의 건축 양식이 현대 도시보다 아름답다는 점",
+        "인터넷의 등장으로 도시가 곧 사라질 것이라는 점",
+        "도시의 거리와 광장은 용도가 바뀌어도 오래 살아남는 '미래 대비형' 공간이라는 점"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "주제/요지",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. The city square is a fairly future-proof technology, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 글의 요지로 가장 적절한 것은?",
+      "ch": [
+        "도시의 기반시설과 건축은 변화하는 용도를 수용하여 오래 지속된다.",
+        "미래에는 모든 물리적 상점이 결국 사라지게 될 것이다.",
+        "도시 광장은 관광객을 위한 공간으로만 가치가 있다.",
+        "새로운 기술은 언제나 오래된 도시 공간을 쓸모없게 만든다."
+      ]
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "One easily underappreciated feature of a city street or square is its \"future-proof\" nature. The ancient medieval squares in places like Marrakesh and Siena are still places where stuff is sold every day, even if the stuff itself has changed over the last five hundred years. __________, as is the shopping street, even in an age of online shopping. For example, the same physical store that once sold buggy whips and typewriters might now repair damaged phones and sell bubble tea. The same infrastructure supports evolving uses. Jane Jacobs, the great prophet of the city economy, made much of this fact in her books, including The Death and Life of Great American Cities and The Nature of Economies. As she pointed out, the great advantage of a city architecture is its ability to support change in uses, and Jacobs correctly predicted the persistence of the city itself, unlike those who predicted the rise of the Internet would mean the death of the city.",
+      "stem": "다음 우리말 뜻에 맞도록 주어진 단어를 <b>모두</b> 배열하여 문장을 완성하시오.<br><br><b>\"도시 광장은 상당히 미래 대비형인 기술이다.\"</b> (8단어) (영어로)\n\n[조건] (1) a, city, fairly, future-proof, is, square, technology, the 를 모두 사용\n(2) 정확히 8단어로 쓸 것"
+    }
+  ]
+}

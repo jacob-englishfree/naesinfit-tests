@@ -1,1 +1,291 @@
-{"model": "claude-sonnet-4-6", "timestamp": "2026-06-12T09:00:00.000Z", "purpose": "Tier 2 cross-model validation"}
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "How Physical Touch Inhibits Plant Growth",
+    "subject": "6월_2026 고2 모의고사",
+    "pub": "32번",
+    "lesson": "How Physical Touch Inhibits Plant Growth",
+    "histKey": "wordtest_2_6_2026_32_v6"
+  },
+  "fullPassage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how <b>(A)</b>[impactful / harmful] touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a <b>(B)</b>[dramatic / mild] response in their hormones and gene expression that it could substantially <b>(C)</b>[inhibit / boost] their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "impactful — dramatic — inhibit",
+        "harmful — dramatic — inhibit",
+        "impactful — mild — inhibit",
+        "impactful — dramatic — boost"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch <b>(A)</b>[quietly / loudly] triggered such a dramatic response in their hormones and gene expression that it could <b>(B)</b>[substantially / slightly] inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was <b>(C)</b>[altered / restored]. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "loudly — substantially — altered",
+        "quietly — slightly — altered",
+        "quietly — substantially — altered",
+        "quietly — substantially — restored"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a <b>(A)</b>[dramatic / dull] response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then <b>(B)</b>[analyzed / ignored] the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and <b>(C)</b>[rerouting / storing] energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "dull — analyzed — rerouting",
+        "dramatic — analyzed — rerouting",
+        "dramatic — ignored — rerouting",
+        "dramatic — analyzed — storing"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how ①<u>impactful</u> touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly ②<u>triggered</u> such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They ③<u>stroked</u> the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was ④<u>preserved</u>. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a ①<u>dramatic</u> response in their hormones and gene expression that it could substantially ②<u>promote</u> their growth. They stroked the arabidopsis with soft paintbrushes, and then ③<u>analyzed</u> the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was ④<u>reorganizing</u> its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch ①<u>quietly</u> triggered such a dramatic response in their hormones and gene expression that it could ②<u>substantially</u> inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was ③<u>maintaining</u> its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis ④<u>cut</u> its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their __________ and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "hormones",
+        "muscles",
+        "roots",
+        "leaves"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its __________ to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "colors",
+        "owners",
+        "seasons",
+        "priorities"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's __________ was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "height",
+        "genome",
+        "weight",
+        "color"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how <u>impactful</u> touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 impactful과 의미가 가장 가까운 것은?",
+      "ch": [
+        "harmless",
+        "temporary",
+        "influential",
+        "visible"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could <u>substantially</u> inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 substantially와 의미가 가장 가까운 것은?",
+      "ch": [
+        "considerably",
+        "barely",
+        "rarely",
+        "quickly"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was <u>altered</u>. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 altered와 의미가 가장 가까운 것은?",
+      "ch": [
+        "protected",
+        "counted",
+        "hidden",
+        "changed"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially <u>inhibit</u> their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 inhibit과 의미가 가장 반대인 것은?",
+      "ch": [
+        "restrain",
+        "promote",
+        "measure",
+        "reduce"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a <u>dramatic</u> response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 밑줄 친 dramatic과 의미가 가장 반대인 것은?",
+      "ch": [
+        "striking",
+        "sudden",
+        "intense",
+        "mild"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Arabidopsis thaliana is a weedy plant in the mustard <u>family</u>, a group of species that scientists classify together. (B) Every Sunday, the whole <u>family</u> gathers around the table to share a big dinner together.",
+      "stem": "다음 (A), (B)의 밑줄 친 <b>family</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) (분류상) 과 — (B) 가족",
+        "(A) 가족 — (B) (분류상) 과",
+        "(A) 친척 — (B) 집안",
+        "(A) 계통 — (B) 부족"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"to cause something to happen or begin, especially suddenly\"",
+      "ch": [
+        "prevent",
+        "delay",
+        "trigger",
+        "measure"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene __________ (express) that it could substantially inhibit their growth.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 (영어로) 쓰시오."
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' __________ (gene) responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 (영어로) 쓰시오."
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to __________ the disturbance, and rerouting energy away from the hard work of getting taller. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "give up",
+        "deal with",
+        "call off",
+        "look after"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The genomics revolution made it possible to see just how impactful touch is to plants on a deeper level. Peering at the genes of Arabidopsis thaliana, a weedy plant in the mustard family and the lab rat of the plant biology world, researchers saw that touch quietly triggered such a dramatic response in their hormones and gene expression that it could substantially inhibit their growth. They stroked the arabidopsis with soft paintbrushes, and then analyzed the plants' genetic responses. Within thirty minutes of being touched, 10 percent of the plant's genome was altered. Clearly, the plant was reorganizing its priorities to deal with the disturbance, and rerouting energy away from the hard work of __________. Touched multiple times, arabidopsis cut its upward growth rate by as much as 30 percent.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "storing water",
+        "making seeds",
+        "fighting pests",
+        "getting taller"
+      ]
+    }
+  ]
+}
