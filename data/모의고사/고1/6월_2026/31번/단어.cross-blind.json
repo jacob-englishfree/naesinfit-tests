@@ -1,28 +1,125 @@
 {
-  "testFile": "data/모의고사/고1/6월_2026/31번/단어.json",
-  "solverModel": "claude-opus-4-6-cross",
+  "testFile": "단어.json",
   "solves": [
-    { "id": 1, "pick": 1, "reasoning": "세계가 interconnected하고 ever-changing하며 passive observers라는 맥락. 원문 단어 조합 ①이 정답" },
-    { "id": 2, "pick": 3, "reasoning": "aging(노화) + perceive(인식) + microscopic(미세한) 조합. 원문에 정확히 대응" },
-    { "id": 3, "pick": 4, "reasoning": "imperceptibly(감지 불가하게) + seemingly(겉보기에) + rightly(옳게). 3개 모두 원문 단어" },
-    { "id": 4, "pick": 4, "reasoning": "Nothing is static이 원문. dynamic은 static의 반의어이므로 문맥상 부적절" },
-    { "id": 5, "pick": 2, "reasoning": "ancient Greek philosopher가 원문. modern은 ancient의 반의어이므로 부적절" },
-    { "id": 6, "pick": 3, "reasoning": "immediate surroundings가 원문. distant는 반의어이므로 부적절" },
-    { "id": 7, "pick": 2, "reasoning": "Nothing is ___. 뒤에 microscopic changes add up이므로 정적(static)이어야 함" },
-    { "id": 8, "pick": 4, "reasoning": "as you ___ each word에서 읽는 맥락이므로 perceive(인식하다)가 적절" },
-    { "id": 9, "pick": 1, "reasoning": "even if we can't ___ it. 변화를 감지(sense)할 수 없다는 맥락" },
-    { "id": 10, "pick": 3, "reasoning": "ancient의 동의어. old가 가장 가까움. recent/contemporary는 반의어" },
-    { "id": 11, "pick": 2, "reasoning": "imperceptibly = 감지 불가하게. unnoticeably가 동의어. gradually는 속도, deliberately는 의도" },
-    { "id": 12, "pick": 4, "reasoning": "taking place = occurring(발생하다). disappearing/concluding/arriving 모두 다른 의미" },
-    { "id": 13, "pick": 3, "reasoning": "passive(수동적) 반의어 = active(능동적). calm/patient/silent은 다른 의미축" },
-    { "id": 14, "pick": 2, "reasoning": "immediate(가까운/즉각적) 반의어 = remote(먼). nearby는 동의어, urgent/current은 다른 축" },
-    { "id": 15, "pick": 1, "reasoning": "(A) constant change = 변화 맥락. (B) change for vending machine + coins = 잔돈 맥락" },
-    { "id": 16, "pick": 4, "reasoning": "watches without participating = observer. participant는 반대, philosopher/leader는 다른 직종" },
-    { "id": 17, "pick": "rightly", "reasoning": "pointed out 동사 앞 부사 자리. right → rightly" },
-    { "id": 18, "pick": "imperceptibly", "reasoning": "changing 앞 부사 자리. imperceptible(adj) → imperceptibly(adv)" },
-    { "id": 19, "pick": 2, "reasoning": "헤라클레이토스 인용문 완성. 같은 강이 아니고 같은 사람이 아니다" },
-    { "id": 20, "pick": 3, "reasoning": "seemingly not doing anything일 때도 주변 밖에서 사건이 일어나 미래를 바꾼다" }
-  ],
-  "matched": 20,
-  "total": 20
+    {
+      "id": 1,
+      "pick": 1,
+      "reason": "(A) 원문 'not just interconnected, but ever-changing' → 'interconnected'가 자연스러움(isolated면 뒤의 but과 대조가 안 맞음). (B) 원문 'ever-changing' → 'changing'(unchanged면 ever-와 모순). (C) 원문 'not mere passive observers'(수동적 관찰자가 아니라는 진술, Cratylus가 우리는 강을 바꾼다고 덧붙임) → 'passive'가 적절(능동적 관찰자라면 문맥상 뒤 문장과 반복/모순). 세 자리 모두 원문과 대조 시 interconnected-changing-passive.",
+      "type": "(A)(B)(C) 조합형"
+    },
+    {
+      "id": 2,
+      "pick": 3,
+      "reason": "(A) 'You're aging'이 원문. rejuvenating(젊어짐)은 나이듦과 반대이므로 부적절. (B) 'as you perceive each word' 원문 그대로. ignore면 문장이 성립 안 함(무시하면서 신경망이 변한다는 게 어색). (C) 'Even microscopic changes add up over time' 원문. enormous면 '미세한 변화가 쌓인다'는 논지와 모순.",
+      "type": "(A)(B)(C) 조합형"
+    },
+    {
+      "id": 3,
+      "pick": 4,
+      "reason": "(A) 'also imperceptibly changing' 원문 그대로(감지 못할 정도로 변함). noticeably면 문맥과 반대. (B) 'even when we're seemingly not doing anything' 원문. obviously면 어색. (C) 'Heraclitus ... rightly pointed out' 원문. wrongly면 이어지는 인용이 타당하다는 서술과 모순.",
+      "type": "(A)(B)(C) 조합형"
+    },
+    {
+      "id": 4,
+      "pick": 4,
+      "reason": "① interconnected, ② changing, ③ perceive는 모두 원문과 일치. ④는 원문 'Nothing is static'을 'dynamic'으로 바꿔 놓아 의미가 정반대가 됨(정적이라는 논지에 반함). 부적절한 것은 ④.",
+      "type": "문맥상 부적절한 어휘"
+    },
+    {
+      "id": 5,
+      "pick": 2,
+      "reason": "① aging, ③ passive, ④ microscopic는 원문과 일치. ②는 원문 'ancient Greek philosopher'를 'modern'으로 바꿔 헤라클레이토스가 고대 철학자라는 사실과 모순됨.",
+      "type": "문맥상 부적절한 어휘"
+    },
+    {
+      "id": 6,
+      "pick": 3,
+      "reason": "① ever-changing, ② imperceptibly, ④ rightly는 원문과 일치. ③은 원문 'outside your immediate surroundings'(당장 주변이 아닌 곳에서 일어나는 일)를 'distant'로 바꿔, '멀리 떨어진 주변 바깥'이라는 뜻이 되어 문맥상(가까이서 알아채지 못하는 사건을 말하는 취지)과 어긋남.",
+      "type": "문맥상 부적절한 어휘"
+    },
+    {
+      "id": 7,
+      "pick": 2,
+      "reason": "원문 'Nothing is static. Even microscopic changes add up over time.' 뒤 문장이 '미세한 변화가 쌓인다'는 내용이므로 앞은 '정적이지 않다(고정된 것은 없다)'는 static이 정답.",
+      "type": "빈칸 어휘 완성"
+    },
+    {
+      "id": 8,
+      "pick": 4,
+      "reason": "원문 'as you perceive each word' 그대로. 단어를 하나씩 '인지/지각'하면서 신경망이 변한다는 문맥에 perceive가 맞음.",
+      "type": "빈칸 어휘 완성"
+    },
+    {
+      "id": 9,
+      "pick": 1,
+      "reason": "원문 'even if we can't sense it' 그대로. 변화가 일어나지만 우리가 그것을 '감지'할 수 없다는 문맥에 sense가 맞음.",
+      "type": "빈칸 어휘 완성"
+    },
+    {
+      "id": 10,
+      "pick": 3,
+      "reason": "ancient = 고대의 → old(오래된)와 가장 가까움. recent/contemporary는 반대, advanced는 무관.",
+      "type": "동의어 고르기"
+    },
+    {
+      "id": 11,
+      "pick": 2,
+      "reason": "imperceptibly = 감지할 수 없게(느끼지 못하게) → unnoticeably(눈치채지 못하게)와 가장 가까움.",
+      "type": "동의어 고르기"
+    },
+    {
+      "id": 12,
+      "pick": 4,
+      "reason": "taking place = 일어나다 → occurring(발생하다)과 동의.",
+      "type": "동의어 고르기"
+    },
+    {
+      "id": 13,
+      "pick": 3,
+      "reason": "passive(수동적인) ↔ active(능동적인)가 반의어. calm/patient/silent는 반의 관계 아님.",
+      "type": "반의어 고르기"
+    },
+    {
+      "id": 14,
+      "pick": 2,
+      "reason": "immediate(가까운/당장의) ↔ remote(먼/원격의)가 반의어. urgent/current/nearby는 반의 관계 아님(nearby는 오히려 유의어에 가까움).",
+      "type": "반의어 고르기"
+    },
+    {
+      "id": 15,
+      "pick": 1,
+      "reason": "(A) 'constant change ... world is in constant change' 문맥 → 변화. (B) 'get some change for the vending machine ... coins' 문맥 → 잔돈. 따라서 변화—잔돈.",
+      "type": "다의어 문맥적 의미"
+    },
+    {
+      "id": 16,
+      "pick": 4,
+      "reason": "'적극적으로 참여하지 않고 무언가를 지켜보거나 알아차리는 사람' = observer(관찰자). participant(참가자)는 반대, philosopher/leader는 무관.",
+      "type": "영영풀이 매칭"
+    },
+    {
+      "id": 17,
+      "pick": "rightly",
+      "reason": "빈칸이 'pointed out'(동사)을 수식하는 자리이므로 부사가 필요. right→rightly. 원문 'rightly pointed out'과 일치.",
+      "type": "어형 변환"
+    },
+    {
+      "id": 18,
+      "pick": "imperceptibly",
+      "reason": "빈칸이 'changing'(현재분사)을 수식하는 자리이므로 부사가 필요. imperceptible→imperceptibly. 원문 'imperceptibly changing'과 일치.",
+      "type": "어형 변환"
+    },
+    {
+      "id": 19,
+      "pick": 2,
+      "reason": "원문 인용 'No man ever steps in the same river twice. For it's not the same river and he's not the same man.'과 정확히 일치하는 선지는 2번.",
+      "type": "빈칸 문맥 완성"
+    },
+    {
+      "id": 20,
+      "pick": 3,
+      "reason": "원문 'events are taking place outside your immediate surroundings that will change your life in the future, though you won't realize it yet.'와 의미상 가장 근접한 선지는 3번('사건들이 당신의 주변 바깥에서 일어나고 있다').",
+      "type": "빈칸 문맥 완성"
+    }
+  ]
 }
