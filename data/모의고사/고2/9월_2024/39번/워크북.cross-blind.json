@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 2,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "④easy not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 1,
-      "reasoning": "②sleeping not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③exceptional not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 2,
-      "reasoning": "③superficial not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 4,
-      "reasoning": "'conventional...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "'consciousness...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 3,
-      "reasoning": "③sleeping not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 16,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 17,
-      "myAnswer": "hibernation and sleep are not the same thing at all",
-      "reasoning": "Extracted: 'hibernation and sleep are not the same thing at all'",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 20,
-      "myAnswer": "a hibernating animal needs to get a few hours of conventional sleep",
-      "reasoning": "Extracted from passage: 'a hibernating animal needs to get a few hours of conventional sleep'",
-      "confidence": "medium"
-    }
-  ],
-  "score": "10/20"
+  "testFile": "워크북.json",
+  "solves": [
+    {"id":1,"pick":3,"reason":"주어 'a hibernating animal'(단수) + need → needs가 맞음. need는 어법 오류.","type":"어법"},
+    {"id":2,"pick":2,"reason":"'Hibernating is more like ___ anesthetized'에서 like 뒤는 동명사 being이 필요. be는 오류.","type":"어법"},
+    {"id":3,"pick":3,"reason":"원문은 'easily awakened'(수동태 분사). awake는 형용사로 문맥상 수동 표현이 아니어서 오류.","type":"어법"},
+    {"id":4,"pick":4,"reason":"'are more accurately ___ a torpor'는 수동태 called가 맞음. calling은 오류.","type":"어법"},
+    {"id":5,"pick":2,"reason":"원문 surprise(놀라움)를 relief(안도)로 바꾸면 이어지는 'but ~ not the same thing' 대조 논리와 맞지 않음.","type":"어휘"},
+    {"id":6,"pick":3,"reason":"원문은 profound(깊은) unconsciousness인데 shallow(얕은)로 바꾸면 극적인 체온 하락과 어울리지 않아 모순.","type":"어휘"},
+    {"id":7,"pick":"F","reason":"본문에서 곰은 'don't actually hibernate'라고 명시되어 진짜 겨울잠을 자지 않음. 진술은 거짓.","type":"내용이해 T/F"},
+    {"id":8,"pick":"T","reason":"'a hibernating animal needs to get a few hours of conventional sleep each day within the larger unconsciousness'와 일치.","type":"내용이해 T/F"},
+    {"id":9,"pick":"F","reason":"본문은 'hibernation and sleep are not the same thing at all'이라고 명시. 진술은 거짓.","type":"내용이해 T/F"},
+    {"id":10,"pick":1,"reason":"원문 그대로 'conventional sleep'.","type":"빈칸추론"},
+    {"id":11,"pick":1,"reason":"원문 그대로 'not the same thing'.","type":"빈칸추론"},
+    {"id":12,"pick":3,"reason":"본문은 곰이 체온이 정상 근처로 유지되고 쉽게 깨어나 진짜 겨울잠이 아니라고 함. '체온이 크게 떨어지는 진짜 겨울잠'은 불일치.","type":"내용 일치/불일치"},
+    {"id":13,"pick":4,"reason":"'Hibernating is more like being anesthetized: unconscious but not actually asleep'와 정확히 일치.","type":"내용 일치/불일치"},
+    {"id":14,"pick":3,"reason":"주어 'their body temperature'(단수) + stay → stays가 맞음. stay는 오류.","type":"오류찾기"},
+    {"id":15,"pick":"torpor","reason":"'Their winter sleeps are more accurately called a torpor'에서 본문 그대로 찾아쓰는 1단어.","type":"서술형"},
+    {"id":16,"pick":"a dramatic fall in body temperature","reason":"'Real hibernation involves profound unconsciousness and a dramatic fall in body temperature'에서 체온 관련 부분 6단어.","type":"서술형"},
+    {"id":17,"pick":"easily","reason":"동사 awakened를 수식하는 부사 자리이므로 easy→easily.","type":"서술형 — 어형변환"},
+    {"id":18,"pick":1,"reason":"겨울잠과 잠이 다르며 곰은 진짜 겨울잠을 안 잔다는 것이 글 전체 핵심 주제.","type":"주제/요지"},
+    {"id":19,"pick":4,"reason":"겨울잠과 잠이 다른 상태이며 곰의 겨울잠은 torpor에 가깝다는 것이 요지.","type":"주제/요지"},
+    {"id":20,"pick":"their body temperature stays near normal","reason":"조건 단어(body, near, normal, stays, temperature, their) 6개를 원문 어순 그대로 사용.","type":"서술형 — 조건영작"}
+  ]
 }

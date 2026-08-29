@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "The passport control line...",
+    "subject": "9월_2024 고2 모의고사",
+    "pub": "19번",
+    "lesson": "The passport control line...",
+    "histKey": "wordtest_2_9_2024_19_v6"
+  },
+  "fullPassage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked <b>(A)</b>[relaxed / tense]; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt <b>(B)</b>[uneasy / confident] when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a <b>(C)</b>[trembling / steady] voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "tense — uneasy — trembling",
+        "relaxed — uneasy — trembling",
+        "relaxed — confident — trembling",
+        "relaxed — uneasy — steady"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more <b>(A)</b>[carefully / casually] than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered <b>(B)</b>[truthfully / falsely]. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with <b>(C)</b>[comfort / distress].",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "carefully — truthfully — comfort",
+        "casually — truthfully — comfort",
+        "carefully — falsely — comfort",
+        "carefully — truthfully — distress"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the <b>(A)</b>[seriousness / carelessness] of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, <b>(B)</b>[vanished / remained] into the air. My shoulders, once <b>(C)</b>[weighed / lifted] down, now stretched out with comfort.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "carelessness — vanished — weighed",
+        "seriousness — remained — weighed",
+        "seriousness — vanished — weighed",
+        "seriousness — vanished — lifted"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked ①<u>relaxed</u>; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt ②<u>uneasy</u> when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered ③<u>truthfully</u>. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with ④<u>pain</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The passport control line was ①<u>long</u> and the inspectors looked ②<u>relaxed</u>; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more ③<u>carefully</u> than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he ④<u>stamped</u> my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the ①<u>seriousness</u> of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he ②<u>studied</u> my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, ③<u>increased</u> into the air. My shoulders, once weighed down, now stretched out with ④<u>comfort</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the __________ I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "comfort",
+        "burden",
+        "regulation",
+        "seriousness"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked __________; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "nervous",
+        "angry",
+        "tired",
+        "relaxed"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a __________ voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "cheerful",
+        "trembling",
+        "confident",
+        "loud"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he <u>studied</u> my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 밑줄 친 studied와 의미가 가장 가까운 것은?",
+      "ch": [
+        "ignored",
+        "approved",
+        "examined",
+        "dropped"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more <u>carefully</u> than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 밑줄 친 carefully와 의미가 가장 가까운 것은?",
+      "ch": [
+        "closely",
+        "quickly",
+        "rarely",
+        "loudly"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered <u>truthfully</u>. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 밑줄 친 truthfully와 의미가 가장 가까운 것은?",
+      "ch": [
+        "rudely",
+        "quietly",
+        "angrily",
+        "honestly"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked <u>relaxed</u>; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 밑줄 친 relaxed와 의미가 가장 반대인 것은?",
+      "ch": [
+        "calm",
+        "tense",
+        "cheerful",
+        "honest"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with <u>comfort</u>.",
+      "stem": "다음 글의 밑줄 친 comfort와 의미가 가장 반대인 것은?",
+      "ch": [
+        "ease",
+        "silence",
+        "distress",
+        "honesty"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The inspector <u>stamped</u> my passport and let me pass through the gate. With that mark, I was finally allowed to enter the country.\n\n(B) The angry child <u>stamped</u> his feet on the floor because his parents would not buy him the toy he wanted.",
+      "stem": "다음 글의 (A)와 (B)에서 밑줄 친 <b>stamped</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 도장을 찍다 — (B) 발을 구르다",
+        "(A) 발을 구르다 — (B) 도장을 찍다",
+        "(A) 도장을 찍다 — (B) 짓밟다",
+        "(A) 발을 구르다 — (B) 발을 구르다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"an official rule or order that controls what people are allowed to do\"",
+      "ch": [
+        "comfort",
+        "regulation",
+        "voice",
+        "burden"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "\"I came in September to prepare to return this month,\" I replied with a trembling voice, __________ (consider) if I missed any Italian regulations.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 영어로 쓰시오."
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "As I walked away, the burden I had carried vanished into the air. My shoulders, once __________ (weigh) down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 영어로 쓰시오."
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not __________ to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, vanished into the air. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "worth the effort",
+        "part of the plan",
+        "up to the inspector",
+        "against the rules"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The passport control line was short and the inspectors looked relaxed; except the inspector at my window. He seemed to want to model the seriousness of the task at hand for the other inspectors. Maybe that’s why I felt uneasy when he studied my passport more carefully than I expected. “You were here in September,” he said. “Why are you back so soon?” “I came in September to prepare to return this month,” I replied with a trembling voice, considering if I missed any Italian regulations. “For how long?” he asked. “One month, this time,” I answered truthfully. I knew it was not against the rules to stay in Italy for three months. “Enjoy your stay,” he finally said, as he stamped my passport. Whew! As I walked away, the burden I had carried, even though I did nothing wrong, __________. My shoulders, once weighed down, now stretched out with comfort.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "grew even heavier",
+        "returned to my chest",
+        "vanished into the air",
+        "stayed on my shoulders"
+      ]
+    }
+  ]
+}

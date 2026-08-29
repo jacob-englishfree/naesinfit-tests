@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'shifted', 'B': 'private', 'C': 'sufficient'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'mastery', 'B': 'competitive', 'C': 'suppress'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'derived', 'B': 'repeatable', 'C': 'monitors'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②accessible not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③stimulate not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④excessive not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "'competitive' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 3,
-      "reasoning": "'mastery' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 2,
-      "reasoning": "'suppress' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 2,
-      "reasoning": "Synonym: shifted = changed",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'derived와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'sufficient와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 2,
-      "reasoning": "Antonym: encourage = discourage",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 3,
-      "reasoning": "Antonym: merely = significantly",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'value' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'authority' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "secretly",
-      "reasoning": "Using base secretly",
-      "confidence": "low"
-    },
-    {
-      "id": 18,
-      "myAnswer": "repeatable",
-      "reasoning": "repeat → repeatable",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 3,
-      "reasoning": "'who are primarily monitors of others' wo...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'more widely shared...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "16/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 2, "reason": "(A) 정보화 시대에 개인 역량의 비중이 '변했다(shifted)'가 맞음 — fixed(고정)는 뒤 문맥과 반대. (B) 지식이 이제 덜 사적이라 '비밀(secret)'로 유지하기 어렵다 — keep public은 어색. (C) 지식 권력이 더 '널리(widely)' 공유된다 — 뒤 문장 many people have access와 일치. shifted—secret—widely = ch[2]", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 3, "reason": "(A) 과거엔 정보 숙달에서 '권위(authority)'가 나왔다 — weakness는 문맥 반대. (B) 권력이 더 널리 '공유된다(shared)' — controlled는 앞 widely와 모순. (C) 일관된 프로세스는 '중요하다(important), 그러나 충분치 않다' — but 대조구조상 important가 맞고 trivial이면 but과 안 맞음. authority—shared—important = ch[3]", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 4, "reason": "(A) 일관성은 신선한 사고를 '억누른다(suppress) ~보다 장려하기보다' — than to encourage와 대조되므로 promote 아님. (B) 단순 관리자는 회사에 '가치(value)'가 덜하다 — of less burden은 어색. (C) '새로운(new) 방법'을 생각하는 사람 — old는 문맥 반대. suppress—value—new = ch[4]", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 3, "reason": "③narrowly가 부적절. 본문은 지식 권력이 '널리(widely)' 공유된다고 해야 하는데 'more narrowly shared'는 많은 사람이 접근한다는 앞 문맥과 정반대. ①shifted ②private ④competitive는 모두 적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 2, "reason": "②useless가 부적절. 뒤에 'but they are not sufficient(그러나 충분치 않다)'는 대조가 오므로 앞은 긍정적 '중요하다(important)'여야 함. 'useless, but not sufficient'는 논리 붕괴. ①secret ③suppress ④value는 적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 1, "reason": "①public이 부적절. 뒤 'harder to keep secret(비밀 유지가 어렵다)'와 이어지려면 지식이 '덜 사적(less private)'이어야 함. 'less public'이면 비밀 유지가 쉬워야 해서 모순. ②access ③widely ④new는 적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 2, "reason": "빈칸 뒤 'harder to keep secret'과 연결되려면 지식이 덜 '사적(private)'이어야 비밀 유지가 어려워짐. public이면 역방향, loud/heavy는 지식 성격과 무관. private = ch[2]", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 1, "reason": "단순 관리자는 새 방법을 생각하는 사람보다 회사에 덜 '가치(value)' 있다는 결론 문장. of less value to a company가 자연스러움. noise/space/weight는 문맥 부적합. value = ch[1]", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 1, "reason": "'but they are not sufficient to stay competitive' 대조 앞이므로 긍정적 '중요하다(important)'. boring/hidden/equal은 but 대조 논리와 안 맞음. important = ch[1]", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 2, "reason": "shifted = 비중이 '변했다/이동했다'. changed(변했다)가 가장 가까움. stopped(멈췄다)/grown(성장)/waited(기다렸다)는 의미 다름. changed = ch[2]", "type": "동의어 고르기"},
+    {"id": 11, "pick": 1, "reason": "sufficient = 충분한. enough(충분한)가 동의어. rare(드문)/strange(이상한)/similar(유사한)는 무관. enough = ch[1]", "type": "동의어 고르기"},
+    {"id": 12, "pick": 1, "reason": "suppress = 억누르다/억제하다. hold back(억제하다)이 동의어. reveal(드러내다)은 반의, repeat(반복)/expand(확장)는 무관. hold back = ch[1]", "type": "동의어 고르기"},
+    {"id": 13, "pick": 4, "reason": "private(사적인)의 반의어 = public(공적인). personal은 유의어, quiet/narrow는 무관. public = ch[4]", "type": "반의어 고르기"},
+    {"id": 14, "pick": 2, "reason": "widely(널리)의 반의어 = narrowly(좁게). broadly는 유의어, deeply(깊게)/openly(공개적으로)는 반의 아님. narrowly = ch[2]", "type": "반의어 고르기"},
+    {"id": 15, "pick": 3, "reason": "(A) 'knowledge is still power'에서 power는 '힘, 영향력'(지식=힘). (B) 폭풍으로 전기가 끊겨 마을이 잃은 power는 '전력, 전기'. (A) 힘,영향력 — (B) 전력,전기 = ch[3]", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 4, "reason": "'as much as is needed for a particular purpose(특정 목적에 필요한 만큼)' = sufficient(충분한)의 정의. private/competitive/repeatable은 이 정의와 불일치. sufficient = ch[4]", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "widely", "reason": "빈칸은 과거분사 shared를 수식하는 자리로 부사가 필요. 형용사 wide → 부사 widely. 원문 'more widely shared'와 일치.", "type": "어형 변환"},
+    {"id": 18, "pick": "competitive", "reason": "'stay + 형용사(보어)' 구조로 stay 뒤에는 형용사가 와야 함. 동사 compete → 형용사 competitive(경쟁력 있는). 'stay competitive'가 정답.", "type": "어형 변환"},
+    {"id": 19, "pick": 3, "reason": "과거엔 권위가 자연스럽게 '정보의 숙달(mastery of information)'에서 나왔다 — 바로 뒤 'today many people have access to the same sources(오늘날은 많은 이가 같은 정보원에 접근)'와 대조되는, 정보 독점 개념이 필요. fear of failure/lack of data/love of power는 문맥 부적합. ch[3]", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "'suppress ___ than to encourage it'에서 it이 받는 대상이 빈칸이고, 뒤 문장이 새로운 방법을 생각하는 사람을 중시하므로 억눌리는 것은 '신선한 사고(fresh thinking)'. strict rules/daily routines/old habits는 억제 대상으로 문맥과 안 맞음. ch[4]", "type": "빈칸 문맥 완성"}
+  ]
 }

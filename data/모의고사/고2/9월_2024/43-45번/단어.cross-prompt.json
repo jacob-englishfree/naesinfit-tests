@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "My two girls...",
+    "subject": "9월_2024 고2 모의고사",
+    "pub": "43-45번",
+    "lesson": "My two girls...",
+    "histKey": "wordtest_2_9_2024_4345_v6"
+  },
+  "fullPassage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite <b>(A)</b>[delayed / advanced]. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He <b>(B)</b>[suggested / refused] I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He <b>(C)</b>[loved / hated] it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "delayed - suggested - loved",
+        "advanced - suggested - loved",
+        "delayed - refused - loved",
+        "delayed - suggested - hated"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He <b>(A)</b>[struggled / thrived] through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was <b>(B)</b>[determined / reluctant] to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be <b>(C)</b>[interested / bored] in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "thrived - determined - interested",
+        "struggled - determined - interested",
+        "struggled - reluctant - interested",
+        "struggled - determined - bored"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was <b>(A)</b>[teased / praised] by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was <b>(B)</b>[concerned / relieved] I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully <b>(C)</b>[embarked / hesitated] on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "praised - concerned - embarked",
+        "teased - relieved - embarked",
+        "teased - concerned - embarked",
+        "teased - concerned - hesitated"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and ①<u>wondering</u> what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to ②<u>understand</u> Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo ③<u>appeared</u> to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to ④<u>ignore</u> and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite ①<u>advanced</u>. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a ②<u>note</u> from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an ③<u>outline</u> of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his ④<u>future</u> success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a ①<u>wonderful</u>, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to ②<u>reject</u> him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I ③<u>brought</u> it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a ④<u>published</u> author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own __________. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "budget",
+        "wallet",
+        "pocket",
+        "account"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the __________. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "bus",
+        "meeting",
+        "ticket",
+        "opportunity"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative __________ through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "journey",
+        "mistake",
+        "argument",
+        "silence"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a <u>wonderful</u>, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 wonderful와 의미가 가장 가까운 것은?",
+      "ch": [
+        "terrible",
+        "marvelous",
+        "ordinary",
+        "silent"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was <u>concerned</u> I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 concerned와 의미가 가장 가까운 것은?",
+      "ch": [
+        "relieved",
+        "calm",
+        "worried",
+        "proud"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to <u>observe</u> and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 observe와 의미가 가장 가까운 것은?",
+      "ch": [
+        "avoid",
+        "create",
+        "forget",
+        "watch"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to <u>accept</u> him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 accept와 의미가 가장 반대인 것은?",
+      "ch": [
+        "reject",
+        "receive",
+        "welcome",
+        "expect"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future <u>success</u>. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 밑줄 친 success와 의미가 가장 반대인 것은?",
+      "ch": [
+        "victory",
+        "failure",
+        "growth",
+        "effort"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The camera captured the smiling <u>face</u> of the little boy on the story-board page.\n(B) Benjamin had to <u>face</u> many difficulties before he finally fit in with the other children.",
+      "stem": "다음 (A), (B)의 밑줄 친 <b>face</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A): 직면하다 - (B): 얼굴",
+        "(A): 얼굴 - (B): 얼굴",
+        "(A): 얼굴 - (B): 직면하다",
+        "(A): 직면하다 - (B): 직면하다"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a person who writes books, stories, or articles\"",
+      "ch": [
+        "reader",
+        "editor",
+        "actor",
+        "author"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "He struggled through his childhood, not __________ (fit) in with the other children and wondering what he was doing wrong at every turn.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "Benjamin joyfully embarked on an imaginative journey through the book, and it laid the __________ (found) for his future success.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had __________ the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him step outside his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "set aside",
+        "thrown out",
+        "given up",
+        "paid off"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "My two girls grew up without challenges with respect to development and social interaction. My son Benjamin, however, was quite delayed. He struggled through his childhood, not fitting in with the other children and wondering what he was doing wrong at every turn. He was teased by the other children and frowned upon by a number of unsympathetic adults. But his Grade 1 teacher was a wonderful, caring person who took the time to ask why Benjamin behaved the way he did.\n\nThe teacher was determined to understand Benjamin and to accept him as he was. One day he came home with a note from his teacher. He suggested I go to the school library. They were having a sale, and he thought my son would like one of the books. I couldn't go for a couple of days and was concerned I'd missed the opportunity. When I finally went to the school, his teacher had set aside the book for my little boy.\n\nI suspected the teacher had paid for it out of his own pocket. It was a story-board book with a place for a photo. On each page there was an outline of an animal and a hole so that the face in the photo appeared to be the face of the animal. Wondering if Benjamin would really be interested in the book, I brought it home. He loved it! Through that book, he saw that he could be anything he wanted to be: a cat, an octopus, a dinosaur — even a frog!\n\nBenjamin joyfully embarked on an imaginative journey through the book, and it laid the foundation for his future success. And thankfully, his teacher had taken the time to observe and understand him and find a way to help him __________ his own world and join ours through a story-board book. My son later became a child actor and performed with a casting company in Toronto for seven years. He is now a published author writing fantasy and science fiction! Who would have guessed?",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "break into",
+        "step outside",
+        "settle in",
+        "hold onto"
+      ]
+    }
+  ]
+}

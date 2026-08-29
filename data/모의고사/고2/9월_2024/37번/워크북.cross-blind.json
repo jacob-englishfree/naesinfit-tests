@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 2,
-      "reasoning": "②generating not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 3,
-      "reasoning": "③farly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 1,
-      "reasoning": "②considered not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 4,
-      "reasoning": "③peculiarly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "②withholds not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 2,
-      "reasoning": "③futile not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "'meaning...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "'a series of stylized movements on the co...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 2,
-      "reasoning": "①such it as is not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 16,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 17,
-      "myAnswer": "each bee processes the information in a manner that is peculiar to it",
-      "reasoning": "Extracted: 'each bee processes the information in a manner that is peculiar to it'",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 20,
-      "myAnswer": "assign value to the inputs",
-      "reasoning": "Extracted from passage: 'assign value to the inputs'",
-      "confidence": "medium"
-    }
-  ],
-  "score": "8/20"
+  "testFile": "워크북.json",
+  "solves": [
+    {"id": 1, "pick": 3, "reason": "주어 'a series of stylized movements on the comb'은 단수 취급이므로 동사는 shows가 되어야 하는데 show로 되어 있어 오류.", "type": "어법"},
+    {"id": 2, "pick": 1, "reason": "'go out and look for it'과 병렬구조를 이루어야 하므로 looking이 아니라 look이 와야 함.", "type": "어법"},
+    {"id": 3, "pick": 4, "reason": "'program other bees to go out and look'에서 to부정사 병렬은 to go이며 going은 오류.", "type": "어법"},
+    {"id": 4, "pick": 2, "reason": "주어 'a computational algorithm(that takes...)'는 단수이므로 don't가 아니라 doesn't가 되어야 함.", "type": "어법"},
+    {"id": 5, "pick": 3, "reason": "벌이 정보를 전달하는 대상은 벌집 안의 다른 벌들(others)인데 itself(자기 자신)로 바뀌어 문맥상 부적절.", "type": "어휘"},
+    {"id": 6, "pick": 1, "reason": "먹이를 찾아 나선(foraging) 벌이 춤을 추는 것인데 resting(쉬고 있는)으로 바뀌어 문맥상 부적절.", "type": "어휘"},
+    {"id": 7, "pick": 1, "reason": "본문 'It does not, in general, assign value to the inputs.'와 일치하는 진술이므로 T.", "type": "내용이해 T/F"},
+    {"id": 8, "pick": 2, "reason": "본문은 'this input does not simply program other bees to go out and look for it'라고 하여 그대로 따르도록 지시하지 않는다고 했으므로 F.", "type": "내용이해 T/F"},
+    {"id": 9, "pick": 1, "reason": "본문 'Some bees might not bother to make the journey, considering it not worthwhile.'와 일치하므로 T.", "type": "내용이해 T/F"},
+    {"id": 10, "pick": 2, "reason": "원문 'this input does not simply program other bees to go out and look for it'과 일치.", "type": "빈칸추론"},
+    {"id": 11, "pick": 1, "reason": "원문 'It does not, in general, assign value to the inputs.'과 일치.", "type": "빈칸추론"},
+    {"id": 12, "pick": 2, "reason": "본문 'shows the bees how far away the food is and in which direction'과 일치. 나머지 선지는 본문과 반대(생존 목적 없음/각자 다르게 처리/입력에 가치 안 매김).", "type": "내용 일치/불일치"},
+    {"id": 13, "pick": 3, "reason": "본문은 'this input does not simply program other bees to go out and look for it'이라 하여 강제하지 않는다고 했으므로 이 선지가 본문과 불일치.", "type": "내용 일치/불일치"},
+    {"id": 14, "pick": 4, "reason": "주어 each bee는 단수이므로 processes가 되어야 하는데 process로 되어 있어 어법상 오류.", "type": "오류찾기"},
+    {"id": 15, "pick": "peculiar to it", "reason": "본문 'each bee processes the information in a manner that is peculiar to it'에서 각 벌마다 고유한 방식임을 나타내는 3단어 표현은 peculiar to it.", "type": "서술형"},
+    {"id": 16, "pick": "a series of stylized movements on the comb", "reason": "본문 'The \"dance\" — a series of stylized movements on the comb —'에서 dance를 동격으로 설명하는 8단어 구.", "type": "서술형"},
+    {"id": 17, "pick": "processed", "reason": "'The input... is __________ in the light of...'는 수동태 구문이므로 processed.", "type": "서술형 — 어형변환"},
+    {"id": 18, "pick": 3, "reason": "글 전체가 컴퓨터 알고리즘과 꿀벌의 정보 처리 방식을 대조하는 내용이므로 이 선지가 주제.", "type": "주제/요지"},
+    {"id": 19, "pick": 2, "reason": "글의 결론 'each bee processes the information in a manner that is peculiar to it... in the light of the organism's own internal states and history'가 요지와 일치.", "type": "주제/요지"},
+    {"id": 20, "pick": "each bee processes the information in a manner", "reason": "본문 'Rather, each bee processes the information in a manner that is peculiar to it'에서 주어진 8개 단어(a, bee, each, in, information, manner, processes, the)를 모두 사용해 정확히 8단어로 재구성.", "type": "서술형 — 조건영작"}
+  ]
 }

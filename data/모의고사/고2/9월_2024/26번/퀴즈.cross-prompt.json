@@ -1,0 +1,303 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "퀴즈",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Born in 1888 in...",
+    "subject": "9월_2024 고2 모의고사",
+    "pub": "26번",
+    "lesson": "Born in 1888 in...",
+    "histKey": "quiztest_2_9_2024_26_v6"
+  },
+  "fullPassage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She ①<u>receiving</u> the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon ②<u>recognized</u> for her literary talent. In 1905, her first collection of poems was published. Later she ③<u>joined</u> India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she ④<u>served</u> as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She ①<u>received</u> the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon ②<u>recognized</u> for her literary talent. In 1905, her first collection of poems ③<u>were published</u>. Later she ④<u>joined</u> India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "①<u>Born</u> in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" ②<u>because</u> the beauty of her poetry. She began writing poetry at age 12 and was soon ③<u>recognized</u> for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she ④<u>traveled</u> widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a ①<u>talented</u> poet and political leader. She received the nickname \"The Nightingale of India\" because of the ②<u>beauty</u> of her ③<u>poetry</u>. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's ④<u>defeat</u>, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon ①<u>criticized</u> for her literary talent. In 1905, her first collection of poems was published. Later she ②<u>joined</u> India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and ③<u>influenced</u> many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she ④<u>served</u> as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, __________ was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a famous science journal",
+        "a national newspaper column",
+        "her first collection of poems",
+        "a handbook of military tactics"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she __________. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "avoided all political gatherings",
+        "traveled widely and influenced many people",
+        "refused to speak in public places",
+        "wrote her poems only in secret"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "그녀는 봄베이가 아니라 런던에서 태어나 자랐다.",
+        "그녀는 시보다 그림 실력으로 더 유명해졌다.",
+        "그녀는 영국의 인도 통치에 협력하여 명성을 얻었다.",
+        "그녀는 12세라는 어린 나이에 시를 쓰기 시작했다."
+      ]
+    },
+    {
+      "id": 9,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "그녀의 뛰어난 연설 능력은 많은 이들의 마음을 움직였다.",
+        "그녀는 평생 정치와 거리를 두고 시 쓰기에만 몰두했다.",
+        "그녀는 자신의 시집을 영어가 아닌 라틴어로 출판했다.",
+        "그녀는 국민회의 의장직 제안을 끝내 거절했다."
+      ]
+    },
+    {
+      "id": 10,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "그녀는 40대에 이르러서야 첫 시를 발표했다.",
+        "그녀의 시집은 그녀가 세상을 떠난 뒤에야 출판되었다.",
+        "1905년에 그녀의 첫 시집이 세상에 나왔다.",
+        "그녀는 시를 써 본 적 없는 순수 정치인이었다."
+      ]
+    },
+    {
+      "id": 11,
+      "type": "주제",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "the military strategies used in India's war of independence",
+        "the life and achievements of a poet devoted to India",
+        "the standard process of publishing poetry in colonial times",
+        "the economic policies of the British colonial government"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "제목",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 제목으로 가장 적절한 것은?",
+      "ch": [
+        "The Fall of the British Empire in Asia",
+        "A Complete Guide to Writing Beautiful Poetry",
+        "The Rapid Economic Growth of Modern Mumbai",
+        "Sarojini Naidu: The Nightingale Who Fought for India"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "함축의미 추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"<u>The Nightingale of India</u>\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 <u>The Nightingale of India</u>가 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "a poet celebrated for the beauty of her verse",
+        "a rare bird protected as a national symbol",
+        "a singer trained in European opera houses",
+        "a political party she founded in her later years"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of <u>her</u> poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 밑줄 친 <u>her</u>가 가리키는 대상으로 가장 적절한 것은?",
+      "ch": [
+        "영국 통치에 협력한 관료들",
+        "그녀의 연설을 들은 수많은 청중",
+        "봄베이에서 태어난 시인이자 정치 지도자",
+        "우타르프라데시주의 이전 주지사"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of __________. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "her wealth and high social status",
+        "the beauty of her poetry",
+        "her skill in traditional dance",
+        "the great length of her speeches"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "그녀는 영국 왕실의 후원을 받아 시를 썼다.",
+        "그녀는 인도 독립운동에 반대하는 입장을 취했다.",
+        "그녀는 형제 중 막내로 러시아에서 태어났다.",
+        "그녀는 시의 아름다움 덕분에 '인도의 나이팅게일'로 불렸다."
+      ]
+    },
+    {
+      "id": 17,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was __________. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "a talented poet and political leader",
+        "a wealthy British landowner and banker",
+        "a famous opera singer from Italy",
+        "a strict headmaster of a boys' school"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "내용 일치/불일치",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "그녀는 재능 있는 시인이자 정치 지도자였다.",
+        "그녀는 강력한 연설가로서 널리 여행하며 사람들에게 영향을 주었다.",
+        "그녀는 독립 전쟁에서 영국군을 직접 지휘한 군 사령관이었다.",
+        "그녀는 1949년 세상을 떠날 때까지 공직을 수행했다."
+      ]
+    },
+    {
+      "id": 19,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After India's independence, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 내용과 일치하는 것은?",
+      "ch": [
+        "그녀는 인도가 아니라 러시아에서 태어났다.",
+        "그녀는 영국 통치로부터 벗어나려는 인도의 투쟁에 동참했다.",
+        "그녀는 평생 어떤 정치 활동에도 참여하지 않았다.",
+        "그녀는 자신의 시가 부끄러워 출판을 거부했다."
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Born in 1888 in Bombay (now Mumbai), India, Sarojini Naidu was a talented poet and political leader. She received the nickname \"The Nightingale of India\" because of the beauty of her poetry. She began writing poetry at age 12 and was soon recognized for her literary talent. In 1905, her first collection of poems was published. Later she joined India's struggle for freedom from British rule. As a powerful speaker, she traveled widely and influenced many people. She became the first woman to serve as the president of the Indian National Congress in 1925. After __________, she served as the governor of the Uttar Pradesh province until her death in 1949.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "the fall of the Roman Empire",
+        "the outbreak of the First World War",
+        "the founding of the United Nations",
+        "India's independence"
+      ]
+    }
+  ]
+}

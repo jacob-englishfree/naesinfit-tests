@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 2,
-      "myAnswer": 2,
-      "reasoning": "③what not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 2,
-      "reasoning": "④aimed not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②gentle not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 4,
-      "reasoning": "④exclusive not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "'artificial...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "'artificial...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Implication based on passage context",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 1,
-      "reasoning": "Reference for 'ones'",
-      "confidence": "medium"
-    },
-    {
-      "id": 15,
-      "myAnswer": 1,
-      "reasoning": "Reference for 'this'",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 17,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 18,
-      "myAnswer": "one of the best ways to keep original flavors and taste",
-      "reasoning": "Extracted: 'one of the best ways to keep original flavors and taste'",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": "no longer acceptable",
-      "reasoning": "Extracted from passage: 'no longer acceptable'",
-      "confidence": "medium"
-    },
-    {
-      "id": 20,
-      "myAnswer": "the vast majority of minerals,",
-      "reasoning": "Extracted from passage: 'the vast majority of minerals,'",
-      "confidence": "medium"
-    }
-  ],
-  "score": "8/20"
+  "testFile": "퀴즈.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "'ways'는 to부정사와 함께 쓰여야 하는데 ①은 'keeping'(동명사)으로 되어 있어 틀림. 'ways to keep'이 맞음", "type": "어법"},
+    {"id": 2, "pick": 2, "reason": "salt는 불가산명사이므로 'much'가 맞는데 ②는 'many'로 되어 있어 틀림", "type": "어법"},
+    {"id": 3, "pick": 4, "reason": "주어 'spoilage'는 단수인데 ④는 'are'로 되어 있어 수 일치 오류. 'is no longer'가 맞음", "type": "어법"},
+    {"id": 4, "pick": 1, "reason": "원문 'many vitamins'인데 ①은 'few'로 바뀜. 민감한 영양소로 비타민이 많다는 문맥과 모순", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 3, "reason": "원문 'key nutrients'인데 ③은 'minor'로 바뀜. 핵심 영양소 손실이 용인 안 된다는 문맥과 모순(사소한 영양소면 문제 안 됨)", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 2, "reason": "원문 'most sensitive ones such as many vitamins and anti-oxidants' - 가장 민감한 것들", "type": "빈칸추론"},
+    {"id": 7, "pick": 3, "reason": "원문 'processes which dramatically affect nutrient content' - 영양소 함량", "type": "빈칸추론"},
+    {"id": 8, "pick": 3, "reason": "원문은 발효/발아가 'locally accessible, low-energy'라 했으므로 '접근 어렵고 비용 많이 든다'는 불일치", "type": "내용 일치/불일치"},
+    {"id": 9, "pick": 2, "reason": "원문은 화학비료 '최소화'와 해충저항 품종 개발을 강조하며, 화학비료 증대를 핵심방법으로 강조하지 않으므로 불일치", "type": "내용 일치/불일치"},
+    {"id": 10, "pick": 4, "reason": "원문 'removes the vast majority of minerals, vitamins'이므로 '극히 일부만 사라진다'는 불일치", "type": "내용 일치/불일치"},
+    {"id": 11, "pick": 1, "reason": "최소가공과 전통방식이 식품 영양을 지키는 방법을 다룸", "type": "주제"},
+    {"id": 12, "pick": 3, "reason": "가공을 줄이고 자연적 가치를 지키자는 내용을 압축한 제목", "type": "제목"},
+    {"id": 13, "pick": 1, "reason": "'to raise white flour'는 제분 과정에서 영양소를 제거해 정제된 흰 밀가루를 만들어낸다는 의미", "type": "함축의미 추론"},
+    {"id": 14, "pick": 1, "reason": "'This'는 앞 문장 전체(최소한의 가공)를 가리키며 '이것도 영양소를 지키는 효율적 방법'이라는 흐름", "type": "지칭추론"},
+    {"id": 15, "pick": 2, "reason": "원문 'the use of chemical fertilizers should be minimized' - 화학 비료", "type": "빈칸추론"},
+    {"id": 16, "pick": "This would also be the efficient way to keep most nutrients", "reason": "조건 단어 11개(This/would/also/be/the/efficient/way/to/keep/most/nutrients)를 원문 어순대로 배열", "type": "서술형 — 조건영작"},
+    {"id": 17, "pick": "highly", "reason": "'nutritious'(형용사)를 수식하려면 부사 'highly'가 맞는데 ①은 'high'로 되어 있어 틀림", "type": "서술형 — 어법고쳐쓰기"},
+    {"id": 18, "pick": "Such a spoilage of key nutrients and fiber is no longer acceptable", "reason": "조건 단어 12개를 원문 어순대로 배열하면 원문 문장과 일치", "type": "서술형 — 조건영작"},
+    {"id": 19, "pick": "without any need to add artificial flavoring or additives", "reason": "조건 단어 9개를 원문 어순대로 배열", "type": "서술형 — 어순배열"},
+    {"id": 20, "pick": "grains are naturally very rich in micronutrients", "reason": "조건 단어 7개를 원문 어순대로 배열", "type": "서술형 — 조건영작"}
+  ]
 }

@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'similarities', 'C': 'contagion', 'B': 'proximity'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'infected', 'B': 'excessively', 'C': 'promotes'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'visibility', 'B': 'stimulate', 'C': 'invariably'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②immunized not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③suppress not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④beneficial not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 4,
-      "reasoning": "'similarities' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 2,
-      "reasoning": "'visibility' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 4,
-      "reasoning": "'inhibits' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 3,
-      "reasoning": "Synonym: contagion = transmission",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 3,
-      "reasoning": "Synonym: stimulate = encourage",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'invariably와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Antonym for 'desirable와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 2,
-      "reasoning": "Antonym: inhibits = facilitates",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'spread' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'contagion' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "visibility",
-      "reasoning": "Using base visibility",
-      "confidence": "low"
-    },
-    {
-      "id": 18,
-      "myAnswer": "extended",
-      "reasoning": "extend → extended",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'the spread of infectious diseases...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 1,
-      "reasoning": "'people are more likely to drink excessiv...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "16/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "원문: deep similarities(A) between viral and behavioral contagion; visibility promotes(B) behavioral contagion; we try to avoid(C) others who are ill. 조합 = similarities-promotes-avoid.", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 2, "reason": "원문: drink excessively(A); visibility promotes but inhibits(B) the spread; solar panels that are visible(C) from the street. 조합 = excessively-inhibits-visible.", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 3, "reason": "원문: more likely to stimulate(A) neighboring installations; promote both desirable(B) and undesirable behaviors; disease contagion spreads something harmful(C). 조합 = stimulate-desirable-harmful.", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 4, "reason": "질병 전염은 항상 해로운(harmful) 것을 퍼뜨린다는 내용인데 ④가 beneficial(이로운)로 바뀌어 문맥과 반대.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 2, "reason": "폭음자와 시간을 보내면 과음(excessively)하게 된다는 내용인데 ②가 moderately(적당히)로 바뀌어 문맥과 반대.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 3, "reason": "눈에 보이는 태양광 패널이 이웃 설치를 자극한다(stimulate)는 내용인데 ③이 discourage(단념시키다)로 바뀌어 문맥과 반대.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 4, "reason": "가시성은 행동 전염은 촉진하지만 감염병 확산은 '억제한다(inhibits)'는 대조 구조.", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 1, "reason": "눈에 띄게 아픈 사람은 '피하려' 한다는 내용이므로 avoid.", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 3, "reason": "바이러스에 감염된 사람과 가깝거나 오래 접촉(proximity)한 사람이 감염될 가능성이 높다는 문맥.", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 2, "reason": "stimulate(자극하다)와 가장 가까운 의미는 encourage(촉진하다).", "type": "동의어 고르기"},
+    {"id": 11, "pick": 4, "reason": "excessively(과도하게)와 가장 가까운 의미는 heavily(심하게, 많이).", "type": "동의어 고르기"},
+    {"id": 12, "pick": 1, "reason": "harmful(해로운)과 가장 가까운 의미는 damaging(해를 끼치는).", "type": "동의어 고르기"},
+    {"id": 13, "pick": 3, "reason": "similarities(유사점)의 반대는 differences(차이점).", "type": "반의어 고르기"},
+    {"id": 14, "pick": 2, "reason": "inhibits(억제하다)의 반대는 promotes(촉진하다).", "type": "반의어 고르기"},
+    {"id": 15, "pick": 4, "reason": "(A) close proximity는 '가까운'의 의미, (B) close the windows는 '닫다'의 의미.", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 1, "reason": "'모든 경우에, 항상'이라는 영영 정의는 invariably에 해당.", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "installations", "reason": "'stimulate neighboring __________'에서 install을 명사형으로 바꾸고 이웃 태양광 설치(들)를 가리키므로 복수형 installations.", "type": "어형 변환"},
+    {"id": 18, "pick": "infectious", "reason": "'the spread of __________ diseases'에서 명사 diseases를 수식하는 형용사 형태가 필요하므로 infectious.", "type": "어형 변환"},
+    {"id": 19, "pick": 2, "reason": "원문 'when they spend more time in the company of heavy drinkers'와 일치.", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 3, "reason": "원문 'important differences between the two types of contagion'과 일치.", "type": "빈칸 문맥 완성"}
+  ]
 }

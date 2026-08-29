@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'original', 'B': 'efficient', 'C': 'sensitive'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'dramatically', 'B': 'naturally', 'C': 'sustainable'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'harsh', 'B': 'removes', 'C': 'accessible'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②wasteful not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③preserves not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "①tolerable not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 2,
-      "reasoning": "'processing' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 4,
-      "reasoning": "'milling' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 2,
-      "reasoning": "'sustainable' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 2,
-      "reasoning": "Synonym: harsh = severe",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 3,
-      "reasoning": "Synonym: dramatically = significantly",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'accessible와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 3,
-      "reasoning": "Antonym: removes = retains",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 3,
-      "reasoning": "Antonym: minimal = extensive",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'process' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'additive' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "dramatical",
-      "reasoning": "dramatic → dramatical",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "spoil",
-      "reasoning": "Using base spoil",
-      "confidence": "low"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'without any need to add artificial flavo...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'the most sensitive ones such as many vit...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "17/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 3, "reason": "(A)best-원래이유(맛/영양보존에 좋음), (B)rich-곡물은 본래 미량영양소 풍부, (C)traditional-발효/발아는 전통적 방식으로 서술", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 1, "reason": "(A)harsh-제분은 가혹한 과정, (B)removes-제분은 영양소를 제거함, (C)optimal-지속가능한 식단은 최적의 영양밀도를 목표로 함", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 4, "reason": "(A)efficient-효율적 방법, (B)sensitive-비타민/항산화물질은 민감한 영양소, (C)nutritious-발효/발아는 영양가 높은 과정", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 2, "reason": "원문은 'dramatically affect'인데 ②는 'slightly'로 바뀜. 앞에서 harsh process라 했으므로 slightly는 문맥과 모순", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 3, "reason": "원문은 'vast majority'인데 ③는 'tiny'로 바뀜. 제분이 미네랄 대부분을 제거한다는 문맥과 모순", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 4, "reason": "원문은 'health protection'인데 ④는 'health damage'로 바뀜. 지속가능한 식단이 건강을 해친다는 것은 문맥과 모순", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 1, "reason": "원문 그대로 'original flavors and taste' - 원래의 풍미와 맛을 지킨다는 의미", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 2, "reason": "원문 'removes the vast majority of minerals' - 미네랄의 대부분을 제거", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 3, "reason": "원문 'is no longer acceptable' - 더 이상 용인되지 않는다", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 4, "reason": "affect(영향을 미치다)와 가장 가까운 뜻은 influence", "type": "동의어 고르기"},
+    {"id": 11, "pick": 1, "reason": "increase(증가시키다)와 가장 가까운 뜻은 boost", "type": "동의어 고르기"},
+    {"id": 12, "pick": 2, "reason": "spoilage(손실/부패)와 가장 가까운 뜻은 loss", "type": "동의어 고르기"},
+    {"id": 13, "pick": 3, "reason": "sustainable(지속가능한)의 반대는 wasteful(낭비적인)", "type": "반의어 고르기"},
+    {"id": 14, "pick": 4, "reason": "accessible(접근 가능한)의 반대는 restricted(제한된)", "type": "반의어 고르기"},
+    {"id": 15, "pick": 1, "reason": "(A)는 영양소 함량 문맥이므로 '함량', (B)는 식사 후 만족감을 나타내므로 '만족한'", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 2, "reason": "'맛/색을 개선하거나 보존하기 위해 첨가하는 물질' 정의는 additives(첨가물)", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "naturally", "reason": "'grains are __ very rich' - 형용사(rich)를 수식하는 부사 형태 필요, natural→naturally", "type": "어형 변환"},
+    {"id": 18, "pick": "germination", "reason": "'fermentation... or __ of grains' - 명사 병렬구조, germinate→germination", "type": "어형 변환"},
+    {"id": 19, "pick": 3, "reason": "원문 'without any need to add artificial flavoring or additives' - 인공 향료 첨가 불필요", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "원문 'To increase grain production, the use of chemical fertilizers should be minimized' - 곡물 생산 증가", "type": "빈칸 문맥 완성"}
+  ]
 }

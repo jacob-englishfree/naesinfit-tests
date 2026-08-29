@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 2,
-      "reasoning": "②possibly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 3,
-      "reasoning": "②uprightly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "③providing not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 5,
-      "myAnswer": 2,
-      "reasoning": "③vulnerability not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 3,
-      "reasoning": "③contract not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 8,
-      "myAnswer": 2,
-      "reasoning": "Stem contains '처음' suggesting false statement",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "T/F analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "'clothing...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "'vegetarian...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 2,
-      "reasoning": "④uprightly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": "tool making",
-      "reasoning": "Extracted from passage: 'tool making'",
-      "confidence": "high"
-    },
-    {
-      "id": 16,
-      "myAnswer": "physical characteristics",
-      "reasoning": "Extracted from passage: 'physical characteristics'",
-      "confidence": "high"
-    },
-    {
-      "id": 17,
-      "myAnswer": "they could consume more protein and fat than their low-energy vegetarian diet",
-      "reasoning": "Extracted: 'they could consume more protein and fat than their low-energy vegetarian diet'",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 20,
-      "myAnswer": "The brain needs lots of energy to grow",
-      "reasoning": "Extracted from passage: 'The brain needs lots of energy to grow'",
-      "confidence": "medium"
-    }
-  ],
-  "score": "12/20"
+  "testFile": "워크북.json",
+  "solves": [
+    {"id":1,"pick":1,"reason":"장소를 나타내는 선행사 regions 뒤에는 관계부사 where가 맞는데 'which'는 틀림","type":"어법"},
+    {"id":2,"pick":2,"reason":"'capable of' 뒤에는 동명사가 와야 하는데 'to spread'는 틀림(of spreading)","type":"어법"},
+    {"id":3,"pick":4,"reason":"주어 'The brain'은 단수이므로 'needs'가 맞는데 'need'는 수일치 오류","type":"어법"},
+    {"id":4,"pick":3,"reason":"'have been changed'가 맞는 완료수동인데 'being changed'는 틀림","type":"어법"},
+    {"id":5,"pick":3,"reason":"원문은 'more protein and fat'인데 'less protein'은 문맥상 반대(도구로 더 많이 섭취)","type":"어휘"},
+    {"id":6,"pick":1,"reason":"원문은 'given little protection'인데 'exposure(노출)'는 문맥상 부적절","type":"어휘"},
+    {"id":7,"pick":"T","reason":"'evolved in tropical regions where survival was possible without clothing'와 일치","type":"내용이해 T/F"},
+    {"id":8,"pick":"F","reason":"본문은 'light skin would have given little protection'이라 하여 보호가 적었다고 함, 반대","type":"내용이해 T/F"},
+    {"id":9,"pick":"T","reason":"'With tools, they could hunt other animals, so they could consume more protein and fat'과 일치","type":"내용이해 T/F"},
+    {"id":10,"pick":2,"reason":"'did not walk upright, but when they developed that ability'가 원문 표현","type":"빈칸추론"},
+    {"id":11,"pick":3,"reason":"'Not only their bodies but also their brains would have been changed'가 원문 표현","type":"빈칸추론"},
+    {"id":12,"pick":2,"reason":"'became capable of spreading out from Africa, eventually to most of the world'와 일치","type":"내용 일치/불일치"},
+    {"id":13,"pick":4,"reason":"본문은 'light skin would have given little protection'이라 하여 강력한 보호를 준다는 서술과 반대","type":"내용 일치/불일치"},
+    {"id":14,"pick":4,"reason":"'needs lots of energy to grow'가 맞는데 'to' 없이 'grow'만 쓰여 어법상 틀림","type":"오류찾기"},
+    {"id":15,"pick":"tool making","reason":"'their development of tool making'에서 도구를 만드는 활동을 나타내는 2단어 표현","type":"서술형"},
+    {"id":16,"pick":"very dark skin","reason":"밝은 피부(light skin)와 대비되는 'they had very dark skin'의 3단어 표현","type":"서술형"},
+    {"id":17,"pick":"efficiently","reason":"동사 travel을 수식하는 부사형이 필요, efficient→efficiently","type":"서술형 — 어형변환"},
+    {"id":18,"pick":2,"reason":"신체 변화(직립보행)와 도구 발달을 통한 초기 인류의 진화와 확산을 다룸","type":"주제/요지"},
+    {"id":19,"pick":3,"reason":"신체적 특성 변화와 도구·식량 발전이 초기 인류의 확산을 이끌었다는 것이 요지","type":"주제/요지"},
+    {"id":20,"pick":"The brain needs lots of energy to grow","reason":"조건 단어 8개를 원문 순서대로 배열한 문장","type":"서술형 — 조건영작"}
+  ]
 }

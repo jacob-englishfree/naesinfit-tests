@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'hibernating', 'B': 'unconscious', 'C': 'conventional'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'neurological', 'B': 'anesthetized', 'C': 'torpor'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 3,
-      "reasoning": "ABC: {'A': 'metabolic', 'B': 'profound', 'C': 'dramatic'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③abnormal not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④hardly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 2,
-      "reasoning": "'hibernating' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "'anesthetized' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 2,
-      "reasoning": "'torpor' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 3,
-      "reasoning": "Synonym: curious = interesting",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'conventional와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 3,
-      "reasoning": "Synonym: profound = intense",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Antonym for 'dramatic과' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 4,
-      "reasoning": "Antonym: accurately = vaguely",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'stays' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'hibernation' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "neurology",
-      "reasoning": "Using base neurology",
-      "confidence": "low"
-    },
-    {
-      "id": 18,
-      "myAnswer": "accurately",
-      "reasoning": "accurate → accurately",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 3,
-      "reasoning": "'not the same thing at all...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 4,
-      "reasoning": "'the subject is unconscious but not actua...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "17/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id":1,"pick":1,"reason":"원문: not the same thing / unconscious but not asleep / profound unconsciousness. same-unconscious-profound 순서 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":2,"pick":2,"reason":"원문: conventional sleep / dramatic fall / stays near normal. conventional-dramatic-normal 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":3,"pick":4,"reason":"원문: most famous / easily awakened / more accurately called. famous-easily-accurately 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":4,"pick":3,"reason":"원문은 'unconscious but not actually asleep'. asleep을 awake로 바꾸면 unconscious와 의미상 중복/모순되어 대조의 but 연결이 성립하지 않음.","type":"문맥상 부적절한 어휘"},
+    {"id":5,"pick":1,"reason":"글 전체가 잠/휴식/겨울잠에 관한 내용인데 첫 문장을 'more than just eating'으로 바꾸면 이후 내용과 연결되지 않음. 원문은 resting.","type":"문맥상 부적절한 어휘"},
+    {"id":6,"pick":2,"reason":"원문은 'the larger unconsciousness'. consciousness로 바꾸면 반대 의미가 되어 '무의식 속에서 잠을 잔다'는 문맥과 모순.","type":"문맥상 부적절한 어휘"},
+    {"id":7,"pick":4,"reason":"원문 그대로 'more than just resting'.","type":"빈칸 어휘 완성"},
+    {"id":8,"pick":1,"reason":"원문 그대로 'more like being anesthetized'.","type":"빈칸 어휘 완성"},
+    {"id":9,"pick":3,"reason":"원문 그대로 'easily awakened'.","type":"빈칸 어휘 완성"},
+    {"id":10,"pick":2,"reason":"curious=이상한/특이한 → strange가 가장 가까움.","type":"동의어 고르기"},
+    {"id":11,"pick":1,"reason":"conventional=평범한/관습적인 → ordinary가 가장 가까움.","type":"동의어 고르기"},
+    {"id":12,"pick":4,"reason":"profound=깊은 → deep이 가장 가까움.","type":"동의어 고르기"},
+    {"id":13,"pick":2,"reason":"famous(유명한)의 반의어는 obscure(무명의).","type":"반의어 고르기"},
+    {"id":14,"pick":3,"reason":"dramatic(급격한)의 반의어는 gradual(점진적인).","type":"반의어 고르기"},
+    {"id":15,"pick":3,"reason":"(A) a dramatic fall in body temperature=체온의 '하락', (B) In fall, leaves turn red=계절 '가을'.","type":"다의어 문맥적 의미"},
+    {"id":16,"pick":1,"reason":"'추위를 견디기 위해 겨울 동안 깊은 잠 상태로 지내는 행위'=hibernation.","type":"영영풀이 매칭"},
+    {"id":17,"pick":"involves","reason":"주어 Real hibernation(단수, 현재시제 문맥) + involve → 3인칭 단수 현재형 involves.","type":"어형 변환"},
+    {"id":18,"pick":"being","reason":"전치사 like 뒤에는 동명사가 와야 하므로 being.","type":"어형 변환"},
+    {"id":19,"pick":2,"reason":"원문 그대로 'profound unconsciousness'.","type":"빈칸 문맥 완성"},
+    {"id":20,"pick":4,"reason":"원문 그대로 'wintry sleepers'.","type":"빈칸 문맥 완성"}
+  ]
 }

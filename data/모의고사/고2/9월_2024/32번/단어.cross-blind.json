@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'rich', 'B': 'constant', 'C': 'precise'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'intuitive', 'B': 'approximate', 'C': 'periodic'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'diverse', 'B': 'unambiguously', 'C': 'furthest'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②variable not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 4,
-      "reasoning": "③random not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 7,
-      "myAnswer": 2,
-      "reasoning": "'features' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "'dimensions' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "'elements' found in fullPassage",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 4,
-      "reasoning": "Synonym: precise = exact",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 3,
-      "reasoning": "Synonym: diverse = varied",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'constant와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 3,
-      "reasoning": "Antonym: shortest = longest",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 3,
-      "reasoning": "Antonym: unambiguously = vaguely",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'study' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 4,
-      "reasoning": "Definition 'copy' → reproduction",
-      "confidence": "high"
-    },
-    {
-      "id": 17,
-      "myAnswer": "ambiguously",
-      "reasoning": "ambiguous → ambiguously",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "waist",
-      "reasoning": "Using base waist",
-      "confidence": "low"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'neither intuitive nor approximate...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 2,
-      "reasoning": "'the constant elements in fashion feature...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "15/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 2, "reason": "원문 그대로: rich and in-depth study, constant elements, precise/mathematical/statistical.", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 4, "reason": "원문 그대로: diverse origins, He reduced women's clothing, profoundly regular phenomenon.", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 1, "reason": "원문 그대로: precise periodic cycle, reach the furthest point, skirts are at their longest.", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 3, "reason": "①adjusted②diverse④regular는 원문과 일치. ③'vague'(모호한)는 원문 'precise'(정밀한)와 반대 의미로 부적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 2, "reason": "①reduced③periodic④furthest는 원문과 일치. ②'irregular'(불규칙한)는 원문 'regular'(규칙적인)와 반대 의미로 부적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 4, "reason": "①demonstrated②annual③practically는 원문과 일치. ④'nearest'(가장 가까운)는 원문 'furthest'(가장 먼)와 반대 의미로 부적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 1, "reason": "'매우 정밀한 주기적 __'는 이후 '매 50년마다 변화의 극점에 도달한다'는 설명과 이어지므로 cycle(주기)이 적절.", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 3, "reason": "이어지는 문장에서 '치마가 가장 길 때'라는 극단적 지점을 말하므로 furthest(가장 먼)가 적절.", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 2, "reason": "여성 의복을 몇 가지 특징(길이, 크기, 깊이 등)으로 '축소/단순화'했다는 문맥이므로 reduced가 적절.", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 4, "reason": "rich(풍부한)와 가장 가까운 것은 abundant.", "type": "동의어 고르기"},
+    {"id": 11, "pick": 3, "reason": "diverse(다양한)와 가장 가까운 것은 various.", "type": "동의어 고르기"},
+    {"id": 12, "pick": 1, "reason": "unambiguously(명백하게)와 가장 가까운 것은 clearly.", "type": "동의어 고르기"},
+    {"id": 13, "pick": 2, "reason": "constant(일정한)의 반대는 variable(변하는).", "type": "반의어 고르기"},
+    {"id": 14, "pick": 4, "reason": "reduced(줄인)의 반대는 increased(늘린).", "type": "반의어 고르기"},
+    {"id": 15, "pick": 3, "reason": "(A)는 역사의 '척도/규모' 단위로 변화한다는 의미이므로 '척도', (B)는 권투선수가 체중을 재는 '저울'.", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 1, "reason": "'자연이나 사회에서 관찰되는 사실이나 사건'은 phenomenon(현상)의 정의.", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "statistical", "reason": "'precise, mathematical and __'는 형용사 나열(precise, mathematical과 병렬)이므로 statistical.", "type": "어형 변환"},
+    {"id": 18, "pick": "periodic", "reason": "'a very precise __ cycle'에서 cycle을 수식하는 형용사가 필요하므로 periodic.", "type": "어형 변환"},
+    {"id": 19, "pick": 2, "reason": "'직관적이지도 대략적이지도 않은 정밀한 연구를 __' 문맥이므로 come up with(제시하다, 만들어내다)가 적절.", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "'여성 의복이 매우 정밀한 주기적 순환에 __' 문맥이므로 subject to(~의 지배를 받는)가 적절.", "type": "빈칸 문맥 완성"}
+  ]
 }

@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'meaning', 'B': 'survival'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'foraging', 'B': 'stylized', 'C': 'peculiar'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'embody', 'C': 'internal', 'B': 'prescriptive'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②conceals not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③ignored not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④identical not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "'meaning' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 3,
-      "reasoning": "'prescriptive' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 2,
-      "reasoning": "'foraging' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'generates와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 11,
-      "myAnswer": 3,
-      "reasoning": "Synonym: conveys = communicates",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 2,
-      "reasoning": "Synonym: peculiar = unique",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 4,
-      "reasoning": "Antonym: embody = exclude",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 3,
-      "reasoning": "Antonym: worthwhile = pointless",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'process' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'organism' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "generates",
-      "reasoning": "generate → generates",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "considering",
-      "reasoning": "consider → considering",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'the waggle dance of the honeybee...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 1,
-      "reasoning": "'shows the bees how far away the food is...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "17/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 3, "reason": "원문: takes input data and generates(A) some output; a foraging bee conveys(B) to others; peculiar(C) to it. 조합 = generates-conveys-peculiar.", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 1, "reason": "원문: does not, in general, assign(A) value; food it has located(B); considering it not worthwhile(C). 조합 = assign-located-worthwhile.", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 4, "reason": "원문: doesn't really embody(A) any notion of meaning; a series of stylized(B) movements; organism's own internal(C) states. 조합 = embody-stylized-internal.", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 2, "reason": "원문은 벌이 정보를 얻은(located) 먹이 출처를 전달한다는 내용인데 ②는 lost(잃어버린)로 되어 있어 문맥상 반대. 정답 ②.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 4, "reason": "각 벌은 정보를 자신에게 고유한(peculiar) 방식으로 처리한다는 내용인데 ④는 common(공통적인)으로 되어 있어 문맥과 반대. 정답 ④.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 1, "reason": "계산의 목적은 자신의 생존과 well-being(안녕)을 위한 것이 아니라는 내용인데 ①은 destruction(파괴)으로 되어 있어 survival과 어울리지 않고 원문 well-being과 대비되는 짝이 아님. 원문은 survival and well-being이므로 ①이 부적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 2, "reason": "알고리즘이 입력을 받아 만들어내는 것은 '출력(output)'. 뒤에 'It does not... assign value to the inputs'에서 input과 대비되는 output이 자연스러움.", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 3, "reason": "괄호 예시로 (such as nectar)가 있으므로 벌이 찾은 것은 '먹이(food)'의 출처.", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 2, "reason": "춤이 벌들에게 먹이가 얼마나 멀리 있는지와 '어느 방향(direction)'에 있는지 보여준다는 문맥.", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 1, "reason": "assign(부여하다)과 가장 가까운 의미는 attribute(부여하다, ~탓으로 하다).", "type": "동의어 고르기"},
+    {"id": 11, "pick": 3, "reason": "conveys(전달하다)와 가장 가까운 의미는 transmits(전달하다).", "type": "동의어 고르기"},
+    {"id": 12, "pick": 2, "reason": "processes(처리하다)와 가장 가까운 의미는 handles(다루다, 처리하다).", "type": "동의어 고르기"},
+    {"id": 13, "pick": 4, "reason": "worthwhile(가치있는)의 반대는 trivial(하찮은, 사소한).", "type": "반의어 고르기"},
+    {"id": 14, "pick": 3, "reason": "far(먼)의 반대는 close(가까운).", "type": "반의어 고르기"},
+    {"id": 15, "pick": 1, "reason": "(A)는 아침 햇살 즉 '빛'의 의미, (B)는 in light of ~ 구문으로 '~을 고려하여'의 의미.", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 2, "reason": "'벌 무리가 사는 구조물/용기'라는 영영 정의는 hive(벌집)에 해당.", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "processes", "reason": "주어 each bee는 3인칭 단수이므로 현재시제 동사에 -es를 붙여 processes.", "type": "어형 변환"},
+    {"id": 18, "pick": "considering", "reason": "주절(Some bees might not bother to make the journey)과 동시상황을 나타내는 분사구문으로, 의미상 주어(bees)가 능동적으로 여기는 것이므로 현재분사 considering.", "type": "어형 변환"},
+    {"id": 19, "pick": 1, "reason": "뒤에 이어지는 'considering it not worthwhile'과 자연스럽게 연결되는 것은 여정을 떠나는 것(make the journey)을 굳이 하지 않는다는 내용.", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "입력은 유기체의 내부 상태와 역사에 비추어 처리되며 그 효과에 대해 '규정적인 것이 없다(nothing prescriptive about its effects)'는 결론과 일치.", "type": "빈칸 문맥 완성"}
+  ]
 }

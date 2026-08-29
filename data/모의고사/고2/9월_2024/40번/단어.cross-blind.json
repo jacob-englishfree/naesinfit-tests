@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'distress', 'B': 'reversed', 'C': 'embarrassed'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'concern', 'B': 'judged', 'C': 'deliberately'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'vary', 'B': 'comfortable', 'C': 'overreacting'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 5,
-      "myAnswer": 3,
-      "reasoning": "③secretly not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 7,
-      "myAnswer": 4,
-      "reasoning": "'distress' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 3,
-      "reasoning": "'reversed' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "'deliberately' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'concern와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 11,
-      "myAnswer": 4,
-      "reasoning": "Synonym: deliberately = intentionally",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 2,
-      "reasoning": "Synonym: vary = differ",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 3,
-      "reasoning": "Antonym: openly = secretly",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 2,
-      "reasoning": "Antonym: comfortable = uneasy",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'distress' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 2,
-      "reasoning": "'peer' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "judged",
-      "reasoning": "judge → judged",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "deliberately",
-      "reasoning": "deliberate → deliberately",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 2,
-      "reasoning": "'the effect reversed...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'putting on a poker face in front of thei...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "17/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id":1,"pick":2,"reason":"원문: may vary with age / effect reversed / feel more comfortable. vary-reversed-comfortable 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":2,"pick":4,"reason":"원문: child in distress / being judged / react less openly. distress-judged-openly 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":3,"pick":1,"reason":"원문: more likely to help / fear feeling embarrassed / deliberately putting on. help-embarrassed-deliberately 일치.","type":"(A)(B)(C) 조합형"},
+    {"id":4,"pick":4,"reason":"원문은 'when they have the company of a peer'(또래와 함께 있음). absence(부재)로 바꾸면 어린 아이가 또래와 있을 때 더 편하다는 문맥과 정반대.","type":"문맥상 부적절한 어휘"},
+    {"id":5,"pick":2,"reason":"어린 아이들은 곤경에 처한 아이를 '돕는다(help)'는 것이 핵심인데 avoid(피하다)로 바꾸면 전체 논지(더 돕는 경향)와 모순.","type":"문맥상 부적절한 어휘"},
+    {"id":6,"pick":3,"reason":"원문은 'react ~ less openly'(덜 드러나게). secretly로 바꾸면 '덜 은밀하게'가 되어 포커페이스(감정 숨김) 결론과 반대 의미가 됨.","type":"문맥상 부적절한 어휘"},
+    {"id":7,"pick":1,"reason":"원문 그대로 'deliberately putting on a poker face'.","type":"빈칸 어휘 완성"},
+    {"id":8,"pick":3,"reason":"원문 그대로 'being judged by their peers'.","type":"빈칸 어휘 완성"},
+    {"id":9,"pick":2,"reason":"원문 그대로 'the company of a peer'.","type":"빈칸 어휘 완성"},
+    {"id":10,"pick":4,"reason":"distress=고통 → suffering이 가장 가까움.","type":"동의어 고르기"},
+    {"id":11,"pick":2,"reason":"comfortable=편안한 → relaxed가 가장 가까움.","type":"동의어 고르기"},
+    {"id":12,"pick":3,"reason":"deliberately=의도적으로 → intentionally가 가장 가까움.","type":"동의어 고르기"},
+    {"id":13,"pick":1,"reason":"alone(혼자)의 반의어는 together(함께).","type":"반의어 고르기"},
+    {"id":14,"pick":4,"reason":"openly(공개적으로)의 반의어는 secretly(은밀하게).","type":"반의어 고르기"},
+    {"id":15,"pick":2,"reason":"(A) in the company of my old friends=함께 있음(동행), (B) a technology company=회사.","type":"다의어 문맥적 의미"},
+    {"id":16,"pick":3,"reason":"'나이나 사회적 지위가 같은 사람'=peer.","type":"영영풀이 매칭"},
+    {"id":17,"pick":"seen","reason":"'can be ___ in children'은 수동태이므로 과거분사 seen.","type":"어형 변환"},
+    {"id":18,"pick":"putting","reason":"'the older children were deliberately ___ on a poker face'는 과거진행형이므로 putting.","type":"어형 변환"},
+    {"id":19,"pick":1,"reason":"원문 그대로 'more likely to help'.","type":"빈칸 문맥 완성"},
+    {"id":20,"pick":4,"reason":"원문 그대로 'being judged by their peers'.","type":"빈칸 문맥 완성"}
+  ]
 }

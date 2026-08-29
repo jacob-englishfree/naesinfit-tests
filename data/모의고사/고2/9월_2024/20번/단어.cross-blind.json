@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'convincing', 'B': 'senseless', 'C': 'content'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'emotion', 'B': 'eliminate', 'C': 'refusing'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'subject', 'B': 'eventually', 'C': 'contentment'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 3,
-      "reasoning": "③anxious not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 1,
-      "reasoning": "①increase not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④permanently not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "'eliminate' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 3,
-      "reasoning": "'subject' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 4,
-      "reasoning": "'contentment' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 2,
-      "reasoning": "Synonym: senseless = pointless",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 3,
-      "reasoning": "Synonym: eliminate = remove",
-      "confidence": "high"
-    },
-    {
-      "id": 12,
-      "myAnswer": 4,
-      "reasoning": "Synonym: accompanies = follows",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 2,
-      "reasoning": "Antonym: convince = discourage",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 1,
-      "reasoning": "Antonym for 'refusing와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'subject' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "Definition 'strong feeling' → emotion",
-      "confidence": "high"
-    },
-    {
-      "id": 17,
-      "myAnswer": "convincing",
-      "reasoning": "convince → convincing",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "subject",
-      "reasoning": "Using base subject",
-      "confidence": "low"
-    },
-    {
-      "id": 19,
-      "myAnswer": 2,
-      "reasoning": "'refuse to act worried regardless of how ...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'the contentment that accompanies a worry...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "20/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "(A) 글의 전제는 '걱정은 무의미하다(senseless)'고 설득하는 것 → senseless. (B) '걱정하지 않으면 더 만족스러울(content)' → content. (C) '걱정을 제거(eliminate)할 수 있다' → eliminate. 조합 senseless—content—eliminate = ch[0].", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 2, "reason": "(A) 젊은이들은 걱정이 통제할 수 없는 삶의 사실이라고 '믿는다(believe)'. (B) 걱정은 하나의 '감정(emotion)'에 불과. (C) '걱정하는 듯 행동(act worried)'하기를 거부. 조합 believe—emotion—worried = ch[1].", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 3, "reason": "(A) 그들에게 '설득(convince)'해야 한다. (B) 주의를 기울이기를 '거부(refusing)'함으로써. (C) 걱정 없는 삶에 따르는 '만족(contentment)'. 조합 convince—refusing—contentment = ch[2].", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 4, "reason": "④ 원문은 '걱정 없는 삶에 따르는 contentment(만족)'인데 distress(고통)로 대체됨 → 문맥상 정반대로 부적절. ①senseless ②believe ③emotion은 모두 문맥에 맞음.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 2, "reason": "② '걱정하지 않으면 더 anxious(불안한)하다'는 논리가 뒤집힘 — 원문은 more content(만족한). 걱정을 안 하면 더 만족스러워야 하므로 anxious는 부적절. ①convincing ③guilt ④refusing은 적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 3, "reason": "③ '걱정을 increase(증가)시킬 수 있다'는 글의 취지(걱정 없애기)와 모순 — 원문은 eliminate(제거). ①worrying ②control ④worried는 적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 1, "reason": "'걱정하지 않으면 더 ___할 것'이라는 맥락, 글 전체가 걱정 없는 삶=만족을 주장 → content(만족한). worried/restless/exhausted는 걱정과 같은 부정 방향이라 논리 모순.", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 3, "reason": "'걱정은 ___와 두려움(fear)처럼 하나의 감정에 불과'. 걱정·두려움과 같은 부정적 감정 범주여야 하고 원문은 guilt(죄책감). joy/pride/hope는 긍정 감정이라 부적절.", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 1, "reason": "'그들이 거의 또는 전혀 ___을 갖지 못하는 삶의 사실' — 걱정을 통제(control)하지 못한다는 뜻. 뒤 문장 '멈추려 시도조차 안 한다'와 연결되며, 후반부에 will의 힘으로 통제 가능하다는 반전과 호응. money/time/space는 문맥 무관.", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 3, "reason": "eliminate = 제거하다 = remove. 걱정을 삶에서 없앤다는 문맥. postpone(미루다)/increase(늘리다)/hide(숨기다)는 의미 다름.", "type": "동의어 고르기"},
+    {"id": 11, "pick": 2, "reason": "content(만족한) = satisfied. 걱정하지 않으면 더 만족스럽다는 문맥. nervous/curious/tired는 무관.", "type": "동의어 고르기"},
+    {"id": 12, "pick": 2, "reason": "convince = 설득하다 = persuade. warn(경고)/forbid(금지)/remind(상기)는 의미 다름.", "type": "동의어 고르기"},
+    {"id": 13, "pick": 1, "reason": "senseless(무의미한/분별없는)의 반의어 = reasonable(합리적인/분별있는). pointless와 foolish는 오히려 유의어, silent는 무관.", "type": "반의어 고르기"},
+    {"id": 14, "pick": 4, "reason": "worried(걱정하는)의 반의어 = calm(차분한). anxious/tense는 유의어, distant는 무관.", "type": "반의어 고르기"},
+    {"id": 15, "pick": 3, "reason": "(A) 병을 이겨내려는 '의지(will)'가 결코 약해지지 않았다 → 의지. (B) 변호사가 유언장을 읽어 누가 집·땅을 상속할지 알게 됨 → 유언. (A)의지—(B)유언 = ch[2].", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 4, "reason": "'a state of quiet happiness and satisfaction(조용한 행복과 만족의 상태)' = contentment(만족). anxiety(불안)/curiosity(호기심)/boredom(지루함)은 정의와 불일치.", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "refusing", "reason": "'by simply ___ (refuse) to attend to it' — 전치사 by 뒤이므로 동명사 형태. refuse → refusing.", "type": "어형 변환"},
+    {"id": 18, "pick": "accompanies", "reason": "'the contentment that ___ (accompany) a worry-free life' — 관계대명사 that의 선행사가 단수 contentment이므로 3인칭 단수 현재형. accompany → accompanies.", "type": "어형 변환"},
+    {"id": 19, "pick": 1, "reason": "글의 핵심 논지는 걱정도 다른 감정처럼 의지로 통제 가능하다는 것. '모든 감정처럼, ___' 자리에 '의지의 힘에 종속된다(subject to the power of the will)'가 적절 — 뒤 문장(거부함으로써 걱정을 없앨 수 있다)과 호응. 나머지는 통제 불가/고정 특성으로 논지 반대.", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "'걱정하는 듯 행동하기를 거부하면, 결국 걱정을 멈추게 된다'는 논리. 감정(feel)과 무관하게 행동을 통제하라는 취지이므로 '기분이 어떻든 상관없이(regardless of how they feel)'가 적절. '차분할 때만/남이 알아챌 때/문제 발생 전'은 조건을 달아 논지를 약화.", "type": "빈칸 문맥 완성"}
+  ]
 }

@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'unfavorable', 'B': 'fair', 'C': 'consolation'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'attributing', 'B': 'reassure', 'C': 'deserved'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 3,
-      "reasoning": "ABC: {'A': 'outraging', 'B': 'combination', 'C': 'believing'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 3,
-      "reasoning": "②biased not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 2,
-      "reasoning": "①frighten not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 4,
-      "reasoning": "④undeserved not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 3,
-      "reasoning": "'process' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "'consolation' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 9,
-      "myAnswer": 3,
-      "reasoning": "'attributing' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 4,
-      "reasoning": "Synonym: unfavorable = negative",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'reassure와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 2,
-      "reasoning": "Synonym: deserved = earned",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 3,
-      "reasoning": "Antonym: fair = biased",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 4,
-      "reasoning": "Antonym: outraging = pleasing",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'fair' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'outcome' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "outraging",
-      "reasoning": "outrage → outraging",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "believing",
-      "reasoning": "believe → believing",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'the possibility of attributing the bad o...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'our outcome is deserved...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "17/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "원문 그대로: unfavorable outcome, fair process, consolation prize.", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 2, "reason": "원문: possibility of attributing, We may reassure ourselves, outcome is deserved.", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 3, "reason": "원문: As outraging as, unfair process, that caused the outcome.", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 4, "reason": "①unfavorable②consolation③little은 원문과 일치. ④'accidental'은 원문 'deserved'와 반대 의미로 문맥상 부적절(공정한 과정이면 결과가 우연이 아니라 마땅한 것).", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 1, "reason": "원문 첫 문장은 'the process was fair'인데 여기선 ①unfair로 되어있어 문맥상 모순(마지막에 duy듣고 싶지 않은 것은 '공정했다'는 말). ②reassure③believing④deserved는 원문과 일치.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 3, "reason": "①unfavorable②combination④deserved는 원문과 일치. ③'upset'은 원문 'reassure'(안심시키다)와 반대 의미로 문맥상 부적절.", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 2, "reason": "'the __ of an unfavorable outcome and an unfair process' = 두 요소의 결합/조합이므로 combination이 적절.", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 4, "reason": "공정한 과정에서는 결과가 '마땅한 것'이라는 문맥이므로 deserved가 적절 (뒤에 우리 자신 때문이라는 설명과 연결).", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 1, "reason": "'분노를 일으키는' 만큼 불공정 결과+불공정 과정의 조합이 격분시킨다는 문맥이므로 outraging이 적절.", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 3, "reason": "outcome=결과이므로 result가 가장 가까운 동의어.", "type": "동의어 고르기"},
+    {"id": 11, "pick": 4, "reason": "unfavorable=불리한/부정적인이므로 negative가 가장 가까움.", "type": "동의어 고르기"},
+    {"id": 12, "pick": 2, "reason": "reassure=안심시키다이므로 comfort가 가장 가까움.", "type": "동의어 고르기"},
+    {"id": 13, "pick": 1, "reason": "little(거의 없는)의 반대는 much(많이).", "type": "반의어 고르기"},
+    {"id": 14, "pick": 3, "reason": "deserved(마땅한, 노력해서 얻은)의 반대는 random(무작위의, 우연한).", "type": "반의어 고르기"},
+    {"id": 15, "pick": 4, "reason": "(A)는 심판이 경기를 공정하게 유지한다는 문맥이므로 '공정한', (B)는 마을 가을 축제(조랑말 타기, 음식가판대)이므로 '박람회/축제'.", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 1, "reason": "'어떤 것을 특정 사람이나 사물에 의해 야기된 것으로 설명하다'는 attribute(~탓으로 돌리다)의 정의.", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "believing", "reason": "by + 동명사 구조이므로 believe → believing.", "type": "어형 변환"},
+    {"id": 18, "pick": "attributing", "reason": "the possibility of + 동명사 구조이므로 attribute → attributing.", "type": "어형 변환"},
+    {"id": 19, "pick": 3, "reason": "'the bad outcome to __'는 원문 'something other than ourselves'(우리 자신이 아닌 다른 것)와 일치.", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 2, "reason": "'little to do with us and __'는 원문 'everything to do with the unfair process'(불공정한 과정과는 전적으로 관련)와 대구를 이룸.", "type": "빈칸 문맥 완성"}
+  ]
 }

@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "ABC: {'A': 'recognize', 'B': 'cultural', 'C': 'characteristic'}",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 3,
-      "reasoning": "ABC: {'A': 'objective', 'B': 'underlying', 'C': 'stripped'}",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 4,
-      "reasoning": "ABC: {'A': 'differ', 'B': 'uninfluenced', 'C': 'contingently'}",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 2,
-      "reasoning": "②isolated not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 4,
-      "reasoning": "④invented not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "All markers in passage",
-      "confidence": "low"
-    },
-    {
-      "id": 7,
-      "myAnswer": 2,
-      "reasoning": "'context' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "'objective' found in fullPassage",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 2,
-      "reasoning": "'underlying' matches with before-context",
-      "confidence": "high"
-    },
-    {
-      "id": 10,
-      "myAnswer": 3,
-      "reasoning": "Synonym: recognize = acknowledge",
-      "confidence": "high"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Synonym for 'pursuit와' - best guess",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 2,
-      "reasoning": "Synonym: differ = disagree",
-      "confidence": "high"
-    },
-    {
-      "id": 13,
-      "myAnswer": 3,
-      "reasoning": "Antonym: underlying = superficial",
-      "confidence": "high"
-    },
-    {
-      "id": 14,
-      "myAnswer": 4,
-      "reasoning": "Antonym: independently = dependently",
-      "confidence": "high"
-    },
-    {
-      "id": 15,
-      "myAnswer": 2,
-      "reasoning": "Polysemy: 'draw' in two contexts",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": 1,
-      "reasoning": "'tradition' found in passage",
-      "confidence": "medium"
-    },
-    {
-      "id": 17,
-      "myAnswer": "influenced",
-      "reasoning": "influence → influenced",
-      "confidence": "high"
-    },
-    {
-      "id": 18,
-      "myAnswer": "independently",
-      "reasoning": "independent → independently",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": 1,
-      "reasoning": "'in a particular time...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 20,
-      "myAnswer": 3,
-      "reasoning": "'understood within that context...' found in fullPassage",
-      "confidence": "high"
-    }
-  ],
-  "score": "16/20"
+  "testFile": "단어.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "원문: recognize / historical / discovered 그대로 일치", "type": "(A)(B)(C) 조합형"},
+    {"id": 2, "pick": 2, "reason": "원문: cultural / particular / represent 그대로 일치", "type": "(A)(B)(C) 조합형"},
+    {"id": 3, "pick": 4, "reason": "원문: characteristic / objective / underlying 그대로 일치", "type": "(A)(B)(C) 조합형"},
+    {"id": 4, "pick": 3, "reason": "원문은 'opinions differ'인데 ③'agree'는 반대 의미", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 2, "reason": "원문은 'the art is created'인데 ②'destroyed'는 반대 의미", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 4, "reason": "원문은 'bear'(관계를 지니다)인데 ④'avoid'는 다른 의미로 부적절", "type": "문맥상 부적절한 어휘"},
+    {"id": 7, "pick": 1, "reason": "원문 'certain cultural traditions'와 일치", "type": "빈칸 어휘 완성"},
+    {"id": 8, "pick": 3, "reason": "원문 'an underlying order of the world'와 일치", "type": "빈칸 어휘 완성"},
+    {"id": 9, "pick": 2, "reason": "원문 'cultural activities that draw on'과 일치", "type": "빈칸 어휘 완성"},
+    {"id": 10, "pick": 4, "reason": "occurs = happens(일어나다)", "type": "동의어 고르기"},
+    {"id": 11, "pick": 1, "reason": "aim = goal(목표)", "type": "동의어 고르기"},
+    {"id": 12, "pick": 3, "reason": "belief = notion(생각, 신념)", "type": "동의어 고르기"},
+    {"id": 13, "pick": 2, "reason": "pure의 반의어는 mixed(섞인)", "type": "반의어 고르기"},
+    {"id": 14, "pick": 4, "reason": "great의 반의어는 ordinary(평범한)", "type": "반의어 고르기"},
+    {"id": 15, "pick": 1, "reason": "(A) draw lessons = 끌어내다, (B) draw a picture = 그리다", "type": "다의어 문맥적 의미"},
+    {"id": 16, "pick": 3, "reason": "'상황과 정보로 이해를 돕는 것'의 정의는 context(맥락)", "type": "영영풀이 매칭"},
+    {"id": 17, "pick": "describing", "reason": "원문 'In describing this view of science'와 일치 (전치사 In 뒤 동명사)", "type": "어형 변환"},
+    {"id": 18, "pick": "independently", "reason": "원문 'independently of any relationship'와 일치 (represent를 수식하는 부사)", "type": "어형 변환"},
+    {"id": 19, "pick": 1, "reason": "원문 'needs to be understood within that context'와 일치", "type": "빈칸 문맥 완성"},
+    {"id": 20, "pick": 4, "reason": "원문 'In the case of science, however, opinions differ'와 일치", "type": "빈칸 문맥 완성"}
+  ]
 }

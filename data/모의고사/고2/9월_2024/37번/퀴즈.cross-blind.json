@@ -1,125 +1,25 @@
 {
-  "answers": [
-    {
-      "id": 1,
-      "myAnswer": 1,
-      "reasoning": "①taking not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 2,
-      "myAnswer": 3,
-      "reasoning": "③stylizing not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 3,
-      "myAnswer": 2,
-      "reasoning": "②processing not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 4,
-      "myAnswer": 3,
-      "reasoning": "③distorts not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 5,
-      "myAnswer": 4,
-      "reasoning": "④external not in original passage",
-      "confidence": "high"
-    },
-    {
-      "id": 6,
-      "myAnswer": 1,
-      "reasoning": "'computational...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 7,
-      "myAnswer": 1,
-      "reasoning": "'output...' found in fullPassage",
-      "confidence": "high"
-    },
-    {
-      "id": 8,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 9,
-      "myAnswer": 1,
-      "reasoning": "Content mismatch analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 10,
-      "myAnswer": 1,
-      "reasoning": "Content match analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 11,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 12,
-      "myAnswer": 1,
-      "reasoning": "Topic analysis",
-      "confidence": "medium"
-    },
-    {
-      "id": 13,
-      "myAnswer": 1,
-      "reasoning": "Implication based on passage context",
-      "confidence": "medium"
-    },
-    {
-      "id": 14,
-      "myAnswer": 1,
-      "reasoning": "Reference for 'it'",
-      "confidence": "medium"
-    },
-    {
-      "id": 15,
-      "myAnswer": 1,
-      "reasoning": "Reference for 'it'",
-      "confidence": "medium"
-    },
-    {
-      "id": 16,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 17,
-      "myAnswer": "unknown",
-      "reasoning": "Could not extract",
-      "confidence": "low"
-    },
-    {
-      "id": 18,
-      "myAnswer": "does not simply program other bees to go out and look for it",
-      "reasoning": "Extracted: 'does not simply program other bees to go out and look for it'",
-      "confidence": "high"
-    },
-    {
-      "id": 19,
-      "myAnswer": "embody any notion of meaning",
-      "reasoning": "Extracted from passage: 'embody any notion of meaning'",
-      "confidence": "medium"
-    },
-    {
-      "id": 20,
-      "myAnswer": "The input, such as it is, is processed in the light of the organism's own internal states",
-      "reasoning": "Extracted from passage: 'The input, such as it is, is processed in the light of the organism's own internal states'",
-      "confidence": "medium"
-    }
-  ],
-  "score": "9/20"
+  "testFile": "퀴즈.json",
+  "solves": [
+    {"id": 1, "pick": 1, "reason": "주어 'a computational algorithm(that takes...)'은 단수이므로 관계절 동사도 generate가 아니라 generates가 되어야 함.", "type": "어법"},
+    {"id": 2, "pick": 2, "reason": "'such a computation'을 받는 대명사는 단수이므로 their가 아니라 its가 되어야 함.", "type": "어법"},
+    {"id": 3, "pick": 4, "reason": "'The input... is __________ in the light of...'는 수동태이므로 processing이 아니라 processed가 되어야 함.", "type": "어법"},
+    {"id": 4, "pick": 3, "reason": "각 벌이 정보를 '처리한다(processes)'는 문맥인데 ignores(무시하다)로 바뀌어 의미가 반대가 됨.", "type": "문맥상 부적절한 어휘"},
+    {"id": 5, "pick": 4, "reason": "결론부는 'there is nothing prescriptive about its effects'로 규정적인 것이 없다는 뜻인데 something으로 바뀌어 의미가 반대가 됨.", "type": "문맥상 부적절한 어휘"},
+    {"id": 6, "pick": 1, "reason": "원문 'does not generally have as its purpose its own survival and well-being'과 일치.", "type": "빈칸추론"},
+    {"id": 7, "pick": 2, "reason": "원문 'processed in the light of the organism's own internal states and history'와 일치.", "type": "빈칸추론"},
+    {"id": 8, "pick": 3, "reason": "본문 '벌이 다른 벌들에게 먹이(예: 넥타르) 출처에 대한 정보를 전달한다'는 내용과 일치.", "type": "내용 일치/불일치"},
+    {"id": 9, "pick": 1, "reason": "본문은 'this input does not simply program other bees'라 하여 강제하지 않는다고 했으므로 이 진술이 본문과 불일치.", "type": "내용 일치/불일치"},
+    {"id": 10, "pick": 2, "reason": "본문 'It does not, in general, assign value to the inputs.'와 일치.", "type": "내용 일치/불일치"},
+    {"id": 11, "pick": 3, "reason": "알고리즘과 달리 벌은 스스로 입력을 해석한다는 내용이 글 전체의 핵심 대조이므로 이 선지가 주제.", "type": "주제"},
+    {"id": 12, "pick": 1, "reason": "글은 입력이 기계적으로 지시되지 않고 벌 각자가 스스로 해석한다는 내용이므로 'Input Without Instruction: Bees Are Not Machines'가 가장 적절한 제목.", "type": "제목"},
+    {"id": 13, "pick": 4, "reason": "'such as it is'는 '대단치는 않지만 있는 그대로'라는 관용적 의미로, 입력이 별것 아니어도 그 상태 그대로 처리된다는 문맥과 일치.", "type": "함축의미 추론"},
+    {"id": 14, "pick": 2, "reason": "'a foraging bee conveys... information about the source of food... it has located'에서 it은 앞의 먹이를 찾아다니는 벌(foraging bee)을 가리킴.", "type": "지칭추론"},
+    {"id": 15, "pick": 3, "reason": "원문 'Some bees might not bother to make the journey, considering it not worthwhile.'와 일치.", "type": "빈칸추론"},
+    {"id": 16, "pick": "takes input data and generates some output", "reason": "원문 'A computational algorithm that takes input data and generates some output from it'에서 조건 단어(and, data, generates, input, output, some, takes) 7개를 그대로 사용한 원문 표현.", "type": "서술형 — 조건영작"},
+    {"id": 17, "pick": "takes", "reason": "관계절 주어 'A computational algorithm'은 단수이므로 take가 아니라 takes로 고쳐야 함.", "type": "서술형 — 어법고쳐쓰기"},
+    {"id": 18, "pick": "Some bees might not bother to make the journey", "reason": "원문 'Some bees might not bother to make the journey, considering it not worthwhile.'에서 조건 단어(bees, bother, journey, make, might, not, some, the, to) 9개를 사용한 원문 표현.", "type": "서술형 — 조건영작"},
+    {"id": 19, "pick": "shows the bees how far away the food is", "reason": "원문 'The \"dance\" — a series of stylized movements on the comb — shows the bees how far away the food is and in which direction.'에서 주어진 단어(away, bees, far, food, how, is, shows, the, the) 9개를 원문 순서대로 배열.", "type": "서술형 — 어순배열"},
+    {"id": 20, "pick": "the waggle dance of the honeybee", "reason": "원문 'a computer algorithm with the waggle dance of the honeybee'에서 조건 단어(dance, honeybee, of, the, the, waggle) 6개를 사용한 원문 표현.", "type": "서술형 — 조건영작"}
+  ]
 }
