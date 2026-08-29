@@ -1,5 +1,11 @@
 {
-  "version": 5,
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
   "testType": "워크북",
   "ei": {
     "total": 100,
@@ -17,16 +23,9 @@
       "id": 1,
       "type": "어법",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet ①<u>communicate</u> exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats ②<u>instantaneously</u>, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, ③<u>to run away</u>, or kicking at a potential threat. This survival regimen, ④<u>retained</u> from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
-      "det": {
-        "korean": "정답 ③ to run away → running away: 'by either A, B, or C'에서 A(ceasing), C(kicking)가 -ing라 병렬을 맞춰 B도 -ing인 running away여야 해요.",
-        "analysis": "① communicate (○): 주어 our feet(우리의 발, 복수)에 맞춘 동사라 -s 없는 communicate가 맞아요. (정상)\n\n② instantaneously (○): '즉각적으로 반응했다'를 꾸며 주는 부사라 자연스러워요. (instantaneously: 즉각적으로) (정상)\n\n③ to run away → running away ←정답: 'by either ceasing motion, running away, or kicking'은 '~함으로써'라는 전치사 by 뒤에 오는 동명사들이 and/or로 나란히 이어지는 병렬 구조예요. 앞뒤가 ceasing, kicking처럼 모두 -ing이므로 가운데도 -ing인 running away여야 해요. to run away(to부정사)는 형태가 어긋나 틀려요.\n\n④ retained (○): 'This survival regimen ______ from our ancestral heritage'에서 방식(regimen)은 '물려받아진' 대상이라 수동의 뜻인 과거분사 retained가 맞아요. (정상)",
-        "tip": "by + 동명사 병렬 (ceasing / running / kicking) → 모두 -ing로"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -38,16 +37,9 @@
       "id": 2,
       "type": "어법",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris ①<u>observed</u> that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans ②<u>speak</u>, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, ③<u>retained</u> from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so ④<u>hardwired</u> in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
-      "det": {
-        "korean": "정답 ② speak → spoke: 'long before humans ______'는 과거의 일이라 과거형 spoke를 써야 해요.",
-        "analysis": "① observed (○): 'Desmond Morris observed that ~(모리스가 ~을 관찰했다)'로 과거의 사실을 나타내는 과거형이라 맞아요. (observe: 관찰하다) (정상)\n\n② speak → spoke ←정답: 'For millions of years, long before humans ______(인간이 말하기 훨씬 전인 수백만 년 동안)'은 아주 먼 과거의 일을 말해요. 뒤 문장의 reacted(반응했다)도 과거형이에요. 그래서 현재형 speak가 아니라 과거형 spoke여야 해요.\n\n③ retained (○): 'survival regimen ______ from our heritage'에서 방식은 '물려받아진' 대상이라 과거분사 retained가 맞아요. (정상)\n\n④ hardwired (○): 'are still so hardwired in us'에서 be동사 뒤 '깊이 배어 있는' 상태를 나타내는 형태라 맞아요. (정상)",
-        "tip": "먼 과거의 일 → 과거형 동사 (speak → spoke)"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -59,16 +51,9 @@
       "id": 3,
       "type": "어법",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate ①<u>reflectors</u> of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for ②<u>conscious</u> thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, ③<u>have served</u> us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so ④<u>hardwired</u> in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
-      "det": {
-        "korean": "정답 ③ have served → has served: 주어 This survival regimen은 단수라서 현재완료의 조동사도 단수형 has를 써야 해요.",
-        "analysis": "① reflectors (○): 'such accurate reflectors of our sentiments(우리 감정의 정확한 반영체)'로 형용사 accurate가 꾸미는 명사라 맞아요. (정상)\n\n② conscious (○): 'without the need for conscious thought(의식적인 사고의 필요 없이)'에서 명사 thought를 꾸미는 형용사라 맞아요. (정상)\n\n③ have served → has served ←정답: 주어는 'This survival regimen(이 생존 방식)'으로 하나(단수)예요. 중간에 낀 'retained from our ancestral heritage'는 꾸며 주는 말일 뿐이에요. 단수 주어의 현재완료는 have가 아니라 has를 쓰므로 has served가 맞아요.\n\n④ hardwired (○): 'are still so hardwired in us'에서 be동사 뒤 상태를 나타내는 형태라 맞아요. (정상)",
-        "tip": "단수 주어(This survival regimen) + 현재완료 → has (중간 수식어에 낚이지 말 것)"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -80,16 +65,9 @@
       "id": 4,
       "type": "어법",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking ①<u>is considering</u> a ②<u>spiritual</u> practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so ③<u>hardwired</u> in us that when we are ④<u>presented</u> with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
-      "det": {
-        "korean": "정답 ① is considering → is considered: 걷기가 '여겨지는' 대상이므로 수동태 is considered를 써야 해요.",
-        "analysis": "① is considering → is considered ←정답: 'barefoot walking ______ a spiritual practice(맨발 걷기가 영적인 관습으로 ______)'에서 걷기는 사람들에 의해 '여겨지는' 대상이에요. 즉 수동태 'be + 과거분사'라 is considered가 맞아요. is considering(~을 여기고 있는 중)은 능동이라 걷기가 무언가를 여긴다는 이상한 뜻이 되어 틀려요.\n\n② spiritual (○): 명사 practice를 꾸미는 형용사라 맞아요. (spiritual: 영적인) (정상)\n\n③ hardwired (○): 'are still so hardwired'에서 상태를 나타내는 형태라 맞아요. (정상)\n\n④ presented (○): 'when we are presented with(우리가 ~와 마주하게 될 때)'는 수동태라 과거분사 presented가 맞아요. (정상)",
-        "tip": "~로 여겨지다 = be + 과거분사(수동태) → is considered"
-      },
-      "ans": 1,
       "ch": [
         "①",
         "②",
@@ -101,16 +79,9 @@
       "id": 5,
       "type": "어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we ①<u>think</u> and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as ②<u>needed</u> by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral ③<u>heritage</u>, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these ④<u>recent</u> reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "정답 ④ recent(최근의) → age-old(아주 오래된): 선사시대부터 이어진 오래된 반응이라는 흐름이라 age-old가 맞아요.",
-        "analysis": "① think (○): '우리가 생각하고(think) 느끼는 것'이라는 맥락에 맞아요. (정상)\n\n② needed (○): 'reacted as needed(필요에 따라 반응했다)'로 자연스러워요. (정상)\n\n③ heritage (○): '조상의 유산(ancestral heritage)에서 물려받은'이라는 맥락에 맞아요. (heritage: 유산) (정상)\n\n④ recent → age-old ←정답: 바로 뒤에서 이 반응들이 'as they did in prehistoric times(선사시대에 그랬던 것처럼)' 여전히 일어난다고 해요. 즉 이 반응은 아주 오래된(age-old) 것이어야 해요. '최근의(recent)'로 바꾸면 선사시대부터 이어졌다는 흐름과 정반대라 틀려요. (recent: 최근의 / age-old: 아주 오래된)",
-        "tip": "선사시대부터 이어짐 → age-old(아주 오래된). recent(최근의)는 반대"
-      },
-      "ans": 4,
       "ch": [
         "①",
         "②",
@@ -122,16 +93,9 @@
       "id": 6,
       "type": "어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate ①<u>reflectors</u> of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or ②<u>smiling</u> at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and ③<u>continues</u> to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are ④<u>presented</u> with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "정답 ② smiling(미소 짓는) → kicking(걷어차는): 잠재적 위협에 맞서는 방어 반응이라 kicking이 맞아요.",
-        "analysis": "① reflectors (○): '감정의 정확한 반영체(reflectors)'라는 맥락에 맞아요. (정상)\n\n② smiling → kicking ←정답: 이 문장은 위협에 대응하는 방식을 '동작 멈추기, 도망가기, 또는 위협을 걷어차기(kicking)'로 나열해요. 잠재적 위협에 맞서는 방어 반응이므로 '걷어차는(kicking)'이 맞아요. '미소 짓는(smiling)'을 넣으면 위협에 미소 짓는다는 이상한 뜻이 되어 문맥과 어긋나요. (smiling: 미소 짓는 / kicking: 걷어차는)\n\n③ continues (○): '오늘날에도 계속된다(continues)'로 자연스러워요. (정상)\n\n④ presented (○): '위험한 것과 마주할(presented) 때'라는 맥락에 맞아요. (정상)",
-        "tip": "위협에 맞서는 방어 반응 → kicking(걷어차기). smiling(미소)은 반대"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -143,76 +107,45 @@
       "id": 7,
       "type": "내용이해 T/F",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 진술이 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n발과 다리는 우리 몸의 다른 어떤 부위보다도 우리의 생각과 감정을 정직하게 전달한다.",
-      "det": {
-        "korean": "정답 T: 발이 다른 어떤 부위보다 정직하게 생각과 감정을 전달한다고 했어요.",
-        "analysis": "첫 문장에서 'our feet communicate exactly what we think and feel more honestly than any other part of our bodies(우리의 발은 우리가 생각하고 느끼는 것을 다른 어떤 신체 부위보다 정직하게 전달한다)'라고 해요.\n\n진술의 '다른 어떤 부위보다도 정직하게 전달한다'는 같은 내용이에요. 따라서 T가 정답이에요.",
-        "tip": "more honestly than any other part = 다른 부위보다 정직하게"
-      },
-      "ans": 1,
       "ch": [
         "T",
         "F"
-      ],
-      "verdict": "T"
+      ]
     },
     {
       "id": 8,
       "type": "내용이해 T/F",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 진술이 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n인간은 말을 하기 시작한 이후에야 비로소 위협에 반응하는 능력을 갖게 되었다.",
-      "det": {
-        "korean": "정답 F: 반응은 인간이 말하기 '훨씬 전(long before)'부터 있었다고 했어요.",
-        "analysis": "본문은 'long before humans spoke, our legs and feet reacted to environmental threats instantaneously(인간이 말하기 훨씬 전부터 우리의 다리와 발은 환경적 위협에 즉각 반응했다)'라고 해요.\n\n진술은 '말을 하기 시작한 이후에야' 능력이 생겼다고 했으므로 글과 정반대예요. 따라서 F가 정답이에요.",
-        "tip": "long before humans spoke → 말하기 훨씬 전부터 반응함 → 진술은 반대 → F"
-      },
-      "ans": 2,
       "ch": [
         "T",
         "F"
-      ],
-      "verdict": "F"
+      ]
     },
     {
       "id": 9,
       "type": "내용이해 T/F",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 진술이 글의 내용과 일치하면 T, 일치하지 않으면 F를 고르시오.\n\n위협에 대한 발과 다리의 반응은 의식적인 사고 없이 즉각적으로 일어났다.",
-      "det": {
-        "korean": "정답 T: 발과 다리는 의식적 사고 없이 즉각 반응했다고 했어요.",
-        "analysis": "본문은 'our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought(우리의 다리와 발은 의식적인 사고의 필요 없이 환경적 위협에 즉각 반응했다)'라고 해요.\n\n진술의 '의식적인 사고 없이 즉각적으로 일어났다'는 같은 내용이에요. 따라서 T가 정답이에요.",
-        "tip": "instantaneously, without the need for conscious thought → 의식 없이 즉각"
-      },
-      "ans": 1,
       "ch": [
         "T",
         "F"
-      ],
-      "verdict": "T"
+      ]
     },
     {
       "id": 10,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than __________. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "정답 ④ any other part of our bodies(우리 몸의 다른 어떤 부위): 발이 다른 어떤 신체 부위보다 감정을 정직하게 드러낸다는 흐름이에요.",
-        "analysis": "빈칸 문장: 'our feet communicate exactly what we think and feel more honestly than ______(우리의 발은 우리가 생각하고 느끼는 것을 ______보다 정직하게 전달한다)'. 뒤에서 발과 다리가 감정의 정확한 반영체라고 이어져요.\n\n❌ ① the words that we speak aloud(우리가 소리 내어 말하는 말): 말과 비교한다는 내용은 본문에 없어요.\n\n❌ ② the culture we were raised in(우리가 자란 문화): 문화와의 비교가 아니에요.\n\n❌ ③ the memories we try to hide(우리가 숨기려는 기억): 기억과 비교하는 내용이 아니에요.\n\n✅ ④ any other part of our bodies ←정답: 발이 '다른 어떤 신체 부위보다' 정직하게 감정을 드러낸다는 뜻으로 문맥에 딱 맞아요.",
-        "tip": "발이 다른 어떤 신체 부위보다 정직하게 → any other part of our bodies"
-      },
-      "ans": 4,
       "ch": [
         "the words that we speak aloud (우리가 소리 내어 말하는 말)",
         "the culture we were raised in (우리가 자란 문화)",
@@ -224,16 +157,9 @@
       "id": 11,
       "type": "빈칸추론",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? __________, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "정답 ① For millions of years(수백만 년 동안): 인간이 말하기 훨씬 전인 아주 오랜 세월 동안 반응이 이어졌다는 흐름이에요.",
-        "analysis": "빈칸 문장: '______, long before humans spoke, our legs and feet reacted to environmental threats instantaneously(______, 인간이 말하기 훨씬 전부터 우리의 다리와 발은 위협에 즉각 반응했다)'. 뒤의 'long before humans spoke'가 아주 먼 과거임을 알려 줘요.\n\n✅ ① For millions of years ←정답: '수백만 년 동안'이라는 오랜 세월을 나타내 '인간이 말하기 훨씬 전'과 정확히 이어져요.\n\n❌ ② Only in modern cities(오직 현대 도시에서만): 먼 과거 이야기와 반대예요.\n\n❌ ③ Just after we learned to speak(우리가 말을 배운 직후에): 'long before humans spoke(말하기 훨씬 전)'와 정반대예요.\n\n❌ ④ During a single quiet night(어느 조용한 하룻밤 동안): 짧은 하룻밤은 수백만 년의 흐름과 맞지 않아요.",
-        "tip": "long before humans spoke와 이어지는 아주 긴 세월 → For millions of years"
-      },
-      "ans": 1,
       "ch": [
         "For millions of years (수백만 년 동안)",
         "Only in modern cities (오직 현대 도시에서만)",
@@ -245,16 +171,9 @@
       "id": 12,
       "type": "내용 일치/불일치",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
-      "det": {
-        "korean": "정답 ③: 반응은 인간이 말하기 '훨씬 전(long before)'부터 있었다고 했으므로 반대예요.",
-        "analysis": "① 일치: 'our feet communicate ... more honestly than any other part of our bodies(발이 다른 어떤 부위보다 정직하게 전달한다)'와 같아요.\n\n② 일치: 'reacted to environmental threats instantaneously, without the need for conscious thought(의식적 사고 없이 위협에 즉각 반응했다)'와 같아요.\n\n③ 불일치 ←정답: 본문은 'long before humans spoke(인간이 말하기 훨씬 전부터)' 이미 반응했다고 해요. 선지는 '언어를 사용한 뒤에야 나타났다'고 정반대로 말했으므로 일치하지 않아요.\n\n④ 일치: 'retained from our ancestral heritage, has served us well and continues to do so today(조상의 유산에서 물려받아 오늘날까지 도움이 되어 왔다)'와 같아요.",
-        "tip": "long before humans spoke → 말하기 전부터 반응 (뒤에야 생긴 게 아님)"
-      },
-      "ans": 3,
       "ch": [
         "데즈먼드 모리스는 발이 다른 어떤 신체 부위보다 우리의 생각과 감정을 정직하게 드러낸다고 보았다.",
         "우리의 다리와 발은 의식적인 사고 없이도 환경적 위협에 즉각 반응했다.",
@@ -266,16 +185,9 @@
       "id": 13,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
-      "det": {
-        "korean": "정답 ②: 이 반응은 여전히 '깊이 배어 있어(still so hardwired)' 지금도 나타난다고 했으므로 반대예요.",
-        "analysis": "① 일치: 'Our limbic brains made sure that our feet and legs reacted as needed(변연계의 뇌가 발과 다리가 필요에 따라 반응하도록 했다)'와 같아요.\n\n② 불일치 ←정답: 본문은 'these age-old reactions are still so hardwired in us ... our feet and legs still react(이 오래된 반응은 여전히 깊이 배어 있어 발과 다리가 아직도 반응한다)'라고 해요. 선지는 '완전히 사라졌다'고 정반대로 말했으므로 일치하지 않아요.\n\n③ 일치: 'when we are presented with something dangerous or even disagreeable, our feet and legs still react(위험하거나 불쾌한 것과 마주하면 여전히 반응한다)'와 같아요.\n\n④ 일치: 'barefoot walking is considered a spiritual practice, connecting the individual to the ancestors(맨발 걷기가 개인을 조상과 연결하는 영적 관습으로 여겨진다)'와 같아요.",
-        "tip": "still so hardwired / still react → 여전히 나타남 (사라진 게 아님)"
-      },
-      "ans": 2,
       "ch": [
         "변연계의 뇌는 발과 다리가 필요에 따라 반응하도록 만들었다.",
         "오늘날 이러한 원시적 반응은 완전히 사라져 더 이상 나타나지 않는다.",
@@ -287,16 +199,9 @@
       "id": 14,
       "type": "오류찾기",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate ①<u>reflectors</u> of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, ②<u>retained</u> from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs ③<u>still reacts</u> as they did in ④<u>prehistoric</u> times.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 <b>틀린</b> 것은?",
-      "det": {
-        "korean": "정답 ③ still reacts → still react: 주어 our feet and legs(발과 다리)는 복수라서 -s 없는 react를 써야 해요.",
-        "analysis": "① reflectors (○): 'such accurate reflectors of our sentiments'에서 형용사 accurate가 꾸미는 명사라 맞아요. (정상)\n\n② retained (○): 'survival regimen retained from our heritage'에서 방식은 '물려받아진' 대상이라 과거분사 retained가 맞아요. (정상)\n\n③ still reacts → still react ←정답: 이 동사의 주어는 'our feet and legs(우리의 발과 다리)'로 복수예요. 복수 주어의 현재시제 동사에는 -s를 붙이지 않으므로 reacts가 아니라 react가 맞아요.\n\n④ prehistoric (○): 'in prehistoric times(선사시대에)'에서 명사 times를 꾸미는 형용사라 맞아요. (정상)",
-        "tip": "복수 주어(our feet and legs) + 현재시제 → -s 없는 react"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -308,70 +213,33 @@
       "id": 15,
       "type": "서술형",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
-      "stem": "위 글에서, 조상 대대로 물려받아 오늘날까지 우리에게 도움이 되어 온, 위협에 대응하는 방식을 가리키는 표현을 본문에서 찾아 (영어로) 쓰시오. (2단어)",
-      "det": {
-        "korean": "정답: survival regimen(생존 방식)",
-        "analysis": "본문에서 조상에게서 물려받아 오늘날까지 도움이 되어 온 방식을 설명하는 부분을 보면 'This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today(조상의 유산에서 물려받은 이 생존 방식은 우리에게 잘 도움이 되어 왔고 오늘날에도 계속 그러하다)'라고 나와요.\n\n따라서 위협에 대응하는 그 방식을 가리키는 표현은 survival regimen이에요. 2단어예요.",
-        "tip": "This survival regimen, retained from our ancestral heritage"
-      },
-      "wa": "survival regimen",
-      "accept": [
-        "survival regimen"
-      ]
+      "stem": "위 글에서, 조상 대대로 물려받아 오늘날까지 우리에게 도움이 되어 온, 위협에 대응하는 방식을 가리키는 표현을 본문에서 찾아 (영어로) 쓰시오. (2단어)"
     },
     {
       "id": 16,
       "type": "서술형",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
-      "stem": "위 글에서, 먼 옛날 우리의 다리와 발이 즉각적으로 반응했던 대상으로 언급된 것을 본문에서 찾아 (영어로) 쓰시오. (2단어)",
-      "det": {
-        "korean": "정답: environmental threats(환경적 위협)",
-        "analysis": "본문에서 먼 옛날 다리와 발이 무엇에 반응했는지 설명하는 부분을 보면 'our legs and feet reacted to environmental threats instantaneously(우리의 다리와 발은 환경적 위협에 즉각 반응했다)'라고 나와요.\n\n따라서 다리와 발이 즉각 반응했던 대상은 environmental threats예요. 2단어예요.",
-        "tip": "our legs and feet reacted to environmental threats instantaneously"
-      },
-      "wa": "environmental threats",
-      "accept": [
-        "environmental threats"
-      ]
+      "stem": "위 글에서, 먼 옛날 우리의 다리와 발이 즉각적으로 반응했던 대상으로 언급된 것을 본문에서 찾아 (영어로) 쓰시오. (2단어)"
     },
     {
       "id": 17,
       "type": "서술형 — 어형변환",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, __________ (connect) the individual to the ancestors.",
-      "stem": "다음 글의 빈칸에 괄호 안 단어를 문맥에 맞는 형태로 바꿔 (영어로) 쓰시오. (분사)",
-      "det": {
-        "korean": "connecting — 동사 connect를 '~하면서'라는 뜻의 분사구문(현재분사)으로 바꾼 형태",
-        "analysis": "빈칸 앞은 'barefoot walking is considered a spiritual practice'로 이미 주어와 동사가 갖춰진 완전한 문장이에요. 그 뒤에 콤마로 이어져 '개인을 조상과 연결하면서'라는 부가 설명이 붙어요.\n\n이렇게 완전한 문장 뒤에 콤마로 이어 '~하면서'라는 뜻을 더할 때는 분사구문을 써요. 걷기가 개인을 능동적으로 '연결하는' 것이므로 현재분사 connecting이 맞아요. 동사 connect를 그대로 쓰면 접속사 없이 동사가 두 개가 되어 틀려요.",
-        "tip": "완전한 문장 + 콤마 + ~하면서 → 분사구문(현재분사) connecting"
-      },
-      "wa": "connecting",
-      "accept": [
-        "connecting"
-      ]
+      "stem": "다음 글의 빈칸에 괄호 안 단어를 문맥에 맞는 형태로 바꿔 (영어로) 쓰시오. (분사)"
     },
     {
       "id": 18,
       "type": "주제/요지",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 주제로 가장 적절한 것은?",
-      "det": {
-        "korean": "정답 ④: 조상에게서 물려받은 즉각적 생존 반응 때문에 발과 다리가 감정을 정직하게 드러낸다는 것이 글의 핵심이에요.",
-        "analysis": "글은 '발과 다리는 감정을 가장 정직하게 드러내는데, 그 이유는 조상 대대로 물려받은 즉각적 생존 반응이 여전히 우리 안에 배어 있기 때문'이라는 내용이에요.\n\n❌ ① 맨발 걷기의 종교적 의미: 곁가지 문장일 뿐 글의 주제가 아니에요.\n\n❌ ② 언어 습득으로 잃어버린 본능: 반응은 여전히 남아 있다고 했으므로 반대예요.\n\n❌ ③ 변연계의 뇌가 논리적 사고를 통제하는 방식: 본문에 없는 내용이에요.\n\n✅ ④ ←정답: '조상 대대로의 생존 반응 때문에 감정을 정직하게 드러내는 발과 다리'가 글 전체 논지와 정확히 맞아요.",
-        "tip": "핵심 = 조상에게서 물려받은 생존 반응 → 발과 다리가 감정을 정직하게 드러냄"
-      },
-      "ans": 4,
       "ch": [
         "맨발로 걷는 것이 여러 문화권에서 지니는 종교적 상징과 의미",
         "인간이 언어를 습득하면서 잃어버린 다양한 신체적 본능들",
@@ -383,16 +251,9 @@
       "id": 19,
       "type": "주제/요지",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, barefoot walking is considered a spiritual practice, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
       "stem": "다음 글의 요지로 가장 적절한 것은?",
-      "det": {
-        "korean": "정답 ③: 조상에게서 물려받은 즉각적 생존 반응 때문에 발과 다리가 감정을 가장 정직하게 드러낸다는 것이 요지예요.",
-        "analysis": "글의 요지는 '발과 다리가 우리의 감정을 가장 정직하게 드러내는 것은, 조상 대대로 물려받아 지금도 배어 있는 즉각적 생존 반응 때문'이라는 거예요.\n\n❌ ① 발의 움직임이 감정과 무관: 발이 감정을 정직하게 드러낸다는 본문과 정반대예요.\n\n❌ ② 현대인이 원시적 반응을 잃어버렸다: 반응은 여전히 배어 있다고 했으므로 반대예요.\n\n✅ ③ ←정답: 조상에게서 물려받은 생존 반응과 감정의 정직한 표현이라는 글의 핵심을 그대로 담았어요.\n\n❌ ④ 맨발 걷기가 가장 중요한 영적 수련: 곁가지 문장을 과장한 것으로 요지가 아니에요.",
-        "tip": "물려받은 생존 반응 → 발과 다리가 감정을 가장 정직하게 드러냄"
-      },
-      "ans": 3,
       "ch": [
         "발의 움직임은 순전히 우연적이어서 감정과는 아무 관련이 없다.",
         "현대인은 위협에 대한 원시적 반응을 완전히 잃어버렸다.",
@@ -404,19 +265,9 @@
       "id": 20,
       "type": "서술형 — 조건영작",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "The writer and zoologist Desmond Morris observed that our feet communicate exactly what we think and feel more honestly than any other part of our bodies. Why are the feet and legs such accurate reflectors of our sentiments? For millions of years, long before humans spoke, our legs and feet reacted to environmental threats instantaneously, without the need for conscious thought. Our limbic brains made sure that our feet and legs reacted as needed by either ceasing motion, running away, or kicking at a potential threat. This survival regimen, retained from our ancestral heritage, has served us well and continues to do so today. In some cultures, therefore, __________, connecting the individual to the ancestors. In fact, these age-old reactions are still so hardwired in us that when we are presented with something dangerous or even disagreeable, our feet and legs still react as they did in prehistoric times.",
-      "stem": "다음 우리말과 같은 뜻이 되도록, [조건]에 주어진 단어를 모두 사용하여 영어로 쓰시오.\n\n우리말: 맨발 걷기는 영적인 관습으로 여겨진다\n\n[조건] (1) a, barefoot, considered, is, practice, spiritual, walking 를 모두 사용할 것 (2) 정확히 7단어로 쓸 것",
-      "det": {
-        "korean": "정답: barefoot walking is considered a spiritual practice — 맨발 걷기는 영적인 관습으로 여겨진다",
-        "analysis": "우리말 '맨발 걷기는 / 영적인 관습으로 / 여겨진다'를 영어 어순(주어 + 수동태 동사 + 보어)으로 배열해요.\n\n1) 주어: '맨발 걷기' → barefoot walking (barefoot=맨발의, walking=걷기).\n\n2) 동사: '여겨진다'는 걷기가 '여겨지는' 대상이라 수동태예요. 주어가 단수·현재라 be동사는 is, 여기에 과거분사 considered를 붙여 is considered가 돼요. (consider A as B에서 as 없이 'be considered + 명사' 형태로 자주 써요.)\n\n3) '영적인 관습으로' → a spiritual practice (a=하나의, spiritual=영적인, practice=관습).\n\n합치면 barefoot walking is considered a spiritual practice. (7단어)",
-        "tip": "~로 여겨지다 = be(is) + 과거분사(considered) + 명사(수동태)"
-      },
-      "wa": "barefoot walking is considered a spiritual practice",
-      "accept": [
-        "barefoot walking is considered a spiritual practice"
-      ]
+      "stem": "다음 우리말과 같은 뜻이 되도록, [조건]에 주어진 단어를 모두 사용하여 영어로 쓰시오.\n\n우리말: 맨발 걷기는 영적인 관습으로 여겨진다\n\n[조건] (1) a, barefoot, considered, is, practice, spiritual, walking 를 모두 사용할 것 (2) 정확히 7단어로 쓸 것"
     }
   ]
 }
