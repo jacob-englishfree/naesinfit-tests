@@ -1,5 +1,11 @@
 {
-  "version": 5,
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
   "testType": "퀴즈",
   "ei": {
     "total": 100,
@@ -18,16 +24,9 @@
       "id": 1,
       "type": "어법",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
-      "passage": "Now, zoom in on the edge of the flower.  You can see that it ①<u>consists</u> of many square dots with distinct colors and tones.  Each tiny square dot is ②<u>calling</u> a pixel. \n\nEach pixel ③<u>emits</u> one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.  These secondary colors are produced by ④<u>putting</u> primary colors next to each other.  When equal amounts of red pixels and green pixels are put together, people perceive them as yellow.  Likewise, people perceive the combination of blue and green pixels as cyan, and the combination of red and blue pixels as magenta.  Take the yellow bell pepper on the screen as an example.",
+      "passage": "You can see that it ①<u>consists</u> of many square dots with distinct colors and tones.  Each tiny square dot is ②<u>calling</u> a pixel. \n\nEach pixel ③<u>emits</u> one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.  These secondary colors are produced by ④<u>putting</u> primary colors next to each other.  When equal amounts of red pixels and green pixels are put together, people perceive them as yellow.  Likewise, people perceive the combination of blue and green pixels as cyan, and the combination of red and blue pixels as magenta.  Take the yellow bell pepper on the screen as an example.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "② calling → called: 점(dot)은 '불리는' 대상이므로 수동태 is called",
-        "analysis": "✅ ① consists — 'You can see that it consists of many square dots(그것이 많은 사각형 점들로 이루어져 있다)'에서 주어 it이 단수라 단수동사 consists가 올바릅니다.\n\n❌ ② calling — 원래는 called입니다. 점(dot)은 '불리는' 대상이므로 'be동사 + 과거분사'의 수동태 is called(~라고 불리다)가 맞아요. calling(-ing)은 '부르고 있는'이라는 능동이라 문맥에 안 맞아요. ←정답\n\n✅ ③ emits — 'Each pixel emits(각 픽셀은 방출한다)'에서 주어 Each pixel이 단수라 단수동사 emits가 올바릅니다.\n\n✅ ④ putting — 'produced by putting primary colors(기본색을 나란히 놓음으로써 만들어지다)'에서 전치사 by 뒤에 동명사 putting이 와서 올바릅니다.",
-        "tip": "be동사 + 과거분사 = 수동태(~되다/~라고 불리다)"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -39,16 +38,9 @@
       "id": 2,
       "type": "어법",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The idea of ①<u>using</u> dots to produce another color is not new.  Long before digital images were ②<u>invented</u>, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were ③<u>influencing</u> by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they ④<u>blend</u> in the viewer's eyes.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "③ influencing → influenced: '영향을 받다'는 수동태 were influenced",
-        "analysis": "✅ ① using — 'The idea of using dots(점을 사용한다는 발상)'에서 전치사 of 뒤에 동명사 using이 와서 올바릅니다.\n\n✅ ② invented — 'Long before digital images were invented(디지털 이미지가 발명되기 훨씬 전에)'에서 이미지는 '발명되는' 대상이라 수동태 were invented가 올바릅니다.\n\n❌ ③ influencing — 원래는 influenced입니다. 화가들은 색채 이론에 '영향을 받는' 쪽이라 'be동사 + 과거분사'의 수동태 were influenced(영향을 받았다)가 맞아요. influencing(-ing)은 '영향을 주는'이라는 능동이라 반대예요. ←정답\n\n✅ ④ blend — 'they blend in the viewer's eyes(그것들이 보는 사람의 눈에서 섞인다)'에서 주어 they가 복수라 복수동사 blend가 올바릅니다.",
-        "tip": "be influenced by ~ = ~에 영향을 받다 (수동태)"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -60,16 +52,9 @@
       "id": 3,
       "type": "어법",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Take a look at a part of the monkey from the original picture.  Its body is ①<u>made</u> up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically ②<u>merge</u> to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and ③<u>revise</u> this work.  It took him two years to produce this huge piece because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is ④<u>known</u> as a scientific artist.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "③ revise → revising: kept 뒤 -ing 병렬 (studying, analyzing, revising)",
-        "analysis": "✅ ① made — 'Its body is made up of ... dots(그 몸은 여러 점으로 이루어져 있다)'에서 'be made up of(~로 구성되다)'는 수동 표현이라 made가 올바릅니다.\n\n✅ ② merge — 'the dots ... optically merge to produce brown(점들이 광학적으로 합쳐져 갈색을 낸다)'에서 주어 the dots가 복수라 복수동사 merge가 올바릅니다.\n\n❌ ③ revise — 원래는 revising입니다. 앞의 kept은 'keep + -ing(계속 ~하다)' 형태를 만들고, studying, analyzing, and ___가 and로 나란히 이어지는 병렬 구조예요. 그래서 앞의 -ing들과 똑같이 revising이 되어야 해요. revise는 틀려요. ←정답\n\n✅ ④ known — 'Seurat is known as a scientific artist(쇠라는 과학적 예술가로 알려져 있다)'에서 'be known as(~로 알려지다)'는 수동 표현이라 known이 올바릅니다.",
-        "tip": "keep + V-ing / A, B, and C 병렬은 형태를 맞춘다"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -81,16 +66,9 @@
       "id": 4,
       "type": "문맥상 부적절한 어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The grass on which the shade falls is painted ①<u>dark</u>.  However, other areas without shadow are painted ②<u>dim</u>.  This ③<u>sharp</u> contrast is pretty impressive.  This work is a representative work of Pointillism.  It is mostly painted with dots instead of dashes or lines.  If you look closer, you will notice that there are no object ④<u>boundary</u> lines.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "② dim → bright: 그림자가 '없는' 부분이므로 밝게(bright) 칠함",
-        "analysis": "❌ ① dark — 'The grass on which the shade falls is painted dark(그늘이 진 잔디는 어둡게 칠해진다)'. 그늘이 지므로 어둡게 칠하는 것이 적절합니다.\n\n✅ ② dim — 원래는 bright입니다. 'other areas without shadow(그림자가 없는 다른 부분)'는 그늘이 없으므로 '밝게(bright)' 칠해야 자연스러워요. dim(어둑한)은 정반대라 문맥에 안 맞아요. ←정답\n\n❌ ③ sharp — 'This sharp contrast is pretty impressive(이 뚜렷한 대비는 꽤 인상적이다)'. 어두운 부분과 밝은 부분의 뚜렷한 대비를 말하므로 적절합니다.\n\n❌ ④ boundary — 'there are no object boundary lines(사물의 경계선이 없다)'. 점묘법에서 윤곽선이 없다는 문맥에 적절합니다.",
-        "tip": "without shadow(그림자 없음) → bright(밝게) ↔ dim(어둑한)"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -102,16 +80,9 @@
       "id": 5,
       "type": "문맥상 부적절한 어휘",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "In this work, two individuals are drawing water from a well with a container.  Behind the women are a lighthouse and boats in the ocean.  This artwork portrays a hot ①<u>cloudy</u> day in southern France through the contrast of yellow sand and blue ocean.  Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth noting that Signac did not simply paint the grass green by ②<u>combining</u> yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.  Signac changed the ③<u>proportions</u> of these colors to create the various ④<u>shades</u> of green.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "① cloudy → sunny: 노란 모래와 파란 바다의 '덥고 화창한(sunny)' 날",
-        "analysis": "✅ ① cloudy — 원래는 sunny입니다. 바로 뒤에서 'a hot ... day(더운 날)'이자 '노란 모래와 파란 바다'라고 했으니 '화창한(sunny)' 날이어야 해요. cloudy(흐린)는 더운 여름 해변 풍경과 안 맞아요. ←정답\n\n❌ ② combining — 'did not simply paint the grass green by combining yellow and blue(노랑과 파랑을 섞어서 풀을 초록으로 칠하지는 않았다)'. 색을 섞는다는 문맥에 적절합니다.\n\n❌ ③ proportions — 'Signac changed the proportions of these colors(시냐크는 이 색들의 비율을 바꿨다)'. 비율을 조절한다는 문맥에 적절합니다.\n\n❌ ④ shades — 'to create the various shades of green(다양한 초록 음영을 만들기 위해)'. 여러 초록 음영을 만든다는 문맥에 적절합니다.",
-        "tip": "hot + yellow sand + blue ocean → sunny(화창한)"
-      },
-      "ans": 1,
       "ch": [
         "①",
         "②",
@@ -123,16 +94,9 @@
       "id": 6,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were influenced by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they __________.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 멀리서 보면 여러 색점이 눈 속에서 '섞인다(blend in the viewer's eyes)'",
-        "analysis": "❌ ① stand out on their own(각각 따로 도드라진다) — 멀리서 보면 섞여 보이는 것이지 따로 도드라지는 것이 아니에요.\n\n❌ ② disappear into the background(배경 속으로 사라진다) — 점이 사라진다는 내용은 본문에 없어요.\n\n❌ ③ turn into a single dot(하나의 점으로 변한다) — 점들이 하나로 합쳐진다는 것이 아니라 색이 섞여 보이는 것이라 안 맞아요.\n\n✅ ④ blend in the viewer's eyes(보는 사람의 눈 속에서 섞이다) — 빈칸 앞에서 '여러 개의 서로 다른 색점을 나란히 놓고 멀리서 본다'고 했으므로, 그 점들이 눈에서 '섞인다'가 자연스러워요. 이것이 점묘법의 핵심 원리예요. ←정답",
-        "tip": "blend = (색이) 섞이다 → 점묘법의 원리"
-      },
-      "ans": 4,
       "ch": [
         "stand out on their own",
         "disappear into the background",
@@ -144,16 +108,9 @@
       "id": 7,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "It is worth noting that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.  Signac changed the proportions of these colors to create the various shades of green. \n\nThe era of Pointillism came to an end after the first half of the twentieth century.  However, this new and scientific method of painting had a great influence on __________.  Modern artists have adopted the basic concept of dots and applied it to their works in a variety of shapes and forms.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 점묘법은 '후대 미술 그룹들(later art groups)'에 큰 영향을 주었다",
-        "analysis": "✅ ① later art groups(후대의 미술 집단들) — 빈칸 뒤에서 'Modern artists have adopted the basic concept of dots(현대 미술가들이 점의 기본 개념을 받아들였다)'고 했으므로, 점묘법이 후대 미술에 영향을 주었다는 뜻이 맞아요. ←정답\n\n❌ ② traditional sculpture methods(전통 조각 기법) — 조각이 아니라 회화(그림)에 대한 영향이라 안 맞아요.\n\n❌ ③ ancient cave paintings(고대 동굴 벽화) — 점묘법보다 훨씬 이전의 것이라 영향 대상이 될 수 없어요.\n\n❌ ④ the local music scene(지역 음악계) — 그림 기법이 음악에 영향을 줬다는 내용은 본문에 없어요.",
-        "tip": "had a great influence on ~ = ~에 큰 영향을 주었다"
-      },
-      "ans": 1,
       "ch": [
         "later art groups",
         "traditional sculpture methods",
@@ -165,16 +122,9 @@
       "id": 8,
       "type": "내용 일치/불일치",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "When we look at the entire flower, it appears to have a gradual change in shade.  Now, zoom in on the edge of the flower.  You can see that it consists of many square dots with distinct colors and tones.  Each tiny square dot is called a pixel. \n\nEach pixel emits one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.  These secondary colors are produced by putting primary colors next to each other.  When equal amounts of red pixels and green pixels are put together, people perceive them as yellow.  Likewise, people perceive the combination of blue and green pixels as cyan, and the combination of red and blue pixels as magenta.  Take the yellow bell pepper on the screen as an example.  We perceive the bell pepper as yellow, but if you look at it closely, there are a lot of red and green pixels next to each other.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "④ 이차색은 기본색을 나란히 놓아 만들어진다 — 본문과 일치",
-        "analysis": "❌ ① 전체 꽃을 보면 색이 각진 사각형들로 뚜렷이 나뉘어 보인다 — 본문은 전체를 보면 '점진적인 색 변화(a gradual change in shade)'로 보이고, 각진 사각형 점은 '가장자리를 확대했을 때' 보인다고 했어요.\n\n❌ ② 각 픽셀은 세 가지 기본색을 한꺼번에 방출한다 — 본문은 각 픽셀이 세 기본색 '중 하나(one of the three primary colors)'만 낸다고 했어요.\n\n❌ ③ 노란 파프리카를 확대하면 노란색 픽셀만 촘촘히 보인다 — 본문은 가까이 보면 '빨강과 초록 픽셀(red and green pixels)'이 나란히 있다고 했어요.\n\n✅ ④ 노랑·청록·자홍 같은 이차색은 기본색을 나란히 놓아 만들어진다 — 'secondary colors are produced by putting primary colors next to each other'와 일치해요. ←정답",
-        "tip": "one of the three ~ = 셋 중 하나"
-      },
-      "ans": 4,
       "ch": [
         "전체 꽃을 보면 색이 각진 사각형들로 뚜렷이 나뉘어 보인다",
         "각 픽셀은 세 가지 기본색을 한꺼번에 방출한다",
@@ -186,16 +136,9 @@
       "id": 9,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "The idea of using dots to produce another color is not new.  Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were influenced by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they blend in the viewer's eyes.  Let's look at two examples of Pointillist style paintings. \n\nThis work named A Sunday Afternoon on the Island of La Grande Jatte was created by Georges Seurat, the pioneer of Pointillism.  It portrays people looking at the river, reading books, or sitting on the grass.",
       "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
-      "det": {
-        "korean": "② 과학자가 직접 점을 찍어 완성했다 — 실제로는 색채 이론을 개발(불일치)",
-        "analysis": "❌ ① 쇠라와 시냐크는 1880년대에 비슷한 점묘 기법을 사용한 프랑스 화가다 — 'French artists Georges Seurat and Paul Signac used a similar technique ... in the 1880s'와 일치해요.\n\n✅ ② 이 기법은 한 프랑스 과학자가 직접 캔버스에 점을 찍어 완성한 것이다 — 본문에서 프랑스 과학자는 '색채 이론(color theory)'을 개발했고, 화가들이 그 이론에 영향받아 점을 찍은 것이에요. 과학자가 직접 그린 것이 아니므로 일치하지 않아요. ←정답\n\n❌ ③ 그들은 캔버스에 물감을 칠할 때 전통적인 붓질을 쓰지 않았다 — 'They did not use traditional brushstrokes'와 일치해요.\n\n❌ ④ '그랑드 자트 섬의 일요일 오후'는 점묘법의 선구자 쇠라가 그렸다 — 'created by Georges Seurat, the pioneer of Pointillism'과 일치해요.",
-        "tip": "influenced by the color theory a scientist had developed"
-      },
-      "ans": 2,
       "ch": [
         "쇠라와 시냐크는 1880년대에 비슷한 점묘 기법을 사용한 프랑스 화가다",
         "이 기법은 한 프랑스 과학자가 직접 캔버스에 점을 찍어 완성한 것이다",
@@ -207,16 +150,9 @@
       "id": 10,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "In this work, two individuals are drawing water from a well with a container.  Behind the women are a lighthouse and boats in the ocean.  This artwork portrays a hot sunny day in southern France through the contrast of yellow sand and blue ocean.  Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth noting that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.  Signac changed the proportions of these colors to create the various shades of green.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "④ 배경에 등대와 배들이 있다 — 본문과 일치",
-        "analysis": "❌ ① 그림 속 여인들은 강에서 물을 긷고 있다 — 본문은 여인들이 '우물에서(from a well)' 물을 긷는다고 했어요. 강이 아니에요.\n\n❌ ② 시냐크는 노랑과 파랑 물감을 섞어 풀을 초록으로 칠했다 — 본문은 시냐크가 '섞지 않고(did not simply ... by combining)' 노랑·파랑·초록 점을 따로 찍었다고 했어요.\n\n❌ ③ 이 작품은 프랑스 북부의 추운 겨울을 그렸다 — 본문은 '프랑스 남부(southern France)의 덥고 화창한 날'이라고 했어요.\n\n✅ ④ 그림 배경에는 등대와 바다 위의 배들이 있다 — 'Behind the women are a lighthouse and boats in the ocean'과 일치해요. ←정답",
-        "tip": "drawing water from a well(우물) / lighthouse & boats 배경"
-      },
-      "ans": 4,
       "ch": [
         "그림 속 여인들은 강에서 물을 긷고 있다",
         "시냐크는 노랑과 파랑 물감을 섞어 풀을 초록으로 칠했다",
@@ -228,16 +164,9 @@
       "id": 11,
       "type": "주제",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Each pixel emits one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.  These secondary colors are produced by putting primary colors next to each other.  When equal amounts of red pixels and green pixels are put together, people perceive them as yellow.  Likewise, people perceive the combination of blue and green pixels as cyan, and the combination of red and blue pixels as magenta.  Take the yellow bell pepper on the screen as an example.  We perceive the bell pepper as yellow, but if you look at it closely, there are a lot of red and green pixels next to each other. \n\nThe idea of using dots to produce another color is not new.  Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were influenced by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they blend in the viewer's eyes.  Let's look at two examples of Pointillist style paintings. \n\nThis work named A Sunday Afternoon on the Island of La Grande Jatte was created by Georges Seurat, the pioneer of Pointillism.  It portrays people looking at the river, reading books, or sitting on the grass.  We can see some animals including a dog and a monkey as well.  The grass on which the shade falls is painted dark.  However, other areas without shadow are painted bright.  This sharp contrast is pretty impressive.  This work is a representative work of Pointillism.  It is mostly painted with dots instead of dashes or lines.  If you look closer, you will notice that there are no object boundary lines.  It also has multiple distinct colors of dots to represent a single color, which adds more vibrancy to the painting. \n\nTake a look at a part of the monkey from the original picture.  Its body is made up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically merge to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and revising this work.  It took him two years to produce this huge piece because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is known as a scientific artist.  He himself also said, \"Some say they see poetry in my paintings; I see only science. \"\n\nNow, let's look at another Pointillist painting, Women at the Well, painted in 1892 by Paul Signac, a contemporary of Seurat. \n\nIn this work, two individuals are drawing water from a well with a container.  Behind the women are a lighthouse and boats in the ocean.  This artwork portrays a hot sunny day in southern France through the contrast of yellow sand and blue ocean.  Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth noting that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.",
       "stem": "다음 글의 주제로 가장 적절한 것은?",
-      "det": {
-        "korean": "③ 점을 나란히 놓아 다른 색을 만드는 원리와 예술적 활용",
-        "analysis": "❌ ① 디지털 사진의 해상도를 높이는 기술적 방법 — 해상도를 높이는 방법에 대한 글이 아니에요.\n\n❌ ② 프랑스 인상주의 화가들의 생애와 사생활 — 화가의 생애가 아니라 색을 만드는 기법이 중심이에요.\n\n✅ ③ 점(픽셀·색점)을 나란히 배치해 다른 색을 만들어 내는 원리와 그 예술적 활용 — 글 전체가 픽셀과 점묘법에서 '점을 나란히 놓아 다른 색을 만드는' 원리를 다루므로 주제로 적절해요. ←정답\n\n❌ ④ 색맹인 사람들을 위한 색채 구별 훈련법 — 색맹에 관한 내용은 본문에 없어요.",
-        "tip": "픽셀 + 점묘법 = 점으로 색 만들기"
-      },
-      "ans": 3,
       "ch": [
         "디지털 사진의 해상도를 높이는 기술적 방법",
         "프랑스 인상주의 화가들의 생애와 사생활",
@@ -249,16 +178,9 @@
       "id": 12,
       "type": "제목",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Each pixel emits one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.  These secondary colors are produced by putting primary colors next to each other.  When equal amounts of red pixels and green pixels are put together, people perceive them as yellow.  Likewise, people perceive the combination of blue and green pixels as cyan, and the combination of red and blue pixels as magenta.  Take the yellow bell pepper on the screen as an example.  We perceive the bell pepper as yellow, but if you look at it closely, there are a lot of red and green pixels next to each other. \n\nThe idea of using dots to produce another color is not new.  Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were influenced by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they blend in the viewer's eyes.  Let's look at two examples of Pointillist style paintings. \n\nThis work named A Sunday Afternoon on the Island of La Grande Jatte was created by Georges Seurat, the pioneer of Pointillism.  It portrays people looking at the river, reading books, or sitting on the grass.  We can see some animals including a dog and a monkey as well.  The grass on which the shade falls is painted dark.  However, other areas without shadow are painted bright.  This sharp contrast is pretty impressive.  This work is a representative work of Pointillism.  It is mostly painted with dots instead of dashes or lines.  If you look closer, you will notice that there are no object boundary lines.  It also has multiple distinct colors of dots to represent a single color, which adds more vibrancy to the painting. \n\nTake a look at a part of the monkey from the original picture.  Its body is made up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically merge to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and revising this work.  It took him two years to produce this huge piece because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is known as a scientific artist.  He himself also said, \"Some say they see poetry in my paintings; I see only science. \"\n\nNow, let's look at another Pointillist painting, Women at the Well, painted in 1892 by Paul Signac, a contemporary of Seurat. \n\nIn this work, two individuals are drawing water from a well with a container.  Behind the women are a lighthouse and boats in the ocean.  This artwork portrays a hot sunny day in southern France through the contrast of yellow sand and blue ocean.  Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth noting that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.  Signac changed the proportions of these colors to create the various shades of green. \n\nThe era of Pointillism came to an end after the first half of the twentieth century.  However, this new and scientific method of painting had a great influence on later art groups.  Modern artists have adopted the basic concept of dots and applied it to their works in a variety of shapes and forms.",
       "stem": "다음 글의 제목으로 가장 적절한 것은?",
-      "det": {
-        "korean": "① 나란히 놓인 작은 점들: 예술에서 새로운 색 만들기",
-        "analysis": "✅ ① Tiny Dots Side by Side: Creating New Colors in Art(나란히 놓인 작은 점들: 예술에서 새로운 색 만들기) — 픽셀과 점묘법 모두 '점을 나란히 놓아 새로운 색을 만든다'는 글 전체 내용과 맞아요. ←정답\n\n❌ ② The Rise and Fall of Digital Cameras(디지털 카메라의 흥망성쇠) — 카메라의 역사에 관한 글이 아니에요.\n\n❌ ③ Why Traditional Brushstrokes Are Always Better(전통적인 붓질이 항상 더 나은 이유) — 본문은 붓질 대신 점을 쓴 기법을 소개하므로 반대예요.\n\n❌ ④ Georges Seurat's Financial Struggles as an Artist(예술가로서 쇠라의 경제적 고난) — 쇠라의 경제 사정은 본문에 없어요.",
-        "tip": "side by side = 나란히 → 새로운 색 생성"
-      },
-      "ans": 1,
       "ch": [
         "Tiny Dots Side by Side: Creating New Colors in Art",
         "The Rise and Fall of Digital Cameras",
@@ -270,16 +192,9 @@
       "id": 13,
       "type": "함축의미 추론",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Take a look at a part of the monkey from the original picture.  Its body is made up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically merge to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and revising this work.  It took him two years to produce this huge piece because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is known as a scientific artist.  He himself also said, \"Some say they see poetry in my paintings; <u>I see only science</u>.",
       "stem": "다음 글의 밑줄 친 <b>I see only science</b>가 의미하는 바로 가장 적절한 것은?",
-      "det": {
-        "korean": "'I see only science' = 자신의 그림은 감성이 아니라 색채 과학의 원리로 만들어졌다는 뜻",
-        "analysis": "밑줄 친 <b>I see only science</b>는 '나는 오직 과학만을 본다'라는 뜻으로, 쇠라가 자기 그림을 감성·영감이 아니라 과학(색채 이론)의 결과물로 여긴다는 표현이에요.\n\n❌ ① 자신은 시(詩)를 전혀 감상할 줄 모른다는 뜻 — 시를 못 본다는 개인 능력 이야기가 아니에요.\n\n❌ ② 과학 실험을 위해 그림 그리기를 포기했다는 뜻 — 그림을 포기했다는 내용이 아니에요.\n\n✅ ③ 자신의 그림은 감성이 아니라 색채 과학의 원리로 만들어졌다는 뜻 — 그가 색채 이론을 이용하고 점 하나하나를 의도적으로 배치했다는 앞 내용과 맞아요. ←정답\n\n❌ ④ 다른 화가들의 작품을 과학적으로 분석해 비판한다는 뜻 — 남의 그림을 비판한다는 내용이 아니에요.",
-        "tip": "색채 이론으로 점을 배치 → 예술을 과학으로 봄"
-      },
-      "ans": 3,
       "ch": [
         "자신은 시(詩)를 전혀 감상할 줄 모른다는 뜻",
         "과학 실험을 위해 그림 그리기를 포기했다는 뜻",
@@ -291,16 +206,9 @@
       "id": 14,
       "type": "지칭추론",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "The idea of using dots to produce another color is not new.  Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  <u>They</u> were influenced by the color theory a French scientist had developed at the time.  They did not use traditional brushstrokes to put paint on the canvas.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they blend in the viewer's eyes.",
       "stem": "다음 글의 밑줄 친 <b>They</b>가 가리키는 것으로 가장 적절한 것은?",
-      "det": {
-        "korean": "They = 조르주 쇠라와 폴 시냐크 (앞 문장의 두 프랑스 화가)",
-        "analysis": "밑줄 친 <b>They</b>는 '그들'이라는 뜻으로, 앞에 나온 두 사람을 가리켜요.\n\n❌ ① 디지털 카메라를 만든 기술자들 — 본문에 기술자는 나오지 않아요.\n\n✅ ② 조르주 쇠라와 폴 시냐크 — 앞 문장에서 'French artists Georges Seurat and Paul Signac(프랑스 화가 쇠라와 시냐크)'가 소개되었고, They가 그들을 가리켜요. ←정답\n\n❌ ③ 색채 이론을 만든 프랑스 과학자 — 화가들이 영향을 받은 대상이지 They가 가리키는 주체가 아니에요.\n\n❌ ④ 20세기의 현대 추상화가들 — 글의 마지막에 나오는 사람들로, 여기서 가리키는 대상이 아니에요.",
-        "tip": "They = the two French artists (Seurat & Signac)"
-      },
-      "ans": 2,
       "ch": [
         "디지털 카메라를 만든 기술자들",
         "조르주 쇠라와 폴 시냐크",
@@ -312,16 +220,9 @@
       "id": 15,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Take a look at a part of the monkey from the original picture.  Its body is made up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically merge to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and revising this work.  It took him two years to produce this huge piece because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is known as __________.  He himself also said, \"Some say they see poetry in my paintings; I see only science.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 색채 이론을 이용했기에 쇠라는 '과학적 예술가(a scientific artist)'로 알려짐",
-        "analysis": "✅ ① a scientific artist(과학적 예술가) — 빈칸 앞에서 '색채 이론을 이용해 예술을 창작했다(created art using color theory)'고 했고, 뒤에서 '나는 오직 과학만을 본다'고 했으므로 '과학적 예술가'가 맞아요. ←정답\n\n❌ ② a traditional sculptor(전통 조각가) — 조각가가 아니라 화가이고, 전통과도 거리가 멀어요.\n\n❌ ③ a careless amateur(부주의한 아마추어) — 점 하나하나를 의도적으로 배치한 것과 반대예요.\n\n❌ ④ a famous poet(유명한 시인) — 시인이 아니라 화가예요. 오히려 시가 아니라 과학을 본다고 했어요.",
-        "tip": "created art using color theory → scientific artist"
-      },
-      "ans": 1,
       "ch": [
         "a scientific artist",
         "a traditional sculptor",
@@ -333,91 +234,41 @@
       "id": 16,
       "type": "서술형 — 조건영작",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "written",
       "passage": "When we look at the entire flower, it appears to have a gradual change in shade.  Now, zoom in on the edge of the flower.  You can see that it consists of many square dots with distinct colors and tones.  __________. \n\nEach pixel emits one of the three primary colors of light: red, green, or blue.  Nonetheless, when viewing digital images, we can perceive secondary colors, such as yellow, cyan, and magenta, as well.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"각각의 작은 정사각형 점은 픽셀이라고 불린다.\"\n[조건] (1) Each, tiny, square, dot, is, called, a, pixel을 모두 사용 (2) 8단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "각각의 작은 정사각형 점은 픽셀이라고 불린다.",
-        "analysis": "주어(무엇이) → 동사(어떻게 된다) 순서로, '~라고 불린다'는 수동태로 쓰는 문제예요.\n\n① '각각의 작은 정사각형 점'은 Each(각각의) + tiny(작은) + square(정사각형의) + dot(점) 순서로 써서 'Each tiny square dot'이 돼요. 이게 주어예요.\n\n② '~라고 불린다'는 'be동사 + 과거분사'의 수동태예요. 점은 '불리는' 대상이므로 is called(불린다)로 써요.\n\n③ '픽셀이라고'는 a pixel이에요.\n\n전부 이으면 Each tiny square dot is called a pixel, 총 8단어예요.",
-        "tip": "is called = ~라고 불린다 (수동태)"
-      },
-      "wa": "Each tiny square dot is called a pixel",
-      "accept": [
-        "Each tiny square dot is called a pixel"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"각각의 작은 정사각형 점은 픽셀이라고 불린다.\"\n[조건] (1) Each, tiny, square, dot, is, called, a, pixel을 모두 사용 (2) 8단어 (3) 영어로 쓸 것"
     },
     {
       "id": 17,
       "type": "서술형 — 어법고쳐쓰기",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "This artwork portrays a hot sunny day in southern France through the contrast of yellow sand and blue ocean.  Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth ①<u>note</u> that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  Viewers then perceive the combination of these colors as green.",
-      "stem": "다음 글의 밑줄 친 ①은 어법상 틀렸다. 어법에 맞게 올바른 형태로 고쳐 쓰시오. (한 단어, 영어로)",
-      "det": {
-        "korean": "note → <b>noting</b>: 'be worth + -ing(~할 가치가 있다)'이므로 동명사",
-        "analysis": "밑줄이 있는 부분은 'It is worth ___ that Signac ...(시냐크가 ~라는 점은 ___할 가치가 있다)'예요.\n\n① 핵심은 앞의 worth예요. 'be worth + 동사-ing'은 '~할 가치가 있다'라는 뜻으로, worth 뒤의 동사는 반드시 -ing(동명사) 형태로 써야 해요.\n\n② 그래서 '주목하다'라는 note는 noting으로 바꿔서 'is worth noting(주목할 가치가 있다)'이 돼요.\n\n③ to note(to부정사)나 note(동사원형)는 worth 뒤에 올 수 없어요. 오직 -ing만 가능해요.",
-        "tip": "be worth + V-ing = ~할 가치가 있다"
-      },
-      "wa": "noting",
-      "accept": [
-        "noting"
-      ]
+      "stem": "다음 글의 밑줄 친 ①은 어법상 틀렸다. 어법에 맞게 올바른 형태로 고쳐 쓰시오. (한 단어, 영어로)"
     },
     {
       "id": 18,
       "type": "서술형 — 조건영작",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "Take a look at a part of the monkey from the original picture.  Its body is made up of a variety of different colored dots.  However, when viewed from a distance, the dots of various colors optically merge to produce brown.  In the process of creating this work, Seurat kept studying color composition, analyzing it, and revising this work.  __________ because he arranged every single dot with purpose and intention.  Since he created art using color theory, Seurat is known as a scientific artist.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그가 이 거대한 작품을 완성하는 데 2년이 걸렸다.\"\n[조건] (1) It, took, him, two, years, to, produce, this, huge, piece를 모두 사용 (2) 10단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "그가 이 거대한 작품을 완성하는 데 2년이 걸렸다.",
-        "analysis": "'(사람)이 ~하는 데 (시간)이 걸리다'라는 표현을 배열하는 문제예요.\n\n① '(시간)이 걸리다'는 'It takes + 사람 + 시간 + to부정사' 구조예요. 과거의 일이니 takes의 과거형 took을 써서 It took him(그가 ~하는 데 걸렸다)으로 시작해요. 여기서 It은 특별한 뜻 없이 형식적으로 쓰는 주어예요.\n\n② '2년'은 two years예요.\n\n③ '이 거대한 작품을 완성하는 데'는 to produce this huge piece예요. to부정사(to produce)가 '~하는 데'라는 뜻을 나타내고, this(이) + huge(거대한) + piece(작품) 순서로 꾸며요.\n\n전부 이으면 It took him two years to produce this huge piece, 총 10단어예요.",
-        "tip": "It took + 사람 + 시간 + to부정사 = (사람)이 ~하는 데 (시간)이 걸리다"
-      },
-      "wa": "It took him two years to produce this huge piece",
-      "accept": [
-        "It took him two years to produce this huge piece"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그가 이 거대한 작품을 완성하는 데 2년이 걸렸다.\"\n[조건] (1) It, took, him, two, years, to, produce, this, huge, piece를 모두 사용 (2) 10단어 (3) 영어로 쓸 것"
     },
     {
       "id": 19,
       "type": "서술형 — 어순배열",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "written",
       "passage": "Upon closer inspection, all the objects in the picture are composed of small dots.  It is worth noting that Signac did not simply paint the grass green by combining yellow and blue.  Rather, he placed separate dots of yellow, blue, and green next to each other.  __________.  Signac changed the proportions of these colors to create the various shades of green. \n\nThe era of Pointillism came to an end after the first half of the twentieth century.  However, this new and scientific method of painting had a great influence on later art groups.",
-      "stem": "다음 우리말에 맞도록 주어진 단어를 올바른 순서로 배열하시오.\n\"감상자들은 이 색들의 조합을 초록색으로 지각한다.\"\n\n[ as / colors / combination / green / of / perceive / the / then / these / Viewers ] (10단어) (영어로)",
-      "det": {
-        "korean": "정답: <b>Viewers then perceive the combination of these colors as green</b> (감상자들은 이 색들의 조합을 초록색으로 지각한다)",
-        "analysis": "'A를 B로 지각하다'는 'perceive A as B' 구조를 배열하는 문제예요.\n\n① 주어 '감상자들은'은 Viewers, '그러면/그다음'의 then, 동사 '지각한다'는 perceive예요. 그래서 Viewers then perceive로 시작해요.\n\n② 지각하는 대상(A)인 '이 색들의 조합'은 the combination of these colors예요. the combination(조합) + of these colors(이 색들의).\n\n③ '초록색으로'는 as green이에요. 여기서 as는 '~로'라는 뜻이에요.\n\n전부 이으면 Viewers then perceive the combination of these colors as green, 총 10단어예요.",
-        "tip": "perceive A as B = A를 B로 지각하다"
-      },
-      "wa": "Viewers then perceive the combination of these colors as green",
-      "accept": [
-        "Viewers then perceive the combination of these colors as green"
-      ]
+      "stem": "다음 우리말에 맞도록 주어진 단어를 올바른 순서로 배열하시오.\n\"감상자들은 이 색들의 조합을 초록색으로 지각한다.\"\n\n[ as / colors / combination / green / of / perceive / the / then / these / Viewers ] (10단어) (영어로)"
     },
     {
       "id": 20,
       "type": "서술형 — 조건영작",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "The idea of using dots to produce another color is not new.  Long before digital images were invented, French artists Georges Seurat and Paul Signac used a similar technique to paint their artworks in the 1880s.  They were influenced by the color theory a French scientist had developed at the time.  __________.  Instead, they used tiny dots of individual colors to create an image.  This technique is called Pointillism.  The idea behind it is that when numerous dots of separate colors are placed next to each other, and then viewed from a distance, they blend in the viewer's eyes.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그들은 캔버스에 물감을 칠하기 위해 전통적인 붓질을 사용하지 않았다.\"\n[조건] (1) They, did, not, use, traditional, brushstrokes, to, put, paint, on, the, canvas를 모두 사용 (2) 12단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "그들은 캔버스에 물감을 칠하기 위해 전통적인 붓질을 사용하지 않았다.",
-        "analysis": "'~하지 않았다'는 did not + 동사원형, '~하기 위해'는 to부정사로 쓰는 문제예요.\n\n① 주어 '그들은'은 They, '사용하지 않았다'는 did not use(과거의 부정)예요. did 뒤에는 동사원형 use를 써요.\n\n② '전통적인 붓질을'은 traditional(전통적인) + brushstrokes(붓질)로 traditional brushstrokes예요.\n\n③ '캔버스에 물감을 칠하기 위해'는 to put paint on the canvas예요. to부정사(to put)가 '~하기 위해'라는 목적을 나타내고, paint(물감) + on the canvas(캔버스 위에) 순서예요.\n\n전부 이으면 They did not use traditional brushstrokes to put paint on the canvas, 총 12단어예요.",
-        "tip": "did not + 동사원형 / to부정사 = ~하기 위해(목적)"
-      },
-      "wa": "They did not use traditional brushstrokes to put paint on the canvas",
-      "accept": [
-        "They did not use traditional brushstrokes to put paint on the canvas"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그들은 캔버스에 물감을 칠하기 위해 전통적인 붓질을 사용하지 않았다.\"\n[조건] (1) They, did, not, use, traditional, brushstrokes, to, put, paint, on, the, canvas를 모두 사용 (2) 12단어 (3) 영어로 쓸 것"
     }
   ]
 }

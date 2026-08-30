@@ -119,6 +119,14 @@
       "answerRule": "",
       "ch": "한국어 4개"
     },
+    "제목": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "",
+      "passageRule": "fullPassage",
+      "answerRule": "",
+      "ch": "4개"
+    },
     "함축의미 추론": {
       "fmt": "mc",
       "stem": "",
@@ -135,25 +143,31 @@
       "answerRule": "바로 앞 문장만으로 판단 불가하게",
       "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
     },
-    "서술형": {
-      "fmt": "written",
-      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 6~10문장 (정답 포함 OK)",
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
-    },
-    "서술형 — 핵심단어": {
-      "fmt": "written",
-      "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
-      "overlay": "overlay = {}",
-      "passageRule": "발췌 6~10문장 (정답 포함 OK)",
-      "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
-    },
     "서술형 — 조건영작": {
       "fmt": "written",
       "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
       "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
       "passageRule": "발췌 + 정답자리 __________",
+      "answerRule": ""
+    },
+    "서술형 — 어법고쳐쓰기": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
+      "passageRule": "발췌 5~8문장 + ①<u>point</u>×4",
+      "answerRule": "정답 1개만 문법 오류. 나머지 정상. 오답도 헷갈려야 함",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "서술형 — 어순배열": {
+      "fmt": "written",
+      "stem": "주어진 단어를 올바른 순서로 배열하시오 + 단어 목록 (8~15개, 정답 순서 아닌 셔플)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
+      "passageRule": "발췌 + __________ (빈칸 in passage)",
       "answerRule": ""
     }
   },
@@ -325,11 +339,11 @@
     },
     {
       "id": 12,
-      "type": "주제",
+      "type": "제목",
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "overlay": "overlay = {}",
+      "overlay": "",
       "suggestedAns": [
         1,
         2,
@@ -370,11 +384,11 @@
     },
     {
       "id": 15,
-      "type": "지칭추론",
+      "type": "빈칸추론",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
       "suggestedAns": [
         1,
         2,
@@ -385,11 +399,11 @@
     },
     {
       "id": 16,
-      "type": "서술형",
+      "type": "서술형 — 조건영작",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "written",
-      "overlay": "overlay = {}",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
       "suggestedAns": [
         1,
         2,
@@ -400,11 +414,11 @@
     },
     {
       "id": 17,
-      "type": "서술형",
+      "type": "서술형 — 어법고쳐쓰기",
       "diff": "보통",
       "pts": 5,
       "fmt": "written",
-      "overlay": "overlay = {}",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": { \"find\": \"원문단어\", \"display\": \"문법오류형태\" }, \"③\": \"원문단어\", \"④\": \"원문단어\" }",
       "suggestedAns": [
         1,
         2,
@@ -415,11 +429,11 @@
     },
     {
       "id": 18,
-      "type": "서술형 — 핵심단어",
+      "type": "서술형 — 조건영작",
       "diff": "어려움",
       "pts": 6,
       "fmt": "written",
-      "overlay": "overlay = {}",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
       "suggestedAns": [
         1,
         2,
@@ -430,11 +444,11 @@
     },
     {
       "id": 19,
-      "type": "서술형 — 조건영작",
+      "type": "서술형 — 어순배열",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
       "suggestedAns": [
         1,
         2,

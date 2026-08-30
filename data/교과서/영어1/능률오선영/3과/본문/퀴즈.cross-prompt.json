@@ -1,5 +1,11 @@
 {
-  "version": 5,
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
   "testType": "퀴즈",
   "ei": {
     "total": 100,
@@ -18,16 +24,9 @@
       "id": 1,
       "type": "어법",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Humanitas is a yellow brick house located in the city of Deventer, the Netherlands.  It is a care center that ①<u>houses</u> more than 160 elderly residents who ②<u>requires</u> assistance.  Along with its supportive environment, Humanitas ③<u>offers</u> something unusual: young neighbors.  At Humanitas, elderly residents ④<u>share</u> their living space with university students.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "② requires → require: 주어가 복수(residents)이므로 동사도 복수형 require",
-        "analysis": "❌ ① houses — 'a care center that houses more than 160 ...'에서 관계대명사 that의 주어는 단수 'a care center'라서 3인칭 단수 동사 houses가 맞아요.\n\n✅ ② requires — 원래는 require입니다. 'residents who require assistance'에서 who가 가리키는 것은 복수 'residents(거주자들)'예요. 주어가 복수면 동사에 -s를 붙이지 않으니 require가 맞아요. requires(-s)는 단수형이라 틀려요. ←정답\n\n❌ ③ offers — 'Humanitas offers something unusual'에서 주어 Humanitas는 하나(단수)라서 offers가 맞아요.\n\n❌ ④ share — 'elderly residents share their living space'에서 주어가 복수 residents라서 share가 맞아요.",
-        "tip": "who/that가 가리키는 명사가 복수면 동사도 복수형(-s 없음)"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -39,16 +38,9 @@
       "id": 2,
       "type": "어법",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "There are currently six students living at Humanitas, with a long waiting list of others ①<u>hoping</u> ②<u>to offer</u> a spot.  Humanitas is a great example of how people of different ages can help each other and share their lives with one another.  The older residents gain a more youthful perspective on life, while the younger residents ③<u>receive</u> valuable life lessons.  More and more care homes around Europe are now trying intergenerational living, ④<u>bringing</u> the young and old together in harmony.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "② to offer → to be offered: 자리를 '받는' 입장이므로 수동 부정사(to be+과거분사)",
-        "analysis": "❌ ① hoping — 'a long waiting list of others hoping to be offered a spot'에서 '~하기를 바라는'이라는 뜻으로 앞의 others를 꾸며 주는 현재분사 hoping이 맞아요.\n\n✅ ② to offer — 원래는 to be offered입니다. 자리를 '주는' 게 아니라 대기자들이 자리를 '받기를' 바라는 것이라, 수동의 뜻인 'to be offered(제공받다)'가 맞아요. to offer(제공하다)는 능동이라 뜻이 반대예요. ←정답\n\n❌ ③ receive — 'the younger residents receive valuable life lessons'에서 주어가 복수 residents라서 receive가 맞아요.\n\n❌ ④ bringing — 'are now trying ..., bringing the young and old together'에서 '~하면서'라는 뜻으로 이어 주는 분사구문 bringing이 맞아요.",
-        "tip": "to be + 과거분사 = 수동 부정사(~받다/~되다)"
-      },
-      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -60,16 +52,9 @@
       "id": 3,
       "type": "어법",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Speaking of my young neighbor, she has been here for more than two years now.  Last year, she went through a difficult time of grief after she ①<u>lost</u> her father, so I did what came naturally.  I ②<u>stayed</u> with her, held her hands when she cried, and listened to what she said.  She later ③<u>told</u> me that I was a great comfort during that difficult time, ④<u>that</u> made me feel very good.  It always feels nice to be reminded that I'm still capable of doing things for others.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 어법상 틀린 것은?",
-      "det": {
-        "korean": "④ that → which: 콤마 뒤에서 앞 문장 전체를 받는 계속적 용법에는 that을 못 씀",
-        "analysis": "❌ ① lost — 'after she lost her father'에서 과거의 일을 나타내는 과거형 lost가 맞아요.\n\n❌ ② stayed — 'I stayed with her'에서 과거형 stayed가 맞아요.\n\n❌ ③ told — 'She later told me that ...'에서 과거형 told가 맞아요.\n\n✅ ④ that — 원래는 which입니다. 콤마(,) 뒤에서 앞 문장 전체('내가 큰 위로가 되었다')를 받아 '그리고 그것이'로 이어 주는 것을 계속적 용법이라고 해요. 이 자리에는 which만 쓸 수 있고 that은 쓸 수 없어요. 그래서 that은 틀려요. ←정답",
-        "tip": "콤마(,) + which = 계속적 용법 '그런데/그리고 그것은'. 이 자리에 that 금지"
-      },
-      "ans": 4,
       "ch": [
         "①",
         "②",
@@ -81,16 +66,9 @@
       "id": 4,
       "type": "문맥상 부적절한 어휘",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "It's a really great way to take a break from rushing around all the time. \n\nI used to feel ①<u>sorry</u> for the elderly because I ②<u>focused</u> only on the things they can't do.  When I look at them now, however, I see all the things they can do.  Obviously, Humanitas provides me with much more than a free place to stay.  I've made deep, ③<u>meaningless</u> friendships that I'll never forget here. \n\nI ④<u>intend</u> to stay at Humanitas for at least one more year.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "③ meaningful이 맞음. meaningless(무의미한)는 '결코 잊지 못할 우정' 문맥과 반대",
-        "analysis": "❌ ① sorry — 'I used to feel sorry for the elderly(노인들을 안쓰럽게 여겼다)'. 예전에 안타까워했다는 문맥에 적절해요.\n\n❌ ② focused — 'I focused only on the things they can't do(그들이 못 하는 것에만 집중했다)'. 문맥에 적절해요.\n\n✅ ③ meaningless — 원래는 meaningful입니다. 바로 뒤에서 '결코 잊지 못할(never forget)' 우정이라고 하니 '깊고 의미 있는(meaningful)' 우정이어야 해요. meaningless(무의미한)는 정반대라 문맥에 안 맞아요. ←정답\n\n❌ ④ intend — 'I intend to stay ... for at least one more year(적어도 1년 더 머물 생각이다)'. 문맥에 적절해요.",
-        "tip": "deep, meaningful friendships = 깊고 의미 있는 우정 (never forget이 근거)"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -102,16 +80,9 @@
       "id": 5,
       "type": "문맥상 부적절한 어휘",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "This unique \"intergenerational living\" project began in 2012, after budget cuts ①<u>reduced</u> the amount of money care homes in the Netherlands received.  This funding reduction led to the loss of many ②<u>essential</u> elderly care programs, including social, educational, and counseling services. \n\nHumanitas needed to seek an affordable solution to fill the gap left by the removal of these services.  Since the building had numerous ③<u>occupied</u> rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents.  Many students were ④<u>struggling</u> to afford the area's high rents, so the proposal was a true win-win situation.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
-      "det": {
-        "korean": "③ empty가 맞음. occupied(사용 중인)는 '빈방을 학생에게 내줬다' 문맥과 반대",
-        "analysis": "❌ ① reduced — 'budget cuts reduced the amount of money(예산 삭감이 돈의 액수를 줄였다)'. 삭감 문맥에 적절해요.\n\n❌ ② essential — 'many essential elderly care programs(많은 필수 노인 돌봄 프로그램)'. 꼭 필요한 프로그램이라는 뜻으로 적절해요.\n\n✅ ③ occupied — 원래는 empty입니다. 건물에 '빈(empty)' 방이 많이 남아 있어서 그 방을 학생들에게 내주었다는 흐름이에요. occupied(누군가 쓰고 있는)는 '이용 가능한(available)'과도 모순되어 틀려요. ←정답\n\n❌ ④ struggling — 'Many students were struggling to afford the area's high rents(높은 월세를 감당하느라 힘겨워했다)'. 문맥에 적절해요.",
-        "tip": "numerous empty rooms available = 이용 가능한 빈방이 많은"
-      },
-      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -123,16 +94,9 @@
       "id": 6,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "This funding reduction led to the loss of many essential elderly care programs, including social, educational, and counseling services. \n\nHumanitas needed to seek an affordable solution to fill the gap left by the removal of these services.  Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for __________.  Many students were struggling to afford the area's high rents, so the proposal was a true win-win situation.  Now, let's hear more about this intriguing place from two of the residents.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 무료 방을 주는 대가로 학생들이 하는 일 → '노인 거주자들과 시간을 보내는 것'",
-        "analysis": "✅ ① spending time with the elderly residents(노인 거주자들과 시간을 보내는 것) — 관리자가 학생들에게 '무료 숙소를 주는 대가로(in return for)' 무엇을 받았는지 묻는 자리예요. 뒤 문장에서 '진정한 윈윈'이라고 하고, 이 프로젝트가 '세대 간 함께 살기'이므로, 학생들이 노인과 시간을 보내는 것이 정답이에요. ←정답\n\n❌ ② paying a reduced monthly rent(줄어든 월세를 내는 것) — 학생들은 '무료' 숙소를 받았으니 월세를 낸다는 것은 맞지 않아요.\n\n❌ ③ cleaning the entire building every week(매주 건물 전체를 청소하는 것) — 청소 이야기는 본문에 없어요.\n\n❌ ④ recruiting more medical staff(의료진을 더 채용하는 것) — 채용과는 관련이 없어요.",
-        "tip": "in return for ~ = ~의 대가로 (무료 방 ↔ 노인과 함께한 시간)"
-      },
-      "ans": 1,
       "ch": [
         "spending time with the elderly residents",
         "paying a reduced monthly rent",
@@ -144,16 +108,9 @@
       "id": 7,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "Humanitas doesn't feel like a care home to me.  Instead, I consider it __________.  Every time I come home, I tell my neighbors about my day.  When I have a problem, they always have useful advice to share.  With so much experience gathered over a lifetime, they possess knowledge that I have yet to acquire.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 요양원 같지 않고, 자신이 '속해 있는 공동체(a community that I am a part of)'로 여김",
-        "analysis": "❌ ① a temporary place to sleep(잠만 자는 임시 장소) — 화자는 이곳을 단순한 잠자리 이상으로 여기므로 반대예요.\n\n✅ ② a community that I am a part of(내가 속해 있는 공동체) — 앞에서 '요양원 같지 않다(doesn't feel like a care home)'고 했고, 이웃에게 하루 일과를 이야기하고 조언을 얻는다고 하니 자신이 속한 '공동체'로 여기는 것이 자연스러워요. ←정답\n\n❌ ③ a strict and lonely institution(엄격하고 외로운 시설) — 따뜻한 분위기와 반대예요.\n\n❌ ④ a business run for profit(이윤을 위해 운영되는 사업체) — 돈벌이 이야기가 아니에요.",
-        "tip": "Instead(대신) 뒤에는 앞 문장(요양원 같지 않다)과 대비되는 긍정적 표현이 와요"
-      },
-      "ans": 2,
       "ch": [
         "a temporary place to sleep",
         "a community that I am a part of",
@@ -165,16 +122,9 @@
       "id": 8,
       "type": "내용 일치/불일치",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "Humanitas is a yellow brick house located in the city of Deventer, the Netherlands.  It is a care center that houses more than 160 elderly residents who require assistance.  Along with its supportive environment, Humanitas offers something unusual: young neighbors.  At Humanitas, elderly residents share their living space with university students. \n\nThis unique \"intergenerational living\" project began in 2012, after budget cuts reduced the amount of money care homes in the Netherlands received.  This funding reduction led to the loss of many essential elderly care programs, including social, educational, and counseling services. \n\nHumanitas needed to seek an affordable solution to fill the gap left by the removal of these services.  Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "③ 예산 삭감으로 여러 필수 돌봄 프로그램이 사라짐 — 본문과 일치",
-        "analysis": "❌ ① Humanitas는 200명이 넘는 노인 거주자를 수용한다 — 본문은 'more than 160 elderly residents(160명 이상)'이라 200명이 아니에요.\n\n❌ ② 세대 간 함께 살기 프로젝트는 정부 지원금이 늘어난 뒤에 시작되었다 — 본문은 'budget cuts reduced the amount of money(예산 삭감으로 돈이 줄었다)'라고 했으니 늘어난 게 아니라 줄었어요.\n\n✅ ③ 예산 삭감으로 사회·교육·상담 서비스 등 여러 필수 노인 돌봄 프로그램이 사라졌다 — 'funding reduction led to the loss of many essential elderly care programs, including social, educational, and counseling services'와 일치해요. ←정답\n\n❌ ④ 건물에 빈방이 부족해서 관리자는 학생을 받을 수 없었다 — 본문은 'numerous empty rooms available(빈방이 많이 있었다)'이라 반대예요.",
-        "tip": "budget cuts(예산 삭감) → loss of care programs(돌봄 프로그램 상실)"
-      },
-      "ans": 3,
       "ch": [
         "Humanitas는 200명이 넘는 노인 거주자를 수용한다",
         "세대 간 함께 살기 프로젝트는 정부 지원금이 늘어난 뒤에 시작되었다",
@@ -186,16 +136,9 @@
       "id": 9,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "My name is Jacob Jansen, and I've been living at Humanitas for over two years.  I've really enjoyed my time here.  As a live-in student, I'm required to spend at least 30 hours per month with my elderly neighbors in exchange for free accommodations.  In reality, however, we spend a lot more time together than that.  Sometimes I teach them things, such as how to use social media, and other times I just hang out with them.  We have meals together, play games, and go shopping.",
       "stem": "다음 글의 내용과 일치하지 <b>않는</b> 것은?",
-      "det": {
-        "korean": "③ 노인에게서 소셜 미디어를 배웠다 — 실제로는 Jacob이 노인들에게 '가르쳐' 줌(불일치)",
-        "analysis": "❌ ① Jacob은 한 달에 최소 30시간을 노인 이웃들과 보내야 한다 — 'required to spend at least 30 hours per month with my elderly neighbors'와 일치해요.\n\n❌ ② 실제로는 규정된 시간보다 훨씬 더 많은 시간을 함께 보낸다 — 'In reality, however, we spend a lot more time together than that'과 일치해요.\n\n✅ ③ Jacob은 노인들에게서 소셜 미디어 사용법을 배웠다 — 본문은 'Sometimes I teach them things, such as how to use social media'라고 했어요. Jacob이 노인들에게 소셜 미디어를 '가르쳐' 준 것이라 방향이 반대예요. ←정답\n\n❌ ④ 그들은 함께 식사하고 게임을 하고 쇼핑을 하러 간다 — 'We have meals together, play games, and go shopping'과 일치해요.",
-        "tip": "I teach them = 내가 그들에게 가르친다 (배운 게 아님)"
-      },
-      "ans": 3,
       "ch": [
         "Jacob은 한 달에 최소 30시간을 노인 이웃들과 보내야 한다",
         "실제로는 규정된 시간보다 훨씬 더 많은 시간을 함께 보낸다",
@@ -207,16 +150,9 @@
       "id": 10,
       "type": "내용 일치/불일치",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "My name is Helena Smit, and I am 93 years old.  I have been living at Humanitas for the past 15 years, so I remember when we were first informed that we would have young people as neighbors.  Believe me, not everyone was happy about it!  But that quickly changed once they moved in.  The students here are energetic, friendly, and caring.  They make us laugh and create a joyful mood. \n\nHumanitas was already a decent place to live before the students arrived, but it has become a lot more fun since they moved in.  Recently, the students held a pajama party and invited us to join them.  They taught us how to play some new games, and we all had a great time.  It was like we were in our 20s again. \n\nI sometimes hear loud music from my young next-door neighbor's apartment, but that is okay.  It's a small matter compared to what they've brought to our lives.",
       "stem": "다음 글의 내용과 일치하는 것은?",
-      "det": {
-        "korean": "④ 학생들이 온 뒤로 훨씬 더 즐거워짐 — 본문과 일치",
-        "analysis": "❌ ① 모든 거주자가 처음부터 젊은 이웃을 반겼다 — 본문은 'not everyone was happy about it(모두가 좋아한 것은 아니었다)'이라 반대예요.\n\n❌ ② Helena는 Humanitas에서 5년째 살고 있다 — 본문은 'for the past 15 years(지난 15년간)'이라 5년이 아니에요.\n\n❌ ③ Helena는 이웃의 시끄러운 음악 때문에 몹시 화가 났다 — 본문은 'that is okay ... It's a small matter(괜찮다, 사소한 일이다)'라고 했으니 화가 난 게 아니에요.\n\n✅ ④ 학생들이 이사 온 뒤로 Humanitas는 훨씬 더 즐거운 곳이 되었다 — 'it has become a lot more fun since they moved in'과 일치해요. ←정답",
-        "tip": "a small matter compared to ~ = ~에 비하면 사소한 일 (불평 아님)"
-      },
-      "ans": 4,
       "ch": [
         "모든 거주자가 처음부터 젊은 이웃을 반겼다",
         "Helena는 Humanitas에서 5년째 살고 있다",
@@ -228,16 +164,9 @@
       "id": 11,
       "type": "주제",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "But having young, vibrant people around helps me forget about the pain and enjoy my life! \n\nThere are currently six students living at Humanitas, with a long waiting list of others hoping to be offered a spot.  Humanitas is a great example of how people of different ages can help each other and share their lives with one another.  The older residents gain a more youthful perspective on life, while the younger residents receive valuable life lessons.  More and more care homes around Europe are now trying intergenerational living, bringing the young and old together in harmony.",
       "stem": "다음 글의 주제로 가장 적절한 것은?",
-      "det": {
-        "korean": "① 세대 간 함께 살기로 노인과 젊은이가 서로 돕고 삶을 나누는 가치",
-        "analysis": "✅ ① 세대 간 함께 살기를 통해 노인과 젊은이가 서로 돕고 삶을 나누는 것의 가치 — 'Humanitas is a great example of how people of different ages can help each other and share their lives'라며 노인과 젊은이가 서로에게 주는 가치를 강조하므로 주제로 적절해요. ←정답\n\n❌ ② 네덜란드의 노인 복지 예산이 삭감된 구체적인 원인과 과정 — 예산 삭감은 프로젝트가 시작된 배경일 뿐 글 전체 주제는 아니에요.\n\n❌ ③ 대학생들이 대도시에서 저렴한 집을 구하는 다양한 방법 — 일부 세부 내용일 뿐 주제가 아니에요.\n\n❌ ④ 유럽 요양 시설의 건축 양식과 실내 장식의 변화 — 건축·장식 이야기가 아니에요.",
-        "tip": "intergenerational living = 세대 간 함께 살기 (서로 돕고 삶을 나눔)"
-      },
-      "ans": 1,
       "ch": [
         "세대 간 함께 살기를 통해 노인과 젊은이가 서로 돕고 삶을 나누는 것의 가치",
         "네덜란드의 노인 복지 예산이 삭감된 구체적인 원인과 과정",
@@ -249,16 +178,9 @@
       "id": 12,
       "type": "제목",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Humanitas is a yellow brick house located in the city of Deventer, the Netherlands.  It is a care center that houses more than 160 elderly residents who require assistance.  Along with its supportive environment, Humanitas offers something unusual: young neighbors.  At Humanitas, elderly residents share their living space with university students. \n\nThis unique \"intergenerational living\" project began in 2012, after budget cuts reduced the amount of money care homes in the Netherlands received.  This funding reduction led to the loss of many essential elderly care programs, including social, educational, and counseling services. \n\nHumanitas needed to seek an affordable solution to fill the gap left by the removal of these services.  Since the building had numerous empty rooms available, the director decided to offer local university students free accommodations in return for spending time with the elderly residents.  Many students were struggling to afford the area's high rents, so the proposal was a true win-win situation.  Now, let's hear more about this intriguing place from two of the residents. \n\nHi!  My name is Jacob Jansen, and I've been living at Humanitas for over two years.  I've really enjoyed my time here.  As a live-in student, I'm required to spend at least 30 hours per month with my elderly neighbors in exchange for free accommodations.  In reality, however, we spend a lot more time together than that.  Sometimes I teach them things, such as how to use social media, and other times I just hang out with them.  We have meals together, play games, and go shopping. \n\nHumanitas doesn't feel like a care home to me.",
       "stem": "다음 글의 제목으로 가장 적절한 것은?",
-      "det": {
-        "korean": "① 한 지붕 아래: 젊은이와 노인이 함께 살 때 — 글 전체 내용과 일치",
-        "analysis": "✅ ① Under a Shared Roof: When the Young and Old Live Together(한 지붕 아래: 젊은이와 노인이 함께 살 때) — 노인과 대학생이 한집에서 함께 사는 이야기라는 글 전체 내용과 딱 맞아요. ←정답\n\n❌ ② The Financial Collapse of Elderly Care in the Netherlands(네덜란드 노인 돌봄의 재정 붕괴) — 예산 삭감은 배경일 뿐 '재정 붕괴'가 글의 초점은 아니에요.\n\n❌ ③ A Student's Guide to Finding Cheap City Housing(도시에서 값싼 집 구하는 학생 안내서) — 저렴한 주거는 일부 소재일 뿐 제목이 될 수 없어요.\n\n❌ ④ The Long History of European Care Homes(유럽 요양원의 오랜 역사) — 요양원의 역사에 관한 글이 아니에요.",
-        "tip": "Under a Shared Roof = 한 지붕 아래 (세대 간 동거)"
-      },
-      "ans": 1,
       "ch": [
         "Under a Shared Roof: When the Young and Old Live Together",
         "The Financial Collapse of Elderly Care in the Netherlands",
@@ -270,16 +192,9 @@
       "id": 13,
       "type": "함축의미 추론",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "mc",
       "passage": "Humanitas was already a decent place to live before the students arrived, but it has become a lot more fun since they moved in.  Recently, the students held a pajama party and invited us to join them.  They taught us how to play some new games, and we all had a great time.  It was like <u>we were in our 20s again</u>. \n\nI sometimes hear loud music from my young next-door neighbor's apartment, but that is okay.  It's a small matter compared to what they've brought to our lives.",
       "stem": "다음 글의 밑줄 친 <b>we were in our 20s again</b>이 의미하는 바로 가장 적절한 것은?",
-      "det": {
-        "korean": "we were in our 20s again = (다시 젊어진 듯) 활기차고 즐거운 기분을 느꼈다",
-        "analysis": "밑줄 친 <b>we were in our 20s again</b>은 직역하면 '우리가 다시 20대가 된 것 같았다'로, 노인들이 젊은이처럼 활기차고 즐거웠다는 비유예요.\n\n❌ ① 젊은 학생들과의 세대 차이 때문에 불편함을 느꼈다 — 즐거웠다는 흐름과 반대예요.\n\n✅ ② 학생들과 어울리며 젊은 시절처럼 활기차고 즐거운 기분을 느꼈다 — 학생들이 연 파자마 파티에서 새 게임을 배우며 '다들 즐거운 시간을 보냈다(had a great time)'고 했으니 맞아요. ←정답\n\n❌ ③ 실제로 자신이 20대였던 시절의 기억을 모두 잃어버렸다 — 기억 상실 이야기가 아니에요.\n\n❌ ④ 파티 소음 때문에 밤늦게까지 잠을 이루지 못했다 — 글자 그대로 읽은 오해예요.",
-        "tip": "had a great time(즐거운 시간) → 다시 젊어진 기분"
-      },
-      "ans": 2,
       "ch": [
         "젊은 학생들과의 세대 차이 때문에 불편함을 느꼈다",
         "학생들과 어울리며 젊은 시절처럼 활기차고 즐거운 기분을 느꼈다",
@@ -291,16 +206,9 @@
       "id": 14,
       "type": "지칭추론",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "mc",
       "passage": "As a live-in student, I'm required to spend at least 30 hours per month with my elderly neighbors in exchange for free accommodations.  In reality, however, we spend a lot more time together than that.  Sometimes I teach <u>them</u> things, such as how to use social media, and other times I just hang out with them.  We have meals together, play games, and go shopping. \n\nHumanitas doesn't feel like a care home to me.",
       "stem": "다음 글의 밑줄 친 <b>them</b>이 가리키는 것으로 가장 적절한 것은?",
-      "det": {
-        "korean": "them = 화자(대학생)의 노인 이웃들 (몇 문장 앞의 my elderly neighbors)",
-        "analysis": "밑줄 친 <b>them</b>은 '그들에게'라는 뜻으로, 바로 앞이 아니라 몇 문장 앞에 나온 대상을 가리켜요.\n\n❌ ① 대학생들 — 가르치는 주체(화자)이지 가르침을 받는 대상이 아니에요.\n\n❌ ② Humanitas의 관리자들 — 본문에서 가르침을 받는 대상으로 나오지 않아요.\n\n❌ ③ 소셜 미디어 회사들 — 소셜 미디어는 가르치는 '내용'일 뿐 대상이 아니에요.\n\n✅ ④ 화자의 노인 이웃들 — 앞에서 'spend ... with my elderly neighbors(노인 이웃들과 시간을 보낸다)'라고 했고, 'I teach them(그들에게 가르친다)'의 them은 바로 그 노인 이웃들이에요. ←정답",
-        "tip": "teach them = 그들(노인 이웃들)에게 가르치다"
-      },
-      "ans": 4,
       "ch": [
         "대학생들",
         "Humanitas의 관리자들",
@@ -312,16 +220,9 @@
       "id": 15,
       "type": "빈칸추론",
       "diff": "보통",
-      "pts": 5,
       "fmt": "mc",
       "passage": "But having young, vibrant people around helps me forget about the pain and enjoy my life! \n\nThere are currently six students living at Humanitas, with a long waiting list of others hoping to be offered a spot.  Humanitas is a great example of how people of different ages can help each other and share their lives with one another.  The older residents gain __________, while the younger residents receive valuable life lessons.  More and more care homes around Europe are now trying intergenerational living, bringing the young and old together in harmony.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
-      "det": {
-        "korean": "빈칸: 노인 거주자들이 얻는 것 → '삶에 대한 더 젊은 시각(a more youthful perspective on life)'",
-        "analysis": "✅ ① a more youthful perspective on life(삶에 대한 더 젊은 시각) — 빈칸은 나이 든 거주자가 '얻는(gain)' 것을 넣는 자리예요. 뒤 문장에서 젊은 거주자는 '값진 인생 교훈(valuable life lessons)'을 얻는다고 대비되므로, 노인은 젊은이에게서 '더 젊은 시각'을 얻는 것이 자연스러워요. ←정답\n\n❌ ② a complete loss of independence(독립성의 완전한 상실) — 부정적인 내용이라 '얻는 것'과 맞지 않아요.\n\n❌ ③ a large sum of monthly rent(많은 액수의 월세) — 돈 이야기가 아니에요.\n\n❌ ④ full-time medical treatment(종일 의료 치료) — 치료 이야기가 아니에요.",
-        "tip": "older gain ~, while younger receive ~ : 대비 구조로 빈칸 추론"
-      },
-      "ans": 1,
       "ch": [
         "a more youthful perspective on life",
         "a complete loss of independence",
@@ -333,91 +234,41 @@
       "id": 16,
       "type": "서술형 — 조건영작",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "written",
       "passage": "Humanitas was already a decent place to live before the students arrived, but it has become a lot more fun since they moved in.  Recently, __________ and invited us to join them.  They taught us how to play some new games, and we all had a great time.  It was like we were in our 20s again. \n\nI sometimes hear loud music from my young next-door neighbor's apartment, but that is okay.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"학생들이 파자마 파티를 열었다.\"\n[조건] (1) a, held, pajama, party, students, the를 모두 사용 (2) 6단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "학생들이 파자마 파티를 열었다.",
-        "analysis": "주어(누가) → 동사(했다) → 목적어(무엇을) 순서로 배열하는 문제예요.\n\n① '학생들이'는 the(그) + students(학생들)로 'the students'가 되고, 이게 주어예요.\n\n② '열었다'는 hold의 과거형 held를 써요. hold는 파티·행사를 '열다'라는 뜻이 있어요.\n\n③ '파자마 파티를'은 a(하나의) + pajama(파자마) + party(파티)로 'a pajama party'가 되고, 목적어 자리에 놓아요.\n\n전부 이으면 the students held a pajama party, 총 6단어예요.",
-        "tip": "hold a party = 파티를 열다 (held는 hold의 과거형)"
-      },
-      "wa": "the students held a pajama party",
-      "accept": [
-        "the students held a pajama party"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"학생들이 파자마 파티를 열었다.\"\n[조건] (1) a, held, pajama, party, students, the를 모두 사용 (2) 6단어 (3) 영어로 쓸 것"
     },
     {
       "id": 17,
       "type": "서술형 — 어법고쳐쓰기",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "My name is Helena Smit, and I am 93 years old.  I have been living at Humanitas for the past 15 years, so I remember when we were first ①<u>informing</u> that we would have young people as neighbors.  Believe me, not everyone was happy about it!  But that quickly changed once they moved in.  The students here are energetic, friendly, and caring.  They make us laugh and create a joyful mood.",
-      "stem": "다음 글의 밑줄 친 ①은 어법상 틀렸다. 어법에 맞게 올바른 형태로 고쳐 쓰시오. (한 단어, 영어로)",
-      "det": {
-        "korean": "informing → <b>informed</b>: 'we were ___'는 통보를 '받는' 수동태이므로 과거분사 informed",
-        "analysis": "밑줄이 있는 부분은 'when we were first ___ that we would have young people as neighbors(우리가 젊은 사람들을 이웃으로 두게 될 거라고 처음 ___ 때)'예요.\n\n① 핵심은 앞에 있는 were예요. 'be동사(were) + 과거분사'는 '~되다/~받다'라는 수동태예요. 우리(we)는 소식을 '통보하는' 게 아니라 '통보받는' 입장이라 수동태가 필요해요.\n\n② inform은 '알리다·통보하다'인데, 통보를 '받는' 것이므로 과거분사 informed로 써서 'we were informed(우리는 통보받았다)'가 돼요.\n\n③ informing(-ing)은 '알리고 있는'이라는 능동의 뜻이라 방향이 반대예요. 그래서 informed가 정답이에요.",
-        "tip": "be동사 + 과거분사 = 수동태(~받다). were informed = 통보받았다"
-      },
-      "wa": "informed",
-      "accept": [
-        "informed"
-      ]
+      "stem": "다음 글의 밑줄 친 ①은 어법상 틀렸다. 어법에 맞게 올바른 형태로 고쳐 쓰시오. (한 단어, 영어로)"
     },
     {
       "id": 18,
       "type": "서술형 — 조건영작",
       "diff": "어려움",
-      "pts": 6,
       "fmt": "written",
       "passage": "Obviously, Humanitas provides me with much more than a free place to stay.  I've made deep, meaningful friendships that I'll never forget here. \n\nI intend to stay at Humanitas for at least one more year.  Living here has changed my life in ways I never thought possible, and I'm really grateful for this transformative experience.  I have learned so much from my neighbors already, but I'm sure __________.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그들이 나에게 가르쳐 줄 수 있는 것이 아직 더 많이 있다.\"\n[조건] (1) a, can, is, lot, me, more, still, teach, that, there, they를 모두 사용 (2) 11단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "그들이 나에게 가르쳐 줄 수 있는 것이 아직 더 많이 있다.",
-        "analysis": "'~이 있다'를 there is로 시작하고, '것'을 관계대명사로 꾸미는 문제예요.\n\n① '~이 있다'는 'there is ~'예요. 뒤의 내용을 형식적으로 앞세워 there is로 시작해요.\n\n② '아직 더 많이'는 still(아직) + a lot more(훨씬 더 많은 것)로 써서 'still a lot more'가 돼요.\n\n③ '그들이 나에게 가르쳐 줄 수 있는'처럼 앞의 명사(a lot more)를 꾸며 주는 문장은 관계대명사 that으로 이어요. 'that they can teach me(그들이 나에게 가르쳐 줄 수 있는)'.\n\n전부 이으면 there is still a lot more that they can teach me, 총 11단어예요.",
-        "tip": "a lot more that + 주어 + 동사 = ~가 …할 수 있는 더 많은 것 (관계대명사 that)"
-      },
-      "wa": "there is still a lot more that they can teach me",
-      "accept": [
-        "there is still a lot more that they can teach me"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"그들이 나에게 가르쳐 줄 수 있는 것이 아직 더 많이 있다.\"\n[조건] (1) a, can, is, lot, me, more, still, teach, that, there, they를 모두 사용 (2) 11단어 (3) 영어로 쓸 것"
     },
     {
       "id": 19,
       "type": "서술형 — 어순배열",
       "diff": "쉬움",
-      "pts": 4,
       "fmt": "written",
       "passage": "Humanitas is a yellow brick house located in the city of Deventer, the Netherlands.  It is a care center that houses more than 160 elderly residents who require assistance.  Along with its supportive environment, Humanitas offers something unusual: young neighbors.  At Humanitas, __________. \n\nThis unique \"intergenerational living\" project began in 2012, after budget cuts reduced the amount of money care homes in the Netherlands received.",
-      "stem": "다음 우리말에 맞도록 주어진 단어를 올바른 순서로 배열하시오.\n\"노인 거주자들은 대학생들과 그들의 생활 공간을 함께 쓴다.\"\n\n[ elderly / living / residents / share / space / students / their / university / with ] (9단어) (영어로)",
-      "det": {
-        "korean": "정답: <b>elderly residents share their living space with university students</b> (노인 거주자들은 대학생들과 생활 공간을 함께 쓴다)",
-        "analysis": "우리말에 맞게 단어를 배열하는 문제예요.\n\n① 주어 '노인 거주자들은'은 elderly(노인의) + residents(거주자들)로 'elderly residents'예요.\n\n② 동사 '함께 쓴다(공유하다)'는 share예요. 주어가 복수라서 -s 없이 share로 써요.\n\n③ 목적어 '그들의 생활 공간을'은 their(그들의) + living(생활) + space(공간)로 'their living space'예요.\n\n④ '대학생들과'는 with(~와 함께) + university(대학) + students(학생들)로 'with university students'예요.\n\n전부 이으면 elderly residents share their living space with university students, 총 9단어예요.",
-        "tip": "share A with B = B와 A를 함께 쓰다/나누다"
-      },
-      "wa": "elderly residents share their living space with university students",
-      "accept": [
-        "elderly residents share their living space with university students"
-      ]
+      "stem": "다음 우리말에 맞도록 주어진 단어를 올바른 순서로 배열하시오.\n\"노인 거주자들은 대학생들과 그들의 생활 공간을 함께 쓴다.\"\n\n[ elderly / living / residents / share / space / students / their / university / with ] (9단어) (영어로)"
     },
     {
       "id": 20,
       "type": "서술형 — 조건영작",
       "diff": "보통",
-      "pts": 5,
       "fmt": "written",
       "passage": "For example, I've learned the value of having a casual chat over a cup of coffee from them.  It's a really great way to take a break from rushing around all the time. \n\nI used to feel sorry for the elderly because I focused only on the things they can't do.  When I look at them now, however, __________.  Obviously, Humanitas provides me with much more than a free place to stay.",
-      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"나는 그들이 할 수 있는 모든 것을 본다.\"\n[조건] (1) all, can, do, I, see, the, they, things를 모두 사용 (2) 8단어 (3) 영어로 쓸 것",
-      "det": {
-        "korean": "나는 그들이 할 수 있는 모든 것을 본다.",
-        "analysis": "주어 → 동사 → 목적어(+꾸미는 말) 순서로 배열하는 문제예요.\n\n① 주어 '나는'은 I, 동사 '본다'는 see예요. 그래서 I see로 시작해요.\n\n② 목적어 '모든 것을'은 all(모든) + the(그) + things(것들)로 'all the things'예요.\n\n③ '그들이 할 수 있는'은 앞의 things를 꾸며 주는 말인데, 관계대명사(that)를 생략하고 바로 'they can do(그들이 할 수 있는)'를 이어 붙일 수 있어요.\n\n전부 이으면 I see all the things they can do, 총 8단어예요.",
-        "tip": "the things (that) they can do = 그들이 할 수 있는 것들 (관계대명사 생략 가능)"
-      },
-      "wa": "I see all the things they can do",
-      "accept": [
-        "I see all the things they can do"
-      ]
+      "stem": "다음 우리말에 맞도록 [조건]에 따라 영작하시오.\n\"나는 그들이 할 수 있는 모든 것을 본다.\"\n[조건] (1) all, can, do, I, see, the, they, things를 모두 사용 (2) 8단어 (3) 영어로 쓸 것"
     }
   ]
 }

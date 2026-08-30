@@ -1,20 +1,66 @@
 {
-  "adversarialModel": "claude-opus-4-6",
-  "adversarialDate": "2026-05-29",
+  "testFile": "퀴즈.json",
   "issues": [
     {
       "id": 16,
-      "severity": "MEDIUM",
-      "issue": "wa가 'to'로 끝나 어색. accept에 대안('tiny dots of individual colors to create') 포함으로 완화됨",
-      "action": "유지 (accept에 7단어 대안 존재)"
+      "category": "정답 노출 (크로스문항)",
+      "description": "서술형 정답 'Each tiny square dot is called a pixel'이 같은 테스트 Q8(내용일치) passage에 그대로 노출됨(Q1도 'calling'만 다르게 노출, Q11·Q12 전문 passage에도 노출). 학생이 Q8 지문을 보고 서술형 정답을 그대로 베낄 수 있어 4점 서술형이 무력화됨. 서술형 정답 문장은 이를 포함하는 다른 문항 passage에서도 빈칸/변형 처리 필요.",
+      "severity": "medium"
+    },
+    {
+      "id": 18,
+      "category": "정답 노출 (크로스문항)",
+      "description": "서술형 정답 'It took him two years to produce this huge piece'가 Q3(어법) passage에 원문 그대로 노출됨(Q13·Q15·Q11·Q12에도 노출). 학생이 다른 문항 지문에서 6점 서술형 정답을 통째로 복사 가능.",
+      "severity": "medium"
+    },
+    {
+      "id": 19,
+      "category": "정답 노출 (크로스문항)",
+      "description": "어순배열 정답 'Viewers then perceive the combination of these colors as green'이 Q10(내용일치)·Q5(어휘)·Q7(빈칸) passage에 완전한 문장으로 노출됨. 배열 답을 다른 문항 지문에서 그대로 확인 가능해 어순배열의 변별력이 사라짐.",
+      "severity": "medium"
     },
     {
       "id": 20,
-      "severity": "LOW",
-      "issue": "22단어 조건영작은 극단적으로 긴 편이나, 본문 원문 그대로이고 보통 난이도(5점)",
-      "action": "유지"
+      "category": "정답 노출 (크로스문항)",
+      "description": "조건영작 정답 'They did not use traditional brushstrokes to put paint on the canvas'가 Q2(어법)·Q9(내용불일치)·Q14(지칭)·Q11·Q12 passage에 원문 그대로 노출됨. Q9 det 선지 ③에도 우리말 해설로 재노출. 학생이 5점 서술형을 그대로 베낄 수 있음.",
+      "severity": "medium"
+    },
+    {
+      "id": 7,
+      "category": "정답 노출 + 뻔한 오답",
+      "description": "빈칸 정답 'later art groups'가 Q12 전문 passage('had a great influence on later art groups')에 그대로 노출됨. 또한 오답 3개(traditional sculpture methods/ancient cave paintings/the local music scene)가 모두 회화와 무관한 딴 영역이라 본문 정독 없이 소거법으로 정답 도출 가능.",
+      "severity": "low"
+    },
+    {
+      "id": 15,
+      "category": "정답 노출 (크로스문항)",
+      "description": "빈칸 정답 'a scientific artist'가 Q13 passage('Seurat is known as a scientific artist')와 Q11·Q12 전문 passage에 그대로 노출됨. 같은 테스트 다른 문항 지문에서 정답 확인 가능.",
+      "severity": "low"
+    },
+    {
+      "id": 6,
+      "category": "정답 노출 (크로스문항)",
+      "description": "빈칸 정답 'blend in the viewer's eyes'가 Q2·Q9·Q11·Q12 passage에 완전한 문장으로 노출됨. mc라 파급은 작지만 다른 문항 지문에서 정답 문구를 그대로 볼 수 있음.",
+      "severity": "low"
+    },
+    {
+      "id": 4,
+      "category": "문맥 유사어 근접",
+      "description": "정답 마커 ②dim(→bright)와 정상 마커 ①dark가 의미상 유사어(둘 다 '어두운' 계열)라 학생이 순간 혼동 가능. 다만 'other areas without shadow'와 'sharp contrast' 단서로 dim이 반대어임을 추론할 수 있어 정답은 유일. 위험도 낮음.",
+      "severity": "low"
+    },
+    {
+      "id": 13,
+      "category": "passage 잔재 문자",
+      "description": "passage가 '<u>I see only science</u>.'로 끝나며 원문의 닫는 큰따옴표(\")가 누락되고 마침표만 남음. 앞 여는 따옴표는 있는데 닫는 따옴표가 없어 인용부호가 짝이 안 맞는 어색한 잔재. 채점엔 영향 없으나 렌더 시 어색.",
+      "severity": "low"
+    },
+    {
+      "id": 1,
+      "category": "모호한 지시대상",
+      "description": "passage 첫 문장이 'You can see that it consists of many square dots...'로 시작하는데 'it'의 선행사(the edge of the flower)가 발췌에서 빠져 있어 지시대상이 불명확. 어법 판별에는 지장 없으나 도입이 매끄럽지 않음.",
+      "severity": "low"
     }
   ],
-  "summary": "20문항 적대적 검토 완료. HIGH 이슈 0건. MEDIUM 1건(Q16 wa 어미), LOW 1건(Q20 길이). 모두 허용 가능 수준.",
-  "pass": true
+  "totalIssues": 10
 }

@@ -1,1 +1,22 @@
-{"adversarialModel":"claude-opus-4-6","adversarialDate":"2026-05-21","issues":[],"summary":"20문항 검토 완료. HIGH 이슈 0건.","pass":true}
+{
+  "adversarialModel": "claude-sonnet",
+  "adversarialDate": "2026-08-31",
+  "issues": [],
+  "totalIssues": 0,
+  "resolvedFindings": [
+    {
+      "id": 18,
+      "category": "정답2개가능(어순)",
+      "wasSeverity": "high",
+      "resolution": "조건 단어 {famous,for,he,is,masterpieces,outstanding,the,which}로 만들 수 있는 유효 배열 2가지(for which he is famous / which he is famous for)를 accept[]에 모두 등록."
+    },
+    {
+      "id": 19,
+      "category": "채점 콤마 변형(S-WA-COMMA-VARIANT)",
+      "wasSeverity": "medium",
+      "resolution": "어순배열 토큰에 콤마 타일이 없어 학생이 'the torso head and eyes'(콤마 없음)로 쓸 수 있으나 index.html NORM은 내부 콤마를 제거하지 않음. 콤마 유/무 × 부사 위치 2가지 = 총 4개 유효 배열을 accept[]에 등록하여 오채점 방지. 부사 위치 변형(carefully 후치)도 함께 등록."
+    }
+  ],
+  "summary": "20문항 독립 재풀이 완료. 모든 mc ans가 원문과 일치(Q1~Q5 마커형 단일 오류, Q6/Q7/Q15 빈칸 추론, Q8~Q10 내용일치 선지 키워드는 각 문항 passage 내 존재, Q11~Q14 주제/제목/함축/지칭 정답 확인). 서술형 Q16~Q20 wa 도출 가능·단어수 일치. 이전 검수의 Q18(HIGH, 전치사 후치 대체배열)·Q19(MEDIUM, 콤마 없는 학생답 오채점)는 accept[] 변형 등록으로 모두 해소. 정답2개·정답노출·passage무관·prefix반의어·번역오역 없음. HIGH 0건.",
+  "pass": true
+}
