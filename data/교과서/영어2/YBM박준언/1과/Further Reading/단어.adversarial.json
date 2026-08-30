@@ -1,0 +1,18 @@
+{
+  "testFile": "data/교과서/영어2/YBM박준언/1과/Further Reading/단어.json",
+  "attackDate": "2026-08-30",
+  "checks": {
+    "doubleAnswer": "각 문항 정답 유일성 확인. ABC 3문항은 3단어 조합이 정답 선지에서만 모두 일치(부분일치 오답 없음). 부적절 3문항은 반의어 교체 단어 1개만 오답.",
+    "answerLeak": "빈칸 4문항(Q7/8/9/19/20) 정답 단어가 렌더된 excerpt 내 다른 곳에 노출되지 않음 실측. 어형변환 wa(spoken/consciously)는 빈칸 처리되어 노출 없음.",
+    "obviousDistractor": "반의어 Q13/Q14는 오답에 의미축 다른 단어(louder/higher/braver, loud) 포함하여 소거법 차단. Q14는 typical/common 동의어 함정 포함.",
+    "ambiguousStem": "어형변환 Q17(be spoken 수동)·Q18(부사 consciously) 단일답만 성립 확인(speaking/conscious 등 대안 불성립).",
+    "grammarError": "없음.",
+    "passageIrrelevant": "다의어 Q15(AI작성 (A)(B))·영영 Q16(정의)은 규칙상 passage 발췌 예외. 나머지는 fullPassage 발췌 문맥 내 출제."
+  },
+  "issues": [
+    { "id": 9, "severity": "LOW", "note": "빈칸 Q9(flow) 오답 stop/noise/gap이 fullPassage 미등장(Q6-WEAK-DISTRACTOR 경고). 다만 문맥상 flow 유일정답이라 정답성 문제 없음. 개선 여지." },
+    { "id": 13, "severity": "LOW", "note": "stronger가 Q3(C)·Q13·Q20에서 반복 등장. 오류 아님(각 문항 독립 렌더). 짧은 지문 특성상 핵심어 재사용." }
+  ],
+  "highIssues": 0,
+  "totalIssues": 2
+}

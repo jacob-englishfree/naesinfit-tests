@@ -1,0 +1,39 @@
+{
+  "testFile": "data/교과서/영어2/비상홍/1과/Read More/퀴즈.json",
+  "issues": [
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "type": "서술형 조건영작 복수정답 위험",
+      "found": "초기 Q18 정답 'surviving in nature for months itself can be a tremendous challenge'에서 강조 재귀대명사 itself가 문장 끝(...challenge itself)으로도 문법상 배치 가능 → 동일 11단어로 두 번째 유효 배열이 성립, 자동채점에서 억울한 감점 위험",
+      "resolution": "정답을 어순이 유일하게 고정되는 문장 'It is a chance to see the magnificent landscapes of the American West'(13단어, 이동 가능 부사/재귀어 없음)로 교체. 재조립·재검증 완료, 블라인드 재풀이 일치.",
+      "status": "FIXED"
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "type": "관계대명사 who/which 판정 근거 점검",
+      "found": "Q2 정답 ④ who→which에서 선행사 'trail angels'가 따옴표 안 비유적 명칭이라 which로 오판할 여지 검토",
+      "resolution": "직후 관계절이 'who provide transportation ~ assistance'로 사람의 행위를 서술하므로 선행사는 명백히 사람 → 관계대명사 who. 내신 표준 판정과 일치. 정답 유지.",
+      "status": "OK"
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "type": "마커 자동매칭(auto-expand) 위험 점검",
+      "found": "Q3 error 마커 find='what'가 fullPassage 앞쪽 소제목 'What Is the PCT?'의 What(대소문자 무시)에 먼저 매칭되어 excerpt가 지문 앞으로 자동확장, S-MARKER-ORDER 발생",
+      "resolution": "find를 고유 구간 'what I am'(display 'that I am')으로 지정해 sentence 20에만 매칭되도록 수정. 마커 순서 ①②③④ 정상, 재검증 PASS.",
+      "status": "FIXED"
+    },
+    {
+      "id": "전체",
+      "severity": "LOW",
+      "type": "cross-leak(단어/워크북 중복) 전수 점검",
+      "found": "워크북 어법(수일치·동명사주어·분사)·부적절(stretches/provide 등)·서술형 wa(trail angels/PCT Water Report/requirement/Being so long~)와 단어 blank(isolation/capable 등)·어형변환(known/assistance) 대비 중복 여부 점검",
+      "resolution": "퀴즈 어법은 계속적 which·사람 who·관계대명사 what 등 다른 포인트로, 서술형 wa는 becoming popular/led/It is a chance~/It takes~/Hikers can experience~로 전부 상이하게 출제. 동일 overlay.blank·wa 0건 확인.",
+      "status": "OK"
+    }
+  ],
+  "totalIssues": 4,
+  "highSeverityCount": 0
+}

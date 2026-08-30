@@ -1,0 +1,23 @@
+{
+  "testFile": "data/교과서/영어2/비상홍/1과/Read More/워크북.json",
+  "issues": [
+    {
+      "id": 13,
+      "severity": "MEDIUM",
+      "type": "부분부정 오역",
+      "found": "Q13 선지①이 원문 'not all the water sources are safe to drink'(모든 물 공급원이 안전한 것은 아니다, 부분부정)을 '모든 물이 안전하지 않아'(전체부정: 모든 물이 안전하지 않다)로 오역 — 원문 의미와 반대/과장된 진술이 될 위험",
+      "resolution": "'모든 물 공급원이 안전한 것은 아니어서 최신 물 보고서를 챙기도록 권고된다'로 수정 — 표준 부분부정 표현('것은 아니다') 사용, 재조립 후 재검증 완료",
+      "status": "FIXED"
+    },
+    {
+      "id": "전체",
+      "severity": "LOW",
+      "type": "마커 단어 자동매칭 위험 점검",
+      "found": "excerptRange 기반 자동조립 시 마커/빈칸 단어가 fullPassage 내 앞쪽에 동일 단어(대소문자 무시)로 먼저 등장하면 의도한 문장이 아닌 앞쪽 위치가 마킹되는 스크립트 동작 확인 (예: is/are/long처럼 passage 전역에 반복되는 단어)",
+      "resolution": "모든 어법·어휘·오류찾기 마커 단어(①~④, 총 24개)를 fullPassage 전체에서 1회만 등장하는 고유 단어로 전량 재선정 — node로 전수 카운트 검증 후 조립·확인",
+      "status": "FIXED"
+    }
+  ],
+  "totalIssues": 2,
+  "highSeverityCount": 0
+}
