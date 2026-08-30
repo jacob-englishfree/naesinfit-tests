@@ -108,10 +108,18 @@ function scanDeep(dir) {
     if (unit.startsWith('_')) continue; // _passages 등 내부 폴더 제외
     const unitPath = path.join(dir, unit);
     if (!fs.statSync(unitPath).isDirectory()) continue;
-    const sections = fs.readdirSync(unitPath)
+    const entries = fs.readdirSync(unitPath);
+    const sections = entries
       .filter(f => !f.startsWith('_') && fs.statSync(path.join(unitPath, f)).isDirectory())
       .sort();
-    result[unit] = sections;
+    // flat 레이아웃(섹션 하위폴더 없이 단어/워크북/퀴즈.json이 유닛 폴더 바로 밑) → 단일 "전체" 섹션으로 인식
+    // (Pathways4 Ch3/Ch4 등 구형 배치 복구 — 런타임 index.html은 이미 전체/ 폴백으로 서빙 중)
+    if (sections.length === 0 &&
+        entries.some(f => ['단어.json', '워크북.json', '퀴즈.json'].includes(f.normalize('NFC')))) {
+      result[unit] = ['전체'];
+    } else {
+      result[unit] = sections;
+    }
   }
   return result;
 }

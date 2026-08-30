@@ -185,11 +185,23 @@ function buildEi(source, sourcePath, testType, passageData) {
 
   if (source === '부교재') {
     const [bookName, subject, lesson, section] = [parts[0], parts[1], parts[2], parts[3]];
-    ei.subject = bookName;
-    ei.pub = subject;
-    ei.lesson = lesson;
-    ei.section = section;
-    ei.histKey = `${testTypeMap[testType]}_${bookName}_${lesson}_${section}_${HIST_VER}`
+    if (passageData.lesson) {
+      // Pathways4 스타일: 메타데이터가 passage json에 존재 (2-part sourcePath)
+      ei.subject = passageData.subject || bookName;
+      ei.pub = passageData.pub || subject || '';
+      ei.lesson = passageData.lesson;
+      ei.section = passageData.section || section || '';
+    } else {
+      // 빠른독해/이투스/올림포스 스타일: sourcePath parts에서 추출
+      ei.subject = bookName;
+      ei.pub = subject;
+      ei.lesson = lesson;
+      ei.section = section;
+    }
+    const hkBook = (bookName || '').toString();
+    const hkLesson = (ei.lesson || lesson || '').toString();
+    const hkSection = (ei.section || section || '').toString();
+    ei.histKey = `${testTypeMap[testType]}_${hkBook}_${hkLesson}_${hkSection}_${HIST_VER}`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '모의고사') {
     const [grade, exam, num] = parts;
