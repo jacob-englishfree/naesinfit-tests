@@ -1,0 +1,41 @@
+{
+  "model": "claude-opus-4-8",
+  "source": "올림포스9대변별유형/2025/QN29/2번",
+  "testType": "퀴즈",
+  "reviewedAll": 20,
+  "crossLeakChecked": "단어.json(ABC조합/동의어/반의어/다의어 signs/어형변환 willingness·quickening) + 워크북.json(동명사주어·can+help·수일치·what→that·do your best·biology of courage·turn a threat into a challenge·helpful·welcoming)과 wa/overlay.blank/어법포인트 전부 상이 확인",
+  "issues": [
+    {
+      "id": 3,
+      "severity": "LOW",
+      "type": "grammar_ambiguity_check",
+      "detail": "Q3 ④quicken(원문 quickening). 지각동사 feel+O는 원형/현재분사 모두 가능하나, 'your heart beating or your breath ___' 병렬(or)에서 앞의 beating(-ing)과 형태 일치가 요구되므로 quickening만 정답. 나머지 ①turn/②welcoming/③apply는 명확히 정상 → 단일 오류. 복수정답 없음."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "type": "distractor_quality",
+      "detail": "Q7 빈칸 뒤 'of trying to give you more energy'의 전치사 of와 자연스럽게 결합하는 명사구는 'your body's way'뿐. 오답(a call to slow down/a hidden danger sign/a signal to rest)은 of 결합이 어색해 난도가 다소 낮아지나, 정답은 여전히 유일하며 글 논지(몸이 에너지를 주는 방식)와도 일치. 복수정답·정답노출 없음."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "referent_check",
+      "detail": "Q14 밑줄 It(S2)의 선행사는 앞 문장 주어인 동명사구 'Viewing the stress response as a resource'. 선지 ①(스트레스 반응을 자원으로 여기는 것)이 이를 정확히 지칭. '스트레스 반응 그 자체'로 오해할 여지가 있으나 해당 선지가 없고, 문법상 주어(동명사구) 지칭이 맞아 단일 정답."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "type": "word_order_uniqueness",
+      "detail": "Q19 어순배열 'You can apply this strategy in your own life'는 부사구 in your own life가 문두 이동('In your own life you can apply this strategy')도 문법상 가능. 억울한 감점 방지를 위해 두 배열 모두 accept[]에 포함. 자동채점 안전."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "type": "written_answer_safe_type",
+      "detail": "서술형(Q16/18/20 조건영작, Q19 어순배열, Q17 어법고쳐쓰기)은 규칙#24 허용 유형만 사용. 찾기·핵심단어형 없음. 조건영작 3문항 모두 [조건]에 wa 전 단어 명시+단어수 일치, 정답 자리 빈칸 처리로 정답 미노출. 자동채점 복수정답 위험 없음."
+    }
+  ],
+  "highCount": 0,
+  "verdict": "HIGH 0. validate PASS(S/A 0), self-blind 20/20, cross-blind(Sonnet) 20/20. 배포 가능."
+}

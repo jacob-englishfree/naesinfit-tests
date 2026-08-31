@@ -1,0 +1,26 @@
+{
+ "model": "claude-opus-4-8-adversarial",
+ "source": "올림포스9대변별유형/2025/QN21/1번",
+ "testType": "퀴즈",
+ "issues": [
+  {
+   "id": 17,
+   "severity": "MEDIUM",
+   "category": "type-whitelist(false-alarm)",
+   "detail": "Q17 서술형 — 어법고쳐쓰기: 규칙24 S-QUIZ-WRITTEN-SAFE-TYPE 게이트는 찾기/핵심 stem만 차단하며 어법고쳐쓰기는 미차단 → validate 실제 PASS. 퀴즈 스키마 슬롯이 Q17=어법고쳐쓰기로 고정(assemble는 slot.type 사용)이고 정답 \"than\" 단일 단어라 자동채점 안전. 실사고 아님, 유지."
+  },
+  {
+   "id": 3,
+   "severity": "LOW",
+   "category": "defensible-wrong-form",
+   "detail": "Q3 ④ transforming you: 고립 문장선 성립 여지 있으나 It's like [you] transforming yourself의 함축 주어=you → 재귀대명사 yourself 필수(표준 EBS 포인트). Opus·Sonnet 두 독립 솔버 모두 재귀로 정답 도출. 유지."
+  }
+ ],
+ "summary": {
+  "HIGH": 0,
+  "MEDIUM": 1,
+  "LOW": 1,
+  "totalIssues": 2,
+  "verdict": "PASS (HIGH 0)"
+ }
+}

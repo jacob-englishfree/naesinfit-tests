@@ -1,0 +1,26 @@
+{
+ "model": "claude-opus-adversarial",
+ "source": "올림포스9대변별유형/2025/QN29/1번",
+ "testType": "퀴즈",
+ "issues": [
+  {
+   "id": 16,
+   "severity": "LOW",
+   "type": "조건영작 대체배열 accept 누락",
+   "detail": "정답 'they not only have an innate capacity' 외에, 동일한 7개 토큰(they, not, only, have, an, innate, capacity)으로 'they have not only an innate capacity'도 문법적으로 완전히 타당하다. 'not only'가 동사(have)를 수식하는 배열과 목적어(an innate capacity)를 수식하는 배열 둘 다 표준 영어이며, 우리말 단서 '타고난 능력을 지니고 있을 뿐만 아니라'는 두 해석(지니는 것뿐만 아니라 / 능력뿐만 아니라)이 모두 가능하다. 뒤에 '; they have an innate drive'로 이어지는 병렬 구조 때문에 'not only have'가 더 자연스럽긴 하나, 'have not only'로 쓴 학생이 억울하게 감점될 수 있다. accept[]에 'they have not only an innate capacity' 추가 검토 필요. → 해결: accept[]에 \"they have not only an innate capacity\" 추가 완료."
+  },
+  {
+   "id": 19,
+   "severity": "LOW",
+   "type": "어순배열 대체배열 여지",
+   "detail": "정답 'experimenting with their own faces until they succeed' 외에 동일 토큰으로 'experimenting until they succeed with their own faces'도 문법적으로 성립은 한다. 다만 이 배열은 'with their own faces'가 succeed에 걸려 '자기 얼굴로 성공하다'로 오독될 만큼 어색하고, 우리말 단서의 어순(성공할 때까지 → 자신의 얼굴로 → 실험하면서)과도 어긋나므로 사실상 정답은 유일에 가깝다. 감점 위험은 낮으나 참고."
+  }
+ ],
+ "summary": {
+  "HIGH": 0,
+  "MEDIUM": 0,
+  "LOW": 2,
+  "total": 2,
+  "high": 0
+ }
+}
