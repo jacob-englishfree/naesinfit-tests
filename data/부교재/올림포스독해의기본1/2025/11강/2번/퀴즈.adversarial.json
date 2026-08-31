@@ -5,29 +5,44 @@
     {
       "id": "ADV-1",
       "severity": "LOW",
-      "questionIds": [6, 7],
+      "questionIds": [
+        6,
+        7
+      ],
       "issue": "빈칸추론 정답이 구절 단위(5+단어). 퀴즈 수준 적절. 오답도 동일 구조/품사로 혼동 가능.",
       "action": "ACCEPT"
     },
     {
       "id": "ADV-2",
       "severity": "LOW",
-      "questionIds": [16],
+      "questionIds": [
+        16
+      ],
       "issue": "서술형 wa 'the closest item in memory to which'가 전치사+관계대명사로 끝남. 문장 완결성 부족 우려. 그러나 stem에 '찾아야 하는 것과 그 조건'으로 범위 한정했으므로 수용.",
       "action": "ACCEPT"
     },
     {
       "id": "ADV-3",
       "severity": "LOW",
-      "questionIds": [19, 20],
+      "questionIds": [
+        19,
+        20
+      ],
       "issue": "조건영작 wa가 passage에 노출됨. 그러나 조건영작은 찾기 유형이므로 S-WA-IN-PASSAGE 예외 적용.",
       "action": "ACCEPT"
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "type": "type_converted",
+      "detail": "Q16-18 찾기/핵심단어형 → 조건영작 재출제. 정답 빈칸 처리로 본문 노출 제거, 토큰 알파벳 정렬로 정답순 누설 차단, 어순 중의성(부사위치/이동가능 불변화사) 항목은 accept 다중 등록 처리. HIGH 없음."
     }
   ],
   "summary": {
     "HIGH": 0,
     "MEDIUM": 0,
     "LOW": 3,
-    "total": 3
+    "total": 3,
+    "high": 0
   }
 }
