@@ -1,0 +1,18 @@
+{
+  "testFile": "data/교과서/영어2/천재조수경/6과/본문/퀴즈.json",
+  "issues": [
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "problem": "서술형 조건영작 — [조건] 토큰(a, AI, critical, do, have, limitation, not, technology, that, those, use)을 이용해 wa와 다른 문법적으로 온전한 문장 'those that use AI technology do not have a critical limitation'(AI 기술을 사용하는 것들은 중대한 한계를 지니지 않는다)도 조립 가능하다. 다만 이는 stem의 한국어('AI 기술을 사용하지 않는 것들은 중대한 한계를 지닌다')와 의미가 반대이므로 정답으로 인정될 수는 없지만, 문법에 밝은 학생이 'not'의 위치를 다르게 배치해 오답 처리될 위험이 있다.",
+      "suggestion": "채점 스크립트/accept 배열에 오답 방지용 안내는 불필요(한국어 지문이 의미를 명확히 특정함)하나, 검수 시 이 점을 인지하고 필요 시 stem에 'those로 시작' 같은 위치 힌트를 추가하는 것을 고려."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "problem": "서술형 조건영작 wa='AI robots are also used in operating rooms'. 부사 also의 위치를 'AI robots also are used in operating rooms'로 바꿔도 문법적으로 크게 틀리지 않아, 학생이 이 순서로 답할 경우 정답과 다른 어순으로 채점상 오답 처리될 소지가 있다(실제로는 'are also used'가 표준 어순이라 리스크는 낮음).",
+      "suggestion": "현재 상태로도 무방하나, accept 배열에 'AI robots also are used in operating rooms'를 허용 변형으로 추가하면 채점 분쟁을 예방할 수 있음."
+    }
+  ],
+  "totalIssues": 2
+}
