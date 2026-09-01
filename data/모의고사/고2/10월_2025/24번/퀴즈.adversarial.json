@@ -2,12 +2,14 @@
   "testFile": "data/모의고사/고2/10월_2025/24번/퀴즈.json",
   "timestamp": "2026-09-02T00:00:00.000Z",
   "issues": [
-    { "id": 1, "severity": "LOW", "note": "어법 Q1~3: 각 문항 오답 3개(taking/designed/remains, pausing/keeping/boosts, prevent/refreshes/activating) 모두 문맥상 문법적으로 정상임을 확인. 오류 마커 1개만 존재 — 복수정답 없음." },
-    { "id": 12, "severity": "LOW", "note": "제목 정답 ④ 'Tiny Switches'는 비주로 쓰는 손(non-dominant hand)·'This simple switch' 예시를 일반화한 표현. 나머지 3개(주로쓰는손/긴점심/수면)는 본문과 반대이거나 무관해 정답은 ④로 유일. 추론 부담은 어려움 난이도에 적합." },
-    { "id": 20, "severity": "LOW", "note": "조건영작 'sharp and focused'는 형용사 대등 연결이라 'focused and sharp' 순서도 문법·의미상 유효 → accept에 두 배열 모두 등록해 자동채점 위양성 차단(반영 완료)." },
-    { "id": 16, "severity": "LOW", "note": "조건영작 wa 'This simple switch challenges your brain'은 이론상 어순 역전이 가능하나 한국어 뜻('이 간단한 전환은 ~ 도전을 준다')이 주어를 고정 → 정상 학생은 canonical 산출. 위험 낮음." }
+    { "id": 7, "severity": "RESOLVED", "note": "N7 크로스릭: 이전 blank 'strategic pause'가 워크북 Q16 wa와 동일 → S6 영역 'the afternoon's challenges'로 재출제(워크북·단어 어느 답과도 불일치 확인). ans=3 유지." },
+    { "id": 18, "severity": "RESOLVED", "note": "N7 크로스릭: 이전 wa 'This power of a midday break is often underestimated'가 워크북 Q20 wa와 완전 동일. 타 세션이 'work wonders' 문장으로 임시수정했으나 그건 단어 Q19 답(work wonders)과 겹침 → S1 도입부 'Imagine pausing in the middle of a busy day'(imagine+동명사+in the middle of, 9단어)로 재출제. 워크북·단어 어느 답과도 불일치·유일 배열 확인." },
+    { "id": 16, "severity": "LOW", "note": "wa 'This simple switch challenges your brain'은 워크북 Q11 빈칸 답 'challenges your brain'을 포함하나 문자열 비동일(6단어 완성문 vs 2단어 구)·기법(3인칭단수 조건영작 vs 어휘빈칸)·답 모두 상이 → N7(동일 wa/blank) 비위반." },
+    { "id": 19, "severity": "LOW", "note": "wa가 워크북 Q10 빈칸 답 'prevent cognitive tiredness'를 포함하나 13단어 병렬 어순배열로 문자열·기법·답 상이 → N7 비위반." },
+    { "id": 20, "severity": "LOW", "note": "형용사 대등연결 'focused and sharp' 배열도 유효 → accept에 두 배열 등록(자동채점 위양성 차단)." },
+    { "id": 1, "severity": "LOW", "note": "어법 Q1~3 오답 3개 모두 문맥상 문법 정상, 오류 마커 1개만 존재 — 복수정답 없음." }
   ],
-  "totalIssues": 4,
+  "totalIssues": 6,
   "highCount": 0,
-  "verdict": "PASS — HIGH 이슈 0건. 정답 복수화·정답노출·더미선지·메타텍스트 없음. 서술형 자동채점 안전(Q20 대체배열 반영)."
+  "verdict": "PASS — HIGH 0. N7 동일 크로스릭 2건(Q7·Q18) 재출제로 해결(프로그램 대조: quiz∩workbook 동일답 0건, quiz∩word 0건). 정답노출·더미선지·메타텍스트 없음, 서술형 자동채점 안전."
 }
