@@ -1,0 +1,19 @@
+{
+  "testFile": "단어.json",
+  "reviewedAt": "2026-09-02",
+  "issues": [
+    { "id": 1, "severity": "LOW", "desc": "validate EX-3(B) 경보: ABC 정답 단어가 지문에 노출된다는 판정이나, 실제로는 각 단어가 (A)(B)(C) 대괄호 안에만 존재(bracket 렌더 미인식 오탐). 정답 유추 불가. 34번 통과 템플릿과 동일 포맷." },
+    { "id": 7, "severity": "LOW", "desc": "Q6-WEAK-DISTRACTOR(B): 오답 damage/question/delay가 fullPassage 밖 단어. 다만 셋 다 문맥상 명백히 오답이라 제2정답·모호성 없음. 동일 이슈 Q8·Q9." },
+    { "id": 20, "severity": "LOW", "desc": "빈칸 문맥 'it is easy to start to ___' 정답 think of them as friends. 오답(거리두기/접촉회피/신고)은 글의 경고 논리와 반대라 제2정답 아님. 정답 확정적." }
+  ],
+  "checks": {
+    "doubleAnswer": "없음 — 전 문항 정답 1개 확정(부적절 어휘 각 1개만 반의어 교체, 반의어 문항 동의어 함정 배치로 소거 명확)",
+    "answerLeak": "없음 — 빈칸/서술형 정답 위치는 ____ 처리, 어형변환 base form은 빈칸 처리, 다의어(B)는 자작 문맥",
+    "obviousDistractor": "없음 — 반의어 13·14에 동의어 함정(regularly, awkward/shameful) 포함, prefix 조작 반의어 0건",
+    "ambiguousStem": "없음 — stem 표준 문구, 밑줄 단어 지정 명확",
+    "grammarError": "없음 — 어형변환 By+Ving / be thought of as 수동태 문법포인트 정상",
+    "passageIrrelevant": "없음 — 전 문항 20번 fullPassage(의료 직업적 경계) 기반, 다의어/영영만 규칙상 예외"
+  },
+  "totalIssues": 3,
+  "highCount": 0
+}
