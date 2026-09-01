@@ -1,0 +1,44 @@
+{
+  "testFile": "data/모의고사/고2/10월_2025/32번/퀴즈.json",
+  "reviewer": "Opus adversarial self-review",
+  "issues": [
+    {
+      "id": 5,
+      "severity": "LOW",
+      "type": "난이도-thematic",
+      "issue": "어휘 ④ shared(정답, 원래 specialist)는 글 전체 주제(지식의 고립·분리)를 파악해야 오답으로 보임. 문장 단독으로는 'its own shared topic'도 언뜻 자연스러울 수 있음.",
+      "verdict": "허용 — 어려움(6점) 문항이고 'its own'(그 자체의)과 'shared'(공유되는)의 의미 충돌 + 앞 문장 silos/specialised vocabulary 흐름으로 판별 가능. 유일 정답."
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "type": "유형-경계",
+      "issue": "함축 밑줄 'becomes its own specialist topic'은 은유가 아니라 함의 추론형. S3·S4에 은유 표현이 없어(원문 은유 'in silos'는 S2=단어/워크북 소유) 함의형으로 출제.",
+      "verdict": "허용 — cross-leak 규칙상 S3·S4에서만 밑줄 가능. 선지 4개가 통합/공유/소멸/고립으로 명확히 갈려 정답 유일."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "지칭-직접성",
+      "issue": "지칭 'one another'의 선행사 different types of cell이 같은 문장 안에 있어 간접성이 약함.",
+      "verdict": "허용 — 쉬움(4점) 문항. cross-leak상 S4 내부 대명사만 사용 가능하며, 상호대명사 지칭 대상 식별은 유효한 문제."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "type": "조건영작-복수배열",
+      "issue": "'one type of scientific tool' 어순을 'one scientific type of tool'로 배열하면 같은 토큰으로 문법상 가능.",
+      "verdict": "허용 — 우리말 '한 가지 유형의 과학 도구'가 '과학 도구(scientific tool)'를 한 덩어리로 지정해 유일 어순으로 수렴. NORM 자동채점 안전."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "type": "조건영작-중간콤마",
+      "issue": "원문 'body, such as'의 중간 콤마는 production/cross NORM이 문미 구두점만 제거해 처리 못 함. 콤마 유무로 채점 갈릴 수 있었음.",
+      "verdict": "해결 — accept에 콤마 포함/미포함 두 형태 모두 등록. cross-blind 재검증 20/20 PASS."
+    }
+  ],
+  "highIssues": 0,
+  "totalIssues": 5,
+  "summary": "HIGH 0건. Q20 콤마 채점 리스크는 accept 이중등록으로 해소. 나머지는 cross-leak(S3·S4 한정) 제약 하의 불가피한 LOW 사항으로 유일정답·자동채점 안전 확인. 전 문항 정답 유일, 정답 노출 없음, 선지 소거 가능."
+}

@@ -1,0 +1,23 @@
+{
+  "testFile": "data/모의고사/고2/10월_2025/32번/워크북.json",
+  "reviewer": "Opus 4.8 (self, adversarial)",
+  "issues": [
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "RENDER-ANS-NOT-UNDERLINED",
+      "note": "오류찾기 passage에 <u> 태그 없이 번호 마커(①~④)만 사용 — 규칙상 오류찾기 <u> 금지 준수. ② 앞 'tend'가 마커로 표시되며 정답 판별 가능. 의도된 형식."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "type": "WEAK-DISTRACTOR",
+      "note": "빈칸추론 오답 3개가 fullPassage에 없는 창작 표현. 빈칸 추론 특성상 정상(오답이 본문에 있으면 오히려 노출). 정답 'too vast to be manageable'은 뒤 문장(nobody is an expert in the whole)이 명확히 뒷받침."
+    }
+  ],
+  "doubleAnswerCheck": "어법/어휘/오류찾기(1-6,14) 각 정답 1개만 문법·문맥 오류이고 나머지 3개는 원문 그대로 정상 확인. 빈칸(10,11)·주제/요지(18,19)·일치(12,13) 단일 정답 확인.",
+  "leakCheck": "모든 정답/빈칸/wa 단어를 소유 문장 S2·S6에서만 선택(cross-leak 회피). 서술형 wa는 조건영작·빈칸으로 정답 자리 가림 또는 찾기형 예외. stem에 wa 노출 0.",
+  "wordcountCheck": "id15(2단어=specialised vocabulary), id16(3단어=depth of expertise), id20(9단어) 모두 stem 조건과 wa 일치. id20 [조건] 9개 토큰 = wa 9단어 전부 포함.",
+  "totalIssues": 2,
+  "highIssues": 0
+}
