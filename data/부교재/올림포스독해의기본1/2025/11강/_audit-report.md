@@ -41,3 +41,18 @@
 
 ## 판정
 - **PASS** — 4파일 배포 가능. Q16-18 규칙 #24/TW-TYPE 위반 해소, 복수정답 위험 제거, 블라인드 100% 일치.
+
+
+---
+
+## 2026-09-01 세션 A — "전체" 퀴즈 Q16·17·18 재출제 (S-QUIZ-WRITTEN-SAFE-TYPE 해소)
+
+- **사유**: Q16·17(서술형 찾기)·Q18(핵심단어) = 예상문제 금지유형(자동채점 복수정답 위험). 개별섹션은 기수정, "전체" 통합본만 잔존(주혜원 subKeys=["전체"]).
+- **조치**:
+  - Q16(쉬움4): 서술형 — 어형변환. 1문단 2문장 발췌, have _____(discover) → discovered (현재완료)
+  - Q17(보통5): 서술형 — 어순배열. 3문단 "an understander brought out his cocktail party script" 빈칸, 토큰 8개 알파벳순
+  - Q18(어려움6): 서술형 — 조건영작. 2문단 "they can avoid being wrong by moving the goalposts" 빈칸, 9단어, 조건 토큰 알파벳순 + 주어 they 시작 조건으로 별해 차단
+  - Q19·20: [조건] 토큰이 정답순 나열 → 알파벳순 재정렬 (콤마 나열형 validate 사각지대)
+  - Q6(적대검수 파생): ③ the standards(의미상 성립 오답) → the audience 교체 + det 근거 보강
+  - histKey v5 → v6 (재응시 초기화)
+- **검증**: validate/fulltext/scoring 3종 PASS · 독립 블라인드 20/20 · 2차 회의검산 20/20(별해 0) · 적대검수 HIGH 0 · render-check PASS · PNG 시각검수
