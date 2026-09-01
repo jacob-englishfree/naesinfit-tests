@@ -1,0 +1,12 @@
+{
+  "testFile": "퀴즈.json",
+  "issues": [
+    {
+      "id": 17,
+      "category": "type-policy",
+      "description": "type이 '서술형 — 어법고쳐쓰기'로 표기되어 있으나, question-schema.json S급 규칙 #24 (S-QUIZ-WRITTEN-SAFE-TYPE)는 예상문제(퀴즈)의 서술형 허용 유형을 '조건영작/어순배열/어형변환' 3종으로만 제한한다(찾기·핵심단어형 등 금지 사유: 자동채점 복수정답 위험). 실제 문항 내용(had+과거분사 어형 변환, 정답은 developed 한 단어)은 사실상 '어형변환'에 해당하므로 채점 리스크 자체는 낮지만(단일 정답, ambiguity 없음), type 라벨이 화이트리스트에 없어 validate.js 배포 게이트에서 TW-TYPE/S-QUIZ-WRITTEN-SAFE-TYPE 위반으로 걸릴 가능성이 있다. 배포 전 validate:all 실행해 실제 FAIL 여부 확인 권장. type 라벨을 '서술형 — 어형변환'으로 정정하거나 화이트리스트에 예외 등재할지 jacob 확인 필요.",
+      "severity": "medium"
+    }
+  ],
+  "totalIssues": 1
+}

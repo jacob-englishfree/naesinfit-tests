@@ -1,0 +1,30 @@
+{
+  "testFile": "워크북.json",
+  "issues": [
+    {
+      "id": 4,
+      "category": "passage-length-violation",
+      "description": "Q4(어법) passage 길이가 fullPassage(7649자)의 83.6%(6398자)에 달함 — 사실상 교과서 원문 전체를 passage에 넣은 것(금지목록 C1: '교과서 원문 전체를 passage에 넣기' 위반). 같은 파일의 다른 어법 문항(Q1 4.4%, Q2 6.0%, Q3 6.0%)과 오류찾기 문항(Q14 4.7%)은 모두 짧은 발췌인데 Q4만 유독 전체 분량에 가까움 — 발췌(excerptRange) 처리가 누락되고 fullPassage가 그대로 들어간 파이프라인 결함으로 추정. 정답(③) 판별 자체에는 지장 없으나 SOP 명시 금지 규칙 위반이며 재출제/재발췌 필요. → [해결] Q4 excerpt 8%로 축소·Q11 6문장 확보(실측)",
+      "severity": "resolved"
+    },
+    {
+      "id": 11,
+      "category": "passage-sentence-count",
+      "description": "Q11(빈칸추론) passage가 4문장(As Sai's mind wandered.../Tilly immediately.../Suddenly it seemed.../He was even made...)뿐으로, S급 차단 규칙 'S-PASSAGE-1-SENTENCE: 모든 mc passage 5문장 이상(영영풀이 제외)'을 위반. 같은 파일의 다른 빈칸추론 Q10은 6문장으로 규칙을 충족하나 Q11은 미달. 문맥 단서가 다소 짧아져 추론 난이도에도 영향. → [해결] Q4 excerpt 8%로 축소·Q11 6문장 확보(실측)",
+      "severity": "resolved"
+    },
+    {
+      "id": 4,
+      "category": "source-fidelity-mismatch",
+      "description": "Q4 마커 ① 밑줄 단어가 'remember'(소문자)로 표기되어 있으나, fullPassage 원문에서는 해당 위치가 '\"Remember to wear the new shoes today,\"'로 대사 시작 대문자 'Remember'임. 마커 표시 텍스트가 원문 대소문자와 불일치 — 원문 100% 일치 원칙 위반(경미). 정답(③)에는 영향 없음.",
+      "severity": "medium"
+    },
+    {
+      "id": 10,
+      "category": "answer-hint-via-metadata",
+      "description": "Q10의 정답 선지가 'the perfect match'인데 테스트 메타데이터 ei.title이 'The Perfect Match'로 동일함. 학생 화면에 테스트 제목이 노출되는 UI라면 정답 힌트가 될 수 있음. 다만 이는 교과서 해당 과의 실제 제목이라 출제 단계에서 회피하기 어려운 구조적 요인.",
+      "severity": "low"
+    }
+  ],
+  "totalIssues": 2
+}

@@ -1,0 +1,36 @@
+{
+  "testFile": "단어.json",
+  "issues": [
+    {
+      "id": 8,
+      "category": "passage 문장수 부족 의심",
+      "description": "mc 문항인데 passage가 육안 카운트로 약 4문장('In her apartment...','Her point was...','She and her underground group...','She eventually __ Sai to help them.')으로 스키마 최소기준(5문장 이상, 영영풀이 제외)에 못 미칠 가능성. validate.js 실측 문장분리 로직으로 재확인 필요(정답 애매성/노출 문제는 없음, 순수 길이 기준).",
+      "severity": "medium"
+    },
+    {
+      "id": 9,
+      "category": "passage 문장수 부족 의심",
+      "description": "육안 카운트 약 4문장. Q8과 동일 사유.",
+      "severity": "medium"
+    },
+    {
+      "id": 19,
+      "category": "passage 문장수 부족 의심",
+      "description": "대화체라 짧은 발화('So?' 포함) 위주로 육안 카운트 약 4문장. 스키마 5문장 기준 재확인 필요.",
+      "severity": "low"
+    },
+    {
+      "id": 20,
+      "category": "passage 문장수 부족 의심",
+      "description": "육안 카운트 약 4문장('What?' 포함). 스키마 5문장 기준 재확인 필요.",
+      "severity": "low"
+    },
+    {
+      "id": 3,
+      "category": "cross-blind 불일치 (내 풀이 오류, 문항 결함 아님)",
+      "description": "cross-blind.js verify 결과 Q3에서 내 답(3=dull-surprises-child)과 출제정답(4=exciting-surprises-child) 불일치. 재검토 결과 'wasn't quite as exciting as he had expected'는 '기대만큼 신나지는 않았다'는 표준 비교구문으로, 비교 대상 형용사는 원래 기대했던 속성(exciting)을 그대로 써야 하는 것이 정문법(예: 'not as good as expected' = 기대만큼 좋지 않았다, 나쁨을 기대한 게 아님). Tilly가 '완벽한 상대(perfect match)'를 찾아줬다는 앞맥락상 흥분을 기대했던 것이 맞으므로 exciting이 정답. 내 최초 blind 풀이가 이 구문을 잘못 해석한 오류였음 — 문항 자체 결함 아님.",
+      "severity": "low"
+    }
+  ],
+  "totalIssues": 5
+}
