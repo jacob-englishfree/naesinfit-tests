@@ -1,0 +1,86 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN30/1번/워크북.json",
+  "reviewedAt": "2026-09-02",
+  "attackChecks": [
+    "정답 2개 가능",
+    "정답 노출(C6)",
+    "뻔한 오답(C7)",
+    "모호한 stem",
+    "어법 밑줄 self-contained",
+    "복수정답 유발 dangling",
+    "조건-wa 단어수 불일치",
+    "S-CHOICE-NOT-IN-PASSAGE",
+    "cross-leak(단어.json) — 전체 20문항 재스캔",
+    "passage 무관"
+  ],
+  "crossLeakRescan": {
+    "note": "다른 세션 지적으로 발견된 4건(Q4/Q10/Q15/Q16) 전부 교체 완료. 단어.json Q1~20 전체 answer text(20개) vs 워크북 wa/blank/marker-underline 텍스트 전수 대조.",
+    "fixedIssues": [
+      { "id": 4, "before": "marker find=belonging (단어 Q18 wa='belonging'과 동일)", "after": "marker find=ask/display=asking (to부정사 뒤 동사원형 오류로 유형 자체 변경). ans 3→4로 재조정" },
+      { "id": 10, "before": "blank=consensus (단어 Q9 ans='consensus'와 동일)", "after": "blank=mechanism (단어 어디에도 없는 신규 타겟, 오답도 passage 단어(restrictions/constraints/purchases)로 교체)" },
+      { "id": 15, "before": "wa='at no point' (단어 Q19 ans와 동일)", "after": "wa='other household purchases' (S5, 신규 타겟, Q11과 다른 문장)" },
+      { "id": 16, "before": "wa='to a large extent' (단어 Q20 ans와 동일)", "after": "wa='preferences and limitations' (S7, 신규 타겟)" }
+    ],
+    "verificationMethod": "스크립트로 단어.json 20문항의 ans/wa 텍스트 전부 추출(소문자 정규화) → 워크북 20문항의 wa/blank/marker underline 텍스트와 exact-match 비교. 0건 충돌 확인.",
+    "residualOverlap": {
+      "id": 6,
+      "found": "Q6(부적절 어휘) 마커 중 ①restrictions, ④consensus가 underline으로 표시되나 둘 다 '정상(오류 아님)' 디코이 위치 — 실제 정답(오류)은 ②freedoms(원문 constraints). 단어 Q7 ans='restrictions', Q9 ans='consensus'와 단어 자체는 겹치지만 워크북 Q6의 정답 텍스트가 아님(정답=freedoms/constraints)",
+      "verdict": "LOW — 정답 텍스트 자체가 겹치지 않으므로 cross-leak 아님(디코이 위치의 일반 어휘 중복은 157단어 단일 지문에서 불가피). 유지"
+    }
+  },
+  "issues": [
+    {
+      "id": 3,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "③that→what 오류. ①are(Both A and B 복수→are)/②have(other actors 복수)/④relating(by+동명사)가 모두 원문 그대로 정상인지 재확인 필요",
+      "fix": "유지 — ①②④ 전부 원문 정상형이며 유일 오류는 ③(선행사 없이 sees의 목적어가 빠진 불완전절 → what 필수, that 불가). 자체 블라인드도 ③ 단일 산출"
+    },
+    {
+      "id": 4,
+      "severity": "LOW",
+      "check": "cross-leak 재출제 검증",
+      "found": "신규 문항: 'not to directly ask' → 'asking' 오류. 단일 오류인지, ①sits/②have/③understands가 전부 정상인지 재확인",
+      "fix": "확인 완료 — sits(선행사 mechanism 단수)/have(주어 other actors 복수)/understands(주어 Each actor 단수) 전부 원문 그대로 정상. ④ask만 원문이며 asking으로 바뀌어 to부정사 오류. self-blind ④ 단일 산출"
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "check": "뻔한 오답(C7) / 재출제 검증",
+      "found": "신규 오답 restrictions/constraints/purchases가 모두 fullPassage 실제 단어라 오답 품질은 개선됐으나, 'price-setting restrictions'류 조합이 너무 어색해 바로 소거될 위험(쉬운 문제화)",
+      "fix": "유지 — diff=보통(5점) 수준에서는 명확한 오답이 적절. 4개 모두 명사로 품사는 통일, 의미적 부적합성만으로 소거되므로 C7(뻔한 오답) 수준은 아님(무작위 추상명사 아닌 passage 실제 어휘)"
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "'other household purchases' — 학생이 'household purchases'(2단어)로 축약하거나 'other purchases'로 쓸 위험",
+      "fix": "유지 — stem이 '3단어로' 명시 + 비교 대상 전체를 가리키는 구문이 'other household purchases'로 유일. accept=['other household purchases']"
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "'preferences and limitations' — 학생이 'each other's preferences and limitations'까지 포함해 쓸 위험(그러면 5단어)",
+      "fix": "유지 — stem이 '3단어로' 명시해 'each other's'를 제외하도록 유도. accept=['preferences and limitations']. 축약형/소유격 없음(S-WA-CONTRACTION 회피 확인)"
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "어형변환 '(culture)→___'. 학생이 명사 그대로 'culture'로 쓸 위험",
+      "fix": "유지 — 지시문 '문맥에 맞는 형태로 바꿔 쓰시오' + 뒤 'and economic universe'와 병렬(economic=형용사)이라 형용사 'cultural'만 성립. accept=['cultural']"
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "check": "조건-wa 단어수 불일치",
+      "found": "조건영작 9단어. [조건](1) 나열 단어(a,are,at,level,necessity,not,same,the,they)와 wa 토큰 일치 여부, 축약형/소유격 유무 재확인",
+      "fix": "확인 완료 — wa 'they are not a necessity at the same level' = 9토큰, 조건 9단어와 정확히 일치. 축약형·소유격·하이픈 없음. 조건은 알파벳순 셔플로 정답순 노출 없음"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 6,
+  "verdict": "HIGH 0건 — 배포 가능. cross-leak 4건 전부 수정+재검증 완료(단어.json 전체 재스캔 0건 충돌). validate ALL PASS(S/A 0), 자체 블라인드 20/20 일치"
+}

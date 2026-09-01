@@ -1,0 +1,59 @@
+{
+  "model": "claude-opus-4-8",
+  "source": "올림포스9대변별유형/2025/QN35/2번",
+  "testType": "퀴즈",
+  "reviewedAll": 20,
+  "crossLeakChecked": "단어.json 최종본 존재(어형변환 wa 'considering', 'persuasive'). 초기 Q17 어법고쳐쓰기 wa가 'considering'으로 단어 어형변환과 충돌 → Q17을 병렬·수일치 'sits'(display 'sit')로 교체하여 해소. persuasive는 퀴즈에서 정답이 아닌 정상 마커(Q3/Q5)로만 사용되어 정답 노출 아님. 워크북 최종본 미존재(prompt.json만) → 워크북↔퀴즈 충돌 없음.",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "LOW",
+      "type": "written_answer_uniqueness",
+      "detail": "Q16 조건영작 wa 'the brain arrives at an intersection'(6단어). 토큰 {an,arrives,at,brain,intersection,the}로 만들 수 있는 유의미·한국어(그 뇌는 교차로에 도달한다) 부합 문장은 canonical 하나뿐. 'an intersection arrives at the brain'은 의미상 불가하고 한국어와 배치. 복수정답 없음."
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "type": "written_answer_uniqueness",
+      "detail": "Q18 조건영작 wa 'the mouth is moving too fast to pause'(8단어). too~to(너무 ~해서 …못한다) 구문 고정: too+fast, to+원형 pause. 토큰 재배열로 다른 문법적 문장 형성 불가. 복수정답 없음."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "type": "word_order_uniqueness",
+      "detail": "Q19 어순배열 'when the mouth is traveling well over the speed limit'(10단어, the 2회). 이론상 'when the speed limit is traveling well over the mouth'도 토큰상 배열 가능하나 의미가 성립하지 않고 한국어(입이 제한 속도를 훨씬 넘겨 달릴 때)와 정반대라 학생이 선택할 여지 없음. well over(훨씬 넘어) 관용구·is traveling 진행형이 순서를 고정. 억울한 감점 위험 낮음, accept는 canonical 단일 유지."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "type": "written_answer_uniqueness",
+      "detail": "Q20 조건영작 wa 'you get a verbal fender bender'(6단어). 'a verbal fender bender'는 고정 명사구(말의 접촉사고 비유), you+get 주어·동사 고정. 다른 문법적 배열 불가. 복수정답 없음."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "type": "written_single_answer_check",
+      "detail": "Q17 어법고쳐쓰기 display 'sit' → 정답 'sits'. 'the brain arrives ~ and ___ idling'에서 주어 the brain(단수)·앞 동사 arrives와의 병렬로 3인칭 단수 sits만 정답. 'considers'는 접속사 없이 정동사 추가가 되어 비문, 'sitting'은 병렬 형태 불일치라 배제. 1단어·단일정답."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "type": "referent_proximity",
+      "detail": "Q14 지칭 they=our minds. 6문장 짧은 지문 특성상 밑줄(they)과 선행사(our minds)가 동일 문장 내에 위치하여 §J의 '2문장 이상 떨어진 간접 지칭' 이상치엔 못 미침. 다만 'they just aren't'의 술어(sharp enenough의 생략)가 minds에만 성립하고 good decisions/efficiency/mouth는 의미상 불가하여 단일 정답. 지문 길이 제약에 따른 불가피, 정답 모호성 아님."
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "type": "grammar_single_error_check",
+      "detail": "Q3 ①effectively(원문 effective). 'to be persuasive, well-spoken, and ___'는 be동사 보어 형용사 병렬이라 부사 effectively는 병렬 위배. ②sharp(보어 형용사) ③considering(분사구문) ④what(선행사 포함 관계대명사) 모두 정상 → 단일 오류. well-spoken이 부사처럼 보일 수 있으나 하이픈 복합형용사라 형용사 병렬 판단 흔들림 없음."
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "type": "distractor_quality",
+      "detail": "Q6 빈칸 'Speaking fast is ___'가 첫 문장(주제문)이라 validate P2/Q6-WEAK-DISTRACTOR 경고 발생. 오답(a reliable technique/a proven shortcut/a minor concern)은 본문에 없는 추상 어구지만 모두 글 논지(빠른 말하기=위험)와 반대·부적합이라 정답 a high-risk proposition이 유일. 정답 노출·복수정답 없음(경고는 설계상 의도된 추론형 오답)."
+    }
+  ],
+  "highCount": 0,
+  "verdict": "PASS"
+}

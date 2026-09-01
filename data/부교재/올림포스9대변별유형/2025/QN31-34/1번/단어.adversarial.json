@@ -1,0 +1,30 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN31-34/1번/단어.json",
+  "role": "adversarial-attacker",
+  "timestamp": "2026-09-02T00:00:00Z",
+  "checks": [
+    "정답 2개 가능 여부",
+    "정답 노출",
+    "뻔한 오답만",
+    "모호 stem",
+    "문법 오류",
+    "passage 무관",
+    "반의어 prefix 조작",
+    "어형변환 복수정답"
+  ],
+  "issues": [
+    {
+      "id": 6,
+      "severity": "LOW",
+      "note": "①familiar(→unknown) 부적절 판정 근거가 미묘할 수 있으나, 바로 뒤 'and new to the viewer'와 미래 세계(futuristic worlds)를 '만든다'는 문맥, 그리고 글 후반이 '음악' 구조만 familiar하게 만든다는 대조로 '세계'는 unknown이 확정. 블라인드 1(familiar) 일치로 실측 확인."
+    },
+    {
+      "id": 8,
+      "severity": "LOW",
+      "note": "빈칸 'may ___ with creativity' 오답 comply/cooperate/cope 모두 with를 취해 형태상 그럴듯하나, 양보구문 'While it is possible that this may X, it in fact aids'가 X에 부정 동사를 요구 → interfere만 성립. 긍정 동사(cooperate 등)는 양보 논리와 충돌."
+    }
+  ],
+  "highIssues": 0,
+  "totalIssues": 2,
+  "verdict": "PASS — HIGH 이슈 0건. ABC(1~3) 각 슬롯 정답 단일 확정, 부적절 어휘(4~6) 오답 후보 각 1개만 논지 모순, 동의어(10~12)·반의어(13~14) 오답에 유의어 트랩+다른 축 혼합으로 소거법 차단·prefix 조작 없음, 어형변환(17 added/18 familiarity) 단일 형태만 성립·wa 미노출, 빈칸(7~9,19~20) 옆 5단어 내 정답 직접 노출 없음. 블라인드 20/20 일치로 복수정답·모호성 실측 배제."
+}
