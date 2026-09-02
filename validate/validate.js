@@ -291,6 +291,22 @@ function validate(jsonPath) {
       if (!passage.includes('(A)') && !passage.includes('<b>(A)')) {
         result.add('P24', SEV.S, `Q${qid}: (A)(B)(C) 조합형인데 passage에 (A) 마커 없음 — 학생이 풀 수 없음`);
       }
+      // S-ABC-POSITION-LEAK: 괄호에서 정답이 전부 앞(또는 전부 뒤)이면 위치로 풀림 → 누출
+      if (q.fmt === 'mc' && Array.isArray(q.ch) && q.ans) {
+        const brs = [...passage.matchAll(/<b>\([A-Z]\)<\/b>\[([^\]\/]+?) \/ ([^\]]+?)\]/g)];
+        const correctCombo = String(q.ch[q.ans - 1] || '').split(/\s+—\s+/).map(s => s.trim());
+        if (brs.length >= 2 && correctCombo.length === brs.length) {
+          const positions = brs.map((m, i) => {
+            const w1 = m[1].trim(), w2 = m[2].trim(), cw = correctCombo[i];
+            return w1 === cw ? 0 : (w2 === cw ? 1 : -1);
+          });
+          if (positions.every(p => p === 0)) {
+            result.add('S-ABC-POSITION-LEAK', SEV.S, `Q${qid}: (A)(B)(C) 정답이 괄호 전부 앞배치 — 지문 앞단어만 골라도 정답. 순서 혼합 필요`);
+          } else if (positions.every(p => p === 1)) {
+            result.add('S-ABC-POSITION-LEAK', SEV.S, `Q${qid}: (A)(B)(C) 정답이 괄호 전부 뒤배치 — 위치 단서 노출. 순서 혼합 필요`);
+          }
+        }
+      }
     }
 
     // P25: 어형 변환은 passage에 변환 대상 표시 필요
