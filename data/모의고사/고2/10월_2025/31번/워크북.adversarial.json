@@ -1,30 +1,32 @@
 {
   "testFile": "data/모의고사/고2/10월_2025/31번/워크북.json",
   "reviewer": "opus-adversarial",
+  "reviewedVersion": "Q17=needed / Q20=Phenomena(11단어) 반영본",
   "issues": [
     {
-      "id": 11,
-      "severity": "LOW",
-      "type": "WEAK-DISTRACTOR",
-      "desc": "빈칸(state authority) 오답 3개(public confusion/private profit/personal freedom)가 fullPassage 밖 어휘. 다만 'build trust in authority' 문맥으로 정답이 유일하게 강하게 지지되어 복수정답 없음. 개념 추론형 빈칸이라 허용 범위.",
-      "resolved": "유지 (validate [B] 경고, 복수정답 아님)"
+      "id": 20,
+      "severity": "MEDIUM",
+      "type": "DOUBLE-ANSWER-COORDINATION",
+      "desc": "조건영작 정답이 'Phenomena such as [A] and [B] exist' 대칭 병렬구조라, 두 병렬항을 바꾼 'Phenomena such as products being sold and prices being charged exist'도 동일 11토큰으로 문법·의미 완전 동일. 한국어(가격→상품 순서)가 순서를 유도하지만, 순서 바꿔 쓴 학생은 자동채점에서 억울 감점 위험.",
+      "resolved": "해결 — accept에 병렬항 스왑 배열 추가(두 유효 배열 모두 정답 처리). wa·[조건]·한국어는 유지. 재조립·blind·cross-verify 재통과."
     },
     {
       "id": 17,
       "severity": "LOW",
-      "type": "FORM-AMBIGUITY-CHECK",
-      "desc": "어형변환 정답 occurred. 발췌문에 앞 동사 became(과거)이 유지되어 있어 과거 서술이 명확 → occurs(현재)는 시제 충돌로 배제. 단일 정답 확인.",
-      "resolved": "유지 (accept=[occurred], 과거 문맥 확정)"
+      "type": "DOUBLE-ANSWER-CHECK",
+      "desc": "어형변환 정답 needed. 'quantitative information ___(need) by the state'는 'by the state'가 수동을 강제하는 축약 관계절이라 과거분사 needed만 성립. needing(능동)·needs(정동사)는 비문. 단일 정답 확인.",
+      "resolved": "유지 (단일 정답, 복수정답 없음)"
     },
     {
-      "id": 15,
+      "id": 11,
       "severity": "LOW",
-      "type": "DOUBLE-ANSWER-CHECK",
-      "desc": "찾기형 정답 convention. 인근 'Yet this is the case'의 case와 혼동 가능성 점검했으나, stem이 '단지 ~에 불과하다(only a ___)'로 특정해 only a convention만 해당. 단일 정답.",
-      "resolved": "유지"
+      "type": "WEAK-DISTRACTOR",
+      "desc": "빈칸(state authority) 오답 3개가 fullPassage 밖 어휘([B] 경고). 다만 'build trust in authority' 문맥으로 정답 유일 지지 → 복수정답 없음. 개념추론형 빈칸 허용 범위.",
+      "resolved": "유지 (복수정답 아님)"
     }
   ],
+  "otherItemsChecked": "Q1~Q16, Q18, Q19: 어법5(각 단일 오류)·어휘2(단일 오답)·T/F3·빈칸2·일치불일치2·오류찾기1·서술형2·주제요지2 전수 재검토 — 정답2개/정답노출/뻔한오답/모호stem/passage무관 0건.",
   "highCount": 0,
   "totalIssues": 3,
-  "verdict": "HIGH 0건. 어법 5문항 각 단일 오류 확인, 어휘 2문항 단일 오답, 빈칸/서술형 복수정답 없음. 배포 가능."
+  "verdict": "HIGH 0건. Q20 대칭 병렬 복수정답 위험은 accept 확장으로 해소. validate PASS / blind 20/20 / cross-blind 20/20. 배포 가능."
 }
