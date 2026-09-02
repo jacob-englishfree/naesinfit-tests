@@ -222,6 +222,21 @@ function buildEi(source, sourcePath, testType, passageData) {
   return ei;
 }
 
+// ── (A)(B)(C) 괄호 순서 혼합패턴 (정답 앞배치 누출 방지) ──
+// 정답이 전부-앞/전부-뒤가 되지 않도록 결정론적으로 섞는다. 위치 단서 제거.
+function abcFlipPattern(n, seedStr) {
+  if (n < 2) return [0];
+  const pats = [];
+  for (let m = 0; m < (1 << n); m++) {
+    const bits = []; let ones = 0;
+    for (let b = 0; b < n; b++) { const v = (m >> b) & 1; bits.push(v); ones += v; }
+    if (ones !== 0 && ones !== n) pats.push(bits); // all-same 제외
+  }
+  let h = 0;
+  for (const ch of seedStr) h = (h * 131 + ch.charCodeAt(0)) >>> 0;
+  return pats[h % pats.length];
+}
+
 // ── passage 오버레이 (스크립트가 처리) ──
 function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
   const sourceConfig = SCHEMA.sourceTypes[source];
@@ -297,12 +312,15 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
       }
     }
     if (overlayData.abc) {
-      for (const [label, [correct, wrong]] of Object.entries(overlayData.abc)) {
+      const abcEntries = Object.entries(overlayData.abc);
+      const flips = abcFlipPattern(abcEntries.length, overlaid);
+      abcEntries.forEach(([label, [correct, wrong]], i) => {
+        const [first, second] = flips[i] ? [wrong, correct] : [correct, wrong];
         overlaid = overlaid.replace(
           new RegExp(`\\b${escapeRegex(correct)}\\b`, 'i'),
-          `<b>(${label})</b>[${correct} / ${wrong}]`
+          `<b>(${label})</b>[${first} / ${second}]`
         );
-      }
+      });
     }
     if (overlayData.insertionMarkers) {
       const sentences = overlaid.match(/[^.!?]+[.!?]+/g) || [];
