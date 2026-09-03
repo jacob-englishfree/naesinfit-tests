@@ -801,6 +801,7 @@ async function saveScoreToDB(score,ok,no,timeSec){
   if(!p.name||!scopeStr)return;
   await sbInsert('test_scores',{
     student_name:p.name,
+    student_id:_studentId||null,
     school:p.school||'',
     grade:p.grade||'',
     scope:scopeStr,
