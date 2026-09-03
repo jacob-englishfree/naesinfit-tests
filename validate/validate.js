@@ -1643,6 +1643,18 @@ function validate(jsonPath) {
           break;
         }
       }
+      // [조건]/[보기] 콤마 나열 토큰이 wa 순서 그대로인 경우 (stem-텍스트 사각지대, 2026-09-03 추가)
+      const condM = stem.match(/\[(?:조건|보기)\][^\n]*?(?:\(1\)\s*)?([A-Za-z][^\n]*?)(?:을 모두 사용|를 모두 사용|을 사용|를 사용|\n|$)/);
+      if (condM) {
+        const condToks = condM[1].split(',').map(s => s.trim()).filter(t => /^[A-Za-z][A-Za-z'\-]*$/.test(t));
+        if (condToks.length >= 3) {
+          const condLow = condToks.map(t => t.toLowerCase());
+          const waOrder = waNorm.split(' ').filter(w => condLow.includes(w));
+          if (waOrder.length === condLow.length && waOrder.join(' ') === condLow.join(' ')) {
+            result.add('S-WRITTEN-TOKEN-LEAK', SEV.S, `Q${qid}: [조건]/[보기] 토큰이 정답("${q.wa}") 순서 그대로 나열 — 학생이 베끼기만 하면 풀림. 알파벳순 셔플 필수`);
+          }
+        }
+      }
     }
 
     // ─────────────────────────────────────────────────────────────
