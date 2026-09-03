@@ -81,6 +81,9 @@ jobs:
             " $NEW_FILES
           fi
 
+      - name: Engine grading gate (ans 1-indexed)
+        run: node scripts/check-engine-ans.js
+
       - name: Verify index.html __FULL__ handling
         run: |
           if grep -q "pText=q.passage==='__FULL__'" index.html; then

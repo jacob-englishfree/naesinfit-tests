@@ -8,6 +8,12 @@ if [ -n "$HTML_FILES" ]; then
   exit 1
 fi
 
+# ⛔ 엔진 채점 게이트 — index.html 변경 시 내장 문항 ans 1-indexed 검증 (2026-09-03 유서현 사고)
+IDX_CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep '^index.html$' || true)
+if [ -n "$IDX_CHANGED" ]; then
+  node scripts/check-engine-ans.js || exit 1
+fi
+
 # ⛔ dist/ 폴더 커밋 차단
 DIST_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '^dist/' || true)
 if [ -n "$DIST_FILES" ]; then
