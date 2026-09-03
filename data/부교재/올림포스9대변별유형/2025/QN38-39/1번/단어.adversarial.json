@@ -1,0 +1,51 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN38-39/1번/단어.json",
+  "reviewer": "adversarial (Opus, STEP D)",
+  "issues": [
+    {
+      "id": 20,
+      "severity": "MED",
+      "type": "복수정답 가능성",
+      "finding": "초기 오답 'for the reason'이 '그것이 소수 대회만 존재한다고 시사하기 때문에 부정확하다'는 인과 해석으로 방어 가능해 정답(to the extent)과 경합할 수 있었음.",
+      "resolution": "오답을 시간·태도 표현(for a short time / at first glance / in the meantime)으로 교체. 이제 'to the extent that' 콜로케이션만 뒤 that절과 문법·의미가 성립. 재검증 PASS.",
+      "status": "resolved"
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "type": "정답 노출(EX-3 경고)",
+      "finding": "(B) 정답어 inaccurate가 본문 S3·S4에 두 번 등장해, (B)만 놓고 보면 본문 대조로 유추 가능. 단 (A)extreme·(C)increasing은 문맥 판단 필요해 문항 전체가 소거법으로 뚫리진 않음. (A)(B)(C) 조합형·짧은 지문의 구조적 특성으로 배포 차단 대상 아님.",
+      "resolution": "유지. (A)(B)(C) 유형 본질상 원문어가 본문에 존재하는 것은 정상.",
+      "status": "accepted"
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "type": "passage 원문 불일치 경고(P2)",
+      "finding": "다의어 문항 (B) 예문(선거 결과에 이의 제기)은 fullPassage에 없는 AI 작성 문장 → P2 경고. 다의어 유형은 (A)(B) 두 미니 문맥을 직접 작성하는 설계라 정상.",
+      "resolution": "유지. 다의어 유형 규칙상 허용.",
+      "status": "accepted"
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "type": "오답이 본문 밖 단어(Q6-WEAK-DISTRACTOR 경고)",
+      "finding": "빈칸 어휘/문맥 완성(7·8·9·20) 오답이 fullPassage에 없는 단어. 다만 모두 같은 품사·의미축의 실재 영단어로 문맥상 명백히 오답이라 정답 유일성은 확보됨.",
+      "resolution": "유지. 암기형이 아닌 문맥 추론으로 정답 도출 가능.",
+      "status": "accepted"
+    }
+  ],
+  "checks": {
+    "정답2개가능": "없음 (Q20 인과 해석 경합 제거 후)",
+    "정답과다노출": "없음 (EX-3은 (A)(B)(C) 구조적 특성, 소거법 불가)",
+    "뻔한오답소거": "없음 (반의어 13·14는 유사어 함정 usual/various 포함해 단순 소거 차단)",
+    "stem모호": "없음",
+    "문법오류": "없음 (어형변환 17 meaning·18 identification 분사/명사화 정확)",
+    "passage무관": "없음"
+  },
+  "totalIssues": 4,
+  "highIssues": 0,
+  "medIssues": 0,
+  "lowIssues": 4,
+  "note": "MED 1건(Q20)은 재출제로 resolved. 최종 미해결 HIGH/MED 0건."
+}

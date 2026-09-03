@@ -1,0 +1,47 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN38-39/1번/워크북.json",
+  "reviewedAt": "2026-09-03",
+  "attackChecks": [
+    "정답 2개 가능",
+    "정답 노출(C6)",
+    "뻔한 오답(C7)",
+    "모호한 stem",
+    "어법 밑줄 self-contained / 복수정답 dangling",
+    "빈칸 정답 인접 노출",
+    "조건-wa 단어수 불일치",
+    "S-CHOICE-NOT-IN-PASSAGE (일치/불일치 선지 고유명사 passage 내 존재)",
+    "cross-leak(단어.json) 재스캔",
+    "passage 무관"
+  ],
+  "crossLeakRescan": {
+    "note": "동일 지문(QN38-39 1번) 단어.json 미출제(단어.prompt.json만 존재) → cross-leak 대조 대상 없음. 생략.",
+    "vocabFileExists": false
+  },
+  "perQuestion": [
+    { "id": 1, "check": "①described(be+p.p.)/③seen(수동)/④increasing(진행) 모두 정상, ②mean만 분사구문 오류. 단일정답.", "severity": "none" },
+    { "id": 2, "check": "①being(전치사+동명사)/②seen/③needed 정상, ④providing만 to부정사 오류. 단일정답.", "severity": "none" },
+    { "id": 3, "check": "①note(복수주어)/②have(복수주어)/④seen 정상, ③suggest만 단수주어 it 수일치 오류. 단일정답.", "severity": "none" },
+    { "id": 4, "check": "②takes/③needed/④provide 정상, ①will만 was thought 종속절 시제일치(would) 오류. ④는 독립문장이라 will 정상 — det에 명시하여 복수정답 방지.", "severity": "none" },
+    { "id": 5, "check": "①rewards/②inaccurate/④forms 문맥 적절, ③decreasing만 'number may be increasing' 맥락과 모순. 단일정답.", "severity": "none" },
+    { "id": 6, "check": "①extreme/③handful/④approaches 적절, ②rare만 'are common in science' 맥락과 모순. 단일정답.", "severity": "none" },
+    { "id": 7, "check": "T. 'This is an extreme view'와 정확 일치. 명확.", "severity": "none" },
+    { "id": 8, "check": "F. 'have social value and are common'과 정반대 진술. 명확.", "severity": "none" },
+    { "id": 9, "check": "T. 'one cure → multiple approaches needed' 일치. 명확.", "severity": "none" },
+    { "id": 10, "check": "'This is an ___ view' → extreme. balanced/practical/traditional는 이후 'inaccurate' 반박 맥락과 불일치. 정답 단어는 passage 내 재노출 없음(빈칸만). 단일정답.", "severity": "none" },
+    { "id": 11, "check": "'described as a ___ contest, meaning no rewards for being second or third' → winner-take-all. 정의가 곧 정답 근거(추론), 정답 단어 인접 직접 노출 없음. 단일정답.", "severity": "none" },
+    { "id": 12, "check": "②만 일치(Higgs/superconductors=world class). ①③④ 반대. 선지 고유명사(힉스 입자·고온 초전도체·암·반복검증) 모두 passage 내 존재. 단일정답.", "severity": "none" },
+    { "id": 13, "check": "①②③ 일치, ④만 불일치(단일 치료법 존재 아님, multiple approaches). 선지 키워드 passage 내 존재. 단일정답.", "severity": "none" },
+    { "id": 14, "check": "②seen/③increasing/④takes 정상, ①is만 'there ___ no rewards'(rewards 복수) 수일치 오류. 단일정답.", "severity": "none" },
+    { "id": 15, "check": "'high temperature superconductors' passage 유일 3단어구, 찾기형 정답 노출 정상. 하이픈 변형은 NORM 흡수.", "severity": "none" },
+    { "id": 16, "check": "'the Higgs particle' 관사 포함 3단어. stem이 3단어 명시 → 'the' 필수. passage 유일. 단일정답.", "severity": "none" },
+    { "id": 17, "check": "어형변환 verify→verification(명사, replication과 병렬). 발췌문 내 정답형 재노출 없음. 단일정답.", "severity": "none" },
+    { "id": 18, "check": "④만 글 전체 주제. ①②③는 지엽/예시. 단일정답.", "severity": "none" },
+    { "id": 19, "check": "③만 요지와 일치(승자독식 아님·여러 승자). Q18(주제)와 논지 방향은 같으나 선지·초점 상이 → 중복 아님.", "severity": "low" },
+    { "id": 20, "check": "'there are no rewards for being second or third'(9단어). [조건] 9개 단어 모두 wa에 포함(S-COND 통과), 보기 알파벳순. 이론상 second/third 순서만 뒤바꾼 배열도 문법적이나, 한국어 단서 '2등이나 3등' 순서가 second→third를 명시하여 유도. 낮은 위험.", "severity": "low" }
+  ],
+  "issues": [],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 2,
+  "verdict": "PASS — HIGH 0건. LOW 2건(Q19 주제/요지 초점 차이로 유지, Q20 한국어 순서단서로 유도 — 조치 불요)."
+}

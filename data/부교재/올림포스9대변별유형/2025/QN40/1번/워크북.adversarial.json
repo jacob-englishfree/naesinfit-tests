@@ -1,0 +1,121 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN40/1번/워크북.json",
+  "reviewedAt": "2026-09-03",
+  "attackChecks": [
+    "정답 2개 가능",
+    "정답 노출(C6)",
+    "뻔한 오답(C7)",
+    "모호한 stem",
+    "어법 밑줄 self-contained / 단일 오류",
+    "복수정답 유발 dangling",
+    "조건-wa 단어수 불일치",
+    "S-CHOICE-NOT-IN-PASSAGE",
+    "cross-leak(단어 유형과 접근각 분리)",
+    "passage 무관 / 길이편향"
+  ],
+  "crossLeakRescan": {
+    "note": "QN40/1번 단어.json은 아직 미생성(단어.prompt.json만 존재). 단어 테스트 예정 유형=(A)(B)(C)/부적절어휘/빈칸어휘/동의어/반의어/다의어/영영풀이/어형변환/빈칸문맥. 워크북은 어법·T/F·빈칸추론·내용일치·오류찾기·주제요지·서술형(찾기/어형변환/조건영작)으로 접근각이 분리됨.",
+    "residualOverlap": {
+      "id": 17,
+      "found": "워크북 Q17 어형변환 정답 'various'(vary→형용사). 단어 테스트도 어형변환 슬롯(Q17/18)이 있어 향후 단어 출제 시 'various'와 겹치지 않도록 회피 필요.",
+      "verdict": "LOW — 현재 단어.json 미생성이라 실제 충돌 없음. 단어 출제 담당이 'various'를 피하면 됨(핸드오프 메모)."
+    }
+  },
+  "issues": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "check": "어법 단일 오류",
+      "found": "①embrace/②concentrate/③proceeds/④remains 중 유일 오류가 ③(those 복수→proceed)인지, ④remains(space 단수)도 오류로 오인될 여지 재확인",
+      "fix": "유지 — 'sufficient space remains'에서 space는 단수라 remains 정상. embrace(try to+원형)·concentrate(should+원형)도 정상. 유일 오류 ③. self-blind ③ 단일 산출"
+    },
+    {
+      "id": 3,
+      "severity": "LOW",
+      "check": "정답 2개 가능 / 함정 선지",
+      "found": "②saying('amounts to saying')을 학생이 'to+동사원형'으로 오판해 정답으로 고를 위험",
+      "fix": "유지 — 'amount to(~에 해당하다)'는 구동사로 to가 전치사이므로 뒤에 동명사 saying이 정답 정상. 유일 오류는 ④condense(by+동명사→condensing). 함정이지 복수정답 아님"
+    },
+    {
+      "id": 4,
+      "severity": "LOW",
+      "check": "어법 단일 오류 / 모호성",
+      "found": "②astonishing(감정분사) 오류가 유일한지, ④remains와 혼동 여지 재확인",
+      "fix": "유지 — 'we are astonished by'에서 주체 we는 감정을 느끼는 대상 → 과거분사 astonished 필수. astonishing은 '놀라움을 유발하는'이라 불가. ①③④ 정상. 유일 오류 ②"
+    },
+    {
+      "id": 5,
+      "severity": "LOW",
+      "check": "정답 노출 / 뻔한 오답",
+      "found": "③complicated가 부적절 어휘인지, 나머지(notable/concentrate/sufficient)가 전부 적절한지",
+      "fix": "유지 — 'become complicated by condensing into formulas or greatly abbreviated symbols'에서 condensing·abbreviated는 단순화/축약이므로 complicated는 논리 모순 → simplified 필요. 유일 부적절 ③"
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "check": "정답 2개 가능 / 난이도",
+      "found": "②strengthen이 '긍정적' 어감이라 부적절함을 학생이 놓칠 위험(although 양보 맥락 파악 필요)",
+      "fix": "유지 — although 절은 '한 주제 집중의 대가(tradeoff)'로 later work가 이전 성취를 weaken(약화)한다는 내용. strengthen은 논지와 반대라 부적절. 보통(5점) 난이도에 적합. ①③④ 문맥 정상"
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "check": "길이편향 / 뻔한 오답",
+      "found": "정답 'one subject after another'(4단어)가 오답(2~3단어)보다 길어 길이 단서 우려",
+      "fix": "유지 — 문자수는 20~24자로 4선지 유사(길이편향 아님). 오답 3개 모두 '동시성'을 함의해 '(in different periods of time)'와 모순되어 의미로만 소거됨. S-LENGTH-BIAS 미발동"
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "빈칸 'in time but not in space' — ①in space but not in time과 혼동 위험",
+      "fix": "유지 — 앞뒤 문맥(한 주제씩 순차 집중=시간 적응, 모든 것을 동시에=공간 불가)으로 시간/공간 방향이 확정됨. ①은 방향 반전, ②④는 논지와 모순. 유일 정답 ③"
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "check": "S-CHOICE-NOT-IN-PASSAGE / 정답 노출",
+      "found": "불일치 선지 ④가 'weaken'을 '강화'로 왜곡. ①②③이 passage 범위 내 사실인지 재확인",
+      "fix": "유지 — ①(S4 great abilities proceed)·②(S5 explored during a specific period)·③(S6 simplified by condensing) 모두 fullPassage 내 사실. 고유명사·숫자 외부 참조 없음. ④만 왜곡(불일치). 정답"
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "check": "어법 단일 오류 / 병렬",
+      "found": "④learn(→learning) 병렬 오류가 유일한지, ③gained와 혼동 여지",
+      "fix": "유지 — 'for the perception and learning of new images'는 전치사 for의 목적어가 명사끼리 병렬이므로 learning 필수, 동사 learn 불가. ①produce·②saying·③gained 정상. 유일 오류 ④"
+    },
+    {
+      "id": 15,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "'different scientific fields' — 학생이 'in different scientific fields'(4단어)로 쓸 위험",
+      "fix": "유지 — stem '3단어로' 명시 + '영역'을 가리키는 핵심 명사구가 different scientific fields로 유일. accept=['different scientific fields']"
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "'the cerebral blackboard' — 학생이 'cerebral blackboard'(2단어)로 축약할 위험",
+      "fix": "유지 — stem '3단어로' 명시로 관사 the 포함 유도. 뇌를 비유한 표현은 the cerebral blackboard로 유일. NORM이 대소문자·마침표 자동 처리. accept=['the cerebral blackboard']"
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "check": "정답 2개 가능",
+      "found": "어형변환 '(vary)→___'. 학생이 'varied'(과거분사)를 쓸 위험",
+      "fix": "유지 — 원문 collocation은 'the various sciences'이며 명사 sciences를 수식하는 형용사 various가 문맥·원문상 유일. accept=['various'](원문 기준). varied는 원문과 불일치라 오답 처리 타당"
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "check": "조건-wa 단어수 / 정답순 노출",
+      "found": "조건영작 9단어. [조건](1) 나열 단어(abilities,even,great,in,proceed,this,those,way,with)와 wa 토큰 일치, 셔플 여부 재확인",
+      "fix": "확인 완료 — wa 'even those with great abilities proceed in this way'=9토큰, 조건 9단어와 정확 일치. 조건은 알파벳순 셔플이라 정답순 노출 없음. 축약형·소유격·하이픈 없음(S-WA-CONTRACTION 회피). blank가 passage S4를 가려 정답 노출 없음"
+    }
+  ],
+  "highCount": 0,
+  "mediumCount": 0,
+  "lowCount": 13,
+  "verdict": "HIGH 0건 — 배포 가능. 20문항 모두 단일 정답 확인, 정답 노출·복수정답·모호 stem 없음. validate ALL PASS(S/A 0, P2 4건은 ① 마커가 앞 50자 내에 들어가 발생하는 B급 오탐), 자체 블라인드 20/20 일치. 단어.json 미생성이라 실제 cross-leak 0건(핸드오프: 단어 어형변환 출제 시 'various' 회피)"
+}

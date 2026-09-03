@@ -1,0 +1,31 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN36-37/2번/단어.json",
+  "reviewer": "adversarial (Opus)",
+  "checks": [
+    "정답 2개 가능성(복수정답) 전 문항 스캔",
+    "정답이 passage에 그대로 노출되는지",
+    "오답이 너무 뻔한지(소거법)",
+    "stem 모호성",
+    "문법 오류",
+    "passage 무관 문항"
+  ],
+  "issues": [
+    {
+      "id": 6,
+      "severity": "LOW",
+      "type": "문법(의도된 오답)",
+      "note": "③ 교체어 'prevent some to conform'는 'prevent ~ from ~ing' 관용에서 벗어나 비관용적. 그러나 이는 문맥상 부적절 문항에서 의도적으로 오답 처리된 선지이며(원문은 cause), 오히려 정답 식별을 돕는 방향이라 복수정답/오류 유발 아님. 수정 불요."
+    },
+    {
+      "id": 17,
+      "severity": "RESOLVED",
+      "type": "복수정답 위험 제거",
+      "note": "초기 안(conform→conformity)은 'that conforming is desired' 동명사 주어도 성립해 복수정답 소지가 있어, 형용사 자리(rational과 병렬, reasons 수식)로 형태가 유일하게 결정되는 morality→moral로 교체. 현재 단일 정답."
+    }
+  ],
+  "verifiedSingleAnswer": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+  "answerExposureCheck": "빈칸(7·8·9·19·20) 정답 단어는 해당 위치에서 공백 처리되어 인접 노출 없음. (A)(B)(C)(1·2·3) 정답 단어는 각 브래킷 내에만 존재. 동의어/반의어 정답(appear/specific/notice/resist/emotional)은 passage에 미등장. 어형변환(17·18) wa(moral/regularity)는 발췌문에 미노출.",
+  "prefixAntonymCheck": "반의어 13(conform↔resist)·14(rational↔emotional) 모두 접두사 조작(un-/in-/dis-/mis-/non-) 미사용, 오답에 의미축 다른 단어(gather/moral) 각 1개 포함해 소거법 차단.",
+  "totalIssues": 0,
+  "highIssues": 0
+}

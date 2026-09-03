@@ -1,0 +1,66 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN36-37/1번/퀴즈.json",
+  "model": "claude-opus-4-8",
+  "source": "올림포스9대변별유형/2025/QN36-37/1번",
+  "testType": "퀴즈",
+  "checkedAt": "2026-09-03",
+  "issues": [
+    {
+      "id": 17,
+      "severity": "LOW",
+      "type": "quiz_written_type_policy",
+      "detail": "Q17 유형이 '서술형 — 어법고쳐쓰기'. 스키마 규칙 S-QUIZ-WRITTEN-SAFE-TYPE(예상문제 서술형 허용유형=조건영작/어순배열/어형변환)의 화이트리스트 밖. 다만 정답은 'differentiate→differentiated' 수동태 과거분사 1단어로 유일 수렴(differentiating/differentiates는 'things are ___' 수동구조상 비문). 자동채점 복수정답 위험은 없음. 2번 퀴즈 Q17도 동일 유형(decide)이라 출제자 일관 설계. 정책 정합성만 참고 — 정답 정확성 이상 없음."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "type": "answer_uniqueness",
+      "detail": "Q16 조건영작 [basis,for,is,stereotyping,that,the] 6단어. 지시대명사 that=주어, is=동사, 'the basis for stereotyping'가 명사구로 고정되어 'that is the basis for stereotyping'로 유일 수렴. accept 1개로 충분. 복수정답 없음."
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "type": "answer_uniqueness",
+      "detail": "Q18 조건영작 [danger,inaccuracy,is,not,of,real,stereotypes,the,their] 9단어. accept 2개('The real danger of stereotypes is not their inaccuracy' / 'Their inaccuracy is not the real danger of stereotypes') 모두 문법·의미 동일하게 수용됨. 두 대안 어순 모두 반영되어 자동채점 누락 위험 해소. 양호."
+    },
+    {
+      "id": 19,
+      "severity": "LOW",
+      "type": "answer_uniqueness",
+      "detail": "Q19 어순배열 10단어. accept 2개('not necessarily always negative' / 'not always necessarily negative') 어순 변형 반영. 부사 necessarily/always 순서 교환만 허용되고 나머지 골격은 고정이라 다른 유효 배열 없음. 양호."
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "type": "answer_uniqueness",
+      "detail": "Q20 조건영작 8단어. accept 2개(efficiently and automatically / automatically and efficiently) 등위 부사 순서 교환 반영. 'Our brain performs these tasks'는 고정. 복수정답 위험 없음."
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "type": "answer_leak_check",
+      "detail": "Q6 빈칸 정답 'a useful feature'는 해당 위치에서만 등장·블랭크 처리, 지문 타 위치 미노출. 오답 'a high cost'는 직후 'but it carries a high cost'와 중복·역접 충돌로 배제되어 ③ 유일. 정답노출 없음."
+    },
+    {
+      "id": 7,
+      "severity": "LOW",
+      "type": "answer_leak_check",
+      "detail": "Q7 빈칸 정답 'negative connotations'는 블랭크 처리로 노출 없음. 직후 'it implies a negative bias' 단서로 ① 확정. scientific accuracy/personal admiration/cultural pride는 근거 없음. 단일 수렴."
+    },
+    {
+      "id": 4,
+      "severity": "LOW",
+      "type": "distractor_defensibility",
+      "detail": "Q4 부적절 어휘 정답 ②'positive connotations'(직후 'it implies a negative bias'와 모순). ①useful·③efficiently·④flexibility('lack of flexibility'가 실제 위험)는 모두 문맥 적절. 제2의 부적절어 없어 단일 확정."
+    }
+  ],
+  "checklist": {
+    "정답_2개이상_가능": "없음 (mc 15문항 단서 명시, 서술형 5문항 조건단어·단어수로 유일 수렴, accept에 등위/부사 어순 변형 반영)",
+    "정답_passage_또는_보기_노출": "없음 (빈칸 Q6/Q7/Q15 정답구는 해당 위치 유일 등장·블랭크 처리, 서술형 조건영작은 정답 문장이 지문에 있으나 유형 본질상 조건단어 재배열형이라 허용)",
+    "서술형_자동채점_유일수렴": "확인 (Q16 6단어 유일, Q17 1단어 유일, Q18/19/20 대안 어순 accept 반영)",
+    "서술형_유형정책": "Q17 어법고쳐쓰기가 퀴즈 화이트리스트 밖 — LOW 참고(정답 유일하여 채점 안전)",
+    "모호한_stem": "없음"
+  },
+  "highIssues": 0,
+  "totalIssues": 8
+}

@@ -1,0 +1,35 @@
+{
+  "testFile": "data/부교재/올림포스9대변별유형/2025/QN40/2번/단어.json",
+  "attacker": "opus-adversarial",
+  "checks": [
+    "정답 2개 가능성", "정답 노출", "뻔한 오답", "모호한 stem", "문법 오류", "passage 무관", "마커 클러스터링"
+  ],
+  "issues": [
+    {
+      "id": 3,
+      "severity": "MED",
+      "type": "정답 노출(경미)",
+      "desc": "(B) objective/subjective 자리. blank는 S4 첫 'objective standards'에 있으나 S7 'conflicting objective standards'에 'objective'가 그대로 남아 (B) 유추를 다소 쉽게 함. (A)misleading·(C)weakened는 추론 필요하므로 문항 전체 난이도는 유지. abc 유형 특성상 허용 범위(EX-3 비차단)."
+    },
+    {
+      "id": 8,
+      "severity": "LOW",
+      "type": "오답 근접(경미)",
+      "desc": "'discipline and ___' 빈칸에 오답 labor가 형태상 어울릴 여지 있으나, 문맥은 장인의 자질(규율과 헌신) + 뒤 'aspiration for quality'와 연결되어 commitment가 유일 정답. 복수정답 아님."
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "type": "어형 대안형",
+      "desc": "excel→excellence 단일 정답. 학생이 'excellency'(직함 의미) 오기 가능하나 의미상 오답 처리 타당. 채점 accept=['excellence']."
+    }
+  ],
+  "doubleAnswer": 0,
+  "answerLeak": 0,
+  "ambiguousStem": 0,
+  "grammarError": 0,
+  "markerClustering": 0,
+  "highIssues": 0,
+  "totalIssues": 3,
+  "verdict": "HIGH 0건 — 배포 가능. 마커/빈칸 fullPassage 전체 분산 확인(①S2 ②S3 ③S4 ④S7 등), 정답분포 {1:5,2:3,3:5,4:5}, 연속 3회 없음."
+}
