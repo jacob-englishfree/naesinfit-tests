@@ -2086,10 +2086,10 @@ function getDailyVocabQuestions(){
     const others=DAILY_WORDS.filter(x=>x.en!==w.en);shuffle(others);
     if(isEnToKo){
       const ch=[w.ko,...others.slice(0,3).map(x=>x.ko)];shuffle(ch);
-      qs.push({id:i+1,type:'영→한',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.en}</div>위 영단어의 뜻으로 알맞은 것은?`,ch,ans:ch.indexOf(w.ko),det:{correct:'정답: '+w.ko,tip:w.en+' = '+w.ko}});
+      qs.push({id:i+1,type:'영→한',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.en}</div>위 영단어의 뜻으로 알맞은 것은?`,ch,ans:ch.indexOf(w.ko)+1,det:{correct:'정답: '+w.ko,tip:w.en+' = '+w.ko}});
     }else{
       const ch=[w.en,...others.slice(0,3).map(x=>x.en)];shuffle(ch);
-      qs.push({id:i+1,type:'한→영',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.ko}</div>위 뜻에 해당하는 영단어는?`,ch,ans:ch.indexOf(w.en),det:{correct:'정답: '+w.en,tip:w.en+' = '+w.ko}});
+      qs.push({id:i+1,type:'한→영',diff:'보통',pts:10,fmt:'mc',stem:`<div style="text-align:center;font-size:22px;font-weight:800;padding:20px 0;color:var(--blue)">${w.ko}</div>위 뜻에 해당하는 영단어는?`,ch,ans:ch.indexOf(w.en)+1,det:{correct:'정답: '+w.en,tip:w.en+' = '+w.ko}});
     }
   });
   return qs;
