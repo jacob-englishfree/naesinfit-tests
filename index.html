@@ -5574,8 +5574,27 @@ async function initChallenge(){
         : [base];
     } else if (source === '모의고사') {
       const base = '모의고사/' + pathParam;
-      selKeys = secArr.length > 0
-        ? secArr.map(sec => base + '/' + sec)
+      let mockSecs = secArr;
+      if (mockSecs.length === 0) {
+        // '전체' 링크(sections 미지정): 카탈로그 items로 전 번호 자동 확장 (2026-09-04 오서연 0문항 사고)
+        try {
+          const pp = pathParam.split('/');
+          const g = pp[0], mk = pp.slice(1).join('/');
+          let lessons = (SCOPE_CATALOG['모의고사'] && SCOPE_CATALOG['모의고사'].items && SCOPE_CATALOG['모의고사'].items[g] && SCOPE_CATALOG['모의고사'].items[g][mk] && SCOPE_CATALOG['모의고사'].items[g][mk].lessons) || null;
+          if (!lessons || !lessons.length) {
+            const r = await fetch('test-catalog.json?v=' + Date.now(), { cache: 'no-store' });
+            if (r.ok) {
+              const c = await r.json();
+              for (const info of Object.values(c['모의고사'] || {})) {
+                if (info.path === pathParam) { lessons = info.items || []; break; }
+              }
+            }
+          }
+          if (lessons && lessons.length) mockSecs = lessons;
+        } catch (e) { /* 확장 실패 시 기존 동작 */ }
+      }
+      selKeys = mockSecs.length > 0
+        ? mockSecs.map(sec => base + '/' + sec)
         : [base + '/' + unitParam];
     } else {
       selKeys = [pathParam + '/' + unitParam];
