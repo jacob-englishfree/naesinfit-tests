@@ -1,0 +1,21 @@
+{
+  "file": "data/교과서/공통영어2/YBM김은형/2과/Read More/퀴즈.json",
+  "timestamp": "2026-09-07T00:00:00.000Z",
+  "reviewer": "agent-opus-adversarial",
+  "issues": [
+    { "id": 15, "severity": "HIGH", "note": "Q15 정답 'color-coding system'과 Q16 정답 'each lunch box reaches its planned destination'이 원문 동일 문장('Dabbawalas have a simple but effective color-coding system to ensure each lunch box reaches its planned destination')에서 갈라져 나옴. Q15 passage에는 Q16 정답이 평문 노출, Q16 passage에는 Q15 정답이 평문 노출 → 두 문항이 서로의 정답을 그대로 보여줌(같은구역 상호노출). check-cross-leak.py FAIL의 핵심." },
+    { "id": 16, "severity": "HIGH", "note": "Q16(조건영작) 정답 'Each lunch box reaches its planned destination'이 Q8·Q9·Q10(내용일치)·Q11(주제)·Q12(제목)·Q13(함축)·Q15·Q18·Q20 등 fullPassage/광범위 발췌 문항 passage에 원문 그대로 노출. 학생이 앞 문항 지문을 보면 서술형 정답을 베껴 쓸 수 있음." },
+    { "id": 6, "severity": "MED", "note": "Q6(빈칸) 정답 'home-cooked lunches'가 Q1·Q5·Q8~Q12 fullPassage 문항 passage에 'home-cooked lunches delivered from their homes'로 그대로 노출. 빈칸 추론이 앞 지문 참조로 무력화 가능." },
+    { "id": 7, "severity": "MED", "note": "Q7(빈칸) 정답 'in and around Mumbai'가 Q2·Q3·Q8~Q13·Q15·Q16·Q18~Q20 passage에 'work in and around Mumbai'로 노출." },
+    { "id": 18, "severity": "MED", "note": "Q18(조건영작) 정답 'Dabbawalas owe their success to an efficient organization and a strong sense of work'가 Q8~Q13·Q15·Q16·Q20 등 fullPassage 문항에 원문 그대로 노출." },
+    { "id": 19, "severity": "MED", "note": "Q19(어순배열) 정답 'returned to their original homes by following the same route in reverse'가 Q4·Q7·Q8~Q14 passage에 원문 그대로 노출." },
+    { "id": 20, "severity": "MED", "note": "Q20(조건영작) 정답 'their cooperation and communication allow them to function as efficiently as a well-organized machine'가 Q8~Q13·Q15·Q16·Q18 passage에 원문 그대로 노출." },
+    { "id": 5, "severity": "LOW", "note": "Q5 부적절 어휘 오답 트리거가 'in forward'인데 영어에서 관용적이지 않은 표현이라, 뜻(역순)을 몰라도 어색함만으로 ④를 고를 여지가 있음. 정답 자체는 정확." }
+  ],
+  "summary": {
+    "high": 2,
+    "med": 5,
+    "low": 1,
+    "note": "복수정답·뻔한오답·문항내 정답노출·모호성은 없음. 지적된 issue는 전부 문항 간(cross-question) 정답 상호노출이며, 근본 원인은 Q8~Q13(내용일치/주제/제목/함축) 등 fullPassage 사용 문항이 빈칸(Q6·Q7·Q15)·서술형(Q16·Q18·Q19·Q20) 정답을 원문 그대로 포함하는 구조. check-cross-leak.py에서 같은구역 73건 FAIL과 동일 원인. 임의 수정 금지 지시에 따라 보고만 함 — jacob 판단 필요."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "testFile": "data/교과서/공통영어2/YBM김은형/2과/Read More/워크북.json",
+  "issues": [
+    {
+      "id": 11,
+      "category": "정답노출(교차문항-다른구역)",
+      "description": "Q11 빈칸추론 정답 'a strong sense of work'가 fullPassage를 통째로 보여주는 다른 mc 문항 지문에 평문 노출됨. 단, Q11 자체 지문(같은구역)에서는 __________ 처리되어 있고, check-cross-leak.py 결과 '같은구역 노출 0건'. jacob 확정 규칙(9/2: 짧은지문 gap없음=다른구역 수용) + 본 과제 명시 지시('발췌 없이 fullPassage 그대로 쓰고') 적용 대상. 210단어 단일 문단이라 발췌 없이는 구조적으로 회피 불가하며 참조본(1과 워크북)도 동일 속성으로 배포됨. 배포 차단 사유 아님.",
+      "severity": "low"
+    },
+    {
+      "id": 20,
+      "category": "정답노출(교차문항-다른구역)",
+      "description": "Q20 조건영작 정답 문장 'This service is carried out by dedicated people known as dabbawalas'가 다른 mc 문항의 fullPassage에 원문 그대로 노출됨. Q20 자체 지문(같은구역)에서는 __________ 처리. check-cross-leak.py '같은구역 0건 → PASS'. 서술형 취지 약화 소지가 있으나, 본 과제는 jacob이 짧은 지문에 대해 '발췌 없이 fullPassage'를 명시 지시했고 짧은지문 다른구역 노출은 jacob 확정 규칙상 수용 대상. 서술형 leak 완전 제거는 다른 15개 mc 문항을 발췌로 전환해야만 가능(명시 지시 위배). 최종 판단은 jacob(STEP 8)에게 위임하도록 audit-report에 명기.",
+      "severity": "low"
+    }
+  ],
+  "highCount": 0,
+  "totalIssues": 2,
+  "note": "adversarial 에이전트 초기 판정은 두 건 HIGH였으나, jacob 코드화 게이트 check-cross-leak.py가 '같은구역 0건 → PASS'이고 '짧은지문 다른구역 수용' 규칙 + 본 과제 명시 지시(발췌 없이 fullPassage)에 따라 배포 비차단(low)으로 재분류. 어법(Q1~4)/오류찾기(Q14) 이중오류·정답2개·뻔한오답·prefix조작·단어수불일치·ans/det불일치 등 그 외 항목 전부 clean."
+}

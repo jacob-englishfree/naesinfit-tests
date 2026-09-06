@@ -1,0 +1,20 @@
+{
+ "file": "data/부교재/Pathways4/Unit6/퀴즈.json",
+ "model": "opus (adversarial reviewer)",
+ "highCount": 0,
+ "issues": [
+  {
+   "id": 16,
+   "severity": "MED",
+   "type": "정답노출(교차문항)",
+   "detail": "서술형 Q16/17/18/19/20의 정답 문장이 다른 문항들의 반복 fullPassage에 통문장 그대로 노출됨(예: Q16 'offers a window into the human experience', Q18 'the words we use play an important role', Q19 'she describes the desktop display on her computer', Q20 'becoming bilingual or multilingual can restructure those categories', Q17 'are supported'). 다만 부교재 fullPassage-overlay 설계상 모든 문항이 원문 전체를 담는 구조라 프로젝트 관례상 수용되어 온 사각지대. 학생 엔진이 한 번에 한 문항만 노출하므로 실사용 노출 아님."
+  },
+  {
+   "id": 6,
+   "severity": "MED",
+   "type": "정답노출(교차문항)",
+   "detail": "빈칸추론 Q6('shape our perspectives'), Q7('lead the way'), Q15('talk about feelings')의 정답 구가 다른 문항들의 fullPassage에 원문 그대로 등장. 자기 passage는 __________로 정상 처리됨. Q16 이슈와 동일한 fullPassage 반복 구조에서 기인하는 관례 수용 사각지대."
+  }
+ ],
+ "summary": "20문항 전부 정답·해설(det)·조건·단어수·패러프레이즈가 원문과 정확히 일치. 복수정답/정답오류/자기지문 노출 0건. HIGH 0건. 유일한 사각지대는 부교재 fullPassage-overlay 설계상 정답이 형제 문항 반복 지문에 노출되는 교차문항 누출(관례 수용, 엔진 단일노출로 실사용 무영향)."
+}
