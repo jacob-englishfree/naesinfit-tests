@@ -1,0 +1,12 @@
+{
+  "testFile": "/Users/woobumpark/Desktop/영어해방공식&내신핏/naesinfit-tests/data/부교재/올림포스고급영미비문학/2025/1강/4번/단어.json",
+  "issues": [
+    {
+      "id": 0,
+      "category": "cross-question-leak(다른구역)",
+      "desc": "빈칸형(Q7,8,9,17,18,19,20) 정답 단어가 다른 문항의 passage(fullPassage 그대로 노출된 부분)에 평문으로 총 107건 등장함(check-cross-leak.py 실측). 예: Q7 정답 'punishment'가 Q1~Q6,Q8,Q9,Q10~14,Q19,Q20 passage에 그대로 노출. 이는 부교재 규칙상 passage=fullPassage 통째 오버레이 방식(단어 테스트 구조상 불가피)이라 check-cross-leak.py도 '같은구역 0건'으로 PASS 처리하고 '다른구역'은 수용 대상으로 분류함. 학생이 문항을 순서대로 하나씩 풀 경우 위험은 낮으나, 앞뒤 문항 passage를 넘나들며 정답을 유추할 가능성은 구조적으로 남아있음.",
+      "severity": "LOW"
+    }
+  ],
+  "totalIssues": 1
+}

@@ -1,0 +1,39 @@
+{
+  "testFile": "data/부교재/올림포스고급영미비문학/2025/1강/1번/퀴즈.json",
+  "reviewedAt": "2026-09-06",
+  "checks": {
+    "n7_workbook_quiz_overlap": "PASS — 워크북↔퀴즈 간 동일 wa/overlay.blank 0건 (프로그램 대조). 워크북 wa=[local color, their own language, lacking(어형변환), Each country creates its literature with its own language(조건영작)] ↔ 퀴즈 wa=[no one can learn every language, has(어형변환), The value and enjoyment..., A deliberate representation..., There is special difficulty...]. 교집합 없음. Q17은 양쪽 다 어형변환이나 대상 단어가 lacking(lack) vs has(have)로 상이.",
+    "q17_type": "PASS — Q17 type 필드 = '서술형 — 어형변환' 정확. passage 3문장 발췌 + 'literature almost always _____ a local color', (have)→has 어형변환. 어형변환은 짧은 발췌 허용 유형.",
+    "cross_leak_gate": "PASS — check-cross-leak.py exit 0. 같은구역(same-section) 노출 0건, 다른구역(우연) 117건.",
+    "ambiguity_double_answer": "PASS — mc 15문항 전수 재풀이, 정답 2개 가능/모호 문항 0건. 어법(Q1~3)·부적절어휘(Q4~5)는 마커 단일 오류 명확, 빈칸(Q6·7·15) 오답은 문맥상 확실히 소거, 내용일치(Q8~10)·주제(Q11)·제목(Q12)·함축(Q13)·지칭(Q14) 오답 전부 본문 근거로 반박 가능."
+  },
+  "issues": [
+    {
+      "id": 18,
+      "severity": "MEDIUM",
+      "desc": "서술형 조건영작(어려움·6점). wa 'The value and enjoyment of the original may be lost through translation'(12단어, 완전한 원문 문장)이 다른 문항 지문들에 평문 그대로 노출됨(다른구역). Q18 자기 지문에서는 __________로 빈칸 처리되어 있으나, 부교재 규칙상 mc 문항이 fullPassage를 통째로 보여줘야 하므로 학생이 다른 문항 지문에서 정답 문장을 그대로 베껴 쓸 수 있음. check-cross-leak.py는 '다른구역(우연)'으로 분류해 게이트 PASS(같은구역 0건), jacob 정책상 짧은 지문(약 230단어)의 다른구역 노출은 수용 대상이나, 6점짜리 최고난도 서술형이 문법 구성 능력 없이 전사(copy)로 풀린다는 점은 실질 취지가 약화됨."
+    },
+    {
+      "id": 20,
+      "severity": "MEDIUM",
+      "desc": "서술형 조건영작(보통·5점). wa 'There is special difficulty in a universalized study of literature'(원문 도입 문장)이 다른 문항 지문 대부분에 그대로 노출됨(다른구역). Q18과 동일한 전사 가능성. 게이트 PASS·정책상 수용 범위지만 조건영작 취지(어순·문법 구성) 측정력이 약화됨."
+    },
+    {
+      "id": 19,
+      "severity": "MEDIUM",
+      "desc": "서술형 어순배열. wa 'A deliberate representation is a concession after all'이 다른 문항 지문 대부분에 그대로 노출됨(다른구역). 어순배열은 제시어를 재배열해 문장을 만드는 유형인데 완성 문장이 다른 지문에 보이면 재배열 없이 베낄 수 있음. 게이트 PASS·수용 범위."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "desc": "서술형 조건영작(쉬움·4점). wa 'no one can learn every language'가 다른 문항 지문에 그대로 노출(다른구역). 6단어 절 단위라 Q18/20보다 영향은 작으나 동일 구조. 게이트 PASS."
+    },
+    {
+      "id": 0,
+      "severity": "LOW",
+      "desc": "[FILE-LEVEL·구조적] 원문이 약 230단어로 짧고 부교재 규칙상 모든 mc가 fullPassage 전문을 노출해야 하므로, 한 문항의 정답 구/문장이 다른 19문항 지문에 평문 등장하는 것이 구조적으로 불가피(다른구역 117건). jacob 정책(feedback_no_cross_question_answer_leak.md: '어형변환/짧은지문 gap없음=다른구역 수용')상 배포 차단 대상 아님. Q17을 조건영작에서 어형변환('has')으로 교체한 것은 전사 가능한 서술형 수를 줄이는 방향의 개선. 서술형 5문항 중 4문항(16·18·19·20)이 여전히 원문 문장/절을 답으로 요구하므로, jacob이 짧은 지문 섹션에서 완전문장 조건영작/어순배열 비중을 더 줄일지 검토 권고."
+    }
+  ],
+  "highCount": 0,
+  "totalIssues": 5
+}

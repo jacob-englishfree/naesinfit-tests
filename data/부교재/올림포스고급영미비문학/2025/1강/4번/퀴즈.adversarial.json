@@ -1,0 +1,28 @@
+{
+  "testFile": "/Users/woobumpark/Desktop/영어해방공식&내신핏/naesinfit-tests/data/부교재/올림포스고급영미비문학/2025/1강/4번/퀴즈.json",
+  "issues": [
+    {"id": 1, "category": "cross-question leak", "desc": "정답 근거 'who appears'(원문)가 Q1에서만 'which appears'로 왜곡되고 다른 문항 passage에는 원문 그대로 노출. 단, 이는 다른구역(문항 자체 변형 위치 밖) 노출이며 check-cross-leak.py 기준 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 2, "category": "cross-question leak", "desc": "정답 근거 'turn'(원문)이 Q2에서만 'turning'으로 왜곡되고 다른 문항 passage에는 'and turn their daughter over'로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 3, "category": "cross-question leak", "desc": "정답 근거 'that'(원문)이 Q3에서만 'what'으로 왜곡되고 다른 문항 passage에는 'a world around her that has nothing negative in it'으로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 4, "category": "cross-question leak", "desc": "정답 근거 'mature'(원문)가 Q4에서만 'childish'로 왜곡되고 다른 문항 passage에는 'grow into a mature princess'로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 5, "category": "cross-question leak", "desc": "정답 근거 'negative guise'(원문)가 Q5에서만 'positive guise'로 왜곡되고 다른 문항 passage에는 'her negative guise as the Queen of the Underworld'로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 6, "category": "cross-question leak", "desc": "빈칸 정답 'nothing negative in it'이 Q6에서만 블랭크 처리되고 다른 문항 passage에는 'that has nothing negative in it'으로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 7, "category": "cross-question leak", "desc": "빈칸 정답 'love's first kiss'가 Q7 자신의 passage 뒷부분('through true love's kiss')과 다른 문항 passage에 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 8, "category": "확인", "desc": "정답(④)이 원문 'get rid of all the spinning wheels in the land'와 정확히 일치하고 나머지 3개 오답은 원문과 명확히 반대되는 진술(after a long wait / curses / reduces)로 근거 있는 오답. 정답 2개 불가, 소거법만으로 안 풀림. 이슈 없음.", "severity": "LOW"},
+    {"id": 9, "category": "확인", "desc": "선지 4개가 각각 원문의 다른 세부사항(수락 태도/한탄/나이 sixteen/평온 여부)을 다루어 본문 근거 필요. 이슈 없음.", "severity": "LOW"},
+    {"id": 10, "category": "확인", "desc": "불일치 선지(③)가 사건의 시간 순서(왕자 만남=중반, 각성=맨 마지막 Ultimately)를 정확히 뒤집은 형태로 타당. 이슈 없음.", "severity": "LOW"},
+    {"id": 11, "category": "확인", "desc": "주제 선지 4개 모두 본문 소재에서 파생 가능한 그럴듯한 오답이며 정답(④)만 본문 전체(과잉보호 역효과)를 아우름. 이슈 없음.", "severity": "LOW"},
+    {"id": 12, "category": "확인", "desc": "제목 선지 4개 모두 본문 일부 소재(마녀/세례식/물레)에서 파생된 매력적 오답이라 뻔하지 않음. 정답(①) Overprotection: The Weakness It Breeds만 주제와 일치. 이슈 없음.", "severity": "LOW"},
+    {"id": 13, "category": "확인", "desc": "함축의미 선지 4개가 서로 다른 해석 방향(고귀함/미숙함/방랑/강인함)으로 나뉘어 근거 있는 문항. 정답(②)만 sheltered=과잉보호 미숙 상태와 일치. 이슈 없음.", "severity": "LOW"},
+    {"id": 14, "category": "확인", "desc": "지칭 선지 4개가 등장인물 4명(마녀/요정/공주/왕자)을 각각 가리켜 명확히 구분되며 someone=성장한 Aurora(③)만 문맥에 부합. 이슈 없음.", "severity": "LOW"},
+    {"id": 15, "category": "cross-question leak", "desc": "빈칸 정답 'removing all dangerous things'가 Q15에서만 블랭크 처리되고 다른 문항 passage에는 'their strategy of removing all dangerous things'로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 16, "category": "cross-question leak", "desc": "서술형 정답 wa 'she meets a prince in the forest'가 다른 문항 passage에 그대로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS. 워크북과 wa 중복 없음.", "severity": "MED"},
+    {"id": 17, "category": "cross-question leak", "desc": "type='서술형 — 어형변환'으로 확정. passage는 3문장 발췌(Then she loudly bemoans ... _____ itself. A portal opens up ...)에 괄호 안 (manifest)를 3인칭 단수 현재형 manifests로 변환하는 어형변환 유형으로, CLAUDE.md 규칙24(S-QUIZ-WRITTEN-SAFE-TYPE) 허용 유형(조건영작/어순배열/어형변환)에 포함 → 유형 위반 해소. 워크북 Q17 어형변환 wa='awakens'와 다름(중복 없음). 잔여: 정답 원형 'manifests'가 다른 문항 passage에 'Maleficent's curse manifests itself'로 노출되나 다른구역, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 18, "category": "cross-question leak", "desc": "서술형 정답 wa 'she is to be wed to Prince Philip'(8단어)가 다른 문항 passage에 그대로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 19, "category": "cross-question leak", "desc": "어순배열 정답 wa 'Aurora awakens from the curse and begins to grow into a mature princess'가 다른 문항 passage에 동일 문장으로 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS.", "severity": "MED"},
+    {"id": 20, "category": "cross-question leak", "desc": "서술형 정답 wa 'a good fairy reduces the punishment'가 다른 문항 passage에 노출. 다른구역 노출, 같은구역 0건 → 게이트 PASS. 워크북과 wa 중복 없음.", "severity": "MED"}
+  ],
+  "totalIssues": 13,
+  "highIssues": 0,
+  "summary": "재검수(2026-09-06, Q17 어형변환 전환 반영). 이 테스트는 단일 짧은 지문(Sleeping Beauty)을 20문항에 fullPassage 통째로 오버레이하고(부교재 규칙 C) 각 문항은 한 위치만 국소 변형하는 구조. check-cross-leak.py 실측 결과 같은구역 노출 0건(PASS), 다른구역(우연) 노출 139건(게이트 검토 권고 수용). jacob 확정 규칙(feedback_no_cross_question_answer_leak): 같은구역 0건 하드 통과, 단일 짧은 지문의 다른구역 노출은 구조적 특성으로 수용 → 이전 리포트의 HIGH cross-question leak 항목을 전부 MED(게이트 PASS, 배포 차단 아님)로 재분류. Q17은 '서술형 — 어법고쳐쓰기'→'서술형 — 어형변환'으로 유형 변경되어 S-QUIZ-WRITTEN-SAFE-TYPE 유형 위반 소지 해소. Q17('manifests')·Q20('a good fairy reduces the punishment') wa는 워크북 서술형 wa(awakens / A portal / the three good fairies / the two monarchs are overprotecting their beloved daughter)와 중복 없음. 정답 2개 가능 / 뻔한 오답 소거 / 문법·한국어 오역 / 서술형 단어수 불일치 / 접두사형 기계적 반의어: 전부 미발견. 배포 차단급(HIGH) 결함 0건."
+}

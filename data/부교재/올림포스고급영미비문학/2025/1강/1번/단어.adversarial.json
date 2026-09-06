@@ -1,0 +1,21 @@
+{
+  "testFile": "data/부교재/올림포스고급영미비문학/2025/1강/1번/단어.json",
+  "issues": [
+    {
+      "id": 19,
+      "severity": "MED",
+      "desc": "빈칸 문맥 완성. ans choice 3 'lost through translation' is the exact verbatim clause from the source sentence 'The value and enjoyment of the original may be lost through translation.' check-cross-leak.py confirms this exact multi-word answer phrase appears unaltered as running prose in 13 of the other 19 questions' displayed passages (Q1,Q3,Q4,Q5,Q7-14,Q20). A student can locate the literal answer text in any neighboring question instead of inferring it from context. Not a same-section leak (gate PASS), but reduces this item's diagnostic validity."
+    },
+    {
+      "id": 8,
+      "severity": "LOW",
+      "desc": "빈칸 어휘 완성. Target word 'manifestation' (same sentence/blank location) is also the (A) slot answer in Q3's (A)(B)(C) combo item and the underlined target of Q11's synonym item. Same vocabulary item tested 3 times across 20 questions (different skills: combo-select / blank-fill / synonym), which narrows topical breadth for a single ~230-word passage. Not an answer-leak, just redundant coverage."
+    },
+    {
+      "id": 0,
+      "severity": "LOW",
+      "desc": "[FILE-LEVEL] check-cross-leak.py reports 108 '다른구역(우연)' hits (0 same-section hard leaks — gate PASS). This is structural: the 부교재 fullPassage-통째 design mandate means nearly all 18 mc questions display the same ~230-word passage nearly verbatim, so any single content word used as a blank/choice answer will inevitably surface as plain prose elsewhere in the same 20-question test. Inherent to short-passage 부교재 tests, not unique to this file."
+    }
+  ],
+  "totalIssues": 3
+}
