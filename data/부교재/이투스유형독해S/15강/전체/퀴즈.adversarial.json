@@ -1,0 +1,40 @@
+{
+  "attacker": "sonnet-adversarial + opus-adjudication",
+  "timestamp": "2026-09-07T00:30:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 19,
+      "description": "[원래 HIGH — 수정 완료] 기존 Q19 어순배열 wa='Spending on older people is not the driving force behind rising health care costs'(14단어). 'rising'을 'health care costs' 뒤로 옮긴 대안 배열(fused-participle)이 문법적으로 성립해 자동채점 복수정답(억울한 감점) 위험 지적.",
+      "recommendation": "해결: Q19를 [P02] 'we treat knowledge in the minds of others'(8단어)로 교체. we=주격 인칭대명사라 반드시 주어, 'in the minds of others'는 전치사 연쇄로 순서 고정 → 문법상 유일 배열. 대안 배열 불가. 재조립 후 validate PASS + cross-blind 20/20 재확인."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 17,
+      "description": "[원래 지적 — 정상 확인] Q17 어형변환 wa='attending'. avoid는 목적어로 동명사만 취하는 동사(avoid+to attend 불가, avoid attended 불가)라 정답이 attending 하나로 수렴. 발췌(3문장) 안에 변환형 노출 없음(빈칸 __________ (attend) 처리).",
+      "recommendation": "유지. 유일 정답. self-blind·cross-blind 양쪽 'attending' 일치."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 16,
+      "description": "[원래 HIGH — 정상 구조] 서술형 정답(Q16/18/19/20)이 다른 문항의 passage(=fullPassage 통째)에 평문 노출된다는 지적. 이는 부교재 표준 구조(모든 mc/서술형이 fullPassage 사용, 자기 문항 자리만 빈칸)이며, 공식 게이트 check-cross-leak.py로 판정한다.",
+      "recommendation": "유지. check-cross-leak.py 결과 '같은구역 노출 0건 [PASS]'(다른구역 145건은 부교재 표준). 정답이 위치한 각 문항 자신의 passage에서는 빈칸(______) 처리됨. 같은 15강 워크북(배포본)도 동일 구조로 라이브. jacob 확정 규칙 '같은구역 0건 하드, 다른구역 수용' 부합."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 20,
+      "description": "[원래 MEDIUM — 오탐] Q20 조건영작 정답 'We rely on the expertise of others'에서 the를 'expertise of the others'로 옮기는 대안 지적. 그러나 'the others'는 '특정한 그들'로 의미가 바뀌고(원문=일반적 타인), rely on the expertise of others가 원문·문맥상 유일하게 자연스러움. [보기]가 the 1개만 제공하므로 the의 위치가 사실상 the expertise로 고정.",
+      "recommendation": "유지. 의미·자연스러움 기준 유일 정답. cross-blind도 정답 일치."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "verdict": "PASS — 적대적 공격 HIGH 2건 재판정: Q19(복수정답 위험)는 유일배열 구간으로 근본 교체 완료, 서술형 크로스노출은 공식 게이트(check-cross-leak.py 같은구역 0건 PASS) 통과하는 부교재 표준 구조로 확인. HIGH 잔여 0건."
+  }
+}

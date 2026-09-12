@@ -1,0 +1,30 @@
+{
+  "testFile": "data/부교재/이투스유형독해S/09강/전체/단어.json",
+  "reviewer": "opus-adversarial",
+  "checks": ["정답 2개 가능", "정답 노출", "뻔한 오답", "모호 stem", "문법 오류", "passage 무관"],
+  "issues": [],
+  "resolvedIssues": [
+    {
+      "id": 18,
+      "severity": "HIGH",
+      "type": "정답 2개 가능",
+      "found": "어형변환 (accelerate)→accelerating 이었으나 'the accelerated rate of loss'도 문법·의미상 성립 → 자동채점(accept=accelerating 단일)에서 accelerated 쓴 학생 오채점 위험",
+      "resolution": "FIXED — 형태가 유일하게 결정되는 (inevitable)→inevitably(부사, 뒤 형용사 incomplete 수식)로 교체. 재조립·재블라인드·재크로스블라인드 20/20 통과",
+      "status": "resolved"
+    }
+  ],
+  "reviewNotes": [
+    "Q1~3 (A)(B)(C): 오답은 각 자리 반의어 1개 교체형, 정답어는 브래킷 내에만 존재(타 위치 평문 노출 0). 문맥상 단일 정답.",
+    "Q4~6 부적절어휘: 교체어 1개만 문맥과 모순(limitations/help/minority), 나머지 3개는 원문 그대로 → 복수정답 없음.",
+    "Q7~9 빈칸어휘: 오답이 문맥상 모두 배제됨(arrested vs promoted/celebrated/rewarded; theories; conflict). 빈칸 옆 5단어 내 정답 노출 없음.",
+    "Q10~12 동의어: slowly/creative/trigger 각 단일 동의어, 나머지는 반대/무관.",
+    "Q13~14 반의어: increase/moderate 단일 반의어, 오답에 의미축 다른 단어 1개씩 포함(weaken, common)으로 소거법 차단. prefix 조작형 없음.",
+    "Q15 다의어 will: (A)명사 의지 / (B)미래 조동사 — 선지 중 ③만 성립.",
+    "Q16 영영풀이: 정의가 intuition에만 정확히 대응(aptitude=재능 배제).",
+    "Q17 어형변환 fail→failure: 'The failure of X to do' 고정 연어, 단일 형태.",
+    "Q19~20 빈칸문맥: outside the box / take its power for granted 구·표현 단위, 오답 구절은 문맥 부적합.",
+    "meta-text 노출 0, ch 잘림 0, stem-korean 단서 충분, passage 마커 잔재 0, 정답 길이편향 없음."
+  ],
+  "totalIssues": 0,
+  "highIssues": 0
+}

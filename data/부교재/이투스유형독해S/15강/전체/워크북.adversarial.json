@@ -1,0 +1,47 @@
+{
+  "attacker": "sonnet-adversarial + opus-adjudication",
+  "timestamp": "2026-09-06T00:00:00.000Z",
+  "issues": [
+    {
+      "id": "ADV-01",
+      "severity": "LOW",
+      "questionId": 17,
+      "description": "[원래 HIGH — 수정 완료] Q17 어형변환 passage가 [P01] 앞 3문장만 발췌되어 stem이 묻는 [P03]의 'repository of repressed emotions'가 지문에 없었음(풀이 불가).",
+      "recommendation": "해결: response.json에 overlay.excerptSentences로 [P03] 3문장 발췌 지정. 재조립 후 passage에 'the repository of repressed emotions' 포함 확인(350자)."
+    },
+    {
+      "id": "ADV-02",
+      "severity": "LOW",
+      "questionId": 14,
+      "description": "[원래 HIGH — 오탐] 오류찾기 passage에 <u> 태그 사용이 규칙 위반이라는 지적. 그러나 validate.js는 2026-05-30 렌더러 수정 이후 오류찾기 <u>를 명시 허용(S-ORYUCHATGI-UL 제거, 라인 2498/2553). 배포된 참고본(03강)도 동일 형식.",
+      "recommendation": "유지. validate PASS. 스테일 규칙 참조에 의한 오탐."
+    },
+    {
+      "id": "ADV-03",
+      "severity": "LOW",
+      "questionId": 11,
+      "description": "[원래 HIGH — 정상 구조] Q11 빈칸 정답 'as if it were our own'이 다른 문항 passage(=fullPassage 통째)에 노출. 부교재 워크북의 표준 구조(모든 mc가 fullPassage 사용). check-cross-leak.py 결과 같은구역 0건, 다른구역 104건으로 [PASS]. 배포된 03강도 다른구역 108건 [PASS].",
+      "recommendation": "유지. 공식 게이트 기준 정상. 정답이 위치한 Q11 자신의 passage에서는 빈칸 처리됨."
+    },
+    {
+      "id": "ADV-04",
+      "severity": "LOW",
+      "questionId": 20,
+      "description": "[원래 HIGH — 정상 구조] Q20 조건영작 정답 'two equally exciting and appealing toys'가 [P06] 포함 다른 문항 passage에 노출. ADV-03과 동일한 부교재 표준 구조. Q20 자신의 passage에서는 정답 자리 빈칸(______) 처리 확인.",
+      "recommendation": "유지. check-cross-leak 같은구역 0건 [PASS]. 배포 참고본과 동일 패턴."
+    },
+    {
+      "id": "ADV-05",
+      "severity": "LOW",
+      "questionId": 1,
+      "description": "[MEDIUM→LOW] 어법/어휘 Q1~Q6이 각각 한 문단(P01~P06)에 마커 4개 집중. 단, 각 문항이 서로 다른 문단을 담당(Q1=P01, Q2=P02, Q3=P03, Q4=P04, Q5=P05, Q6=P06)하여 전체 6개 지문에 걸쳐 분산됨. 개별 문항 마커는 문단 내 도입/중간/후반 분산 확인.",
+      "recommendation": "유지. 6개 독립 지문이므로 문항별 단일 문단 집중은 불가피하며 지문 간 분산은 양호."
+    }
+  ],
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "verdict": "PASS — 원래 HIGH 4건 재판정: 1건(Q17)은 실제 결함으로 수정 완료, 3건(Q14/Q11/Q20)은 오탐 또는 공식 게이트 통과하는 정상 구조로 확인. HIGH 잔여 0건."
+  }
+}
