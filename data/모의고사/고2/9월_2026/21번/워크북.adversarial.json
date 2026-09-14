@@ -1,0 +1,68 @@
+{
+  "file": "data/모의고사/고2/9월_2026/21번/워크북.json",
+  "timestamp": "2026-09-13T02:45:00.000Z",
+  "reviewer": "Opus adversarial (Generator self-attack)",
+  "totalQuestions": 20,
+  "highIssues": 0,
+  "findings": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "issue": "마커 클러스터링: ①found ②are ③circulated ④serve가 모두 도입 3문장에 몰림",
+      "verdict": "유지 — 쉬움 등급의 주어-동사 수일치 문항이고 정답(②are→is)이 첫 문장에 명확. 재출제 불필요"
+    },
+    {
+      "id": 5,
+      "severity": "PASS",
+      "issue": "정답 ③outdated(→timely) 단일. ①circulated ②branch ④professional 모두 문맥상 적절. 마커순서 ①②③④ 정상(professional로 교체 후 fix)",
+      "verdict": "유지"
+    },
+    {
+      "id": 6,
+      "severity": "PASS",
+      "issue": "정답 ④ineffective(→effective) 단일. ③linked는 정답 아닌 정상 distractor라 N7 아님(단어 wa=linked와 정답충돌 없음)",
+      "verdict": "유지 — Q6 정답을 linked→effective로 바꿔 단어.json Q18(linked) N7 충돌 제거"
+    },
+    {
+      "id": 11,
+      "severity": "PASS",
+      "issue": "빈칸 'urgent phone calls that ____' → take them in and out of the meeting. 영어선지 4개 det에 한국어 해석 병기 완료(S-EN-CHOICE-NO-KR). 오답 3개 문맥상 모두 부적절",
+      "verdict": "유지 — natural and necessary(단어 Q3/Q6 vocab과 중복소지) 대신 새 지문영역으로 교체"
+    },
+    {
+      "id": 12,
+      "severity": "PASS",
+      "issue": "선지 ③ '관련 없는' 메타표현 제거 → '회의실 밖으로 나가 따로 모여 논의한다'(form within the room과 반대되는 사실왜곡)로 교체. 소거법 방지",
+      "verdict": "유지"
+    },
+    {
+      "id": 14,
+      "severity": "PASS",
+      "issue": "오류찾기 ④seeing→seen(are seen as 수동태). 단어.json에 seen 없음, 워크북 Q17을 seen→found로 바꿔 내부 중복 제거",
+      "verdict": "유지"
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "issue": "찾기 정답 'flexible and professional'의 두 단어가 단어.json에서 각각 반의어(flexible)·(A)(B)(C)(professional)로 테스트됨",
+      "verdict": "유지 — N7은 동일 wa/blank/정답 충돌 기준. 여기는 '찾기 구(phrase)'로 접근각·정답객체가 달라 동일정답 아님. 단어 wa(crafted/linked)와 불일치"
+    },
+    {
+      "id": 17,
+      "severity": "PASS",
+      "issue": "어형변환 find→found(those (that are) found 축약관계사 분사). 발췌 2문장, 정답 발췌문 내 미노출. 단어 어형변환(crafted/linked)과 다른 단어",
+      "verdict": "유지"
+    },
+    {
+      "id": 20,
+      "severity": "LOW",
+      "issue": "조건영작 wa에 productive·unpredictable(단어 vocab 테스트어) 포함",
+      "verdict": "유지 — 8단어 전체 문장 배열형이라 단어의 단일어휘 정답과 동일객체 아님. [조건]에 8토큰 모두 명시·wa 8단어 일치, 정답 유일"
+    }
+  ],
+  "n7Check": {
+    "vsVocab": "PASS — 단어.json 정답(circulated/linear/productive/sprout/urgent/linked/professional/capitalize on/natural/necessary/unpredictable/form/branch/agenda/crafted/linked/branch off.../capitalize on priorities...)와 워크북 정답 간 동일 wa·blank·정답 0건. Q6(linked→effective)·Q11(natural and necessary→take them in and out)·Q17(seen→found) 수정으로 충돌 제거",
+    "internal": "PASS — Q14 오류찾기(seen)와 Q17 어형변환(seen) 내부 중복을 Q17=found로 해소"
+  },
+  "conclusion": "HIGH 0건. 정답 2개 가능·정답 노출·뻔한 오답·모호 stem·문법 오류·passage 무관·N7 동일정답 전부 해소. 배포 가능."
+}

@@ -1,0 +1,28 @@
+{
+  "file": "data/부교재/수능특강Light/영어/10강/8번/워크북.json",
+  "timestamp": "2026-09-14T00:00:00.000Z",
+  "attacker": "claude-opus-4-8",
+  "method": "20문항 전수 적대공격 — 정답2개 가능성/뻔한 오답/정답 노출/모호성/마커 단일오류 검증",
+  "issues": [
+    {
+      "id": 10,
+      "severity": "LOW",
+      "note": "빈칸 'a strong ___ to help'의 오답 'concern'이 같은 절에 이미 등장(we feel concern). 'a strong concern to help'는 어색·중복이라 정답 desire와 혼동 여지 낮음. 정답 desire는 원문 그대로라 근거 명확 → 유지."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "note": "wa 'bonding hormone'이 원문에서는 따옴표(\"bonding hormone\")로 표기. 채점 NORM이 구두점 제거하므로 학생 입력 정상 채점. 찾기형이라 노출 정상."
+    }
+  ],
+  "checks": {
+    "single_grammar_error_Q1_Q4": "각 어법 문항 오류 정확히 1개, 나머지 3개 앵커 문법적 정상 확인 (Q1③releases·Q2④come·Q3③strengthen·Q4④allow)",
+    "single_vocab_error_Q5_Q6": "어휘 부적절 각 1개만 반의어 교체(Q5②separates·Q6③quickens), 나머지 문맥 적합",
+    "single_true_false_Q12_Q13": "일치 Q12 정답③만 참·불일치 Q13 정답④만 거짓 — 복수정답 없음",
+    "oryuchatgi_Q14": "①만 원문(change)과 상반(maintain), ②③④ verbatim",
+    "answer_leak": "서술형 찾기형(Q15·Q16) stem '본문에서 찾아' 명시로 노출 정상. 조건영작 Q20은 정답자리 빈칸 처리",
+    "ans_distribution": "{1:4,2:4,3:4,4:4} 최대4개·3연속 없음",
+    "points": "쉬움5×4 + 보통10×5 + 어려움5×6 = 100"
+  },
+  "summary": { "HIGH": 0, "MEDIUM": 0, "LOW": 2, "verdict": "PASS" }
+}

@@ -1,0 +1,43 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/23번/퀴즈.json",
+  "reviewer": "STEP D 적대적 공격 (Generator self-adversarial)",
+  "highRemaining": 0,
+  "issues": [
+    {
+      "id": 14,
+      "severity": "RESOLVED",
+      "category": "정답노출/유형오작동",
+      "found": "지칭추론 overlay.underline=\"This\"가 대소문자 무시(regex /i) 첫 매칭 규칙 때문에 S4의 소문자 'this'(in this process)에 밑줄이 잘못 적용됨. 의도한 S5의 'This'(This is seen)가 아니라 다른 지시어에 밑줄 → 정답 근거가 어긋남.",
+      "fix": "overlay.underline을 고유 구문 \"This is seen\"으로 교체하여 S5에 정확히 밑줄. 재조립 후 passage에서 <u>This is seen</u> 위치 확인 완료. 블라인드 재검 일치.",
+      "resolved": true,
+      "_origSeverity": "HIGH"
+    },
+    {
+      "id": 6,
+      "severity": "RESOLVED",
+      "category": "N7 크로스파일 중복",
+      "found": "빈칸추론 정답 \"the fluid movement in the prelude\"에 N7 금지어 'prelude'(워크북 Q15 서술형 wa) 포함 → 워크북↔예상문제 정답 중복 위험.",
+      "fix": "빈칸 구간을 S6의 \"the ambiguity of the rhythm\"로 교체(금지어 무포함, 워크북 정답과 무중복). 무박자 전주곡↔unambiguous 대비 기반 추론으로 재설계. check-wb-quiz-leak PASS(0건).",
+      "resolved": true,
+      "_origSeverity": "HIGH"
+    },
+    {
+      "id": 7,
+      "severity": "MEDIUM",
+      "category": "뻔한오답/문법단서 노출",
+      "found": "빈칸추론 오답 ①③이 단수 명사구('a slow and steady tempo','the complete absence of sound')여서 빈칸 뒤 복수동사 create와 수 불일치 → 문법만으로 소거 가능.",
+      "fix": "오답 전부 복수형('slow and steady drum beats','long stretches of complete silence')으로 교체하여 문법 단서 제거, 의미로만 판별하도록 함.",
+      "resolved": true
+    }
+  ],
+  "totalIssues": 3,
+  "checks": {
+    "doubleAnswer": "20문항 정답 유일성 확인 — 어법 3문항 각 1개 오류만, 부적절 2문항 각 1개 반의어만, 나머지 단일정답",
+    "answerLeak": "빈칸/서술형 정답자리 전부 __________ 처리, 어형변환 정답 excerpt에 미노출",
+    "obviousDistractor": "함축/주제/제목/내용일치 패러프레이즈 선지, 영어선지 KR해석 병기",
+    "vagueStem": "서술형 [조건] 전 단어 명시 + (N단어) + (영어로), 어형변환 (영어로) 명시",
+    "grammarError": "어법 3포인트(want O to-V / 재귀대명사 / 관계대명사 that·what) 워크북(수일치·복수주어·which·태)와 전부 상이",
+    "passageIrrelevant": "전 문항 fullPassage 기반(어형변환만 2문장 발췌)",
+    "n7": "워크북↔예상문제 정답중복 0건(check-wb-quiz-leak PASS), 단어 금지타겟(excitement/predictable) 미사용, 금지어(prelude/drama/pleasure/predictable/excitement/something more to happen) 정답 미사용"
+  }
+}

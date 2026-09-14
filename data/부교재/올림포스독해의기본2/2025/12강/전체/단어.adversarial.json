@@ -1,0 +1,24 @@
+{
+  "model": "claude-opus-4-8",
+  "date": "2026-09-07",
+  "totalIssues": 2,
+  "highIssues": 0,
+  "issues": [
+    { "id": 8, "severity": "LOW", "issue": "Q8은 최초 조립본에서 빈칸 정답이 'Literacy'(대문자 고유명사 의심 + 동일 문단에 literacy 반복 노출)였던 것을 'instruction'으로 재타깃한 문항", "resolution": "'formal reading __________ ends' 위치로 이동. instruction은 fullPassage 내 1회만 등장하며 빈칸 처리되어 노출 0건 확인. teaching·training·prepared to teach 문맥으로 추론 가능, 오답 3개(entertainment/competition/construction)는 'formal reading X'에 의미상 부적합해 소거법 아닌 문맥 추론으로 풀림" },
+    { "id": 1, "severity": "LOW", "issue": "(A)(B)(C) 조합형 Q1~3은 정답 단어가 지문 괄호 [X / Y] 안에 함께 노출됨(validate EX-3)", "resolution": "유형 고유 특성(두 후보를 제시하고 문맥 적합한 것 선택). 4개 조합 중 3자리 모두 맞는 조합은 각 문항당 1개뿐이라 정답 유일. 유지" }
+  ],
+  "summary": "20문항 전수 적대적 검토 완료. HIGH 이슈 0건. LOW 2건(모두 정답 유일성·노출 없음 확인). self-blind 20/20, cross-blind(Sonnet) 20/20 일치.",
+  "checks": [
+    { "check": "정답 2개 가능성", "result": "PASS", "detail": "(A)(B)(C) Q1-3 3자리 전부 맞는 조합 각 1개뿐. 부적절어휘 Q4-6 오류 단어 1개만·나머지 3개 원문 정상. 동의/반의 Q10-14 의미축 상 정답 유일. 빈칸 Q7-9·19-20 문맥 근거 단일" },
+    { "check": "선지 뻔함/소거법", "result": "PASS", "detail": "동의어 오답은 반대어·무관어 혼합(rarely/generally/barely 등)이라 뜻을 알아야 풀림. 빈칸 오답은 문맥상 부적합한 실제 어휘라 무작정 소거 불가" },
+    { "check": "정답 노출", "result": "PASS", "detail": "Q7 pursuit·Q8 instruction·Q9 navigate 각 해당 문항 passage에서 빈칸 처리, 재타깃한 Q8 instruction은 fp 내 1회만 등장→빈칸으로 노출 0건. Q19 turning to fiction·Q20 survival asset도 빈칸 처리" },
+    { "check": "마커/빈칸 분산", "result": "PASS", "detail": "부적절어휘 Q4(P01)·Q5(P02)·Q6(P03) 각 단락 집중형으로 단어 학습 목적에 부합. (A)(B)(C) Q1(P01)/Q2(P02)/Q3(P04) 단락 분산" },
+    { "check": "서술형 wa 노출", "result": "PASS", "detail": "어형변환 Q17(evolutionary)·Q18(ideally) 모두 빈칸+힌트(evolution/ideal) 제공, 정답 자체는 발췌문에 노출 안 됨" },
+    { "check": "어형변환 유일성", "result": "PASS", "detail": "Q17 edge(명사) 수식→형용사 evolutionary. Q18 prepared 수식→부사 ideally. 표준 파생형 단일 정답" },
+    { "check": "영영풀이 정확성", "result": "PASS", "detail": "Q16 'kills and eats other animals'=predator 고유. prey(피식)·herbivore(초식)·scavenger(사체) 명확 구분" },
+    { "check": "다의어 문맥", "result": "PASS", "detail": "Q15 (A) set out=착수하다 / (B) set apart=구별하다, 조합 #4만 양쪽 정확" },
+    { "check": "stem 명확성", "result": "PASS", "detail": "동의/반의 stem에 대상 단어 명시(<u>밑줄</u>), 서술형 응답 언어(영어로)·단어수(1단어) 명시" },
+    { "check": "det↔ans 일치", "result": "PASS", "detail": "validate X42 통과, 재수정한 Q8·Q11 해설-정답 재대조 일치" },
+    { "check": "ans 분포", "result": "PASS", "detail": "1:5 / 2:5 / 3:4 / 4:4 — 동일번호 최대 5 이내, 연속 3회 이상 없음" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "model": "claude-opus-4-8",
+  "date": "2026-09-07",
+  "totalIssues": 1,
+  "highIssues": 0,
+  "issues": [
+    { "id": 18, "severity": "LOW", "issue": "통합(전체) 지문이라 주제(Q18)·요지(Q19)가 어느 단락 기준인지 형식상 모호할 수 있음", "resolution": "선지 4개가 각각 특정 단락만 가리키고 정답 외 3개는 명백히 오답이라 실질 정답 유일. 13강 워크북과 동일 방식으로 유지" }
+  ],
+  "summary": "20문항 전수 적대적 검토 완료. HIGH 이슈 0건. LOW 1건(정답 유일성 확인됨).",
+  "checks": [
+    { "check": "정답 2개 가능성", "result": "PASS", "detail": "어법 Q1-4·어휘 Q5-6 각 오류 1개만, 나머지 3개 원문 정상. 빈칸 Q10-11·일치 Q12-13 정답 유일" },
+    { "check": "선지 뻔함/소거법", "result": "PASS", "detail": "빈칸 오답은 타 단락 실제 표현(a working knowledge/basic vocabulary/expository text 등)으로 문맥만 부적합해 소거법 방지" },
+    { "check": "정답 노출", "result": "PASS", "detail": "Q10 extensive social networks·Q11 neither too easy nor too difficult·Q20 Friends were a survival asset 모두 해당 문항 passage에서 빈칸 처리, fp 내 중복 등장 없음" },
+    { "check": "마커 분산", "result": "PASS", "detail": "어법/어휘 Q1-6 마커 ①②③④가 P01·P02·P03·P04 네 단락에 각 1개씩 분산" },
+    { "check": "서술형 wa 노출", "result": "PASS", "detail": "찾기 Q15-16은 passage 노출 허용, 어형변환 Q17은 빈칸+힌트(benefit), 조건영작 Q20은 빈칸 처리" },
+    { "check": "조건 단어수 vs wa", "result": "PASS", "detail": "Q20 [조건] a/asset/Friends/survival/were 5개 = wa 5단어, 알파벳순 셔플" },
+    { "check": "어형변환 유일성", "result": "PASS", "detail": "Q17 benefit→beneficial: can be 뒤 형용사 보어 형태 변환, 표준 파생형" },
+    { "check": "stem 명확성", "result": "PASS", "detail": "모든 stem 질문 대상 명확, 서술형 응답 언어(영어로)·단어수 명시" },
+    { "check": "det↔ans 일치", "result": "PASS", "detail": "validate X42 통과, 20문항 해설-정답 일치" },
+    { "check": "ans 분포", "result": "PASS", "detail": "1:4 / 2:4 / 3:4 / 4:4 — max5 이내, 최대 연속 2 (Q11-12, Q13-14)" },
+    { "check": "오류찾기 passage", "result": "PASS", "detail": "Q14 P02 2문장 발췌, 마커 ①②③④ 순서 정상, 정정형 integrate가 fp에 존재(S-DET-FOREIGN-WORD 회피)" }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "testFile": "data/부교재/수능특강Light/영어/10강/8번/퀴즈.json",
+  "reviewer": "adversarial-self-check (opus 4.8)",
+  "timestamp": "2026-09-14T00:00:00.000Z",
+  "summary": "20문항 적대 검수. HIGH 0건. 어법 3문항(Q1~3) 정답 외 마커 모두 정상 확인, 어휘 2문항(Q4~5) 반의어 교체만 오답. 서술형 5문항 배열 유일성 점검, Q19 등위쌍 순서 모호성만 accept 보강으로 해소. N7 크로스파일: Q17 어형변환 정답이 워크북 Q17(activated)과 겹쳐 → strengthens(병렬·수일치)로 교체, check-wb-quiz-leak PASS.",
+  "issues": [
+    {
+      "qId": 17,
+      "severity": "LOW",
+      "type": "N7-CROSSFILE-RESOLVED",
+      "finding": "어형변환 정답 activated가 8번 워크북 Q17 정답과 동일(N7 중복).",
+      "resolution": "'our compassion connects us ... and ___ (strengthen) our social ties' 병렬·3인칭 단수 수일치 문항으로 교체, 정답 strengthens. 주어 compassion 단수라 strengthen 불가=정답 유일. 발췌 지문에 정답형 미노출. check-wb-quiz-leak.py 0건 PASS."
+    },
+    {
+      "qId": 19,
+      "severity": "MEDIUM",
+      "type": "AUTO-SCORE-VARIANT",
+      "finding": "어순배열 정답에 등위쌍 'caregiving and pleasure'가 있어 'pleasure and caregiving'로 바꿔도 문법·의미상 동일 → 자동채점 억울한 감점 우려.",
+      "resolution": "accept 배열에 'the parts of the brain linked to pleasure and caregiving light up' 대체 배열 추가로 해소. 한국어 단서(돌봄과 기쁨)로 기본 순서는 안내됨."
+    },
+    {
+      "qId": 16,
+      "severity": "LOW",
+      "type": "AUTO-SCORE-VARIANT",
+      "finding": "'empathy alone'의 alone 위치가 이론상 문미로도 갈 수 있으나 그 경우 '공감이 홀로'라는 다른 뜻이 되어 한국어 단서(공감만으로는)와 불일치.",
+      "resolution": "한국어 '공감만으로는' + [조건] 단어 조합상 'empathy alone'만 의미 일치. canonical 단일 정답 유지. 유지."
+    },
+    {
+      "qId": 13,
+      "severity": "LOW",
+      "type": "INFERENCE-LOAD",
+      "finding": "함축 밑줄 'That's where compassion comes in'의 의미가 바로 앞 문장(empathy alone can become overwhelming)을 읽어야 확정됨.",
+      "resolution": "정답 ②만 '공감이 벅찰 때 연민이 해결책'과 일치. ①은 '다른 감정'으로 흐릿하고 정상 지시 대상(연민) 미언급이라 오답. det.analysis에 앞 문장 인용으로 근거 명시. 유지."
+    },
+    {
+      "qId": 6,
+      "severity": "LOW",
+      "type": "DISTRACTOR-PLAUSIBILITY",
+      "finding": "빈칸 오답 'become overwhelmed'가 본문 어휘라 표면적으로 그럴듯.",
+      "resolution": "빈칸 문장은 '연민이 공감을 사용하게 해 주는 것'을 묻는 긍정 흐름이라 부정어(overwhelmed)는 논리상 배제. 정답 make a difference가 결론 문장과 유일 일치. 유지."
+    }
+  ],
+  "high": 0,
+  "medium": 1,
+  "low": 3,
+  "verdict": "PASS — HIGH 0건. MEDIUM 1건은 accept 보강으로 실제 채점 리스크 제거."
+}

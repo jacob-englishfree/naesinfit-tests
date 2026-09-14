@@ -1,0 +1,44 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/23번/워크북.json",
+  "reviewer": "self-attack (Opus 4.8, Generator)",
+  "resolvedDuringBuild": [
+    {
+      "id": 5,
+      "severity": "HIGH",
+      "category": "N7-vocab-cross-leak",
+      "desc": "초안은 released→trapped. released는 단어테스트 id2 combo·id12 동의어의 정답 타겟이고 trapped는 id2 combo 오답. 단어↔워크북 정답 겹침 → caused→prevented(단어 비타겟)로 재출제 완료.",
+      "outcome": "fixed"
+    },
+    {
+      "id": 6,
+      "severity": "HIGH",
+      "category": "N7-vocab-cross-leak",
+      "desc": "초안은 predictable→random. predictable은 단어테스트 id2 combo·id18 어형변환 정답 타겟, random은 id2 combo 오답. 단어↔워크북 겹침 → usually→rarely(단어 비타겟)로 재출제 완료.",
+      "outcome": "fixed"
+    },
+    {
+      "id": 15,
+      "severity": "MED",
+      "category": "internal-answer-leak",
+      "desc": "초안 wa=unambiguous. 같은 파일 Q11 빈칸추론 정답 'unambiguous and predictable'이 unambiguous를 노출 → Q15가 Q11 정답에서 베끼기 가능. wa=prelude(파일 내 타 정답·단어 타겟과 무관)로 재출제 완료.",
+      "outcome": "fixed"
+    }
+  ],
+  "issues": [
+    {
+      "id": 11,
+      "severity": "LOW",
+      "category": "phrase-level-overlap",
+      "desc": "정답 구 'unambiguous and predictable'에 predictable 포함(단어 id18 어형변환 타겟). 단, 135단어 지문을 단어테스트가 전부 반의어화해 소진했고 본문상 이 자리 정답은 이 구절이 유일. 빈칸추론(구 선택) vs 어형변환(단어 산출)로 스킬이 달라 유지. 정확한 wa/blank 중복은 0."
+    },
+    {
+      "id": 5,
+      "severity": "LOW",
+      "category": "benign-validator-warning",
+      "desc": "validate P2 경고 1건 — 어휘 마커 ①이 초반 단어 comfortable(~31자)에 붙어 50자 검사창 안에 ① 기호가 들어가 원문대조가 어긋난 것. passage 텍스트는 fullPassage와 정확히 일치하는 오탐. 배포 비차단(B급)."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 0,
+  "note": "HIGH 3건(Q5/Q6 단어 cross-leak, Q15 내부 정답노출)은 빌드 중 재출제로 해소. 잔여는 LOW 2건(구 단위 소프트 중복 + P2 오탐)뿐. wa/blank/overlay 정확 중복 단어테스트 대비 0건 확인."
+}

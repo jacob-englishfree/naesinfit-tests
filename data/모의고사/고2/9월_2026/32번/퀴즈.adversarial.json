@@ -1,0 +1,43 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/32번/퀴즈.json",
+  "reviewedAt": "2026-09-13",
+  "reviewer": "self-attack (Opus) + N7 재점검(피어 지적 반영)",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "RESOLVED",
+      "category": "N7 위반 수정 완료",
+      "desc": "이전 Q16(wa='the uncertainty itself is the problem', S8 전체)이 워크북 Q10 빈칸(S8의 'the problem')과 동일 문장/정답 → N7 위반이었음. S4 'it is easy to understand why living in the lounge is problematic'로 재출제하여 해소. 어떤 테스트도 S4 전체를 정답 스팬으로 쓰지 않음."
+    },
+    {
+      "id": 16,
+      "severity": "LOW",
+      "category": "배열 대체안 허용",
+      "desc": "S4의 부사구 'in the lounge' 위치가 두 가지로 가능 → accept에 canonical + 'living is problematic in the lounge' 유효 대체배열 2개 등록. 자동채점 억울감점 방지."
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "category": "N-focus 근접(허용)",
+      "desc": "함축 밑줄 'their social niche'가 단어 Q19 빈칸과 focus 근접하나, 비유 함축 해석(다른 스킬)이라 정답·풀이 방식 무관."
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "category": "동일지문 교차노출(경미)",
+      "desc": "Q18 [조건]에 admission이 토큰으로 제시되어 Q17 정답 철자가 보임. 문항 독립 채점이라 실채점 영향 없음."
+    }
+  ],
+  "totalIssues": 4,
+  "highCount": 0,
+  "checks": {
+    "n7_workbook_문장별대조": "워크북 정답 스팬 전수 대조 결과 동일 문장/정답 0건. WB Q10='the problem'(S8) / QZ Q16=S4(재출제)로 분리. WB 서술형(S1·S2 영작, dorm lounges 찾기, normal→normally) 전부 QZ와 상이. WB 어법(수일치·end up·before-ing·who·분사) vs QZ 어법(조동사+원형·비교급·동명사주어) 상이. WB 어휘(easy·get) vs QZ 어휘(understand·important) 상이. WB 빈칸(the problem·no closet) vs QZ 빈칸(what is going to happen·quite a few students·a room at campus hotels) 상이.",
+    "n7_단어_대조": "단어 어형변환(uncertain→uncertainty·member→membership) vs QZ(admit→admission) 상이. 단어 정답 타겟(predict·residents·neighbors·problematic·accept·lack·private·larger·fundamental·shared·stable·offers·social niche) 전부 QZ 정답 포인트에서 회피.",
+    "doubleAnswer": "0건 — 어법 3문항 오류 1개만, 나머지 정답 유일",
+    "answerLeak": "0건 — 조건영작/어순배열 정답자리 overlay.blank로 가림, 어형변환 미노출",
+    "obviousDistractor": "0건",
+    "ambiguousStem": "0건",
+    "uniqueArrangement": "Q16(accept 2개)·Q18·Q19·Q20 배열 한국어 지시로 수렴",
+    "englishChoiceKorean": "Q6·7·8·9·10·12·15 영어선지 → det 한국어 번역 포함"
+  }
+}

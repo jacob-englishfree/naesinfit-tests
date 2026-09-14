@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "수능유형픽 독해기본 유형13(문장삽입) 3번 (Berkeley Pit)",
+    "subject": "수능유형픽독해기본",
+    "pub": "유형13",
+    "lesson": "3번",
+    "histKey": "wordtest__3__v6"
+  },
+  "fullPassage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was <b>(A)</b>[recently / originally] a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were <b>(B)</b>[foolish / wise] enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all <b>(C)</b>[dead / alive]. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "originally — foolish — dead",
+        "recently — foolish — dead",
+        "originally — wise — dead",
+        "originally — foolish — alive"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a <b>(A)</b>[unpopular / popular] tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply <b>(B)</b>[collected / discarded] the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a <b>(C)</b>[useful / useless] purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "unpopular — collected — useful",
+        "popular — collected — useful",
+        "popular — discarded — useful",
+        "popular — collected — useless"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as <b>(A)</b>[predictable / surprising] as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They <b>(B)</b>[discovered / ignored] new types of bacteria living in this <b>(C)</b>[tough / gentle] environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "predictable — discovered — tough",
+        "surprising — ignored — tough",
+        "surprising — discovered — tough",
+        "surprising — discovered — gentle"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of ①<u>harmless</u> waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply ②<u>collected</u> the copper directly from the water. If you were ③<u>foolish</u> enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all ④<u>dead</u>. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a ①<u>popular</u> tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a ②<u>functioning</u> mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 ③<u>migrating</u> geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a ④<u>useless</u> purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a ①<u>copper</u> mine. The pit is a mile long, 1,780 feet ②<u>deep</u>, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They ③<u>invented</u> new types of bacteria living in this tough environment. These bacteria produce ④<u>chemicals</u> that may someday be used for fighting cancer.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist __________, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "mine",
+        "attraction",
+        "purpose",
+        "environment"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful __________. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "purpose",
+        "attraction",
+        "mine",
+        "waste"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce __________ that may someday be used for fighting cancer.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "waste",
+        "attractions",
+        "mines",
+        "chemicals"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were <u>foolish</u> enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "밑줄 친 <b>foolish</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "brave",
+        "wise",
+        "silly",
+        "calm"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this <u>tough</u> environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "밑줄 친 <b>tough</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "harsh",
+        "gentle",
+        "wealthy",
+        "quiet"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as <u>surprising</u> as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "밑줄 친 <b>surprising</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "boring",
+        "astonishing",
+        "common",
+        "relaxing"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a <u>useful</u> purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "밑줄 친 <b>useful</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "helpful",
+        "valuable",
+        "common",
+        "worthless"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all <u>dead</u>. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "밑줄 친 <b>dead</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "silent",
+        "buried",
+        "alive",
+        "gone"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The abandoned copper <u>mine</u> in the mountains had not produced any metal for many decades.\n\n(B) \"This seat is <u>mine</u>,\" she said, pointing to the ticket she was holding in her hand.",
+      "stem": "밑줄 친 (A)와 (B)의 <b>mine</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "광산 — 내 것",
+        "지뢰 — 내 것",
+        "광산 — 지뢰",
+        "내 것 — 광산"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어는?\n\n\"extremely small living organisms, some of which can cause disease\"",
+      "ch": [
+        "chemicals",
+        "geese",
+        "minerals",
+        "bacteria"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "When it was a functioning mine, workers simply __________ (collect) the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. But, as surprising as it sounds, scientists __________ (study) the poisoned water learned that the pit may actually serve a useful purpose.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would __________. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that may someday be used for fighting cancer.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "taste sweet and fresh",
+        "clean your body quickly",
+        "make a hole in your stomach",
+        "give you more energy"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Would you pay money to see a giant pool of toxic waste? If so, you should head to Berkeley Pit in Butte, Montana. Now a popular tourist attraction, it was originally a copper mine. The pit is a mile long, 1,780 feet deep, and filled with toxic water. When it was a functioning mine, workers simply collected the copper directly from the water. If you were foolish enough to drink some of this water, it would make a hole in your stomach. In 1995, more than 300 migrating geese made the mistake of landing at Berkeley Pit. Before long, they were all dead. But, as surprising as it sounds, scientists studying the poisoned water learned that the pit may actually serve a useful purpose. They discovered new types of bacteria living in this tough environment. These bacteria produce chemicals that __________.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "destroy the local water supply",
+        "may someday be used for fighting cancer",
+        "quickly kill all the geese",
+        "make the pit more toxic"
+      ]
+    }
+  ]
+}

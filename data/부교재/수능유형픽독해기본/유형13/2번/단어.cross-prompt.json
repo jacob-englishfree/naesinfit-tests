@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "수능유형픽 독해기본 유형13(문장삽입) 2번 (Four Pests Campaign)",
+    "subject": "수능유형픽독해기본",
+    "pub": "유형13",
+    "lesson": "2번",
+    "histKey": "wordtest__2__v6"
+  },
+  "fullPassage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were <b>(A)</b>[unclear / obvious] choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were <b>(B)</b>[included / excluded] on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly <b>(C)</b>[extinct / abundant] in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "obvious — included — extinct",
+        "unclear — included — extinct",
+        "obvious — excluded — extinct",
+        "obvious — included — abundant"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to <b>(A)</b>[mild / severe] ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China <b>(B)</b>[exploded / decreased]. It caused farmers to lose large amounts of their grain, which resulted in a <b>(C)</b>[serious / minor] food famine in China.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "mild — exploded — serious",
+        "severe — exploded — serious",
+        "severe — decreased — serious",
+        "severe — exploded — minor"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows <b>(A)</b>[produced / consumed] seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were <b>(B)</b>[instructed / forbidden] to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to <b>(C)</b>[lose / gain] large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "produced — instructed — lose",
+        "consumed — forbidden — lose",
+        "consumed — instructed — lose",
+        "consumed — instructed — gain"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered ①<u>harmless</u> to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao ②<u>suspected</u> that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly ③<u>extinct</u> in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food ④<u>famine</u> in China.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The ①<u>purpose</u> of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows ②<u>consumed</u> seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was ③<u>completed</u> successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China ④<u>disappeared</u>. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four ①<u>creatures</u> that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were ②<u>excluded</u> on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly ③<u>extinct</u> in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China ④<u>exploded</u>. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao __________ that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "proved",
+        "suspected",
+        "denied",
+        "ignored"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe __________ imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "financial",
+        "political",
+        "ecological",
+        "musical"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food __________ in China.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "famine",
+        "festival",
+        "surplus",
+        "harvest"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were <u>obvious</u> choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 <b>obvious</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "hidden",
+        "strange",
+        "final",
+        "clear"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows <u>consumed</u> seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 <b>consumed</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "produced",
+        "stored",
+        "sold",
+        "ate"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were <u>instructed</u> to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 <b>instructed</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "allowed",
+        "forbidden",
+        "told",
+        "praised"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered <u>harmful</u> to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 <b>harmful</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "beneficial",
+        "dangerous",
+        "common",
+        "natural"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to <u>severe</u> ecological imbalance. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 밑줄 친 <b>severe</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "harsh",
+        "mild",
+        "sudden",
+        "local"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The famine spread because farmers lost almost all of their <u>grain</u>, and there was not enough rice or wheat left to feed the people.\n(B) When she polished the old wooden desk, she could clearly see the fine <u>grain</u> running across its smooth surface.",
+      "stem": "다음 (A)와 (B)의 밑줄 친 <b>grain</b>이 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "곡물 — 곡물",
+        "알갱이 — 결",
+        "곡물 — 결",
+        "낟알 — 곡물"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a serious shortage of food that causes many people to suffer or die\"",
+      "ch": [
+        "drought",
+        "harvest",
+        "feast",
+        "famine"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "People were instructed to chase them away or kill them on sight. The campaign was completed __________ (success), making sparrows nearly extinct in China.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were __________ (consider) harmful to people.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this led to severe ecological imbalance. In addition to eating seeds, sparrows also __________. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "fed on locusts",
+        "built large nests",
+        "migrated far away",
+        "attacked the farmers"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The Four Pests Campaign was begun in 1958 by Chinese leader Mao Zedong. The purpose of the program was to get rid of four creatures that were considered harmful to people, and three of these were obvious choices: mosquitoes, flies, and rats. However, you may feel that Mao's fourthly designated pest, the sparrow, does not seem as harmful. But Mao suspected that sparrows consumed seeds planted by Chinese farmers. For this reason, the birds were included on the list, and they were targeted by the government. People were instructed to chase them away or kill them on sight. The campaign was completed successfully, making sparrows nearly extinct in China. Unfortunately, this __________. In addition to eating seeds, sparrows also fed on locusts. With the birds gone, the locust population in China exploded. It caused farmers to lose large amounts of their grain, which resulted in a serious food famine in China.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "solved the food shortage",
+        "led to severe ecological imbalance",
+        "protected the local birds",
+        "increased the grain harvest"
+      ]
+    }
+  ]
+}

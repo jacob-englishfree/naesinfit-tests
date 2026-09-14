@@ -1,0 +1,41 @@
+{
+  "testFile": "퀴즈.json",
+  "attackerModel": "opus",
+  "note": "현행 12강 전체 퀴즈(4지문 P01~P04) 실제 문항 기준 재공격. 이중정답/풀이불가/동일지문 정답노출/보기토큰 유일성 집중 점검.",
+  "issues": [
+    {
+      "id": 101,
+      "category": "형식-교차참조",
+      "description": "전체(4지문 통합) 유형의 구조적 특성: 각 어법/어휘 문항이 변형한 단어(예: Q1 beginning←began, Q2 either←neither, Q3 were essential←was, Q4 rescued←murdered, Q5 disadvantage←edge)와 각 빈칸/서술형이 가린 정답(예: Q16 'It had a huge effect on our future', Q20 'Many people who aspire to be novelists began their writing careers')이, 다른 15개 문항의 passage(동일 fullPassage 복사본)에는 원문 그대로 노출된다. dot-nav로 다른 문항으로 이동해 대조하면 문법/추론 없이 변형·정답 위치를 특정할 수 있다.",
+      "failure_scenario": "학생이 Q16 조건영작이 막히면 Q1(어법) passage로 이동해 'It had a huge effect on our future' 원문을 그대로 보고 베껴 씀.",
+      "severity": "medium",
+      "assessment": "형식 내재적 특성으로, 동일 구조의 형제 테스트(11강 전체, 12강 Analysis 등)가 모두 동일하게 라이브 배포됨. 예상문제=자습용이며 개별 지문 테스트(Analysis/1번/2번/3번)도 별도 존재. 단일 문항의 이중정답/풀이불가가 아니므로 배포 차단 사유 아님(정책상 accepted)."
+    },
+    {
+      "id": 102,
+      "category": "어순배열-유일성",
+      "description": "Q19 [단어] {adolescents, begin, expository, from, move, narrative, text, to, to, young} 은 'from narrative to expository text'와 'from expository to narrative text' 두 방향이 문법적으로 모두 가능하다.",
+      "failure_scenario": "학생이 방향을 반대로 배열하면 문법상 맞는데 오답 처리될 수 있다.",
+      "severity": "low",
+      "assessment": "stem의 한국어 뜻 '서사문에서 설명문으로'가 방향을 명시하고, 본문도 narrative→expository 단방향이라 유일 정답으로 수렴. 실질 위험 낮음."
+    },
+    {
+      "id": 103,
+      "category": "어형변환-대체형",
+      "description": "Q17 'our ___ (able) to navigate' 의 정답 ability에 대해 복수형 abilities도 형태상 가능하다.",
+      "failure_scenario": "학생이 abilities로 쓰면 오답.",
+      "severity": "low",
+      "assessment": "'the/one's ability to+동사원형'은 단수 관용. 본문 원형이 ability 단수이고 'to navigate'(단일 능력)와 호응하므로 단수가 표준 정답. accept=[ability] 유지 타당."
+    },
+    {
+      "id": 104,
+      "category": "이중정답-점검",
+      "description": "내용일치 Q8/Q9/Q10 및 추론 Q11~Q15의 오답 3개가 각각 본문과 명확히 상충하는지 재검.",
+      "failure_scenario": "오답 중 하나라도 본문상 참이면 이중정답.",
+      "severity": "none",
+      "assessment": "Q8 ①대규모부족/③무관/④무용 모두 본문(small family units/essential/survival asset)과 상충. Q9 ①gifted·②wrote for newspapers·③already published 모두 참(불일치 문항이라 ④만 거짓). Q10 ②Fewer still·③ends·④all teachers가 각각 거짓. 이중정답 없음."
+    }
+  ],
+  "highCount": 0,
+  "summary": "HIGH 0건. medium 1(형식 내재 교차참조, 형제 테스트와 동일·accepted), low 2(방향/대체형—stem·본문으로 수렴). 이중정답·풀이불가·동일지문 내 정답노출 0건."
+}

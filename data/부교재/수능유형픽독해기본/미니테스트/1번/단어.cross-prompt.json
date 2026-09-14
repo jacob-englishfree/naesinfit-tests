@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "수능유형픽 독해기본 미니테스트 MT1-5번 (hedgehog's dilemma / 순서배열)",
+    "subject": "수능유형픽독해기본",
+    "pub": "미니테스트",
+    "lesson": "1번",
+    "histKey": "wordtest__1__v6"
+  },
+  "fullPassage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay <b>(A)</b>[warm / cold]; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become <b>(B)</b>[calm / angry] with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's <b>(C)</b>[trivial / important] to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "warm — angry — important",
+        "cold — angry — important",
+        "warm — calm — important",
+        "warm — angry — trivial"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's <b>(A)</b>[sharp / dull] spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more <b>(B)</b>[critical / forgiving] of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain <b>(C)</b>[near / remote] from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "dull — forgiving — remote",
+        "sharp — forgiving — remote",
+        "sharp — critical — remote",
+        "sharp — forgiving — near"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's <b>(A)</b>[possible / impossible] to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in <b>(B)</b>[safety / danger] of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right <b>(C)</b>[chaos / balance] in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "impossible — danger — balance",
+        "possible — safety — balance",
+        "possible — danger — balance",
+        "possible — danger — chaos"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay ①<u>warm</u>; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in ②<u>danger</u> of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more ③<u>forgiving</u> of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's ④<u>trivial</u> to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is ①<u>unknown</u> as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of ②<u>hurting</u> that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say ③<u>mean</u> things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain ④<u>remote</u> from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's ①<u>possible</u> to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more ②<u>critical</u> of people who you aren't close with. So, what is the ③<u>solution</u>? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing ④<u>respect</u> to your loved ones is probably a good start.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay __________; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "cold",
+        "warm",
+        "safe",
+        "angry"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the __________? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "problem",
+        "reason",
+        "solution",
+        "danger"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in __________? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "loneliness",
+        "harmony",
+        "comfort",
+        "silence"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be <u>injured</u> by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "밑줄 친 <b>injured</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "praised",
+        "cured",
+        "harmed",
+        "ignored"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more <u>forgiving</u> of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "밑줄 친 <b>forgiving</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "strict",
+        "tolerant",
+        "jealous",
+        "curious"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain <u>remote</u> from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "밑줄 친 <b>remote</b>의 의미와 가장 <b>가까운</b> 것은?",
+      "ch": [
+        "close",
+        "friendly",
+        "warm",
+        "distant"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep <u>close</u> together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "밑줄 친 <b>close</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "distant",
+        "loud",
+        "brief",
+        "honest"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's <u>important</u> to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "밑줄 친 <b>important</b>의 의미와 가장 <b>반대인</b> 것은?",
+      "ch": [
+        "urgent",
+        "famous",
+        "trivial",
+        "curious"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) When you feel upset, you might say <u>mean</u> things to the people you love. Such hurtful words often come out toward those closest to you.\n\n(B) A student asked the teacher what the difficult word could <u>mean</u>. The teacher explained that it refers to a strong feeling of loneliness.",
+      "stem": "밑줄 친 (A)와 (B)의 <b>mean</b>의 문맥적 의미로 가장 적절한 것은?",
+      "ch": [
+        "못된 — 의미하다",
+        "의미하다 — 못된",
+        "인색한 — 의미하다",
+        "못된 — 평균의"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어는?\n\n\"a situation in which a difficult choice has to be made between two undesirable options\"",
+      "ch": [
+        "solution",
+        "balance",
+        "respect",
+        "dilemma"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of __________ (hurt) that person and having your own feelings wounded.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "For example, you may often become angry with your mom or your best friend. You may even say mean things to them, __________ (expect) them to understand that you are just upset.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and __________? It's important to find the right balance in your relationships. Showing respect to your loved ones is probably a good start.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "share every secret",
+        "forgive each other",
+        "live in loneliness",
+        "stay perfectly warm"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Imagine two hedgehogs in winter. If they keep close together, they'll stay warm; but each may also be injured by the other's sharp spines. This is known as the hedgehog's dilemma, and it's possible to view human relationships the same way. It can feel good to have a close relationship with someone. Unfortunately, this also puts you in danger of hurting that person and having your own feelings wounded. For example, you may often become angry with your mom or your best friend. You may even say mean things to them, expecting them to understand that you are just upset. On the other hand, you're probably more forgiving of people who you aren't close with. So, what is the solution? Should you keep close relationships and risk hurting each other? Or should you remain remote from everyone and live in loneliness? It's important to find the right balance in your relationships. __________ is probably a good start.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "Keeping your distance",
+        "Showing respect to your loved ones",
+        "Winning every argument",
+        "Avoiding all relationships"
+      ]
+    }
+  ]
+}

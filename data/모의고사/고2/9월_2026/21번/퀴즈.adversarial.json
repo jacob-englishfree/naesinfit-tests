@@ -1,0 +1,70 @@
+{
+  "file": "data/모의고사/고2/9월_2026/21번/퀴즈.json",
+  "timestamp": "2026-09-13T03:20:00.000Z",
+  "reviewer": "Opus adversarial (Generator self-attack)",
+  "totalQuestions": 20,
+  "highIssues": 0,
+  "findings": [
+    {
+      "id": 1,
+      "severity": "PASS",
+      "issue": "관계대명사 what(선행사 포함) 오류. 마커 S2/S5/S6/S8 분산. 정답 ②Which 단일, 나머지 3개 문법상 정상",
+      "verdict": "유지 — 워크북 어법(수일치/조동사/수동태)과 다른 포인트"
+    },
+    {
+      "id": 2,
+      "severity": "PASS",
+      "issue": "be보어 병렬 형용사(professional vs professionally). 정답 ③ 단일. 마커 분산",
+      "verdict": "유지"
+    },
+    {
+      "id": 3,
+      "severity": "PASS",
+      "issue": "동격 접속사 that vs which(뒤 완전한 절). 정답 ① 단일. ① 밑줄이 3단어 구간이나 렌더/ validate 정상",
+      "verdict": "유지 — 난도 높은 포인트로 퀴즈 적합"
+    },
+    {
+      "id": 6,
+      "severity": "LOW",
+      "issue": "빈칸 정답 'natural and necessary'가 단어.json Q3(natural)·Q6(necessary)의 단일어휘와 어휘 겹침. 오답 3개가 passage 밖(Q6-WEAK-DISTRACTOR 경고)",
+      "verdict": "유지 — 구(phrase) 단위 빈칸추론이라 단어의 단일어휘 정답과 동일객체 아님. 추상 오답은 함축적 빈칸 특성상 정상, 4개 모두 문맥 판별 가능"
+    },
+    {
+      "id": 9,
+      "severity": "PASS",
+      "issue": "불일치 정답을 워크북 Q13(natural/necessary 반전)과 겹치지 않게 '안건 미리 공개' 반전(circulated before)으로 교체",
+      "verdict": "유지 — 워크북 내용일치와 근거 문장 분리 완료"
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "issue": "함축 밑줄 'an evergreen tree'가 워크북 Q15 찾기(evergreen tree)와 어휘 겹침",
+      "verdict": "유지 — 함축은 '의미 추론'(정답=한국어 해석 선지)으로 찾기(retrieval)와 인지과제·정답객체가 다름. 지문 핵심 비유라 함축 최적 대상. ②에 evergreen='불변' 오해 함정 배치로 변별력 확보"
+    },
+    {
+      "id": 17,
+      "severity": "LOW",
+      "issue": "어형변환 정답 'seen'(are seen as)이 워크북 Q14 오류찾기(seeing→seen)와 같은 문장(S9) 수동태 포인트",
+      "verdict": "유지 — 어형변환(형태 생성)과 오류찾기(오류 식별)는 다른 유형·다른 정답객체. 형태변화 가능 단어(found/circulated/crafted/linked/seen) 중 단어·워크북 어형변환(crafted·linked·found)과 겹치지 않는 유일 선택"
+    },
+    {
+      "id": 18,
+      "severity": "LOW",
+      "issue": "조건영작 wa에 linear(단어 Q1 abc)·progress(워크북 Q3 어법) 어휘 포함",
+      "verdict": "유지 — 8단어 문장 배열형이라 동일 wa/blank 아님. [조건] 8토큰 전부 명시·8단어 일치, in a+형용사+manner 구문 유일 배열"
+    },
+    {
+      "id": 20,
+      "severity": "PASS",
+      "issue": "조건영작 wa 'What seemed like a priority last week' — priority는 어디서도 정답으로 출제 안 됨(가장 깨끗). 관계대명사 What + seem like 구문",
+      "verdict": "유지 — 7토큰 전부 명시·7단어 일치"
+    }
+  ],
+  "n7Check": {
+    "vsVocab": "PASS — 단어.json 정답과 동일 wa/blank/정답 0건. 어법 3종(관계대명사 what/병렬형용사/동격 that)은 단어에 어법 유형 자체가 없어 충돌 불가",
+    "vsWorkbook": "PASS — 워크북 정답과 동일 wa/blank/정답 0건. 어법 포인트 전부 상이(워크북=수일치/조동사/수동태·오류찾기 seen / 퀴즈=what·병렬·동격 that). Q9 불일치 근거문장 분리. 어형변환 seen vs 워크북 found 상이",
+    "internal": "PASS — 20문항 간 동일 정답객체 없음"
+  },
+  "difficultyCheck": "워크북 대비 상향: 어법=복합포인트(관계대명사/병렬/동격), 함축·제목·지칭 신규, 빈칸 전부 구(2단어+), 영어선지(Q6/7/12/15) det 한국어해석 병기, 조건영작 6~8단어 구문활용",
+  "conclusion": "HIGH 0건. 정답 2개 가능·정답 노출·뻔한 오답·모호 stem·문법 오류·passage 무관·N7 동일정답 전부 해소. 배포 가능."
+}

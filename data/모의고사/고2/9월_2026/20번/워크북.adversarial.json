@@ -1,0 +1,39 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/20번/워크북.json",
+  "reviewer": "Generator self-attack (STEP D)",
+  "issues": [
+    {
+      "id": 10,
+      "severity": "MED",
+      "category": "N7-INTRA-TEST-LEAK",
+      "desc": "재출제 완료. 기존 빈칸 정답 'in the past'가 Q6(어휘, past→future 교체)과 Q12(과거 피드백 경험) 정답 포인트와 겹쳐, 한 문항 해설이 다른 문항 정답을 노출할 소지 → 빈칸을 'someone else'(S1)로 교체해 지문 영역·포인트 분리."
+    },
+    {
+      "id": 11,
+      "severity": "MED",
+      "category": "N7-INTRA-TEST-LEAK",
+      "desc": "재출제 완료. 기존 빈칸 정답 'great benefit'이 Q5(어휘)의 정답 단어 benefit과 겹침 → 빈칸을 'in most cases'(S2)로 교체. 'that's fine, but ___' 흐름에서 절대표현 대비 한정표현을 고르는 어려움 추론으로 재설계."
+    },
+    {
+      "id": 9,
+      "severity": "LOW",
+      "category": "CONCEPT-OVERLAP-CHECK",
+      "desc": "무해 확인. Q9(T/F, any writer will do)와 잠재 빈칸 후보('any writer will do')가 겹칠 뻔해 Q11 빈칸 후보에서 배제함. 현재 Q9와 Q13(불일치)이 같은 S4 문장을 쓰지만 하나는 T/F 진위, 하나는 4지선다 불일치 선지로 접근각이 달라 정답 노출 없음."
+    },
+    {
+      "id": 1,
+      "severity": "LOW",
+      "category": "P2-BENIGN-WARNING",
+      "desc": "비차단 경고. Q1·Q2·Q14는 어법/오류찾기 마커 ①가 지문 첫 50자 안에 위치해 '①' 글자가 삽입되며 validate P2(B급) 경고가 뜸. 이는 마커를 지문 전체(처음/중간/뒤)에 분산하라는 규칙을 지킨 결과로 의도된 설계이며, passage 자체는 fullPassage 정확 일치."
+    },
+    {
+      "id": 11,
+      "severity": "LOW",
+      "category": "Q6-WEAK-DISTRACTOR-BENIGN",
+      "desc": "비차단 경고. Q11·Q15는 구(phrase) 단위 빈칸추론이라 오답 선지를 지문에서 그대로 가져오지 않음(B급). 지문 어구를 오답으로 쓰면 정답 2개 가능 위험이 커져 의도적으로 명확히 틀린 선지를 사용함."
+    }
+  ],
+  "highIssues": 0,
+  "totalIssues": 5,
+  "note": "HIGH 0건. MED 2건(Q10·Q11 정답 겹침)은 재출제 완료. 나머지 3건은 무해 확인/비차단 경고. 최종 재검토 결과 정답 2개 가능·정답 노출·뻔한 오답·모호 stem·문법 오류·passage 무관·단어테스트 정답 겹침 모두 0건."
+}

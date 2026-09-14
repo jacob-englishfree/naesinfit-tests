@@ -1,0 +1,39 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/20번/퀴즈.json",
+  "reviewer": "generator self-attack (Opus)",
+  "timestamp": "2026-09-13",
+  "checks": [
+    "정답 2개 가능성",
+    "정답 passage 노출",
+    "뻔한 오답(C7)",
+    "모호한 stem",
+    "문법 오류",
+    "passage 무관(C12)",
+    "N7 워크북/단어 정답 중복"
+  ],
+  "issues": [
+    {
+      "id": 5,
+      "severity": "LOW",
+      "category": "오답 매력도",
+      "desc": "부적절어휘 정답 other→familiar. 콜론 뒤 'not their closeness to you'가 familiar(친숙한=가까운)를 직접 반증하므로 정답은 유일하나, 최상위권 학생에겐 다소 명확할 수 있음. 정답 유일성엔 문제 없음."
+    },
+    {
+      "id": 13,
+      "severity": "LOW",
+      "category": "N7 시각적 근접",
+      "desc": "함축 밑줄 'your nearest and dearest'가 단어테스트 Q13(반의어, nearest→farthest)과 밑줄어가 겹침. 단, 퀴즈 정답은 '가장 가깝고 소중한 사람들'이라는 관용구 의미로 단어테스트 정답(farthest)과 답 자체는 무관. 과제 지시에서 허용된 구절."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "category": "밑줄 렌더링",
+      "desc": "지칭 overlay.underline='it'. 본문 내 독립 단어 'it'은 문장1·2의 두 곳뿐이며 둘 다 지시대상이 your story로 동일. 단어 내부에 'it' 부분일치하는 토큰도 없어 지시대상 모호성 없음."
+    }
+  ],
+  "highCount": 0,
+  "medCount": 0,
+  "lowCount": 3,
+  "totalIssues": 3,
+  "verdict": "HIGH 0건 — 배포 가능. 20문항 전부 정답 유일, passage 정답 노출 없음(어형변환 done은 빈칸 처리로 미노출), N7 워크북/단어 정답 중복 0건(check-wb-quiz-leak PASS)."
+}

@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "Frederick Law Olmsted",
+    "subject": "9월_2026 고2 모의고사",
+    "pub": "26번",
+    "lesson": "Frederick Law Olmsted",
+    "histKey": "wordtest_2_9_2026_26_v6"
+  },
+  "fullPassage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was <b>(A)</b>[old / young], he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that <b>(B)</b>[damaged / improved] his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors <b>(C)</b>[abandoned / continued] his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "old — damaged — continued",
+        "young — damaged — continued",
+        "young — improved — continued",
+        "young — damaged — abandoned"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who <b>(A)</b>[hated / loved] scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and <b>(B)</b>[won / lost] the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to <b>(C)</b>[ignore / honor] his legacy.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "hated — won — honor",
+        "loved — lost — honor",
+        "loved — won — ignore",
+        "loved — won — honor"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a <b>(A)</b>[mild / severe] sumac poisoning that damaged his eyesight. Instead of attending a college, he <b>(B)</b>[gained / lost] experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted <b>(C)</b>[resigned / served] as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "severe — gained — served",
+        "mild — gained — served",
+        "severe — lost — served",
+        "severe — gained — resigned"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on ①<u>trips</u> to the countryside with his father, who loved scenery. At age 14, he was ②<u>preparing</u> himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and ③<u>successors</u> continued his design philosophy. In 1979, the National Park Service ④<u>demolished</u> his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac ①<u>poisoning</u> that damaged his eyesight. Instead of attending a college, he ②<u>lost</u> experience working as a clerk, a sailor, and a farmer. In 1858, he ③<u>worked</u> with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary ④<u>Commission</u>. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a ①<u>sailor</u>, and a farmer. In 1858, he worked with Calvert Vaux and won the design ②<u>competition</u> for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors ③<u>abandoned</u> his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his ④<u>legacy</u>.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved __________. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "scenery",
+        "traffic",
+        "architecture",
+        "competition"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his __________. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "hearing",
+        "memory",
+        "eyesight",
+        "reputation"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and __________ continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "critics",
+        "successors",
+        "opponents",
+        "competitors"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that <u>damaged</u> his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 <b>damaged</b>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "protected",
+        "improved",
+        "ignored",
+        "harmed"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and <u>won</u> the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 <b>won</b>과 의미가 가장 가까운 것은?",
+      "ch": [
+        "achieved",
+        "abandoned",
+        "rejected",
+        "postponed"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors <u>continued</u> his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 <b>continued</b>와 의미가 가장 가까운 것은?",
+      "ch": [
+        "stopped",
+        "reversed",
+        "maintained",
+        "forgot"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he <u>gained</u> experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 <b>gained</b>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "achieved",
+        "lost",
+        "maintained",
+        "requested"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a <u>severe</u> sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 밑줄 친 <b>severe</b>와 의미가 가장 반대인 것은?",
+      "ch": [
+        "extreme",
+        "constant",
+        "sudden",
+        "mild"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The public <u>grounds</u> of the old estate were carefully landscaped with trees and flower beds, stretching for several acres behind the mansion.\n(B) The committee rejected his design proposal on the <u>grounds</u> that it was far too expensive to complete within the budget.",
+      "stem": "다음 두 문장의 밑줄 친 <b>grounds</b>의 문맥적 의미로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "(A): 부지 (B): 근거",
+        "(A): 근거 (B): 부지",
+        "(A): 부지 (B): 부지",
+        "(A): 근거 (B): 근거"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영풀이에 해당하는 단어로 가장 적절한 것은?\n\"a person who takes on a role, duty, or title after someone else\"",
+      "ch": [
+        "predecessor",
+        "assistant",
+        "successor",
+        "opponent"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of __________ (attend) a college, he gained experience working as a clerk, a sailor, and a farmer.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꾸어 쓰시오. (영어로)\n\nAt age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of __________ (attend) a college, he gained experience working as a clerk, a sailor, and a farmer."
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and __________ (win) the design competition for New York City's Central Park with the \"Greensward Plan.\"",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꾸어 쓰시오. (영어로)\n\nAt age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and __________ (win) the design competition for New York City's Central Park with the \"Greensward Plan.\""
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his __________. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "financial debts",
+        "design philosophy",
+        "personal diary",
+        "family business"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822. When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery. At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe __________ that damaged his eyesight. Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer. In 1858, he worked with Calvert Vaux and won the design competition for New York City's Central Park with the \"Greensward Plan.\" During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission. Although he passed away in 1903, his sons and successors continued his design philosophy. In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "financial crisis",
+        "family dispute",
+        "training accident",
+        "sumac poisoning"
+      ]
+    }
+  ]
+}

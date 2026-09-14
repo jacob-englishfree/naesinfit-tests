@@ -1,0 +1,20 @@
+{
+  "testFile": "data/모의고사/고2/9월_2026/29번/퀴즈.json",
+  "issues": [
+    {
+      "id": 1,
+      "severity": "LOW",
+      "category": "구조적 특성(전체시스템 공통)",
+      "desc": "모의고사 규정상 모든 문항 passage=fullPassage 통째 사용 → 서로 다른 문항이 같은 문장을 blank/wa로 쓰면 한 문항의 '비가려진 나머지 부분'이 다른 문항의 정답 문구를 그대로 보여줄 수 있음(예: Q6·Q7·Q16이 모두 S3 문장 영역을 다룸). 학생이 문항을 한 번에 하나씩 푸는 실제 UI에서는 영향 적으나, 서술형(Q16~20)의 정답 문자열이 다른 문항 passage에 노출되는 것을 최대한 피하려고 Q15·Q16 타겟 문장을 재배치함(최초 설계: Q15='rolled back', Q16='it grows more expensive over time'였으나 각각 Q6·Q18과 상호노출 확인되어 Q15→S4 'and their labor becomes expensive', Q16→S3 'in the end inequality leads to crises'로 교체). 완전한 상호노출 0건은 7문장짜리 passage에 8개 서술형/빈칸 슬롯을 배치하는 구조상 불가능."
+    },
+    {
+      "id": 2,
+      "severity": "LOW",
+      "category": "오답품질",
+      "desc": "Q6·Q7 오답 3개가 fullPassage에 등장하지 않는 창작 오답(Q6-WEAK-DISTRACTOR). 문맥 추론으로 충분히 변별 가능."
+    }
+  ],
+  "totalIssues": 2,
+  "highCount": 0,
+  "conclusion": "HIGH 이슈 0건. 자체 검수 중 실제 결함 1건 발견·수정: Q4 어법(문맥상 부적절 어휘) 최초 설계가 'leads'만 치환해 'inequality prevents to crises'라는 비문이 생성되는 버그 → find를 'leads to' 전체로 수정해 'inequality prevents crises'로 정상화(검수→수정→재검증 완료). [2026-09-13 재검수] 교차검증에서 Q14(지칭추론) 설계 결함 적발·재출제: 기존 설계는 overlay.underline='they'를 지정했으나 fullPassage에 'they'가 2회 등장(S6 'crops...as they once did', S7 'because they offer places')하고 create-test.js의 overlay 치환 로직이 String.replace 특성상 항상 '첫 번째' 매치만 밑줄 처리 — 의도한 S7(Frontiers 지칭)이 아니라 S6이 밑줄돼 학생 화면에는 'as <u>they</u> once did'로 노출됨. 이 위치의 자연스러운 선행사는 crops인데 선지 4개(개척지들/노동자들/생산과정들/위기들)에 crops가 없고, 출제 정답 Frontiers는 다음 문장(S7)에서야 처음 등장해 전방조응 불성립 → 학생이 풀 수 없는 결함. 재설계: fullPassage 내 유일하게 1회만 등장하는 대명사 'their'(S4 'Workers demand dignity, and their labor becomes expensive')로 타겟 교체. their의 선행사는 같은 절의 주어 Workers 하나로만 유일하게 도출되며 동일 문자열 반복이 없어 overlay 엔진의 첫-매치 치환으로도 항상 올바른 위치에 밑줄이 적용됨을 확인(퀴즈.json 재조립 후 passage 텍스트 직접 대조). ans 분포 제약(최대 동일번호 5) 충족을 위해 ch 순서를 [개척지들,생산과정들,위기들,노동자들]으로 재배열, ans 1→4. 블라인드 20/20 재완성(자동12+에이전트8, 전원 정답 일치, needsAgent 0), N7(check-wb-quiz-leak.py) PASS, validate PASS(경미 B등급 경고 2건은 Q6·Q7 기존 이슈로 Q14와 무관). 배포 가능."
+}
