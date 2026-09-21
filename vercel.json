@@ -2,26 +2,65 @@
   "outputDirectory": ".",
   "buildCommand": "",
   "rewrites": [
-    { "source": "/교과서/:path*", "destination": "/dist/교과서/:path*" },
-    { "source": "/부교재/:path*", "destination": "/dist/부교재/:path*" },
-    { "source": "/모의고사/:path*", "destination": "/dist/모의고사/:path*" }
+    {
+      "source": "/교과서/:path*",
+      "destination": "/dist/교과서/:path*"
+    },
+    {
+      "source": "/부교재/:path*",
+      "destination": "/dist/부교재/:path*"
+    },
+    {
+      "source": "/모의고사/:path*",
+      "destination": "/dist/모의고사/:path*"
+    }
   ],
   "headers": [
     {
       "source": "/data/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET" },
-        { "key": "Content-Type", "value": "application/json; charset=utf-8" },
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" },
-        { "key": "Pragma", "value": "no-cache" },
-        { "key": "Expires", "value": "0" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET"
+        },
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        },
+        {
+          "key": "Expires",
+          "value": "0"
+        }
       ]
     },
     {
       "source": "/test-catalog.json",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/materials/(.*)",
+      "headers": [
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        }
       ]
     }
   ]
