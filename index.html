@@ -739,6 +739,12 @@ const _urlParams = new URLSearchParams(window.location.search);
 const _studentId = _urlParams.get('studentId') || null;
 const _weekIdx = _urlParams.get('week') !== null ? parseInt(_urlParams.get('week')) : null;
 
+// ⛔ 우리 학생(대시보드 링크)은 무료체험 게이트 자동 통과 (jacob 2026-09-23, 한유빈 차단 사고)
+// 대시보드 테스트 링크는 항상 studentId/source/preset/sel 중 하나를 포함 → 로그인·코드 없이 무제한.
+if (_studentId || _urlParams.has('source') || _urlParams.has('preset') || _urlParams.has('sel')) {
+  try { localStorage.setItem('nf_academy', '1'); } catch (e) {}
+}
+
 // ━━ 테스트 완료 시 학생 wd에 점수 자동 저장 ━━
 async function saveScoreToStudentWd(testType, score) {
   if (!_studentId || _weekIdx === null || isNaN(_weekIdx)) return;
@@ -2052,29 +2058,6 @@ function checkStreak(){
 }
 
 // ━━ Daily Vocab Quiz ━━
-// ━━ 버전 불일치 가드 (2026-09-07) — 탭을 며칠 열어두면 옛 엔진이 메모리에 남는 문제 방지 ━━
-// index.html의 etag를 주기 비교 → 새 배포 감지 시 자동 새로고침 (시험 중엔 안내만)
-let _nfEtag=null;
-async function nfCheckFresh(){
-  try{
-    const r=await fetch(location.pathname||'/',{method:'HEAD',cache:'no-store'});
-    const e=r.headers.get('etag');
-    if(!e)return;
-    if(_nfEtag===null){_nfEtag=e;return;}
-    if(e!==_nfEtag){
-      if(typeof S!=='undefined'&&S.scr==='exam'){
-        if(typeof toast==='function')toast('새 버전이 나왔어요! 테스트 끝나면 꼭 새로고침해주세요');
-      }else{
-        if(typeof toast==='function')toast('새 버전으로 업데이트합니다...');
-        setTimeout(()=>location.reload(),1200);
-      }
-      _nfEtag=e; // 중복 알림 방지
-    }
-  }catch(err){/* 오프라인 등 — 무시 */}
-}
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)nfCheckFresh();});
-nfCheckFresh();
-
 function getDailyState(){try{return JSON.parse(localStorage.getItem('nf_daily'))||{date:null,completed:false,score:null};}catch(e){return{date:null,completed:false,score:null};}}
 function saveDailyState(s){try{localStorage.setItem('nf_daily',JSON.stringify(s));}catch(e){}}
 function dailySeed(){const d=localDate();let h=0;for(let i=0;i<d.length;i++){h=((h<<5)-h)+d.charCodeAt(i);h|=0;}return Math.abs(h);}
