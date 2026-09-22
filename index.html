@@ -5475,9 +5475,8 @@ function getFreeCount(){return parseInt(localStorage.getItem('nf_freecount'))||0
 function addFreeCount(){const c=getFreeCount()+1;localStorage.setItem('nf_freecount',String(c));return c;}
 
 function checkTestLimit(){
-  if(isAcademyUser())return true;
-  const c=getFreeCount();
-  if(c>=3){showCodePrompt();return false;}
+  // ⛔ 무료체험/학원코드 게이트 전면 비활성화 (jacob 2026-09-23, 반복 재발로 근본 차단)
+  // 이 앱은 우리 학생 전용 테스트앱 → 어떤 경우에도 학생을 막지 않는다. 항상 통과.
   return true;
 }
 
