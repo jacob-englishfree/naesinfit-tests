@@ -1,0 +1,14 @@
+# 배포 제외 — 런타임에 서빙되지 않는 출제 증적/아티팩트 (2026-09-28)
+# 이유: outputDirectory="."로 리포 전체가 배포되는데, 아티팩트(prompt/response/blind/cross/adversarial)
+#       3만+개가 Vercel 출력 한도를 초과해 "Deploying outputs" 단계 실패 → 신규 테스트 라이브 반영 불가.
+# 앱(index.html)은 test-catalog.json + data/**/{단어,워크북,퀴즈}.json 만 fetch. 아래는 전부 미서빙.
+**/*.prompt.json
+**/*.response.json
+**/*.blind.json
+**/*.blind-prompt.json
+**/*.cross-blind.json
+**/*.cross-prompt.json
+**/*.adversarial.json
+**/_audit-report.md
+reports/
+node_modules/
