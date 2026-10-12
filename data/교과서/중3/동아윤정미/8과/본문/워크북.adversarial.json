@@ -1,0 +1,23 @@
+{
+ "solver": "sonnet-adversarial-recheck",
+ "testFile": "data/교과서/중3/동아윤정미/8과/본문/워크북.json",
+ "issues": [
+  {
+   "id": 5,
+   "category": "유형라벨불일치(기존 잔존, 비차단)",
+   "description": "type 필드가 \"어휘\"이나 실제 stem/ch 패턴은 '문맥상 낱말의 쓰임이 적절하지 않은 것'(= 문맥상 부적절한 어휘 유형)과 동일. 문제 내용(③ well이 ill의 오답) 자체는 정상. 라벨 표준화만 필요한 저수준 이슈.",
+   "severity": "low"
+  },
+  {
+   "id": 6,
+   "category": "유형라벨불일치(기존 잔존, 비차단)",
+   "description": "id5와 동일 — type \"어휘\" vs 실제 패턴 '문맥상 부적절한 어휘'(④ conflict가 harmony의 오답). 문제 내용 정상, 라벨만 표준화 필요.",
+   "severity": "low"
+  }
+ ],
+ "totalIssues": 2,
+ "summary": {"HIGH": 0, "MEDIUM": 0, "LOW": 2, "total": 2},
+ "fixVerification": {
+  "Q13": "PASS — passage가 'It was impossible for him to catch any fish.' 이후까지 확장되어 'The man was so disappointed...cried out...the ice melted, and three carp suddenly came out of the water...Then his mother got well.'를 전부 포함. ans=④('잉어 다섯 마리')는 passage에 명시된 'three carp'와 직접 모순되어 제시된 passage만으로 거짓임을 확인 가능. ①②③ 모두 passage 내 문장으로 직접 검증 가능. 이전 버전의 '지문근거누락(S-CHOICE-NOT-IN-PASSAGE)' HIGH 결함 해소됨."
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "solver": "sonnet-adversarial-recheck",
+ "testFile": "data/교과서/중3/동아윤정미/5과/본문/워크북.json",
+ "issues": [
+  {
+   "id": 10,
+   "category": "모호한정답(기존 잔존)",
+   "description": "빈칸추론(get __________, ans=3 attention). 본문: 'These people are often hidden and don't get __________. However, they are as important as the players.' 'fame'(명성)도 '숨겨진 이들은 명성을 얻지 못한다'는 문맥으로 방어 가능해 attention과 완전히 배타적이지 않음. 이번 수정 범위(Q17/Q20)와 무관하게 이전 검수에서도 동일하게 지적된 항목으로 그대로 잔존. 차단급은 아니나 재검토 권장.",
+   "severity": "medium"
+  }
+ ],
+ "totalIssues": 1,
+ "summary": {"HIGH": 0, "MEDIUM": 1, "LOW": 0, "total": 1},
+ "fixVerification": {
+  "Q17": "PASS — stem이 '더 잘'(비교급)을 명시. good/well 둘 다 비교급이 'better'이므로 wa='better'는 유일한 정답. 다른 번호(good/well 원급 등) 혼동 가능성 없음.",
+  "Q20": "PASS — [조건]에 Changing, especially, important, is, the, tires 6개만 제시되고 wa='Changing the tires is especially important'도 정확히 이 6단어만 사용. 이전 버전의 더미 단어 'change'는 제거됨. 단어수(6) 일치, 조건-정답 1:1 매칭 확인."
+ }
+}

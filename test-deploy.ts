@@ -36,6 +36,7 @@ export const TEST_APP_DEPLOY: Record<string, TextbookDeploy> = {
   "E1-천재조": {"path":"영어1/천재조수경","units":["1과","2과","3과","4과"],"sections":{"1과":["본문","ReadMore"],"2과":["본문","Read More"],"3과":["본문","ReadMore"],"4과":["본문","ReadMore"]}},
   "E2-YBM한": {"path":"영어2/YBM한상호","units":["1과","2과"],"sections":{"1과":["본문"],"2과":["본문"]}},
   "M2-YBM김은형": {"path":"중2/YBM김은형","units":["1과","2과"],"sections":{"1과":["본문"],"2과":["본문"]}},
+  "M3-동아윤정미": {"path":"중3/동아윤정미","units":["5과","6과","7과","8과"],"sections":{"5과":["본문"],"6과":["본문"],"7과":["본문"],"8과":["본문"]}},
 };
 
 export const TEST_APP_SUPPLEMENT_DEPLOY: Record<string, { path: string; units: string[]; sections?: Record<string, string[]> }> = {
@@ -119,6 +120,7 @@ export const CONTENT_NAMES: Record<string, string> = {
   "E1-천재조": "영어1 천재(조수경)",
   "E2-YBM한": "영어2 YBM(한상호)",
   "M2-YBM김은형": "중2 YBM(김은형)",
+  "M3-동아윤정미": "중3 동아(윤정미)",
 };
 
 export const DESIGN_TOKENS = {
