@@ -1489,6 +1489,24 @@ function parseTestHTML(htmlText) {
 // Fetch cache
 const _fetchCache = {};
 
+// ── 테스트 데이터 외부화 (Vercel Build CPU 절감): data/*.json을 Supabase 스토리지에서 로드 ──
+// 경로(한글)를 SHA-256 영문 key로 변환(Supabase key 한글 불가). 실패 시 기존 Vercel 로컬로 자동 fallback(학생 무중단).
+const SB_TESTS = 'https://enkewpvhaugcmyglifkc.supabase.co/storage/v1/object/public/tests/';
+async function _sha256hex(s){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+async function fetchDataJson(path){
+  const rel = path.replace(/^data\//,'').replace(/\?.*$/,'');
+  try{
+    const key = await _sha256hex(rel) + '.json';
+    const r = await fetch(SB_TESTS + key);
+    if (r.ok) return r;              // Supabase 성공
+  }catch(e){ /* 네트워크 실패 → fallback */ }
+  // fallback: 기존 Vercel 로컬 (Supabase에 아직 없거나 장애 시 학생 무중단)
+  return fetch(path + (path.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-store' });
+}
+
 async function fetchTestQuestions(testType, selKey) {
   const cacheKey = testType + '|' + selKey;
   if (_fetchCache[cacheKey]) return _fetchCache[cacheKey];
@@ -1528,7 +1546,7 @@ async function fetchTestQuestions(testType, selKey) {
   for (const path of tryPaths) {
     try {
       // 2026-04-08: cache-busting (캐시 영구 무효화)
-      const resp = await fetch(path + (path.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-store' });
+      const resp = await fetchDataJson(path);
       if (resp.ok) {
         const data = await resp.json();
         const questions = normalizeQs(data.questions || [], data.fullPassage || FULL_PASSAGE);
@@ -1593,7 +1611,7 @@ async function fetchTestQuestions(testType, selKey) {
         if (realSections.length > 0) {
           const sectionFetches = realSections.map(sec => {
             const secPath = 'data/' + baseKey + '/' + sec + '/' + jsonName + '.json';
-            return fetch(secPath + '?v=' + Date.now(), { cache: 'no-store' })
+            return fetchDataJson(secPath)
               .then(r => r.ok ? r.json() : null)
               .then(d => d ? normalizeQs(d.questions || [], d.fullPassage || '') : [])
               .catch(() => []);
