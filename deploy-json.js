@@ -576,6 +576,14 @@ async function main() {
     execSync(`cd "${ROOT}" && git commit -m "deploy: ${fileList}"`, { stdio: 'inherit' });
     execSync(`cd "${ROOT}" && git push`, { stdio: 'inherit' });
 
+    // ── Supabase 스토리지 자동 업로드 (Vercel Build CPU 절감 — data는 Supabase가 서빙) ──
+    try {
+      const sbScript = path.join(ROOT, 'scripts/upload-supabase.py');
+      if (fs.existsSync(sbScript)) {
+        execSync(`python3 "${sbScript}" ${files.map(f => `"${f}"`).join(' ')}`, { stdio: 'inherit', cwd: ROOT });
+      }
+    } catch (e) { console.log('⚠️ Supabase 업로드 단계 오류(로컬 fallback으로 서빙됨):', e.message); }
+
     // ── 영구 차단 장치 #1: 배포 후 git에 모든 파일이 들어갔는지 검증 ──
     console.log('\n🔒 배포 후 검증 중...');
     let allCommitted = true;
