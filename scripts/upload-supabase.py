@@ -26,6 +26,9 @@ for arg in sys.argv[1:]:
     if not f.endswith('.json') or (DATA + os.sep) not in f:
         continue  # data/ JSON만
     rel = os.path.relpath(f, DATA)
+    # 검증 산출물은 학생 서빙 대상 아님 — 업로드 제외(서빙용 단어/워크북/퀴즈/_passage만)
+    if rel.endswith(('.adversarial.json', '.blind.json', '.cross-blind.json', '.response.json', '.prompt.json')):
+        continue
     key = hashlib.sha256(rel.encode('utf-8')).hexdigest() + '.json'
     try:
         content = open(f, 'rb').read()
