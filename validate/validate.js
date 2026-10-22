@@ -465,6 +465,14 @@ function validate(jsonPath) {
       result.add('V63-B', SEV.S, `Q${qid}: ${typeNorm}에 passage 있음 — stem에 이미 텍스트 포함. passage를 null로 변경 필수`);
     }
 
+    // S-ORDER-STEM-DUMP: 순서배열 stem에 본문 통째 (렌더 벽 + 못 풂)
+    if (['순서배열', '글순서'].includes(typeNorm)) {
+      const stemWords = (String(q.stem || '').match(/\S+/g) || []).length;
+      if (stemWords > 200) {
+        result.add('S-ORDER-STEM-DUMP', SEV.S, `Q${qid}: 순서배열 stem ${stemWords}단어 — 본문 통째로 들어가 (A)(B)(C) 덩어리 과대(렌더 벽). 도입문 1~2문장 + (A)(B)(C) 각 2~3문장으로 재출제 필수`);
+      }
+    }
+
     // V63-C: 어법(밑줄찾기) — passage 있으면 이중표시 (S급 차단)
     if (typeNorm === '어법' && q.passage && String(q.passage).length > 100) {
       const stemEng = (q.stem || '').replace(/<[^>]+>/g, '').match(/[a-zA-Z]+/g) || [];
@@ -1392,7 +1400,12 @@ function validate(jsonPath) {
       const MARKER_SET = new Set(['①','②','③','④','⑤']);
       const isMarkerCh = q.ch.every(c => MARKER_SET.has(String(c).trim()));
       // T/F형 선지는 중복 체크 제외 — 선지가 고정(T/F/None)이므로 stem이 다르면 다른 문항
-      const isTFCh = q.ch.some(c => /^[TF]\s*\(/.test(String(c).trim()) || /^(True|False)$/i.test(String(c).trim()));
+      // ⛔ 바로 "T"/"F"(또는 참/거짓) 선지도 인식 (2026-10-18): 기존엔 "T(" / "True"만 잡아 내용이해 T/F
+      //    (ch=["T","F","None of the above",...])가 stem만 다른데도 중복 오탐 → 51건 오탐 수정.
+      const isTFCh = q.ch.some(c => {
+        const s = String(c).trim();
+        return /^[TF]\s*\(/.test(s) || /^(True|False)$/i.test(s) || /^[TF]$/.test(s) || /^(참|거짓)$/.test(s);
+      });
       if (!isMarkerCh && !isTFCh) for (let j = i + 1; j < questions.length; j++) {
         const other = questions[j];
         if (!other || !Array.isArray(other.ch) || other.ch.length !== 4) continue;
@@ -1740,7 +1753,9 @@ function validate(jsonPath) {
         // 한국어 선지일 때만 검사
         if (koreanLen >= 5 && ansCh.length >= 10) {
           // 직역 탐지는 어려우므로 보수적: 선지 안에 영어 단어 2개 이상이 passage에 그대로 있을 때만
-          const engWords = (ansCh.match(/[A-Za-z]{4,}/g) || []).map(w => w.toLowerCase());
+          // ⛔ 고유명사(대문자 시작: 인명·지명 Stuffy/Half Dome/Gabriel 등)는 제외 — 내용일치 선지에서
+          //    고유명사는 반드시 본문과 일치해야 하므로 직역 오탐(2026-10-18 정밀화). 소문자 내용어만 검사.
+          const engWords = (ansCh.match(/[A-Za-z]{4,}/g) || []).filter(w => /^[a-z]/.test(w)).map(w => w.toLowerCase());
           if (engWords.length >= 2) {
             const passLower = passage.toLowerCase();
             const exposed = engWords.filter(w => passLower.includes(w));
@@ -2543,9 +2558,17 @@ function validate(jsonPath) {
 
     // S-WA-CONTRACTION: 서술형 wa에 축약형 + (N단어) 동시 사용 금지
     // 축약형(I'll, don't, can't 등) 포함 시 학생이 단어 수 세기 혼란
-    if (fmt === 'written' && wa && /\d+\s*단어/.test(stem)) {
-      if (/\w+[''][a-zA-Z]+/.test(wa)) {
-        result.add('S-WA-CONTRACTION', SEV.S, `Q${qid}: wa에 축약형 "${wa.match(/\w+[''][a-zA-Z]+/)[0]}" + (N단어) 동시 사용 — 학생이 단어 수 혼란`);
+    // ⛔ 소유격('s: women's, country's 등)은 제외 — 소유격은 항상 1단어로 세므로 혼란 없음.
+    //    (2026-10-18 정밀화: 기존 /\w+['][a-zA-Z]+/ 는 소유격까지 오탐지 → 축약형만 매칭하도록 교정)
+    // ⛔ 찾기(본문에서 찾아 쓰기) 유형은 제외 — 학생이 본문 구절을 그대로 베끼므로 축약형을 1단어로
+    //    세는 것이 명확(모호 없음). 축약형 count 혼란은 영작·배열(직접 생성) 유형에만 해당. (2026-10-18)
+    const isFindType = /찾아|본문에서\s*찾|지문에서\s*찾|골라\s*(써|쓰|적)/.test(stem);
+    if (fmt === 'written' && wa && /\d+\s*단어/.test(stem) && !isFindType) {
+      const CONTRACTION = /\b[A-Za-z]+['’](t|re|ve|ll|d|m)\b/;            // n't, 're, 've, 'll, 'd, 'm
+      const SCONTRACTION = /\b(it|that|he|she|what|who|there|here|let|how|where)['’]s\b/i; // 's 축약형(소유격 아님)
+      const hit = wa.match(CONTRACTION) || wa.match(SCONTRACTION);
+      if (hit) {
+        result.add('S-WA-CONTRACTION', SEV.S, `Q${qid}: wa에 축약형 "${hit[0]}" + (N단어) 동시 사용 — 학생이 단어 수 혼란`);
       }
     }
 

@@ -237,6 +237,29 @@ function abcFlipPattern(n, seedStr) {
   return pats[h % pats.length];
 }
 
+// ── 문장 분할 (소수점·약어 보호) ──
+// 기존 정규식 /[^.!?]+[.!?]+/g 는 소수점(57.4)·약어(U.S., e.g., Dr.)의 내부
+// 마침표를 문장 끝으로 오분할 → 선지/passage에 잘못된 공백 삽입·선지 미완결.
+// 해결: 분할 "전" 그 마침표만 placeholder로 보호 → 동일 정규식으로 분할 → 복원.
+// 정규식 자체는 불변이므로, 보호 대상이 없는 일반 지문은 결과가 100% 동일(byte-identical).
+// sentenceIndex·excerptRange·insertionMarkers·어형변환이 공유.
+const _SENT_DOT = ''; // 영어 지문에 등장하지 않는 제어문자 placeholder
+function splitSentences(text) {
+  if (text == null) return null;
+  let t = String(text);
+  // 1) 소수점: 숫자.숫자 (57.4, 3.14, $19.99)
+  t = t.replace(/(\d)\.(\d)/g, `$1${_SENT_DOT}$2`);
+  // 2) 연속 약어 (단일문자+"." 2회 이상): U.S., U.S.A., e.g., i.e., a.m., p.m., B.C.
+  t = t.replace(/(?:[A-Za-z]\.){2,}/g, m => m.split('.').join(_SENT_DOT));
+  // 3) 호칭/단위 약어: Mr. Mrs. Ms. Dr. Prof. St. Sr. Jr. vs. etc.
+  t = t.replace(/\b(Mr|Mrs|Ms|Dr|Prof|St|Sr|Jr|vs|etc)\./g, `$1${_SENT_DOT}`);
+  // 4) No.<숫자> (단어 "No"의 문장끝 마침표 오보호 방지 — 뒤에 숫자 올 때만)
+  t = t.replace(/\bNo\.(?=\s*\d)/g, `No${_SENT_DOT}`);
+  const m = t.match(/[^.!?]+[.!?]+/g);
+  if (!m) return null; // 기존 match()와 동일하게 미매치 시 null (호출부 || 폴백 유지)
+  return m.map(s => s.split(_SENT_DOT).join('.'));
+}
+
 // ── passage 오버레이 (스크립트가 처리) ──
 function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
   const sourceConfig = SCHEMA.sourceTypes[source];
@@ -253,7 +276,7 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
       return overlayData.excerptSentences;
     }
     // 기본: 첫 3문장
-    const sentences = fullPassage.match(/[^.!?]+[.!?]+/g) || [];
+    const sentences = splitSentences(fullPassage) || [];
     return sentences.slice(0, 3).join(' ');
   }
 
@@ -323,7 +346,7 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
       });
     }
     if (overlayData.insertionMarkers) {
-      const sentences = overlaid.match(/[^.!?]+[.!?]+/g) || [];
+      const sentences = splitSentences(overlaid) || [];
       const markers = ['(①)', '(②)', '(③)', '(④)'];
       const positions = overlayData.insertionMarkers;
       for (let i = positions.length - 1; i >= 0; i--) {
@@ -338,7 +361,7 @@ function applyPassageOverlay(fullPassage, questionType, source, overlayData) {
 
   // 2단계: 교과서=발췌, 나머지=overlaid 그대로
   if (sourceConfig && sourceConfig.passageRule === 'excerpt') {
-    const sentences = overlaid.match(/[^.!?]+[.!?]+/g) || [overlaid];
+    const sentences = splitSentences(overlaid) || [overlaid];
     let start, end;
 
     if (overlayData && overlayData.excerptRange) {
@@ -958,7 +981,7 @@ function main() {
     title: passageData.title,
     ...(source === '교과서' ? {
       sentenceIndex: (() => {
-        const sentences = passageData.fullPassage.match(/[^.!?]+[.!?]+/g) || [];
+        const sentences = splitSentences(passageData.fullPassage) || [];
         return sentences.map((s, i) => ({
           idx: i,
           preview: s.trim().substring(0, 80) + (s.trim().length > 80 ? '...' : '')

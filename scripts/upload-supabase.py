@@ -33,7 +33,7 @@ for arg in sys.argv[1:]:
     try:
         content = open(f, 'rb').read()
         h = {'apikey': KEY, 'Authorization': f'Bearer {KEY}', 'Content-Type': 'application/json',
-             'x-upsert': 'true', 'cache-control': 'max-age=3600'}
+             'x-upsert': 'true', 'cache-control': 'max-age=60, stale-while-revalidate=86400'}
         req = urllib.request.Request(f'{BASE}/object/tests/{key}', data=content, headers=h, method='POST')
         urllib.request.urlopen(req, timeout=40)
         ok += 1
