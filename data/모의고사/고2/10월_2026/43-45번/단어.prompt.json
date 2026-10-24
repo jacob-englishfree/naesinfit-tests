@@ -1,0 +1,393 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "모의고사",
+  "sourcePath": "고2/10월_2026/43-45번",
+  "testType": "단어",
+  "fullPassage": "(A) The violin had always been Ann's thing since she was seven. Her teacher Mrs. Jones always said she had natural talent. But lately, every time Ann picked up her bow, she couldn't focus. She kept thinking about Victoria Gray, the brilliant violinist who had performed at Maestro Hall. Before the lesson with Mrs. Jones, Ann was watching Victoria's flawless technique on her smartphone, and it made (a) her chest feel tighter.  (B) That night, Ann deleted her social media app from her smartphone. She focused on practicing (b) her violin, trying to find herself, for a week. On Saturday, Ann picked up her violin and played a simple piece she'd known since childhood. Her music had mistakes, but it felt like her own music again. When she finished, her little sister Emma clapped enthusiastically. \"When (c) you play, it makes the whole house feel nicer.\" Ann smiled, finally at peace.  (C) Hearing her words, Mrs. Jones smiled softly and said, \"That's because you're measuring yourself against someone else's ruler. Comparison steals your joy and unique voice. Stop looking at (d) her journey and focus on your own.\" Hearing those comforting words, something profound shifted inside Ann. After the lesson, Ann took down Victoria Gray's picture that had always been on her bedroom wall.  (D) What was the point? Ann thought. I'll never be like her. As the lesson began, her teacher, Mrs. Jones, immediately noticed Ann's distraction. \"Is everything alright, Ann?\" asked Mrs. Jones. \"I'm just wondering if I'm good enough to be special like Victoria,\" Ann said. \"I used to love playing. Now (e) I just feel like I'm not good enough. I don't have the perfect technique like her.\"  43. 주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은? ① (B)-(D)-(C) ② (C)-(B)-(D) ③ (C)-(D)-(B) ④ (D)-(B)-(C) ⑤ (D)-(C)-(B)  44. 밑줄 친 (a) ~ (e) 중에서 가리키는 대상이 나머지 넷과 다른 것은? ① (a) ② (b) ③ (c) ④ (d) ⑤ (e)  45. 윗글에 관한 내용으로 적절하지 않은 것은? ① Victoria Gray는 Maestro Hall에서 공연한 적이 있다. ② Ann은 자신의 스마트폰에서 소셜 미디어 앱을 삭제했다. ③ 토요일에 Ann은 처음 접한 곡을 연주했다. ④ Ann은 침실 벽에 붙어 있던 Victoria Gray의 사진을 떼었다. ⑤ Jones 선생님은 레슨이 시작되자 Ann의 산만함을 즉시 알아차렸다.",
+  "title": "Comparison Steals Your Joy",
+  "typeRules": {
+    "(A)(B)(C) 조합형": {
+      "fmt": "mc",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "passageRule": "fullPassage + <b>(A)</b>[w1/w2] 마커",
+      "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
+      "ch": "4개"
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸 어휘 완성": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "동의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "반의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "다의어 문맥적 의미": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "영영풀이 매칭": {
+      "fmt": "mc",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
+      "overlay": "overlay = {} (passage 없음)",
+      "passageRule": "ALL: passage 없음 (빈 문자열)",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "어형 변환": {
+      "fmt": "written",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+    },
+    "빈칸 문맥 완성": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "ch": "4개"
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage 없음)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}
