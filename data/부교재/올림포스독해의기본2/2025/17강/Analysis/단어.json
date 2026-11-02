@@ -5,7 +5,7 @@
     "total": 100,
     "time": 1200,
     "totalQ": 20,
-    "title": "Analysis — 인공 신경망의 지도 학습(오류 역전파) 메커니즘과 학습의 느림",
+    "title": "Analysis — 인공 신경망의 지도 학습",
     "subject": "올림포스독해의기본2",
     "pub": "2025",
     "lesson": "17강",
@@ -20,19 +20,19 @@
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they <b>(A)</b>[observe / ignore] their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to <b>(B)</b>[preserve / modify] when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly <b>(C)</b>[slow / fast]: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they <b>(A)</b>[observe / ignore] their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the <b>(B)</b>[wrong / correct] answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly <b>(C)</b>[slow / fast]: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
       "det": {
-        "korean": "(A) observe 관찰하다 (B) modify 수정하다 (C) slow 느린",
-        "analysis": "❌ ① ignore - modify - slow: (A) 신경망은 오류를 무시(ignore)가 아니라 관찰(observe)함\n❌ ② observe - preserve - fast: (B) 파라미터를 보존(preserve)이 아니라 수정(modify)함, (C) 학습은 빠른(fast)이 아니라 느림\n✅ ③ observe - modify - slow: 원문 그대로 — 오류를 관찰하고, 파라미터를 수정하며, 학습이 느림 ← 정답\n❌ ④ ignore - preserve - fast: 세 개 모두 반의어로 교체된 오답",
-        "tip": "observe=관찰하다(ant: ignore), modify=수정하다(ant: preserve), slow=느린(ant: fast)"
+        "korean": "(A) observe 관찰하다 (B) correct 올바른 (C) slow 느린",
+        "analysis": "❌ ① ignore(무시하다) - wrong(틀린) - fast(빠른): 세 자리 모두 반대로 교체\n✅ ② observe(관찰하다) - correct(올바른) - slow(느린): 원문 그대로 ← 정답\n❌ ③ observe - wrong - fast: (B)(C) 오류. 감독자는 '올바른' 답을 알고, 학습은 '느리다'\n❌ ④ ignore - correct - slow: (A) 오류. 신경망은 오류를 '관찰'해 학습",
+        "tip": "observe=관찰하다(ant: ignore), correct=올바른(ant: wrong), slow=느린(ant: fast)"
       },
-      "ans": 3,
+      "ans": 2,
       "ch": [
-        "ignore - modify - slow",
-        "observe - preserve - fast",
-        "observe - modify - slow",
-        "ignore - preserve - fast"
+        "ignore - wrong - fast",
+        "observe - correct - slow",
+        "observe - wrong - fast",
+        "ignore - correct - slow"
       ]
     },
     {
@@ -41,19 +41,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to <b>(A)</b>[reduce / increase] the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the <b>(B)</b>[wrong / correct] answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the <b>(C)</b>[optimal / worst] setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to <b>(A)</b>[reduce / increase] the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is <b>(B)</b>[complex / simple]: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the <b>(C)</b>[optimal / worst] setting for every nut and bolt.",
       "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
       "det": {
-        "korean": "(A) reduce 줄이다 (B) correct 올바른 (C) optimal 최적의",
-        "analysis": "✅ ① reduce - correct - optimal: 원문 그대로 — 오류를 줄이고, 올바른 답을 알며, 최적의 설정을 찾음 ← 정답\n❌ ② increase - correct - worst: (A) 오류를 늘리는(increase) 게 아니라 줄임, (C) 최악(worst)이 아니라 최적\n❌ ③ reduce - wrong - optimal: (B) 감독자는 틀린(wrong) 답이 아니라 올바른(correct) 답을 앎\n❌ ④ increase - wrong - worst: 세 개 모두 반의어 교체",
-        "tip": "reduce=줄이다(ant: increase), correct=올바른(ant: wrong), optimal=최적의(ant: worst)"
+        "korean": "(A) reduce 줄이다 (B) simple 간단한 (C) optimal 최적의",
+        "analysis": "❌ ① increase(늘리다) - complex(복잡한) - worst(최악의): 세 자리 모두 반대로 교체\n❌ ② reduce - complex - worst: (B)(C) 오류\n✅ ③ reduce(줄이다) - simple(간단한) - optimal(최적의): 원문 그대로 ← 정답\n❌ ④ increase - simple - optimal: (A) 오류. 내부 상태를 조정해 오류를 '줄인다'",
+        "tip": "reduce=줄이다(ant: increase), simple=간단한(ant: complex), optimal=최적의(ant: worst)"
       },
-      "ans": 1,
+      "ans": 3,
       "ch": [
-        "reduce - correct - optimal",
-        "increase - correct - worst",
-        "reduce - wrong - optimal",
-        "increase - wrong - worst"
+        "increase - complex - worst",
+        "reduce - complex - worst",
+        "reduce - simple - optimal",
+        "increase - simple - optimal"
       ]
     },
     {
@@ -62,19 +62,19 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is <b>(A)</b>[tightly / loosely] guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a <b>(B)</b>[large / small] correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to <b>(C)</b>[discover / hide] the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is <b>(A)</b>[tightly / loosely] guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a <b>(B)</b>[large / small] correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a <b>(C)</b>[complex / trivial] activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
       "det": {
-        "korean": "(A) tightly 엄격하게 (B) small 작은 (C) discover 발견하다",
-        "analysis": "❌ ① loosely - small - hide: (A) 지도 학습은 느슨하게(loosely)가 아니라 엄격하게(tightly) 안내됨, (C) 최적 설정을 숨기는(hide) 게 아니라 발견함\n❌ ② tightly - large - discover: (B) 매 단계 큰(large) 수정이 아니라 작은(small) 수정을 함\n❌ ③ loosely - large - hide: (A)(B)(C) 모두 오류\n✅ ④ tightly - small - discover: 원문 그대로 — 엄격히 안내되고, 작은 수정을 하며, 최적 설정을 발견함 ← 정답",
-        "tip": "tightly=엄격하게(ant: loosely), small=작은(ant: large), discover=발견하다(ant: hide/conceal)"
+        "korean": "(A) tightly 엄격하게 (B) small 작은 (C) complex 복잡한",
+        "analysis": "❌ ① loosely(느슨하게) - large(큰) - trivial(사소한): 세 자리 모두 반대로 교체\n❌ ② tightly - large - trivial: (B)(C) 오류\n❌ ③ loosely - small - complex: (A) 오류. 지도 학습은 '엄격하게' 안내됨\n✅ ④ tightly(엄격하게) - small(작은) - complex(복잡한): 원문 그대로 ← 정답",
+        "tip": "tightly=엄격하게(ant: loosely), small=작은(ant: large), complex=복잡한(ant: trivial)"
       },
       "ans": 4,
       "ch": [
-        "loosely - small - hide",
-        "tightly - large - discover",
-        "loosely - large - hide",
-        "tightly - small - discover"
+        "loosely - large - trivial",
+        "tightly - large - trivial",
+        "loosely - small - complex",
+        "tightly - small - complex"
       ]
     },
     {
@@ -83,14 +83,14 @@
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they ①<u>observe</u> their errors and use them to adjust their internal state in the direction that they feel is best able to ②<u>increase</u> the errors. In many cases, such learning is tightly ③<u>guided</u>. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly ④<u>slow</u>: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their ①<u>internal</u> state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly ②<u>guided</u>. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to ③<u>preserve</u> when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I ④<u>measure</u> my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
       "det": {
-        "korean": "② increase → reduce: 신경망은 오류를 '줄이기(reduce)' 위해 상태를 조정한다. increase(늘리다)는 반대.",
-        "analysis": "① observe(관찰하다): 신경망이 자신의 오류를 관찰함 — 적절\n② increase(늘리다) → reduce(줄이다): 오류를 '줄이려고' 상태를 조정함 ← 정답\n③ guided(안내되는): 학습이 엄격히 안내됨 — 적절\n④ slow(느린): 컴퓨터 기반 학습이 느릴 수 있음 — 적절",
-        "tip": "reduce the errors=오류를 줄이다(ant: increase)"
+        "korean": "③ preserve → modify: 오류를 유발하는 연결을 '수정해야(modify)' 오류가 줄어든다. preserve(보존하다)는 반대",
+        "analysis": "① internal(내부의): 내부 상태를 조정 — 적절\n② guided(지도되는): 그러한 학습은 엄격히 지도됨 — 적절\n③ preserve(보존하다) → modify(수정하다): 어떤 연결을 '수정할지' 아는 것이 핵심. 보존하면 오류가 고쳐지지 않음 ← 정답\n④ measure(측정하다): 나는 내 오류를 측정 — 적절",
+        "tip": "modify=수정하다(ant: preserve). 오류를 줄이려면 연결을 고쳐야 함"
       },
-      "ans": 2,
+      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -104,14 +104,14 @@
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We ①<u>tell</u> the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to ②<u>modify</u> when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the ③<u>correct</u> answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a ④<u>large</u> correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have ①<u>activated</u> at the output (\"it is a 1, not a 7\"), and we know ②<u>vaguely</u> in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the ③<u>correct</u> answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to ④<u>discover</u> the optimal setting for every nut and bolt.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
       "det": {
-        "korean": "④ large → small: 매 단계 '작은(small)' 수정만 한다. only와 호응하므로 large(큰)는 부적절.",
-        "analysis": "① tell(말해 주다): 신경망에 어떤 반응을 내야 하는지 알려 줌 — 적절\n② modify(수정하다): 어떤 연결을 수정할지 — 적절\n③ correct(올바른): 시스템이 내야 할 올바른 답 — 적절\n④ large(큰) → small(작은): 매 단계 '오직 작은' 수정만 함 ← 정답",
-        "tip": "only a small correction=오직 작은 수정만(ant: large)"
+        "korean": "② vaguely → precisely: 조정 방향을 '정확히(precisely)' 안다고 해야 수학적 계산과 맞다. vaguely(막연히)는 반대",
+        "analysis": "① activated(활성화한): 어떤 응답을 활성화했어야 하는지 — 적절\n② vaguely(막연히) → precisely(정확히): 매개변수를 어느 방향으로 조정할지 '정확히' 안다고 해야 함. 수학적 계산으로 정밀하게 파악 ← 정답\n③ correct(올바른): 감독자는 올바른 답을 앎 — 적절\n④ discover(발견하다): 최적의 설정을 발견 — 적절",
+        "tip": "precisely=정확히(ant: vaguely). 뒤에 '수학적 계산'이 정밀함을 뒷받침"
       },
-      "ans": 4,
+      "ans": 2,
       "ch": [
         "①",
         "②",
@@ -125,14 +125,14 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is ①<u>difficult</u>: I try an answer, I am told what I should have answered, I ②<u>measure</u> my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to ③<u>discover</u> the ④<u>optimal</u> setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they ①<u>observe</u> their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly ②<u>guided</u>. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly ③<u>fast</u>: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the ④<u>optimal</u> setting for every nut and bolt.",
       "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
       "det": {
-        "korean": "① difficult → simple: 뒤에 이어지는 절차가 간단하므로 '단순한(simple)'이 맞다. difficult(어려운)는 모순.",
-        "analysis": "① difficult(어려운) → simple(단순한): 절차 자체는 '시도-교정-측정-조정'으로 단순함 ← 정답\n② measure(측정하다): 내 오류를 측정함 — 적절\n③ discover(발견하다): 최적의 설정을 발견함 — 적절\n④ optimal(최적의): 모든 부분의 최적 설정 — 적절",
-        "tip": "The procedure is simple=절차는 단순하다(ant: difficult/complex)"
+        "korean": "③ fast → slow: 수천·수백만 번 반복해야 하므로 학습이 '느리다(slow)'. fast(빠른)는 반대",
+        "analysis": "① observe(관찰하다): 오류를 관찰 — 적절\n② guided(지도되는): 엄격히 지도되는 학습 — 적절\n③ fast(빠른) → slow(느린): 같은 과정을 수천·수백만·수십억 번 반복해야 하므로 '느리다'. 바로 뒤 근거와 모순 ← 정답\n④ optimal(최적의): 최적의 설정을 발견 — 적절",
+        "tip": "slow=느린(ant: fast). 반복 횟수가 많다 = 학습이 느리다"
       },
-      "ans": 1,
+      "ans": 3,
       "ch": [
         "①",
         "②",
@@ -146,19 +146,19 @@
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly __________: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a __________, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "det": {
-        "korean": "컴퓨터 기반 학습은 엄청나게 ______할 수 있다",
-        "analysis": "❌ ① fast(빠른): 수백만~수십억 번 반복이 필요하므로 모순\n✅ ② slow(느린): 복잡한 활동 학습에 레시피를 수없이 반복해야 하므로 '느림' ← 정답\n❌ ③ simple(단순한): 속도를 나타내는 빈칸과 무관\n❌ ④ cheap(저렴한): 비용이 아니라 속도 문맥",
-        "tip": "incredibly slow=엄청나게 느린. 뒤의 '수십억 번 반복'이 단서"
+        "korean": "올바른 답을 아는, ______에 비유될 수 있는 누군가 때문에 '지도 학습'이라 불린다",
+        "analysis": "✅ ① supervisor(감독자): 'supervised learning(지도 학습)'과 연결 — 올바른 답을 아는 감독자에 비유 ← 정답\n❌ ② student(학생): 답을 배우는 쪽이라 지도하는 역할과 반대\n❌ ③ beginner(초보자): 올바른 답을 아는 존재와 부적합\n❌ ④ stranger(낯선 사람): 문맥과 무관",
+        "tip": "supervised learning=지도 학습. 올바른 답을 아는 '감독자(supervisor)'가 있다는 비유"
       },
-      "ans": 2,
+      "ans": 1,
       "ch": [
-        "fast",
-        "slow",
-        "simple",
-        "cheap"
+        "supervisor",
+        "student",
+        "beginner",
+        "stranger"
       ]
     },
     {
@@ -167,19 +167,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly __________. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error __________ are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "det": {
-        "korean": "많은 경우, 그러한 학습은 엄격하게 ______된다",
-        "analysis": "❌ ① random(무작위의): 정확한 반응을 알려 주므로 무작위가 아님\n❌ ② forced(강요된): 강제의 의미로 문맥과 다름\n✅ ③ guided(안내되는): 어떤 반응을 내야 하는지 정확히 알려 주므로 '안내됨' ← 정답\n❌ ④ blocked(차단된): 학습을 막는다는 의미로 모순",
-        "tip": "tightly guided=엄격히 안내되는. 뒤 문장 '정확히 알려 준다'가 단서"
+        "korean": "오류 ______가 매개변수를 수정하기 위해 신경망으로 되돌려 보내진다 — '신호'",
+        "analysis": "❌ ① lights(빛): 오류 정보 전달 매체로 부적합\n❌ ② cards(카드): 문맥과 무관\n❌ ③ sounds(소리): 신경망 내부 전달과 부적합\n✅ ④ signals(신호): 'error signals(오류 신호)'가 되돌려 보내져 매개변수를 수정 ← 정답",
+        "tip": "error signals=오류 신호. 오류 역전파에서 신경망으로 되돌려 보내지는 것"
       },
-      "ans": 3,
+      "ans": 4,
       "ch": [
-        "random",
-        "forced",
-        "guided",
-        "blocked"
+        "lights",
+        "cards",
+        "sounds",
+        "signals"
       ]
     },
     {
@@ -188,19 +188,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the __________ setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal __________ for every nut and bolt.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "det": {
-        "korean": "모든 부분에 대한 ______ 설정을 발견하는 데 오랜 시간이 걸린다",
-        "analysis": "✅ ① optimal(최적의): 수많은 파라미터 중 가장 좋은 설정을 찾는 것이므로 '최적의' ← 정답\n❌ ② random(무작위의): 목표가 무작위 설정이 아님\n❌ ③ initial(초기의): 처음 설정이 아니라 가장 좋은 설정을 찾음\n❌ ④ temporary(일시적인): 일시적 설정이 목표가 아님",
-        "tip": "optimal setting=최적의 설정. '오랜 시간이 걸려 찾는' 대상이 단서"
+        "korean": "모든 나사와 볼트에 대한 최적의 ______을 발견하는 데 오랜 시간이 걸릴 수 있다 — '설정'",
+        "analysis": "❌ ① price(가격): 매개변수 조정 문맥과 무관\n✅ ② setting(설정): 조정 가능한 매개변수의 '최적 설정'을 찾는다는 흐름 ← 정답\n❌ ③ name(이름): 설정값과 무관\n❌ ④ owner(소유자): 문맥과 무관",
+        "tip": "optimal setting=최적의 설정. nut and bolt(나사와 볼트)=조정 가능한 각 매개변수의 비유"
       },
-      "ans": 1,
+      "ans": 2,
       "ch": [
-        "optimal",
-        "random",
-        "initial",
-        "temporary"
+        "price",
+        "setting",
+        "name",
+        "owner"
       ]
     },
     {
@@ -209,19 +209,19 @@
       "diff": "쉬움",
       "pts": 4,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they <u>observe</u> their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
-      "stem": "다음 글의 밑줄 친 observe와 의미가 가장 가까운 것은?",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to <u>adjust</u> their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "stem": "다음 글의 밑줄 친 adjust와 의미가 가장 가까운 것은?",
       "det": {
-        "korean": "observe: 관찰하다, 알아채다",
-        "analysis": "❌ ① ignore(무시하다): observe의 반대\n✅ ② notice(알아채다): observe와 동의어 ← 정답\n❌ ③ create(창조하다): 무관\n❌ ④ delay(지연시키다): 무관",
-        "tip": "observe=관찰하다(syn: notice, watch, monitor)"
+        "korean": "adjust: 조정하다, 조절하다",
+        "analysis": "✅ ① alter(바꾸다/조절하다): adjust와 동의어 ← 정답\n❌ ② ignore(무시하다): 조정과 반대\n❌ ③ destroy(파괴하다): 의미가 과도하고 다름\n❌ ④ hide(숨기다): 조정과 무관",
+        "tip": "adjust=조정하다(syn: alter, modify, tune)"
       },
-      "ans": 2,
+      "ans": 1,
       "ch": [
+        "alter",
         "ignore",
-        "notice",
-        "create",
-        "delay"
+        "destroy",
+        "hide"
       ]
     },
     {
@@ -230,19 +230,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to <u>modify</u> when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
-      "stem": "다음 글의 밑줄 친 modify와 의미가 가장 가까운 것은?",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to <u>reduce</u> the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "stem": "다음 글의 밑줄 친 reduce와 의미가 가장 가까운 것은?",
       "det": {
-        "korean": "modify: 수정하다, 바꾸다",
-        "analysis": "✅ ① change(바꾸다): modify와 동의어 ← 정답\n❌ ② keep(유지하다): modify의 반대\n❌ ③ delete(삭제하다): 일부를 바꾸는 것이지 삭제가 아님\n❌ ④ copy(복사하다): 무관",
-        "tip": "modify=수정하다(syn: change, alter, adjust)"
+        "korean": "reduce: 줄이다, 감소시키다",
+        "analysis": "❌ ① expand(확대하다): reduce의 반대\n❌ ② collect(모으다): 감소와 무관\n✅ ③ decrease(감소시키다): reduce와 동의어 ← 정답\n❌ ④ observe(관찰하다): 의미가 다름",
+        "tip": "reduce=줄이다(syn: decrease, lower, lessen)"
       },
-      "ans": 1,
+      "ans": 3,
       "ch": [
-        "change",
-        "keep",
-        "delete",
-        "copy"
+        "expand",
+        "collect",
+        "decrease",
+        "observe"
       ]
     },
     {
@@ -251,19 +251,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know <u>precisely</u> in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
-      "stem": "다음 글의 밑줄 친 precisely와 의미가 가장 가까운 것은?",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to <u>modify</u> when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "stem": "다음 글의 밑줄 친 modify와 의미가 가장 가까운 것은?",
       "det": {
-        "korean": "precisely: 정확히, 꼭",
-        "analysis": "❌ ① roughly(대략): precisely의 반대\n✅ ② exactly(정확히): precisely와 동의어 ← 정답\n❌ ③ rarely(드물게): 빈도의 의미로 무관\n❌ ④ slowly(느리게): 속도의 의미로 무관",
-        "tip": "precisely=정확히(syn: exactly, accurately)"
+        "korean": "modify: 수정하다, 변경하다",
+        "analysis": "❌ ① preserve(보존하다): modify의 반대\n❌ ② ignore(무시하다): 수정과 무관\n❌ ③ repeat(반복하다): 의미가 다름\n✅ ④ change(바꾸다): modify와 동의어 ← 정답",
+        "tip": "modify=수정하다(syn: change, alter, adjust)"
       },
-      "ans": 2,
+      "ans": 4,
       "ch": [
-        "roughly",
-        "exactly",
-        "rarely",
-        "slowly"
+        "preserve",
+        "ignore",
+        "repeat",
+        "change"
       ]
     },
     {
@@ -272,19 +272,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to <u>reduce</u> the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
-      "stem": "다음 글의 밑줄 친 reduce와 의미가 가장 반대인 것은?",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is <u>simple</u>: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "stem": "다음 글의 밑줄 친 simple과 의미가 가장 반대인 것은?",
       "det": {
-        "korean": "reduce: 줄이다, 감소시키다",
-        "analysis": "❌ ① observe(관찰하다): 의미축이 다른 단어(소거용)\n❌ ② adjust(조정하다): 조정은 양의 증감 반의어가 아님\n✅ ③ increase(늘리다): reduce(줄이다)의 정반대 ← 정답\n❌ ④ measure(측정하다): 측정은 증감 반의어가 아님",
-        "tip": "reduce=줄이다(ant: increase). 오답 observe/adjust/measure는 다른 의미축"
+        "korean": "simple: 간단한, 단순한",
+        "analysis": "❌ ① clear(명확한): simple의 유의어에 가까움, 반의어 아님\n✅ ② complex(복잡한): simple(간단한)의 반의어 ← 정답\n❌ ③ quick(빠른): 속도 축으로 다른 의미\n❌ ④ honest(정직한): 성격 축으로 무관",
+        "tip": "simple=간단한(ant: complex, complicated)"
       },
-      "ans": 3,
+      "ans": 2,
       "ch": [
-        "observe",
-        "adjust",
-        "increase",
-        "measure"
+        "clear",
+        "complex",
+        "quick",
+        "honest"
       ]
     },
     {
@@ -293,19 +293,19 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is <u>simple</u>: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
-      "stem": "다음 글의 밑줄 친 simple과 의미가 가장 반대인 것은?",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly <u>slow</u>: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "stem": "다음 글의 밑줄 친 slow와 의미가 가장 반대인 것은?",
       "det": {
-        "korean": "simple: 단순한, 간단한",
-        "analysis": "❌ ① brief(짧은): 길이 축이지 복잡성 반의어 아님\n❌ ② quiet(조용한): 소리 축으로 무관\n❌ ③ smooth(매끄러운): 질감 축으로 무관\n✅ ④ complex(복잡한): simple(단순한)의 정반대 ← 정답",
-        "tip": "simple=단순한(ant: complex/complicated). 오답 brief/quiet/smooth는 다른 의미축"
+        "korean": "slow: 느린",
+        "analysis": "✅ ① fast(빠른): slow(느린)의 반의어 ← 정답\n❌ ② steady(꾸준한): 속도의 반대가 아닌 안정성 축\n❌ ③ careful(신중한): 태도 축으로 무관\n❌ ④ quiet(조용한): 소리 축으로 무관",
+        "tip": "slow=느린(ant: fast, rapid, quick). 오답 steady/careful은 다른 의미축"
       },
-      "ans": 4,
+      "ans": 1,
       "ch": [
-        "brief",
-        "quiet",
-        "smooth",
-        "complex"
+        "fast",
+        "steady",
+        "careful",
+        "quiet"
       ]
     },
     {
@@ -314,18 +314,18 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "passage": "(A) The learning system keeps adjusting its internal <u>state</u> until the output errors become as small as possible.\n\n(B) The witness was asked to <u>state</u> her full name clearly before the court began.",
+      "passage": "(A) During the press conference, the mayor will <u>state</u> his official position on the new policy. Reporters are waiting for his clear and final answer.\n\n(B) The network observes its errors and then adjusts its internal <u>state</u> little by little in order to reduce them.",
       "stem": "다음 글의 (A)와 (B)에서 밑줄 친 <b>state</b>의 문맥적 의미가 가장 적절한 것은?",
       "det": {
-        "korean": "state: (A) 상태 (명사) (B) 진술하다/말하다 (동사)",
-        "analysis": "❌ ① (A) 상태 - (B) 상태: (B)는 'state her name'으로 목적어를 취하는 동사\n❌ ② (A) 진술하다 - (B) 진술하다: (A)는 its internal state로 소유격의 수식을 받는 명사\n✅ ③ (A) 상태 - (B) 진술하다: (A) internal state=내부 '상태'(명사), (B) state her name=이름을 '진술하다'(동사) ← 정답\n❌ ④ (A) 진술하다 - (B) 상태: 품사가 뒤바뀜",
-        "tip": "state: 명사=상태, 동사=진술하다/말하다. 소유격 뒤면 명사, 목적어를 취하면 동사"
+        "korean": "state: (A) 진술하다/밝히다 (동사) (B) 상태 (명사)",
+        "analysis": "❌ ① (A) 상태 - (B) 진술하다: (A)의 will state는 '진술하다'(동사)\n❌ ② (A) 상태 - (B) 상태: (A)는 동사이므로 오류\n❌ ③ (A) 진술하다 - (B) 진술하다: (B) internal state는 '상태'(명사)\n✅ ④ (A) 진술하다 - (B) 상태: (A) 입장을 '밝히다'(동사), (B) 내부 '상태'(명사) ← 정답",
+        "tip": "state: 동사=진술하다/밝히다, 명사=상태. will 뒤면 동사, internal(형용사) 뒤면 명사"
       },
-      "ans": 3,
+      "ans": 4,
       "ch": [
+        "(A) 상태 - (B) 진술하다",
         "(A) 상태 - (B) 상태",
         "(A) 진술하다 - (B) 진술하다",
-        "(A) 상태 - (B) 진술하다",
         "(A) 진술하다 - (B) 상태"
       ]
     },
@@ -336,18 +336,18 @@
       "pts": 5,
       "fmt": "mc",
       "passage": "",
-      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"to make small changes to something, especially in order to improve it or make it more suitable\"",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"the state or condition of being wrong in conduct or judgement; a mistake\"",
       "det": {
-        "korean": "어떤 것을 더 낫거나 알맞게 만들기 위해 조금씩 바꾸다",
-        "analysis": "❌ ① observe(관찰하다): 지켜보는 행위로 변경과 무관\n✅ ② modify(수정하다): '일부를 바꿔 개선하다'=정의와 일치 ← 정답\n❌ ③ reduce(줄이다): 양을 감소시키는 것으로 정의와 다름\n❌ ④ guide(안내하다): 방향을 이끄는 것으로 정의와 다름",
-        "tip": "modify=수정하다. '조금씩 바꾸다(make small changes)'가 핵심 단서"
+        "korean": "행동이나 판단이 잘못된 상태; 실수",
+        "analysis": "✅ ① error(오류): 잘못됨/실수의 정의와 일치 ← 정답\n❌ ② answer(답): 질문에 대한 응답\n❌ ③ image(이미지): 시각적 형상\n❌ ④ recipe(방법/조리법): 절차나 방법",
+        "tip": "error=오류/실수. 신경망은 error(오류)를 관찰하고 줄이며 학습"
       },
-      "ans": 2,
+      "ans": 1,
       "ch": [
-        "observe",
-        "modify",
-        "reduce",
-        "guide"
+        "error",
+        "answer",
+        "image",
+        "recipe"
       ]
     },
     {
@@ -356,16 +356,16 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "written",
-      "passage": "We tell the network exactly which response it should have activated at the output, and we know __________ (precise) in which direction to adjust the parameters if they lead to an error.",
+      "passage": "That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires __________ (apply) this recipe thousands, millions, even billions of times.",
       "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)",
       "det": {
-        "korean": "precise → precisely: 동사 know를 수식하는 부사 형태",
-        "analysis": "precise(형용사) → precisely(부사). 동사 know(알다)가 '어느 방향으로 조정할지'를 어떻게 아는지를 나타내므로 부사가 필요. 형용사 + -ly = 부사",
-        "tip": "precisely=정확히(형용사 precise + -ly)"
+        "korean": "apply → applying: 동사 require는 목적어로 동명사를 취함",
+        "analysis": "apply(동사원형) → applying(동명사). 'require + 동명사(V-ing)' 구조로, '~하는 것을 요구하다'의 의미. require는 뒤에 to부정사가 아니라 동명사를 목적어로 취하는 동사. require applying=적용하는 것을 요구하다",
+        "tip": "require + V-ing(동명사). require applying this recipe=이 방법을 적용할 것을 요구하다"
       },
-      "wa": "precisely",
+      "wa": "applying",
       "accept": [
-        "precisely"
+        "applying"
       ]
     },
     {
@@ -374,16 +374,16 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "written",
-      "passage": "A __________ (mathematics) calculation makes it possible to know exactly which connections to modify when the network activates a wrong output too often.",
+      "passage": "The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small __________ (correct) in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times.",
       "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)",
       "det": {
-        "korean": "mathematics → mathematical: 명사 calculation을 수식하는 형용사 형태",
-        "analysis": "mathematics(명사) → mathematical(형용사). 뒤의 명사 calculation(계산)을 꾸며 '수학적 계산'을 나타내므로 형용사가 필요. 명사 mathematics → 형용사 mathematical",
-        "tip": "mathematical=수학적인(명사 mathematics의 형용사형)"
+        "korean": "correct → correction: 관사 a와 형용사 small 뒤에 오는 명사 형태",
+        "analysis": "correct(동사/형용사) → correction(명사). 부정관사 a + 형용사 small 다음에는 명사가 와야 함. 'make a small correction'=작은 수정을 하다. 동사/형용사 correct를 명사 correction으로 전환",
+        "tip": "a + 형용사 + 명사. correct → correction(명사). make a correction=수정하다"
       },
-      "wa": "mathematical",
+      "wa": "correction",
       "accept": [
-        "mathematical"
+        "correction"
       ]
     },
     {
@@ -392,19 +392,19 @@
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are __________ into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to __________. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "det": {
-        "korean": "오류 신호가 파라미터를 수정하기 위해 신경망으로 ______된다",
-        "analysis": "✅ ① sent back(되돌려 보내지는): 오류 신호가 신경망으로 '되돌려 보내져' 파라미터를 수정함 — '역전파(backpropagation)'와 일치 ← 정답\n❌ ② given up(포기되는): 신호를 포기한다는 의미로 모순\n❌ ③ taken apart(분해되는): 신경망을 분해한다는 내용은 없음\n❌ ④ shut down(차단되는/종료되는): 신호를 차단하면 파라미터 수정 불가",
-        "tip": "be sent back into~=~로 되돌려 보내지다. 'backpropagation(역전파)'이 단서"
+        "korean": "신경망은 오류를 관찰하고, 가장 잘 ______ 수 있다고 느끼는 방향으로 내부 상태를 조정한다 — '오류를 줄이다'",
+        "analysis": "❌ ① ignore the data(데이터를 무시하다): 오류를 관찰·활용하는 흐름과 반대\n✅ ② reduce the errors(오류를 줄이다): 오류를 관찰 → 오류를 줄이는 방향으로 조정 ← 정답\n❌ ③ copy the inputs(입력을 복사하다): 조정·학습 문맥과 무관\n❌ ④ delay the output(출력을 미루다): 문맥과 무관",
+        "tip": "observe errors → adjust ... to reduce the errors. 오류 관찰이 오류 감소로 이어지는 흐름"
       },
-      "ans": 1,
+      "ans": 2,
       "ch": [
-        "sent back",
-        "given up",
-        "taken apart",
-        "shut down"
+        "ignore the data",
+        "reduce the errors",
+        "copy the inputs",
+        "delay the output"
       ]
     },
     {
@@ -413,19 +413,19 @@
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in __________. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover the optimal setting for every nut and bolt.",
+      "passage": "Most artificial neural networks used in present-day artificial intelligence, despite their millions of inputs, outputs, and adjustable parameters, operate just like our proverbial hunter: they observe their errors and use them to adjust their internal state in the direction that they feel is best able to reduce the errors. In many cases, such learning is tightly guided. We tell the network exactly which response it should have activated at the output (\"it is a 1, not a 7\"), and we know precisely in which direction to adjust the parameters if they lead to an error (a mathematical calculation makes it possible to know exactly which connections to modify when the network activates the output \"7\" too often in response to an image of the number 1). In machine learning parlance, this situation is known as \"supervised learning\" (because someone, who can be likened to a supervisor, knows the correct answer that the system must give) and \"error backpropagation\" (because error signals are sent back into the network in order to modify its parameters). The procedure is simple: I try an answer, I am told what I should have answered, I measure my error, and I adjust my parameters to reduce it. At each step, I make only a small correction in the right direction. That's why such computer-based learning can be incredibly slow: learning a complex activity, like playing Tetris, requires applying this recipe thousands, millions, even billions of times. In a space that includes a multitude of adjustable parameters, it can take a long time to discover __________ for every nut and bolt.",
       "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
       "det": {
-        "korean": "매 단계에서 나는 ______으로 오직 작은 수정만 한다",
-        "analysis": "❌ ① a random guess(무작위 추측): 오류를 알려 주고 조정하므로 무작위가 아님\n❌ ② the wrong path(잘못된 길): 오류를 줄이는 쪽으로 가므로 모순\n❌ ③ an unknown area(미지의 영역): 조정 방향을 정확히 아는 문맥과 다름\n✅ ④ the right direction(올바른 방향): 오류를 줄이기 위해 '올바른 방향'으로 작은 수정을 함 ← 정답",
-        "tip": "a small correction in the right direction=올바른 방향으로의 작은 수정"
+        "korean": "조정 가능한 매개변수가 많은 공간에서 ______을 발견하는 데 오랜 시간이 걸릴 수 있다 — '최적의 설정'",
+        "analysis": "❌ ① a quick shortcut(빠른 지름길): 오랜 시간이 걸린다는 흐름과 모순\n❌ ② the cheapest option(가장 싼 선택): 비용은 본문 논점이 아님\n✅ ③ the optimal setting(최적의 설정): 수많은 매개변수 중 최적값을 찾는 데 시간이 오래 걸림 ← 정답\n❌ ④ a random guess(무작위 추측): 최적값 탐색과 반대",
+        "tip": "discover the optimal setting=최적의 설정을 발견하다. 매개변수가 많을수록 탐색에 시간 소요"
       },
-      "ans": 4,
+      "ans": 3,
       "ch": [
-        "a random guess",
-        "the wrong path",
-        "an unknown area",
-        "the right direction"
+        "a quick shortcut",
+        "the cheapest option",
+        "the optimal setting",
+        "a random guess"
       ]
     }
   ]
