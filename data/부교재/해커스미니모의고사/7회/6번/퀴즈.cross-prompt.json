@@ -1,0 +1,274 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "퀴즈",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "7회 6번 · 빈칸 추론하기",
+    "subject": "해커스 수능영어독해 미니 모의고사 완성",
+    "pub": "7회",
+    "lesson": "7회6번",
+    "section": "6번",
+    "histKey": "quiztest__76_6_v6"
+  },
+  "fullPassage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "어법",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region ①<u>existed</u> on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and ②<u>combine</u>. The force of this collision ③<u>created</u> immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily ④<u>drifted</u> north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중 어법상 적절하지 않은 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "어법",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which ①<u>forms</u> parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they ②<u>collided</u> and combined. The force of this collision created immense pressure, ③<u>resulted</u> in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also ④<u>triggered</u> the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중 어법상 적절하지 않은 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "어법",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region ①<u>existed</u> on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and ②<u>combined</u>. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents ③<u>converged</u>. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, ④<u>what further diversified</u> its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중 어법상 적절하지 않은 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s ①<u>tectonic</u> history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and ②<u>scattered</u>. The force of this collision created immense ③<u>pressure</u>, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land ④<u>steadily</u> drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern ①<u>region</u> existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created ②<u>immense</u> pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents ③<u>parted</u>. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further ④<u>diversified</u> its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they __________. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "collided and combined",
+        "drifted and vanished",
+        "cooled and hardened",
+        "spread and separated"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in __________. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "minor surface cracks",
+        "gentle ocean currents",
+        "sudden climate cooling",
+        "significant geological changes"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "내용 일치/불일치",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "위 글의 내용과 일치하는 것은?",
+      "ch": [
+        "아일랜드가 다양한 지질을 지니게 된 것은 그 땅의 움직임 덕분이다.",
+        "아일랜드는 지구에서 면적이 가장 넓은 섬이다.",
+        "두 대륙은 충돌 없이 처음부터 나란히 붙어 있었다.",
+        "충돌로 생긴 산맥은 동서 방향으로만 뻗어 있다."
+      ]
+    },
+    {
+      "id": 9,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "위 글의 내용과 일치하지 <b>않는</b> 것은?",
+      "ch": [
+        "곤드와나는 오늘날 유럽·아프리카·호주의 일부를 이룬다.",
+        "두 대륙 사이의 대양이 닫히면서 둘이 하나로 합쳐졌다.",
+        "충돌은 기존의 암석을 전혀 변화시키지 않았다.",
+        "땅은 북쪽으로 이동한 뒤 물에 덮여 퇴적층이 생겼다."
+      ]
+    },
+    {
+      "id": 10,
+      "type": "내용 일치/불일치",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "위 글의 내용과 일치하는 것은?",
+      "ch": [
+        "라우렌시아는 현재 아프리카 대륙의 일부를 이룬다.",
+        "아일랜드 남부는 한때 곤드와나 대륙에 속해 있었다.",
+        "두 대륙의 충돌은 아무런 압력도 만들지 않았다.",
+        "아일랜드는 면적이 넓어 지질이 매우 단조롭다."
+      ]
+    },
+    {
+      "id": 11,
+      "type": "주제",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "ch": [
+        "the dangers of living near active volcanoes",
+        "various ways to mine minerals from tall mountains",
+        "why the Atlantic Ocean keeps expanding today",
+        "how tectonic movements shaped Ireland's diverse geology"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "제목",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 제목으로 가장 적절한 것은?",
+      "ch": [
+        "Ireland: A Land Built by Colliding Continents",
+        "The Vanishing Islands of the North Atlantic",
+        "How Oceans Slowly Divide Every Continent",
+        "The Race to Mine Ireland's Rare Minerals"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "함축의미 추론",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it <u>the distinction of an unusually diverse geology</u>. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 부분이 의미하는 바로 가장 적절한 것은?",
+      "ch": [
+        "아일랜드가 이웃 나라보다 국토 면적이 훨씬 넓다는 뜻",
+        "아일랜드의 지질이 오랜 세월 전혀 변하지 않았다는 뜻",
+        "아일랜드가 작은 면적에 비해 유별나게 다양한 지질을 지녔다는 뜻",
+        "아일랜드가 지진이 잦아 사람이 살기 위험한 곳이라는 뜻"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "지칭추론",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, <u>they</u> collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 밑줄 친 <b>they</b>가 가리키는 것으로 가장 적절한 것은?",
+      "ch": [
+        "산맥들",
+        "두 대륙",
+        "대양들",
+        "퇴적층들"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "빈칸추론",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of __________, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "existing rock",
+        "ocean water",
+        "molten lava",
+        "desert sand"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "서술형 — 조건영작",
+      "diff": "쉬움",
+      "fmt": "written",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. __________, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 우리말과 같은 뜻이 되도록 [조건]의 단어를 모두 사용하여 (영어로) 쓰시오.\n\n이 충돌의 힘이 거대한 압력을 만들어 냈다.\n[조건] (1) collision, created, force, immense, of, pressure, The, this 를 모두 사용 (2) 8단어로 쓸 것"
+    },
+    {
+      "id": 17,
+      "type": "서술형 — 어형변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "One of the most __________ (intrigue) spots on the planet is Ireland. The movement of its land gives the island an unusually diverse geology. Hundreds of millions of years ago, its northern and southern parts lay on two entirely different continents.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "서술형 — 조건영작",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as __________. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 우리말과 같은 뜻이 되도록 [조건]의 단어를 모두 사용하여 (영어로) 쓰시오.\n\n대륙들이 만난 그 경계\n[조건] (1) along, boundary, continents, converged, the, the, which 를 모두 사용 (2) 7단어로 쓸 것"
+    },
+    {
+      "id": 19,
+      "type": "서술형 — 어순배열",
+      "diff": "쉬움",
+      "fmt": "written",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, which forms parts of North America today, and __________, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 주어진 단어를 올바른 순서로 배열하시오. (영어로)\n\n[ Gondwana / continent / located / of / on / part / southern / the / the / was ] (10단어)"
+    },
+    {
+      "id": 20,
+      "type": "서술형 — 조건영작",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "In Earth’s tectonic history, one of the most intriguing spots on the planet is Ireland, for despite its relatively small area, the movement of its land would give it the distinction of an unusually diverse geology. Hundreds of millions of years ago, Ireland’s northern region existed on the continent of Laurentia, __________, and the southern part was located on the continent of Gondwana, which now composes sections of Europe, Africa, and Australia. The two continents were initially divided by an ocean, but later, as the ocean closed, they collided and combined. The force of this collision created immense pressure, resulting in significant geological changes. It caused the formation of mountain ranges with a northeast-to-southwest orientation —the same direction as the boundary along which the continents converged. It also triggered the transformation of existing rock, creating some new types. Then the land steadily drifted north and was covered by water, which further diversified its geology by allowing for the formation of sedimentary deposits on the island.",
+      "stem": "다음 우리말과 같은 뜻이 되도록 [조건]의 단어를 모두 사용하여 (영어로) 쓰시오.\n\n그런데 그것은 오늘날 북아메리카의 일부를 이룬다\n[조건] (1) America, forms, North, of, parts, today, which 를 모두 사용 (2) 7단어로 쓸 것"
+    }
+  ]
+}

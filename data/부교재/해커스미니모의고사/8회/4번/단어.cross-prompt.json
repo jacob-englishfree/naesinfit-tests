@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "8회 4번 (어법)",
+    "subject": "해커스미니모의고사",
+    "pub": "8회",
+    "lesson": "4번",
+    "histKey": "wordtest__4__v6"
+  },
+  "fullPassage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is <b>(A)</b>[crucial / trivial] for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain <b>(B)</b>[scarce / sufficient] food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and <b>(C)</b>[expand / shrink] its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "crucial — sufficient — expand",
+        "trivial — sufficient — expand",
+        "crucial — scarce — expand",
+        "crucial — sufficient — shrink"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually <b>(A)</b>[beneficial / harmful] relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral <b>(B)</b>[releases / absorbs] the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they <b>(C)</b>[transfer / withhold] a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "harmful — absorbs — transfer",
+        "beneficial — releases — transfer",
+        "beneficial — absorbs — withhold",
+        "beneficial — absorbs — transfer"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a <b>(A)</b>[complex / simple] interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in <b>(B)</b>[deep / shallow] water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its <b>(C)</b>[bright / dull] colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "simple — shallow — bright",
+        "complex — shallow — bright",
+        "complex — deep — bright",
+        "complex — shallow — dull"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their ①<u>survival</u> and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship ②<u>originated</u> as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as ③<u>barriers</u> for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like ④<u>structures</u>. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has ①<u>continued</u> for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products ②<u>absorbed</u> by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can ③<u>easily</u> reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright ④<u>colors</u> but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a ①<u>means</u> for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a ②<u>readily</u> attainable food source for the algae. In addition, coral usually lives in shallow water in which ③<u>sunlight</u> can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times ④<u>slower</u> than those without.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex __________ among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "interdependence",
+        "competition",
+        "hierarchy",
+        "separation"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create __________ using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "minerals",
+        "predators",
+        "nutrients",
+        "currents"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as __________ for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "threats",
+        "tools",
+        "signals",
+        "shelters"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to <u>obtain</u> sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 obtain와 의미가 가장 가까운 것은?",
+      "ch": [
+        "reject",
+        "acquire",
+        "measure",
+        "delay"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is <u>crucial</u> for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 crucial와 의미가 가장 가까운 것은?",
+      "ch": [
+        "trivial",
+        "optional",
+        "essential",
+        "temporary"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and <u>prosperity</u>. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 prosperity와 의미가 가장 가까운 것은?",
+      "ch": [
+        "success",
+        "poverty",
+        "isolation",
+        "conflict"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a <u>large</u> amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 large와 의미가 가장 반대인 것은?",
+      "ch": [
+        "enormous",
+        "tiny",
+        "distant",
+        "frequent"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily <u>attainable</u> food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 밑줄 친 attainable와 의미가 가장 반대인 것은?",
+      "ch": [
+        "available",
+        "abundant",
+        "valuable",
+        "inaccessible"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) The thieves came up with a clever <u>scheme</u> to steal the money without being caught.\n(B) The grand <u>scheme</u> of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship is crucial for their survival.",
+      "stem": "다음 (A), (B)에서 밑줄 친 <b>scheme</b>의 의미로 가장 적절한 것은?",
+      "ch": [
+        "(A) 조직/체계  —  (B) 계획/책략",
+        "(A) 계획/책략  —  (B) 조직/체계",
+        "(A) 계획/책략  —  (B) 도표/그림",
+        "(A) 색깔/색조  —  (B) 조직/체계"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"a close, mutually beneficial relationship between two different kinds of living organisms\"",
+      "ch": [
+        "migration",
+        "parasitism",
+        "symbiosis",
+        "evolution"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and __________ (prosper). One such relationship is the one between coral and algae, which has continued for over 200 million years.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로 쓰시오)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "The grand scheme of nature __________ (reveal) a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로 쓰시오)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a mutually beneficial relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a __________ food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "readily attainable",
+        "strictly forbidden",
+        "rarely available",
+        "highly toxic"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "The grand scheme of nature reveals a complex interdependence among organisms, where a __________ relationship, termed symbiosis, is crucial for their survival and prosperity. One such relationship is the one between coral and algae, which has continued for over 200 million years. Experts believe that the relationship originated as a means for each organism to obtain sufficient food in otherwise nutrient-poor waters. When coral and algae come together, coral absorbs the small algae into its tissues. These tissues serve as shelters for the algae, and the waste products emitted by the coral are a readily attainable food source for the algae. In addition, coral usually lives in shallow water in which sunlight can easily reach it. Similar to plants, algae create nutrients using sunlight, and they transfer a large amount of them to the coral. This nutrient supply not only gives coral its bright colors but also helps it build and expand its stony skeleton-like structures. In fact, corals with algae grow up to 10 times faster than those without.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "strictly competitive",
+        "entirely one-sided",
+        "mutually beneficial",
+        "completely unrelated"
+      ]
+    }
+  ]
+}

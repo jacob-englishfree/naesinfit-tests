@@ -1,0 +1,291 @@
+{
+  "_": [
+    "너는 독립 검증자다. 아래 20문항을 passage+stem+ch만 보고 풀이한다.",
+    "ans/wa는 알 수 없다. 오직 본문 단서와 문법 지식만으로 판단.",
+    "각 문항마다 {id, pick, reason} 출력. mc는 pick=1~4 (1-based). written은 pick=정답 문자열.",
+    "정답 모호하면 가장 그럴듯한 것 선택 + reason에 \"모호\" 표기.",
+    "출력은 JSON: {\"solves\":[{id,pick,reason},...]}"
+  ],
+  "testType": "단어",
+  "ei": {
+    "total": 100,
+    "time": 1200,
+    "totalQ": 20,
+    "title": "8회 7번 (순서)",
+    "subject": "해커스미니모의고사",
+    "pub": "8회",
+    "lesson": "7번",
+    "histKey": "wordtest__7__v6"
+  },
+  "fullPassage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+  "questions": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can <b>(A)</b>[preserve / destroy] these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they <b>(B)</b>[trap / release] the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more <b>(C)</b>[inaccurate / accurate] climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "preserve — trap — accurate",
+        "destroy — trap — accurate",
+        "preserve — release — accurate",
+        "preserve — trap — inaccurate"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a <b>(A)</b>[stable / volatile] environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an <b>(B)</b>[unusually / typically] cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and <b>(C)</b>[worsen / improve] predictions about how the climate might change in the future.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "volatile — unusually — improve",
+        "stable — typically — improve",
+        "stable — unusually — improve",
+        "stable — unusually — worsen"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have <b>(A)</b>[gained / lost] insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses <b>(B)</b>[enable / prevent] climate researchers to compare past climate trends with current ones. They are <b>(C)</b>[trivial / crucial], as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "ch": [
+        "lost — enable — crucial",
+        "gained — enable — crucial",
+        "gained — prevent — crucial",
+        "gained — enable — trivial"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long ①<u>periods</u>. Most of the records are found in stalagmites, cone-shaped ②<u>formations</u> on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and ③<u>crystallizes</u>. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained ④<u>confusion</u> about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was ①<u>removed</u>. By analyzing the composition of each layer, scientists have gained insights about ②<u>temperature</u> and precipitation patterns in different periods. For example, they found ③<u>evidence</u> of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve ④<u>predictions</u> about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their ①<u>layers</u>, which provide information about the climatic conditions at the time the water was deposited. By analyzing the ②<u>composition</u> of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to ③<u>confuse</u> past climate trends with ④<u>current</u> ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they __________, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "shrink",
+        "grow",
+        "melt",
+        "evaporate"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation __________ in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "symptoms",
+        "policies",
+        "statistics",
+        "patterns"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic __________ at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "conditions",
+        "materials",
+        "locations",
+        "temperatures"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they <u>maintain</u> a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 maintain과 의미가 가장 가까운 것은?",
+      "ch": [
+        "damage",
+        "ignore",
+        "sustain",
+        "expose"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these <u>records</u> for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 records와 의미가 가장 가까운 것은?",
+      "ch": [
+        "objects",
+        "documents",
+        "samples",
+        "images"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition <u>suggested</u> less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 suggested와 의미가 가장 가까운 것은?",
+      "ch": [
+        "denied",
+        "ignored",
+        "prevented",
+        "indicated"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to <u>lower</u> temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 lower와 의미가 가장 반대인 것은?",
+      "ch": [
+        "higher",
+        "stable",
+        "similar",
+        "average"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less <u>evaporation</u> due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 밑줄 친 evaporation과 의미가 가장 반대인 것은?",
+      "ch": [
+        "absorption",
+        "expansion",
+        "condensation",
+        "precipitation"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "(A) Scientists compared the historical data with <u>current</u> climate readings to check their accuracy.\n(B) The strong ocean <u>current</u> pulled the small boat far away from the shore within minutes.",
+      "stem": "다음 밑줄 친 <b>current</b>가 (A)의 의미와 가장 가까운 것은?",
+      "ch": [
+        "Strong currents near the coast make swimming there dangerous.",
+        "The current price of imported oil has risen sharply this month.",
+        "An electric current powers the small device.",
+        "Fish must swim against the current to reach the upstream lake."
+      ]
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"water that falls from the sky in the form of rain, snow, or hail\"",
+      "ch": [
+        "evaporation",
+        "condensation",
+        "humidity",
+        "precipitation"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "fmt": "written",
+      "passage": "Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are __________ (form) when rainwater full of minerals from the soil drips into caves and crystallizes.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "fmt": "written",
+      "passage": "They are crucial, as they can be used to develop more accurate climate models and improve __________ (predict) about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오. (영어로)"
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose __________ suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate climate models and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "oxygen composition",
+        "iron content",
+        "carbon levels",
+        "mineral density"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "fmt": "mc",
+      "passage": "Caves hold archives of climate history. Since they maintain a stable environment, they can preserve these records for long periods. Most of the records are found in stalagmites, cone-shaped formations on the floor of caves. These structures are formed when rainwater full of minerals from the soil drips into caves and crystallizes. As they grow, they trap the chemical signatures of the rainwater in their layers, which provide information about the climatic conditions at the time the water was deposited. By analyzing the composition of each layer, scientists have gained insights about temperature and precipitation patterns in different periods. For example, they found evidence of an unusually cold period during the 16th century in a stalagmite in southern Germany, whose oxygen composition suggested less evaporation due to lower temperatures. Such analyses enable climate researchers to compare past climate trends with current ones. They are crucial, as they can be used to develop more accurate __________ and improve predictions about how the climate might change in the future.",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "ch": [
+        "temperature charts",
+        "weather forecasts",
+        "climate models",
+        "energy grids"
+      ]
+    }
+  ]
+}
