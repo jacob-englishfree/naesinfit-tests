@@ -20,6 +20,7 @@ export const TEST_APP_DEPLOY: Record<string, TextbookDeploy> = {
   "C1-YBM박": {"path":"공통영어1/YBM박준언","units":["1과","2과","3과","4과"],"sections":{"1과":["본문","Further Reading"],"2과":["본문","Further Reading"],"3과":["본문","Further Reading"],"4과":["본문","Further Reading"]}},
   "C1-능률민": {"path":"공통영어1/능률민병천","units":["1과","2과","3과","4과"],"sections":{"1과":["본문"],"2과":["본문"],"3과":["본문"],"4과":["본문"]}},
   "C1-능률오": {"path":"공통영어1/능률오선영","units":["1과","2과","3과","4과"],"sections":{"1과":["본문"],"2과":["본문"],"3과":["본문","Culture Notes"],"4과":["본문","Culture Notes"]}},
+  "C2-능률오": {"path":"공통영어2/능률오선영","units":["1과","2과","3과","4과"],"sections":{"1과":["본문"],"2과":["본문"],"3과":["본문","Culture Notes"],"4과":["본문"]}},
   "C1-동아": {"path":"공통영어1/동아이병민","units":["1과","2과","3과","4과"],"sections":{"1과":["본문"],"2과":["본문"],"3과":["본문"],"4과":["본문"]}},
   "C1-미래": {"path":"공통영어1/미래엔김성연","units":["1과","2과","3과","4과"],"sections":{"1과":["본문","Deep Learning"],"2과":["본문","Deep Learning"],"3과":["본문","Deep Learning"],"4과":["본문","Deep Learning"]}},
   "C1-비상": {"path":"공통영어1/비상홍","units":["1과","2과","3과","4과"],"sections":{"1과":["본문","Read More"],"2과":["본문","Read Culture"],"3과":["본문","Read More"],"4과":["본문","Read Culture"]}},
@@ -37,6 +38,7 @@ export const TEST_APP_DEPLOY: Record<string, TextbookDeploy> = {
   "E2-YBM한": {"path":"영어2/YBM한상호","units":["1과","2과"],"sections":{"1과":["본문"],"2과":["본문"]}},
   "M2-YBM김은형": {"path":"중2/YBM김은형","units":["1과","2과"],"sections":{"1과":["본문"],"2과":["본문"]}},
   "M3-동아윤정미": {"path":"중3/동아윤정미","units":["5과","6과","7과","8과"],"sections":{"5과":["본문"],"6과":["본문"],"7과":["본문"],"8과":["본문"]}},
+  "M3-YBM송미정": {"path":"중3/YBM송미정","units":["5과","6과"],"sections":{"5과":["본문"],"6과":["본문"]}},
 };
 
 export const TEST_APP_SUPPLEMENT_DEPLOY: Record<string, { path: string; units: string[]; sections?: Record<string, string[]> }> = {
@@ -104,6 +106,7 @@ export const CONTENT_NAMES: Record<string, string> = {
   "C1-YBM박": "공통영어1 YBM(박준언)",
   "C1-능률민": "공통영어1 능률(민병천)",
   "C1-능률오": "공통영어1 능률(오선영)",
+  "C2-능률오": "공통영어2 능률(오선영)",
   "C1-동아": "공통영어1 동아(이병민)",
   "C1-미래": "공통영어1 미래(엔김성연)",
   "C1-비상": "공통영어1 비상(홍)",
@@ -121,6 +124,7 @@ export const CONTENT_NAMES: Record<string, string> = {
   "E2-YBM한": "영어2 YBM(한상호)",
   "M2-YBM김은형": "중2 YBM(김은형)",
   "M3-동아윤정미": "중3 동아(윤정미)",
+  "M3-YBM송미정": "중3 YBM(송미정)",
 };
 
 export const DESIGN_TOKENS = {
