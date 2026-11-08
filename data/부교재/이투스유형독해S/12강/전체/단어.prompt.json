@@ -1,0 +1,393 @@
+{
+  "_": [
+    "각 슬롯 판단만. passage 복붙 금지(스크립트가 overlay로 생성). 다의어만 passage 직접 작성.",
+    "overlay 단어=fullPassage에 존재. 서술형: stem에 (N단어)+(영어로)+accept 3개+.",
+    "ans: 1-based (1,2,3,4), 최대5개, 3연속금지",
+    "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
+  ],
+  "source": "부교재",
+  "sourcePath": "이투스유형독해S/12강/전체",
+  "testType": "단어",
+  "fullPassage": "[P01] A young child may have many experiences with an apple—such as eating it, feeling that it is round, and seeing that it is green or red—long before being asked to label it with the word apple. Music should follow this same pattern of learning. In other words, the child should have experiences with sounds by singing, playing instruments, listening to fast and slow tempos, or loud and soft dynamics before being asked to speak about these labels (fast or slow, loud or soft). Because music is the most abstract of all the arts—that is, it passes through time and exists only in the memory—actual experiences with musical sounds are essential before explaining any specific musical concept. [P02] The success and vigor of scientific research, and the effectiveness of its technological application, are generally accepted as indicators of the quality of a nation's life. Science is so important, and expensive, that the major policy decisions concerning its development are increasingly being taken by the State, rather than being left to the judgment of the scientists and their private patrons. Accordingly, the progress of science becomes a matter of politics; everyone in the community is involved in the consequences of decisions on 'science policy,' and every citizen is responsible, however indirectly, for the formation of those decisions. This social involvement of science will necessarily increase over the decades to come. An increasing number of practical problems will need to be solved through planned programs of scientific and technological research, and the rising cost of the many-sided work of science will call for the most direct involvement of the State in its planning. [P03] Whether a negotiator's goal is a contract or a relationship, the negotiated transactions in almost all cases will be embodied in some sort of written agreement. Cultural factors influence the form of the written agreement that the parties make. Generally, Americans prefer very detailed contracts that attempt to anticipate all possible circumstances and eventualities, no matter how unlikely. Why? Because the deal is the contract itself, and one must refer to the contract to handle new situations that may arise. Other cultures, such as the Chinese, prefer a contract in the form of general principles rather than detailed rules. Why? Because it is claimed that the essence of the deal is the relationship between the parties. If unexpected circumstances arise, the parties should look to their relationship, not the contract, to solve the problem. So, in some cases, a Chinese negotiator may interpret the American drive to specify all possibilities as evidence of a lack of confidence in the stability of the underlying relationship. [P04] In an experiment conducted in the early 1960s, subjects were led to believe that they were participating in a study about the effects of a \"vitamin injection.\" In truth, the injection they received was a small dose of epinephrine, a drug that stimulates the nervous system and produces a degree of physiological arousal. Half the subjects in one condition of the experiment were told that the \"vitamins\" would lead to an increased heart rate, flushed face, and slight trembling; while in another condition the other half of the volunteers were given no information at all about side effects. The result? When placed in a room with a very happy person, the subjects with no explanation of the drug's effects reported that they were also feeling playful and positive. When placed in a room with an angry person, the uninformed subjects reported feeling hostile and negative. But if subjects knew that their arousal was the result of the injection, their mood remained unchanged by the reactions of those around them.",
+  "title": "12강 문단 요약",
+  "typeRules": {
+    "(A)(B)(C) 조합형": {
+      "fmt": "mc",
+      "stem": "다음 글의 (A), (B), (C)에 들어갈 말로 가장 적절한 것끼리 짝지은 것은?",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "passageRule": "fullPassage + <b>(A)</b>[w1/w2] 마커",
+      "answerRule": "원문 단어 3개 조합이 정답, 오답은 1~2개를 반의어로 교체",
+      "ch": "4개"
+    },
+    "문맥상 부적절한 어휘": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 ①~④ 중, 문맥상 낱말의 쓰임이 적절하지 <b>않은</b> 것은?",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "passageRule": "fullPassage + ①<u>word</u>×4",
+      "answerRule": "정답 1개만 반의어로 교체, 나머지 3개는 원문 그대로",
+      "ch": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ]
+    },
+    "빈칸 어휘 완성": {
+      "fmt": "mc",
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "정답이 passage 다른 곳에 노출 금지. 오답은 같은 품사 + 본문 단어 활용",
+      "ch": "4개"
+    },
+    "동의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 가까운 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "반의어 고르기": {
+      "fmt": "mc",
+      "stem": "다음 글의 밑줄 친 {word}와 의미가 가장 반대인 것은?",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "passageRule": "fullPassage + <u>target</u>",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "다의어 문맥적 의미": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "passageRule": "ALL: (A)(B) 두 문맥 각 2~3문장 + <u>target</u>. fullPassage 불필요",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "영영풀이 매칭": {
+      "fmt": "mc",
+      "stem": "다음 영영 정의에 해당하는 단어로 가장 적절한 것은? \"{definition}\"",
+      "overlay": "overlay = {} (passage 없음)",
+      "passageRule": "ALL: passage 없음 (빈 문자열)",
+      "answerRule": "",
+      "ch": "4개"
+    },
+    "어형 변환": {
+      "fmt": "written",
+      "stem": "다음 글의 빈칸에 괄호 안의 단어를 알맞은 형태로 바꿔 쓰시오.",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "passageRule": "ALL: 2~4문장만 (fullPassage에서 발췌 허용). __________ (원형)",
+      "answerRule": "정답 단어가 passage 다른 곳에 노출 금지"
+    },
+    "빈칸 문맥 완성": {
+      "fmt": "mc",
+      "stem": "",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "passageRule": "fullPassage + __________",
+      "answerRule": "구/표현 단위. 정답이 fullPassage에 존재해야 함",
+      "ch": "4개"
+    }
+  },
+  "slots": [
+    {
+      "id": 1,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 2,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 3,
+      "type": "(A)(B)(C) 조합형",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.abc = { \"A\": [\"원문단어\",\"오답단어\"], \"B\": [...], \"C\": [...] }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 4,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 5,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 6,
+      "type": "문맥상 부적절한 어휘",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.markers = { \"①\": \"원문단어\", \"②\": \"원문단어\", \"③\": { \"find\": \"원문단어\", \"display\": \"교체단어\" }, \"④\": \"원문단어\" }",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 7,
+      "type": "빈칸 어휘 완성",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 8,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 9,
+      "type": "빈칸 어휘 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 10,
+      "type": "동의어 고르기",
+      "diff": "쉬움",
+      "pts": 4,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 11,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 12,
+      "type": "동의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 13,
+      "type": "반의어 고르기",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 14,
+      "type": "반의어 고르기",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.underline = \"밑줄칠단어\" (fullPassage에 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 15,
+      "type": "다의어 문맥적 의미",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage는 스크립트가 아닌 AI가 직접 작성)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 16,
+      "type": "영영풀이 매칭",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay = {} (passage 없음)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 17,
+      "type": "어형 변환",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 18,
+      "type": "어형 변환",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "written",
+      "overlay": "overlay.excerptSentences = \"2~4문장 발췌 (__________ (원형) 포함)\"",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 19,
+      "type": "빈칸 문맥 완성",
+      "diff": "보통",
+      "pts": 5,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    },
+    {
+      "id": 20,
+      "type": "빈칸 문맥 완성",
+      "diff": "어려움",
+      "pts": 6,
+      "fmt": "mc",
+      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "suggestedAns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "choiceCount": 4
+    }
+  ]
+}
