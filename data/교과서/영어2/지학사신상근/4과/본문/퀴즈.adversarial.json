@@ -1,0 +1,21 @@
+{
+  "testFile": "data/교과서/영어2/지학사신상근/4과/본문/퀴즈.json",
+  "reviewer": "Breaker (Opus) STEP5 적대적 공격",
+  "checks": [
+    "정답 2개 가능 여부: 없음",
+    "어법 Q1~3: 감각동사+형용사 / return to+동명사 / 관계절 복수수일치 — 2단계 판단형, 정답 1개",
+    "어휘 Q4(found→lost)·Q5(lively→boring): 반의 문맥 명확",
+    "빈칸추론 Q6·Q7·Q15: 모두 2단어 이상 구절, 본문 흐름 추론 가능",
+    "일치 Q8~Q10: 패러프레이즈 선지, 오답은 본문 반대",
+    "주제 Q11·제목 Q12: 영어 선지 + det 한국어 해석 제공(S-EN-CHOICE-NO-KR 충족)",
+    "함축 Q13: 속담 뒤 문장이 근거, 정답 명확 / 지칭 Q14: He=앞 문장 the male character",
+    "서술형 Q16·18·20(조건영작)·Q17(어형변환)·Q19(어순배열): [조건] 전 토큰 제시, 유일 배열, 자동채점 NORM 안전"
+  ],
+  "issues": [
+    { "id": 18, "severity": "LOW", "note": "Q18/Q19 정답 문장에 원문 쉼표 존재. 독립 교차검증 에이전트도 동일 문장 산출(쉼표 포함) → 정답 일치 확인. 프로덕션 채점 NORM이 쉼표 제거하므로 학생 채점 무해" },
+    { "id": 7, "severity": "LOW", "note": "빈칸추론 his true power 오답(his old friends 등)이 fullPassage 미등장(weak-distractor). 'hiding ___' 문맥상 정답 유일" }
+  ],
+  "highCount": 0,
+  "totalIssues": 2,
+  "verdict": "PASS — HIGH 이슈 0건, 재출제 불필요"
+}
