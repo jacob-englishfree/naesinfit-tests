@@ -6,10 +6,10 @@
     "mc: {id,stem,ch,ans,overlay,korean,analysis,tip} / written: {id,stem,wa,accept,overlay,korean,analysis,tip}"
   ],
   "source": "부교재",
-  "sourcePath": "올림포스독해의기본2/2025/3강/3번",
+  "sourcePath": "올림포스독해의기본2/2025/3강/4번",
   "testType": "퀴즈",
-  "fullPassage": "My brother, Daniel Jones, recommended your company as one that would do a good job of building our exhibition booths, but we have seen virtually no progress on the project during recent weeks. Our conference is scheduled for March 3. With our advance payment, you agreed to have the work completed one week prior to the opening (contract copy enclosed). I question whether you will be able to meet the terms of the contract, and I am very concerned about being ready for the conference. Please call me, and follow up in writing, about how you intend to complete the work on time. If it appears that you will default on this contract, we will take immediate measure to protect ourselves.",
-  "title": "Practice 02 — 전시회 부스 설치 작업 지연을 해결하기 위한 즉각적인 대책 요구",
+  "fullPassage": "Dear Randy: I have greatly enjoyed my work as a literacy volunteer at your center for the past three years. I think I have received as much from the people I have worked with as I have given. It has been a gift to be able to make a difference in the lives of such wonderful people. Unfortunately, though, I will have to suspend my involvement at least for the immediate future. I am getting married this spring, and with the arrangement for that, my full-time job at the hospital, and plans for graduate school, I am overwhelmed. When my life returns to normal, I would love to come back. Thank you for giving me the chance to contribute. Sincerely, Morgan Diamond",
+  "title": "Practice 03 — 결혼준비와 개인적인 일로 인한 자원봉사 활동 중단을 알리기 위해서",
   "typeRules": {
     "어법": {
       "fmt": "mc",
@@ -61,14 +61,6 @@
       "answerRule": "",
       "ch": "한국어 4개"
     },
-    "제목": {
-      "fmt": "mc",
-      "stem": "",
-      "overlay": "",
-      "passageRule": "fullPassage",
-      "answerRule": "",
-      "ch": "4개"
-    },
     "함축의미 추론": {
       "fmt": "mc",
       "stem": "",
@@ -85,25 +77,25 @@
       "answerRule": "바로 앞 문장만으로 판단 불가하게",
       "ch": "한국어 명사/명사구 4개 (영어 인명 금지 — 정답 노출)"
     },
-    "서술형 — 조건영작": {
-      "fmt": "written",
-      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
-      "passageRule": "fullPassage + 정답자리 __________",
-      "answerRule": ""
-    },
-    "서술형 — 어형변환": {
+    "서술형": {
       "fmt": "written",
       "stem": "위 글에서 ... 찾아 쓰시오 + 패러프레이징된 문장. 반드시 응답 언어 명시: '(영어로)' 또는 '(우리말로)'",
       "overlay": "overlay = {}",
       "passageRule": "fullPassage (정답 포함 OK)",
       "answerRule": "passage에 정답 보임 (찾기 유형이니까). '위 빈칸' 표현 금지. stem에 응답 언어 미지정 시 S급 차단"
     },
-    "서술형 — 어순배열": {
+    "어순배열": {
       "fmt": "written",
       "stem": "주어진 단어를 올바른 순서로 배열하시오 + 단어 목록 (8~15개, 정답 순서 아닌 셔플)",
       "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
       "passageRule": "fullPassage + __________",
+      "answerRule": ""
+    },
+    "서술형 — 조건영작": {
+      "fmt": "written",
+      "stem": "한국어 문장 + [조건] (1) 단어 목록 (wa의 모든 단어 빠짐없이) (2) N단어",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "passageRule": "fullPassage + 정답자리 __________",
       "answerRule": ""
     }
   },
@@ -275,11 +267,11 @@
     },
     {
       "id": 12,
-      "type": "제목",
+      "type": "주제",
       "diff": "어려움",
       "pts": 6,
       "fmt": "mc",
-      "overlay": "",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,
@@ -320,11 +312,11 @@
     },
     {
       "id": 15,
-      "type": "빈칸추론",
+      "type": "지칭추론",
       "diff": "보통",
       "pts": 5,
       "fmt": "mc",
-      "overlay": "overlay.blank = \"빈칸으로 만들 단어/구\" (fullPassage에 반드시 존재하는 단어)",
+      "overlay": "overlay.underline = \"대명사\" (fullPassage에 존재)",
       "suggestedAns": [
         1,
         2,
@@ -335,11 +327,11 @@
     },
     {
       "id": 16,
-      "type": "서술형 — 조건영작",
+      "type": "서술형",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "overlay": "overlay = {}",
       "suggestedAns": [
         1,
         2,
@@ -350,7 +342,7 @@
     },
     {
       "id": 17,
-      "type": "서술형 — 어형변환",
+      "type": "서술형",
       "diff": "보통",
       "pts": 5,
       "fmt": "written",
@@ -365,11 +357,11 @@
     },
     {
       "id": 18,
-      "type": "서술형 — 조건영작",
+      "type": "어순배열",
       "diff": "어려움",
       "pts": 6,
       "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
       "suggestedAns": [
         1,
         2,
@@ -380,11 +372,11 @@
     },
     {
       "id": 19,
-      "type": "서술형 — 어순배열",
+      "type": "서술형 — 조건영작",
       "diff": "쉬움",
       "pts": 4,
       "fmt": "written",
-      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage에서 빈칸 처리)",
+      "overlay": "overlay.blank = \"빈칸으로 만들 문장/구\" (passage의 정답자리를 ____로 가림)",
       "suggestedAns": [
         1,
         2,

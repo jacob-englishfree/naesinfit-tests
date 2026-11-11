@@ -1,4 +1,4 @@
-# Audit Report: 8강/2번/단어.json
+# Audit Report: 8강/3번/단어.json
 
 ## 기본 정보
 - **테스트**: 

@@ -1,4 +1,4 @@
-# Audit Report: 9강/1번/퀴즈.json
+# Audit Report: 9강/2번/퀴즈.json
 
 ## 기본 정보
 - **테스트**: 
