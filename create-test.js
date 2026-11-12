@@ -199,9 +199,10 @@ function buildEi(source, sourcePath, testType, passageData) {
       ei.section = section;
     }
     const hkBook = (bookName || '').toString();
+    const hkPub = (ei.pub || subject || '').toString(); // 강번호(단원) 포함 — 강별 유니크 보장
     const hkLesson = (ei.lesson || lesson || '').toString();
     const hkSection = (ei.section || section || '').toString();
-    ei.histKey = `${testTypeMap[testType]}_${hkBook}_${hkLesson}_${hkSection}_${HIST_VER}`
+    ei.histKey = `${testTypeMap[testType]}_${hkBook}_${hkPub}_${hkLesson}_${hkSection}_${HIST_VER}`
       .replace(/[^a-zA-Z0-9_]/g, '').toLowerCase();
   } else if (source === '모의고사') {
     const [grade, exam, num] = parts;
