@@ -1,0 +1,37 @@
+{
+  "testFile": "data/부교재/ReadingPower유형편완성/8강/전체/워크북.json",
+  "reviewedBy": "opus-adversarial",
+  "issues": [
+    {
+      "id": 16,
+      "severity": "MEDIUM",
+      "status": "RESOLVED",
+      "issue": "조건영작/찾기 아님 — 찾기형 서술형 '(6단어)' 조건만으로는 정답 span이 유일하게 특정되지 않음. 'more than twice as large as'(의도 정답) 외에 'twice as large as that consumed'도 본문의 6단어 연속 substring이라 학생이 다른 6단어를 쓰면 자동채점 오답 처리될 위험.",
+      "fix": "stem에 'more로 시작하는 6단어' 단서를 추가하여 span을 유일하게 고정. 재조립 후 blind/cross 재검증 20/20 유지 확인."
+    },
+    {
+      "id": 10,
+      "severity": "LOW",
+      "status": "ACCEPTED",
+      "issue": "EX-1: 정답 'second'가 본문 다른 단락(P2 'ranked the second from the bottom', P4 'second largest')에 등장. 또한 오답(first/third/fourth)이 본문 단어가 아님(Q6-WEAK-DISTRACTOR).",
+      "fix": "규칙 B 허용 범위(빈칸 옆 5단어 내 직접 노출 아님, 서수 추론은 Mothers 1위→fathers 2위 문맥으로 명확). 서수 선지는 본문 비등장이 정상. 유지."
+    },
+    {
+      "id": 14,
+      "severity": "LOW",
+      "status": "ACCEPTED",
+      "issue": "RENDER-ANS-NOT-UNDERLINED: 오류찾기 passage의 정답 문장 ①에 <u> 마킹이 없음. P2 경고(발췌가 fullPassage와 불일치).",
+      "fix": "의도된 설계 — 태스크 규칙상 오류찾기 passage에 <u> 금지(S-ORYUCHATGI-UL 사고 방지). 문장단위 오류찾기이므로 ①②③④ 번호만으로 식별. 발췌 불일치는 ① 문장에 수일치 오류(were)를 의도적으로 삽입했기 때문(정상)."
+    },
+    {
+      "id": 5,
+      "severity": "LOW",
+      "status": "ACCEPTED",
+      "issue": "부적절 어휘(largest→smallest) 판별에 '문장3(자격증 68% 최고) → 문장5(고졸 이하 비율)' 교차 추론이 필요하여 보통 난이도치고 다소 demanding.",
+      "fix": "정답은 단일하게 명확(Lancaster 사례 Q6와 같은 내부 모순 논리). 나머지 3개(highest/combined/same)는 문맥상 명백히 적절. 유지."
+    }
+  ],
+  "totalIssues": 4,
+  "highIssues": 0,
+  "summary": "HIGH 0건. MEDIUM 1건(Q16, stem 단서 추가로 해결 완료). LOW 3건은 규칙 허용 범위로 유지. 정답 복수가능/정답 과노출/뻔한 오답/조건-단어수 불일치/마커 클러스터링 없음."
+}

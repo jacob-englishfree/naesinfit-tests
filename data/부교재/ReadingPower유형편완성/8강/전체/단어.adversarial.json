@@ -1,0 +1,35 @@
+{
+  "testFile": "data/부교재/ReadingPower유형편완성/8강/전체/단어.json",
+  "attacker": "Opus-4.8 (적대적 공격 검수)",
+  "reviewedAt": "2026-11-25",
+  "checks": ["정답 2개 가능", "정답 노출", "뻔한 오답", "모호한 stem", "문법 오류", "passage 무관"],
+  "issues": [
+    {
+      "id": 20,
+      "severity": "low",
+      "category": "정답 2개 가능(검토·해소)",
+      "note": "빈칸 'high school or less' vs 오답 'college or university' 경합 가능성 검토. 결론: 자격증 비율 최고(68%)는 '고졸 이하' 범주가 최소임을 직접 함의(자격증=고졸 이상 과정)하며, 미용사·이발사의 '대학' 비율에 대한 본문 데이터는 전무해 'college or university'는 근거 없음. 독립 모델(Sonnet) 재풀이도 ③ 선택 → 단일 정답 확정. 유지."
+    },
+    {
+      "id": 8,
+      "severity": "low",
+      "category": "오답 그럴듯함(허용 범위)",
+      "note": "빈칸 'gap' 오답 'balance'가 약간 그럴듯. 그러나 'percentage point ___ between production and consumption'은 'gap between' 고정 연어이며 '차이' 의미는 gap만 성립(balance는 '균형'으로 어색). 단일 정답. 유지."
+    },
+    {
+      "id": 13,
+      "severity": "low",
+      "category": "반의어 소거 안전성(설계 확인)",
+      "note": "lower의 반의어 higher 외 오답 smaller(크기 축)·equal·wide는 의미축이 달라 경합 반의어 없음. prefix 조작 없음(S-ANTONYM-PREFIX 해당 없음). 설계 양호."
+    },
+    {
+      "id": 1,
+      "severity": "low",
+      "category": "validator 오탐(내용 결함 아님)",
+      "note": "Q1·Q2·Q3 EX-3(B) 경고는 렌더러가 (A)(B)(C) 마커를 '<b>(A)</b>[단어/단어]' 대괄호로 출력하는데 validate의 markerRegex가 '<b>(A)</b> 단어'(대괄호 없음)만 인식해 markerPositions가 비는 포맷 불일치에서 비롯. abc 선지는 본질적으로 지문에 대괄호로 노출되므로 모든 abc에 발생하는 구조적 오탐. 정답 단어 3개는 모두 단일 출현어로 선택해 지문 '다른 곳' 노출은 실제로 없음. 내용 결함 아님."
+    }
+  ],
+  "highIssues": 0,
+  "totalIssues": 4,
+  "verdict": "HIGH 0건. 정답 2개 가능·정답 노출·문법 오류·passage 무관 없음. 블라인드 20/20 + 크로스블라인드(독립 Sonnet) 20/20 일치로 모든 문항 본문 단서로 도출 가능 확인. 배포 적합."
+}
