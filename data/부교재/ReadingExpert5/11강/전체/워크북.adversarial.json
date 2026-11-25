@@ -1,19 +1,33 @@
 {
- "testFile": "워크북.json",
- "issues": [
-  {
-   "severity": "LOW",
-   "id": 0,
-   "note": "P2(B): 오류찾기(Q14) 구성문장이 본문 패러프레이즈 — 오류찾기 유형은 문장 재구성이 본질(삽입오류 considering→considered), 허용 범위"
-  },
-  {
-   "severity": "LOW",
-   "id": 0,
-   "note": "Q6-WEAK(B): 어휘 오답 본문 미등장 — 정상"
-  }
- ],
- "totalIssues": 0,
- "highCount": 0,
- "reverified": "2026-09-13",
- "verifiedBy": "Opus 4.8 (main) — 어법 4문항(allows→allow/copying→copied/them→themselves/harvesting→harvested)·오류찾기(considering→considered)·서술형(biomimetics·studying·조건영작 s9) 원문 대조 정답 확인. N7 0건. 총점 100."
+  "testFile": "data/부교재/ReadingExpert5/11강/전체/워크북.json",
+  "reviewer": "adversarial-attacker",
+  "passage": "Reading 2: Bioluminescence (생물발광)",
+  "checks": [
+    "정답 2개 가능 / 정답 노출 / 뻔한 오답 / 모호 stem / 문법 포인트 유효성 / passage 무관 / 마커 분산 / 서술형 복수정답"
+  ],
+  "findings": [
+    {"id": 1, "severity": "none", "note": "① describing만 오류(본동사 자리, 과거형 described 필요). ②collected③found④giving 모두 정상. 마커 s1/s3/s6/s19 분산. 단일정답."},
+    {"id": 2, "severity": "none", "note": "② making만 오류(앞 명사 light 수식 과거분사 made). ①wrote③growing④trying 정상. s2/s5/s10/s15 분산. 단일정답."},
+    {"id": 3, "severity": "none", "note": "④ produces만 오류(주어 varieties 복수→produce). ①flashed②means③know 정상. s3/s5/s7/s8 분산. 단일정답."},
+    {"id": 4, "severity": "low", "note": "③ been using만 오류(may have been used=조동사 완료 수동태). 균류가 사용되는 대상이라 능동 -ing 비문→단일정답. 어려움 난도 적합. ①has been②interact④expected 정상."},
+    {"id": 5, "severity": "low", "note": "③ thin만 부적절(근적외선이 thick 조직을 통과하는 것이 장점→thin은 모순). 문맥 추론 필요해 low. ①subject②circumstances④effectiveness 적절. 단일정답. s4/s11/s17/s18 분산."},
+    {"id": 6, "severity": "none", "note": "④ forget만 부적절(기술이 몸을 더 잘 understand하도록 돕는 흐름과 모순). ①research②varieties③applications 적절. s4/s8/s12/s20 분산. 단일정답."},
+    {"id": 7, "severity": "none", "note": "T: sent1과 직접 일치. 패러프레이즈(관찰했던 때를 묘사). 모호 없음."},
+    {"id": 8, "severity": "none", "note": "F: 'produces almost no heat'와 정면 모순. 명확."},
+    {"id": 9, "severity": "none", "note": "T: sent17 luciferase+dye→thick tissue 통과 근적외선 일치. 명확."},
+    {"id": 10, "severity": "low", "note": "example: 오답 mistake/season/problem이 fullPassage 미등장(Q6-WEAK-DISTRACTOR B경고). 그러나 'a common ___, but ~ as well' 단서로 example 명확. 복수정답 아님."},
+    {"id": 11, "severity": "none", "note": "modern technology: 'older than human, but ___ is giving brand new uses' 대조 단서. ancient history는 '새 용도'와 모순, 나머지 무관. 단일정답."},
+    {"id": 12, "severity": "none", "note": "일치=②(다양한 생물에서 발견, sent6). ①still flashed②③different colors④occasionally로 나머지 전부 불일치. 단일정답. 선지 키워드 모두 fullPassage 내 존재."},
+    {"id": 13, "severity": "none", "note": "불일치=③(램프가 에너지·빛 공해를 '늘린다'→sent16 reduce와 반대). 나머지 3개(luciferases/숲 길표시/older) 일치. 단일정답."},
+    {"id": 14, "severity": "none", "note": "① what만 오류(선행사 phenomenon 뒤 관계대명사 which/that 필요). ②appears(단수 it)③is produced(수동)④study(복수) 정상. 자체 passage 4문장, <u> 허용(렌더러 수정됨). 단일정답."},
+    {"id": 15, "severity": "none", "note": "찾기형: 'Bioluminescence simply means light made by living things' 5단어 정확. 복수정답 없음. stem 응답언어(영어로)·단어수 명시."},
+    {"id": 16, "severity": "none", "note": "찾기형: 'firefly luciferase is mixed with a dye' 7단어 정확 substring. 복수정답 없음. 응답언어·단어수 명시."},
+    {"id": 17, "severity": "none", "note": "어형변환: than 단서로 비교급 older 유일. excerpt 내 정답 노출 없음. 단일정답."},
+    {"id": 18, "severity": "none", "note": "주제=③(정의+다양한 응용). ①다윈②반딧불이 채집④근적외선은 지엽적 예시. 단일정답."},
+    {"id": 19, "severity": "none", "note": "제목=④(Living Light...). 영어 선지→det.analysis 한국어 번역 포함(S-EN-CHOICE-NO-KR 충족). ①다윈②독성화학③반딧불이 소통은 지엽·무관. 단일정답."},
+    {"id": 20, "severity": "none", "note": "조건영작: 수동태 is made by + 과거분사 called. [조건](1) 8토큰 알파벳순(정답순 아님)·wa 전토큰 포함. 단일정답."}
+  ],
+  "totalIssues": 0,
+  "highIssues": 0,
+  "summary": "HIGH 0건. LOW 3건(Q4 능동-ing 비문/Q5 thick 문맥추론/Q10 오답 비등장 B경고) 모두 단일정답 유지로 재출제 불필요. ans 분포 1:4/2:4/3:4/4:4, 3연속 중복 없음. 마커 fullPassage 전체 분산."
 }

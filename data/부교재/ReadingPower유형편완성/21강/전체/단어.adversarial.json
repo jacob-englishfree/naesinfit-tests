@@ -1,0 +1,43 @@
+{
+  "testFile": "data/부교재/ReadingPower유형편완성/21강/전체/단어.json",
+  "attacker": "Fable-5 (적대적 공격 검수)",
+  "reviewedAt": "2026-11-25",
+  "checks": [
+    "정답 2개 가능",
+    "정답 노출",
+    "뻔한 오답",
+    "모호한 stem",
+    "문법 오류",
+    "passage 무관",
+    "조건-단어수 대조",
+    "크로스파일 중복"
+  ],
+  "issues": [
+    {
+      "id": 1,
+      "severity": "low",
+      "category": "validator 오탐(내용 결함 아님)",
+      "note": "Q1~Q3 EX-3(B) 경고는 렌더러의 '<b>(A)</b>[단어/단어]' 대괄호 포맷을 validate markerRegex가 인식 못 해 생기는 포맷 불일치 오탐. abc 선지는 본질적으로 지문에 대괄호로 노출되는 설계라 실결함 아님(8강 선례 동일). 유지."
+    },
+    {
+      "id": 9,
+      "severity": "low",
+      "category": "정답 2개 가능(검토·해소)",
+      "note": "빈칸 difficulty vs 오답 simplicity 경합 검토. 'understand either the ___ of the situation or the hurt'에서 hurt(상처)와 병렬되는 부정적 명사만 성립 — 사과 문맥에서 simplicity(단순함)를 '이해해 준다'는 의미 불성립. 단일 정답. 유지."
+    },
+    {
+      "id": 13,
+      "severity": "low",
+      "category": "반의어 소거 안전성",
+      "note": "natural↔artificial. 오답 normal(유의어축)·essential·modern(다른 축)으로 의미축 분산, prefix 조작 없음. 설계 양호."
+    },
+    {
+      "id": 12,
+      "severity": "low",
+      "category": "오답 그럴듯함(허용 범위)",
+      "note": "supervise 동의어 oversee vs 오답 attend — attend는 '참석'으로 감독 의미 없음. 본문 'supervise the performances, which were attended by visitors'가 역할 구분을 직접 보여줘 단일 정답. 유지."
+    }
+  ],
+  "totalIssues": 4,
+  "highCount": 0
+}

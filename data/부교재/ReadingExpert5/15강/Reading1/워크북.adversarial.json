@@ -1,0 +1,20 @@
+{
+  "testFile": "data/부교재/ReadingExpert5/15강/Reading1/워크북.json",
+  "reviewer": "opus-adversarial",
+  "checks": [
+    "정답 2개 가능", "정답 노출", "뻔한 오답(anti-cheese)", "모호 stem", "문법 오류", "passage 무관", "wa 노출", "단어수 조건", "cross-leak(단어.json)"
+  ],
+  "findings": [
+    { "id": 1, "severity": "INFO", "note": "어법 ③ was chosen: 주어 Members(복수) S-V 불일치로 유일 오류. ①competed/②entered/④suffered 모두 정상 과거동사라 2개 정답 불가." },
+    { "id": 4, "severity": "LOW", "note": "어법 ④ where→which: 뒤 절이 완전(a small percentage ... had influence)이므로 관계부사 where가 정답. 나머지 ①②③ 정상. 어려움 적정 난도." },
+    { "id": 10, "severity": "LOW", "note": "빈칸(election): 오답 birth가 역사적으로 '세습 선출'로 약하게 가능해 보일 수 있으나, 바로 뒤 'served for one year'(1년 임기 교체제)가 세습을 배제 → by lot의 대비어 election이 유일 best. 유지." },
+    { "id": 11, "severity": "LOW", "note": "빈칸(In contrast to): 'Instead of Sparta'를 고를 여지가 있으나 두 체제가 공존·대비되는 맥락(스파르타 과두정 vs 아테네 민주정)이라 '대조'의 In contrast to가 유일 적절. Thanks to/Owing to는 인과라 오답 명확." },
+    { "id": 15, "severity": "INFO", "note": "서술형 찾기(Ephors): 'Spartiates가 Ephors를 선출'이라 Spartiates와 혼동 여지 있으나 stem '왕 통제 특권을 가진 다섯 지도자'가 Ephors만 지칭. 1단어 조건 일치. wa는 찾기 유형이라 passage 노출 허용." },
+    { "id": 16, "severity": "INFO", "note": "서술형 찾기(by lot): 'chosen by lot, rather than by election'에서 선출 '방식'은 by lot이 유일. 2단어 조건 일치. stem에 wa 미노출(S-CIRCULAR 무위반)." },
+    { "id": 20, "severity": "LOW", "note": "조건영작: 토큰 집합으로 'competed for power with each other' 어순도 유효 → accept 2종 등록으로 자동채점 공정성 확보. [조건] 토큰 전부 wa 포함(S-COND-WORD-MATCH 충족), 알파벳 셔플이라 정답순 나열 아님(S-WRITTEN-TOKEN-LEAK 무위반)." },
+    { "id": 0, "severity": "INFO", "note": "cross-leak 점검: 단어.json과 유형·접근각 완전 분리 — 단어는 (A)(B)(C)/동의어/반의어/영영/다의어, 워크북은 어법·어휘부적절·T-F·빈칸추론·일치·오류찾기·서술형. 겹치는 wa/blank 없음(단어: ruled·known·laws·masters·influence·legal and political rights·slave rebellion / 워크북: Ephors·by lot·formed·election·In contrast to·competed with each other for power)." }
+  ],
+  "highIssues": 0,
+  "totalIssues": 8,
+  "verdict": "PASS — HIGH 0건. 정답 2개 가능/정답 노출/모호 stem/문법 오류/passage 무관 없음. 어법·오류찾기 각 1개 오류만, 어휘 각 1개 부적절만. 서술형 wa 단어수 조건 일치. blind 20/20 + cross-blind(Sonnet) 20/20 일치."
+}
